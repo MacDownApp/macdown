@@ -35,7 +35,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="254" height="413"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <textView importsGraphics="NO" findStyle="panel" allowsUndo="YES" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" allowsNonContiguousLayout="YES" dashSubstitution="YES" smartInsertDelete="YES" id="VLv-r5-dZU">
+                                        <textView importsGraphics="NO" richText="NO" findStyle="panel" allowsUndo="YES" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" allowsNonContiguousLayout="YES" dashSubstitution="YES" smartInsertDelete="YES" id="VLv-r5-dZU">
                                             <rect key="frame" x="0.0" y="0.0" width="254" height="413"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
