@@ -156,8 +156,9 @@
                     <rect key="frame" x="100" y="98" width="81" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" refusesFirstResponder="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" title="0" drawsBackground="YES" id="797-vo-Lg9">
-                        <numberFormatter key="formatter" formatterBehavior="custom10_4" numberStyle="decimal" usesGroupingSeparator="NO" minimumIntegerDigits="1" maximumIntegerDigits="42" id="Z1m-eN-5ss">
+                        <numberFormatter key="formatter" formatterBehavior="custom10_4" numberStyle="decimal" usesGroupingSeparator="NO" minimumIntegerDigits="1" maximumIntegerDigits="2" id="Z1m-eN-5ss">
                             <real key="minimum" value="0.0"/>
+                            <real key="maximum" value="35"/>
                         </numberFormatter>
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -177,8 +178,9 @@
                     <rect key="frame" x="223" y="98" width="82" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" refusesFirstResponder="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" title="0" drawsBackground="YES" id="557-oZ-4zf">
-                        <numberFormatter key="formatter" formatterBehavior="custom10_4" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="1" maximumIntegerDigits="42" id="E8M-bY-H1G">
+                        <numberFormatter key="formatter" formatterBehavior="custom10_4" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="1" maximumIntegerDigits="2" id="E8M-bY-H1G">
                             <real key="minimum" value="0.0"/>
+                            <real key="maximum" value="35"/>
                         </numberFormatter>
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -197,7 +199,7 @@
                 <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="u4r-9h-qMR">
                     <rect key="frame" x="180" y="95" width="19" height="27"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <stepperCell key="cell" continuous="YES" alignment="left" maxValue="1000" id="YKV-Q4-Mio"/>
+                    <stepperCell key="cell" continuous="YES" alignment="left" maxValue="35" id="YKV-Q4-Mio"/>
                     <connections>
                         <binding destination="-2" name="value" keyPath="self.preferences.editorHorizontalInset" id="Ytm-fZ-mfY"/>
                     </connections>
@@ -205,7 +207,7 @@
                 <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uUN-8R-G1c">
                     <rect key="frame" x="304" y="95" width="19" height="27"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <stepperCell key="cell" continuous="YES" alignment="left" maxValue="1000" id="W0c-qa-cIF"/>
+                    <stepperCell key="cell" continuous="YES" alignment="left" maxValue="35" id="W0c-qa-cIF"/>
                     <connections>
                         <binding destination="-2" name="value" keyPath="self.preferences.editorVerticalInset" id="mbR-4u-imj"/>
                     </connections>
