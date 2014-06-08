@@ -209,8 +209,10 @@
 
 - (void)userDefaultsDidChange:(NSNotification *)notification
 {
-    [self parseIfPreferencesChanged];
-    [self renderIfPreferencesChanged];
+    if ([self parseIfPreferencesChanged])
+        [self render];
+    else
+        [self renderIfPreferencesChanged];
     [self setupEditor];
 }
 
@@ -317,13 +319,15 @@
     self.currentSmartyPantsFlag = smartyPants;
 }
 
-- (void)parseIfPreferencesChanged
+- (BOOL)parseIfPreferencesChanged
 {
     if (self.preferences.extensionFlags != self.currentExtensionFlags
         | self.preferences.extensionSmartyPants != self.currentSmartyPantsFlag)
     {
         [self parse];
+        return YES;
     }
+    return NO;
 }
 
 - (void)render
@@ -339,10 +343,14 @@
     self.currentStyleName = styleName;
 }
 
-- (void)renderIfPreferencesChanged
+- (BOOL)renderIfPreferencesChanged
 {
     if (self.preferences.htmlStyleName != self.currentStyleName)
+    {
         [self render];
+        return YES;
+    }
+    return NO;
 }
 
 - (NSString *)htmlFromText:(NSString *)text
