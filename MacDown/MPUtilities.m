@@ -1,6 +1,6 @@
 //
 //  MPUtilities.m
-//  MarkPad
+//  MacDown
 //
 //  Created by Tzu-ping Chung  on 8/06/2014.
 //  Copyright (c) 2014 Tzu-ping Chung . All rights reserved.
@@ -8,7 +8,7 @@
 
 #import "MPUtilities.h"
 
-NSString * const MPApplicationName = @"MarkPad";
+NSString * const MPApplicationName = @"MacDown";
 NSString * const MPStylesDirectoryName = @"Styles";
 NSString * const MPStyleFileExtension = @".css";
 NSString * const MPThemesDirectoryName = @"Themes";

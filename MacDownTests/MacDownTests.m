@@ -1,6 +1,6 @@
 //
-//  MarkPadTests.m
-//  MarkPadTests
+//  MacDownTests.m
+//  MacDownTests
 //
 //  Created by Tzu-ping Chung  on 6/06/2014.
 //  Copyright (c) 2014 Tzu-ping Chung . All rights reserved.
@@ -8,11 +8,11 @@
 
 #import <XCTest/XCTest.h>
 
-@interface MarkPadTests : XCTestCase
+@interface MacDownTests : XCTestCase
 
 @end
 
-@implementation MarkPadTests
+@implementation MacDownTests
 
 - (void)setUp
 {

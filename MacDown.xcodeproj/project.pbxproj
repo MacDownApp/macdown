@@ -1,0 +1,647 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1FA6DE251941CC9E000409FB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FA6DE241941CC9E000409FB /* Cocoa.framework */; };
+		1FA6DE481941CC9E000409FB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FA6DE241941CC9E000409FB /* Cocoa.framework */; };
+		1FC29F5C1944FC2600D616C7 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FC29F5B1944FC2600D616C7 /* XCTest.framework */; };
+		1FC29F5D1944FC3900D616C7 /* MacDownTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDCA311944F96E00B1F966 /* MacDownTests.m */; };
+		1FC29F5E1944FC4F00D616C7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1FCDCA321944F96E00B1F966 /* InfoPlist.strings */; };
+		1FC29F651944FDB100D616C7 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FC29F611944FDB100D616C7 /* MainMenu.xib */; };
+		1FC29F661944FDB100D616C7 /* MPDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FC29F631944FDB100D616C7 /* MPDocument.xib */; };
+		1FCDCA171944F89B00B1F966 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1FCDC9F01944F89B00B1F966 /* Images.xcassets */; };
+		1FCDCA181944F89B00B1F966 /* MPDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDC9F21944F89B00B1F966 /* MPDocument.m */; };
+		1FCDCA191944F89B00B1F966 /* MPEditorPreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDC9F41944F89B00B1F966 /* MPEditorPreferencesViewController.m */; };
+		1FCDCA1A1944F89B00B1F966 /* MPEditorPreferencesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FCDC9F51944F89B00B1F966 /* MPEditorPreferencesViewController.xib */; };
+		1FCDCA1B1944F89B00B1F966 /* MPHtmlPreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDC9F71944F89B00B1F966 /* MPHtmlPreferencesViewController.m */; };
+		1FCDCA1C1944F89B00B1F966 /* MPHtmlPreferencesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FCDC9F81944F89B00B1F966 /* MPHtmlPreferencesViewController.xib */; };
+		1FCDCA1D1944F89B00B1F966 /* MPMainController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDC9FA1944F89B00B1F966 /* MPMainController.m */; };
+		1FCDCA1E1944F89B00B1F966 /* MPMarkdownPreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDC9FC1944F89B00B1F966 /* MPMarkdownPreferencesViewController.m */; };
+		1FCDCA1F1944F89B00B1F966 /* MPMarkdownPreferencesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FCDC9FD1944F89B00B1F966 /* MPMarkdownPreferencesViewController.xib */; };
+		1FCDCA201944F89B00B1F966 /* MPPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDC9FF1944F89B00B1F966 /* MPPreferences.m */; };
+		1FCDCA211944F89B00B1F966 /* MPPreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDCA011944F89B00B1F966 /* MPPreferencesViewController.m */; };
+		1FCDCA221944F89B00B1F966 /* MPUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDCA031944F89B00B1F966 /* MPUtilities.m */; };
+		1FCDCA241944F89B00B1F966 /* HGMarkdownHighlighter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDCA081944F89B00B1F966 /* HGMarkdownHighlighter.m */; };
+		1FCDCA251944F89B00B1F966 /* HGMarkdownHighlightingStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDCA0A1944F89B00B1F966 /* HGMarkdownHighlightingStyle.m */; };
+		1FCDCA261944F89B00B1F966 /* pmh_parser.c in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDCA0C1944F89B00B1F966 /* pmh_parser.c */; };
+		1FCDCA271944F89B00B1F966 /* pmh_styleparser.c in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDCA0E1944F89B00B1F966 /* pmh_styleparser.c */; };
+		1FCDCA281944F89B00B1F966 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 1FCDCA101944F89B00B1F966 /* Credits.rtf */; };
+		1FCDCA291944F89B00B1F966 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1FCDCA121944F89B00B1F966 /* InfoPlist.strings */; };
+		1FCDCA2A1944F89B00B1F966 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDCA141944F89B00B1F966 /* main.m */; };
+		1FF207631941CF22005B5654 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FF207621941CF22005B5654 /* WebKit.framework */; };
+		B49728377A904875B2963C38 /* libPods-MacDown.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C5C1FBBB3ED456285901D31 /* libPods-MacDown.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		1FA6DE491941CC9E000409FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1FA6DE191941CC9E000409FB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1FA6DE201941CC9E000409FB;
+			remoteInfo = MarkPad;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		1FA6DE211941CC9E000409FB /* MacDown.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacDown.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1FA6DE241941CC9E000409FB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		1FA6DE271941CC9E000409FB /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		1FA6DE281941CC9E000409FB /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		1FA6DE291941CC9E000409FB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		1FA6DE451941CC9E000409FB /* MacDownTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MacDownTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1FC29F5B1944FC2600D616C7 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		1FC29F621944FDB100D616C7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		1FC29F641944FDB100D616C7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MPDocument.xib; sourceTree = "<group>"; };
+		1FCDC9F01944F89B00B1F966 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		1FCDC9F11944F89B00B1F966 /* MPDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPDocument.h; sourceTree = "<group>"; };
+		1FCDC9F21944F89B00B1F966 /* MPDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPDocument.m; sourceTree = "<group>"; };
+		1FCDC9F31944F89B00B1F966 /* MPEditorPreferencesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPEditorPreferencesViewController.h; sourceTree = "<group>"; };
+		1FCDC9F41944F89B00B1F966 /* MPEditorPreferencesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPEditorPreferencesViewController.m; sourceTree = "<group>"; };
+		1FCDC9F51944F89B00B1F966 /* MPEditorPreferencesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MPEditorPreferencesViewController.xib; sourceTree = "<group>"; };
+		1FCDC9F61944F89B00B1F966 /* MPHtmlPreferencesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPHtmlPreferencesViewController.h; sourceTree = "<group>"; };
+		1FCDC9F71944F89B00B1F966 /* MPHtmlPreferencesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPHtmlPreferencesViewController.m; sourceTree = "<group>"; };
+		1FCDC9F81944F89B00B1F966 /* MPHtmlPreferencesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MPHtmlPreferencesViewController.xib; sourceTree = "<group>"; };
+		1FCDC9F91944F89B00B1F966 /* MPMainController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPMainController.h; sourceTree = "<group>"; };
+		1FCDC9FA1944F89B00B1F966 /* MPMainController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPMainController.m; sourceTree = "<group>"; };
+		1FCDC9FB1944F89B00B1F966 /* MPMarkdownPreferencesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPMarkdownPreferencesViewController.h; sourceTree = "<group>"; };
+		1FCDC9FC1944F89B00B1F966 /* MPMarkdownPreferencesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPMarkdownPreferencesViewController.m; sourceTree = "<group>"; };
+		1FCDC9FD1944F89B00B1F966 /* MPMarkdownPreferencesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MPMarkdownPreferencesViewController.xib; sourceTree = "<group>"; };
+		1FCDC9FE1944F89B00B1F966 /* MPPreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPPreferences.h; sourceTree = "<group>"; };
+		1FCDC9FF1944F89B00B1F966 /* MPPreferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPPreferences.m; sourceTree = "<group>"; };
+		1FCDCA001944F89B00B1F966 /* MPPreferencesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPPreferencesViewController.h; sourceTree = "<group>"; };
+		1FCDCA011944F89B00B1F966 /* MPPreferencesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPPreferencesViewController.m; sourceTree = "<group>"; };
+		1FCDCA021944F89B00B1F966 /* MPUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPUtilities.h; sourceTree = "<group>"; };
+		1FCDCA031944F89B00B1F966 /* MPUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPUtilities.m; sourceTree = "<group>"; };
+		1FCDCA041944F89B00B1F966 /* MacDown-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MacDown-Info.plist"; sourceTree = "<group>"; };
+		1FCDCA051944F89B00B1F966 /* MacDown-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MacDown-Prefix.pch"; sourceTree = "<group>"; };
+		1FCDCA071944F89B00B1F966 /* HGMarkdownHighlighter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HGMarkdownHighlighter.h; sourceTree = "<group>"; };
+		1FCDCA081944F89B00B1F966 /* HGMarkdownHighlighter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HGMarkdownHighlighter.m; sourceTree = "<group>"; };
+		1FCDCA091944F89B00B1F966 /* HGMarkdownHighlightingStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HGMarkdownHighlightingStyle.h; sourceTree = "<group>"; };
+		1FCDCA0A1944F89B00B1F966 /* HGMarkdownHighlightingStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HGMarkdownHighlightingStyle.m; sourceTree = "<group>"; };
+		1FCDCA0B1944F89B00B1F966 /* pmh_definitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pmh_definitions.h; sourceTree = "<group>"; };
+		1FCDCA0C1944F89B00B1F966 /* pmh_parser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pmh_parser.c; sourceTree = "<group>"; };
+		1FCDCA0D1944F89B00B1F966 /* pmh_parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pmh_parser.h; sourceTree = "<group>"; };
+		1FCDCA0E1944F89B00B1F966 /* pmh_styleparser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pmh_styleparser.c; sourceTree = "<group>"; };
+		1FCDCA0F1944F89B00B1F966 /* pmh_styleparser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pmh_styleparser.h; sourceTree = "<group>"; };
+		1FCDCA111944F89B00B1F966 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		1FCDCA131944F89B00B1F966 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1FCDCA141944F89B00B1F966 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		1FCDCA301944F96E00B1F966 /* MacDownTests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MacDownTests-Info.plist"; sourceTree = "<group>"; };
+		1FCDCA311944F96E00B1F966 /* MacDownTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MacDownTests.m; sourceTree = "<group>"; };
+		1FCDCA331944F96E00B1F966 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1FF207621941CF22005B5654 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		7C5C1FBBB3ED456285901D31 /* libPods-MacDown.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MacDown.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7F8797E748AA4BCA96DFA790 /* Pods-MacDown.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacDown.xcconfig"; path = "Pods/Pods-MacDown.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1FA6DE1E1941CC9E000409FB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1FF207631941CF22005B5654 /* WebKit.framework in Frameworks */,
+				1FA6DE251941CC9E000409FB /* Cocoa.framework in Frameworks */,
+				B49728377A904875B2963C38 /* libPods-MacDown.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1FA6DE421941CC9E000409FB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1FA6DE481941CC9E000409FB /* Cocoa.framework in Frameworks */,
+				1FC29F5C1944FC2600D616C7 /* XCTest.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1FA6DE181941CC9E000409FB = {
+			isa = PBXGroup;
+			children = (
+				1FCDC9EB1944F89B00B1F966 /* MacDown */,
+				1FCDCA2F1944F96E00B1F966 /* MacDownTests */,
+				1FA6DE231941CC9E000409FB /* Frameworks */,
+				1FA6DE221941CC9E000409FB /* Products */,
+				7F8797E748AA4BCA96DFA790 /* Pods-MacDown.xcconfig */,
+			);
+			sourceTree = "<group>";
+		};
+		1FA6DE221941CC9E000409FB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1FA6DE211941CC9E000409FB /* MacDown.app */,
+				1FA6DE451941CC9E000409FB /* MacDownTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1FA6DE231941CC9E000409FB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1FC29F5B1944FC2600D616C7 /* XCTest.framework */,
+				1FF207621941CF22005B5654 /* WebKit.framework */,
+				1FA6DE241941CC9E000409FB /* Cocoa.framework */,
+				1FA6DE261941CC9E000409FB /* Other Frameworks */,
+				7C5C1FBBB3ED456285901D31 /* libPods-MacDown.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		1FA6DE261941CC9E000409FB /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1FA6DE271941CC9E000409FB /* AppKit.framework */,
+				1FA6DE281941CC9E000409FB /* CoreData.framework */,
+				1FA6DE291941CC9E000409FB /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		1FCDC9EB1944F89B00B1F966 /* MacDown */ = {
+			isa = PBXGroup;
+			children = (
+				1FCDCA061944F89B00B1F966 /* PEGMarkdownHighlight */,
+				1FCDCA2C1944F8D400B1F966 /* Preferences */,
+				1FCDCA2E1944F91E00B1F966 /* Document */,
+				1FCDCA021944F89B00B1F966 /* MPUtilities.h */,
+				1FCDCA031944F89B00B1F966 /* MPUtilities.m */,
+				1FCDC9F91944F89B00B1F966 /* MPMainController.h */,
+				1FCDC9FA1944F89B00B1F966 /* MPMainController.m */,
+				1FC29F611944FDB100D616C7 /* MainMenu.xib */,
+				1FCDCA001944F89B00B1F966 /* MPPreferencesViewController.h */,
+				1FCDCA011944F89B00B1F966 /* MPPreferencesViewController.m */,
+				1FCDCA2D1944F8F600B1F966 /* Supporting Files */,
+			);
+			path = MacDown;
+			sourceTree = "<group>";
+		};
+		1FCDCA061944F89B00B1F966 /* PEGMarkdownHighlight */ = {
+			isa = PBXGroup;
+			children = (
+				1FCDCA071944F89B00B1F966 /* HGMarkdownHighlighter.h */,
+				1FCDCA081944F89B00B1F966 /* HGMarkdownHighlighter.m */,
+				1FCDCA091944F89B00B1F966 /* HGMarkdownHighlightingStyle.h */,
+				1FCDCA0A1944F89B00B1F966 /* HGMarkdownHighlightingStyle.m */,
+				1FCDCA0B1944F89B00B1F966 /* pmh_definitions.h */,
+				1FCDCA0C1944F89B00B1F966 /* pmh_parser.c */,
+				1FCDCA0D1944F89B00B1F966 /* pmh_parser.h */,
+				1FCDCA0E1944F89B00B1F966 /* pmh_styleparser.c */,
+				1FCDCA0F1944F89B00B1F966 /* pmh_styleparser.h */,
+			);
+			path = PEGMarkdownHighlight;
+			sourceTree = "<group>";
+		};
+		1FCDCA2C1944F8D400B1F966 /* Preferences */ = {
+			isa = PBXGroup;
+			children = (
+				1FCDC9F31944F89B00B1F966 /* MPEditorPreferencesViewController.h */,
+				1FCDC9F41944F89B00B1F966 /* MPEditorPreferencesViewController.m */,
+				1FCDC9F51944F89B00B1F966 /* MPEditorPreferencesViewController.xib */,
+				1FCDC9F61944F89B00B1F966 /* MPHtmlPreferencesViewController.h */,
+				1FCDC9F71944F89B00B1F966 /* MPHtmlPreferencesViewController.m */,
+				1FCDC9F81944F89B00B1F966 /* MPHtmlPreferencesViewController.xib */,
+				1FCDC9FB1944F89B00B1F966 /* MPMarkdownPreferencesViewController.h */,
+				1FCDC9FC1944F89B00B1F966 /* MPMarkdownPreferencesViewController.m */,
+				1FCDC9FD1944F89B00B1F966 /* MPMarkdownPreferencesViewController.xib */,
+				1FCDC9FE1944F89B00B1F966 /* MPPreferences.h */,
+				1FCDC9FF1944F89B00B1F966 /* MPPreferences.m */,
+			);
+			name = Preferences;
+			sourceTree = "<group>";
+		};
+		1FCDCA2D1944F8F600B1F966 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				1FCDCA041944F89B00B1F966 /* MacDown-Info.plist */,
+				1FCDCA051944F89B00B1F966 /* MacDown-Prefix.pch */,
+				1FCDCA101944F89B00B1F966 /* Credits.rtf */,
+				1FCDCA121944F89B00B1F966 /* InfoPlist.strings */,
+				1FCDCA141944F89B00B1F966 /* main.m */,
+				1FCDC9F01944F89B00B1F966 /* Images.xcassets */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		1FCDCA2E1944F91E00B1F966 /* Document */ = {
+			isa = PBXGroup;
+			children = (
+				1FCDC9F11944F89B00B1F966 /* MPDocument.h */,
+				1FCDC9F21944F89B00B1F966 /* MPDocument.m */,
+				1FC29F631944FDB100D616C7 /* MPDocument.xib */,
+			);
+			name = Document;
+			sourceTree = "<group>";
+		};
+		1FCDCA2F1944F96E00B1F966 /* MacDownTests */ = {
+			isa = PBXGroup;
+			children = (
+				1FCDCA311944F96E00B1F966 /* MacDownTests.m */,
+				1FCDCA371944F97800B1F966 /* Supporting Files */,
+			);
+			path = MacDownTests;
+			sourceTree = "<group>";
+		};
+		1FCDCA371944F97800B1F966 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				1FCDCA301944F96E00B1F966 /* MacDownTests-Info.plist */,
+				1FCDCA321944F96E00B1F966 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1FA6DE201941CC9E000409FB /* MacDown */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1FA6DE551941CC9E000409FB /* Build configuration list for PBXNativeTarget "MacDown" */;
+			buildPhases = (
+				A4C68C7905CF45C89A0CC47D /* Check Pods Manifest.lock */,
+				1FA6DE1D1941CC9E000409FB /* Sources */,
+				1FA6DE1E1941CC9E000409FB /* Frameworks */,
+				1FA6DE1F1941CC9E000409FB /* Resources */,
+				46C28C219A3C4CCD94797747 /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MacDown;
+			productName = MarkPad;
+			productReference = 1FA6DE211941CC9E000409FB /* MacDown.app */;
+			productType = "com.apple.product-type.application";
+		};
+		1FA6DE441941CC9E000409FB /* MacDownTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1FA6DE581941CC9E000409FB /* Build configuration list for PBXNativeTarget "MacDownTests" */;
+			buildPhases = (
+				1FA6DE411941CC9E000409FB /* Sources */,
+				1FA6DE421941CC9E000409FB /* Frameworks */,
+				1FA6DE431941CC9E000409FB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1FA6DE4A1941CC9E000409FB /* PBXTargetDependency */,
+			);
+			name = MacDownTests;
+			productName = MarkPadTests;
+			productReference = 1FA6DE451941CC9E000409FB /* MacDownTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1FA6DE191941CC9E000409FB /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = MP;
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = "Tzu-ping Chung ";
+				TargetAttributes = {
+					1FA6DE441941CC9E000409FB = {
+						TestTargetID = 1FA6DE201941CC9E000409FB;
+					};
+				};
+			};
+			buildConfigurationList = 1FA6DE1C1941CC9E000409FB /* Build configuration list for PBXProject "MacDown" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 1FA6DE181941CC9E000409FB;
+			productRefGroup = 1FA6DE221941CC9E000409FB /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1FA6DE201941CC9E000409FB /* MacDown */,
+				1FA6DE441941CC9E000409FB /* MacDownTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1FA6DE1F1941CC9E000409FB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1FC29F661944FDB100D616C7 /* MPDocument.xib in Resources */,
+				1FC29F651944FDB100D616C7 /* MainMenu.xib in Resources */,
+				1FCDCA171944F89B00B1F966 /* Images.xcassets in Resources */,
+				1FCDCA1F1944F89B00B1F966 /* MPMarkdownPreferencesViewController.xib in Resources */,
+				1FCDCA291944F89B00B1F966 /* InfoPlist.strings in Resources */,
+				1FCDCA281944F89B00B1F966 /* Credits.rtf in Resources */,
+				1FCDCA1C1944F89B00B1F966 /* MPHtmlPreferencesViewController.xib in Resources */,
+				1FCDCA1A1944F89B00B1F966 /* MPEditorPreferencesViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1FA6DE431941CC9E000409FB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1FC29F5E1944FC4F00D616C7 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		46C28C219A3C4CCD94797747 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-MacDown-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A4C68C7905CF45C89A0CC47D /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1FA6DE1D1941CC9E000409FB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1FCDCA2A1944F89B00B1F966 /* main.m in Sources */,
+				1FCDCA181944F89B00B1F966 /* MPDocument.m in Sources */,
+				1FCDCA221944F89B00B1F966 /* MPUtilities.m in Sources */,
+				1FCDCA241944F89B00B1F966 /* HGMarkdownHighlighter.m in Sources */,
+				1FCDCA251944F89B00B1F966 /* HGMarkdownHighlightingStyle.m in Sources */,
+				1FCDCA201944F89B00B1F966 /* MPPreferences.m in Sources */,
+				1FCDCA211944F89B00B1F966 /* MPPreferencesViewController.m in Sources */,
+				1FCDCA191944F89B00B1F966 /* MPEditorPreferencesViewController.m in Sources */,
+				1FCDCA1E1944F89B00B1F966 /* MPMarkdownPreferencesViewController.m in Sources */,
+				1FCDCA271944F89B00B1F966 /* pmh_styleparser.c in Sources */,
+				1FCDCA1B1944F89B00B1F966 /* MPHtmlPreferencesViewController.m in Sources */,
+				1FCDCA1D1944F89B00B1F966 /* MPMainController.m in Sources */,
+				1FCDCA261944F89B00B1F966 /* pmh_parser.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1FA6DE411941CC9E000409FB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1FC29F5D1944FC3900D616C7 /* MacDownTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		1FA6DE4A1941CC9E000409FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1FA6DE201941CC9E000409FB /* MacDown */;
+			targetProxy = 1FA6DE491941CC9E000409FB /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		1FC29F611944FDB100D616C7 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1FC29F621944FDB100D616C7 /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		1FC29F631944FDB100D616C7 /* MPDocument.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1FC29F641944FDB100D616C7 /* Base */,
+			);
+			name = MPDocument.xib;
+			sourceTree = "<group>";
+		};
+		1FCDCA101944F89B00B1F966 /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1FCDCA111944F89B00B1F966 /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		1FCDCA121944F89B00B1F966 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1FCDCA131944F89B00B1F966 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		1FCDCA321944F96E00B1F966 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1FCDCA331944F96E00B1F966 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		1FA6DE531941CC9E000409FB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		1FA6DE541941CC9E000409FB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		1FA6DE561941CC9E000409FB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7F8797E748AA4BCA96DFA790 /* Pods-MacDown.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MacDown/MacDown-Prefix.pch";
+				INFOPLIST_FILE = "MacDown/MacDown-Info.plist";
+				PRODUCT_NAME = MacDown;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		1FA6DE571941CC9E000409FB /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7F8797E748AA4BCA96DFA790 /* Pods-MacDown.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MacDown/MacDown-Prefix.pch";
+				INFOPLIST_FILE = "MacDown/MacDown-Info.plist";
+				PRODUCT_NAME = MacDown;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		1FA6DE591941CC9E000409FB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/MacDown.app/Contents/MacOS/MacDown";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MacDown/MacDown-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "MacDownTests/MacDownTests-Info.plist";
+				PRODUCT_NAME = MacDownTests;
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		1FA6DE5A1941CC9E000409FB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/MacDown.app/Contents/MacOS/MacDown";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MacDown/MacDown-Prefix.pch";
+				INFOPLIST_FILE = "MacDownTests/MacDownTests-Info.plist";
+				PRODUCT_NAME = MacDownTests;
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1FA6DE1C1941CC9E000409FB /* Build configuration list for PBXProject "MacDown" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1FA6DE531941CC9E000409FB /* Debug */,
+				1FA6DE541941CC9E000409FB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1FA6DE551941CC9E000409FB /* Build configuration list for PBXNativeTarget "MacDown" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1FA6DE561941CC9E000409FB /* Debug */,
+				1FA6DE571941CC9E000409FB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1FA6DE581941CC9E000409FB /* Build configuration list for PBXNativeTarget "MacDownTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1FA6DE591941CC9E000409FB /* Debug */,
+				1FA6DE5A1941CC9E000409FB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 1FA6DE191941CC9E000409FB /* Project object */;
+}
