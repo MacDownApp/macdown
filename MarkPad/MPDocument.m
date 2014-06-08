@@ -128,6 +128,11 @@
                                            waitInterval:0.5];
     self.highlighter.parseAndHighlightAutomatically = YES;
 
+    // Fix Xcod 5/Lion bug where disselecting options in OB doesn't work.
+    // TODO: Can we save/set these app-wise using KVO?
+    self.editor.automaticQuoteSubstitutionEnabled = NO;
+    self.editor.automaticLinkDetectionEnabled = NO;
+
     [self setupEditor];
     if (self.loadedString)
     {
