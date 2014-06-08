@@ -11,7 +11,7 @@
 #import "MPPreferences.h"
 
 
-@interface MPEditorPreferencesViewController ()
+@interface MPEditorPreferencesViewController () <NSTextFieldDelegate>
 @property (weak) IBOutlet NSTextField *fontPreviewField;
 @property (weak) IBOutlet NSPopUpButton *themeSelect;
 @property (weak) IBOutlet NSSegmentedControl *themeFunctions;
@@ -96,7 +96,7 @@
 }
 
 
-#pragma mark NSFontManager Delegate
+#pragma mark - NSFontManager Delegate
 
 - (void)changeFont:(NSFontManager *)sender
 {
@@ -106,7 +106,17 @@
 }
 
 
-#pragma mark IBAction
+#pragma mark - NSTextFieldDelegate
+
+- (BOOL)control:(NSControl *)control textShouldEndEditing:(NSText *)fieldEditor
+{
+    if (!fieldEditor.string.length)
+        fieldEditor.string = @"0";
+    return YES;
+}
+
+
+#pragma mark - IBAction
 
 - (IBAction)showFontPanel:(id)sender
 {

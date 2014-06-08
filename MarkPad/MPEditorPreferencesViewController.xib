@@ -116,7 +116,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="4C5-3K-7bE" id="Zr8-Em-EhD">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="system"/>
+                        <font key="font" metaFont="menu"/>
                         <menu key="menu" title="OtherViews" id="Ia1-VG-EWI">
                             <items>
                                 <menuItem state="on" id="4C5-3K-7bE"/>
@@ -164,11 +164,13 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
-                        <binding destination="-2" name="value" keyPath="self.preferences.editorHorizontalInset" id="xsR-hi-CKo">
+                        <binding destination="-2" name="value" keyPath="self.preferences.editorHorizontalInset" id="4nh-dg-f50">
                             <dictionary key="options">
-                                <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                                <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
+                                <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
                             </dictionary>
                         </binding>
+                        <outlet property="delegate" destination="-2" id="xgg-nS-J6z"/>
                     </connections>
                 </textField>
                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="77u-zZ-bC0">
@@ -183,11 +185,13 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
-                        <binding destination="-2" name="value" keyPath="self.preferences.editorVerticalInset" id="f5K-V5-R4C">
+                        <binding destination="-2" name="value" keyPath="self.preferences.editorVerticalInset" id="hoC-eU-w9j">
                             <dictionary key="options">
-                                <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                                <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
+                                <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
                             </dictionary>
                         </binding>
+                        <outlet property="delegate" destination="-2" id="eRe-o0-7h6"/>
                     </connections>
                 </textField>
                 <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="u4r-9h-qMR">
