@@ -197,7 +197,22 @@
     if (commandSelector == @selector(insertTab:)
         && self.preferences.editorConvertTabs)
     {
-        [textView insertText:@"    "];
+        NSString *spaces = @"    ";
+
+        // Count how far we are from the previous newline character or start of
+        // document (-1).
+        NSString *text = textView.string;
+        NSCharacterSet *newline = [NSCharacterSet newlineCharacterSet];
+        NSInteger currentLocation = textView.selectedRange.location;
+        NSInteger p = currentLocation - 1;
+        while (p >= 0 && ![newline characterIsMember:[text characterAtIndex:p]])
+            p--;
+
+        // Calculate how deep we need to go.
+        NSUInteger offset = (currentLocation - p - 1) % 4;
+        if (offset)
+            spaces = [spaces substringFromIndex:offset];
+        [textView insertText:spaces];
         return YES;
     }
     return NO;
