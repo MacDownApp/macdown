@@ -117,7 +117,7 @@
         }
     }
 
-    NSString *title = self.preferences.htmlStyleName;
+    NSString *title = [self.preferences.htmlStyleName copy];
     if (title.length)
         [self.stylesheetSelect selectItemWithTitle:title];
 

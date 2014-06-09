@@ -167,16 +167,14 @@
 		1FCDC9EB1944F89B00B1F966 /* MacDown */ = {
 			isa = PBXGroup;
 			children = (
-				1FCDCA061944F89B00B1F966 /* PEGMarkdownHighlight */,
-				1FCDCA2C1944F8D400B1F966 /* Preferences */,
-				1FCDCA2E1944F91E00B1F966 /* Document */,
 				1FCDCA021944F89B00B1F966 /* MPUtilities.h */,
 				1FCDCA031944F89B00B1F966 /* MPUtilities.m */,
+				1FCDCA2E1944F91E00B1F966 /* Document */,
+				1FCDCA2C1944F8D400B1F966 /* Preferences */,
 				1FCDC9F91944F89B00B1F966 /* MPMainController.h */,
 				1FCDC9FA1944F89B00B1F966 /* MPMainController.m */,
 				1FC29F611944FDB100D616C7 /* MainMenu.xib */,
-				1FCDCA001944F89B00B1F966 /* MPPreferencesViewController.h */,
-				1FCDCA011944F89B00B1F966 /* MPPreferencesViewController.m */,
+				1FCDCA061944F89B00B1F966 /* PEGMarkdownHighlight */,
 				1FCDCA2D1944F8F600B1F966 /* Supporting Files */,
 			);
 			path = MacDown;
@@ -201,6 +199,8 @@
 		1FCDCA2C1944F8D400B1F966 /* Preferences */ = {
 			isa = PBXGroup;
 			children = (
+				1FCDCA001944F89B00B1F966 /* MPPreferencesViewController.h */,
+				1FCDCA011944F89B00B1F966 /* MPPreferencesViewController.m */,
 				1FCDC9F31944F89B00B1F966 /* MPEditorPreferencesViewController.h */,
 				1FCDC9F41944F89B00B1F966 /* MPEditorPreferencesViewController.m */,
 				1FCDC9F51944F89B00B1F966 /* MPEditorPreferencesViewController.xib */,

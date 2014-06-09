@@ -14,6 +14,6 @@
 
 - (id)init;
 
-@property (nonatomic, weak, readonly) MPPreferences *preferences;
+@property (nonatomic, readonly) MPPreferences *preferences;
 
 @end

@@ -8,13 +8,13 @@
 
 #import "MPPreferences.h"
 
+static NSString * const MPDefaultEditorFontNameKey = @"name";
+static NSString * const MPDefaultEditorFontPointSizeKey = @"size";
+static NSString * const MPDefaultEditorFontName = @"Menlo-Regular";
+static CGFloat    const MPDefaultEditorFontPointSize = 12.0;
+
 static NSString * const MPPreferencesDidSynchronizeNotificationName =
     @"MPPreferencesDidSynchronizeNotificationName";
-
-
-@interface MPPreferences ()
-@property (nonatomic, weak) NSDictionary *editorBaseFontInfo;
-@end
 
 
 @implementation MPPreferences
@@ -37,12 +37,12 @@ static NSString * const MPPreferencesDidSynchronizeNotificationName =
         self.extensionFencedCode = YES;
         self.extensionFootnotes = YES;
         self.editorBaseFontInfo = [NSDictionary dictionaryWithObjectsAndKeys:
-            @"Menlo-Regular", @"name",
-            @(12.0), @"size",
+            MPDefaultEditorFontName, MPDefaultEditorFontNameKey,
+            @(MPDefaultEditorFontPointSize), MPDefaultEditorFontPointSizeKey,
         nil];
     }
-    [self editorBaseFont];
-    self.latestVersionInstalled = version;    return self;
+    self.latestVersionInstalled = version;
+    return self;
 }
 
 
@@ -76,7 +76,7 @@ static NSString * const MPPreferencesDidSynchronizeNotificationName =
 
 - (NSFont *)editorBaseFont
 {
-    NSDictionary *info = self.editorBaseFontInfo;
+    NSDictionary *info = [self.editorBaseFontInfo copy];
     NSFont *font = [NSFont fontWithName:info[@"name"]
                                    size:[info[@"size"] doubleValue]];
     return font;

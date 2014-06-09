@@ -12,7 +12,4 @@
 @interface MPEditorPreferencesViewController : MPPreferencesViewController
     <MASPreferencesViewController>
 
-@property (readonly) NSInteger xInsetTick;
-@property (readonly) NSInteger yInsetTick;
-
 @end

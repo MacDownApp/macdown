@@ -46,7 +46,7 @@
 
 - (void)viewWillAppear
 {
-    [self refreshPreviewForFont:self.preferences.editorBaseFont];
+    [self refreshPreviewForFont:[self.preferences.editorBaseFont copy]];
     [self reloadThemes];
 }
 
@@ -88,7 +88,7 @@
         }
     }
 
-    NSString *title = self.preferences.editorStyleName;
+    NSString *title = [self.preferences.editorStyleName copy];
     if (title.length)
         [self.themeSelect selectItemWithTitle:title];
 
@@ -122,7 +122,8 @@
 {
     NSFontManager *manager = [NSFontManager sharedFontManager];
     manager.action = @selector(changeFont:);
-    [manager setSelectedFont:self.preferences.editorBaseFont isMultiple:NO];
+    [manager setSelectedFont:[self.preferences.editorBaseFont copy]
+                  isMultiple:NO];
 
     NSFontPanel *panel = [manager fontPanel:YES];
     [panel orderFront:sender];

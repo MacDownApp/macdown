@@ -14,9 +14,7 @@
 
 
 @interface MPMainController ()
-
 @property (nonatomic, readonly) NSWindowController *preferencesWindowController;
-
 @end
 
 

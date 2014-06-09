@@ -6,36 +6,37 @@
 //  Copyright (c) 2014 Tzu-ping Chung . All rights reserved.
 //
 
-#import "PAPreferences.h"
+#import <PAPreferences/PAPreferences.h>
 
 @interface MPPreferences : PAPreferences
 
-@property (nonatomic, weak) NSString *firstVersionInstalled;
-@property (nonatomic, weak) NSString *latestVersionInstalled;
+@property (assign) NSString *firstVersionInstalled;
+@property (assign) NSString *latestVersionInstalled;
 
 // Extension flags.
-@property (nonatomic, assign) BOOL extensionIntraEmphasis;
-@property (nonatomic, assign) BOOL extensionTables;
-@property (nonatomic, assign) BOOL extensionFencedCode;
-@property (nonatomic, assign) BOOL extensionAutolink;
-@property (nonatomic, assign) BOOL extensionStrikeThough;
-@property (nonatomic, assign) BOOL extensionUnderline;
-@property (nonatomic, assign) BOOL extensionSuperscript;
-@property (nonatomic, assign) BOOL extensionHighlight;
-@property (nonatomic, assign) BOOL extensionFootnotes;
-@property (nonatomic, assign) BOOL extensionQuote;
-@property (nonatomic, assign) BOOL extensionSmartyPants;
+@property (assign) BOOL extensionIntraEmphasis;
+@property (assign) BOOL extensionTables;
+@property (assign) BOOL extensionFencedCode;
+@property (assign) BOOL extensionAutolink;
+@property (assign) BOOL extensionStrikeThough;
+@property (assign) BOOL extensionUnderline;
+@property (assign) BOOL extensionSuperscript;
+@property (assign) BOOL extensionHighlight;
+@property (assign) BOOL extensionFootnotes;
+@property (assign) BOOL extensionQuote;
+@property (assign) BOOL extensionSmartyPants;
 
-@property (nonatomic, assign) BOOL editorConvertTabs;
-@property (nonatomic, assign) BOOL editorSyncScrolling;
-@property (nonatomic, weak) NSString *editorStyleName;
-@property (nonatomic, assign) CGFloat editorHorizontalInset;
-@property (nonatomic, assign) CGFloat editorVerticalInset;
+@property (assign) NSDictionary *editorBaseFontInfo;
+@property (assign) BOOL editorConvertTabs;
+@property (assign) BOOL editorSyncScrolling;
+@property (assign) NSString *editorStyleName;
+@property (assign) CGFloat editorHorizontalInset;
+@property (assign) CGFloat editorVerticalInset;
 
-@property (nonatomic, weak) NSString *htmlStyleName;
+@property (assign) NSString *htmlStyleName;
 
 // Calculated values.
-@property (nonatomic, unsafe_unretained) NSFont *editorBaseFont;
+@property (nonatomic, assign) NSFont *editorBaseFont;
 
 - (instancetype)init;
 

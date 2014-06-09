@@ -16,7 +16,7 @@
 
 
 @interface MPPreferences (Hoedown)
-@property (nonatomic, assign, readonly) int extensionFlags;
+@property (nonatomic, readonly) int extensionFlags;
 @end
 
 @implementation MPPreferences (Hoedown)
@@ -50,17 +50,17 @@
 
 @interface MPDocument () <NSTextViewDelegate>
 
-@property (nonatomic, unsafe_unretained) IBOutlet NSTextView *editor;
-@property (nonatomic, weak) IBOutlet WebView *preview;
-@property (nonatomic, unsafe_unretained) hoedown_renderer *htmlRenderer;
-@property (nonatomic, assign) int currentExtensionFlags;
-@property (nonatomic, assign) BOOL currentSmartyPantsFlag;
-@property (nonatomic, strong) NSString *currentHtml;
-@property (nonatomic, strong) NSString *currentStyleName;
-@property (nonatomic, strong) HGMarkdownHighlighter *highlighter;
+@property (unsafe_unretained) IBOutlet NSTextView *editor;
+@property (weak) IBOutlet WebView *preview;
+@property (unsafe_unretained) hoedown_renderer *htmlRenderer;
+@property HGMarkdownHighlighter *highlighter;
+@property int currentExtensionFlags;
+@property BOOL currentSmartyPantsFlag;
+@property (copy) NSString *currentHtml;
+@property (copy) NSString *currentStyleName;
 
 // Store file content in initializer until nib is loaded.
-@property (nonatomic, copy) NSString *loadedString;
+@property (copy) NSString *loadedString;
 
 @end
 
@@ -231,13 +231,13 @@
 
 - (void)setupEditor
 {
-    self.editor.font = self.preferences.editorBaseFont;
+    self.editor.font = [self.preferences.editorBaseFont copy];
 
     CGFloat x = self.preferences.editorHorizontalInset;
     CGFloat y = self.preferences.editorVerticalInset;
     self.editor.textContainerInset = NSMakeSize(x, y);
 
-    NSString *themeName = self.preferences.editorStyleName;
+    NSString *themeName = [self.preferences.editorStyleName copy];
     if (!themeName.length)
     {
         self.editor.textColor = nil;
@@ -337,7 +337,7 @@
 
 - (void)render
 {
-    NSString *styleName = self.preferences.htmlStyleName;
+    NSString *styleName = [self.preferences.htmlStyleName copy];
     NSString *styleString = [self styleStringForName:styleName];
     NSString *html = [self htmlDocumentFromBody:self.currentHtml
                                          styles:styleString];
