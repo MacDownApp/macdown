@@ -209,19 +209,10 @@ static const unichar MPMatchingCharsMap[MPMatchingCharsMapLength][2] = {
 
 - (BOOL)textView:(NSTextView *)textView doCommandBySelector:(SEL)commandSelector
 {
-    if (self.preferences.editorConvertTabs
-        && commandSelector == @selector(insertTab:))
-    {
-        [self insertSpacesForTabForTextView:textView];
-        return YES;
-    }
-    else if (self.preferences.editorCompleteMatchingCharacters
-             && commandSelector == @selector(deleteBackward:))
-    {
-        NSRange range = textView.selectedRange;
-        if ([self deleteMatchingCharactersForTextView:textView inRange:range])
-            return YES;
-    }
+    if (commandSelector == @selector(insertTab:))
+        return ![self textViewShouldInsertTab:textView];
+    else if (commandSelector == @selector(deleteBackward:))
+        return ![self textViewShouldDeleteBackward:textView];
     return NO;
 }
 
@@ -248,6 +239,30 @@ static const unichar MPMatchingCharsMap[MPMatchingCharsMapLength][2] = {
                                       replacementString:str])
                 return NO;
         }
+    }
+    return YES;
+}
+
+
+#pragma mark - Fake NSTextViewDelegate
+
+- (BOOL)textViewShouldInsertTab:(NSTextView *)textView
+{
+    if (self.preferences.editorConvertTabs)
+    {
+        [self insertSpacesForTabForTextView:textView];
+        return NO;
+    }
+    return YES;
+}
+
+- (BOOL)textViewShouldDeleteBackward:(NSTextView *)textView
+{
+    if (self.preferences.editorCompleteMatchingCharacters)
+    {
+        NSRange range = textView.selectedRange;
+        if ([self deleteMatchingCharactersForTextView:textView inRange:range])
+            return NO;
     }
     return YES;
 }
