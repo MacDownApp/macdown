@@ -132,6 +132,7 @@
     // TODO: Can we save/set these app-wise using KVO?
     self.editor.automaticQuoteSubstitutionEnabled = NO;
     self.editor.automaticLinkDetectionEnabled = NO;
+    self.editor.automaticDashSubstitutionEnabled = NO;
 
     [self setupEditor];
     if (self.loadedString)
