@@ -7,28 +7,42 @@
 //
 
 #import <XCTest/XCTest.h>
+#import "MPPreferences.h"
 
-@interface MacDownTests : XCTestCase
-
+@interface PreferencesTests : XCTestCase
+@property MPPreferences *preferences;
+@property NSDictionary *oldFontInfo;
 @end
 
-@implementation MacDownTests
+
+@implementation PreferencesTests
 
 - (void)setUp
 {
     [super setUp];
-    // Put setup code here. This method is called before the invocation of each test method in the class.
+    self.preferences = [MPPreferences sharedInstance];
+    self.oldFontInfo = [self.preferences.editorBaseFontInfo copy];
+
 }
 
 - (void)tearDown
 {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
+    self.preferences.editorBaseFontInfo = self.oldFontInfo;
+    [self.preferences synchronize];
     [super tearDown];
 }
 
-- (void)testExample
+- (void)testFont
 {
-    XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
+    NSFont *font = [NSFont systemFontOfSize:[NSFont systemFontSize]];
+    self.preferences.editorBaseFont = font;
+
+    XCTAssertTrue([self.preferences synchronize],
+                  @"Failed to synchronize user defaults.");
+
+    NSFont *result = [self.preferences.editorBaseFont copy];
+    XCTAssertEqualObjects(font, result,
+                          @"Preferences not preserving font info correctly.");
 }
 
 @end

@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F51C9A5194565050015A96F /* MacDownTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDCA311944F96E00B1F966 /* MacDownTests.m */; };
 		1FA6DE251941CC9E000409FB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FA6DE241941CC9E000409FB /* Cocoa.framework */; };
 		1FA6DE481941CC9E000409FB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FA6DE241941CC9E000409FB /* Cocoa.framework */; };
 		1FC29F5C1944FC2600D616C7 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FC29F5B1944FC2600D616C7 /* XCTest.framework */; };
-		1FC29F5D1944FC3900D616C7 /* MacDownTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDCA311944F96E00B1F966 /* MacDownTests.m */; };
 		1FC29F5E1944FC4F00D616C7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1FCDCA321944F96E00B1F966 /* InfoPlist.strings */; };
 		1FC29F651944FDB100D616C7 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FC29F611944FDB100D616C7 /* MainMenu.xib */; };
 		1FC29F661944FDB100D616C7 /* MPDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FC29F631944FDB100D616C7 /* MPDocument.xib */; };
@@ -34,6 +34,7 @@
 		1FCDCA291944F89B00B1F966 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1FCDCA121944F89B00B1F966 /* InfoPlist.strings */; };
 		1FCDCA2A1944F89B00B1F966 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDCA141944F89B00B1F966 /* main.m */; };
 		1FF207631941CF22005B5654 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FF207621941CF22005B5654 /* WebKit.framework */; };
+		5318159056384894AA42DB4F /* libPods-MacDownTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AEAF42BBDCEC4012B5092BB3 /* libPods-MacDownTests.a */; };
 		B49728377A904875B2963C38 /* libPods-MacDown.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C5C1FBBB3ED456285901D31 /* libPods-MacDown.a */; };
 /* End PBXBuildFile section */
 
@@ -48,6 +49,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1F51C9A1194564670015A96F /* libPods-MacDown-PAPreferences.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-MacDown-PAPreferences.a"; path = "../../../../Library/Developer/Xcode/DerivedData/MacDown-ggdtxvuybojeqbhjydkhilziizrv/Build/Products/Debug/libPods-MacDown-PAPreferences.a"; sourceTree = "<group>"; };
 		1FA6DE211941CC9E000409FB /* MacDown.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacDown.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FA6DE241941CC9E000409FB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		1FA6DE271941CC9E000409FB /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -97,6 +99,8 @@
 		1FF207621941CF22005B5654 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		7C5C1FBBB3ED456285901D31 /* libPods-MacDown.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MacDown.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F8797E748AA4BCA96DFA790 /* Pods-MacDown.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacDown.xcconfig"; path = "Pods/Pods-MacDown.xcconfig"; sourceTree = "<group>"; };
+		AB3B8954FAB54E3C803DDAEE /* Pods-MacDownTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacDownTests.xcconfig"; path = "Pods/Pods-MacDownTests.xcconfig"; sourceTree = "<group>"; };
+		AEAF42BBDCEC4012B5092BB3 /* libPods-MacDownTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MacDownTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +120,7 @@
 			files = (
 				1FA6DE481941CC9E000409FB /* Cocoa.framework in Frameworks */,
 				1FC29F5C1944FC2600D616C7 /* XCTest.framework in Frameworks */,
+				5318159056384894AA42DB4F /* libPods-MacDownTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -130,6 +135,7 @@
 				1FA6DE231941CC9E000409FB /* Frameworks */,
 				1FA6DE221941CC9E000409FB /* Products */,
 				7F8797E748AA4BCA96DFA790 /* Pods-MacDown.xcconfig */,
+				AB3B8954FAB54E3C803DDAEE /* Pods-MacDownTests.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -145,11 +151,13 @@
 		1FA6DE231941CC9E000409FB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1F51C9A1194564670015A96F /* libPods-MacDown-PAPreferences.a */,
 				1FC29F5B1944FC2600D616C7 /* XCTest.framework */,
 				1FF207621941CF22005B5654 /* WebKit.framework */,
 				1FA6DE241941CC9E000409FB /* Cocoa.framework */,
 				1FA6DE261941CC9E000409FB /* Other Frameworks */,
 				7C5C1FBBB3ED456285901D31 /* libPods-MacDown.a */,
+				AEAF42BBDCEC4012B5092BB3 /* libPods-MacDownTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -283,9 +291,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1FA6DE581941CC9E000409FB /* Build configuration list for PBXNativeTarget "MacDownTests" */;
 			buildPhases = (
+				694A3D57598E431C90D512B9 /* Check Pods Manifest.lock */,
 				1FA6DE411941CC9E000409FB /* Sources */,
 				1FA6DE421941CC9E000409FB /* Frameworks */,
 				1FA6DE431941CC9E000409FB /* Resources */,
+				72CBA169CC684D3CB9F83627 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -373,6 +383,36 @@
 			shellScript = "\"${SRCROOT}/Pods/Pods-MacDown-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		694A3D57598E431C90D512B9 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		72CBA169CC684D3CB9F83627 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-MacDownTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		A4C68C7905CF45C89A0CC47D /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -415,7 +455,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1FC29F5D1944FC3900D616C7 /* MacDownTests.m in Sources */,
+				1F51C9A5194565050015A96F /* MacDownTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -573,6 +613,7 @@
 		};
 		1FA6DE591941CC9E000409FB /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AB3B8954FAB54E3C803DDAEE /* Pods-MacDownTests.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/MacDown.app/Contents/MacOS/MacDown";
 				COMBINE_HIDPI_IMAGES = YES;
@@ -587,6 +628,10 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "MacDownTests/MacDownTests-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/MacDown-ggdtxvuybojeqbhjydkhilziizrv/Build/Products/Debug",
+				);
 				PRODUCT_NAME = MacDownTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
@@ -595,6 +640,7 @@
 		};
 		1FA6DE5A1941CC9E000409FB /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AB3B8954FAB54E3C803DDAEE /* Pods-MacDownTests.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/MacDown.app/Contents/MacOS/MacDown";
 				COMBINE_HIDPI_IMAGES = YES;
@@ -605,6 +651,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MacDown/MacDown-Prefix.pch";
 				INFOPLIST_FILE = "MacDownTests/MacDownTests-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/MacDown-ggdtxvuybojeqbhjydkhilziizrv/Build/Products/Debug",
+				);
 				PRODUCT_NAME = MacDownTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;

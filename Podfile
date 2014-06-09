@@ -8,6 +8,6 @@ target "MacDown" do
 end
 
 target "MacDownTests" do
-
+  pod 'PAPreferences'
 end
 
