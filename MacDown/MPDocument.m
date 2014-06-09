@@ -133,7 +133,7 @@
 
     self.highlighter =
         [[HGMarkdownHighlighter alloc] initWithTextView:self.editor
-                                           waitInterval:0.5];
+                                           waitInterval:0.2];
     self.highlighter.parseAndHighlightAutomatically = YES;
 
     // Fix Xcod 5/Lion bug where disselecting options in OB doesn't work.
