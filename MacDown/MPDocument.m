@@ -123,6 +123,14 @@
 {
     [super windowControllerDidLoadNib:controller];
 
+    // All files use their absolute path to keep their window states.
+    // New files share a common autosave name so that we can get a preferred
+    // window size when creating new documents.
+    NSString *autosaveName = @"Markdown";
+    if (self.fileURL)
+        autosaveName = self.fileURL.absoluteString;
+    controller.window.frameAutosaveName = autosaveName;
+
     self.highlighter =
         [[HGMarkdownHighlighter alloc] initWithTextView:self.editor
                                            waitInterval:0.5];
