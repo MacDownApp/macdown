@@ -64,6 +64,7 @@ static NSString * const MPPreferencesDidSynchronizeNotificationName =
 @dynamic extensionSmartyPants;
 
 @dynamic editorConvertTabs;
+@dynamic editorCompleteMatchingCharacters;
 @dynamic editorSyncScrolling;
 @dynamic editorStyleName;
 @dynamic editorHorizontalInset;
