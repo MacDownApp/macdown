@@ -15,8 +15,7 @@
 #import "MPPreferences.h"
 
 
-static const size_t kMPMatchingCharsMapLength = 10;
-static const unichar kMPMatchingCharsMap[kMPMatchingCharsMapLength][2] = {
+static const unichar kMPMatchingCharsMap[13][2] = {
     {L'(', L')'},
     {L'[', L']'},
     {L'{', L'}'},
@@ -27,6 +26,7 @@ static const unichar kMPMatchingCharsMap[kMPMatchingCharsMapLength][2] = {
     {L'\u300e', L'\u300f'},     // white corner brackets
     {L'\u2018', L'\u2019'},     // single quotes
     {L'\u201c', L'\u201d'},     // double quotes
+    {L'\0', L'\0'},
 };
 
 
@@ -379,9 +379,9 @@ static const unichar kMPMatchingCharsMap[kMPMatchingCharsMapLength][2] = {
         n = [textViewContent characterAtIndex:range.location];
 
     NSString *completion = nil;
-    for (size_t i = 0; i < kMPMatchingCharsMapLength; i++)
+
+    for (const unichar *chars = kMPMatchingCharsMap[0]; *chars != 0; chars += 2)
     {
-        const unichar *chars = kMPMatchingCharsMap[i];
         if (c == chars[0] && n != chars[1])
         {
             completion = [NSString stringWithCharacters:chars length:2];
@@ -405,9 +405,9 @@ static const unichar kMPMatchingCharsMap[kMPMatchingCharsMapLength][2] = {
 {
     NSString *wrapped = [textView.string substringWithRange:range];
     unichar c = [string characterAtIndex:0];
-    for (size_t i = 0; i < kMPMatchingCharsMapLength; i++)
+
+    for (const unichar *chars = kMPMatchingCharsMap[0]; *chars != 0; chars += 2)
     {
-        const unichar *chars = kMPMatchingCharsMap[i];
         if (c == chars[0])
         {
             NSString *f = [NSString stringWithCharacters:chars length:1];
@@ -432,9 +432,9 @@ static const unichar kMPMatchingCharsMap[kMPMatchingCharsMapLength][2] = {
 
     unichar f = [string characterAtIndex:location - 1];
     unichar b = [string characterAtIndex:location];
-    for (size_t i = 0; i < kMPMatchingCharsMapLength; i++)
+
+    for (const unichar *chars = kMPMatchingCharsMap[0]; *chars != 0; chars += 2)
     {
-        const unichar *chars = kMPMatchingCharsMap[i];
         if (f == chars[0] && b == chars[1])
         {
             [textView replaceCharactersInRange:NSMakeRange(location - 1, 2)
