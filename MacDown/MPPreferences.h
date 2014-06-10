@@ -35,6 +35,7 @@
 @property (assign) CGFloat editorVerticalInset;
 
 @property (assign) NSString *htmlStyleName;
+@property (assign) NSURL *htmlDefaultDirectoryUrl;
 
 // Calculated values.
 @property (nonatomic, assign) NSFont *editorBaseFont;

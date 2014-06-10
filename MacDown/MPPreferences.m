@@ -40,6 +40,9 @@ static NSString * const MPPreferencesDidSynchronizeNotificationName =
             MPDefaultEditorFontName, MPDefaultEditorFontNameKey,
             @(MPDefaultEditorFontPointSize), MPDefaultEditorFontPointSizeKey,
         nil];
+
+        self.htmlDefaultDirectoryUrl = [NSURL fileURLWithPath:NSHomeDirectory()
+                                                  isDirectory:YES];
     }
     self.latestVersionInstalled = version;
     return self;
@@ -71,6 +74,7 @@ static NSString * const MPPreferencesDidSynchronizeNotificationName =
 @dynamic editorVerticalInset;
 
 @dynamic htmlStyleName;
+@dynamic htmlDefaultDirectoryUrl;
 
 // Private preference.
 @dynamic editorBaseFontInfo;

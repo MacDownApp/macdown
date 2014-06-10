@@ -513,8 +513,11 @@ static const unichar MPMatchingCharsMap[MPMatchingCharsMapLength][2] = {
     NSString *styleString = [self styleStringForName:styleName];
     NSString *html = [self htmlDocumentFromBody:self.currentHtml
                                          styles:styleString];
-    [self.preview.mainFrame loadHTMLString:html
-                                   baseURL:self.fileURL];
+
+    NSURL *baseUrl = self.fileURL;
+    if (!baseUrl)
+        baseUrl = self.preferences.htmlDefaultDirectoryUrl;
+    [self.preview.mainFrame loadHTMLString:html baseURL:baseUrl];
 
     // Record current rendering flags for -renderIfPreferencesChanged.
     self.currentStyleName = styleName;
