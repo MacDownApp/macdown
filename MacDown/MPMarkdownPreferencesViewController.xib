@@ -16,7 +16,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <box autoresizesSubviews="NO" title="Block formatting" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="TXy-fD-S4Y">
-                    <rect key="frame" x="17" y="136" width="177" height="74"/>
+                    <rect key="frame" x="17" y="78" width="177" height="74"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <view key="contentView">
                         <rect key="frame" x="1" y="1" width="175" height="58"/>
@@ -187,8 +187,8 @@
                     <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                     <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </box>
-                <box autoresizesSubviews="NO" horizontalHuggingPriority="1" title="Miscellaneous" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="x36-52-U0p">
-                    <rect key="frame" x="17" y="78" width="177" height="54"/>
+                <box autoresizesSubviews="NO" horizontalHuggingPriority="1" title="Document formatting" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="x36-52-U0p">
+                    <rect key="frame" x="17" y="156" width="177" height="54"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <view key="contentView">
                         <rect key="frame" x="1" y="1" width="175" height="38"/>
@@ -217,13 +217,13 @@
                 </box>
             </subviews>
             <constraints>
-                <constraint firstItem="x36-52-U0p" firstAttribute="top" secondItem="TXy-fD-S4Y" secondAttribute="bottom" constant="8" id="0Bp-WO-sHt"/>
-                <constraint firstItem="TXy-fD-S4Y" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="20" id="0Ip-ks-Ljq"/>
                 <constraint firstItem="Ycc-Px-jbu" firstAttribute="leading" secondItem="TXy-fD-S4Y" secondAttribute="trailing" constant="8" id="23x-1v-ABO"/>
                 <constraint firstAttribute="trailing" secondItem="Ycc-Px-jbu" secondAttribute="trailing" constant="20" id="33y-Kd-EEH"/>
+                <constraint firstItem="Ycc-Px-jbu" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="20" id="Bc7-f4-b8q"/>
                 <constraint firstItem="x36-52-U0p" firstAttribute="width" secondItem="TXy-fD-S4Y" secondAttribute="width" id="QAr-JY-Azd"/>
-                <constraint firstItem="TXy-fD-S4Y" firstAttribute="top" secondItem="Ycc-Px-jbu" secondAttribute="top" id="TPV-wW-5LB"/>
+                <constraint firstItem="Ycc-Px-jbu" firstAttribute="top" secondItem="x36-52-U0p" secondAttribute="top" id="VgI-Dm-yio"/>
                 <constraint firstItem="x36-52-U0p" firstAttribute="leading" secondItem="TXy-fD-S4Y" secondAttribute="leading" id="aXZ-Pm-NEe"/>
+                <constraint firstItem="TXy-fD-S4Y" firstAttribute="top" secondItem="x36-52-U0p" secondAttribute="bottom" constant="8" id="nUm-2S-CCN"/>
                 <constraint firstItem="TXy-fD-S4Y" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="20" id="rVA-W8-cMW"/>
             </constraints>
         </customView>
