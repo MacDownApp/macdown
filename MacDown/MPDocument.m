@@ -97,7 +97,7 @@ static const unichar kMPMarkupCharacters[] = {
 
     unichar c = [string characterAtIndex:0];
     unichar n = '\0';
-    if (location < content.length - 1)
+    if (location < content.length)
         n = [content characterAtIndex:location];
 
     for (const unichar *cs = kMPMatchingCharactersMap[0]; *cs != 0; cs += 2)
