@@ -345,6 +345,52 @@
                                     <action selector="copyHtml:" target="-1" id="psH-qo-GSR"/>
                                 </connections>
                             </menuItem>
+                            <menuItem isSeparatorItem="YES" id="HPL-gb-p6j"/>
+                            <menuItem title="Strong" keyEquivalent="b" id="Rb9-MG-IjX">
+                                <connections>
+                                    <action selector="toggleStrong:" target="-1" id="nn4-1D-b4p"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Emphasize" keyEquivalent="i" id="4UH-k2-fgy">
+                                <connections>
+                                    <action selector="toggleEmphasis:" target="-1" id="5uU-gp-ptP"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Inline Code" keyEquivalent="k" id="iRQ-Q6-N4K">
+                                <connections>
+                                    <action selector="toggleInlineCode:" target="-1" id="XJO-7P-4Nh"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Strikethrough" keyEquivalent="-" id="9CN-Qi-Fln">
+                                <connections>
+                                    <action selector="toggleStrikethrough:" target="-1" id="rUc-gb-x5q"/>
+                                    <binding destination="eq0-c4-vgQ" name="hidden" keyPath="self.prefereces.extensionStrikethough" id="kQ0-Wi-BPs">
+                                        <dictionary key="options">
+                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Underline" keyEquivalent="u" id="98U-cK-P7J">
+                                <connections>
+                                    <action selector="toggleUnderline:" target="-1" id="Jvi-30-6Gz"/>
+                                    <binding destination="eq0-c4-vgQ" name="hidden" keyPath="self.prefereces.extensionUnderline" id="HNG-eA-odB">
+                                        <dictionary key="options">
+                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Highlight" keyEquivalent="=" id="2Os-ij-Aup">
+                                <connections>
+                                    <action selector="toggleHighlight:" target="-1" id="Uda-cB-xYx"/>
+                                    <binding destination="eq0-c4-vgQ" name="hidden" keyPath="self.prefereces.extensionHighlight" id="9y2-h2-XrX">
+                                        <dictionary key="options">
+                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
+                            </menuItem>
                         </items>
                     </menu>
                 </menuItem>
@@ -388,5 +434,6 @@
             </items>
         </menu>
         <customObject id="eq0-c4-vgQ" customClass="MPMainController"/>
+        <userDefaultsController representsSharedInstance="YES" id="ow1-Qr-nTV"/>
     </objects>
 </document>

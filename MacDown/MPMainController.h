@@ -7,7 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+@class MPPreferences;
 
 @interface MPMainController : NSObject
+
+@property (nonatomic, readonly) MPPreferences *prefereces;
 
 @end

@@ -8,6 +8,7 @@
 
 #import "MPMainController.h"
 #import <MASPreferences/MASPreferencesWindowController.h>
+#import "MPPreferences.h"
 #import "MPMarkdownPreferencesViewController.h"
 #import "MPEditorPreferencesViewController.h"
 #import "MPHtmlPreferencesViewController.h"
@@ -21,6 +22,11 @@
 @implementation MPMainController
 
 @synthesize preferencesWindowController = _preferencesWindowController;
+
+- (MPPreferences *)prefereces
+{
+    return [MPPreferences sharedInstance];
+}
 
 - (NSWindowController *)preferencesWindowController
 {

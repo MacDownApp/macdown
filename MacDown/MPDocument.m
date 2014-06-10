@@ -77,6 +77,32 @@ static const unichar kMPMarkupCharacters[] = {
     return p;
 }
 
+- (BOOL)substringInRange:(NSRange)range isSurroundedByMarkup:(NSString *)markup
+{
+    NSString *content = self.string;
+    NSUInteger location = range.location;
+    NSUInteger length = range.length;
+    if (content.length < location + length + markup.length)
+        return NO;
+    if (location < markup.length)
+        return NO;
+
+    if (![[content substringFromIndex:location + length] hasPrefix:markup]
+        || ![[content substringToIndex:location] hasSuffix:markup])
+        return NO;
+    if (![markup isEqualToString:@"*"])
+        return YES;
+
+    // Emphasis (*) requires special treatment because we need to eliminate
+    // strong (**) but not strong-emphasis (***).
+    if ([self substringInRange:range isSurroundedByMarkup:@"***"])
+        return YES;
+    if ([self substringInRange:range isSurroundedByMarkup:@"**"])
+        return NO;
+    return YES;
+}
+
+
 - (void)insertSpacesForTab
 {
     NSString *spaces = @"    ";
@@ -206,6 +232,41 @@ static const unichar kMPMarkupCharacters[] = {
     NSRange range = NSMakeRange(location - offset, offset);
     [self replaceCharactersInRange:range withString:@""];
     return YES;
+}
+
+- (void)toggleForWrappingMarkup:(NSString *)markup
+{
+    NSRange range = self.selectedRange;
+
+    // No selection: Insert paired markup and put cursor in the middle.
+    if (range.length == 0)
+    {
+        [self insertText:[NSString stringWithFormat:@"%@%@", markup, markup]];
+        range.location += markup.length;
+    }
+    else    // Has selection: Toggle markup.
+    {
+        NSString *selection = [self.string substringWithRange:range];
+
+        // Selection is already marked-up. Clear markup and maintain selection.
+        if ([self substringInRange:range isSurroundedByMarkup:markup])
+        {
+            NSUInteger offset = markup.length;
+            NSRange sub = NSMakeRange(range.location - offset,
+                                      selection.length + offset * 2);
+            [self insertText:selection replacementRange:sub];
+            range.location = sub.location;
+        }
+        // Selection is normal. Mark it up and maintain selection.
+        else
+        {
+            NSString *text = [NSString stringWithFormat:@"%@%@%@",
+                                markup, selection, markup];
+            [self insertText:text replacementRange:range];
+            range.location += markup.length;
+        }
+    }
+    self.selectedRange = range;
 }
 
 @end
@@ -467,6 +528,36 @@ static const unichar kMPMarkupCharacters[] = {
     NSPasteboard *pasteboard = [NSPasteboard generalPasteboard];
     [pasteboard clearContents];
     [pasteboard writeObjects:@[self.currentHtml]];
+}
+
+- (IBAction)toggleStrong:(id)sender
+{
+    [self.editor toggleForWrappingMarkup:@"**"];
+}
+
+- (IBAction)toggleEmphasis:(id)sender
+{
+    [self.editor toggleForWrappingMarkup:@"*"];
+}
+
+- (IBAction)toggleInlineCode:(id)sender
+{
+    [self.editor toggleForWrappingMarkup:@"`"];
+}
+
+- (IBAction)toggleStrikethrough:(id)sender
+{
+    [self.editor toggleForWrappingMarkup:@"~~"];
+}
+
+- (IBAction)toggleUnderline:(id)sender
+{
+    [self.editor toggleForWrappingMarkup:@"_"];
+}
+
+- (IBAction)toggleHighlight:(id)sender
+{
+    [self.editor toggleForWrappingMarkup:@"=="];
 }
 
 
