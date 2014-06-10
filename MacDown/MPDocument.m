@@ -30,11 +30,11 @@ static const unichar kMPMatchingCharactersMap[][2] = {
     {L'\0', L'\0'},
 };
 
-static const unichar kMPMarkupCharacters[] = {
-    L'*', L'_', L'`', L'\0',
-};
-
 static const unichar kMPStrikethroughCharacter = L'~';
+
+static const unichar kMPMarkupCharacters[] = {
+    L'*', L'_', L'`', L'=', L'\0',
+};
 
 
 @implementation MPPreferences (Hoedown)
