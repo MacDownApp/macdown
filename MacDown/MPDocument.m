@@ -19,6 +19,7 @@ static const unichar kMPMatchingCharsMap[13][2] = {
     {L'(', L')'},
     {L'[', L']'},
     {L'{', L'}'},
+    {L'<', L'>'},
     {L'\'', L'\''},
     {L'\"', L'\"'},
     {L'\uff08', L'\uff09'},     // full-width parentheses
