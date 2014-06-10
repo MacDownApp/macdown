@@ -8,13 +8,13 @@
 
 #import "MPUtilities.h"
 
-NSString * const MPApplicationName = @"MacDown";
-NSString * const MPStylesDirectoryName = @"Styles";
-NSString * const MPStyleFileExtension = @".css";
-NSString * const MPThemesDirectoryName = @"Themes";
-NSString * const MPThemeFileExtension = @".style";
+NSString * const kMPApplicationName = @"MacDown";
+NSString * const kMPStylesDirectoryName = @"Styles";
+NSString * const kMPStyleFileExtension = @".css";
+NSString * const kMPThemesDirectoryName = @"Themes";
+NSString * const kMPThemeFileExtension = @".style";
 
-NSString *MPGetDataRootPath()
+static NSString *MPDataRootDirectory()
 {
     NSArray *paths =
         NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory,
@@ -22,19 +22,59 @@ NSString *MPGetDataRootPath()
     NSCAssert(paths.count > 0,
               @"Cannot find directory for NSApplicationSupportDirectory.");
     NSString *path = [NSString pathWithComponents:@[paths[0],
-                                                    MPApplicationName]];
+                                                    kMPApplicationName]];
     return path;
 }
 
-NSString *MPGetDataDirectoryPath(NSString *relativePath)
+NSString *MPDataDirectory(NSString *relativePath)
 {
-    return [NSString pathWithComponents:@[MPGetDataRootPath(), relativePath]];
+    if (!relativePath)
+        return MPDataRootDirectory();
+    return [NSString pathWithComponents:@[MPDataRootDirectory(), relativePath]];
 }
 
-NSString *MPGetDataFilePath(NSString *name, NSString *dirPath)
+NSString *MPPathToDataFile(NSString *name, NSString *dirPath)
 {
-    if (!dirPath)
-        return [NSString pathWithComponents:@[MPGetDataRootPath(), name]];
-    return [NSString pathWithComponents:@[MPGetDataDirectoryPath(dirPath),
+    return [NSString pathWithComponents:@[MPDataDirectory(dirPath),
                                           name]];
+}
+
+NSArray *MPListEntriesForDirectory(
+    NSString *dirName, NSString *(^processor)(NSString *absolutePath))
+{
+    NSString *dirPath = MPDataDirectory(dirName);
+
+    NSError *error = nil;
+    NSFileManager *manager = [NSFileManager defaultManager];
+    NSArray *fileNames = [manager contentsOfDirectoryAtPath:dirPath
+                                                      error:&error];
+    if (error || !fileNames.count)
+        return @[];
+
+    NSMutableArray *items = [[NSMutableArray alloc] init];
+    for (NSString *fileName in fileNames)
+    {
+        NSString *item = [NSString pathWithComponents:@[dirPath, fileName]];
+        if (processor)
+            item = processor(item);
+        if (item)
+            [items addObject:item];
+    }
+    return [items copy];
+}
+
+NSString *(^MPFileNameHasSuffixProcessor(NSString *suffix))(NSString *path)
+{
+    id block = ^(NSString *absPath) {
+        NSFileManager *manager = [NSFileManager defaultManager];
+        NSString *name = absPath.lastPathComponent;
+        NSString *processed = nil;
+        if ([name hasSuffix:suffix] && [manager fileExistsAtPath:absPath])
+        {
+            NSUInteger end = name.length - suffix.length;
+            processed = [name substringToIndex:end];
+        }
+        return processed;
+    };
+    return block;
 }

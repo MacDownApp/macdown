@@ -8,12 +8,18 @@
 
 #import <Foundation/Foundation.h>
 
-extern NSString * const MPApplicationName;
-extern NSString * const MPStylesDirectoryName;
-extern NSString * const MPStyleFileExtension;
-extern NSString * const MPThemesDirectoryName;
-extern NSString * const MPThemeFileExtension;
+extern NSString * const kMPApplicationName;
+extern NSString * const kMPStylesDirectoryName;
+extern NSString * const kMPStyleFileExtension;
+extern NSString * const kMPThemesDirectoryName;
+extern NSString * const kMPThemeFileExtension;
 
-NSString *MPGetDataRootPath();
-NSString *MPGetDataDirectoryPath(NSString *relativePath);
-NSString *MPGetDataFilePath(NSString *name, NSString *dirPath);
+NSString *MPDataDirectory(NSString *relativePath);
+NSString *MPPathToDataFile(NSString *name, NSString *dirPath);
+
+NSArray *MPListEntriesForDirectory(
+    NSString *dirName, NSString *(^processor)(NSString *absolutePath)
+);
+
+// Block factory for MPListEntriesForDirectory
+NSString *(^MPFileNameHasSuffixProcessor(NSString *suffix))(NSString *path);

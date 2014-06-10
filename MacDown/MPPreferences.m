@@ -8,10 +8,10 @@
 
 #import "MPPreferences.h"
 
-static NSString * const MPDefaultEditorFontNameKey = @"name";
-static NSString * const MPDefaultEditorFontPointSizeKey = @"size";
-static NSString * const MPDefaultEditorFontName = @"Menlo-Regular";
-static CGFloat    const MPDefaultEditorFontPointSize = 12.0;
+static NSString * const kMPDefaultEditorFontNameKey = @"name";
+static NSString * const kMPDefaultEditorFontPointSizeKey = @"size";
+static NSString * const kMPDefaultEditorFontName = @"Menlo-Regular";
+static CGFloat    const kMPDefaultEditorFontPointSize = 14.0;
 
 static NSString * const MPPreferencesDidSynchronizeNotificationName =
     @"MPPreferencesDidSynchronizeNotificationName";
@@ -37,8 +37,8 @@ static NSString * const MPPreferencesDidSynchronizeNotificationName =
         self.extensionFencedCode = YES;
         self.extensionFootnotes = YES;
         self.editorBaseFontInfo = [NSDictionary dictionaryWithObjectsAndKeys:
-            MPDefaultEditorFontName, MPDefaultEditorFontNameKey,
-            @(MPDefaultEditorFontPointSize), MPDefaultEditorFontPointSizeKey,
+            kMPDefaultEditorFontName, kMPDefaultEditorFontNameKey,
+            @(kMPDefaultEditorFontPointSize), kMPDefaultEditorFontPointSizeKey,
         nil];
 
         self.htmlDefaultDirectoryUrl = [NSURL fileURLWithPath:NSHomeDirectory()

@@ -15,8 +15,8 @@
 #import "MPPreferences.h"
 
 
-static const size_t MPMatchingCharsMapLength = 10;
-static const unichar MPMatchingCharsMap[MPMatchingCharsMapLength][2] = {
+static const size_t kMPMatchingCharsMapLength = 10;
+static const unichar kMPMatchingCharsMap[kMPMatchingCharsMapLength][2] = {
     {L'(', L')'},
     {L'[', L']'},
     {L'{', L'}'},
@@ -365,9 +365,9 @@ static const unichar MPMatchingCharsMap[MPMatchingCharsMapLength][2] = {
         n = [textViewContent characterAtIndex:range.location];
 
     NSString *completion = nil;
-    for (size_t i = 0; i < MPMatchingCharsMapLength; i++)
+    for (size_t i = 0; i < kMPMatchingCharsMapLength; i++)
     {
-        const unichar *chars = MPMatchingCharsMap[i];
+        const unichar *chars = kMPMatchingCharsMap[i];
         if (c == chars[0] && n != chars[1])
         {
             completion = [NSString stringWithCharacters:chars length:2];
@@ -391,9 +391,9 @@ static const unichar MPMatchingCharsMap[MPMatchingCharsMapLength][2] = {
 {
     NSString *wrapped = [textView.string substringWithRange:range];
     unichar c = [string characterAtIndex:0];
-    for (size_t i = 0; i < MPMatchingCharsMapLength; i++)
+    for (size_t i = 0; i < kMPMatchingCharsMapLength; i++)
     {
-        const unichar *chars = MPMatchingCharsMap[i];
+        const unichar *chars = kMPMatchingCharsMap[i];
         if (c == chars[0])
         {
             NSString *f = [NSString stringWithCharacters:chars length:1];
@@ -418,9 +418,9 @@ static const unichar MPMatchingCharsMap[MPMatchingCharsMapLength][2] = {
 
     unichar f = [string characterAtIndex:location - 1];
     unichar b = [string characterAtIndex:location];
-    for (size_t i = 0; i < MPMatchingCharsMapLength; i++)
+    for (size_t i = 0; i < kMPMatchingCharsMapLength; i++)
     {
-        const unichar *chars = MPMatchingCharsMap[i];
+        const unichar *chars = kMPMatchingCharsMap[i];
         if (f == chars[0] && b == chars[1])
         {
             [textView replaceCharactersInRange:NSMakeRange(location - 1, 2)
@@ -448,9 +448,9 @@ static const unichar MPMatchingCharsMap[MPMatchingCharsMapLength][2] = {
 
 - (NSString *)styleStringForName:(NSString *)name
 {
-    if (![name hasSuffix:MPStyleFileExtension])
-        name = [NSString stringWithFormat:@"%@%@", name, MPStyleFileExtension];
-    NSString *path = MPGetDataFilePath(name, MPStylesDirectoryName);
+    if (![name hasSuffix:kMPStyleFileExtension])
+        name = [NSString stringWithFormat:@"%@%@", name, kMPStyleFileExtension];
+    NSString *path = MPPathToDataFile(name, kMPStylesDirectoryName);
     if (![[NSFileManager defaultManager] fileExistsAtPath:path])
         return nil;
 
@@ -466,9 +466,9 @@ static const unichar MPMatchingCharsMap[MPMatchingCharsMapLength][2] = {
 
 - (NSString *)themeStringForName:(NSString *)name
 {
-    if (![name hasSuffix:MPThemeFileExtension])
-        name = [NSString stringWithFormat:@"%@%@", name, MPThemeFileExtension];
-    NSString *path = MPGetDataFilePath(name, MPThemesDirectoryName);
+    if (![name hasSuffix:kMPThemeFileExtension])
+        name = [NSString stringWithFormat:@"%@%@", name, kMPThemeFileExtension];
+    NSString *path = MPPathToDataFile(name, kMPThemesDirectoryName);
     if (![[NSFileManager defaultManager] fileExistsAtPath:path])
         return nil;
 

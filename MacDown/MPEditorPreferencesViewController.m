@@ -47,7 +47,7 @@
 - (void)viewWillAppear
 {
     [self refreshPreviewForFont:[self.preferences.editorBaseFont copy]];
-    [self reloadThemes];
+    [self loadThemes];
 }
 
 
@@ -61,32 +61,18 @@
     self.fontPreviewField.font = font;
 }
 
-- (void)reloadThemes
+- (void)loadThemes
 {
     [self.themeSelect setEnabled:NO];
-
     [self.themeSelect removeAllItems];
-    NSString *dirPath = MPGetDataDirectoryPath(MPThemesDirectoryName);
 
-    NSError *error = nil;
-    NSFileManager *manager = [NSFileManager defaultManager];
-    NSArray *fileNames = [manager contentsOfDirectoryAtPath:dirPath
-                                                      error:&error];
-    if (error || !fileNames.count)
-        return;
+    NSArray *itemTitles = MPListEntriesForDirectory(
+        kMPThemesDirectoryName,
+        MPFileNameHasSuffixProcessor(kMPThemeFileExtension)
+    );
 
     [self.themeSelect addItemWithTitle:@""];
-    for (NSString *fileName in fileNames)
-    {
-        NSString *absPath = [NSString pathWithComponents:@[dirPath, fileName]];
-        if ([fileName hasSuffix:MPThemeFileExtension]
-            && [manager fileExistsAtPath:absPath isDirectory:NO])
-        {
-            NSUInteger end = fileName.length - MPThemeFileExtension.length;
-            NSString *title = [fileName substringToIndex:end];
-            [self.themeSelect addItemWithTitle:title];
-        }
-    }
+    [self.themeSelect addItemsWithTitles:itemTitles];
 
     NSString *title = [self.preferences.editorStyleName copy];
     if (title.length)
@@ -152,14 +138,14 @@
     {
         case 0:     // Reveal
         {
-            NSString *dirPath = MPGetDataDirectoryPath(MPThemesDirectoryName);
+            NSString *dirPath = MPDataDirectory(kMPThemesDirectoryName);
             NSURL *url = [NSURL fileURLWithPath:dirPath];
             NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
             [workspace activateFileViewerSelectingURLs:@[url]];
             break;
         }
         case 1:     // Reload
-            [self reloadThemes];
+            [self loadThemes];
             break;
         default:
             break;

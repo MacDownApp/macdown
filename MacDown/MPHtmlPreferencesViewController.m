@@ -44,7 +44,7 @@
 
 - (void)viewWillAppear
 {
-    [self reloadStylesheets];
+    [self loadStylesheets];
 }
 
 
@@ -73,14 +73,14 @@
     {
         case 0:     // Reveal
         {
-            NSString *dirPath = MPGetDataDirectoryPath(MPStylesDirectoryName);
+            NSString *dirPath = MPDataDirectory(kMPStylesDirectoryName);
             NSURL *url = [NSURL fileURLWithPath:dirPath];
             NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
             [workspace activateFileViewerSelectingURLs:@[url]];
             break;
         }
         case 1:     // Reload
-            [self reloadStylesheets];
+            [self loadStylesheets];
             break;
         default:
             break;
@@ -90,32 +90,18 @@
 
 #pragma mark - Private
 
-- (void)reloadStylesheets
+- (void)loadStylesheets
 {
     [self.stylesheetSelect setEnabled:NO];
-
     [self.stylesheetSelect removeAllItems];
-    NSString *dirPath = MPGetDataDirectoryPath(MPStylesDirectoryName);
 
-    NSError *error = nil;
-    NSFileManager *manager = [NSFileManager defaultManager];
-    NSArray *fileNames = [manager contentsOfDirectoryAtPath:dirPath
-                                                      error:&error];
-    if (error || !fileNames.count)
-        return;
+    NSArray *itemTitles = MPListEntriesForDirectory(
+        kMPStylesDirectoryName,
+        MPFileNameHasSuffixProcessor(kMPStyleFileExtension)
+    );
 
     [self.stylesheetSelect addItemWithTitle:@""];
-    for (NSString *fileName in fileNames)
-    {
-        NSString *absPath = [NSString pathWithComponents:@[dirPath, fileName]];
-        if ([fileName hasSuffix:MPStyleFileExtension]
-            && [manager fileExistsAtPath:absPath isDirectory:NO])
-        {
-            NSUInteger end = fileName.length - MPStyleFileExtension.length;
-            NSString *title = [fileName substringToIndex:end];
-            [self.stylesheetSelect addItemWithTitle:title];
-        }
-    }
+    [self.stylesheetSelect addItemsWithTitles:itemTitles];
 
     NSString *title = [self.preferences.htmlStyleName copy];
     if (title.length)
