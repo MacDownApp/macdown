@@ -356,25 +356,20 @@
                                     <action selector="toggleEmphasis:" target="-1" id="5uU-gp-ptP"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Inline Code" keyEquivalent="k" id="iRQ-Q6-N4K">
+                            <menuItem title="Underline" keyEquivalent="u" id="98U-cK-P7J">
                                 <connections>
-                                    <action selector="toggleInlineCode:" target="-1" id="XJO-7P-4Nh"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Strikethrough" keyEquivalent="-" id="9CN-Qi-Fln">
-                                <connections>
-                                    <action selector="toggleStrikethrough:" target="-1" id="rUc-gb-x5q"/>
-                                    <binding destination="eq0-c4-vgQ" name="hidden" keyPath="self.prefereces.extensionStrikethough" id="kQ0-Wi-BPs">
+                                    <action selector="toggleUnderline:" target="-1" id="Jvi-30-6Gz"/>
+                                    <binding destination="eq0-c4-vgQ" name="hidden" keyPath="self.prefereces.extensionUnderline" id="HNG-eA-odB">
                                         <dictionary key="options">
                                             <string key="NSValueTransformerName">NSNegateBoolean</string>
                                         </dictionary>
                                     </binding>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Underline" keyEquivalent="u" id="98U-cK-P7J">
+                            <menuItem title="Strikethrough" keyEquivalent="-" id="9CN-Qi-Fln">
                                 <connections>
-                                    <action selector="toggleUnderline:" target="-1" id="Jvi-30-6Gz"/>
-                                    <binding destination="eq0-c4-vgQ" name="hidden" keyPath="self.prefereces.extensionUnderline" id="HNG-eA-odB">
+                                    <action selector="toggleStrikethrough:" target="-1" id="rUc-gb-x5q"/>
+                                    <binding destination="eq0-c4-vgQ" name="hidden" keyPath="self.prefereces.extensionStrikethough" id="kQ0-Wi-BPs">
                                         <dictionary key="options">
                                             <string key="NSValueTransformerName">NSNegateBoolean</string>
                                         </dictionary>
@@ -391,17 +386,19 @@
                                     </binding>
                                 </connections>
                             </menuItem>
-                            <menuItem isSeparatorItem="YES" id="jLT-fP-2ps"/>
-                            <menuItem title="Paragraph Break" id="zHE-JL-8eu">
-                                <string key="keyEquivalent" base64-UTF8="YES">
-DQ
-</string>
+                            <menuItem title="Inline Code" keyEquivalent="k" id="iRQ-Q6-N4K">
+                                <connections>
+                                    <action selector="toggleInlineCode:" target="-1" id="XJO-7P-4Nh"/>
+                                </connections>
                             </menuItem>
-                            <menuItem title="Line Break" id="T1D-Cb-THJ">
+                            <menuItem isSeparatorItem="YES" id="jLT-fP-2ps"/>
+                            <menuItem title="New Paragraph" id="zHE-JL-8eu">
                                 <string key="keyEquivalent" base64-UTF8="YES">
 DQ
 </string>
-                                <modifierMask key="keyEquivalentModifierMask" control="YES"/>
+                                <connections>
+                                    <action selector="insertNewParagraph:" target="-1" id="zZY-IZ-9sG"/>
+                                </connections>
                             </menuItem>
                             <menuItem title="Comment" keyEquivalent="/" id="i8c-gf-w29">
                                 <connections>

@@ -77,6 +77,17 @@ static const unichar kMPMarkupCharacters[] = {
     return p;
 }
 
+- (NSUInteger)locationOfFirstNewlineAfter:(NSUInteger)location
+{
+    NSCharacterSet *newline = [NSCharacterSet newlineCharacterSet];
+    NSString *text = self.string;
+    NSInteger p = location + 1;
+    while (p < text.length
+           && ![newline characterIsMember:[text characterAtIndex:p]])
+        p++;
+    return p;
+}
+
 - (BOOL)substringInRange:(NSRange)range isSurroundedByPrefix:(NSString *)prefix
                   suffix:(NSString *)suffix
 {
@@ -555,6 +566,16 @@ static const unichar kMPMarkupCharacters[] = {
 - (IBAction)toggleComment:(id)sender
 {
     [self.editor toggleForMarkupPrefix:@"<!--" suffix:@"-->"];
+}
+
+- (IBAction)insertNewParagraph:(id)sender
+{
+    NSRange range = self.editor.selectedRange;
+    NSUInteger start = range.location + range.length - 1;
+    range.location = [self.editor locationOfFirstNewlineAfter:start];
+    range.length = 0;
+    self.editor.selectedRange = range;
+    [self.editor insertText:@"\n\n"];
 }
 
 
