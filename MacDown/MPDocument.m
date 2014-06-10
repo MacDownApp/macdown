@@ -67,18 +67,21 @@ static const unichar kMPStrikethroughCharacter = L'~';
 
 @implementation NSTextView (Autocompletion)
 
+- (NSInteger)locationOfFirstNewlineBefore:(NSUInteger)location
+{
+    NSCharacterSet *newline = [NSCharacterSet newlineCharacterSet];
+    NSString *text = self.string;
+    NSInteger p = location - 1;
+    while (p >= 0 && ![newline characterIsMember:[text characterAtIndex:p]])
+        p--;
+    return p;
+}
+
 - (void)insertSpacesForTab
 {
     NSString *spaces = @"    ";
-
-    // Count how far we are from the previous newline character or start of
-    // document (-1).
-    NSString *text = self.string;
-    NSCharacterSet *newline = [NSCharacterSet newlineCharacterSet];
-    NSInteger currentLocation = self.selectedRange.location;
-    NSInteger p = currentLocation - 1;
-    while (p >= 0 && ![newline characterIsMember:[text characterAtIndex:p]])
-        p--;
+    NSUInteger currentLocation = self.selectedRange.location;
+    NSInteger p = [self locationOfFirstNewlineBefore:currentLocation];
 
     // Calculate how deep we need to go.
     NSUInteger offset = (currentLocation - p - 1) % 4;
@@ -178,6 +181,30 @@ static const unichar kMPStrikethroughCharacter = L'~';
         }
     }
     return NO;
+}
+
+- (BOOL)unindentForSpacesBefore:(NSUInteger)location
+{
+    NSString *string = self.string;
+
+    NSUInteger whitespaceCount = 0;
+    while (location - whitespaceCount > 0
+           && [string characterAtIndex:location - whitespaceCount - 1] == L' ')
+    {
+        whitespaceCount++;
+        if (whitespaceCount >= 4)
+            break;
+    }
+    if (whitespaceCount < 2)
+        return NO;
+
+    NSUInteger offset = ([self locationOfFirstNewlineBefore:location] + 1) % 4;
+    if (offset == 0)
+        offset = 4;
+    offset = offset > whitespaceCount ? whitespaceCount : 4;
+    NSRange range = NSMakeRange(location - offset, offset);
+    [self replaceCharactersInRange:range withString:@""];
+    return YES;
 }
 
 @end
@@ -383,6 +410,12 @@ static const unichar kMPStrikethroughCharacter = L'~';
     {
         NSUInteger location = self.editor.selectedRange.location;
         if ([self.editor deleteMatchingCharactersAround:location])
+            return NO;
+    }
+    if (self.preferences.editorConvertTabs)
+    {
+        NSUInteger location = self.editor.selectedRange.location;
+        if ([self.editor unindentForSpacesBefore:location])
             return NO;
     }
     return YES;
