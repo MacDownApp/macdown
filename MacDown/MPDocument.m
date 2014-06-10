@@ -159,10 +159,9 @@ static const unichar kMPStrikethroughCharacter = L'~';
     return NO;
 }
 
-- (BOOL)deleteMatchingCharactersInRange:(NSRange)range
+- (BOOL)deleteMatchingCharactersAround:(NSUInteger)location
 {
     NSString *string = self.string;
-    NSUInteger location = range.location;
     if (location == 0 || location >= string.length)
         return NO;
 
@@ -382,8 +381,8 @@ static const unichar kMPStrikethroughCharacter = L'~';
 {
     if (self.preferences.editorCompleteMatchingCharacters)
     {
-        NSRange range = textView.selectedRange;
-        if ([self.editor deleteMatchingCharactersInRange:range])
+        NSUInteger location = self.editor.selectedRange.location;
+        if ([self.editor deleteMatchingCharactersAround:location])
             return NO;
     }
     return YES;
