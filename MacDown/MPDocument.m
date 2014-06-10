@@ -77,27 +77,28 @@ static const unichar kMPMarkupCharacters[] = {
     return p;
 }
 
-- (BOOL)substringInRange:(NSRange)range isSurroundedByMarkup:(NSString *)markup
+- (BOOL)substringInRange:(NSRange)range isSurroundedByPrefix:(NSString *)prefix
+                  suffix:(NSString *)suffix
 {
     NSString *content = self.string;
     NSUInteger location = range.location;
     NSUInteger length = range.length;
-    if (content.length < location + length + markup.length)
+    if (content.length < location + length + suffix.length)
         return NO;
-    if (location < markup.length)
+    if (location < prefix.length)
         return NO;
 
-    if (![[content substringFromIndex:location + length] hasPrefix:markup]
-        || ![[content substringToIndex:location] hasSuffix:markup])
+    if (![[content substringFromIndex:location + length] hasPrefix:suffix]
+        || ![[content substringToIndex:location] hasSuffix:prefix])
         return NO;
-    if (![markup isEqualToString:@"*"])
-        return YES;
 
     // Emphasis (*) requires special treatment because we need to eliminate
     // strong (**) but not strong-emphasis (***).
-    if ([self substringInRange:range isSurroundedByMarkup:@"***"])
+    if (![prefix isEqualToString:@"*"] || ![suffix isEqualToString:@"*"])
         return YES;
-    if ([self substringInRange:range isSurroundedByMarkup:@"**"])
+    if ([self substringInRange:range isSurroundedByPrefix:@"***" suffix:@"***"])
+        return YES;
+    if ([self substringInRange:range isSurroundedByPrefix:@"**" suffix:@"**"])
         return NO;
     return YES;
 }
@@ -234,37 +235,28 @@ static const unichar kMPMarkupCharacters[] = {
     return YES;
 }
 
-- (void)toggleForWrappingMarkup:(NSString *)markup
+- (void)toggleForMarkupPrefix:(NSString *)prefix suffix:(NSString *)suffix
 {
     NSRange range = self.selectedRange;
+    NSString *selection = [self.string substringWithRange:range];
 
-    // No selection: Insert paired markup and put cursor in the middle.
-    if (range.length == 0)
+    // Selection is already marked-up. Clear markup and maintain selection.
+    NSUInteger poff = prefix.length;
+    if ([self substringInRange:range isSurroundedByPrefix:prefix
+                        suffix:suffix])
     {
-        [self insertText:[NSString stringWithFormat:@"%@%@", markup, markup]];
-        range.location += markup.length;
+        NSRange sub = NSMakeRange(range.location - poff,
+                                  selection.length + poff + suffix.length);
+        [self insertText:selection replacementRange:sub];
+        range.location = sub.location;
     }
-    else    // Has selection: Toggle markup.
+    // Selection is normal. Mark it up and maintain selection.
+    else
     {
-        NSString *selection = [self.string substringWithRange:range];
-
-        // Selection is already marked-up. Clear markup and maintain selection.
-        if ([self substringInRange:range isSurroundedByMarkup:markup])
-        {
-            NSUInteger offset = markup.length;
-            NSRange sub = NSMakeRange(range.location - offset,
-                                      selection.length + offset * 2);
-            [self insertText:selection replacementRange:sub];
-            range.location = sub.location;
-        }
-        // Selection is normal. Mark it up and maintain selection.
-        else
-        {
-            NSString *text = [NSString stringWithFormat:@"%@%@%@",
-                                markup, selection, markup];
-            [self insertText:text replacementRange:range];
-            range.location += markup.length;
-        }
+        NSString *text = [NSString stringWithFormat:@"%@%@%@",
+                            prefix, selection, suffix];
+        [self insertText:text replacementRange:range];
+        range.location += poff;
     }
     self.selectedRange = range;
 }
@@ -532,32 +524,37 @@ static const unichar kMPMarkupCharacters[] = {
 
 - (IBAction)toggleStrong:(id)sender
 {
-    [self.editor toggleForWrappingMarkup:@"**"];
+    [self.editor toggleForMarkupPrefix:@"**" suffix:@"**"];
 }
 
 - (IBAction)toggleEmphasis:(id)sender
 {
-    [self.editor toggleForWrappingMarkup:@"*"];
+    [self.editor toggleForMarkupPrefix:@"*" suffix:@"*"];
 }
 
 - (IBAction)toggleInlineCode:(id)sender
 {
-    [self.editor toggleForWrappingMarkup:@"`"];
+    [self.editor toggleForMarkupPrefix:@"`" suffix:@"`"];
 }
 
 - (IBAction)toggleStrikethrough:(id)sender
 {
-    [self.editor toggleForWrappingMarkup:@"~~"];
+    [self.editor toggleForMarkupPrefix:@"~~" suffix:@"~~"];
 }
 
 - (IBAction)toggleUnderline:(id)sender
 {
-    [self.editor toggleForWrappingMarkup:@"_"];
+    [self.editor toggleForMarkupPrefix:@"_" suffix:@"_"];
 }
 
 - (IBAction)toggleHighlight:(id)sender
 {
-    [self.editor toggleForWrappingMarkup:@"=="];
+    [self.editor toggleForMarkupPrefix:@"==" suffix:@"=="];
+}
+
+- (IBAction)toggleComment:(id)sender
+{
+    [self.editor toggleForMarkupPrefix:@"<!--" suffix:@"-->"];
 }
 
 
