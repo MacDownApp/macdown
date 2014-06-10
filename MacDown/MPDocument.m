@@ -118,41 +118,42 @@ static const unichar kMPStrikethroughCharacter = L'~';
     return NO;
 }
 
-- (BOOL)wrapMatchingCharactersForText:(NSString *)string
-                              inRange:(NSRange)range
-                 strikethroughEnabled:(BOOL)isStrikethroughEnabled
+- (void)wrapTextInRange:(NSRange)range withPrefix:(unichar)prefix
+                 suffix:(unichar)suffix
 {
-    NSString *wrapped = [self.string substringWithRange:range];
-    unichar c = [string characterAtIndex:0];
+    NSString *string = [self.string substringWithRange:range];
+    NSString *p = [NSString stringWithCharacters:&prefix length:1];
+    NSString *s = [NSString stringWithCharacters:&suffix length:1];
+    NSString *wrapped = [NSString stringWithFormat:@"%@%@%@", p, string, s];
+    [self insertText:wrapped replacementRange:range];
 
-    void (^insertingBlock)(const unichar *, const unichar *) =
-        ^(const unichar *c1, const unichar *c2) {
-            NSString *s = [NSString stringWithCharacters:c1 length:1];
-            NSString *t = [NSString stringWithCharacters:c2 length:1];
-            NSString *w = [NSString stringWithFormat:@"%@%@%@", s, wrapped, t];
-        [self insertText:w replacementRange:range];
-        self.selectedRange = NSMakeRange(range.location + 1, range.length);
-        };
+    range.location += 1;
+    self.selectedRange = range;
+}
 
+- (BOOL)wrapMatchingCharactersOfCharacter:(unichar)character
+                        aroundTextInRange:(NSRange)range
+                     strikethroughEnabled:(BOOL)isStrikethroughEnabled
+{
     for (const unichar *cs = kMPMatchingCharactersMap[0]; *cs != 0; cs += 2)
     {
-        if (c == cs[0])
+        if (character == cs[0])
         {
-            insertingBlock(cs, cs + 1);
+            [self wrapTextInRange:range withPrefix:cs[0] suffix:cs[1]];
             return YES;
         }
     }
     for (size_t i = 0; kMPMarkupCharacters[i] != 0; i++)
     {
-        if (c == kMPMarkupCharacters[i])
+        if (character == kMPMarkupCharacters[i])
         {
-            insertingBlock(&c, &c);
+            [self wrapTextInRange:range withPrefix:character suffix:character];
             return YES;
         }
     }
-    if (isStrikethroughEnabled && c == kMPStrikethroughCharacter)
+    if (isStrikethroughEnabled && character == kMPStrikethroughCharacter)
     {
-        insertingBlock(&kMPStrikethroughCharacter, &kMPStrikethroughCharacter);
+        [self wrapTextInRange:range withPrefix:character suffix:character];
         return YES;
     }
     return NO;
@@ -353,10 +354,11 @@ static const unichar kMPStrikethroughCharacter = L'~';
         // Character insert with selection (i.e. select and replace).
         else if (range.length > 0 && stringLength == 1)
         {
+            unichar character = [str characterAtIndex:0];
             BOOL strikethrough = self.preferences.extensionStrikethough;
-            if ([self.editor wrapMatchingCharactersForText:str
-                                                   inRange:range
-                                      strikethroughEnabled:strikethrough])
+            if ([self.editor wrapMatchingCharactersOfCharacter:character
+                                             aroundTextInRange:range
+                                          strikethroughEnabled:strikethrough])
                 return NO;
         }
     }
