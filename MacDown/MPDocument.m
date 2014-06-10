@@ -91,32 +91,33 @@ static const unichar kMPStrikethroughCharacter = L'~';
 }
 
 - (BOOL)completeMatchingCharacterForText:(NSString *)string
-                                 inRange:(NSRange)range
+                              atLocation:(NSUInteger)location
 {
     NSString *content = self.string;
 
     unichar c = [string characterAtIndex:0];
     unichar n = '\0';
-    if (range.location < content.length - 1)
-        n = [content characterAtIndex:range.location];
-
-    NSString *completion = nil;
+    if (location < content.length - 1)
+        n = [content characterAtIndex:location];
 
     for (const unichar *cs = kMPMatchingCharactersMap[0]; *cs != 0; cs += 2)
     {
         if (c == cs[0] && n != cs[1])
         {
-            completion = [NSString stringWithCharacters:cs length:2];
-            break;
-        }
-    }
+            NSRange range = NSMakeRange(location, 0);
+            NSString *completion = [NSString stringWithCharacters:cs length:2];
+            [self insertText:completion replacementRange:range];
 
-    if (completion)
-    {
-        [self insertText:completion replacementRange:range];
-        range.location += string.length;
-        self.selectedRange = range;
-        return YES;
+            range.location += string.length;
+            self.selectedRange = range;
+            return YES;
+        }
+        else if (n == cs[1])
+        {
+            NSRange range = NSMakeRange(location + 1, 0);
+            self.selectedRange = range;
+            return YES;
+        }
     }
     return NO;
 }
@@ -373,8 +374,9 @@ static const unichar kMPStrikethroughCharacter = L'~';
         // Character insert without selection.
         if (range.length == 0 && stringLength == 1)
         {
+            NSUInteger location = range.location;
             if ([self.editor completeMatchingCharacterForText:str
-                                                      inRange:range])
+                                                   atLocation:location])
                 return NO;
         }
         // Character insert with selection (i.e. select and replace).
