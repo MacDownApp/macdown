@@ -391,6 +391,23 @@
                                     </binding>
                                 </connections>
                             </menuItem>
+                            <menuItem isSeparatorItem="YES" id="jLT-fP-2ps"/>
+                            <menuItem title="Paragraph Break" id="zHE-JL-8eu">
+                                <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                            </menuItem>
+                            <menuItem title="Line Break" id="T1D-Cb-THJ">
+                                <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                                <modifierMask key="keyEquivalentModifierMask" control="YES"/>
+                            </menuItem>
+                            <menuItem title="Comment" keyEquivalent="/" id="i8c-gf-w29">
+                                <connections>
+                                    <action selector="toggleComment:" target="-1" id="7Xw-6O-ibS"/>
+                                </connections>
+                            </menuItem>
                         </items>
                     </menu>
                 </menuItem>
