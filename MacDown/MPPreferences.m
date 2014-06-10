@@ -58,7 +58,7 @@ static NSString * const MPPreferencesDidSynchronizeNotificationName =
 @dynamic extensionTables;
 @dynamic extensionFencedCode;
 @dynamic extensionAutolink;
-@dynamic extensionStrikeThough;
+@dynamic extensionStrikethough;
 @dynamic extensionUnderline;
 @dynamic extensionSuperscript;
 @dynamic extensionHighlight;

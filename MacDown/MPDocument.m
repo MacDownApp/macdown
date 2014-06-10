@@ -15,7 +15,7 @@
 #import "MPPreferences.h"
 
 
-static const unichar kMPMatchingCharsMap[13][2] = {
+static const unichar kMPMatchingCharactersMap[][2] = {
     {L'(', L')'},
     {L'[', L']'},
     {L'{', L'}'},
@@ -29,6 +29,12 @@ static const unichar kMPMatchingCharsMap[13][2] = {
     {L'\u201c', L'\u201d'},     // double quotes
     {L'\0', L'\0'},
 };
+
+static const unichar kMPMarkupCharacters[] = {
+    L'*', L'_', L'`', L'\0',
+};
+
+static const unichar kMPStrikethroughCharacter = L'~';
 
 
 @implementation MPPreferences (Hoedown)
@@ -47,7 +53,7 @@ static const unichar kMPMatchingCharsMap[13][2] = {
         flags |= HOEDOWN_EXT_NO_INTRA_EMPHASIS;
     if (self.extensionQuote)
         flags |= HOEDOWN_EXT_QUOTE;
-    if (self.extensionStrikeThough)
+    if (self.extensionStrikethough)
         flags |= HOEDOWN_EXT_STRIKETHROUGH;
     if (self.extensionSuperscript)
         flags |= HOEDOWN_EXT_SUPERSCRIPT;
@@ -93,11 +99,11 @@ static const unichar kMPMatchingCharsMap[13][2] = {
 
     NSString *completion = nil;
 
-    for (const unichar *chars = kMPMatchingCharsMap[0]; *chars != 0; chars += 2)
+    for (const unichar *cs = kMPMatchingCharactersMap[0]; *cs != 0; cs += 2)
     {
-        if (c == chars[0] && n != chars[1])
+        if (c == cs[0] && n != cs[1])
         {
-            completion = [NSString stringWithCharacters:chars length:2];
+            completion = [NSString stringWithCharacters:cs length:2];
             break;
         }
     }
@@ -114,22 +120,40 @@ static const unichar kMPMatchingCharsMap[13][2] = {
 
 - (BOOL)wrapMatchingCharactersForText:(NSString *)string
                               inRange:(NSRange)range
+                 strikethroughEnabled:(BOOL)isStrikethroughEnabled
 {
     NSString *wrapped = [self.string substringWithRange:range];
     unichar c = [string characterAtIndex:0];
 
-    for (const unichar *chars = kMPMatchingCharsMap[0]; *chars != 0; chars += 2)
+    void (^insertingBlock)(const unichar *, const unichar *) =
+        ^(const unichar *c1, const unichar *c2) {
+            NSString *s = [NSString stringWithCharacters:c1 length:1];
+            NSString *t = [NSString stringWithCharacters:c2 length:1];
+            NSString *w = [NSString stringWithFormat:@"%@%@%@", s, wrapped, t];
+        [self insertText:w replacementRange:range];
+        self.selectedRange = NSMakeRange(range.location + 1, range.length);
+        };
+
+    for (const unichar *cs = kMPMatchingCharactersMap[0]; *cs != 0; cs += 2)
     {
-        if (c == chars[0])
+        if (c == cs[0])
         {
-            NSString *f = [NSString stringWithCharacters:chars length:1];
-            NSString *b = [NSString stringWithCharacters:chars + 1 length:1];
-            string = [NSString stringWithFormat:@"%@%@%@", f, wrapped, b];
-            [self insertText:string replacementRange:range];
-            range.location += 1;
-            self.selectedRange = range;
+            insertingBlock(cs, cs + 1);
             return YES;
         }
+    }
+    for (size_t i = 0; kMPMarkupCharacters[i] != 0; i++)
+    {
+        if (c == kMPMarkupCharacters[i])
+        {
+            insertingBlock(&c, &c);
+            return YES;
+        }
+    }
+    if (isStrikethroughEnabled && c == kMPStrikethroughCharacter)
+    {
+        insertingBlock(&kMPStrikethroughCharacter, &kMPStrikethroughCharacter);
+        return YES;
     }
     return NO;
 }
@@ -144,16 +168,15 @@ static const unichar kMPMatchingCharsMap[13][2] = {
     unichar f = [string characterAtIndex:location - 1];
     unichar b = [string characterAtIndex:location];
 
-    for (const unichar *chars = kMPMatchingCharsMap[0]; *chars != 0; chars += 2)
+    for (const unichar *cs = kMPMatchingCharactersMap[0]; *cs != 0; cs += 2)
     {
-        if (f == chars[0] && b == chars[1])
+        if (f == cs[0] && b == cs[1])
         {
             [self replaceCharactersInRange:NSMakeRange(location - 1, 2)
                                 withString:@""];
             return YES;
         }
     }
-
     return NO;
 }
 
@@ -330,7 +353,10 @@ static const unichar kMPMatchingCharsMap[13][2] = {
         // Character insert with selection (i.e. select and replace).
         else if (range.length > 0 && stringLength == 1)
         {
-            if ([self.editor wrapMatchingCharactersForText:str inRange:range])
+            BOOL strikethrough = self.preferences.extensionStrikethough;
+            if ([self.editor wrapMatchingCharactersForText:str
+                                                   inRange:range
+                                      strikethroughEnabled:strikethrough])
                 return NO;
         }
     }
