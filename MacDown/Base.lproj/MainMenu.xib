@@ -335,22 +335,15 @@
                         </items>
                     </menu>
                 </menuItem>
-                <menuItem title="Format" id="jxT-CU-nIS">
+                <menuItem title="Actions" id="jxT-CU-nIS">
                     <modifierMask key="keyEquivalentModifierMask"/>
-                    <menu key="submenu" title="Format" id="GEO-Iw-cKr">
+                    <menu key="submenu" title="Actions" id="N43-55-MPb">
                         <items>
-                            <menuItem title="Font" id="Gi5-1S-RQB">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="Font" systemMenu="font" id="aXa-aM-Jaq">
-                                    <items>
-                                        <menuItem title="Bold" tag="2" keyEquivalent="b" id="GB9-OM-e27"/>
-                                        <menuItem title="Italic" tag="1" keyEquivalent="i" id="Vjx-xi-njq"/>
-                                        <menuItem title="Underline" keyEquivalent="u" id="WRG-CD-K1S"/>
-                                        <menuItem isSeparatorItem="YES" id="5gT-KC-WSO"/>
-                                        <menuItem title="Bigger" tag="3" keyEquivalent="+" id="Ptp-SP-VEL"/>
-                                        <menuItem title="Smaller" tag="4" keyEquivalent="-" id="i1d-Er-qST"/>
-                                    </items>
-                                </menu>
+                            <menuItem title="Copy HTML" keyEquivalent="c" id="ts7-v5-Htm">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                <connections>
+                                    <action selector="copyHtml:" target="-1" id="psH-qo-GSR"/>
+                                </connections>
                             </menuItem>
                         </items>
                     </menu>

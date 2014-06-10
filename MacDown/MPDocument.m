@@ -300,6 +300,20 @@ static const unichar kMPMatchingCharsMap[kMPMatchingCharsMapLength][2] = {
 }
 
 
+#pragma mark - IBAction
+
+- (IBAction)copyHtml:(id)sender
+{
+    // Dis-select things in WebView so that it's more obvious we're NOT
+    // respecting the selection range.
+    [self.preview setSelectedDOMRange:nil affinity:NSSelectionAffinityUpstream];
+
+    NSPasteboard *pasteboard = [NSPasteboard generalPasteboard];
+    [pasteboard clearContents];
+    [pasteboard writeObjects:@[self.currentHtml]];
+}
+
+
 #pragma mark - Private
 
 - (void)setupEditor
