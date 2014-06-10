@@ -30,10 +30,6 @@ static const unichar kMPMatchingCharsMap[13][2] = {
 };
 
 
-@interface MPPreferences (Hoedown)
-@property (nonatomic, readonly) int extensionFlags;
-@end
-
 @implementation MPPreferences (Hoedown)
 - (int)extensionFlags
 {
@@ -60,6 +56,106 @@ static const unichar kMPMatchingCharsMap[13][2] = {
         flags |= HOEDOWN_EXT_UNDERLINE;
     return flags;
 }
+@end
+
+@implementation NSTextView (Autocompletion)
+
+- (void)insertSpacesForTab
+{
+    NSString *spaces = @"    ";
+
+    // Count how far we are from the previous newline character or start of
+    // document (-1).
+    NSString *text = self.string;
+    NSCharacterSet *newline = [NSCharacterSet newlineCharacterSet];
+    NSInteger currentLocation = self.selectedRange.location;
+    NSInteger p = currentLocation - 1;
+    while (p >= 0 && ![newline characterIsMember:[text characterAtIndex:p]])
+        p--;
+
+    // Calculate how deep we need to go.
+    NSUInteger offset = (currentLocation - p - 1) % 4;
+    if (offset)
+        spaces = [spaces substringFromIndex:offset];
+    [self insertText:spaces];
+}
+
+- (BOOL)completeMatchingCharacterForText:(NSString *)string
+                                 inRange:(NSRange)range
+{
+    NSString *content = self.string;
+
+    unichar c = [string characterAtIndex:0];
+    unichar n = '\0';
+    if (range.location < content.length - 1)
+        n = [content characterAtIndex:range.location];
+
+    NSString *completion = nil;
+
+    for (const unichar *chars = kMPMatchingCharsMap[0]; *chars != 0; chars += 2)
+    {
+        if (c == chars[0] && n != chars[1])
+        {
+            completion = [NSString stringWithCharacters:chars length:2];
+            break;
+        }
+    }
+
+    if (completion)
+    {
+        [self insertText:completion replacementRange:range];
+        range.location += string.length;
+        self.selectedRange = range;
+        return YES;
+    }
+    return NO;
+}
+
+- (BOOL)wrapMatchingCharactersForText:(NSString *)string
+                              inRange:(NSRange)range
+{
+    NSString *wrapped = [self.string substringWithRange:range];
+    unichar c = [string characterAtIndex:0];
+
+    for (const unichar *chars = kMPMatchingCharsMap[0]; *chars != 0; chars += 2)
+    {
+        if (c == chars[0])
+        {
+            NSString *f = [NSString stringWithCharacters:chars length:1];
+            NSString *b = [NSString stringWithCharacters:chars + 1 length:1];
+            string = [NSString stringWithFormat:@"%@%@%@", f, wrapped, b];
+            [self insertText:string replacementRange:range];
+            range.location += 1;
+            self.selectedRange = range;
+            return YES;
+        }
+    }
+    return NO;
+}
+
+- (BOOL)deleteMatchingCharactersInRange:(NSRange)range
+{
+    NSString *string = self.string;
+    NSUInteger location = range.location;
+    if (location == 0 || location >= string.length)
+        return NO;
+
+    unichar f = [string characterAtIndex:location - 1];
+    unichar b = [string characterAtIndex:location];
+
+    for (const unichar *chars = kMPMatchingCharsMap[0]; *chars != 0; chars += 2)
+    {
+        if (f == chars[0] && b == chars[1])
+        {
+            [self replaceCharactersInRange:NSMakeRange(location - 1, 2)
+                                withString:@""];
+            return YES;
+        }
+    }
+
+    return NO;
+}
+
 @end
 
 
@@ -226,17 +322,14 @@ static const unichar kMPMatchingCharsMap[13][2] = {
         // Character insert without selection.
         if (range.length == 0 && stringLength == 1)
         {
-            if ([self completeMatchingCharacterForTextView:textView
-                                                   inRange:range
-                                         replacementString:str])
+            if ([self.editor completeMatchingCharacterForText:str
+                                                      inRange:range])
                 return NO;
         }
         // Character insert with selection (i.e. select and replace).
         else if (range.length > 0 && stringLength == 1)
         {
-            if ([self wrapMatchingCharactersForTextView:textView
-                                   forCharactersInRange:range
-                                      replacementString:str])
+            if ([self.editor wrapMatchingCharactersForText:str inRange:range])
                 return NO;
         }
     }
@@ -250,7 +343,7 @@ static const unichar kMPMatchingCharsMap[13][2] = {
 {
     if (self.preferences.editorConvertTabs)
     {
-        [self insertSpacesForTabForTextView:textView];
+        [textView insertSpacesForTab];
         return NO;
     }
     return YES;
@@ -261,7 +354,7 @@ static const unichar kMPMatchingCharsMap[13][2] = {
     if (self.preferences.editorCompleteMatchingCharacters)
     {
         NSRange range = textView.selectedRange;
-        if ([self deleteMatchingCharactersForTextView:textView inRange:range])
+        if ([self.editor deleteMatchingCharactersInRange:range])
             return NO;
     }
     return YES;
@@ -345,105 +438,6 @@ static const unichar kMPMatchingCharsMap[13][2] = {
     // Have to keep this enabled because HGMarkdownHighlighter needs them.
     NSClipView *contentView = self.editor.enclosingScrollView.contentView;
     contentView.postsBoundsChangedNotifications = YES;
-}
-
-- (void)insertSpacesForTabForTextView:(NSTextView *)textView
-{
-    NSString *spaces = @"    ";
-
-    // Count how far we are from the previous newline character or start of
-    // document (-1).
-    NSString *text = textView.string;
-    NSCharacterSet *newline = [NSCharacterSet newlineCharacterSet];
-    NSInteger currentLocation = textView.selectedRange.location;
-    NSInteger p = currentLocation - 1;
-    while (p >= 0 && ![newline characterIsMember:[text characterAtIndex:p]])
-        p--;
-
-    // Calculate how deep we need to go.
-    NSUInteger offset = (currentLocation - p - 1) % 4;
-    if (offset)
-        spaces = [spaces substringFromIndex:offset];
-    [textView insertText:spaces];
-}
-
-- (BOOL)completeMatchingCharacterForTextView:(NSTextView *)textView
-                                      inRange:(NSRange)range
-                           replacementString:(NSString *)string
-{
-    NSString *textViewContent = textView.string;
-
-    unichar c = [string characterAtIndex:0];
-    unichar n = '\0';
-    if (range.location < textViewContent.length - 1)
-        n = [textViewContent characterAtIndex:range.location];
-
-    NSString *completion = nil;
-
-    for (const unichar *chars = kMPMatchingCharsMap[0]; *chars != 0; chars += 2)
-    {
-        if (c == chars[0] && n != chars[1])
-        {
-            completion = [NSString stringWithCharacters:chars length:2];
-            break;
-        }
-    }
-
-    if (completion)
-    {
-        [textView insertText:completion replacementRange:range];
-        range.location += string.length;
-        textView.selectedRange = range;
-        return YES;
-    }
-    return NO;
-}
-
-- (BOOL)wrapMatchingCharactersForTextView:(NSTextView *)textView
-                     forCharactersInRange:(NSRange)range
-                        replacementString:(NSString *)string
-{
-    NSString *wrapped = [textView.string substringWithRange:range];
-    unichar c = [string characterAtIndex:0];
-
-    for (const unichar *chars = kMPMatchingCharsMap[0]; *chars != 0; chars += 2)
-    {
-        if (c == chars[0])
-        {
-            NSString *f = [NSString stringWithCharacters:chars length:1];
-            NSString *b = [NSString stringWithCharacters:chars + 1 length:1];
-            string = [NSString stringWithFormat:@"%@%@%@", f, wrapped, b];
-            [textView insertText:string replacementRange:range];
-            range.location += 1;
-            textView.selectedRange = range;
-            return YES;
-        }
-    }
-    return NO;
-}
-
-- (BOOL)deleteMatchingCharactersForTextView:(NSTextView *)textView
-                                    inRange:(NSRange)range
-{
-    NSString *string = textView.string;
-    NSUInteger location = range.location;
-    if (location == 0 || location >= string.length)
-        return NO;
-
-    unichar f = [string characterAtIndex:location - 1];
-    unichar b = [string characterAtIndex:location];
-
-    for (const unichar *chars = kMPMatchingCharsMap[0]; *chars != 0; chars += 2)
-    {
-        if (f == chars[0] && b == chars[1])
-        {
-            [textView replaceCharactersInRange:NSMakeRange(location - 1, 2)
-                                    withString:@""];
-            return YES;
-        }
-    }
-
-    return NO;
 }
 
 - (void)syncScrollers
