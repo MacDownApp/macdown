@@ -125,6 +125,32 @@ static const unichar kMPMarkupCharacters[] = {
     [self insertText:spaces];
 }
 
+- (BOOL)completeMatchingCharactersForTextInRange:(NSRange)range
+                                      withString:(NSString *)str
+                            strikethroughEnabled:(BOOL)strikethrough
+{
+    NSUInteger stringLength = str.length;
+
+    // Character insert without selection.
+    if (range.length == 0 && stringLength == 1)
+    {
+        NSUInteger location = range.location;
+        if ([self completeMatchingCharacterForText:str
+                                        atLocation:location])
+            return YES;
+    }
+    // Character insert with selection (i.e. select and replace).
+    else if (range.length > 0 && stringLength == 1)
+    {
+        unichar character = [str characterAtIndex:0];
+        if ([self wrapMatchingCharactersOfCharacter:character
+                                      aroundTextInRange:range
+                                   strikethroughEnabled:strikethrough])
+            return YES;
+    }
+    return NO;
+}
+
 - (BOOL)completeMatchingCharacterForText:(NSString *)string
                               atLocation:(NSUInteger)location
 {
@@ -458,28 +484,13 @@ static const unichar kMPMarkupCharacters[] = {
 {
     if (self.preferences.editorCompleteMatchingCharacters)
     {
-        NSUInteger stringLength = str.length;
-
-        // Character insert without selection.
-        if (range.length == 0 && stringLength == 1)
-        {
-            NSUInteger location = range.location;
-            if ([self.editor completeMatchingCharacterForText:str
-                                                   atLocation:location])
-                return NO;
-        }
-        // Character insert with selection (i.e. select and replace).
-        else if (range.length > 0 && stringLength == 1)
-        {
-            unichar character = [str characterAtIndex:0];
-            BOOL strikethrough = self.preferences.extensionStrikethough;
-            if ([self.editor wrapMatchingCharactersOfCharacter:character
-                                             aroundTextInRange:range
+        BOOL strikethrough = self.preferences.extensionStrikethough;
+        if ([textView completeMatchingCharactersForTextInRange:range
+                                                    withString:str
                                           strikethroughEnabled:strikethrough])
-                return NO;
-        }
+            return NO;
     }
-    if ([self.editor insertMappedContent:str])
+    if ([textView insertMappedContent:str])
         return NO;
     return YES;
 }
@@ -502,13 +513,13 @@ static const unichar kMPMarkupCharacters[] = {
     if (self.preferences.editorCompleteMatchingCharacters)
     {
         NSUInteger location = self.editor.selectedRange.location;
-        if ([self.editor deleteMatchingCharactersAround:location])
+        if ([textView deleteMatchingCharactersAround:location])
             return NO;
     }
     if (self.preferences.editorConvertTabs)
     {
         NSUInteger location = self.editor.selectedRange.location;
-        if ([self.editor unindentForSpacesBefore:location])
+        if ([textView unindentForSpacesBefore:location])
             return NO;
     }
     return YES;
