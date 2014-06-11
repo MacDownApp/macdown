@@ -227,7 +227,7 @@
 {
     if ([textView insertMappedContent])
         return NO;
-    if ([textView completeListContinuation])
+    if ([textView completeNextLine])
         return NO;
     return YES;
 }

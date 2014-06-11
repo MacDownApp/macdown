@@ -272,7 +272,7 @@ static const unichar kMPMarkupCharacters[] = {
     return YES;
 }
 
-- (BOOL)completeListContinuation
+- (BOOL)completeNextLine
 {
     NSRange selectedRange = self.selectedRange;
     NSUInteger location = selectedRange.location;
@@ -293,39 +293,18 @@ static const unichar kMPMarkupCharacters[] = {
     if (nonwhitespace == location)
         return NO;
 
-    if ([self continueNextLineForTextStart:start end:end
-                onRegularExpressionPattern:@"^(\\s*)(\\*|\\+|-)\\s\\S.*$"
-                        generatingListMark:^(NSString *captured) {
-                            return captured;
-                        }])
-        return YES;
-    if ([self continueNextLineForTextStart:start end:end
-                onRegularExpressionPattern:@"^(\\s*)(\\d+)\\.\\s\\S.*$"
-                        generatingListMark:^(NSString *captured) {
-                            NSInteger i = captured.integerValue + 1;
-                            return [NSString stringWithFormat:@"%ld.", i];
-                        }])
-        return YES;
-    return NO;
-}
-
-
-#pragma mark - Private
-
-- (BOOL)continueNextLineForTextStart:(NSUInteger)start end:(NSUInteger)end
-          onRegularExpressionPattern:(NSString *)pattern
-                  generatingListMark:(NSString *(^)(NSString *captured))gen
-{
     NSRange range = NSMakeRange(start, end - start);
     NSString *line = [self.string substringWithRange:range];
 
+    NSString *pattern =
+        @"^(\\s*)((?:(?:\\*|\\+|-|)\\s)?)((?:\\d+\\.\\s)?)\\S.*$";
     NSRegularExpressionOptions options = NSRegularExpressionAnchorsMatchLines;
     NSRegularExpression *regex =
         [[NSRegularExpression alloc] initWithPattern:pattern options:options
                                                error:NULL];
     NSTextCheckingResult *result =
-        [regex firstMatchInString:line options:0
-                            range:NSMakeRange(0, line.length)];
+    [regex firstMatchInString:line options:0
+                        range:NSMakeRange(0, line.length)];
     if (!result || result.range.location == NSNotFound)
         return NO;
 
@@ -333,11 +312,22 @@ static const unichar kMPMarkupCharacters[] = {
     for (NSUInteger i = 0; i < [result rangeAtIndex:1].length; i++)
         [indent appendString:@" "];
 
-    NSString *t = gen([line substringWithRange:[result rangeAtIndex:2]]);
-
+    NSString *t = @"";
+    if ([result rangeAtIndex:2].length)         // UL
+    {
+        t = [line substringWithRange:[result rangeAtIndex:2]];
+    }
+    else if ([result rangeAtIndex:3].length)    // OL
+    {
+        NSRange range = [result rangeAtIndex:3];
+        range.length -= 1;      // Exclude trailing space.
+        NSString *captured = [line substringWithRange:range];
+        NSInteger i = captured.integerValue + 1;
+        t = [NSString stringWithFormat:@"%ld. ", i];
+    }
     [self insertNewline:self];
-    [self insertText:[NSString stringWithFormat:@"%@%@ ", indent, t]];
-     return YES;
+    [self insertText:[NSString stringWithFormat:@"%@%@", indent, t]];
+    return YES;
 }
 
 @end

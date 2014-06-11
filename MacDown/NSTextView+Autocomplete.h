@@ -27,6 +27,6 @@
 - (BOOL)unindentForSpacesBefore:(NSUInteger)location;
 - (void)toggleForMarkupPrefix:(NSString *)prefix suffix:(NSString *)suffix;
 - (BOOL)insertMappedContent;
-- (BOOL)completeListContinuation;
+- (BOOL)completeNextLine;
 
 @end
