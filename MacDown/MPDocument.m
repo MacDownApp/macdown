@@ -72,12 +72,6 @@
 
     self.htmlRenderer = hoedown_html_renderer_new(0, 0);
 
-    // Hack: Initialize preference controller before we add an observer to user
-    // default changes. This prevents deadlock caused by initializing the
-    // controller in a notification callback (which whould fire the callback
-    // again).
-    [MPPreferences sharedInstance];
-
     return self;
 }
 
