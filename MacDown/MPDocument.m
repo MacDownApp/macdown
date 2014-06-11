@@ -571,10 +571,22 @@ static const unichar kMPMarkupCharacters[] = {
 - (IBAction)insertNewParagraph:(id)sender
 {
     NSRange range = self.editor.selectedRange;
-    NSUInteger start = range.location + range.length - 1;
-    range.location = [self.editor locationOfFirstNewlineAfter:start];
-    range.length = 0;
-    self.editor.selectedRange = range;
+    NSUInteger location = range.location;
+    NSUInteger length = range.length;
+    NSInteger newlineBefore =
+        [self.editor locationOfFirstNewlineBefore:location];
+    NSUInteger newlineAfter =
+        [self.editor locationOfFirstNewlineAfter:location + length - 1];
+
+    // This is an empty line. Treat as normal return key.
+    if (location == newlineBefore + 1 && location == newlineAfter)
+    {
+        [self.editor insertNewline:self];
+        return;
+    }
+
+    // Insert two newlines after the current line, and jump to there.
+    self.editor.selectedRange = NSMakeRange(newlineAfter, 0);
     [self.editor insertText:@"\n\n"];
 }
 
