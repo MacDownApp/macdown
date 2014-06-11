@@ -78,3 +78,18 @@ NSString *(^MPFileNameHasSuffixProcessor(NSString *suffix))(NSString *path)
     };
     return block;
 }
+
+BOOL MPCharacterIsNewline(unichar character)
+{
+    static NSCharacterSet *newlines = nil;
+    if (!newlines)
+        newlines = [NSCharacterSet newlineCharacterSet];
+    return [newlines characterIsMember:character];
+}
+
+BOOL MPStringIsNewline(NSString *str)
+{
+    if (str.length != 1)
+        return NO;
+    return MPCharacterIsNewline([str characterAtIndex:0]);
+}

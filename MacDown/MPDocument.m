@@ -69,21 +69,18 @@ static const unichar kMPMarkupCharacters[] = {
 
 - (NSInteger)locationOfFirstNewlineBefore:(NSUInteger)location
 {
-    NSCharacterSet *newline = [NSCharacterSet newlineCharacterSet];
     NSString *text = self.string;
     NSInteger p = location - 1;
-    while (p >= 0 && ![newline characterIsMember:[text characterAtIndex:p]])
+    while (p >= 0 && !MPCharacterIsNewline([text characterAtIndex:p]))
         p--;
     return p;
 }
 
 - (NSUInteger)locationOfFirstNewlineAfter:(NSUInteger)location
 {
-    NSCharacterSet *newline = [NSCharacterSet newlineCharacterSet];
     NSString *text = self.string;
     NSInteger p = location + 1;
-    while (p < text.length
-           && ![newline characterIsMember:[text characterAtIndex:p]])
+    while (p < text.length && MPCharacterIsNewline([text characterAtIndex:p]))
         p++;
     return p;
 }
@@ -272,6 +269,34 @@ static const unichar kMPMarkupCharacters[] = {
     self.selectedRange = range;
 }
 
+- (BOOL)insertMappedContent:(NSString *)str
+{
+    NSString *content = self.string;
+    NSUInteger contentLength = content.length;
+    if (contentLength > 20 || !MPStringIsNewline(str))
+        return NO;
+
+    static NSDictionary *map = nil;
+    if (!map)
+    {
+        NSBundle *bundle = [NSBundle mainBundle];
+        NSString *filePath = [bundle pathForResource:@"data" ofType:@"map"
+                                         inDirectory:@"data"];
+        map = [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];
+    }
+
+    NSString *mapped = map[content];
+    if (mapped)
+    {
+        mapped = [[NSBundle mainBundle] pathForResource:mapped ofType:@"data"
+                                            inDirectory:@"data"];
+        mapped = [NSString stringWithFormat:@"![%@](%@)", content, mapped];
+        [self insertText:mapped replacementRange:NSMakeRange(0, contentLength)];
+        return YES;
+    }
+    return NO;
+}
+
 @end
 
 
@@ -454,6 +479,8 @@ static const unichar kMPMarkupCharacters[] = {
                 return NO;
         }
     }
+    if ([self.editor insertMappedContent:str])
+        return NO;
     return YES;
 }
 
