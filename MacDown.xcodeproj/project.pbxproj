@@ -35,6 +35,7 @@
 		1FCDCA2A1944F89B00B1F966 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDCA141944F89B00B1F966 /* main.m */; };
 		1FF207631941CF22005B5654 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FF207621941CF22005B5654 /* WebKit.framework */; };
 		1FFF3011194805290009AF24 /* data in Resources */ = {isa = PBXBuildFile; fileRef = 1FFF3010194805290009AF24 /* data */; };
+		1FFF3015194812260009AF24 /* NSTextView+Autocomplete.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FFF3014194812260009AF24 /* NSTextView+Autocomplete.m */; };
 		5318159056384894AA42DB4F /* libPods-MacDownTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AEAF42BBDCEC4012B5092BB3 /* libPods-MacDownTests.a */; };
 		B49728377A904875B2963C38 /* libPods-MacDown.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C5C1FBBB3ED456285901D31 /* libPods-MacDown.a */; };
 /* End PBXBuildFile section */
@@ -99,6 +100,8 @@
 		1FCDCA331944F96E00B1F966 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1FF207621941CF22005B5654 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		1FFF3010194805290009AF24 /* data */ = {isa = PBXFileReference; lastKnownFileType = folder; path = data; sourceTree = "<group>"; };
+		1FFF3013194812260009AF24 /* NSTextView+Autocomplete.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTextView+Autocomplete.h"; sourceTree = "<group>"; };
+		1FFF3014194812260009AF24 /* NSTextView+Autocomplete.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTextView+Autocomplete.m"; sourceTree = "<group>"; };
 		7C5C1FBBB3ED456285901D31 /* libPods-MacDown.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MacDown.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F8797E748AA4BCA96DFA790 /* Pods-MacDown.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacDown.xcconfig"; path = "Pods/Pods-MacDown.xcconfig"; sourceTree = "<group>"; };
 		AB3B8954FAB54E3C803DDAEE /* Pods-MacDownTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacDownTests.xcconfig"; path = "Pods/Pods-MacDownTests.xcconfig"; sourceTree = "<group>"; };
@@ -179,6 +182,7 @@
 			children = (
 				1FCDCA021944F89B00B1F966 /* MPUtilities.h */,
 				1FCDCA031944F89B00B1F966 /* MPUtilities.m */,
+				1FFF3012194812020009AF24 /* Extension */,
 				1FCDCA2E1944F91E00B1F966 /* Document */,
 				1FCDCA2C1944F8D400B1F966 /* Preferences */,
 				1FCDC9F91944F89B00B1F966 /* MPMainController.h */,
@@ -266,6 +270,15 @@
 				1FCDCA321944F96E00B1F966 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		1FFF3012194812020009AF24 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				1FFF3013194812260009AF24 /* NSTextView+Autocomplete.h */,
+				1FFF3014194812260009AF24 /* NSTextView+Autocomplete.m */,
+			);
+			name = Extension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -451,6 +464,7 @@
 				1FCDCA271944F89B00B1F966 /* pmh_styleparser.c in Sources */,
 				1FCDCA1B1944F89B00B1F966 /* MPHtmlPreferencesViewController.m in Sources */,
 				1FCDCA1D1944F89B00B1F966 /* MPMainController.m in Sources */,
+				1FFF3015194812260009AF24 /* NSTextView+Autocomplete.m in Sources */,
 				1FCDCA261944F89B00B1F966 /* pmh_parser.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

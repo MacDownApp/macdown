@@ -1,0 +1,33 @@
+//
+//  NSTextView+Autocomplete.h
+//  MacDown
+//
+//  Created by Tzu-ping Chung  on 11/06/2014.
+//  Copyright (c) 2014 Tzu-ping Chung . All rights reserved.
+//
+
+#import <Cocoa/Cocoa.h>
+
+@interface NSTextView (Autocomplete)
+
+- (NSInteger)locationOfFirstNewlineBefore:(NSUInteger)location;
+- (NSUInteger)locationOfFirstNewlineAfter:(NSUInteger)location;
+- (BOOL)substringInRange:(NSRange)range isSurroundedByPrefix:(NSString *)prefix
+                  suffix:(NSString *)suffix;
+- (void)insertSpacesForTab;
+- (BOOL)completeMatchingCharactersForTextInRange:(NSRange)range
+                                      withString:(NSString *)str
+                            strikethroughEnabled:(BOOL)strikethrough;
+- (BOOL)completeMatchingCharacterForText:(NSString *)string
+                              atLocation:(NSUInteger)location;
+- (void)wrapTextInRange:(NSRange)range withPrefix:(unichar)prefix
+                 suffix:(unichar)suffix;
+- (BOOL)wrapMatchingCharactersOfCharacter:(unichar)character
+                        aroundTextInRange:(NSRange)range
+                     strikethroughEnabled:(BOOL)isStrikethroughEnabled;
+- (BOOL)deleteMatchingCharactersAround:(NSUInteger)location;
+- (BOOL)unindentForSpacesBefore:(NSUInteger)location;
+- (void)toggleForMarkupPrefix:(NSString *)prefix suffix:(NSString *)suffix;
+- (BOOL)insertMappedContent:(NSString *)str;
+
+@end
