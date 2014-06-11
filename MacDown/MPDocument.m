@@ -144,6 +144,7 @@
     }
 
     self.preview.frameLoadDelegate = self;
+    self.preview.policyDelegate = self;
 
     [self.highlighter activate];
     [self.highlighter parseAndHighlightNow];    // Initial highlighting
@@ -255,6 +256,18 @@
 {
     if (self.preferences.editorSyncScrolling)
         [self syncScrollers];
+}
+
+
+#pragma mark - WebPolicyDelegate
+
+- (void)webView:(WebView *)webView
+                decidePolicyForNavigationAction:(NSDictionary *)information
+        request:(NSURLRequest *)request frame:(WebFrame *)frame
+                decisionListener:(id<WebPolicyDecisionListener>)listener
+{
+    [listener ignore];
+    [[NSWorkspace sharedWorkspace] openURL:request.URL];
 }
 
 
