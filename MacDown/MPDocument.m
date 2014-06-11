@@ -56,6 +56,7 @@
 @property BOOL currentSmartyPantsFlag;
 @property (copy) NSString *currentHtml;
 @property (copy) NSString *currentStyleName;
+@property (strong) NSTimer *parseDelayTimer;
 
 // Store file content in initializer until nib is loaded.
 @property (copy) NSString *loadedString;
@@ -139,8 +140,9 @@
     {
         self.editor.string = self.loadedString;
         self.loadedString = nil;
-        [self parse];
-        [self render];
+        [self parseLaterWithCommand:@selector(parse) completionHandler:^{
+            [self render];
+        }];
     }
 
     self.preview.frameLoadDelegate = self;
@@ -284,16 +286,18 @@
 
 - (void)textDidChange:(NSNotification *)notification
 {
-    [self parse];
-    [self render];
+    [self parseLaterWithCommand:@selector(parse) completionHandler:^{
+        [self render];
+    }];
 }
 
 - (void)userDefaultsDidChange:(NSNotification *)notification
 {
-    if ([self parseIfPreferencesChanged])
-        [self render];
-    else
-        [self renderIfPreferencesChanged];
+    [self parseLaterWithCommand:@selector(parseIfPreferencesChanged)
+              completionHandler:^{
+                  [self render];
+              }];
+    [self renderIfPreferencesChanged];
     [self setupEditor];
 }
 
@@ -407,6 +411,17 @@
     contentView.postsBoundsChangedNotifications = YES;
 }
 
+- (void)parseLaterWithCommand:(SEL)action completionHandler:(void(^)())handler
+{
+    [self.parseDelayTimer invalidate];
+    self.parseDelayTimer =
+        [NSTimer scheduledTimerWithTimeInterval:0.5
+                                         target:self
+                                       selector:@selector(parse)
+                                       userInfo:@{@"next": handler}
+                                        repeats:YES];
+}
+
 - (void)syncScrollers
 {
     // TODO: There should be a better algorithm for calculating offsets. But
@@ -459,6 +474,9 @@
 
 - (void)parse
 {
+    void(^nextAction)() = self.parseDelayTimer.userInfo[@"next"];
+    [self.parseDelayTimer invalidate];
+
     int flags = self.preferences.extensionFlags;
     BOOL smartyPants = self.preferences.extensionSmartyPants;
 
@@ -469,17 +487,18 @@
     // Record current parsing flags for -parseIfPreferencesChanged.
     self.currentExtensionFlags = flags;
     self.currentSmartyPantsFlag = smartyPants;
+
+    if (nextAction)
+        nextAction();
 }
 
-- (BOOL)parseIfPreferencesChanged
+- (void)parseIfPreferencesChanged
 {
     if (self.preferences.extensionFlags != self.currentExtensionFlags
         | self.preferences.extensionSmartyPants != self.currentSmartyPantsFlag)
     {
         [self parse];
-        return YES;
     }
-    return NO;
 }
 
 - (void)render
@@ -498,14 +517,10 @@
     self.currentStyleName = styleName;
 }
 
-- (BOOL)renderIfPreferencesChanged
+- (void)renderIfPreferencesChanged
 {
     if (self.preferences.htmlStyleName != self.currentStyleName)
-    {
         [self render];
-        return YES;
-    }
-    return NO;
 }
 
 - (NSString *)htmlFromText:(NSString *)text
