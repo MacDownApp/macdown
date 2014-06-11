@@ -61,7 +61,7 @@ void styleparsing_error_callback(char *error_message, int line_number, void *con
 	
 	_resetTypingAttributes = YES;
 	_parseAndHighlightAutomatically = YES;
-	_waitInterval = 1;
+	_waitInterval = 0.5;
 	_extensions = pmh_EXT_NONE;
 	
 	return self;
