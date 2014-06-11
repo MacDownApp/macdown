@@ -122,7 +122,7 @@ static const unichar kMPMarkupCharacters[] = {
             self.selectedRange = range;
             return YES;
         }
-        else if (n == cs[1])
+        else if (c == cs[1] && n == cs[1])
         {
             NSRange range = NSMakeRange(location + 1, 0);
             self.selectedRange = range;
