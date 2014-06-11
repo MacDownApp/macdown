@@ -1,6 +1,6 @@
 //
-//  MacDownTests.m
-//  MacDownTests
+//  MPPreferencesTests.m
+//  MPPreferencesTests
 //
 //  Created by Tzu-ping Chung  on 6/06/2014.
 //  Copyright (c) 2014 Tzu-ping Chung . All rights reserved.
@@ -9,13 +9,13 @@
 #import <XCTest/XCTest.h>
 #import "MPPreferences.h"
 
-@interface PreferencesTests : XCTestCase
+@interface MPPreferencesTests : XCTestCase
 @property MPPreferences *preferences;
 @property NSDictionary *oldFontInfo;
 @end
 
 
-@implementation PreferencesTests
+@implementation MPPreferencesTests
 
 - (void)setUp
 {

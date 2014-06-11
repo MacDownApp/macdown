@@ -79,6 +79,14 @@ NSString *(^MPFileNameHasSuffixProcessor(NSString *suffix))(NSString *path)
     return block;
 }
 
+BOOL MPCharacterIsWhitespace(unichar character)
+{
+    static NSCharacterSet *whitespaces = nil;
+    if (!whitespaces)
+        whitespaces = [NSCharacterSet whitespaceCharacterSet];
+    return [whitespaces characterIsMember:character];
+}
+
 BOOL MPCharacterIsNewline(unichar character)
 {
     static NSCharacterSet *newlines = nil;

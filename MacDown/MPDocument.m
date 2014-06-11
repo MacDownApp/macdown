@@ -12,6 +12,7 @@
 #import <hoedown/markdown.h>
 #import "HGMarkdownHighlighter.h"
 #import "MPUtilities.h"
+#import "NSString+Lookup.h"
 #import "NSTextView+Autocomplete.h"
 #import "MPPreferences.h"
 
@@ -187,6 +188,8 @@
 {
     if (commandSelector == @selector(insertTab:))
         return ![self textViewShouldInsertTab:textView];
+    else if (commandSelector == @selector(insertNewline:))
+        return ![self textViewShouldInsertNewline:textView];
     else if (commandSelector == @selector(deleteBackward:))
         return ![self textViewShouldDeleteBackward:textView];
     return NO;
@@ -203,8 +206,6 @@
                                           strikethroughEnabled:strikethrough])
             return NO;
     }
-    if ([textView insertMappedContent:str])
-        return NO;
     return YES;
 }
 
@@ -218,6 +219,15 @@
         [textView insertSpacesForTab];
         return NO;
     }
+    return YES;
+}
+
+- (BOOL)textViewShouldInsertNewline:(NSTextView *)textView
+{
+    if ([textView insertMappedContent])
+        return NO;
+    if ([textView completeListContinuation])
+        return NO;
     return YES;
 }
 
@@ -324,10 +334,10 @@
     NSRange range = self.editor.selectedRange;
     NSUInteger location = range.location;
     NSUInteger length = range.length;
-    NSInteger newlineBefore =
-        [self.editor locationOfFirstNewlineBefore:location];
+    NSString *content = self.editor.string;
+    NSInteger newlineBefore = [content locationOfFirstNewlineBefore:location];
     NSUInteger newlineAfter =
-        [self.editor locationOfFirstNewlineAfter:location + length - 1];
+        [content locationOfFirstNewlineAfter:location + length - 1];
 
     // This is an empty line. Treat as normal return key.
     if (location == newlineBefore + 1 && location == newlineAfter)

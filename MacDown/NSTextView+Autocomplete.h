@@ -10,8 +10,6 @@
 
 @interface NSTextView (Autocomplete)
 
-- (NSInteger)locationOfFirstNewlineBefore:(NSUInteger)location;
-- (NSUInteger)locationOfFirstNewlineAfter:(NSUInteger)location;
 - (BOOL)substringInRange:(NSRange)range isSurroundedByPrefix:(NSString *)prefix
                   suffix:(NSString *)suffix;
 - (void)insertSpacesForTab;
@@ -28,6 +26,7 @@
 - (BOOL)deleteMatchingCharactersAround:(NSUInteger)location;
 - (BOOL)unindentForSpacesBefore:(NSUInteger)location;
 - (void)toggleForMarkupPrefix:(NSString *)prefix suffix:(NSString *)suffix;
-- (BOOL)insertMappedContent:(NSString *)str;
+- (BOOL)insertMappedContent;
+- (BOOL)completeListContinuation;
 
 @end

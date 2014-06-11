@@ -7,7 +7,7 @@
 //
 
 #import "NSTextView+Autocomplete.h"
-#import "MPUtilities.h"
+#import "NSString+Lookup.h"
 
 
 static const unichar kMPMatchingCharactersMap[][2] = {
@@ -33,24 +33,6 @@ static const unichar kMPMarkupCharacters[] = {
 
 
 @implementation NSTextView (Autocomplete)
-
-- (NSInteger)locationOfFirstNewlineBefore:(NSUInteger)location
-{
-    NSString *text = self.string;
-    NSInteger p = location - 1;
-    while (p >= 0 && !MPCharacterIsNewline([text characterAtIndex:p]))
-        p--;
-    return p;
-}
-
-- (NSUInteger)locationOfFirstNewlineAfter:(NSUInteger)location
-{
-    NSString *text = self.string;
-    NSInteger p = location + 1;
-    while (p < text.length && MPCharacterIsNewline([text characterAtIndex:p]))
-        p++;
-    return p;
-}
 
 - (BOOL)substringInRange:(NSRange)range isSurroundedByPrefix:(NSString *)prefix
                   suffix:(NSString *)suffix
@@ -83,7 +65,7 @@ static const unichar kMPMarkupCharacters[] = {
 {
     NSString *spaces = @"    ";
     NSUInteger currentLocation = self.selectedRange.location;
-    NSInteger p = [self locationOfFirstNewlineBefore:currentLocation];
+    NSInteger p = [self.string locationOfFirstNewlineBefore:currentLocation];
 
     // Calculate how deep we need to go.
     NSUInteger offset = (currentLocation - p - 1) % 4;
@@ -227,7 +209,8 @@ static const unichar kMPMarkupCharacters[] = {
     if (whitespaceCount < 2)
         return NO;
 
-    NSUInteger offset = ([self locationOfFirstNewlineBefore:location] + 1) % 4;
+    NSUInteger offset =
+        ([self.string locationOfFirstNewlineBefore:location] + 1) % 4;
     if (offset == 0)
         offset = 4;
     offset = offset > whitespaceCount ? whitespaceCount : 4;
@@ -262,13 +245,12 @@ static const unichar kMPMarkupCharacters[] = {
     self.selectedRange = range;
 }
 
-- (BOOL)insertMappedContent:(NSString *)str
+- (BOOL)insertMappedContent
 {
     NSString *content = self.string;
     NSUInteger contentLength = content.length;
-    if (contentLength > 20 || !MPStringIsNewline(str))
+    if (contentLength > 20)
         return NO;
-
     static NSDictionary *map = nil;
     if (!map)
     {
@@ -277,17 +259,85 @@ static const unichar kMPMarkupCharacters[] = {
                                          inDirectory:@"data"];
         map = [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];
     }
+    NSData *mapped = map[content];
+    if (!mapped)
+        return NO;
+    NSArray *components = @[NSTemporaryDirectory(),
+                             [NSString stringWithFormat:@"%lu", content.hash]];
+    NSString *path = [NSString pathWithComponents:components];
+    [mapped writeToFile:path atomically:NO];
+    NSString *text = [NSString stringWithFormat:@"![%@](%@)", content, path];
+    [self insertText:text replacementRange:NSMakeRange(0, contentLength)];
+    self.selectedRange = NSMakeRange(2, contentLength);
+    return YES;
+}
 
-    NSString *mapped = map[content];
-    if (mapped)
-    {
-        mapped = [[NSBundle mainBundle] pathForResource:mapped ofType:@"data"
-                                            inDirectory:@"data"];
-        mapped = [NSString stringWithFormat:@"![%@](%@)", content, mapped];
-        [self insertText:mapped replacementRange:NSMakeRange(0, contentLength)];
+- (BOOL)completeListContinuation
+{
+    NSRange selectedRange = self.selectedRange;
+    NSUInteger location = selectedRange.location;
+    NSString *content = self.string;
+    if (selectedRange.length || !content.length)
+        return NO;
+
+    // Make sure we are at the end of a line (of the file).
+    NSUInteger end = [content locationOfFirstNewlineAfter:location - 1];
+    if (end != location)
+        return NO;
+
+    NSInteger start = [content locationOfFirstNewlineBefore:location] + 1;
+    NSUInteger nonwhitespace =
+        [content locationOfFirstNonWhitespaceCharacterInLineBefore:location];
+
+    // No non-whitespace character at this line.
+    if (nonwhitespace == location)
+        return NO;
+
+    if ([self continueNextLineForTextStart:start end:end
+                onRegularExpressionPattern:@"^(\\s*)(\\*|\\+|-)\\s\\S.*$"
+                        generatingListMark:^(NSString *captured) {
+                            return captured;
+                        }])
         return YES;
-    }
+    if ([self continueNextLineForTextStart:start end:end
+                onRegularExpressionPattern:@"^(\\s*)(\\d+)\\.\\s\\S.*$"
+                        generatingListMark:^(NSString *captured) {
+                            NSInteger i = captured.integerValue + 1;
+                            return [NSString stringWithFormat:@"%ld.", i];
+                        }])
+        return YES;
     return NO;
+}
+
+
+#pragma mark - Private
+
+- (BOOL)continueNextLineForTextStart:(NSUInteger)start end:(NSUInteger)end
+          onRegularExpressionPattern:(NSString *)pattern
+                  generatingListMark:(NSString *(^)(NSString *captured))gen
+{
+    NSRange range = NSMakeRange(start, end - start);
+    NSString *line = [self.string substringWithRange:range];
+
+    NSRegularExpressionOptions options = NSRegularExpressionAnchorsMatchLines;
+    NSRegularExpression *regex =
+        [[NSRegularExpression alloc] initWithPattern:pattern options:options
+                                               error:NULL];
+    NSTextCheckingResult *result =
+        [regex firstMatchInString:line options:0
+                            range:NSMakeRange(0, line.length)];
+    if (!result || result.range.location == NSNotFound)
+        return NO;
+
+    NSMutableString *indent = [[NSMutableString alloc] init];
+    for (NSUInteger i = 0; i < [result rangeAtIndex:1].length; i++)
+        [indent appendString:@" "];
+
+    NSString *t = gen([line substringWithRange:[result rangeAtIndex:2]]);
+
+    [self insertNewline:self];
+    [self insertText:[NSString stringWithFormat:@"%@%@ ", indent, t]];
+     return YES;
 }
 
 @end
