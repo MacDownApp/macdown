@@ -266,8 +266,17 @@
         request:(NSURLRequest *)request frame:(WebFrame *)frame
                 decisionListener:(id<WebPolicyDecisionListener>)listener
 {
-    [listener ignore];
-    [[NSWorkspace sharedWorkspace] openURL:request.URL];
+    NSURL *oldUrl = information[WebActionOriginalURLKey];
+    NSURL *newUrl = request.URL;
+    if (!oldUrl || [newUrl isEqualTo:self.fileURL])
+    {
+        [listener use];
+    }
+    else
+    {
+        [listener ignore];
+        [[NSWorkspace sharedWorkspace] openURL:request.URL];
+    }
 }
 
 
