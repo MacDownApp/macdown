@@ -50,7 +50,7 @@
 
 @property (unsafe_unretained) IBOutlet NSTextView *editor;
 @property (weak) IBOutlet WebView *preview;
-@property (unsafe_unretained) hoedown_renderer *htmlRenderer;
+@property (nonatomic, unsafe_unretained) hoedown_renderer *htmlRenderer;
 @property HGMarkdownHighlighter *highlighter;
 @property int currentExtensionFlags;
 @property BOOL currentSmartyPantsFlag;
@@ -79,11 +79,7 @@
 
 - (void)dealloc
 {
-    if (_htmlRenderer)
-    {
-        hoedown_html_renderer_free(_htmlRenderer);
-        _htmlRenderer = NULL;
-    }
+    self.htmlRenderer = NULL;
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center removeObserver:self
                       name:NSTextDidChangeNotification
@@ -102,6 +98,13 @@
 - (MPPreferences *)preferences
 {
     return [MPPreferences sharedInstance];
+}
+
+- (void)setHtmlRenderer:(hoedown_renderer *)htmlRenderer
+{
+    if (_htmlRenderer)
+        hoedown_html_renderer_free(_htmlRenderer);
+    _htmlRenderer = htmlRenderer;
 }
 
 
