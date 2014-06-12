@@ -296,8 +296,9 @@ static const unichar kMPMarkupCharacters[] = {
     NSRange range = NSMakeRange(start, end - start);
     NSString *line = [self.string substringWithRange:range];
 
-    NSString *pattern =
-        @"^(\\s*)((?:(?:\\*|\\+|-|)\\s)?)((?:\\d+\\.\\s)?)\\S.*$";
+    static NSString * const pattern =
+        @"^(\\s*)((?:(?:\\*|\\+|-|)\\s)?)((?:\\d+\\.\\s)?)(\\S)?";
+
     NSRegularExpressionOptions options = NSRegularExpressionAnchorsMatchLines;
     NSRegularExpression *regex =
         [[NSRegularExpression alloc] initWithPattern:pattern options:options
@@ -312,12 +313,28 @@ static const unichar kMPMarkupCharacters[] = {
     for (NSUInteger i = 0; i < [result rangeAtIndex:1].length; i++)
         [indent appendString:@" "];
 
-    NSString *t = @"";
-    if ([result rangeAtIndex:2].length)         // UL
+    NSString *t = nil;
+    BOOL isUl = ([result rangeAtIndex:2].length != 0);
+    BOOL isOl = ([result rangeAtIndex:3].length != 0);
+    BOOL previousLineEmpty = ([result rangeAtIndex:4].length == 0);
+    if (previousLineEmpty)
+    {
+        NSRange replaceRange = NSMakeRange(NSNotFound, 0);
+        if (isUl)
+            replaceRange = [result rangeAtIndex:2];
+        else if (isOl)
+            replaceRange = [result rangeAtIndex:3];
+        if (replaceRange.length)
+        {
+            replaceRange.location += start;
+            [self replaceCharactersInRange:range withString:@""];
+        }
+    }
+    else if (isUl)
     {
         t = [line substringWithRange:[result rangeAtIndex:2]];
     }
-    else if ([result rangeAtIndex:3].length)    // OL
+    else if (isOl)
     {
         NSRange range = [result rangeAtIndex:3];
         range.length -= 1;      // Exclude trailing space.
@@ -326,7 +343,8 @@ static const unichar kMPMarkupCharacters[] = {
         t = [NSString stringWithFormat:@"%ld. ", i];
     }
     [self insertNewline:self];
-    [self insertText:[NSString stringWithFormat:@"%@%@", indent, t]];
+    if (t)
+        [self insertText:[NSString stringWithFormat:@"%@%@", indent, t]];
     return YES;
 }
 
