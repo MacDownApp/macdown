@@ -270,12 +270,15 @@
 {
     NSURL *oldUrl = information[WebActionOriginalURLKey];
     NSURL *newUrl = request.URL;
-    if (!oldUrl || [newUrl isEqualTo:self.fileURL])
+
+    if ([newUrl isEqualTo:self.fileURL] || [newUrl isEqualTo:oldUrl])
     {
+        // We are rendering ourselves.
         [listener use];
     }
     else
     {
+        // An external location is requested. Hijack.
         [listener ignore];
         [[NSWorkspace sharedWorkspace] openURL:request.URL];
     }
