@@ -184,6 +184,14 @@
     return YES;
 }
 
+- (BOOL)prepareSavePanel:(NSSavePanel *)savePanel
+{
+    NSString *title = [self.editor.string titleString];
+    if (title)
+        savePanel.nameFieldStringValue = title;
+    return [super prepareSavePanel:savePanel];
+}
+
 
 #pragma mark - NSTextViewDelegate
 

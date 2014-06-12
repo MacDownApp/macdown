@@ -45,4 +45,29 @@
     return p;
 }
 
+- (NSString *)titleString
+{
+    NSString *pattern = @"\\s+(\\S.*)$";
+
+    // Try to find the highest ranked title.
+    for (NSUInteger i = 0; i < 6; i++)
+    {
+        pattern = [@"#" stringByAppendingString:pattern];
+        NSString *p = [NSString stringWithFormat:@"%@%@", @"^", pattern];
+        NSRegularExpressionOptions opt = NSRegularExpressionAnchorsMatchLines;
+        NSRegularExpression *regex =
+            [[NSRegularExpression alloc] initWithPattern:p options:opt
+                                                   error:NULL];
+        NSTextCheckingResult *result =
+            [regex firstMatchInString:self options:0
+                                range:NSMakeRange(0, self.length)];
+        if (result)
+        {
+            NSString *title = [self substringWithRange:[result rangeAtIndex:1]];
+            return title;
+        }
+    }
+    return nil;
+}
+
 @end

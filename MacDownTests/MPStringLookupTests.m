@@ -143,4 +143,38 @@
                    4, @"Should check bounds and return for the last line.");
 }
 
+- (void)testTitleString
+{
+    NSString *string;
+    NSString *title;
+
+    string = @"# 123";
+    title = [string titleString];
+    XCTAssertEqualObjects(title, @"123", @"Incorrect title.");
+
+    string = @"#123";
+    title = [string titleString];
+    XCTAssertEqualObjects(title, nil, @"Incorrect title.");
+
+    string = @"\n# 123\n";
+    title = [string titleString];
+    XCTAssertEqualObjects(title, @"123", @"Incorrect title.");
+
+    string = @"## 123\n# 456\n789";
+    title = [string titleString];
+    XCTAssertEqualObjects(title, @"456", @"Incorrect title.");
+
+    string = @"456\n## 123\n\n789\n";
+    title = [string titleString];
+    XCTAssertEqualObjects(title, @"123", @"Incorrect title.");
+
+    string = @"123\n456\n";
+    title = [string titleString];
+    XCTAssertEqualObjects(title, nil, @"Incorrect title.");
+
+    string = @"####### 123\n";
+    title = [string titleString];
+    XCTAssertEqualObjects(title, nil, @"Incorrect title.");
+}
+
 @end

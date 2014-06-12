@@ -14,4 +14,6 @@
 - (NSUInteger)locationOfFirstNewlineAfter:(NSUInteger)location;
 - (NSUInteger)locationOfFirstNonWhitespaceCharacterInLineBefore:(NSUInteger)loc;
 
+- (NSString *)titleString;
+
 @end
