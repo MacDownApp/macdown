@@ -105,7 +105,7 @@
 }
 
 
-#pragma mark - Public
+#pragma mark - Override
 
 - (NSString *)windowNibName
 {
