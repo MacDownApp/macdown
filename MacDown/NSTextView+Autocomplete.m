@@ -280,12 +280,8 @@ static const unichar kMPMarkupCharacters[] = {
     if (selectedRange.length || !content.length)
         return NO;
 
-    // Make sure we are at the end of a line (of the file).
-    NSUInteger end = [content locationOfFirstNewlineAfter:location - 1];
-    if (end != location)
-        return NO;
-
     NSInteger start = [content locationOfFirstNewlineBefore:location] + 1;
+    NSUInteger end = location;
     NSUInteger nonwhitespace =
         [content locationOfFirstNonWhitespaceCharacterInLineBefore:location];
 
@@ -304,8 +300,8 @@ static const unichar kMPMarkupCharacters[] = {
         [[NSRegularExpression alloc] initWithPattern:pattern options:options
                                                error:NULL];
     NSTextCheckingResult *result =
-    [regex firstMatchInString:line options:0
-                        range:NSMakeRange(0, line.length)];
+        [regex firstMatchInString:line options:0
+                            range:NSMakeRange(0, line.length)];
     if (!result || result.range.location == NSNotFound)
         return NO;
 
