@@ -267,8 +267,7 @@
 
 - (void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame
 {
-    if (self.preferences.editorSyncScrolling)
-        [self syncScrollers];
+    [self syncScrollers];
 }
 
 
@@ -442,16 +441,26 @@
 
 - (void)syncScrollers
 {
-    // TODO: There should be a better algorithm for calculating offsets. But
-    // even Ghost's editor basically only go this far, so...
-    NSScrollView *editorScroll = self.editor.enclosingScrollView;
-    NSRect editorBounds = editorScroll.contentView.bounds;
-    CGFloat editorY = editorBounds.origin.y;
-    CGFloat ratio = editorY / [editorScroll.documentView frame].size.height;
+    if (!self.preferences.editorSyncScrolling)
+        return;
 
-    NSString *javaScriptCode = [NSString stringWithFormat:
-        @"window.scrollTo(0, document.body.scrollHeight * %lf)", ratio];
-    [self.preview stringByEvaluatingJavaScriptFromString:javaScriptCode];
+    NSScrollView *editorScrollView = self.editor.enclosingScrollView;
+    NSClipView *editorContentView = editorScrollView.contentView;
+    NSView *editorDocumentView = editorScrollView.documentView;
+    NSRect editorContentBounds = editorContentView.bounds;
+    CGFloat ratio =
+        editorContentBounds.origin.y / (editorDocumentView.frame.size.height
+                                        - editorContentBounds.size.height);
+
+    NSScrollView *previewScrollView =
+        self.preview.mainFrame.frameView.documentView.enclosingScrollView;
+    NSClipView *previewContentView = previewScrollView.contentView;
+    NSView *previewDocumentView = previewScrollView.documentView;
+    NSRect previewContentBounds = previewContentView.bounds;
+    previewContentBounds.origin.y =
+        ratio * (previewDocumentView.frame.size.height
+                 - previewContentBounds.size.height);
+    previewContentView.bounds = previewContentBounds;
 }
 
 - (NSString *)styleStringForName:(NSString *)name
