@@ -12,7 +12,7 @@
 				<string>md</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string></string>
+			<string>MarkdownDocument</string>
 			<key>CFBundleTypeMIMETypes</key>
 			<array>
 				<string>text/x-markdown</string>

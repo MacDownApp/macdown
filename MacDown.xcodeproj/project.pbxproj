@@ -30,6 +30,7 @@
 		1F0D9DB2194AC9EE008E1856 /* MPHtmlPreferencesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F0D9D87194AC83C008E1856 /* MPHtmlPreferencesViewController.xib */; };
 		1F0D9DB3194AC9EE008E1856 /* MPMarkdownPreferencesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F0D9D89194AC83C008E1856 /* MPMarkdownPreferencesViewController.xib */; };
 		1F0D9DB4194AC9EE008E1856 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F0D9D81194AC83C008E1856 /* MainMenu.xib */; };
+		1F4C8E9A194AE0B9004BF82E /* MarkdownDocument.icns in Resources */ = {isa = PBXBuildFile; fileRef = 1F4C8E99194AE0B9004BF82E /* MarkdownDocument.icns */; };
 		1F51C9A5194565050015A96F /* MPPreferencesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDCA311944F96E00B1F966 /* MPPreferencesTests.m */; };
 		1FA6DE251941CC9E000409FB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FA6DE241941CC9E000409FB /* Cocoa.framework */; };
 		1FA6DE481941CC9E000409FB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FA6DE241941CC9E000409FB /* Cocoa.framework */; };
@@ -93,6 +94,7 @@
 		1F0D9DAC194AC8EF008E1856 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		1F0D9DAE194AC905008E1856 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Code/main.m; sourceTree = "<group>"; };
 		1F0D9DB5194ACA33008E1856 /* MacDown-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "MacDown-Prefix.pch"; path = "Code/MacDown-Prefix.pch"; sourceTree = "<group>"; };
+		1F4C8E99194AE0B9004BF82E /* MarkdownDocument.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = MarkdownDocument.icns; path = Resources/MarkdownDocument.icns; sourceTree = "<group>"; };
 		1F51C9A1194564670015A96F /* libPods-MacDown-PAPreferences.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-MacDown-PAPreferences.a"; path = "../../../../Library/Developer/Xcode/DerivedData/MacDown-ggdtxvuybojeqbhjydkhilziizrv/Build/Products/Debug/libPods-MacDown-PAPreferences.a"; sourceTree = "<group>"; };
 		1FA6DE211941CC9E000409FB /* MacDown.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacDown.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FA6DE241941CC9E000409FB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
@@ -215,6 +217,25 @@
 			path = PEGMarkdownHighlight;
 			sourceTree = "<group>";
 		};
+		1F4C8E9B194AE0C3004BF82E /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				1FD7F8DD194A0211007ED2A1 /* Data */,
+				1F4C8E99194AE0B9004BF82E /* MarkdownDocument.icns */,
+				1F0D9DA6194AC8CB008E1856 /* Credits.rtf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		1F4C8E9C194AE0CE004BF82E /* Additional Sources */ = {
+			isa = PBXGroup;
+			children = (
+				1F0D9DAE194AC905008E1856 /* main.m */,
+				1F0D9DB5194ACA33008E1856 /* MacDown-Prefix.pch */,
+			);
+			name = "Additional Sources";
+			sourceTree = "<group>";
+		};
 		1FA6DE181941CC9E000409FB = {
 			isa = PBXGroup;
 			children = (
@@ -279,11 +300,9 @@
 		1FCDCA2D1944F8F600B1F966 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				1FD7F8DD194A0211007ED2A1 /* Data */,
-				1F0D9DAE194AC905008E1856 /* main.m */,
-				1F0D9DB5194ACA33008E1856 /* MacDown-Prefix.pch */,
+				1F4C8E9C194AE0CE004BF82E /* Additional Sources */,
+				1F4C8E9B194AE0C3004BF82E /* Resources */,
 				1F0D9DA3194AC8B3008E1856 /* MacDown-Info.plist */,
-				1F0D9DA6194AC8CB008E1856 /* Credits.rtf */,
 				1F0D9DA8194AC8CB008E1856 /* InfoPlist.strings */,
 				1F0D9DAC194AC8EF008E1856 /* Images.xcassets */,
 			);
@@ -398,6 +417,7 @@
 				1F0D9DAD194AC8EF008E1856 /* Images.xcassets in Resources */,
 				1F0D9DAA194AC8CB008E1856 /* Credits.rtf in Resources */,
 				1FD7F8DE194A0211007ED2A1 /* Data in Resources */,
+				1F4C8E9A194AE0B9004BF82E /* MarkdownDocument.icns in Resources */,
 				1F0D9DAB194AC8CB008E1856 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
