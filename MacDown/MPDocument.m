@@ -131,6 +131,7 @@
         [[HGMarkdownHighlighter alloc] initWithTextView:self.editor
                                            waitInterval:0.1];
     self.highlighter.parseAndHighlightAutomatically = YES;
+    self.highlighter.resetTypingAttributes = YES;
 
     // Fix Xcod 5/Lion bug where disselecting options in OB doesn't work.
     // TODO: Can we save/set these app-wise using KVO?
@@ -401,6 +402,10 @@
     CGFloat x = self.preferences.editorHorizontalInset;
     CGFloat y = self.preferences.editorVerticalInset;
     self.editor.textContainerInset = NSMakeSize(x, y);
+
+    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+    style.lineSpacing = self.preferences.editorLineSpacing;
+    self.editor.defaultParagraphStyle = [style copy];
 
     NSString *themeName = [self.preferences.editorStyleName copy];
     if (!themeName.length)

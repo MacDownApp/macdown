@@ -33,6 +33,7 @@
 @property (assign) NSString *editorStyleName;
 @property (assign) CGFloat editorHorizontalInset;
 @property (assign) CGFloat editorVerticalInset;
+@property (assign) CGFloat editorLineSpacing;
 
 @property (assign) NSString *htmlStyleName;
 @property (assign) NSURL *htmlDefaultDirectoryUrl;

@@ -72,6 +72,7 @@ static NSString * const MPPreferencesDidSynchronizeNotificationName =
 @dynamic editorStyleName;
 @dynamic editorHorizontalInset;
 @dynamic editorVerticalInset;
+@dynamic editorLineSpacing;
 
 @dynamic htmlStyleName;
 @dynamic htmlDefaultDirectoryUrl;
