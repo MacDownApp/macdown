@@ -35,6 +35,8 @@ void styleparsing_error_callback(char *error_message, int line_number, void *con
 	BOOL _workerThreadResultsInvalid;
 	BOOL _styleDependenciesPending;
 	NSMutableArray *_styleParsingErrors;
+    CGFloat _defaultTextSize;
+
 }
 
 @property(strong) NSTimer *updateTimer;
@@ -256,6 +258,20 @@ void styleparsing_error_callback(char *error_message, int line_number, void *con
 		[textStorage addAttribute:NSForegroundColorAttributeName value:self.defaultTextColor range:range];
 	else
 		[textStorage removeAttribute:NSForegroundColorAttributeName range:range];
+
+    NSAttributedStringEnumerationOptions options =
+        NSAttributedStringEnumerationLongestEffectiveRangeNotRequired;
+    [textStorage enumerateAttributesInRange:range
+                                    options:options
+                                 usingBlock:
+     ^(NSDictionary *attributes, NSRange range, BOOL *stop) {
+         NSFont *font = attributes[NSFontAttributeName];
+         if (!font || font.pointSize == _defaultTextSize)
+             return;
+         font = [[NSFontManager sharedFontManager] convertFont:font
+                                                        toSize:_defaultTextSize];
+         [textStorage addAttribute:NSFontAttributeName value:font range:range];
+     }];
 }
 
 - (void) readClearTextStylesFromTextView
@@ -263,6 +279,7 @@ void styleparsing_error_callback(char *error_message, int line_number, void *con
 	_clearFontTraitMask = [self getClearFontTraitMask:
 	 				 	  [[NSFontManager sharedFontManager]
 	  					   traitsOfFont:[self.targetTextView font]]];
+    _defaultTextSize = self.targetTextView.font.pointSize;
 	
 	self.defaultTextColor = [self.targetTextView textColor];
 	
