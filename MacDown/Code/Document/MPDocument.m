@@ -144,9 +144,8 @@
     {
         self.editor.string = self.loadedString;
         self.loadedString = nil;
-        [self parseLaterWithCommand:@selector(parse) completionHandler:^{
-            [self render];
-        }];
+        [self parse];
+        [self render];
     }
 
     self.preview.frameLoadDelegate = self;
@@ -526,7 +525,6 @@
     NSString *styleString = [self styleStringForName:styleName];
     NSString *html = [self htmlDocumentFromBody:self.currentHtml
                                          styles:styleString];
-
     NSURL *baseUrl = self.fileURL;
     if (!baseUrl)
         baseUrl = self.preferences.htmlDefaultDirectoryUrl;
