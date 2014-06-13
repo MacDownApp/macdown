@@ -434,7 +434,7 @@
     self.parseDelayTimer =
         [NSTimer scheduledTimerWithTimeInterval:0.5
                                          target:self
-                                       selector:@selector(parse)
+                                       selector:action
                                        userInfo:@{@"next": handler}
                                         repeats:YES];
 }
