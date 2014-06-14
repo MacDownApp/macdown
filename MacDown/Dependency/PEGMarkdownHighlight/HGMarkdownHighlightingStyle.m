@@ -9,6 +9,10 @@
 
 #define kMinFontSize 4
 
+NSString * const HGFontInformation = @"HGFontInformation";
+NSString * const HGFontInformationNameKey = @"HGFontInformationNameKey";
+NSString * const HGFontInformationSizeKey = @"HGFontInformationSizeKey";
+
 @implementation HGMarkdownHighlightingStyle
 
 + (NSColor *) colorFromARGBColor:(pmh_attr_argb_color *)argb_color
@@ -79,24 +83,19 @@
 		
 		cur = cur->next;
 	}
-	
-	if (fontName != nil || fontSize != 0)
-	{
-		if (fontName == nil)
-			fontName = [baseFont familyName];
-		
-		CGFloat actualFontSize;
-		if (fontSize != 0)
-		{
-			actualFontSize = fontSizeIsRelative ? ([baseFont pointSize] + fontSize) : fontSize;
-			if (actualFontSize < kMinFontSize)
-				actualFontSize = kMinFontSize;
-		}
-		else
-			actualFontSize = [baseFont pointSize];
-		
-		toAdd[NSFontAttributeName] = [NSFont fontWithName:fontName size:actualFontSize];
-	}
+
+    NSMutableDictionary *fontInfo = [NSMutableDictionary dictionary];
+    if (fontName)
+        fontInfo[HGFontInformationNameKey] = fontName;
+    CGFloat actualFontSize;
+    if (fontSize != 0)
+    {
+        actualFontSize = fontSizeIsRelative ? ([baseFont pointSize] + fontSize) : fontSize;
+        if (actualFontSize < kMinFontSize)
+            actualFontSize = kMinFontSize;
+        fontInfo[HGFontInformationSizeKey] = @(actualFontSize);
+    }
+    toAdd[HGFontInformation] = [fontInfo copy];
 	
 	self.attributesToAdd = toAdd;
 	self.attributesToRemove = nil;

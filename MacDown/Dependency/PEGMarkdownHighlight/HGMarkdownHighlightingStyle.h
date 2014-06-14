@@ -44,6 +44,11 @@
 #define HG_LIGHT_GRAY	HG_COLOR_HSB(0, 0, 0.9)
 
 
+extern NSString * const HGFontInformation;
+extern NSString * const HGFontInformationNameKey;
+extern NSString * const HGFontInformationSizeKey;
+
+
 /**
  * \brief Highlighting style definition for a Markdown language element.
  *

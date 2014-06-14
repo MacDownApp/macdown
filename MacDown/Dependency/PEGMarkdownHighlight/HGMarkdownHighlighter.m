@@ -356,16 +356,39 @@ void styleparsing_error_callback(char *error_message, int line_number, void *con
 			
 			for (NSString *attrName in style.attributesToRemove)
 				[attrStr removeAttribute:attrName range:hlRange];
-			
-			[attrStr addAttributes:style.attributesToAdd range:hlRange];
-			
+
+            NSMutableDictionary *toAdd = [style.attributesToAdd mutableCopy];
+            NSDictionary *fontInfo = toAdd[HGFontInformation];
+            if (fontInfo)
+            {
+                NSFontManager *manager = [NSFontManager sharedFontManager];
+                [toAdd removeObjectForKey:HGFontInformation];
+                [attrStr enumerateAttribute:NSFontAttributeName
+                                    inRange:hlRange
+                                    options:NSAttributedStringEnumerationLongestEffectiveRangeNotRequired
+                                 usingBlock:
+                 ^(NSFont *font, NSRange range, BOOL *stop) {
+                     CGFloat pointSize = [fontInfo[HGFontInformationSizeKey] doubleValue];
+                     if (pointSize && pointSize != font.pointSize)
+                         font = [manager convertFont:font toSize:pointSize];
+                     NSString *fontName = fontInfo[HGFontInformationNameKey];
+                     if (fontName && ![fontName isEqualToString:font.fontName])
+                         font = [manager convertFont:font toFace:fontName];
+                     if (pointSize || fontName)
+                     {
+                         [attrStr addAttribute:NSFontAttributeName
+                                         value:font range:range];
+                     }
+                 }];
+            }
+			[attrStr addAttributes:toAdd range:hlRange];
+
 			if (style.fontTraitsToAdd != 0)
 				[attrStr applyFontTraits:style.fontTraitsToAdd range:hlRange];
 			
 			cursor = cursor->next;
 		}
 	}
-	
 	[[self.targetTextView textStorage] endEditing];
 }
 
