@@ -75,6 +75,7 @@ static NSString * const MPPreferencesDidSynchronizeNotificationName =
 @dynamic editorLineSpacing;
 
 @dynamic htmlStyleName;
+@dynamic htmlSyntaxHighlighting;
 @dynamic htmlDefaultDirectoryUrl;
 
 // Private preference.

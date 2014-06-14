@@ -10,6 +10,7 @@
 #import <WebKit/WebKit.h>
 #import <hoedown/html.h>
 #import <hoedown/markdown.h>
+#import "hoedown_html_patch.h"
 #import "HGMarkdownHighlighter.h"
 #import "MPUtilities.h"
 #import "NSString+Lookup.h"
@@ -57,7 +58,10 @@
 @property BOOL currentSmartyPantsFlag;
 @property (copy) NSString *currentHtml;
 @property (copy) NSString *currentStyleName;
+@property BOOL currentSyntaxHighlighting;
 @property (strong) NSTimer *parseDelayTimer;
+@property (readonly) NSArray *stylesheets;
+@property (readonly) NSArray *scripts;
 
 // Store file content in initializer until nib is loaded.
 @property (copy) NSString *loadedString;
@@ -74,6 +78,7 @@
         return self;
 
     self.htmlRenderer = hoedown_html_renderer_new(0, 0);
+    self.htmlRenderer->blockcode = hoedown_patch_render_blockcode;
 
     return self;
 }
@@ -106,6 +111,25 @@
     if (_htmlRenderer)
         hoedown_html_renderer_free(_htmlRenderer);
     _htmlRenderer = htmlRenderer;
+}
+
+- (NSArray *)stylesheets
+{
+    NSString *defaultStyle = MPStylePathForName(self.preferences.htmlStyleName);
+    NSMutableArray *styles = [NSMutableArray arrayWithObject:defaultStyle];
+    if (self.preferences.htmlSyntaxHighlighting)
+    {
+        [styles addObject:[[NSBundle mainBundle] pathForResource:@"prism"
+                                                          ofType:@"css"]];
+    }
+    return styles;
+}
+
+- (NSArray *)scripts
+{
+    if (self.preferences.htmlSyntaxHighlighting)
+        return @[[[NSBundle mainBundle] pathForResource:@"prism" ofType:@"js"]];
+    return @[];
 }
 
 
@@ -369,7 +393,7 @@
 
         NSMutableArray *filesToCopy = [NSMutableArray array];
 
-        NSArray *styles = @[MPStylePathForName(self.preferences.htmlStyleName)];
+        NSArray *styles = self.stylesheets;
         switch (controller.stylesheetOption)
         {
             case MPAssetsNone:
@@ -383,10 +407,24 @@
             default:
                 break;
         }
+        NSArray *scripts = self.scripts;
+        switch (controller.scriptOption)
+        {
+            case MPAssetsNone:
+                scripts = nil;
+                break;
+            case MPAssetsStripPath:
+                [filesToCopy addObjectsFromArray:scripts];
+                break;
+            case MPAssetsEmbedded:
+                break;
+            default:
+                break;
+        }
         NSString *html = [self htmlDocumentFromBody:self.currentHtml
                                         stylesheets:styles
                                            option:controller.stylesheetOption
-                                            scripts:nil
+                                            scripts:scripts
                                              option:controller.scriptOption];
         [html writeToURL:panel.URL atomically:NO encoding:NSUTF8StringEncoding
                    error:NULL];
@@ -566,9 +604,10 @@
 {
     NSString *styleName = self.preferences.htmlStyleName;
     NSString *html = [self htmlDocumentFromBody:self.currentHtml
-                                    stylesheets:@[MPStylePathForName(styleName)]
+                                    stylesheets:self.stylesheets
                                          option:MPAssetsFullLink
-                                        scripts:nil option:MPAssetsNone];
+                                        scripts:self.scripts
+                                         option:MPAssetsFullLink];
     NSURL *baseUrl = self.fileURL;
     if (!baseUrl)
         baseUrl = self.preferences.htmlDefaultDirectoryUrl;
@@ -576,11 +615,14 @@
 
     // Record current rendering flags for -renderIfPreferencesChanged.
     self.currentStyleName = styleName;
+    self.currentSyntaxHighlighting = self.preferences.htmlSyntaxHighlighting;
 }
 
 - (void)renderIfPreferencesChanged
 {
-    if (self.preferences.htmlStyleName != self.currentStyleName)
+    if (self.preferences.htmlStyleName != self.currentStyleName
+        || (self.preferences.htmlSyntaxHighlighting
+            != self.currentSyntaxHighlighting))
         [self render];
 }
 
@@ -626,11 +668,15 @@
                             option:(MPAssetsOption)scriptsOption
 {
     NSString *format;
-    NSString *title = self.fileURL.lastPathComponent;
-    if (title)
+
+    NSString *title = @"";
+    if (self.fileURL)
+    {
+        title = self.fileURL.lastPathComponent;
+        if ([title hasSuffix:@".md"])
+            title = [title substringToIndex:title.length - 3];
         title = [NSString stringWithFormat:@"<title>%@</title>\n", title];
-    else
-        title = @"";
+    }
 
     // Styles.
     NSMutableArray *styles =
@@ -650,6 +696,7 @@
                 break;
             case MPAssetsEmbedded:
                 s = MPReadFileOfPath(path);
+                break;
             default:
                 break;
         }
@@ -675,8 +722,10 @@
                 break;
             case MPAssetsStripPath:
                 s = [NSString stringWithFormat:format, path.lastPathComponent];
+                break;
             case MPAssetsEmbedded:
                 s = MPReadFileOfPath(path);
+                break;
             default:
                 break;
         }
@@ -689,10 +738,11 @@
 
     static NSString *f =
         (@"<!DOCTYPE html><html>\n\n"
-         @"<head>\n<meta charset=\"utf-8\">\n%@\n"
+         @"<head>\n<meta charset=\"utf-8\">\n%@%@\n"
          @"<body>\n%@\n%@\n</body>\n\n</html>\n");
 
-    return [NSString stringWithFormat:f, title, style, body, script];
+    NSString *html = [NSString stringWithFormat:f, title, style, body, script];
+    return html;
 }
 
 @end
