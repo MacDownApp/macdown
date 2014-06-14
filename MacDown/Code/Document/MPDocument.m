@@ -195,6 +195,14 @@
     return [super prepareSavePanel:savePanel];
 }
 
+- (NSPrintOperation *)printOperationWithSettings:(NSDictionary *)printSettings
+                                           error:(NSError *__autoreleasing *)e
+{
+    WebFrameView *frameView = self.preview.mainFrame.frameView;
+    NSPrintInfo *printInfo = self.printInfo;
+    return [frameView printOperationWithPrintInfo:printInfo];
+}
+
 
 #pragma mark - NSTextViewDelegate
 
