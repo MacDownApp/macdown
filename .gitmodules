@@ -1,0 +1,3 @@
+[submodule "MacDown/Dependency/MathJax"]
+	path = MacDown/Dependency/MathJax
+	url = https://github.com/mathjax/MathJax.git

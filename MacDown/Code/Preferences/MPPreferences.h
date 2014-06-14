@@ -36,6 +36,7 @@
 @property (assign) CGFloat editorLineSpacing;
 
 @property (assign) NSString *htmlStyleName;
+@property (assign) BOOL htmlMathJax;
 @property (assign) BOOL htmlSyntaxHighlighting;
 @property (assign) NSURL *htmlDefaultDirectoryUrl;
 

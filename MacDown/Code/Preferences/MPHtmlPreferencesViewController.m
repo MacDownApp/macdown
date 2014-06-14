@@ -36,7 +36,7 @@
 
 - (NSString *)toolbarItemLabel
 {
-    return NSLocalizedString(@"HTML", @"Preference pane title.");
+    return NSLocalizedString(@"Rendering", @"Preference pane title.");
 }
 
 

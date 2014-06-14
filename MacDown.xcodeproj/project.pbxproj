@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1F0B60DB194CB06E0008F1BA /* prism.css in Resources */ = {isa = PBXBuildFile; fileRef = 1F0B60DA194CB06E0008F1BA /* prism.css */; };
-		1F0B60DC194CB0AF0008F1BA /* prism.js in Resources */ = {isa = PBXBuildFile; fileRef = 1F0B60D8194CB04D0008F1BA /* prism.js */; };
+		1F0B60E5194CB7730008F1BA /* MathJax in Resources */ = {isa = PBXBuildFile; fileRef = 1F0B60E4194CB7730008F1BA /* MathJax */; };
+		1F0B60E7194CB7A50008F1BA /* Prism in Resources */ = {isa = PBXBuildFile; fileRef = 1F0B60E6194CB7A40008F1BA /* Prism */; };
 		1F0D9D65194AC7CF008E1856 /* NSString+Lookup.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0D9D5F194AC7CF008E1856 /* NSString+Lookup.m */; };
 		1F0D9D66194AC7CF008E1856 /* NSTextView+Autocomplete.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0D9D61194AC7CF008E1856 /* NSTextView+Autocomplete.m */; };
 		1F0D9D67194AC7CF008E1856 /* MPUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0D9D64194AC7CF008E1856 /* MPUtilities.m */; };
@@ -59,8 +59,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1F0B60D8194CB04D0008F1BA /* prism.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = prism.js; path = Prism/prism.js; sourceTree = "<group>"; };
-		1F0B60DA194CB06E0008F1BA /* prism.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = prism.css; path = Prism/prism.css; sourceTree = "<group>"; };
+		1F0B60E4194CB7730008F1BA /* MathJax */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MathJax; sourceTree = "<group>"; };
+		1F0B60E6194CB7A40008F1BA /* Prism */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Prism; sourceTree = "<group>"; };
 		1F0D9D5E194AC7CF008E1856 /* NSString+Lookup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Lookup.h"; sourceTree = "<group>"; };
 		1F0D9D5F194AC7CF008E1856 /* NSString+Lookup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Lookup.m"; sourceTree = "<group>"; };
 		1F0D9D60194AC7CF008E1856 /* NSTextView+Autocomplete.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTextView+Autocomplete.h"; sourceTree = "<group>"; };
@@ -151,15 +151,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1F0B60D7194CB0360008F1BA /* Prism */ = {
-			isa = PBXGroup;
-			children = (
-				1F0B60D8194CB04D0008F1BA /* prism.js */,
-				1F0B60DA194CB06E0008F1BA /* prism.css */,
-			);
-			name = Prism;
-			sourceTree = "<group>";
-		};
 		1F0D9D5D194AC7CF008E1856 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
@@ -222,7 +213,8 @@
 		1F0D9D94194AC888008E1856 /* Dependency */ = {
 			isa = PBXGroup;
 			children = (
-				1F0B60D7194CB0360008F1BA /* Prism */,
+				1F0B60E6194CB7A40008F1BA /* Prism */,
+				1F0B60E4194CB7730008F1BA /* MathJax */,
 				1F0D9D95194AC888008E1856 /* PEGMarkdownHighlight */,
 			);
 			path = Dependency;
@@ -437,6 +429,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1F0D9DB0194AC9EE008E1856 /* MPDocument.xib in Resources */,
+				1F0B60E7194CB7A50008F1BA /* Prism in Resources */,
 				1F0D9DB1194AC9EE008E1856 /* MPEditorPreferencesViewController.xib in Resources */,
 				1F0D9DB2194AC9EE008E1856 /* MPHtmlPreferencesViewController.xib in Resources */,
 				1F0D9DB3194AC9EE008E1856 /* MPMarkdownPreferencesViewController.xib in Resources */,
@@ -447,8 +440,7 @@
 				1FD7F8DE194A0211007ED2A1 /* Data in Resources */,
 				1F4C8E9A194AE0B9004BF82E /* MarkdownDocument.icns in Resources */,
 				1F0D9DAB194AC8CB008E1856 /* InfoPlist.strings in Resources */,
-				1F0B60DC194CB0AF0008F1BA /* prism.js in Resources */,
-				1F0B60DB194CB06E0008F1BA /* prism.css in Resources */,
+				1F0B60E5194CB7730008F1BA /* MathJax in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

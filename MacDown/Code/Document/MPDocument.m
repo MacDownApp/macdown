@@ -120,16 +120,30 @@
     if (self.preferences.htmlSyntaxHighlighting)
     {
         [styles addObject:[[NSBundle mainBundle] pathForResource:@"prism"
-                                                          ofType:@"css"]];
+                                                          ofType:@"css"
+                                                     inDirectory:@"Prism"]];
     }
     return styles;
 }
 
 - (NSArray *)scripts
 {
+    NSMutableArray *scripts = [NSMutableArray array];
+    NSBundle *bundle = [NSBundle mainBundle];
     if (self.preferences.htmlSyntaxHighlighting)
-        return @[[[NSBundle mainBundle] pathForResource:@"prism" ofType:@"js"]];
-    return @[];
+    {
+        [scripts addObject:[bundle pathForResource:@"prism" ofType:@"js"
+                                       inDirectory:@"Prism"]];
+    }
+    if (self.preferences.htmlMathJax)
+    {
+        [scripts addObject:[bundle pathForResource:@"MathJax" ofType:@"js"
+                                       inDirectory:@"MathJax"]];
+        [scripts addObject:[bundle pathForResource:@"TeX-AMS-MML_HTMLorMML"
+                                            ofType:@"js"
+                                       inDirectory:@"MathJax/config"]];
+    }
+    return scripts;
 }
 
 
