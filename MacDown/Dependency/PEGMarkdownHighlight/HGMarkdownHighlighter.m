@@ -446,20 +446,7 @@ void styleparsing_error_callback(char *error_message, int line_number, void *con
 {
 	if (_cachedElements == NULL)
 		return;
-
-    // Scroll past top.
-    NSScrollView *scrollView = self.targetTextView.enclosingScrollView;
-    NSRect bounds = scrollView.contentView.bounds;
-    if (bounds.origin.x < 0 || bounds.origin.y < 0)
-        return;
-
-    // Scroll past bottom.
-    NSSize documentSize = [scrollView.documentView frame].size;
-    if (bounds.origin.x + bounds.size.width > documentSize.width
-        || bounds.origin.y + bounds.size.height > documentSize.height)
-        return;
-
-	[self applyVisibleRangeHighlighting];
+    [self applyVisibleRangeHighlighting];
 }
 
 
