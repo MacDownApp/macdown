@@ -101,3 +101,30 @@ BOOL MPStringIsNewline(NSString *str)
         return NO;
     return MPCharacterIsNewline([str characterAtIndex:0]);
 }
+
+NSString *MPStylePathForName(NSString *name)
+{
+    if (![name hasSuffix:kMPStyleFileExtension])
+        name = [NSString stringWithFormat:@"%@%@", name, kMPStyleFileExtension];
+    NSString *path = MPPathToDataFile(name, kMPStylesDirectoryName);
+    return path;
+}
+
+NSString *MPThemePathForName(NSString *name)
+{
+    if (![name hasSuffix:kMPThemeFileExtension])
+        name = [NSString stringWithFormat:@"%@%@", name, kMPThemeFileExtension];
+    NSString *path = MPPathToDataFile(name, kMPThemesDirectoryName);
+    return path;
+}
+
+NSString *MPReadFileOfPath(NSString *path)
+{
+    NSError *error = nil;
+    NSString *s = [NSString stringWithContentsOfFile:path
+                                            encoding:NSUTF8StringEncoding
+                                               error:&error];
+    if (error)
+        return @"";
+    return s;
+}

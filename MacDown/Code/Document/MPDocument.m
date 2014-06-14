@@ -423,7 +423,8 @@
     }
     else
     {
-        NSString *themeString = [self themeStringForName:themeName];
+        NSString *path = MPThemePathForName(themeName);
+        NSString *themeString = MPReadFileOfPath(path);
         [self.highlighter applyStylesFromStylesheet:themeString
                                    withErrorHandler:
             ^(NSArray *errorMessages) {
@@ -471,42 +472,6 @@
     previewContentView.bounds = previewContentBounds;
 }
 
-- (NSString *)styleStringForName:(NSString *)name
-{
-    if (![name hasSuffix:kMPStyleFileExtension])
-        name = [NSString stringWithFormat:@"%@%@", name, kMPStyleFileExtension];
-    NSString *path = MPPathToDataFile(name, kMPStylesDirectoryName);
-    if (![[NSFileManager defaultManager] fileExistsAtPath:path])
-        return nil;
-
-    NSError *error = nil;
-    NSString *content =
-        [[NSString alloc] initWithContentsOfFile:path
-                                        encoding:NSUTF8StringEncoding
-                                           error:&error];
-    if (error)
-        return nil;
-    return content;
-}
-
-- (NSString *)themeStringForName:(NSString *)name
-{
-    if (![name hasSuffix:kMPThemeFileExtension])
-        name = [NSString stringWithFormat:@"%@%@", name, kMPThemeFileExtension];
-    NSString *path = MPPathToDataFile(name, kMPThemesDirectoryName);
-    if (![[NSFileManager defaultManager] fileExistsAtPath:path])
-        return nil;
-
-    NSError *error = nil;
-    NSString *content =
-    [[NSString alloc] initWithContentsOfFile:path
-                                    encoding:NSUTF8StringEncoding
-                                       error:&error];
-    if (error)
-        return nil;
-    return content;
-}
-
 - (void)parse
 {
     void(^nextAction)() = self.parseDelayTimer.userInfo[@"next"];
@@ -538,10 +503,10 @@
 
 - (void)render
 {
-    NSString *styleName = [self.preferences.htmlStyleName copy];
-    NSString *styleString = [self styleStringForName:styleName];
+    NSString *styleName = self.preferences.htmlStyleName;
     NSString *html = [self htmlDocumentFromBody:self.currentHtml
-                                         styles:styleString];
+                                    stylesheets:@[MPStylePathForName(styleName)]
+                                        scripts:nil embedded:NO];
     NSURL *baseUrl = self.fileURL;
     if (!baseUrl)
         baseUrl = self.preferences.htmlDefaultDirectoryUrl;
@@ -592,16 +557,68 @@
     return result;
 }
 
-- (NSString *)htmlDocumentFromBody:(NSString *)body styles:(NSString *)styles
+- (NSString *)htmlDocumentFromBody:(NSString *)body
+                       stylesheets:(NSArray *)stylesheetPaths
+                           scripts:(NSArray *)scriptPaths
+                          embedded:(BOOL)embedded
 {
-    if (!styles)
-        styles = @"";
+    NSString *title = self.fileURL.lastPathComponent;
+    if (title)
+        title = [NSString stringWithFormat:@"<title>%@</title>\n", title];
+    else
+        title = @"";
 
-    return [NSString stringWithFormat:@"<!DOCTYPE html>"
-            @"<html lang=\"en\"><head><meta charset=\"utf-8\">"
-            @"<title>%@</title><style>%@</style></head>"
-            @"<body>%@</body></html>",
-            self.displayName, styles, body];
+    // Styles.
+    NSMutableArray *styles =
+        [NSMutableArray arrayWithCapacity:stylesheetPaths.count];
+    for (NSString *path in stylesheetPaths)
+    {
+        NSString *s;
+        if (embedded)
+        {
+            s = MPReadFileOfPath(path);
+        }
+        else
+        {
+            NSString *format =
+                @"<link rel=\"stylesheet\" type=\"text/css\" href=\"%@\">";
+            NSURL *url = [NSURL fileURLWithPath:path];
+            s = [NSString stringWithFormat:format, url.absoluteString];
+        }
+        [styles addObject:s];
+    }
+    NSString *style = [styles componentsJoinedByString:@"\n"];
+    if (embedded)
+        style = [NSString stringWithFormat:@"<style>\n%@</style>", style];
+
+    // Scripts.
+    NSMutableArray *scripts =
+        [NSMutableArray arrayWithCapacity:scriptPaths.count];
+    for (NSString *path in scriptPaths)
+    {
+        NSString *s;
+        if (embedded)
+        {
+            s = MPReadFileOfPath(path);
+        }
+        else
+        {
+            NSString *format = @"<script src=\"%@\"></script>";
+            NSURL *url = [NSURL fileURLWithPath:path];
+            s = [NSString stringWithFormat:format, url.absoluteString];
+        }
+        [scripts addObject:s];
+    }
+    NSString *script = [scripts componentsJoinedByString:@"\n"];
+    if (embedded)
+        script = [NSString stringWithFormat:@"<script>%@</script>", script];
+
+    static NSString *f =
+        (@"<!DOCTYPE html><html>\n\n"
+         @"<head>\n<meta charset=\"utf-8\">\n%@\n"
+         @"<body>\n%@\n%@\n</body>\n\n</html>\n");
+
+    return [NSString stringWithFormat:f, title, style, body, script];
 }
 
 @end

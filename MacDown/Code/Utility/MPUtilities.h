@@ -27,3 +27,7 @@ NSString *(^MPFileNameHasSuffixProcessor(NSString *suffix))(NSString *path);
 BOOL MPCharacterIsWhitespace(unichar character);
 BOOL MPCharacterIsNewline(unichar character);
 BOOL MPStringIsNewline(NSString *str);
+
+NSString *MPStylePathForName(NSString *name);
+NSString *MPThemePathForName(NSString *name);
+NSString *MPReadFileOfPath(NSString *path);
