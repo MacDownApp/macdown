@@ -15,6 +15,7 @@
 #import "NSString+Lookup.h"
 #import "NSTextView+Autocomplete.h"
 #import "MPPreferences.h"
+#import "MPExportPanelAccessoryViewController.h"
 
 
 @implementation MPPreferences (Hoedown)
@@ -341,6 +342,68 @@
     [pasteboard writeObjects:@[self.currentHtml]];
 }
 
+- (IBAction)exportHtml:(id)sender
+{
+    NSSavePanel *panel = [NSSavePanel savePanel];
+    panel.allowedFileTypes = @[@"html"];
+    if (self.fileURL)
+    {
+        NSString *fileName = self.fileURL.lastPathComponent;
+        if ([fileName hasSuffix:@".md"])
+            fileName = [fileName substringToIndex:(fileName.length - 3)];
+        panel.nameFieldStringValue = fileName;
+    }
+
+    MPExportPanelAccessoryViewController *controller =
+        [[MPExportPanelAccessoryViewController alloc] initWithNibName:nil
+                                                               bundle:nil];
+    panel.accessoryView = controller.view;
+
+    NSWindow *w = nil;
+    NSArray *windowControllers = self.windowControllers;
+    if (windowControllers.count)
+        w = [windowControllers[0] window];
+    [panel beginSheetModalForWindow:w completionHandler:^(NSInteger result) {
+        if (result != NSFileHandlingPanelOKButton)
+            return;
+
+        NSMutableArray *filesToCopy = [NSMutableArray array];
+
+        BOOL stylesEmbedded = NO;
+        NSArray *styles = @[MPStylePathForName(self.preferences.htmlStyleName)];
+        switch (controller.stylesheetOption)
+        {
+            case MPAssetsDoNotExport:
+                styles = nil;
+                break;
+            case MPAssetsExportExternal:
+                [filesToCopy addObjectsFromArray:styles];
+                break;
+            case MPAssetsExportEmbedded:
+                stylesEmbedded = YES;
+                break;
+            default:
+                break;
+        }
+        NSString *html = [self htmlDocumentFromBody:self.currentHtml
+                                        stylesheets:styles
+                                           embedded:stylesEmbedded
+                                            scripts:nil
+                                           embedded:NO];
+        [html writeToURL:panel.URL atomically:NO encoding:NSUTF8StringEncoding
+                   error:NULL];
+
+        NSFileManager *manager = [NSFileManager defaultManager];
+        for (NSString *path in filesToCopy)
+        {
+            NSURL *source = [NSURL fileURLWithPath:path];
+            NSURL *target = [NSURL URLWithString:path.lastPathComponent
+                                   relativeToURL:panel.directoryURL];
+            [manager copyItemAtURL:source toURL:target error:NULL];
+        }
+    }];
+}
+
 - (IBAction)toggleStrong:(id)sender
 {
     [self.editor toggleForMarkupPrefix:@"**" suffix:@"**"];
@@ -506,7 +569,7 @@
     NSString *styleName = self.preferences.htmlStyleName;
     NSString *html = [self htmlDocumentFromBody:self.currentHtml
                                     stylesheets:@[MPStylePathForName(styleName)]
-                                        scripts:nil embedded:NO];
+                                       embedded:NO scripts:nil embedded:NO];
     NSURL *baseUrl = self.fileURL;
     if (!baseUrl)
         baseUrl = self.preferences.htmlDefaultDirectoryUrl;
@@ -559,8 +622,9 @@
 
 - (NSString *)htmlDocumentFromBody:(NSString *)body
                        stylesheets:(NSArray *)stylesheetPaths
+                          embedded:(BOOL)stylesEmbedded
                            scripts:(NSArray *)scriptPaths
-                          embedded:(BOOL)embedded
+                          embedded:(BOOL)scriptsEmbedded
 {
     NSString *title = self.fileURL.lastPathComponent;
     if (title)
@@ -574,7 +638,7 @@
     for (NSString *path in stylesheetPaths)
     {
         NSString *s;
-        if (embedded)
+        if (stylesEmbedded)
         {
             s = MPReadFileOfPath(path);
         }
@@ -588,7 +652,7 @@
         [styles addObject:s];
     }
     NSString *style = [styles componentsJoinedByString:@"\n"];
-    if (embedded)
+    if (stylesEmbedded)
         style = [NSString stringWithFormat:@"<style>\n%@</style>", style];
 
     // Scripts.
@@ -597,7 +661,7 @@
     for (NSString *path in scriptPaths)
     {
         NSString *s;
-        if (embedded)
+        if (scriptsEmbedded)
         {
             s = MPReadFileOfPath(path);
         }
@@ -610,7 +674,7 @@
         [scripts addObject:s];
     }
     NSString *script = [scripts componentsJoinedByString:@"\n"];
-    if (embedded)
+    if (scriptsEmbedded)
         script = [NSString stringWithFormat:@"<script>%@</script>", script];
 
     static NSString *f =

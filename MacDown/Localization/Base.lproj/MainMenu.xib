@@ -107,6 +107,13 @@
                                     <action selector="revertDocumentToSaved:" target="-1" id="iJ3-Pv-kwq"/>
                                 </connections>
                             </menuItem>
+                            <menuItem isSeparatorItem="YES" id="oOV-6A-wGe"/>
+                            <menuItem title="Export as HTML…" keyEquivalent="e" id="dGm-Yl-i3Z">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                <connections>
+                                    <action selector="exportHtml:" target="-1" id="g0v-ZC-o6m"/>
+                                </connections>
+                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="aJh-i4-bef"/>
                             <menuItem title="Page Setup…" keyEquivalent="P" id="qIS-W8-SiK">
                                 <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
