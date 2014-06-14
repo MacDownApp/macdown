@@ -369,27 +369,25 @@
 
         NSMutableArray *filesToCopy = [NSMutableArray array];
 
-        BOOL stylesEmbedded = NO;
         NSArray *styles = @[MPStylePathForName(self.preferences.htmlStyleName)];
         switch (controller.stylesheetOption)
         {
-            case MPAssetsDoNotExport:
+            case MPAssetsNone:
                 styles = nil;
                 break;
-            case MPAssetsExportExternal:
+            case MPAssetsStripPath:
                 [filesToCopy addObjectsFromArray:styles];
                 break;
-            case MPAssetsExportEmbedded:
-                stylesEmbedded = YES;
+            case MPAssetsEmbedded:
                 break;
             default:
                 break;
         }
         NSString *html = [self htmlDocumentFromBody:self.currentHtml
                                         stylesheets:styles
-                                           embedded:stylesEmbedded
+                                           option:controller.stylesheetOption
                                             scripts:nil
-                                           embedded:NO];
+                                             option:controller.scriptOption];
         [html writeToURL:panel.URL atomically:NO encoding:NSUTF8StringEncoding
                    error:NULL];
 
@@ -569,7 +567,8 @@
     NSString *styleName = self.preferences.htmlStyleName;
     NSString *html = [self htmlDocumentFromBody:self.currentHtml
                                     stylesheets:@[MPStylePathForName(styleName)]
-                                       embedded:NO scripts:nil embedded:NO];
+                                         option:MPAssetsFullLink
+                                        scripts:nil option:MPAssetsNone];
     NSURL *baseUrl = self.fileURL;
     if (!baseUrl)
         baseUrl = self.preferences.htmlDefaultDirectoryUrl;
@@ -622,10 +621,11 @@
 
 - (NSString *)htmlDocumentFromBody:(NSString *)body
                        stylesheets:(NSArray *)stylesheetPaths
-                          embedded:(BOOL)stylesEmbedded
+                            option:(MPAssetsOption)stylesOption
                            scripts:(NSArray *)scriptPaths
-                          embedded:(BOOL)scriptsEmbedded
+                            option:(MPAssetsOption)scriptsOption
 {
+    NSString *format;
     NSString *title = self.fileURL.lastPathComponent;
     if (title)
         title = [NSString stringWithFormat:@"<title>%@</title>\n", title];
@@ -635,46 +635,56 @@
     // Styles.
     NSMutableArray *styles =
         [NSMutableArray arrayWithCapacity:stylesheetPaths.count];
+    format = @"<link rel=\"stylesheet\" type=\"text/css\" href=\"%@\">";
     for (NSString *path in stylesheetPaths)
     {
-        NSString *s;
-        if (stylesEmbedded)
+        NSString *s = nil;
+        switch (stylesOption)
         {
-            s = MPReadFileOfPath(path);
+            case MPAssetsFullLink:
+                s = [NSString stringWithFormat:
+                        format, [[NSURL fileURLWithPath:path] absoluteString]];
+                break;
+            case MPAssetsStripPath:
+                s = [NSString stringWithFormat:format, path.lastPathComponent];
+                break;
+            case MPAssetsEmbedded:
+                s = MPReadFileOfPath(path);
+            default:
+                break;
         }
-        else
-        {
-            NSString *format =
-                @"<link rel=\"stylesheet\" type=\"text/css\" href=\"%@\">";
-            NSURL *url = [NSURL fileURLWithPath:path];
-            s = [NSString stringWithFormat:format, url.absoluteString];
-        }
-        [styles addObject:s];
+        if (s)
+            [styles addObject:s];
     }
     NSString *style = [styles componentsJoinedByString:@"\n"];
-    if (stylesEmbedded)
+    if (stylesOption == MPAssetsEmbedded)
         style = [NSString stringWithFormat:@"<style>\n%@</style>", style];
 
     // Scripts.
     NSMutableArray *scripts =
         [NSMutableArray arrayWithCapacity:scriptPaths.count];
+    format = @"<script type=\"text/javascript\" src=\"%@\"></script>";
     for (NSString *path in scriptPaths)
     {
-        NSString *s;
-        if (scriptsEmbedded)
+        NSString *s = nil;
+        switch (scriptsOption)
         {
-            s = MPReadFileOfPath(path);
+            case MPAssetsFullLink:
+                s = [NSString stringWithFormat:
+                        format, [[NSURL fileURLWithPath:path] absoluteString]];
+                break;
+            case MPAssetsStripPath:
+                s = [NSString stringWithFormat:format, path.lastPathComponent];
+            case MPAssetsEmbedded:
+                s = MPReadFileOfPath(path);
+            default:
+                break;
         }
-        else
-        {
-            NSString *format = @"<script src=\"%@\"></script>";
-            NSURL *url = [NSURL fileURLWithPath:path];
-            s = [NSString stringWithFormat:format, url.absoluteString];
-        }
-        [scripts addObject:s];
+        if (s)
+            [scripts addObject:s];
     }
     NSString *script = [scripts componentsJoinedByString:@"\n"];
-    if (scriptsEmbedded)
+    if (scriptsOption == MPAssetsEmbedded)
         script = [NSString stringWithFormat:@"<script>%@</script>", script];
 
     static NSString *f =

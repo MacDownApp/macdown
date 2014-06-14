@@ -8,13 +8,6 @@
 
 #import <Cocoa/Cocoa.h>
 
-typedef NS_ENUM(NSInteger, MPAssetsExportOption)
-{
-    MPAssetsDoNotExport,
-    MPAssetsExportExternal,
-    MPAssetsExportEmbedded,
-};
-
 @interface MPExportPanelAccessoryViewController : NSViewController
 
 @property NSInteger stylesheetOption;
