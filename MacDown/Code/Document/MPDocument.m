@@ -116,34 +116,36 @@
 - (NSArray *)stylesheets
 {
     NSString *defaultStyle = MPStylePathForName(self.preferences.htmlStyleName);
-    NSMutableArray *styles = [NSMutableArray arrayWithObject:defaultStyle];
+    NSMutableArray *urls =
+        [NSMutableArray arrayWithObject:[NSURL fileURLWithPath:defaultStyle]];
     if (self.preferences.htmlSyntaxHighlighting)
     {
-        [styles addObject:[[NSBundle mainBundle] pathForResource:@"prism"
-                                                          ofType:@"css"
-                                                     inDirectory:@"Prism"]];
+        [urls addObject:[[NSBundle mainBundle] URLForResource:@"prism"
+                                                withExtension:@"css"
+                                                 subdirectory:@"Prism"]];
     }
-    return styles;
+    return urls;
 }
 
 - (NSArray *)scripts
 {
-    NSMutableArray *scripts = [NSMutableArray array];
+    NSMutableArray *urls = [NSMutableArray array];
     NSBundle *bundle = [NSBundle mainBundle];
     if (self.preferences.htmlSyntaxHighlighting)
     {
-        [scripts addObject:[bundle pathForResource:@"prism" ofType:@"js"
-                                       inDirectory:@"Prism"]];
+        [urls addObject:[bundle URLForResource:@"prism"
+                                 withExtension:@"js"
+                                  subdirectory:@"Prism"]];
     }
     if (self.preferences.htmlMathJax)
     {
-        [scripts addObject:[bundle pathForResource:@"MathJax" ofType:@"js"
-                                       inDirectory:@"MathJax"]];
-        [scripts addObject:[bundle pathForResource:@"TeX-AMS-MML_HTMLorMML"
-                                            ofType:@"js"
-                                       inDirectory:@"MathJax/config"]];
+        [urls addObject:[bundle URLForResource:@"MathJax" withExtension:@"js"
+                                  subdirectory:@"MathJax"]];
+        [urls addObject:[bundle URLForResource:@"TeX-AMS-MML_HTMLorMML"
+                                 withExtension:@"js"
+                                  subdirectory:@"MathJax/config"]];
     }
-    return scripts;
+    return urls;
 }
 
 
@@ -444,12 +446,11 @@
                    error:NULL];
 
         NSFileManager *manager = [NSFileManager defaultManager];
-        for (NSString *path in filesToCopy)
+        for (NSURL *url in filesToCopy)
         {
-            NSURL *source = [NSURL fileURLWithPath:path];
-            NSURL *target = [NSURL URLWithString:path.lastPathComponent
+            NSURL *target = [NSURL URLWithString:url.lastPathComponent
                                    relativeToURL:panel.directoryURL];
-            [manager copyItemAtURL:source toURL:target error:NULL];
+            [manager copyItemAtURL:url toURL:target error:NULL];
         }
     }];
 }
@@ -676,9 +677,9 @@
 }
 
 - (NSString *)htmlDocumentFromBody:(NSString *)body
-                       stylesheets:(NSArray *)stylesheetPaths
+                       stylesheets:(NSArray *)stylesheetUrls
                             option:(MPAssetsOption)stylesOption
-                           scripts:(NSArray *)scriptPaths
+                           scripts:(NSArray *)scriptUrls
                             option:(MPAssetsOption)scriptsOption
 {
     NSString *format;
@@ -694,22 +695,21 @@
 
     // Styles.
     NSMutableArray *styles =
-        [NSMutableArray arrayWithCapacity:stylesheetPaths.count];
+        [NSMutableArray arrayWithCapacity:stylesheetUrls.count];
     format = @"<link rel=\"stylesheet\" type=\"text/css\" href=\"%@\">";
-    for (NSString *path in stylesheetPaths)
+    for (NSURL *url in stylesheetUrls)
     {
         NSString *s = nil;
         switch (stylesOption)
         {
             case MPAssetsFullLink:
-                s = [NSString stringWithFormat:
-                        format, [[NSURL fileURLWithPath:path] absoluteString]];
+                s = [NSString stringWithFormat:format, url.absoluteString];
                 break;
             case MPAssetsStripPath:
-                s = [NSString stringWithFormat:format, path.lastPathComponent];
+                s = [NSString stringWithFormat:format, url.lastPathComponent];
                 break;
             case MPAssetsEmbedded:
-                s = MPReadFileOfPath(path);
+                s = MPReadFileOfPath(url.absoluteString);
                 break;
             default:
                 break;
@@ -723,22 +723,21 @@
 
     // Scripts.
     NSMutableArray *scripts =
-        [NSMutableArray arrayWithCapacity:scriptPaths.count];
+        [NSMutableArray arrayWithCapacity:scriptUrls.count];
     format = @"<script type=\"text/javascript\" src=\"%@\"></script>";
-    for (NSString *path in scriptPaths)
+    for (NSURL *url in scriptUrls)
     {
         NSString *s = nil;
         switch (scriptsOption)
         {
             case MPAssetsFullLink:
-                s = [NSString stringWithFormat:
-                        format, [[NSURL fileURLWithPath:path] absoluteString]];
+                s = [NSString stringWithFormat:format, url.absoluteString];
                 break;
             case MPAssetsStripPath:
-                s = [NSString stringWithFormat:format, path.lastPathComponent];
+                s = [NSString stringWithFormat:format, url.lastPathComponent];
                 break;
             case MPAssetsEmbedded:
-                s = MPReadFileOfPath(path);
+                s = MPReadFileOfPath(url.absoluteString);
                 break;
             default:
                 break;
