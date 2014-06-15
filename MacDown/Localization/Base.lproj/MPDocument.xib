@@ -9,13 +9,15 @@
             <connections>
                 <outlet property="editor" destination="VLv-r5-dZU" id="D9p-hw-Xin"/>
                 <outlet property="preview" destination="XJO-AS-uPd" id="0ZO-ec-vWJ"/>
+                <outlet property="splitView" destination="0kv-p9-H4b" id="1EO-mS-VKN"/>
                 <outlet property="window" destination="xOd-HO-29H" id="JIz-fz-R2o"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application"/>
-        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="xOd-HO-29H" userLabel="Window">
+        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="documentWindow" id="xOd-HO-29H" userLabel="Window">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+            <windowCollectionBehavior key="collectionBehavior" fullScreenPrimary="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="0.0" y="300" width="900" height="578"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="878"/>

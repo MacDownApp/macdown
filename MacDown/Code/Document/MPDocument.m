@@ -54,6 +54,7 @@ static NSString * const kMPMathJaxCDN =
 
 @interface MPDocument () <NSTextViewDelegate>
 
+@property (weak) IBOutlet NSSplitView *splitView;
 @property (unsafe_unretained) IBOutlet NSTextView *editor;
 @property (weak) IBOutlet WebView *preview;
 @property (nonatomic, unsafe_unretained) hoedown_renderer *htmlRenderer;
@@ -511,6 +512,20 @@ static NSString * const kMPMathJaxCDN =
     // Insert two newlines after the current line, and jump to there.
     self.editor.selectedRange = NSMakeRange(newlineAfter, 0);
     [self.editor insertText:@"\n\n"];
+}
+
+- (IBAction)resetSplit:(id)sender
+{
+    CGFloat dividerThickness = self.splitView.dividerThickness;
+    CGFloat width = (self.splitView.frame.size.width - dividerThickness) / 2.0;
+    NSArray *parts = self.splitView.subviews;
+    NSView *left = parts[0];
+    NSView *right = parts[1];
+
+    left.frame = NSMakeRect(0.0, 0.0, width, left.frame.size.height);
+    right.frame = NSMakeRect(width + dividerThickness, 0.0,
+                             width, right.frame.size.height);
+    [self.splitView setPosition:width ofDividerAtIndex:0];
 }
 
 

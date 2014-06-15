@@ -342,6 +342,24 @@
                         </items>
                     </menu>
                 </menuItem>
+                <menuItem title="View" id="xSb-2f-W1r">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="View" id="EQZ-Zp-VNE">
+                        <items>
+                            <menuItem title="Reset Split" keyEquivalent="0" id="0Ru-nh-aAm">
+                                <connections>
+                                    <action selector="resetSplit:" target="-1" id="bAu-TE-kkp"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Enter Full Screen" keyEquivalent="f" id="1gz-YB-DZE">
+                                <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
+                                <connections>
+                                    <action selector="toggleFullScreen:" target="-1" id="7ez-RY-PkZ"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
                 <menuItem title="Actions" id="jxT-CU-nIS">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Actions" id="N43-55-MPb">
