@@ -766,7 +766,7 @@
 
     static NSString *f =
         (@"<!DOCTYPE html><html>\n\n"
-         @"<head>\n<meta charset=\"utf-8\">\n%@%@\n"
+         @"<head>\n<meta charset=\"utf-8\">\n%@%@\n</head>"
          @"<body>\n%@\n%@\n</body>\n\n</html>\n");
 
     NSString *html = [NSString stringWithFormat:f, title, style, body, script];

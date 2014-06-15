@@ -59,7 +59,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1F0B60E4194CB7730008F1BA /* MathJax */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MathJax; sourceTree = "<group>"; };
 		1F0B60E6194CB7A40008F1BA /* Prism */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Prism; sourceTree = "<group>"; };
 		1F0D9D5E194AC7CF008E1856 /* NSString+Lookup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Lookup.h"; sourceTree = "<group>"; };
 		1F0D9D5F194AC7CF008E1856 /* NSString+Lookup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Lookup.m"; sourceTree = "<group>"; };
@@ -214,7 +213,6 @@
 			isa = PBXGroup;
 			children = (
 				1F0B60E6194CB7A40008F1BA /* Prism */,
-				1F0B60E4194CB7730008F1BA /* MathJax */,
 				1F0D9D95194AC888008E1856 /* PEGMarkdownHighlight */,
 			);
 			path = Dependency;
@@ -440,7 +438,6 @@
 				1FD7F8DE194A0211007ED2A1 /* Data in Resources */,
 				1F4C8E9A194AE0B9004BF82E /* MarkdownDocument.icns in Resources */,
 				1F0D9DAB194AC8CB008E1856 /* InfoPlist.strings in Resources */,
-				1F0B60E5194CB7730008F1BA /* MathJax in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
