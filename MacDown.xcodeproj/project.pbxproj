@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1F0B60E5194CB7730008F1BA /* MathJax in Resources */ = {isa = PBXBuildFile; fileRef = 1F0B60E4194CB7730008F1BA /* MathJax */; };
 		1F0B60E7194CB7A50008F1BA /* Prism in Resources */ = {isa = PBXBuildFile; fileRef = 1F0B60E6194CB7A40008F1BA /* Prism */; };
 		1F0D9D65194AC7CF008E1856 /* NSString+Lookup.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0D9D5F194AC7CF008E1856 /* NSString+Lookup.m */; };
 		1F0D9D66194AC7CF008E1856 /* NSTextView+Autocomplete.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0D9D61194AC7CF008E1856 /* NSTextView+Autocomplete.m */; };

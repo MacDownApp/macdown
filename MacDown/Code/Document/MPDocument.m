@@ -18,6 +18,10 @@
 #import "MPPreferences.h"
 #import "MPExportPanelAccessoryViewController.h"
 
+static NSString * const kMPMathJaxCDN =
+    @"http://cdn.mathjax.org/mathjax/latest/MathJax.js"
+    @"?config=TeX-AMS-MML_HTMLorMML";
+
 
 @implementation MPPreferences (Hoedown)
 - (int)extensionFlags
@@ -138,13 +142,7 @@
                                   subdirectory:@"Prism"]];
     }
     if (self.preferences.htmlMathJax)
-    {
-        [urls addObject:[bundle URLForResource:@"MathJax" withExtension:@"js"
-                                  subdirectory:@"MathJax"]];
-        [urls addObject:[bundle URLForResource:@"TeX-AMS-MML_HTMLorMML"
-                                 withExtension:@"js"
-                                  subdirectory:@"MathJax/config"]];
-    }
+        [urls addObject:[NSURL URLWithString:kMPMathJaxCDN]];
     return urls;
 }
 
