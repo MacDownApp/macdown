@@ -448,6 +448,9 @@
         NSFileManager *manager = [NSFileManager defaultManager];
         for (NSURL *url in filesToCopy)
         {
+            // Only copy local files.
+            if (![url.scheme isEqualToString:@"file"])
+                continue;
             NSURL *target = [NSURL URLWithString:url.lastPathComponent
                                    relativeToURL:panel.directoryURL];
             [manager copyItemAtURL:url toURL:target error:NULL];
@@ -702,11 +705,17 @@
         NSString *s = nil;
         switch (stylesOption)
         {
+            case MPAssetsStripPath:
+                // If this is a local file, strip. Otherwise fall through to
+                // use the full link.
+                if ([url.scheme isEqualToString:@"file"])
+                {
+                    s = [NSString stringWithFormat:format,
+                                                   url.lastPathComponent];
+                    break;
+                }
             case MPAssetsFullLink:
                 s = [NSString stringWithFormat:format, url.absoluteString];
-                break;
-            case MPAssetsStripPath:
-                s = [NSString stringWithFormat:format, url.lastPathComponent];
                 break;
             case MPAssetsEmbedded:
                 s = MPReadFileOfPath(url.absoluteString);
@@ -730,11 +739,17 @@
         NSString *s = nil;
         switch (scriptsOption)
         {
+            case MPAssetsStripPath:
+                // If this is a local file, strip. Otherwise fall through to
+                // use the full link.
+                if ([url.scheme isEqualToString:@"file"])
+                {
+                    s = [NSString stringWithFormat:format,
+                                                   url.lastPathComponent];
+                    break;
+                }
             case MPAssetsFullLink:
                 s = [NSString stringWithFormat:format, url.absoluteString];
-                break;
-            case MPAssetsStripPath:
-                s = [NSString stringWithFormat:format, url.lastPathComponent];
                 break;
             case MPAssetsEmbedded:
                 s = MPReadFileOfPath(url.absoluteString);
