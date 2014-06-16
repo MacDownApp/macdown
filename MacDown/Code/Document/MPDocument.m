@@ -83,6 +83,7 @@ static NSString * const kMPMathJaxCDN =
     if (!self)
         return self;
 
+    self.currentHtml = @"";
     self.htmlRenderer = hoedown_html_renderer_new(0, 0);
     self.htmlRenderer->blockcode = hoedown_patch_render_blockcode;
 
