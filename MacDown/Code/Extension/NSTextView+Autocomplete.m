@@ -355,7 +355,7 @@ static const unichar kMPMarkupCharacters[] = {
 
     // Has matching list item. Only insert indent.
     NSRange r = NSMakeRange(location, t.length);
-    if (contentLength > start + t.length
+    if (contentLength > location + t.length
             && [[content substringWithRange:r] isEqualToString:t])
     {
         [self insertText:indent];
