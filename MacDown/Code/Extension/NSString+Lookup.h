@@ -13,7 +13,6 @@
 - (NSInteger)locationOfFirstNewlineBefore:(NSUInteger)location;
 - (NSUInteger)locationOfFirstNewlineAfter:(NSUInteger)location;
 - (NSUInteger)locationOfFirstNonWhitespaceCharacterInLineBefore:(NSUInteger)loc;
-- (NSRange)rangeOfLinesInRange:(NSRange)range;
 
 - (NSString *)titleString;
 

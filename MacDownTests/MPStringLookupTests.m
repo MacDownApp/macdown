@@ -143,58 +143,6 @@
                    4, @"Should check bounds and return for the last line.");
 }
 
-- (void)testRangeOfLinesInRange
-{
-    NSString *string;
-    NSRange range;
-
-    string = @"";
-    range = [string rangeOfLinesInRange:NSMakeRange(0, 0)];
-    XCTAssertTrue(NSEqualRanges(range, NSMakeRange(0, 0)),
-                  @"(%lu, %lu) != (0, 0)", range.location, range.length);
-
-    string = @"\n\n";
-    range = [string rangeOfLinesInRange:NSMakeRange(0, 1)];
-    XCTAssertTrue(NSEqualRanges(range, NSMakeRange(0, 1)),
-                  @"(%lu, %lu) != (0, 1)", range.location, range.length);
-    range = [string rangeOfLinesInRange:NSMakeRange(1, 0)];
-    XCTAssertTrue(NSEqualRanges(range, NSMakeRange(1, 1)),
-                  @"(%lu, %lu) != (1, 1)", range.location, range.length);
-    range = [string rangeOfLinesInRange:NSMakeRange(2, 0)];
-    XCTAssertTrue(NSEqualRanges(range, NSMakeRange(2, 0)),
-                  @"(%lu, %lu) != (2, 0)", range.location, range.length);
-
-    string = @"123";
-    range = [string rangeOfLinesInRange:NSMakeRange(2, 0)];
-    XCTAssertTrue(NSEqualRanges(range, NSMakeRange(0, 3)),
-                  @"(%lu, %lu) != (0, 3)", range.location, range.length);
-
-    string = @"123\n";
-    range = [string rangeOfLinesInRange:NSMakeRange(2, 0)];
-    XCTAssertTrue(NSEqualRanges(range, NSMakeRange(0, 4)),
-                  @"(%lu, %lu) != (0, 4)", range.location, range.length);
-
-    string = @"123\n567";
-    range = [string rangeOfLinesInRange:NSMakeRange(2, 4)];
-    XCTAssertTrue(NSEqualRanges(range, NSMakeRange(0, 7)),
-                  @"(%lu, %lu) != (0, 7)", range.location, range.length);
-
-    string = @"123\n567";
-    range = [string rangeOfLinesInRange:NSMakeRange(2, 5)];
-    XCTAssertTrue(NSEqualRanges(range, NSMakeRange(0, 7)),
-                  @"(%lu, %lu) != (0, 7)", range.location, range.length);
-
-    string = @"123\n567\n";
-    range = [string rangeOfLinesInRange:NSMakeRange(2, 6)];
-    XCTAssertTrue(NSEqualRanges(range, NSMakeRange(0, 8)),
-                  @"(%lu, %lu) != (0, 8)", range.location, range.length);
-
-    string = @"123\n\n67\n";
-    range = [string rangeOfLinesInRange:NSMakeRange(2, 6)];
-    XCTAssertTrue(NSEqualRanges(range, NSMakeRange(0, 8)),
-                  @"(%lu, %lu) != (0, 8)", range.location, range.length);
-}
-
 - (void)testTitleString
 {
     NSString *string;
