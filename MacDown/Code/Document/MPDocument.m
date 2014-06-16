@@ -61,9 +61,10 @@ static NSString * const kMPMathJaxCDN =
 @property HGMarkdownHighlighter *highlighter;
 @property int currentExtensionFlags;
 @property BOOL currentSmartyPantsFlag;
+@property BOOL currentSyntaxHighlighting;
+@property BOOL currentMathJax;
 @property (copy) NSString *currentHtml;
 @property (copy) NSString *currentStyleName;
-@property BOOL currentSyntaxHighlighting;
 @property (strong) NSTimer *parseDelayTimer;
 @property (readonly) NSArray *stylesheets;
 @property (readonly) NSArray *scripts;
@@ -657,8 +658,9 @@ static NSString * const kMPMathJaxCDN =
 - (void)renderIfPreferencesChanged
 {
     if (self.preferences.htmlStyleName != self.currentStyleName
-        || (self.preferences.htmlSyntaxHighlighting
-            != self.currentSyntaxHighlighting))
+            || (self.preferences.htmlSyntaxHighlighting
+                != self.currentSyntaxHighlighting)
+            || (self.preferences.htmlMathJax != self.currentMathJax))
         [self render];
 }
 
