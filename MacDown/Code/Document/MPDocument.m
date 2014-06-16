@@ -423,7 +423,10 @@ static NSString * const kMPMathJaxCDN =
                                          subdirectory:@"Prism"]];
         }
         if (self.preferences.htmlMathJax)
+        {
+            scriptsOption = MPAssetsEmbedded;
             [scripts addObject:[NSURL URLWithString:kMPMathJaxCDN]];
+        }
 
         NSString *html = [self htmlDocumentFromBody:self.currentHtml
                                         stylesheets:styles
