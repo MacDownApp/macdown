@@ -56,15 +56,9 @@
 
     // Special case: the first (empty) item. No stylesheets will be used.
     if (!title.length)
-    {
-        [self.stylesheetFunctions setEnabled:NO forSegment:0];
         self.preferences.htmlStyleName = nil;
-    }
     else
-    {
-        [self.stylesheetFunctions setEnabled:YES forSegment:0];
         self.preferences.htmlStyleName = title;
-    }
 }
 
 - (IBAction)invokeStylesheetFunction:(NSSegmentedControl *)sender

@@ -121,15 +121,9 @@
 
     // Special case: the first (empty) item. No stylesheets will be used.
     if (!title.length)
-    {
-        [self.themeFunctions setEnabled:NO forSegment:0];
         self.preferences.editorStyleName = nil;
-    }
     else
-    {
-        [self.themeFunctions setEnabled:YES forSegment:0];
         self.preferences.editorStyleName = title;
-    }
 }
 
 - (IBAction)invokeStylesheetFunction:(NSSegmentedControl *)sender
