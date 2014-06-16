@@ -107,6 +107,7 @@
 - (IBAction)showFontPanel:(id)sender
 {
     NSFontManager *manager = [NSFontManager sharedFontManager];
+    manager.target = self;
     manager.action = @selector(changeFont:);
     [manager setSelectedFont:[self.preferences.editorBaseFont copy]
                   isMultiple:NO];
