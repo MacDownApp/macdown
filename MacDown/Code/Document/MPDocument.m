@@ -652,6 +652,7 @@ static NSString * const kMPMathJaxCDN =
     // Record current rendering flags for -renderIfPreferencesChanged.
     self.currentStyleName = styleName;
     self.currentSyntaxHighlighting = self.preferences.htmlSyntaxHighlighting;
+    self.currentMathJax = self.preferences.htmlMathJax;
 }
 
 - (void)renderIfPreferencesChanged
