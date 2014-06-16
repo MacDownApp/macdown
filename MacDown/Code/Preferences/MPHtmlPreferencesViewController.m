@@ -28,10 +28,7 @@
 
 - (NSImage *)toolbarItemImage
 {
-    // TODO: Give me an icon.
-    return [NSImage imageWithSize:NSMakeSize(1.0, 1.0)
-                          flipped:NO
-                   drawingHandler:nil];
+    return [NSImage imageNamed:NSImageNameColorPanel];
 }
 
 - (NSString *)toolbarItemLabel
