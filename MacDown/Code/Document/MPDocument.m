@@ -550,15 +550,13 @@ static NSString * const kMPMathJaxCDN =
     style.lineSpacing = self.preferences.editorLineSpacing;
     self.editor.defaultParagraphStyle = [style copy];
 
+    self.editor.textColor = nil;
+    self.editor.backgroundColor = nil;
+    self.highlighter.styles = nil;
+    [self.highlighter readClearTextStylesFromTextView];
+
     NSString *themeName = [self.preferences.editorStyleName copy];
-    if (!themeName.length)
-    {
-        self.editor.textColor = nil;
-        self.editor.backgroundColor = nil;
-        self.highlighter.styles = nil;
-        [self.highlighter readClearTextStylesFromTextView];
-    }
-    else
+    if (themeName.length)
     {
         NSString *path = MPThemePathForName(themeName);
         NSString *themeString = MPReadFileOfPath(path);
