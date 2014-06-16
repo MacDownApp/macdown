@@ -28,21 +28,11 @@ static NSString * const MPPreferencesDidSynchronizeNotificationName =
     NSString *version =
         [NSBundle mainBundle].infoDictionary[@"CFBundleShortVersionString"];
 
-    // This is a fresh install without preferences. Set default preferences.
+    // This is a fresh install. Set default preferences.
     if (!self.firstVersionInstalled)
     {
         self.firstVersionInstalled = version;
-        self.extensionIntraEmphasis = YES;
-        self.extensionTables = YES;
-        self.extensionFencedCode = YES;
-        self.extensionFootnotes = YES;
-        self.editorBaseFontInfo = [NSDictionary dictionaryWithObjectsAndKeys:
-            kMPDefaultEditorFontName, kMPDefaultEditorFontNameKey,
-            @(kMPDefaultEditorFontPointSize), kMPDefaultEditorFontPointSizeKey,
-        nil];
-        self.htmlStyleName = @"GitHub";
-        self.htmlDefaultDirectoryUrl = [NSURL fileURLWithPath:NSHomeDirectory()
-                                                  isDirectory:YES];
+        [self loadDefaultPreferences];
     }
     self.latestVersionInstalled = version;
     return self;
@@ -95,6 +85,24 @@ static NSString * const MPPreferencesDidSynchronizeNotificationName =
     NSDictionary *info =
         @{@"name": font.fontName, @"size": @(font.pointSize)};
     self.editorBaseFontInfo = info;
+}
+
+
+#pragma mark - Private
+
+- (void)loadDefaultPreferences
+{
+    self.extensionIntraEmphasis = YES;
+    self.extensionTables = YES;
+    self.extensionFencedCode = YES;
+    self.extensionFootnotes = YES;
+    self.editorBaseFontInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+        kMPDefaultEditorFontName, kMPDefaultEditorFontNameKey,
+        @(kMPDefaultEditorFontPointSize), kMPDefaultEditorFontPointSizeKey,
+    nil];
+    self.htmlStyleName = @"GitHub";
+    self.htmlDefaultDirectoryUrl = [NSURL fileURLWithPath:NSHomeDirectory()
+                                              isDirectory:YES];
 }
 
 @end
