@@ -248,7 +248,7 @@
                         <binding destination="-2" name="value" keyPath="self.preferences.editorLineSpacing" id="8dp-bT-tK0"/>
                     </connections>
                 </textField>
-                <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qZo-S6-Vbh">
+                <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qZo-S6-Vbh">
                     <rect key="frame" x="324" y="115" width="19" height="27"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <stepperCell key="cell" continuous="YES" alignment="left" maxValue="100" id="6T1-uq-ddF"/>
@@ -294,6 +294,7 @@
                 <constraint firstItem="ogi-ll-Yii" firstAttribute="top" secondItem="uWf-nW-3Ez" secondAttribute="bottom" constant="8" id="gUv-og-Kix"/>
                 <constraint firstItem="3ow-hg-Gmo" firstAttribute="centerX" secondItem="JZh-8k-zMC" secondAttribute="centerX" id="hUF-eh-BMn"/>
                 <constraint firstItem="4Ew-mW-Q4X" firstAttribute="leading" secondItem="lt1-Up-OVO" secondAttribute="leading" id="ibW-ne-q0P"/>
+                <constraint firstItem="uUN-8R-G1c" firstAttribute="trailing" secondItem="qZo-S6-Vbh" secondAttribute="trailing" id="kuF-tz-Yhd"/>
                 <constraint firstItem="uUN-8R-G1c" firstAttribute="trailing" secondItem="JZh-8k-zMC" secondAttribute="trailing" id="q6M-8v-cep"/>
                 <constraint firstItem="3ow-hg-Gmo" firstAttribute="centerX" secondItem="g0N-qr-H8K" secondAttribute="centerX" id="qID-s4-xog"/>
                 <constraint firstItem="4Ew-mW-Q4X" firstAttribute="trailing" secondItem="lt1-Up-OVO" secondAttribute="trailing" id="t5G-tg-rh9"/>
@@ -301,6 +302,7 @@
                 <constraint firstItem="fRw-As-iJo" firstAttribute="centerY" secondItem="lt1-Up-OVO" secondAttribute="centerY" id="wNN-ce-zMH"/>
                 <constraint firstItem="4Ew-mW-Q4X" firstAttribute="leading" secondItem="pwq-Pg-zCk" secondAttribute="leading" id="xp7-c6-DPk"/>
                 <constraint firstItem="JZh-8k-zMC" firstAttribute="leading" secondItem="g0N-qr-H8K" secondAttribute="leading" id="yMi-0V-tP4"/>
+                <constraint firstItem="ogi-ll-Yii" firstAttribute="centerY" secondItem="qZo-S6-Vbh" secondAttribute="centerY" id="yWG-21-HmD"/>
                 <constraint firstItem="ogi-ll-Yii" firstAttribute="trailing" secondItem="77u-zZ-bC0" secondAttribute="trailing" id="ygm-nR-2NZ"/>
                 <constraint firstItem="pwq-Pg-zCk" firstAttribute="top" secondItem="lt1-Up-OVO" secondAttribute="bottom" constant="13" id="ywL-TD-l4K"/>
             </constraints>
