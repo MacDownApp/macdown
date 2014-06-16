@@ -492,6 +492,26 @@ static NSString * const kMPMathJaxCDN =
     [self.editor toggleForMarkupPrefix:@"<!--" suffix:@"-->"];
 }
 
+- (IBAction)toggleLink:(id)sender
+{
+    if ([self.editor toggleForMarkupPrefix:@"[" suffix:@"]()"])
+    {
+        NSRange selectedRange = self.editor.selectedRange;
+        NSUInteger location = selectedRange.location + selectedRange.length + 2;
+        self.editor.selectedRange = NSMakeRange(location, 0);
+    }
+}
+
+- (IBAction)toggleImage:(id)sender
+{
+    if ([self.editor toggleForMarkupPrefix:@"![" suffix:@"]()"])
+    {
+        NSRange selectedRange = self.editor.selectedRange;
+        NSUInteger location = selectedRange.location + selectedRange.length + 2;
+        self.editor.selectedRange = NSMakeRange(location, 0);
+    }
+}
+
 - (IBAction)insertNewParagraph:(id)sender
 {
     NSRange range = self.editor.selectedRange;

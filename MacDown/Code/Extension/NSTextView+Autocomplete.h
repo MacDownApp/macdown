@@ -25,7 +25,7 @@
                      strikethroughEnabled:(BOOL)isStrikethroughEnabled;
 - (BOOL)deleteMatchingCharactersAround:(NSUInteger)location;
 - (BOOL)unindentForSpacesBefore:(NSUInteger)location;
-- (void)toggleForMarkupPrefix:(NSString *)prefix suffix:(NSString *)suffix;
+- (BOOL)toggleForMarkupPrefix:(NSString *)prefix suffix:(NSString *)suffix;
 - (BOOL)insertMappedContent;
 - (BOOL)completeNextLine;
 

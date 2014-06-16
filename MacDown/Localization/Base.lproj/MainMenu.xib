@@ -417,6 +417,19 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="jLT-fP-2ps"/>
+                            <menuItem title="Link" keyEquivalent="L" id="GIg-Wo-P8m">
+                                <modifierMask key="keyEquivalentModifierMask" control="YES"/>
+                                <connections>
+                                    <action selector="toggleLink:" target="-1" id="Ebm-MA-ubE"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Image" keyEquivalent="I" id="VkR-aw-5AU">
+                                <modifierMask key="keyEquivalentModifierMask" control="YES"/>
+                                <connections>
+                                    <action selector="toggleImage:" target="-1" id="xuX-4U-p9x"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="E6f-72-5In"/>
                             <menuItem title="New Paragraph" id="zHE-JL-8eu">
                                 <string key="keyEquivalent" base64-UTF8="YES">
 DQ

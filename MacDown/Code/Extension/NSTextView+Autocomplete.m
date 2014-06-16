@@ -220,10 +220,11 @@ static const unichar kMPMarkupCharacters[] = {
     return YES;
 }
 
-- (void)toggleForMarkupPrefix:(NSString *)prefix suffix:(NSString *)suffix
+- (BOOL)toggleForMarkupPrefix:(NSString *)prefix suffix:(NSString *)suffix
 {
     NSRange range = self.selectedRange;
     NSString *selection = [self.string substringWithRange:range];
+    BOOL isOn = NO;
 
     // Selection is already marked-up. Clear markup and maintain selection.
     NSUInteger poff = prefix.length;
@@ -234,6 +235,7 @@ static const unichar kMPMarkupCharacters[] = {
                                   selection.length + poff + suffix.length);
         [self insertText:selection replacementRange:sub];
         range.location = sub.location;
+        isOn = NO;
     }
     // Selection is normal. Mark it up and maintain selection.
     else
@@ -242,8 +244,10 @@ static const unichar kMPMarkupCharacters[] = {
                           prefix, selection, suffix];
         [self insertText:text replacementRange:range];
         range.location += poff;
+        isOn = YES;
     }
     self.selectedRange = range;
+    return isOn;
 }
 
 - (BOOL)insertMappedContent
