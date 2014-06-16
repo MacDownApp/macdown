@@ -8,6 +8,7 @@
 
 #import "MPMainController.h"
 #import <MASPreferences/MASPreferencesWindowController.h>
+#import "MPUtilities.h"
 #import "MPPreferences.h"
 #import "MPMarkdownPreferencesViewController.h"
 #import "MPEditorPreferencesViewController.h"
@@ -15,7 +16,7 @@
 
 
 @interface MPMainController ()
-@property (nonatomic, readonly) NSWindowController *preferencesWindowController;
+@property (readonly) NSWindowController *preferencesWindowController;
 @end
 
 
@@ -50,6 +51,40 @@
 - (IBAction)showPreferencesWindow:(id)sender
 {
     [self.preferencesWindowController showWindow:nil];
+}
+
+
+#pragma mark - Override
+
+- (instancetype)init
+{
+    self = [super init];
+    if (!self)
+        return self;
+
+    [self copyFiles];
+    return self;
+}
+
+
+#pragma mark - Private
+
+- (void)copyFiles
+{
+    NSFileManager *manager = [NSFileManager defaultManager];
+    NSString *root = MPDataDirectory(nil);
+    if ([manager fileExistsAtPath:root])
+        return;
+
+    [manager createDirectoryAtPath:root
+       withIntermediateDirectories:YES attributes:nil error:NULL];
+    NSURL *target = [NSURL fileURLWithPathComponents:@[root, @"Styles"]];
+    if (![manager fileExistsAtPath:target.path])
+    {
+        NSBundle *bundle = [NSBundle mainBundle];
+        NSURL *source = [bundle URLForResource:@"Styles" withExtension:@""];
+        [manager copyItemAtURL:source toURL:target error:NULL];
+    }
 }
 
 @end

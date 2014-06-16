@@ -34,6 +34,7 @@
 		1F51C9A5194565050015A96F /* MPPreferencesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDCA311944F96E00B1F966 /* MPPreferencesTests.m */; };
 		1F9A14EC194EEE9900D1C6A9 /* MPExportPanelAccessoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F9A14E9194EEE9900D1C6A9 /* MPExportPanelAccessoryViewController.m */; };
 		1F9A14ED194EEE9900D1C6A9 /* MPMainController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F9A14EB194EEE9900D1C6A9 /* MPMainController.m */; };
+		1F9A14EF194EEEDD00D1C6A9 /* Styles in Resources */ = {isa = PBXBuildFile; fileRef = 1F9A14EE194EEEDD00D1C6A9 /* Styles */; };
 		1FA6DE251941CC9E000409FB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FA6DE241941CC9E000409FB /* Cocoa.framework */; };
 		1FA6DE481941CC9E000409FB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FA6DE241941CC9E000409FB /* Cocoa.framework */; };
 		1FBBD4BE194C952300BB3C88 /* MPExportPanelAccessoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FBBD4BC194C952300BB3C88 /* MPExportPanelAccessoryViewController.xib */; };
@@ -103,6 +104,7 @@
 		1F9A14E9194EEE9900D1C6A9 /* MPExportPanelAccessoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MPExportPanelAccessoryViewController.m; path = Code/Application/MPExportPanelAccessoryViewController.m; sourceTree = "<group>"; };
 		1F9A14EA194EEE9900D1C6A9 /* MPMainController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MPMainController.h; path = Code/Application/MPMainController.h; sourceTree = "<group>"; };
 		1F9A14EB194EEE9900D1C6A9 /* MPMainController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MPMainController.m; path = Code/Application/MPMainController.m; sourceTree = "<group>"; };
+		1F9A14EE194EEEDD00D1C6A9 /* Styles */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Styles; path = Resources/Styles; sourceTree = "<group>"; };
 		1FA6DE211941CC9E000409FB /* MacDown.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacDown.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FA6DE241941CC9E000409FB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		1FA6DE271941CC9E000409FB /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -234,6 +236,7 @@
 			isa = PBXGroup;
 			children = (
 				1FD7F8DD194A0211007ED2A1 /* Data */,
+				1F9A14EE194EEEDD00D1C6A9 /* Styles */,
 				1F4C8E99194AE0B9004BF82E /* MarkdownDocument.icns */,
 				1F0D9DA6194AC8CB008E1856 /* Credits.rtf */,
 			);
@@ -433,6 +436,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F9A14EF194EEEDD00D1C6A9 /* Styles in Resources */,
 				1F0D9DB0194AC9EE008E1856 /* MPDocument.xib in Resources */,
 				1F0B60E7194CB7A50008F1BA /* Prism in Resources */,
 				1F0D9DB1194AC9EE008E1856 /* MPEditorPreferencesViewController.xib in Resources */,

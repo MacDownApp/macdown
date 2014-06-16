@@ -40,7 +40,7 @@ static NSString * const MPPreferencesDidSynchronizeNotificationName =
             kMPDefaultEditorFontName, kMPDefaultEditorFontNameKey,
             @(kMPDefaultEditorFontPointSize), kMPDefaultEditorFontPointSizeKey,
         nil];
-
+        self.htmlStyleName = @"GitHub";
         self.htmlDefaultDirectoryUrl = [NSURL fileURLWithPath:NSHomeDirectory()
                                                   isDirectory:YES];
     }
