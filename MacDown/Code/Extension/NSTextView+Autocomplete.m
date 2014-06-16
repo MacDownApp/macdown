@@ -329,7 +329,9 @@ static const unichar kMPMarkupCharacters[] = {
     }
     else if (isUl)
     {
-        t = [line substringWithRange:[result rangeAtIndex:2]];
+        NSRange range = [result rangeAtIndex:2];
+        range.length -= 1;      // Exclude trailing whitespace.
+        t = [line substringWithRange:range];
     }
     else if (isOl)
     {
@@ -337,11 +339,33 @@ static const unichar kMPMarkupCharacters[] = {
         range.length -= 1;      // Exclude trailing space.
         NSString *captured = [line substringWithRange:range];
         NSInteger i = captured.integerValue + 1;
-        t = [NSString stringWithFormat:@"%ld. ", i];
+        t = [NSString stringWithFormat:@"%ld.", i];
     }
     [self insertNewline:self];
-    if (t)
-        [self insertText:[NSString stringWithFormat:@"%@%@", indent, t]];
+    if (!t)
+        return YES;
+
+    location += 1;  // Shift for inserted newline.
+    NSString *it = [NSString stringWithFormat:@"%@%@", indent, t];
+    NSUInteger contentLength = content.length;
+
+    // Has matching list item. Only insert indent.
+    NSRange r = NSMakeRange(start, t.length);
+    if (contentLength > start + t.length
+            && [[content substringWithRange:r] isEqualToString:t])
+    {
+        [self insertText:indent];
+        return YES;
+    }
+
+    // Has indent and matching list item. Accept it.
+    r = NSMakeRange(location, it.length);
+    if (contentLength > location + it.length
+            && [[content substringWithRange:r] isEqualToString:it])
+        return YES;
+
+    // Insert completion for normal cases.
+    [self insertText:[NSString stringWithFormat:@"%@ ", it]];
     return YES;
 }
 
