@@ -301,10 +301,10 @@
 			isa = PBXGroup;
 			children = (
 				1F0D9D94194AC888008E1856 /* Dependency */,
-				1F0D9D5D194AC7CF008E1856 /* Extension */,
 				1F0D9D62194AC7CF008E1856 /* Utility */,
-				1F0D9D90194AC852008E1856 /* Document */,
+				1F0D9D5D194AC7CF008E1856 /* Extension */,
 				1F0D9D68194AC7F7008E1856 /* Preferences */,
+				1F0D9D90194AC852008E1856 /* Document */,
 				1F0D9D81194AC83C008E1856 /* MainMenu.xib */,
 				1F0D9D7E194AC82D008E1856 /* MPMainController.h */,
 				1F0D9D7F194AC82D008E1856 /* MPMainController.m */,

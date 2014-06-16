@@ -8,6 +8,7 @@
 
 #import "NSTextView+Autocomplete.h"
 #import "NSString+Lookup.h"
+#import "MPUtilities.h"
 
 
 static const unichar kMPMatchingCharactersMap[][2] = {
