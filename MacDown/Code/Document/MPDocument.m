@@ -512,6 +512,36 @@ static NSString * const kMPMathJaxCDN =
     [self.editor insertText:@"\n\n"];
 }
 
+- (IBAction)insertAmp:(id)sender
+{
+    [self.editor insertText:@"&amp;"];
+}
+
+- (IBAction)insertLt:(id)sender
+{
+    [self.editor insertText:@"&lt;"];
+}
+
+- (IBAction)insertGt:(id)sender
+{
+    [self.editor insertText:@"&gt;"];
+}
+
+- (IBAction)insertNbsp:(id)sender
+{
+    [self.editor insertText:@"&nbsp;"];
+}
+
+- (IBAction)insertQuot:(id)sender
+{
+    [self.editor insertText:@"&quot;"];
+}
+
+- (IBAction)insert39:(id)sender
+{
+    [self.editor insertText:@"&#39;"];
+}
+
 - (IBAction)resetSplit:(id)sender
 {
     CGFloat dividerThickness = self.splitView.dividerThickness;
