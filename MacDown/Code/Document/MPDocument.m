@@ -190,7 +190,6 @@ static NSString * const kMPMathJaxCDN =
         [self render];
     }
 
-    self.preview.frameLoadDelegate = self;
     self.preview.policyDelegate = self;
 
     [self.highlighter activate];
@@ -310,14 +309,6 @@ static NSString * const kMPMathJaxCDN =
             return NO;
     }
     return YES;
-}
-
-
-#pragma mark - WebFrameLoadDelegate
-
-- (void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame
-{
-    [self syncScrollers];
 }
 
 
