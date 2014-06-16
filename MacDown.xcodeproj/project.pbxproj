@@ -107,8 +107,8 @@
 		1FA6DE281941CC9E000409FB /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		1FA6DE291941CC9E000409FB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1FA6DE451941CC9E000409FB /* MacDownTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MacDownTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		1FBBD4B5194C8B5B00BB3C88 /* MPExportPanelAccessoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPExportPanelAccessoryViewController.h; sourceTree = "<group>"; };
-		1FBBD4B6194C8B5B00BB3C88 /* MPExportPanelAccessoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPExportPanelAccessoryViewController.m; sourceTree = "<group>"; };
+		1FBBD4B5194C8B5B00BB3C88 /* MPExportPanelAccessoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MPExportPanelAccessoryViewController.h; path = Code/Document/MPExportPanelAccessoryViewController.h; sourceTree = "<group>"; };
+		1FBBD4B6194C8B5B00BB3C88 /* MPExportPanelAccessoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MPExportPanelAccessoryViewController.m; path = Code/Document/MPExportPanelAccessoryViewController.m; sourceTree = "<group>"; };
 		1FBBD4BD194C952300BB3C88 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = MacDown/Localization/Base.lproj/MPExportPanelAccessoryViewController.xib; sourceTree = SOURCE_ROOT; };
 		1FBBD4C9194CA35900BB3C88 /* hoedown_html_patch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = hoedown_html_patch.h; sourceTree = "<group>"; };
 		1FBBD4CA194CA36500BB3C88 /* hoedown_html_patch.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hoedown_html_patch.c; sourceTree = "<group>"; };
@@ -200,9 +200,6 @@
 				1F0D9D91194AC852008E1856 /* MPDocument.h */,
 				1F0D9D92194AC852008E1856 /* MPDocument.m */,
 				1F0D9D83194AC83C008E1856 /* MPDocument.xib */,
-				1FBBD4B5194C8B5B00BB3C88 /* MPExportPanelAccessoryViewController.h */,
-				1FBBD4B6194C8B5B00BB3C88 /* MPExportPanelAccessoryViewController.m */,
-				1FBBD4BC194C952300BB3C88 /* MPExportPanelAccessoryViewController.xib */,
 			);
 			name = Document;
 			path = Code/Document;
@@ -250,6 +247,19 @@
 				1F0D9DB5194ACA33008E1856 /* MacDown-Prefix.pch */,
 			);
 			name = "Additional Sources";
+			sourceTree = "<group>";
+		};
+		1F9A14E7194EE24600D1C6A9 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				1F0D9D81194AC83C008E1856 /* MainMenu.xib */,
+				1F0D9D7E194AC82D008E1856 /* MPMainController.h */,
+				1F0D9D7F194AC82D008E1856 /* MPMainController.m */,
+				1FBBD4B5194C8B5B00BB3C88 /* MPExportPanelAccessoryViewController.h */,
+				1FBBD4B6194C8B5B00BB3C88 /* MPExportPanelAccessoryViewController.m */,
+				1FBBD4BC194C952300BB3C88 /* MPExportPanelAccessoryViewController.xib */,
+			);
+			name = Application;
 			sourceTree = "<group>";
 		};
 		1FA6DE181941CC9E000409FB = {
@@ -303,11 +313,9 @@
 				1F0D9D94194AC888008E1856 /* Dependency */,
 				1F0D9D62194AC7CF008E1856 /* Utility */,
 				1F0D9D5D194AC7CF008E1856 /* Extension */,
+				1F9A14E7194EE24600D1C6A9 /* Application */,
 				1F0D9D68194AC7F7008E1856 /* Preferences */,
 				1F0D9D90194AC852008E1856 /* Document */,
-				1F0D9D81194AC83C008E1856 /* MainMenu.xib */,
-				1F0D9D7E194AC82D008E1856 /* MPMainController.h */,
-				1F0D9D7F194AC82D008E1856 /* MPMainController.m */,
 				1FCDCA2D1944F8F600B1F966 /* Supporting Files */,
 			);
 			path = MacDown;
@@ -624,6 +632,7 @@
 				1FBBD4BD194C952300BB3C88 /* Base */,
 			);
 			name = MPExportPanelAccessoryViewController.xib;
+			path = Code/Document;
 			sourceTree = "<group>";
 		};
 		1FCDCA321944F96E00B1F966 /* InfoPlist.strings */ = {

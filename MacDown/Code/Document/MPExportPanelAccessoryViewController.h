@@ -10,7 +10,7 @@
 
 @interface MPExportPanelAccessoryViewController : NSViewController
 
-@property NSInteger stylesheetOption;
-@property NSInteger scriptOption;
+@property (getter=isStylesIncluded) BOOL stylesIncluded;
+@property (getter=isHighlightingIncluded) BOOL highlightingIncluded;
 
 @end

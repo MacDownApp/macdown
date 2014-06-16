@@ -394,8 +394,7 @@ static NSString * const kMPMathJaxCDN =
     }
 
     MPExportPanelAccessoryViewController *controller =
-        [[MPExportPanelAccessoryViewController alloc] initWithNibName:nil
-                                                               bundle:nil];
+        [[MPExportPanelAccessoryViewController alloc] init];
     panel.accessoryView = controller.view;
 
     NSWindow *w = nil;
@@ -406,54 +405,40 @@ static NSString * const kMPMathJaxCDN =
         if (result != NSFileHandlingPanelOKButton)
             return;
 
-        NSMutableArray *filesToCopy = [NSMutableArray array];
+        MPAssetsOption stylesOption = MPAssetsNone;
+        MPAssetsOption scriptsOption = MPAssetsNone;
+        NSMutableArray *styles = [NSMutableArray array];
+        NSMutableArray *scripts = [NSMutableArray array];
 
-        NSArray *styles = self.stylesheets;
-        switch (controller.stylesheetOption)
+        if (controller.stylesIncluded)
         {
-            case MPAssetsNone:
-                styles = nil;
-                break;
-            case MPAssetsStripPath:
-                [filesToCopy addObjectsFromArray:styles];
-                break;
-            case MPAssetsEmbedded:
-                break;
-            default:
-                break;
+            stylesOption = MPAssetsEmbedded;
+            NSString *path = MPStylePathForName(self.preferences.htmlStyleName);
+            [styles addObject:[NSURL fileURLWithPath:path]];
         }
-        NSArray *scripts = self.scripts;
-        switch (controller.scriptOption)
+        if (controller.highlightingIncluded)
         {
-            case MPAssetsNone:
-                scripts = nil;
-                break;
-            case MPAssetsStripPath:
-                [filesToCopy addObjectsFromArray:scripts];
-                break;
-            case MPAssetsEmbedded:
-                break;
-            default:
-                break;
+            stylesOption = MPAssetsEmbedded;
+            scriptsOption = MPAssetsEmbedded;
+
+            NSBundle *bundle = [NSBundle mainBundle];
+            [styles addObject:[bundle URLForResource:@"prism"
+                                       withExtension:@"css"
+                                        subdirectory:@"Prism"]];
+            [scripts addObject:[bundle URLForResource:@"prism"
+                                        withExtension:@"js"
+                                         subdirectory:@"Prism"]];
         }
+        if (self.preferences.htmlMathJax)
+            [scripts addObject:[NSURL URLWithString:kMPMathJaxCDN]];
+
         NSString *html = [self htmlDocumentFromBody:self.currentHtml
                                         stylesheets:styles
-                                           option:controller.stylesheetOption
+                                           option:stylesOption
                                             scripts:scripts
-                                             option:controller.scriptOption];
+                                             option:scriptsOption];
         [html writeToURL:panel.URL atomically:NO encoding:NSUTF8StringEncoding
                    error:NULL];
-
-        NSFileManager *manager = [NSFileManager defaultManager];
-        for (NSURL *url in filesToCopy)
-        {
-            // Only copy local files.
-            if (![url.scheme isEqualToString:@"file"])
-                continue;
-            NSURL *target = [NSURL URLWithString:url.lastPathComponent
-                                   relativeToURL:panel.directoryURL];
-            [manager copyItemAtURL:url toURL:target error:NULL];
-        }
     }];
 }
 
@@ -732,26 +717,22 @@ static NSString * const kMPMathJaxCDN =
     // Styles.
     NSMutableArray *styles =
         [NSMutableArray arrayWithCapacity:stylesheetUrls.count];
-    format = @"<link rel=\"stylesheet\" type=\"text/css\" href=\"%@\">";
     for (NSURL *url in stylesheetUrls)
     {
         NSString *s = nil;
-        switch (stylesOption)
+        MPAssetsOption option = scriptsOption;
+        if (!url.isFileURL)
+            option = MPAssetsFullLink;
+        switch (option)
         {
-            case MPAssetsStripPath:
-                // If this is a local file, strip. Otherwise fall through to
-                // use the full link.
-                if ([url.scheme isEqualToString:@"file"])
-                {
-                    s = [NSString stringWithFormat:format,
-                                                   url.lastPathComponent];
-                    break;
-                }
             case MPAssetsFullLink:
+                format =
+                    @"<link rel=\"stylesheet\" type=\"text/css\" href=\"%@\">";
                 s = [NSString stringWithFormat:format, url.absoluteString];
                 break;
             case MPAssetsEmbedded:
-                s = MPReadFileOfPath(url.absoluteString);
+                s = [NSString stringWithFormat:@"<style>\n%@\n</style>",
+                                               MPReadFileOfPath(url.path)];
                 break;
             default:
                 break;
@@ -760,32 +741,27 @@ static NSString * const kMPMathJaxCDN =
             [styles addObject:s];
     }
     NSString *style = [styles componentsJoinedByString:@"\n"];
-    if (stylesOption == MPAssetsEmbedded)
-        style = [NSString stringWithFormat:@"<style>\n%@</style>", style];
 
     // Scripts.
     NSMutableArray *scripts =
         [NSMutableArray arrayWithCapacity:scriptUrls.count];
-    format = @"<script type=\"text/javascript\" src=\"%@\"></script>";
     for (NSURL *url in scriptUrls)
     {
         NSString *s = nil;
-        switch (scriptsOption)
+        MPAssetsOption option = scriptsOption;
+        if (!url.isFileURL)
+            option = MPAssetsFullLink;
+        switch (option)
         {
-            case MPAssetsStripPath:
-                // If this is a local file, strip. Otherwise fall through to
-                // use the full link.
-                if ([url.scheme isEqualToString:@"file"])
-                {
-                    s = [NSString stringWithFormat:format,
-                                                   url.lastPathComponent];
-                    break;
-                }
             case MPAssetsFullLink:
+                format =
+                    @"<script type=\"text/javascript\" src=\"%@\"></script>";
                 s = [NSString stringWithFormat:format, url.absoluteString];
                 break;
             case MPAssetsEmbedded:
-                s = MPReadFileOfPath(url.absoluteString);
+                format = @"<script type=\"text/javascript\">%@</script>";
+                s = [NSString stringWithFormat:format,
+                                               MPReadFileOfPath(url.path)];
                 break;
             default:
                 break;
@@ -794,8 +770,6 @@ static NSString * const kMPMathJaxCDN =
             [scripts addObject:s];
     }
     NSString *script = [scripts componentsJoinedByString:@"\n"];
-    if (scriptsOption == MPAssetsEmbedded)
-        script = [NSString stringWithFormat:@"<script>%@</script>", script];
 
     static NSString *f =
         (@"<!DOCTYPE html><html>\n\n"

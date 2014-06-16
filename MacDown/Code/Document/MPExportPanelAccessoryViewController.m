@@ -10,25 +10,14 @@
 
 @interface MPExportPanelAccessoryViewController ()
 
-@property (weak) IBOutlet NSPopUpButton *stylesheetOptionSelect;
-@property (weak) IBOutlet NSPopUpButton *scriptOptionSelect;
-
 @end
 
 
 @implementation MPExportPanelAccessoryViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)init
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (!self)
-        return self;
-    return self;
-}
-
-- (NSString *)nibName
-{
-    return NSStringFromClass(self.class);
+    return [self initWithNibName:NSStringFromClass(self.class) bundle:nil];
 }
 
 @end

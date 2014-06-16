@@ -10,10 +10,9 @@
 
 typedef NS_ENUM(NSInteger, MPAssetsOption)
 {
-    MPAssetsNone      = 0,
-    MPAssetsStripPath = 1,
-    MPAssetsEmbedded  = 2,
-    MPAssetsFullLink  = 3,
+    MPAssetsNone,
+    MPAssetsEmbedded,
+    MPAssetsFullLink,
 };
 
 extern NSString * const kMPApplicationName;
