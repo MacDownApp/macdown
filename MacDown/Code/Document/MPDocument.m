@@ -175,7 +175,7 @@ static NSString * const kMPMathJaxCDN =
     self.highlighter.parseAndHighlightAutomatically = YES;
     self.highlighter.resetTypingAttributes = YES;
 
-    // Fix Xcod 5/Lion bug where disselecting options in OB doesn't work.
+    // Fix Xcode 5/Lion bug where disselecting options in IB doesn't work.
     // TODO: Can we save/set these app-wise using KVO?
     self.editor.automaticQuoteSubstitutionEnabled = NO;
     self.editor.automaticLinkDetectionEnabled = NO;
