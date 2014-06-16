@@ -78,11 +78,18 @@
 
     [manager createDirectoryAtPath:root
        withIntermediateDirectories:YES attributes:nil error:NULL];
-    NSURL *target = [NSURL fileURLWithPathComponents:@[root, @"Styles"]];
+    NSBundle *bundle = [NSBundle mainBundle];
+    NSURL *target =
+        [NSURL fileURLWithPath:MPDataDirectory(kMPStylesDirectoryName)];
     if (![manager fileExistsAtPath:target.path])
     {
-        NSBundle *bundle = [NSBundle mainBundle];
         NSURL *source = [bundle URLForResource:@"Styles" withExtension:@""];
+        [manager copyItemAtURL:source toURL:target error:NULL];
+    }
+    target = [NSURL fileURLWithPath:MPDataDirectory(kMPThemesDirectoryName)];
+    if (![manager fileExistsAtPath:target.path])
+    {
+        NSURL *source = [bundle URLForResource:@"Themes" withExtension:@""];
         [manager copyItemAtURL:source toURL:target error:NULL];
     }
 }

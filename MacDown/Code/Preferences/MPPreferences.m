@@ -12,6 +12,7 @@ static NSString * const kMPDefaultEditorFontNameKey = @"name";
 static NSString * const kMPDefaultEditorFontPointSizeKey = @"size";
 static NSString * const kMPDefaultEditorFontName = @"Menlo-Regular";
 static CGFloat    const kMPDefaultEditorFontPointSize = 14.0;
+static NSString * const kMPDefaultEditorThemeName = @"Tomorrow+";
 static NSString * const kMPDefaultHtmlStyleName = @"GitHub";
 
 static NSString * const MPPreferencesDidSynchronizeNotificationName =
@@ -101,6 +102,7 @@ static NSString * const MPPreferencesDidSynchronizeNotificationName =
         kMPDefaultEditorFontName, kMPDefaultEditorFontNameKey,
         @(kMPDefaultEditorFontPointSize), kMPDefaultEditorFontPointSizeKey,
     nil];
+    self.editorStyleName = kMPDefaultEditorThemeName;
     self.htmlStyleName = kMPDefaultHtmlStyleName;
     self.htmlDefaultDirectoryUrl = [NSURL fileURLWithPath:NSHomeDirectory()
                                               isDirectory:YES];
