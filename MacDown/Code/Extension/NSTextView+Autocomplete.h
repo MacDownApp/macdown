@@ -26,6 +26,7 @@
 - (BOOL)deleteMatchingCharactersAround:(NSUInteger)location;
 - (BOOL)unindentForSpacesBefore:(NSUInteger)location;
 - (BOOL)toggleForMarkupPrefix:(NSString *)prefix suffix:(NSString *)suffix;
+- (void)toggleBlockWithPattern:(NSString *)pattern prefix:(NSString *)prefix;
 - (void)indentSelectedLinesWithPadding:(NSString *)padding;
 - (void)unindentSelectedLines;
 - (BOOL)insertMappedContent;

@@ -491,6 +491,16 @@ static NSString * const kMPMathJaxCDN =
     }
 }
 
+- (IBAction)toggleUnorderedList:(id)sender
+{
+    [self.editor toggleBlockWithPattern:@"^[\\*\\+-] \\S" prefix:@"* "];
+}
+
+- (IBAction)toggleBlockquote:(id)sender
+{
+    [self.editor toggleBlockWithPattern:@"^> \\S" prefix:@"> "];
+}
+
 - (IBAction)indent:(id)sender
 {
     NSString *padding = @"\t";

@@ -253,6 +253,71 @@ static NSString * const kMPListLineHeadPattern =
     return isOn;
 }
 
+- (void)toggleBlockWithPattern:(NSString *)pattern prefix:(NSString *)prefix
+{
+    NSRegularExpression *regex =
+        [[NSRegularExpression alloc] initWithPattern:pattern options:0
+                                               error:NULL];
+    NSString *content = self.string;
+    NSRange selectedRange = self.selectedRange;
+    NSRange lineRange = [content lineRangeForRange:selectedRange];
+
+    NSString *toProcess = [content substringWithRange:lineRange];
+    NSArray *lines = [toProcess componentsSeparatedByString:@"\n"];
+
+    BOOL isMarked = YES;
+    for (NSString *line in lines)
+    {
+        NSUInteger lineLength = line.length;
+        if (!lineLength)
+            continue;
+        NSRange matchRange =
+            [regex rangeOfFirstMatchInString:line options:0
+                                       range:NSMakeRange(0, lineLength)];
+        if (matchRange.location == NSNotFound)
+        {
+            isMarked = NO;
+            break;
+        }
+    }
+
+    NSUInteger prefixLength = prefix.length;
+    NSMutableArray *modLines = [NSMutableArray arrayWithCapacity:lines.count];
+
+    __block NSUInteger totalShift = 0;
+    [lines enumerateObjectsUsingBlock:^(id obj, NSUInteger index, BOOL *stop) {
+        NSString *line = obj;
+        if (line.length)
+        {
+            totalShift += prefixLength;
+            if (!isMarked)
+                line = [prefix stringByAppendingString:line];
+            else
+                line = [line substringFromIndex:prefixLength];
+        }
+        [modLines addObject:line];
+    }];
+    NSString *processed = [modLines componentsJoinedByString:@"\n"];
+    [self insertText:processed replacementRange:lineRange];
+
+    if (!isMarked)
+    {
+        selectedRange.location += prefixLength;
+        selectedRange.length += totalShift - prefixLength;
+    }
+    else
+    {
+        selectedRange.location -= prefixLength;
+        selectedRange.length -= totalShift - prefixLength;
+        if (selectedRange.location < lineRange.location)
+        {
+            selectedRange.length -= lineRange.location - selectedRange.location;
+            selectedRange.location = lineRange.location;
+        }
+    }
+    self.selectedRange = selectedRange;
+}
+
 - (void)indentSelectedLinesWithPadding:(NSString *)padding
 {
     NSString *content = self.string;

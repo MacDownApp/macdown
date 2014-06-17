@@ -465,6 +465,19 @@
                                     <action selector="toggleComment:" target="-1" id="7Xw-6O-ibS"/>
                                 </connections>
                             </menuItem>
+                            <menuItem isSeparatorItem="YES" id="tY3-Ap-TRo"/>
+                            <menuItem title="Unordered List" keyEquivalent="u" id="jn0-Kb-yH6">
+                                <modifierMask key="keyEquivalentModifierMask" control="YES"/>
+                                <connections>
+                                    <action selector="toggleUnorderedList:" target="-1" id="K5g-7x-qoV"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Blockquote" keyEquivalent="b" id="twd-Mb-qNx">
+                                <modifierMask key="keyEquivalentModifierMask" control="YES"/>
+                                <connections>
+                                    <action selector="toggleBlockquote:" target="-1" id="W3I-fA-sUG"/>
+                                </connections>
+                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="3UZ-4w-Kqy"/>
                             <menuItem title="Shift Right" keyEquivalent="]" id="g9Y-GM-gdh">
                                 <connections>
