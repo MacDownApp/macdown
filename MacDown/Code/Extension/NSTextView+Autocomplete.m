@@ -32,6 +32,9 @@ static const unichar kMPMarkupCharacters[] = {
     L'*', L'_', L'`', L'=', L'\0',
 };
 
+static NSString * const kMPListLineHeadPattern =
+    @"^(\\s*)((?:(?:\\*|\\+|-|)\\s+)?)((?:\\d+\\.\\s+)?)(\\S)?";
+
 
 @implementation NSTextView (Autocomplete)
 
@@ -370,12 +373,11 @@ static const unichar kMPMarkupCharacters[] = {
     NSRange range = NSMakeRange(start, end - start);
     NSString *line = [self.string substringWithRange:range];
 
-    static NSString * const pattern =
-        @"^(\\s*)((?:(?:\\*|\\+|-|)\\s+)?)((?:\\d+\\.\\s+)?)(\\S)?";
 
     NSRegularExpressionOptions options = NSRegularExpressionAnchorsMatchLines;
     NSRegularExpression *regex =
-        [[NSRegularExpression alloc] initWithPattern:pattern options:options
+        [[NSRegularExpression alloc] initWithPattern:kMPListLineHeadPattern
+                                             options:options
                                                error:NULL];
     NSTextCheckingResult *result =
         [regex firstMatchInString:line options:0
