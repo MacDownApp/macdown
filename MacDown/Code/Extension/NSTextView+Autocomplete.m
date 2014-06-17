@@ -298,7 +298,7 @@ static const unichar kMPMarkupCharacters[] = {
     NSString *line = [self.string substringWithRange:range];
 
     static NSString * const pattern =
-        @"^(\\s*)((?:(?:\\*|\\+|-|)\\s)?)((?:\\d+\\.\\s)?)(\\S)?";
+        @"^(\\s*)((?:(?:\\*|\\+|-|)\\s+)?)((?:\\d+\\.\\s+)?)(\\S)?";
 
     NSRegularExpressionOptions options = NSRegularExpressionAnchorsMatchLines;
     NSRegularExpression *regex =
