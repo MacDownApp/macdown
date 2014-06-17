@@ -491,6 +491,19 @@ static NSString * const kMPMathJaxCDN =
     }
 }
 
+- (IBAction)indent:(id)sender
+{
+    NSString *padding = @"\t";
+    if (self.preferences.editorConvertTabs)
+        padding = @"    ";
+    [self.editor indentSelectedLinesWithPadding:padding];
+}
+
+- (IBAction)unindent:(id)sender
+{
+    [self.editor unindentSelectedLines];
+}
+
 - (IBAction)insertNewParagraph:(id)sender
 {
     NSRange range = self.editor.selectedRange;

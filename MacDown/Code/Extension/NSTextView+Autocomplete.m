@@ -250,6 +250,79 @@ static const unichar kMPMarkupCharacters[] = {
     return isOn;
 }
 
+- (void)indentSelectedLinesWithPadding:(NSString *)padding
+{
+    NSString *content = self.string;
+    NSRange selectedRange = self.selectedRange;
+    NSRange lineRange = [content lineRangeForRange:selectedRange];
+
+    NSString *toProcess = [content substringWithRange:lineRange];
+    NSArray *lines = [toProcess componentsSeparatedByString:@"\n"];
+    NSMutableArray *modLines = [NSMutableArray arrayWithCapacity:lines.count];
+    NSUInteger paddingLength = padding.length;
+
+    __block NSUInteger firstShift = 0;
+    __block NSUInteger totalShift = 0;
+    [lines enumerateObjectsUsingBlock:^(id obj, NSUInteger index, BOOL *stop) {
+        NSString *line = obj;
+        if (line.length)
+        {
+            if (index == 0)
+                firstShift = paddingLength;
+            totalShift += paddingLength;
+            line = [padding stringByAppendingString:line];
+        }
+        [modLines addObject:line];
+    }];
+    NSString *processed = [modLines componentsJoinedByString:@"\n"];
+    [self insertText:processed replacementRange:lineRange];
+
+    selectedRange.location += firstShift;
+    selectedRange.length += totalShift - firstShift;
+    self.selectedRange = selectedRange;
+}
+
+- (void)unindentSelectedLines
+{
+    NSString *content = self.string;
+    NSRange selectedRange = self.selectedRange;
+    NSRange lineRange = [content lineRangeForRange:selectedRange];
+
+    NSString *toProcess = [content substringWithRange:lineRange];
+    NSArray *lines = [toProcess componentsSeparatedByString:@"\n"];
+    NSMutableArray *modLines = [NSMutableArray arrayWithCapacity:lines.count];
+
+    __block NSUInteger firstShift = 0;
+    __block NSUInteger totalShift = 0;
+    [lines enumerateObjectsUsingBlock:^(id obj, NSUInteger index, BOOL *stop) {
+        NSString *line = obj;
+        NSUInteger lineLength = line.length;
+        NSUInteger shift = 0;
+        for (shift = 0; shift <= 4; shift++)
+        {
+            if (shift >= lineLength)
+                break;
+            unichar c = [line characterAtIndex:shift];
+            if (c == '\t')
+                shift++;
+            if (c != ' ')
+                break;
+        }
+        if (index == 0)
+            firstShift += shift;
+        totalShift += shift;
+        if (shift && shift < lineLength)
+            line = [line substringFromIndex:shift];
+        [modLines addObject:line];
+    }];
+    NSString *processed = [modLines componentsJoinedByString:@"\n"];
+    [self insertText:processed replacementRange:lineRange];
+
+    selectedRange.location -= firstShift;
+    selectedRange.length -= totalShift - firstShift;
+    self.selectedRange = selectedRange;
+}
+
 - (BOOL)insertMappedContent
 {
     NSString *content = self.string;

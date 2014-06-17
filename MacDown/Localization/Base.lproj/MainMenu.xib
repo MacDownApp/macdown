@@ -466,6 +466,17 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="3UZ-4w-Kqy"/>
+                            <menuItem title="Shift Right" keyEquivalent="]" id="g9Y-GM-gdh">
+                                <connections>
+                                    <action selector="indent:" target="-1" id="Ms6-Bo-Jhd"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Shift Left" keyEquivalent="[" id="Jzs-tR-jkL">
+                                <connections>
+                                    <action selector="unindent:" target="-1" id="BiX-G7-bzT"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="SZ5-8G-rD3"/>
                             <menuItem title="Link" keyEquivalent="L" id="GIg-Wo-P8m">
                                 <modifierMask key="keyEquivalentModifierMask" control="YES"/>
                                 <connections>
