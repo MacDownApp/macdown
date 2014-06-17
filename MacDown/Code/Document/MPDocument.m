@@ -174,6 +174,7 @@ static NSString * const kMPMathJaxCDN =
                                            waitInterval:0.1];
     self.highlighter.parseAndHighlightAutomatically = YES;
     self.highlighter.resetTypingAttributes = YES;
+    [self.highlighter activate];
 
     // Fix Xcode 5/Lion bug where disselecting options in IB doesn't work.
     // TODO: Can we save/set these app-wise using KVO?
@@ -191,9 +192,6 @@ static NSString * const kMPMathJaxCDN =
     }
 
     self.preview.policyDelegate = self;
-
-    [self.highlighter activate];
-    [self.highlighter parseAndHighlightNow];    // Initial highlighting
 
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self
@@ -566,6 +564,11 @@ static NSString * const kMPMathJaxCDN =
 {
     self.editor.font = [self.preferences.editorBaseFont copy];
 
+    int extensions = pmh_EXT_NOTES;
+    if (self.preferences.extensionFootnotes)
+        extensions = pmh_EXT_NONE;
+    self.highlighter.extensions = extensions;
+
     CGFloat x = self.preferences.editorHorizontalInset;
     CGFloat y = self.preferences.editorVerticalInset;
     self.editor.textContainerInset = NSMakeSize(x, y);
@@ -594,6 +597,8 @@ static NSString * const kMPMathJaxCDN =
     // Have to keep this enabled because HGMarkdownHighlighter needs them.
     NSClipView *contentView = self.editor.enclosingScrollView.contentView;
     contentView.postsBoundsChangedNotifications = YES;
+
+    [self.highlighter parseAndHighlightNow];
 }
 
 - (void)parseLaterWithCommand:(SEL)action completionHandler:(void(^)())handler
