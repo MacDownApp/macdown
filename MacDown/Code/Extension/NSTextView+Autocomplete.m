@@ -329,14 +329,11 @@ static NSString * const kMPListLineHeadPattern =
     NSMutableArray *modLines = [NSMutableArray arrayWithCapacity:lines.count];
     NSUInteger paddingLength = padding.length;
 
-    __block NSUInteger firstShift = 0;
     __block NSUInteger totalShift = 0;
     [lines enumerateObjectsUsingBlock:^(id obj, NSUInteger index, BOOL *stop) {
         NSString *line = obj;
         if (line.length)
         {
-            if (index == 0)
-                firstShift = paddingLength;
             totalShift += paddingLength;
             line = [padding stringByAppendingString:line];
         }
@@ -345,8 +342,8 @@ static NSString * const kMPListLineHeadPattern =
     NSString *processed = [modLines componentsJoinedByString:@"\n"];
     [self insertText:processed replacementRange:lineRange];
 
-    selectedRange.location += firstShift;
-    selectedRange.length += totalShift - firstShift;
+    selectedRange.location += paddingLength;
+    selectedRange.length += totalShift - paddingLength;
     self.selectedRange = selectedRange;
 }
 
