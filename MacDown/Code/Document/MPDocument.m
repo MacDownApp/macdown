@@ -68,6 +68,7 @@ static NSString * const kMPMathJaxCDN =
 @property (strong) NSTimer *parseDelayTimer;
 @property (readonly) NSArray *stylesheets;
 @property (readonly) NSArray *scripts;
+@property BOOL previewFlushDisabled;
 @property BOOL isLoadingPreview;
 
 // Store file content in initializer until nib is loaded.
@@ -314,16 +315,32 @@ static NSString * const kMPMathJaxCDN =
 
 #pragma mark - WebFrameLoadDelegate
 
+- (void)webView:(WebView *)sender didCommitLoadForFrame:(WebFrame *)frame
+{
+    if (!self.previewFlushDisabled && sender.window)
+    {
+        self.previewFlushDisabled = YES;
+        [sender.window disableFlushWindow];
+    }
+}
+
 - (void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame
 {
     self.isLoadingPreview = NO;
-    [self syncScrollers];
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+        if (self.previewFlushDisabled)
+        {
+            [sender.window enableFlushWindow];
+            self.previewFlushDisabled = NO;
+        }
+        [self syncScrollers];
+    }];
 }
 
 - (void)webView:(WebView *)sender didFailLoadWithError:(NSError *)error
        forFrame:(WebFrame *)frame
 {
-    self.isLoadingPreview = NO;
+    [self webView:sender didFinishLoadForFrame:frame];
 }
 
 
