@@ -191,6 +191,7 @@ static NSString * const kMPMathJaxCDN =
         [self render];
     }
 
+    self.preview.frameLoadDelegate = self;
     self.preview.policyDelegate = self;
 
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
@@ -307,6 +308,14 @@ static NSString * const kMPMathJaxCDN =
             return NO;
     }
     return YES;
+}
+
+
+#pragma mark - WebFrameLoadDelegate
+
+- (void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame
+{
+    [self syncScrollers];
 }
 
 
