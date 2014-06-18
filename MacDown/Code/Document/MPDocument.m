@@ -68,6 +68,7 @@ static NSString * const kMPMathJaxCDN =
 @property (strong) NSTimer *parseDelayTimer;
 @property (readonly) NSArray *stylesheets;
 @property (readonly) NSArray *scripts;
+@property BOOL isLoadingPreview;
 
 // Store file content in initializer until nib is loaded.
 @property (copy) NSString *loadedString;
@@ -315,7 +316,14 @@ static NSString * const kMPMathJaxCDN =
 
 - (void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame
 {
+    self.isLoadingPreview = NO;
     [self syncScrollers];
+}
+
+- (void)webView:(WebView *)sender didFailLoadWithError:(NSError *)error
+       forFrame:(WebFrame *)frame
+{
+    self.isLoadingPreview = NO;
 }
 
 
@@ -326,10 +334,7 @@ static NSString * const kMPMathJaxCDN =
         request:(NSURLRequest *)request frame:(WebFrame *)frame
                 decisionListener:(id<WebPolicyDecisionListener>)listener
 {
-    NSURL *oldUrl = information[WebActionOriginalURLKey];
-    NSURL *newUrl = request.URL;
-
-    if ([newUrl isEqualTo:self.fileURL] || [newUrl isEqualTo:oldUrl])
+    if (self.isLoadingPreview)
     {
         // We are rendering ourselves.
         [listener use];
@@ -710,6 +715,7 @@ static NSString * const kMPMathJaxCDN =
     NSURL *baseUrl = self.fileURL;
     if (!baseUrl)
         baseUrl = self.preferences.htmlDefaultDirectoryUrl;
+    self.isLoadingPreview = YES;
     [self.preview.mainFrame loadHTMLString:html baseURL:baseUrl];
 
     // Record current rendering flags for -renderIfPreferencesChanged.
