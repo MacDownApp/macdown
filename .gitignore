@@ -169,5 +169,3 @@ xcuserdata
 #
 
 Pods/
-__pycache__/
-*.py[co]
