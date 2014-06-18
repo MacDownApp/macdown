@@ -1,0 +1,87 @@
+{% extends 'base/base.html' %}
+
+{% load i18n staticfiles %}
+
+
+{% block extra_css %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" href="{% static 'pages/css/home.css' %}">
+{% endblock %}
+
+
+{% block content %}
+
+<header>
+  <div class="row">
+    <div class="medium-offset-1 medium-4 columns">
+      <img class="logo" src="{% static 'base/img/logo.png' %}">
+    </div>
+    <div class="medium-7 columns">
+      {% blocktrans %}
+        <h1 class="title">MacDown</h1>
+        <p>The open source Markdown editor for OS X.</p>
+      {% endblocktrans %}
+    </div>
+  </div>
+</header>
+
+<div class="row">
+  <div class="medium-offset-1 medium-10 content columns">
+
+    <h2>What is MacDown?</h2>
+
+    <p>MacDown is an open source Markdown editor for OS X, released under the MIT License. It is heavily influenced by <a href="https://twitter.com/chenluois">Chen Luo</a>’s <a href="http://mouapp.com">Mou</a>. This is how it looks like:</p>
+
+  </div>
+</div>
+
+<img class="squeeze" src="http://d.pr/i/PTTC+" alt="MacDown demo.">
+
+<div class="row">
+  <div class="medium-offset-1 medium-10 content columns">
+
+    <h2>Why Another Markdown Editor?</h2>
+
+    <p>I like Mou. I write Markdown all the time, and since I use OS X on a daily basis, Mou is my go-to editor whenever I wish to generate something with markup. But I had always wanted something more.</p>
+
+    <p>It came as a great shock when Chen Luo announced that he felt he could not actively continue the development, and wished to <a href="http://www.v2ex.com/t/112732">sell the ownership of Mou</a>. <a href="http://www.v2ex.com/t/113734">No suitable offers surfaced</a> (I honestly do not think there will be, either), and I decided that instead of waiting for others to do something about this, I should act myself.</p>
+
+    <p>I don’t have nearly enough money to match Chen Luo’s purposed offer, but I do have my own pocket of tricks and some free time. So I started from scratch, spent some weekends hacking together my own solution. And this is the result.</p>
+
+    <h2>What’s in the Box?</h2>
+
+    <p>MacDown is heavily influenced by Mou, and I try to mimic much of its behaviour as much as possible both in UI and the logic underneath, only making changes when I feel that improvement is necessary. Here are some of the more important features MacDown has to offer:</p>
+
+    <h3>Markdown Rendering</h3>
+
+    <p><a href="https://github.com/hoedown/hoedown">Hoedown</a> is used internally to render Markdown into HTML. This makes MacDown’s live preview both efficient and very configurable. It also supports lots of non-standard syntactic features, including the very widely-used <a href="https://help.github.com/articles/github-flavored-markdown#fenced-code-blocks">fenced code blocks with language identifiers</a>. You can find all the available configurations in the Preferences. Try them out!</p>
+
+    <p><img class="squeeze" src="http://d.pr/i/hsm4+" alt="Markdown syntax preferences."></p>
+
+    <h3>Syntax Highlighting</h3>
+
+    <p>MacDown offers syntax highlighting in fenced code blocks with language identifiers through <a href="http://prismjs.com">Prism</a>.</p>
+
+    <p><img src="http://d.pr/i/9HM6+" alt="Syntax highlighting example."></p>
+
+    <h3>Auto-completion</h3>
+
+    <p>I am spoiled, as a programmer, by some pretty advanced auto-completion various IDEs offer. I implemented MacDown’s auto-completion to suit my own need. Hope it suits you too—or you can turn it off if you wish to.</p>
+
+    <h2>FAQ</h2>
+
+    <h3>Why Didn’t You Use Swift?</h3>
+
+    <p>MacDown was initiated three days after Apple announced Swift. While it is truely a nice language, <a href="http://swiftwtf.tumblr.com">I do not think it is quite production-ready yet</a>. I would very much like to use it in the future, though.</p>
+
+    <h3>Why OS X?</h3>
+
+    <p>I am a cross-platform developer, and chould have implemented the whole thing with a cross-platform framework. But those frameworks usually feel alient, especially on OS X. I might port this if there’s time, though. Still considering options.</p>
+
+    <h3>I Want Feature X. Why Didn’t You Implement It?</h3>
+
+    <p>Well, this is still a very young project, and I only implemented the features I need. Please feel free to offer any advices in the issue section on GitHub, or send me a pull request with your implementation. This is what open source is about, isn’t it? :D</p>
+  </div>
+</div>
+
+{% endblock %}

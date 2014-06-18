@@ -1,0 +1,49 @@
+{% extends 'base/boilerplate.html' %}
+
+{% load i18n staticfiles base_tags %}
+
+{% block extra_css %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" href="{% static '3rdparty/css/foundation.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static '3rdparty/css/foundation-icons.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'base/css/base.css' %}">
+{% endblock %}
+
+{% block extra_head %}
+{% static 'base/img/logo.png' as og_image_url %}
+<meta property="og:image"
+    content="{% block og_image %}{% absolute_uri og_image_url %}{% endblock %}">
+{% endblock %}
+
+
+{% block body %}
+
+<nav class="top-bar" data-topbar>
+  <section class="top-bar-section">
+    <ul class="right">
+      <li class="active"><a href="#">{% trans 'Download MacDown' %}</a></li>
+      <li><a href="https://uranusjr.com">{% trans 'Visit Author Site' %} <span class="fi-arrow-right"></span></a></li>
+    </ul>
+    <ul class="left">
+      <li><a href="{% url 'pages:home' %}">{% trans 'Home' %}</a></li>
+    </ul>
+  </section>
+</nav>
+
+{% block content %}{% endblock %}
+
+<footer>
+  <div>
+  {% blocktrans %}
+    Copyright © 2014 <a href="https://uranusjr.com">Tzu-ping Chung</a>.
+    This site is built with
+    <a href="https://www.djangoproject.com">Django</a> and
+    <a href="http://foundation.zurb.com">Foundation</a>.
+    {% endblocktrans %}
+  </div>
+
+  <!-- TODO: Fork button here. -->
+  <!-- http://markdotto.com/2011/11/26/introducing-unofficial-github-buttons/ -->
+</footer>
+
+{% endblock %}

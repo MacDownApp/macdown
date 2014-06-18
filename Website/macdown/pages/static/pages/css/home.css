@@ -1,0 +1,41 @@
+header {
+    height: 300px;
+    padding-top: 22px;
+    margin-bottom: 30px;
+}
+.title {
+    font-weight: bold;
+    padding-top: 70px;
+}
+.logo {
+    height: 256px;
+}
+.content {
+    margin-top: 1em;
+    text-align: justify;
+}
+.content img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+img {
+    margin-top: 10px;
+    margin-bottom: 30px;
+    max-width: 100%;
+}
+.squeeze {
+    margin-top: -16px;
+    margin-bottom: -27px;
+}
+footer {
+    background: #333;
+    color: #fff;
+    margin-top: 50px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    font-size: 80%;
+}
+footer > div {
+    text-align: center;
+}
