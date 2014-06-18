@@ -674,12 +674,14 @@ static NSString * const kMPMathJaxCDN =
     NSScrollView *editorScrollView = self.editor.enclosingScrollView;
     NSClipView *editorContentView = editorScrollView.contentView;
     NSView *editorDocumentView = editorScrollView.documentView;
+    NSRect editorDocumentFrame = editorDocumentView.frame;
     NSRect editorContentBounds = editorContentView.bounds;
-    CGFloat ratio =
-        editorContentBounds.origin.y / (editorDocumentView.frame.size.height
-                                        - editorContentBounds.size.height);
-    if (isnan(ratio))
-        ratio = 0.0;
+    CGFloat ratio = 0.0;
+    if (editorDocumentFrame.size.height > editorContentBounds.size.height)
+    {
+        ratio = editorContentBounds.origin.y /
+            (editorDocumentFrame.size.height - editorContentBounds.size.height);
+    }
 
     NSScrollView *previewScrollView =
         self.preview.mainFrame.frameView.documentView.enclosingScrollView;
