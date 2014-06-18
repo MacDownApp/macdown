@@ -656,6 +656,8 @@ static NSString * const kMPMathJaxCDN =
     CGFloat ratio =
         editorContentBounds.origin.y / (editorDocumentView.frame.size.height
                                         - editorContentBounds.size.height);
+    if (isnan(ratio))
+        ratio = 0.0;
 
     NSScrollView *previewScrollView =
         self.preview.mainFrame.frameView.documentView.enclosingScrollView;
