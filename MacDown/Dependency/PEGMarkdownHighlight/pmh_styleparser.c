@@ -142,7 +142,7 @@ static char *strcpy_lower(char *str)
 {
     char *low = strdup(str);
     int i;
-    size_t len = strlen(str);
+    int len = strlen(str);
     for (i = 0; i < len; i++)
         *(low+i) = tolower(*(low+i));
     return low;
@@ -177,7 +177,7 @@ static pmh_attr_argb_color *new_argb_from_hex_str(style_parser_data *p_data,
                                                   char *str)
 {
     // "aarrggbb"
-    size_t len = strlen(str);
+    int len = strlen(str);
     if (len != 6 && len != 8) {
         report_error(p_data, attr_line_number,
                      "Value '%s' is not a valid color value: it should be a "
