@@ -19,7 +19,7 @@
 		1F0D9D93194AC852008E1856 /* MPDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0D9D92194AC852008E1856 /* MPDocument.m */; };
 		1F0D9D9F194AC888008E1856 /* HGMarkdownHighlighter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0D9D97194AC888008E1856 /* HGMarkdownHighlighter.m */; };
 		1F0D9DA0194AC888008E1856 /* HGMarkdownHighlightingStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0D9D99194AC888008E1856 /* HGMarkdownHighlightingStyle.m */; };
-		1F0D9DA1194AC888008E1856 /* pmh_parser.c in Sources */ = {isa = PBXBuildFile; fileRef = 1F0D9D9B194AC888008E1856 /* pmh_parser.c */; };
+		1F0D9DA1194AC888008E1856 /* pmh_parser.c in Sources */ = {isa = PBXBuildFile; fileRef = 1F0D9D9B194AC888008E1856 /* pmh_parser.c */; settings = {COMPILER_FLAGS = "-Wno-conversion"; }; };
 		1F0D9DA2194AC888008E1856 /* pmh_styleparser.c in Sources */ = {isa = PBXBuildFile; fileRef = 1F0D9D9D194AC888008E1856 /* pmh_styleparser.c */; };
 		1F0D9DAA194AC8CB008E1856 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 1F0D9DA6194AC8CB008E1856 /* Credits.rtf */; };
 		1F0D9DAB194AC8CB008E1856 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1F0D9DA8194AC8CB008E1856 /* InfoPlist.strings */; };
