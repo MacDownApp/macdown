@@ -300,14 +300,12 @@ static NSString * const kMPMathJaxCDN =
     if (self.preferences.editorCompleteMatchingCharacters)
     {
         NSUInteger location = self.editor.selectedRange.location;
-        if ([textView deleteMatchingCharactersAround:location])
-            return NO;
+        [textView deleteMatchingCharactersAround:location];
     }
     if (self.preferences.editorConvertTabs)
     {
         NSUInteger location = self.editor.selectedRange.location;
-        if ([textView unindentForSpacesBefore:location])
-            return NO;
+        [textView unindentForSpacesBefore:location];
     }
     return YES;
 }

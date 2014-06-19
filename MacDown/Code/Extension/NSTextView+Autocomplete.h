@@ -23,8 +23,8 @@
 - (BOOL)wrapMatchingCharactersOfCharacter:(unichar)character
                         aroundTextInRange:(NSRange)range
                      strikethroughEnabled:(BOOL)isStrikethroughEnabled;
-- (BOOL)deleteMatchingCharactersAround:(NSUInteger)location;
-- (BOOL)unindentForSpacesBefore:(NSUInteger)location;
+- (void)deleteMatchingCharactersAround:(NSUInteger)location;
+- (void)unindentForSpacesBefore:(NSUInteger)location;
 - (BOOL)toggleForMarkupPrefix:(NSString *)prefix suffix:(NSString *)suffix;
 - (void)toggleBlockWithPattern:(NSString *)pattern prefix:(NSString *)prefix;
 - (void)indentSelectedLinesWithPadding:(NSString *)padding;

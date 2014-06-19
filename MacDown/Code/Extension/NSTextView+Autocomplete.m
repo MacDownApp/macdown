@@ -177,11 +177,11 @@ static NSString * const kMPListLineHeadPattern =
     return NO;
 }
 
-- (BOOL)deleteMatchingCharactersAround:(NSUInteger)location
+- (void)deleteMatchingCharactersAround:(NSUInteger)location
 {
     NSString *string = self.string;
     if (location == 0 || location >= string.length)
-        return NO;
+        return;
 
     unichar f = [string characterAtIndex:location - 1];
     unichar b = [string characterAtIndex:location];
@@ -190,15 +190,14 @@ static NSString * const kMPListLineHeadPattern =
     {
         if (f == cs[0] && b == cs[1])
         {
-            [self replaceCharactersInRange:NSMakeRange(location - 1, 2)
+            [self replaceCharactersInRange:NSMakeRange(location, 1)
                                 withString:@""];
-            return YES;
+            break;
         }
     }
-    return NO;
 }
 
-- (BOOL)unindentForSpacesBefore:(NSUInteger)location
+- (void)unindentForSpacesBefore:(NSUInteger)location
 {
     NSString *string = self.string;
 
@@ -211,7 +210,7 @@ static NSString * const kMPListLineHeadPattern =
             break;
     }
     if (whitespaceCount < 2)
-        return NO;
+        return;
 
     NSUInteger offset =
         ([self.string locationOfFirstNewlineBefore:location] + 1) % 4;
@@ -219,8 +218,9 @@ static NSString * const kMPListLineHeadPattern =
         offset = 4;
     offset = offset > whitespaceCount ? whitespaceCount : 4;
     NSRange range = NSMakeRange(location - offset, offset);
-    [self replaceCharactersInRange:range withString:@""];
-    return YES;
+
+    // Leave a space for the original delete action to handle.
+    [self replaceCharactersInRange:range withString:@" "];
 }
 
 - (BOOL)toggleForMarkupPrefix:(NSString *)prefix suffix:(NSString *)suffix
