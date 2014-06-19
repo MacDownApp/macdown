@@ -758,30 +758,19 @@ static NSString * const kMPMathJaxCDN =
     hoedown_markdown *markdown =
         hoedown_markdown_new(flags, 15, self.htmlRenderer);
 
-    hoedown_buffer *ib = hoedown_buffer_new(64);
     hoedown_buffer *ob = hoedown_buffer_new(64);
-
-    const uint8_t *data = 0;
-    size_t size = 0;
+    hoedown_markdown_render(ob, inputData.bytes, inputData.length, markdown);
     if (smartyPantsEnabled)
     {
-        hoedown_html_smartypants(ib, inputData.bytes, inputData.length);
-        data = ib->data;
-        size = ib->size;
+        hoedown_buffer *ib = ob;
+        ob = hoedown_buffer_new(64);
+        hoedown_html_smartypants(ob, ib->data, ib->size);
+        hoedown_buffer_free(ib);
     }
-    else
-    {
-        data = inputData.bytes;
-        size = inputData.length;
-    }
-    hoedown_markdown_render(ob, data, size, markdown);
 
     NSString *result = [NSString stringWithUTF8String:hoedown_buffer_cstr(ob)];
-
     hoedown_markdown_free(markdown);
-    hoedown_buffer_free(ib);
     hoedown_buffer_free(ob);
-
     return result;
 }
 
