@@ -1,4 +1,4 @@
-CFLAGS = -g -Wall $(OFLAGS) $(XFLAGS)
+CFLAGS = -g -Wall -Wno-unused-variable $(OFLAGS) $(XFLAGS)
 OFLAGS = -O3 -DNDEBUG
 #OFLAGS = -pg
 
