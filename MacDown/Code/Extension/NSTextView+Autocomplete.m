@@ -108,15 +108,22 @@ static NSString * const kMPListLineHeadPattern =
                               atLocation:(NSUInteger)location
 {
     NSString *content = self.string;
+    NSUInteger contentLength = content.length;
 
     unichar c = [string characterAtIndex:0];
-    unichar n = '\0';
-    if (location < content.length)
+    unichar n = ' ';
+    unichar p = ' ';
+    if (location < contentLength)
         n = [content characterAtIndex:location];
+    if (location > 0 && location < contentLength)
+        p = [content characterAtIndex:location - 1];
 
+    NSCharacterSet *delims = [NSCharacterSet whitespaceAndNewlineCharacterSet];
     for (const unichar *cs = kMPMatchingCharactersMap[0]; *cs != 0; cs += 2)
     {
-        if (c == cs[0] && n != cs[1])
+        if ((cs[0] != cs[1] ||
+             ([delims characterIsMember:p] && [delims characterIsMember:n]))
+            && c == cs[0] && n != cs[1])
         {
             NSRange range = NSMakeRange(location, 0);
             NSString *completion = [NSString stringWithCharacters:cs length:2];
