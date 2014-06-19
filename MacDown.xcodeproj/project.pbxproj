@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1F0B60E7194CB7A50008F1BA /* Prism in Resources */ = {isa = PBXBuildFile; fileRef = 1F0B60E6194CB7A40008F1BA /* Prism */; };
 		1F0D9D65194AC7CF008E1856 /* NSString+Lookup.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0D9D5F194AC7CF008E1856 /* NSString+Lookup.m */; };
 		1F0D9D66194AC7CF008E1856 /* NSTextView+Autocomplete.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0D9D61194AC7CF008E1856 /* NSTextView+Autocomplete.m */; };
 		1F0D9D67194AC7CF008E1856 /* MPUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0D9D64194AC7CF008E1856 /* MPUtilities.m */; };
@@ -32,6 +31,7 @@
 		1F0D9DB4194AC9EE008E1856 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F0D9D81194AC83C008E1856 /* MainMenu.xib */; };
 		1F4C8E9A194AE0B9004BF82E /* MarkdownDocument.icns in Resources */ = {isa = PBXBuildFile; fileRef = 1F4C8E99194AE0B9004BF82E /* MarkdownDocument.icns */; };
 		1F51C9A5194565050015A96F /* MPPreferencesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDCA311944F96E00B1F966 /* MPPreferencesTests.m */; };
+		1F8A82D919533E9300B6BF69 /* Prism in Resources */ = {isa = PBXBuildFile; fileRef = 1F8A82D819533E9300B6BF69 /* Prism */; };
 		1F9A14EC194EEE9900D1C6A9 /* MPExportPanelAccessoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F9A14E9194EEE9900D1C6A9 /* MPExportPanelAccessoryViewController.m */; };
 		1F9A14ED194EEE9900D1C6A9 /* MPMainController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F9A14EB194EEE9900D1C6A9 /* MPMainController.m */; };
 		1F9A14EF194EEEDD00D1C6A9 /* Styles in Resources */ = {isa = PBXBuildFile; fileRef = 1F9A14EE194EEEDD00D1C6A9 /* Styles */; };
@@ -62,7 +62,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1F0B60E6194CB7A40008F1BA /* Prism */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Prism; path = Dependency/Prism; sourceTree = "<group>"; };
 		1F0D9D5E194AC7CF008E1856 /* NSString+Lookup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Lookup.h"; sourceTree = "<group>"; };
 		1F0D9D5F194AC7CF008E1856 /* NSString+Lookup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Lookup.m"; sourceTree = "<group>"; };
 		1F0D9D60194AC7CF008E1856 /* NSTextView+Autocomplete.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTextView+Autocomplete.h"; sourceTree = "<group>"; };
@@ -103,6 +102,7 @@
 		1F0D9DB5194ACA33008E1856 /* MacDown-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "MacDown-Prefix.pch"; path = "Code/MacDown-Prefix.pch"; sourceTree = "<group>"; };
 		1F4C8E99194AE0B9004BF82E /* MarkdownDocument.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = MarkdownDocument.icns; path = Resources/MarkdownDocument.icns; sourceTree = "<group>"; };
 		1F51C9A1194564670015A96F /* libPods-MacDown-PAPreferences.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-MacDown-PAPreferences.a"; path = "../../../../Library/Developer/Xcode/DerivedData/MacDown-ggdtxvuybojeqbhjydkhilziizrv/Build/Products/Debug/libPods-MacDown-PAPreferences.a"; sourceTree = "<group>"; };
+		1F8A82D819533E9300B6BF69 /* Prism */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Prism; path = Resources/Prism; sourceTree = "<group>"; };
 		1F9A14E8194EEE9900D1C6A9 /* MPExportPanelAccessoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MPExportPanelAccessoryViewController.h; path = Code/Application/MPExportPanelAccessoryViewController.h; sourceTree = "<group>"; };
 		1F9A14E9194EEE9900D1C6A9 /* MPExportPanelAccessoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MPExportPanelAccessoryViewController.m; path = Code/Application/MPExportPanelAccessoryViewController.m; sourceTree = "<group>"; };
 		1F9A14EA194EEE9900D1C6A9 /* MPMainController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MPMainController.h; path = Code/Application/MPMainController.h; sourceTree = "<group>"; };
@@ -243,7 +243,7 @@
 				1FD7F8DD194A0211007ED2A1 /* Data */,
 				1F9A14EE194EEEDD00D1C6A9 /* Styles */,
 				1F9A14F3194EF6A600D1C6A9 /* Themes */,
-				1F0B60E6194CB7A40008F1BA /* Prism */,
+				1F8A82D819533E9300B6BF69 /* Prism */,
 				1F4C8E99194AE0B9004BF82E /* MarkdownDocument.icns */,
 				1F9A14F5194EFF1F00D1C6A9 /* PreferencesMarkdown.png */,
 				1F0D9DA6194AC8CB008E1856 /* Credits.rtf */,
@@ -446,9 +446,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F8A82D919533E9300B6BF69 /* Prism in Resources */,
 				1F9A14EF194EEEDD00D1C6A9 /* Styles in Resources */,
 				1F0D9DB0194AC9EE008E1856 /* MPDocument.xib in Resources */,
-				1F0B60E7194CB7A50008F1BA /* Prism in Resources */,
 				1F0D9DB1194AC9EE008E1856 /* MPEditorPreferencesViewController.xib in Resources */,
 				1F9A14F4194EF6A600D1C6A9 /* Themes in Resources */,
 				1F0D9DB2194AC9EE008E1856 /* MPHtmlPreferencesViewController.xib in Resources */,
