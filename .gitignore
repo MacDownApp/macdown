@@ -169,3 +169,6 @@ xcuserdata
 #
 
 Pods/
+Dependency/peg-markdown-highlight/pmh_parser.c
+Dependency/peg-markdown-highlight/*.o
+Dependency/peg-markdown-highlight/greg/greg

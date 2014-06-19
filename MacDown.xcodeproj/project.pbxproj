@@ -16,10 +16,6 @@
 		1F0D9D7C194AC7F7008E1856 /* MPPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0D9D73194AC7F7008E1856 /* MPPreferences.m */; };
 		1F0D9D7D194AC7F7008E1856 /* MPPreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0D9D75194AC7F7008E1856 /* MPPreferencesViewController.m */; };
 		1F0D9D93194AC852008E1856 /* MPDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0D9D92194AC852008E1856 /* MPDocument.m */; };
-		1F0D9D9F194AC888008E1856 /* HGMarkdownHighlighter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0D9D97194AC888008E1856 /* HGMarkdownHighlighter.m */; };
-		1F0D9DA0194AC888008E1856 /* HGMarkdownHighlightingStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0D9D99194AC888008E1856 /* HGMarkdownHighlightingStyle.m */; };
-		1F0D9DA1194AC888008E1856 /* pmh_parser.c in Sources */ = {isa = PBXBuildFile; fileRef = 1F0D9D9B194AC888008E1856 /* pmh_parser.c */; settings = {COMPILER_FLAGS = "-Wno-conversion"; }; };
-		1F0D9DA2194AC888008E1856 /* pmh_styleparser.c in Sources */ = {isa = PBXBuildFile; fileRef = 1F0D9D9D194AC888008E1856 /* pmh_styleparser.c */; settings = {COMPILER_FLAGS = "-Wno-conversion"; }; };
 		1F0D9DAA194AC8CB008E1856 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 1F0D9DA6194AC8CB008E1856 /* Credits.rtf */; };
 		1F0D9DAB194AC8CB008E1856 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1F0D9DA8194AC8CB008E1856 /* InfoPlist.strings */; };
 		1F0D9DAD194AC8EF008E1856 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F0D9DAC194AC8EF008E1856 /* Images.xcassets */; };
@@ -32,6 +28,10 @@
 		1F4C8E9A194AE0B9004BF82E /* MarkdownDocument.icns in Resources */ = {isa = PBXBuildFile; fileRef = 1F4C8E99194AE0B9004BF82E /* MarkdownDocument.icns */; };
 		1F51C9A5194565050015A96F /* MPPreferencesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDCA311944F96E00B1F966 /* MPPreferencesTests.m */; };
 		1F8A82D919533E9300B6BF69 /* Prism in Resources */ = {isa = PBXBuildFile; fileRef = 1F8A82D819533E9300B6BF69 /* Prism */; };
+		1F8A835D1953454F00B6BF69 /* HGMarkdownHighlighter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F8A83581953454F00B6BF69 /* HGMarkdownHighlighter.m */; };
+		1F8A835E1953454F00B6BF69 /* HGMarkdownHighlightingStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F8A835A1953454F00B6BF69 /* HGMarkdownHighlightingStyle.m */; };
+		1F8A83621953461800B6BF69 /* pmh_parser.c in Sources */ = {isa = PBXBuildFile; fileRef = 1F8A83611953461800B6BF69 /* pmh_parser.c */; settings = {COMPILER_FLAGS = "-Wno-conversion"; }; };
+		1F8A8364195346B200B6BF69 /* pmh_styleparser.c in Sources */ = {isa = PBXBuildFile; fileRef = 1F8A8363195346B200B6BF69 /* pmh_styleparser.c */; settings = {COMPILER_FLAGS = "-Wno-conversion"; }; };
 		1F9A14EC194EEE9900D1C6A9 /* MPExportPanelAccessoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F9A14E9194EEE9900D1C6A9 /* MPExportPanelAccessoryViewController.m */; };
 		1F9A14ED194EEE9900D1C6A9 /* MPMainController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F9A14EB194EEE9900D1C6A9 /* MPMainController.m */; };
 		1F9A14EF194EEEDD00D1C6A9 /* Styles in Resources */ = {isa = PBXBuildFile; fileRef = 1F9A14EE194EEEDD00D1C6A9 /* Styles */; };
@@ -59,6 +59,13 @@
 			remoteGlobalIDString = 1FA6DE201941CC9E000409FB;
 			remoteInfo = MarkPad;
 		};
+		1FE2197719534A5D00DB931F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1F8A837E195348C500B6BF69 /* peg-markdown-highlight.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 1F8A836B195348C500B6BF69;
+			remoteInfo = "peg-markdown-highlight";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -85,15 +92,6 @@
 		1F0D9D8A194AC83C008E1856 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Localization/Base.lproj/MPMarkdownPreferencesViewController.xib; sourceTree = "<group>"; };
 		1F0D9D91194AC852008E1856 /* MPDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPDocument.h; sourceTree = "<group>"; };
 		1F0D9D92194AC852008E1856 /* MPDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPDocument.m; sourceTree = "<group>"; };
-		1F0D9D96194AC888008E1856 /* HGMarkdownHighlighter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HGMarkdownHighlighter.h; sourceTree = "<group>"; };
-		1F0D9D97194AC888008E1856 /* HGMarkdownHighlighter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HGMarkdownHighlighter.m; sourceTree = "<group>"; };
-		1F0D9D98194AC888008E1856 /* HGMarkdownHighlightingStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HGMarkdownHighlightingStyle.h; sourceTree = "<group>"; };
-		1F0D9D99194AC888008E1856 /* HGMarkdownHighlightingStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HGMarkdownHighlightingStyle.m; sourceTree = "<group>"; };
-		1F0D9D9A194AC888008E1856 /* pmh_definitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pmh_definitions.h; sourceTree = "<group>"; };
-		1F0D9D9B194AC888008E1856 /* pmh_parser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pmh_parser.c; sourceTree = "<group>"; };
-		1F0D9D9C194AC888008E1856 /* pmh_parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pmh_parser.h; sourceTree = "<group>"; };
-		1F0D9D9D194AC888008E1856 /* pmh_styleparser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pmh_styleparser.c; sourceTree = "<group>"; };
-		1F0D9D9E194AC888008E1856 /* pmh_styleparser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pmh_styleparser.h; sourceTree = "<group>"; };
 		1F0D9DA3194AC8B3008E1856 /* MacDown-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MacDown-Info.plist"; sourceTree = "<group>"; };
 		1F0D9DA7194AC8CB008E1856 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = Localization/en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		1F0D9DA9194AC8CB008E1856 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Localization/en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -103,6 +101,16 @@
 		1F4C8E99194AE0B9004BF82E /* MarkdownDocument.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = MarkdownDocument.icns; path = Resources/MarkdownDocument.icns; sourceTree = "<group>"; };
 		1F51C9A1194564670015A96F /* libPods-MacDown-PAPreferences.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-MacDown-PAPreferences.a"; path = "../../../../Library/Developer/Xcode/DerivedData/MacDown-ggdtxvuybojeqbhjydkhilziizrv/Build/Products/Debug/libPods-MacDown-PAPreferences.a"; sourceTree = "<group>"; };
 		1F8A82D819533E9300B6BF69 /* Prism */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Prism; path = Resources/Prism; sourceTree = "<group>"; };
+		1F8A83571953454F00B6BF69 /* HGMarkdownHighlighter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HGMarkdownHighlighter.h; path = "Dependency/peg-markdown-highlight/HGMarkdownHighlighter.h"; sourceTree = SOURCE_ROOT; };
+		1F8A83581953454F00B6BF69 /* HGMarkdownHighlighter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HGMarkdownHighlighter.m; path = "Dependency/peg-markdown-highlight/HGMarkdownHighlighter.m"; sourceTree = SOURCE_ROOT; };
+		1F8A83591953454F00B6BF69 /* HGMarkdownHighlightingStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HGMarkdownHighlightingStyle.h; path = "Dependency/peg-markdown-highlight/HGMarkdownHighlightingStyle.h"; sourceTree = SOURCE_ROOT; };
+		1F8A835A1953454F00B6BF69 /* HGMarkdownHighlightingStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HGMarkdownHighlightingStyle.m; path = "Dependency/peg-markdown-highlight/HGMarkdownHighlightingStyle.m"; sourceTree = SOURCE_ROOT; };
+		1F8A835B1953454F00B6BF69 /* pmh_definitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pmh_definitions.h; path = "Dependency/peg-markdown-highlight/pmh_definitions.h"; sourceTree = SOURCE_ROOT; };
+		1F8A835C1953454F00B6BF69 /* pmh_parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pmh_parser.h; path = "Dependency/peg-markdown-highlight/pmh_parser.h"; sourceTree = SOURCE_ROOT; };
+		1F8A83611953461800B6BF69 /* pmh_parser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = pmh_parser.c; path = "Dependency/peg-markdown-highlight/pmh_parser.c"; sourceTree = SOURCE_ROOT; };
+		1F8A8363195346B200B6BF69 /* pmh_styleparser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = pmh_styleparser.c; path = "Dependency/peg-markdown-highlight/pmh_styleparser.c"; sourceTree = SOURCE_ROOT; };
+		1F8A8365195346B600B6BF69 /* pmh_styleparser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = pmh_styleparser.h; path = "Dependency/peg-markdown-highlight/pmh_styleparser.h"; sourceTree = SOURCE_ROOT; };
+		1F8A837E195348C500B6BF69 /* peg-markdown-highlight.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "peg-markdown-highlight.xcodeproj"; path = "Dependency/peg-markdown-highlight/peg-markdown-highlight.xcodeproj"; sourceTree = SOURCE_ROOT; };
 		1F9A14E8194EEE9900D1C6A9 /* MPExportPanelAccessoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MPExportPanelAccessoryViewController.h; path = Code/Application/MPExportPanelAccessoryViewController.h; sourceTree = "<group>"; };
 		1F9A14E9194EEE9900D1C6A9 /* MPExportPanelAccessoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MPExportPanelAccessoryViewController.m; path = Code/Application/MPExportPanelAccessoryViewController.m; sourceTree = "<group>"; };
 		1F9A14EA194EEE9900D1C6A9 /* MPMainController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MPMainController.h; path = Code/Application/MPMainController.h; sourceTree = "<group>"; };
@@ -213,30 +221,6 @@
 			path = Code/Document;
 			sourceTree = "<group>";
 		};
-		1F0D9D94194AC888008E1856 /* Dependency */ = {
-			isa = PBXGroup;
-			children = (
-				1F0D9D95194AC888008E1856 /* PEGMarkdownHighlight */,
-			);
-			path = Dependency;
-			sourceTree = "<group>";
-		};
-		1F0D9D95194AC888008E1856 /* PEGMarkdownHighlight */ = {
-			isa = PBXGroup;
-			children = (
-				1F0D9D96194AC888008E1856 /* HGMarkdownHighlighter.h */,
-				1F0D9D97194AC888008E1856 /* HGMarkdownHighlighter.m */,
-				1F0D9D98194AC888008E1856 /* HGMarkdownHighlightingStyle.h */,
-				1F0D9D99194AC888008E1856 /* HGMarkdownHighlightingStyle.m */,
-				1F0D9D9A194AC888008E1856 /* pmh_definitions.h */,
-				1F0D9D9B194AC888008E1856 /* pmh_parser.c */,
-				1F0D9D9C194AC888008E1856 /* pmh_parser.h */,
-				1F0D9D9D194AC888008E1856 /* pmh_styleparser.c */,
-				1F0D9D9E194AC888008E1856 /* pmh_styleparser.h */,
-			);
-			path = PEGMarkdownHighlight;
-			sourceTree = "<group>";
-		};
 		1F4C8E9B194AE0C3004BF82E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -261,6 +245,39 @@
 			name = "Additional Sources";
 			sourceTree = "<group>";
 		};
+		1F8A83551953453100B6BF69 /* Dependency */ = {
+			isa = PBXGroup;
+			children = (
+				1F8A83561953453A00B6BF69 /* peg-markdown-highlight */,
+			);
+			name = Dependency;
+			path = MacDown;
+			sourceTree = "<group>";
+		};
+		1F8A83561953453A00B6BF69 /* peg-markdown-highlight */ = {
+			isa = PBXGroup;
+			children = (
+				1F8A837E195348C500B6BF69 /* peg-markdown-highlight.xcodeproj */,
+				1F8A83571953454F00B6BF69 /* HGMarkdownHighlighter.h */,
+				1F8A83581953454F00B6BF69 /* HGMarkdownHighlighter.m */,
+				1F8A83591953454F00B6BF69 /* HGMarkdownHighlightingStyle.h */,
+				1F8A835A1953454F00B6BF69 /* HGMarkdownHighlightingStyle.m */,
+				1F8A835B1953454F00B6BF69 /* pmh_definitions.h */,
+				1F8A835C1953454F00B6BF69 /* pmh_parser.h */,
+				1F8A83611953461800B6BF69 /* pmh_parser.c */,
+				1F8A8365195346B600B6BF69 /* pmh_styleparser.h */,
+				1F8A8363195346B200B6BF69 /* pmh_styleparser.c */,
+			);
+			name = "peg-markdown-highlight";
+			sourceTree = "<group>";
+		};
+		1F8A837F195348C500B6BF69 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		1F9A14E7194EE24600D1C6A9 /* Application */ = {
 			isa = PBXGroup;
 			children = (
@@ -277,6 +294,7 @@
 		1FA6DE181941CC9E000409FB = {
 			isa = PBXGroup;
 			children = (
+				1F8A83551953453100B6BF69 /* Dependency */,
 				1FCDC9EB1944F89B00B1F966 /* MacDown */,
 				1FCDCA2F1944F96E00B1F966 /* MacDownTests */,
 				1FA6DE231941CC9E000409FB /* Frameworks */,
@@ -322,7 +340,6 @@
 		1FCDC9EB1944F89B00B1F966 /* MacDown */ = {
 			isa = PBXGroup;
 			children = (
-				1F0D9D94194AC888008E1856 /* Dependency */,
 				1F0D9D62194AC7CF008E1856 /* Utility */,
 				1F0D9D5D194AC7CF008E1856 /* Extension */,
 				1F9A14E7194EE24600D1C6A9 /* Application */,
@@ -376,11 +393,12 @@
 				1FA6DE1E1941CC9E000409FB /* Frameworks */,
 				1FA6DE1F1941CC9E000409FB /* Resources */,
 				46C28C219A3C4CCD94797747 /* Copy Pods Resources */,
-				1F8A82A81952F19B00B6BF69 /* ShellScript */,
+				1F8A82A81952F19B00B6BF69 /* Update Build Number */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				1FE2197819534A5D00DB931F /* PBXTargetDependency */,
 			);
 			name = MacDown;
 			productName = MarkPad;
@@ -433,6 +451,12 @@
 			mainGroup = 1FA6DE181941CC9E000409FB;
 			productRefGroup = 1FA6DE221941CC9E000409FB /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 1F8A837F195348C500B6BF69 /* Products */;
+					ProjectRef = 1F8A837E195348C500B6BF69 /* peg-markdown-highlight.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				1FA6DE201941CC9E000409FB /* MacDown */,
@@ -476,13 +500,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1F8A82A81952F19B00B6BF69 /* ShellScript */ = {
+		1F8A82A81952F19B00B6BF69 /* Update Build Number */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Update Build Number";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -557,22 +582,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				1F0D9D7A194AC7F7008E1856 /* MPMarkdownPreferencesViewController.m in Sources */,
-				1F0D9DA1194AC888008E1856 /* pmh_parser.c in Sources */,
 				1F0D9D7D194AC7F7008E1856 /* MPPreferencesViewController.m in Sources */,
-				1F0D9DA2194AC888008E1856 /* pmh_styleparser.c in Sources */,
 				1F0D9D65194AC7CF008E1856 /* NSString+Lookup.m in Sources */,
+				1F8A835E1953454F00B6BF69 /* HGMarkdownHighlightingStyle.m in Sources */,
 				1F0D9D67194AC7CF008E1856 /* MPUtilities.m in Sources */,
 				1F0D9D78194AC7F7008E1856 /* MPHtmlPreferencesViewController.m in Sources */,
 				1F0D9D7C194AC7F7008E1856 /* MPPreferences.m in Sources */,
-				1F0D9DA0194AC888008E1856 /* HGMarkdownHighlightingStyle.m in Sources */,
 				1F0D9DAF194AC905008E1856 /* main.m in Sources */,
 				1F0D9D66194AC7CF008E1856 /* NSTextView+Autocomplete.m in Sources */,
 				1F9A14EC194EEE9900D1C6A9 /* MPExportPanelAccessoryViewController.m in Sources */,
 				1F9A14ED194EEE9900D1C6A9 /* MPMainController.m in Sources */,
 				1FBBD4CB194CA36500BB3C88 /* hoedown_html_patch.c in Sources */,
+				1F8A8364195346B200B6BF69 /* pmh_styleparser.c in Sources */,
 				1F0D9D93194AC852008E1856 /* MPDocument.m in Sources */,
 				1F0D9D76194AC7F7008E1856 /* MPEditorPreferencesViewController.m in Sources */,
-				1F0D9D9F194AC888008E1856 /* HGMarkdownHighlighter.m in Sources */,
+				1F8A83621953461800B6BF69 /* pmh_parser.c in Sources */,
+				1F8A835D1953454F00B6BF69 /* HGMarkdownHighlighter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -592,6 +617,11 @@
 			isa = PBXTargetDependency;
 			target = 1FA6DE201941CC9E000409FB /* MacDown */;
 			targetProxy = 1FA6DE491941CC9E000409FB /* PBXContainerItemProxy */;
+		};
+		1FE2197819534A5D00DB931F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "peg-markdown-highlight";
+			targetProxy = 1FE2197719534A5D00DB931F /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
