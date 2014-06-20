@@ -181,9 +181,6 @@ typedef NS_ENUM(NSInteger, MPAssetsOption)
     self.highlighter =
         [[HGMarkdownHighlighter alloc] initWithTextView:self.editor
                                            waitInterval:0.1];
-    self.highlighter.parseAndHighlightAutomatically = YES;
-    self.highlighter.resetTypingAttributes = YES;
-    [self.highlighter activate];
 
     // Fix Xcode 5/Lion bug where disselecting options in IB doesn't work.
     // TODO: Can we save/set these app-wise using KVO?
@@ -621,6 +618,7 @@ typedef NS_ENUM(NSInteger, MPAssetsOption)
 
 - (void)setupEditor
 {
+    [self.highlighter deactivate];
     self.editor.font = [self.preferences.editorBaseFont copy];
 
     int extensions = pmh_EXT_NOTES;
@@ -657,7 +655,7 @@ typedef NS_ENUM(NSInteger, MPAssetsOption)
     NSClipView *contentView = self.editor.enclosingScrollView.contentView;
     contentView.postsBoundsChangedNotifications = YES;
 
-    [self.highlighter parseAndHighlightNow];
+    [self.highlighter activate];
 }
 
 - (void)parseLaterWithCommand:(SEL)action completionHandler:(void(^)())handler
