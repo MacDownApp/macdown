@@ -115,14 +115,13 @@ static NSString * const kMPListLineHeadPattern =
     unichar p = ' ';
     if (location < contentLength)
         n = [content characterAtIndex:location];
-    if (location > 0 && location < contentLength)
+    if (location > 0 && location <= contentLength)
         p = [content characterAtIndex:location - 1];
 
     NSCharacterSet *delims = [NSCharacterSet whitespaceAndNewlineCharacterSet];
     for (const unichar *cs = kMPMatchingCharactersMap[0]; *cs != 0; cs += 2)
     {
-        if ((cs[0] != cs[1] ||
-             ([delims characterIsMember:p] && [delims characterIsMember:n]))
+        if (([delims characterIsMember:p] && [delims characterIsMember:n])
             && c == cs[0] && n != cs[1])
         {
             NSRange range = NSMakeRange(location, 0);
