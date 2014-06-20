@@ -53,6 +53,31 @@
     [self.preferencesWindowController showWindow:nil];
 }
 
+- (IBAction)showHelp:(id)sender
+{
+    NSDocumentController *c =
+        [NSDocumentController sharedDocumentController];
+    NSURL *source = [[NSBundle mainBundle] URLForResource:@"help"
+                                            withExtension:@"md"];
+    NSURL *target = [NSURL fileURLWithPathComponents:@[NSTemporaryDirectory(),
+                                                       @"help.md"]];
+    BOOL ok = NO;
+    NSFileManager *manager = [NSFileManager defaultManager];
+    [manager removeItemAtURL:target error:NULL];
+    ok = [manager copyItemAtURL:source toURL:target error:NULL];
+    if (ok)
+    {
+        [c openDocumentWithContentsOfURL:target display:YES completionHandler:
+            ^(NSDocument *document, BOOL wasOpen, NSError *error) {
+                if (!document || wasOpen || error)
+                    return;
+                NSRect frame = [NSScreen mainScreen].visibleFrame;
+                for (NSWindowController *wc in document.windowControllers)
+                    [wc.window setFrame:frame display:YES];
+            }];
+    }
+}
+
 
 #pragma mark - Override
 
@@ -62,6 +87,10 @@
     if (!self)
         return self;
 
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver:self selector:@selector(showFirstLaunchTips)
+                   name:MPDidDetectFreshInstallationNotification
+                 object:self.prefereces];
     [self copyFiles];
     return self;
 }
@@ -93,5 +122,16 @@
         [manager copyItemAtURL:source toURL:target error:NULL];
     }
 }
+
+
+
+
+#pragma mark - Notification handler
+
+- (void)showFirstLaunchTips
+{
+    [self showHelp:nil];
+}
+
 
 @end

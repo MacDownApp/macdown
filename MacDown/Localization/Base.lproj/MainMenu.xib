@@ -546,7 +546,16 @@ DQ
                 </menuItem>
                 <menuItem title="Help" id="wpr-3q-Mcd">
                     <modifierMask key="keyEquivalentModifierMask"/>
-                    <menu key="submenu" title="Help" systemMenu="help" id="F2S-fz-NVQ"/>
+                    <menu key="submenu" title="Help" systemMenu="help" id="F2S-fz-NVQ">
+                        <items>
+                            <menuItem title="MacDown Help" id="ugx-EN-xKu">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="showHelp:" target="eq0-c4-vgQ" id="8IP-1m-7eG"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
                 </menuItem>
             </items>
         </menu>

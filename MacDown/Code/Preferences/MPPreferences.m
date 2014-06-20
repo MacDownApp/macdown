@@ -8,15 +8,20 @@
 
 #import "MPPreferences.h"
 
+
+NSString * const MPDidDetectFreshInstallationNotification =
+    @"MPDidDetectFreshInstallationNotificationName";
+
 static NSString * const kMPDefaultEditorFontNameKey = @"name";
 static NSString * const kMPDefaultEditorFontPointSizeKey = @"size";
 static NSString * const kMPDefaultEditorFontName = @"Menlo-Regular";
 static CGFloat    const kMPDefaultEditorFontPointSize = 14.0;
+static CGFloat    const kMPDefaultEditorHorizontalInset = 15.0;
+static CGFloat    const kMPDefaultEditorVerticalInset = 30.0;
+static CGFloat    const kMPDefaultEditorLineSpacing = 3.0;
+static BOOL       const kMPDefaultEditorSyncScrolling = YES;
 static NSString * const kMPDefaultEditorThemeName = @"Tomorrow+";
 static NSString * const kMPDefaultHtmlStyleName = @"GitHub";
-
-static NSString * const MPPreferencesDidSynchronizeNotificationName =
-    @"MPPreferencesDidSynchronizeNotificationName";
 
 
 @implementation MPPreferences
@@ -35,6 +40,14 @@ static NSString * const MPPreferencesDidSynchronizeNotificationName =
     {
         self.firstVersionInstalled = version;
         [self loadDefaultPreferences];
+
+        // Post this after the initializer finishes to give others to listen
+        // to this on construction.
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            NSNotificationCenter *c = [NSNotificationCenter defaultCenter];
+            [c postNotificationName:MPDidDetectFreshInstallationNotification
+                             object:self];
+        }];
     }
     self.latestVersionInstalled = version;
     return self;
@@ -103,6 +116,10 @@ static NSString * const MPPreferencesDidSynchronizeNotificationName =
         @(kMPDefaultEditorFontPointSize), kMPDefaultEditorFontPointSizeKey,
     nil];
     self.editorStyleName = kMPDefaultEditorThemeName;
+    self.editorHorizontalInset = kMPDefaultEditorHorizontalInset;
+    self.editorVerticalInset = kMPDefaultEditorVerticalInset;
+    self.editorLineSpacing = kMPDefaultEditorLineSpacing;
+    self.editorSyncScrolling = kMPDefaultEditorSyncScrolling;
     self.htmlStyleName = kMPDefaultHtmlStyleName;
     self.htmlDefaultDirectoryUrl = [NSURL fileURLWithPath:NSHomeDirectory()
                                               isDirectory:YES];
