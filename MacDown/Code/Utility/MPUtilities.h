@@ -8,13 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-typedef NS_ENUM(NSInteger, MPAssetsOption)
-{
-    MPAssetsNone,
-    MPAssetsEmbedded,
-    MPAssetsFullLink,
-};
-
 extern NSString * const kMPApplicationName;
 extern NSString * const kMPStylesDirectoryName;
 extern NSString * const kMPStyleFileExtension;

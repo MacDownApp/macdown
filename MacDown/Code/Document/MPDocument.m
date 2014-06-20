@@ -22,6 +22,13 @@ static NSString * const kMPMathJaxCDN =
     @"http://cdn.mathjax.org/mathjax/latest/MathJax.js"
     @"?config=TeX-AMS-MML_HTMLorMML";
 
+typedef NS_ENUM(NSInteger, MPAssetsOption)
+{
+    MPAssetsNone,
+    MPAssetsEmbedded,
+    MPAssetsFullLink,
+};
+
 
 @implementation MPPreferences (Hoedown)
 - (int)extensionFlags
