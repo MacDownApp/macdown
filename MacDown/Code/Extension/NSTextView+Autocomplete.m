@@ -121,8 +121,8 @@ static NSString * const kMPListLineHeadPattern =
     NSCharacterSet *delims = [NSCharacterSet whitespaceAndNewlineCharacterSet];
     for (const unichar *cs = kMPMatchingCharactersMap[0]; *cs != 0; cs += 2)
     {
-        if (([delims characterIsMember:p] && [delims characterIsMember:n])
-            && c == cs[0] && n != cs[1])
+        if ([delims characterIsMember:n] && c == cs[0] && n != cs[1]
+            && ([delims characterIsMember:p] || cs[0] != cs[1]))
         {
             NSRange range = NSMakeRange(location, 0);
             NSString *completion = [NSString stringWithCharacters:cs length:2];
