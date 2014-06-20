@@ -178,6 +178,14 @@ typedef NS_ENUM(NSInteger, MPAssetsOption)
         autosaveName = self.fileURL.absoluteString;
     controller.window.frameAutosaveName = autosaveName;
 
+    if (self.loadedString)
+    {
+        self.editor.string = self.loadedString;
+        self.loadedString = nil;
+        [self parse];
+        [self render];
+    }
+
     self.highlighter =
         [[HGMarkdownHighlighter alloc] initWithTextView:self.editor
                                            waitInterval:0.1];
@@ -187,15 +195,8 @@ typedef NS_ENUM(NSInteger, MPAssetsOption)
     self.editor.automaticQuoteSubstitutionEnabled = NO;
     self.editor.automaticLinkDetectionEnabled = NO;
     self.editor.automaticDashSubstitutionEnabled = NO;
-
     [self setupEditor];
-    if (self.loadedString)
-    {
-        self.editor.string = self.loadedString;
-        self.loadedString = nil;
-        [self parse];
-        [self render];
-    }
+    [self.highlighter parseAndHighlightNow];
 
     self.preview.frameLoadDelegate = self;
     self.preview.policyDelegate = self;
