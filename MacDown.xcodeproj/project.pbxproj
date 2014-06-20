@@ -234,6 +234,7 @@
 				1F9A14F5194EFF1F00D1C6A9 /* PreferencesMarkdown.png */,
 				1F0D9DA6194AC8CB008E1856 /* Credits.rtf */,
 				1FA6CDB81952D2CD008D5CA0 /* dsa_pub.pem */,
+				1F3A47511953E84700293259 /* help.md */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -360,7 +361,6 @@
 				1F0D9DA3194AC8B3008E1856 /* MacDown-Info.plist */,
 				1F0D9DA8194AC8CB008E1856 /* InfoPlist.strings */,
 				1F0D9DAC194AC8EF008E1856 /* Images.xcassets */,
-				1F3A47511953E84700293259 /* help.md */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
