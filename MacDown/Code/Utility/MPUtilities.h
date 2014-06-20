@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-extern NSString * const kMPApplicationName;
 extern NSString * const kMPStylesDirectoryName;
 extern NSString * const kMPStyleFileExtension;
 extern NSString * const kMPThemesDirectoryName;

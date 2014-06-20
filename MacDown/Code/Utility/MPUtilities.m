@@ -8,7 +8,6 @@
 
 #import "MPUtilities.h"
 
-NSString * const kMPApplicationName = @"MacDown";
 NSString * const kMPStylesDirectoryName = @"Styles";
 NSString * const kMPStyleFileExtension = @".css";
 NSString * const kMPThemesDirectoryName = @"Themes";
@@ -16,13 +15,18 @@ NSString * const kMPThemeFileExtension = @".style";
 
 static NSString *MPDataRootDirectory()
 {
-    NSArray *paths =
-        NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory,
-                                            NSUserDomainMask, YES);
-    NSCAssert(paths.count > 0,
-              @"Cannot find directory for NSApplicationSupportDirectory.");
-    NSString *path = [NSString pathWithComponents:@[paths[0],
-                                                    kMPApplicationName]];
+    static NSString *path = nil;
+    if (!path)
+    {
+        NSArray *paths =
+            NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory,
+                                                NSUserDomainMask, YES);
+        NSCAssert(paths.count > 0,
+                  @"Cannot find directory for NSApplicationSupportDirectory.");
+        NSDictionary *infoDictionary = [NSBundle mainBundle].infoDictionary;
+        path = [NSString pathWithComponents:@[paths[0],
+                                              infoDictionary[@"CFBundleName"]]];
+    }
     return path;
 }
 
