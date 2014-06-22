@@ -31,6 +31,24 @@
 			<key>NSDocumentClass</key>
 			<string>MPDocument</string>
 		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>mdd</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>Markdown Bundle</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>com.uranusjr.markdownbundle</string>
+			</array>
+			<key>LSTypeIsPackage</key>
+			<integer>1</integer>
+			<key>NSDocumentClass</key>
+			<string>MPDocument</string>
+		</dict>
 	</array>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
@@ -64,5 +82,56 @@
 	<string>http://macdown.uranusjr.com/sparkle/macdown/appcast.xml</string>
 	<key>SUPublicDSAKeyFile</key>
 	<string>dsa_pub.pem</string>
+	<key>UTExportedTypeDeclarations</key>
+	<array>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>com.apple.package</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Markdown Bundle</string>
+			<key>UTTypeIdentifier</key>
+			<string>com.uranusjr.markdownbundle</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>mdd</string>
+				</array>
+			</dict>
+		</dict>
+	</array>
+	<key>UTImportedTypeDeclarations</key>
+	<array>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.text</string>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Markdown</string>
+			<key>UTTypeIconFile</key>
+			<string>MarkdownDocument</string>
+			<key>UTTypeIdentifier</key>
+			<string>net.daringfireball.markdown</string>
+			<key>UTTypeReferenceURL</key>
+			<string>http://daringfireball.net/projects/markdown/syntax</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>md</string>
+					<string>markdown</string>
+				</array>
+				<key>public.mime-type</key>
+				<array>
+					<string>text/x-markdown</string>
+					<string>text/plain</string>
+				</array>
+			</dict>
+		</dict>
+	</array>
 </dict>
 </plist>
