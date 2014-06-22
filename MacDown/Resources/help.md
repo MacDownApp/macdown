@@ -67,7 +67,11 @@ In either case, you can add an optional language ID at the end of the first line
 </div>
 ```
 
-The language ID will be used to highlight the code inside if you tick the ***Enable highlighting in code blocks*** option. Currently the follwing laguages are supported:
+The language ID will be used to highlight the code inside if you tick the ***Enable highlighting in code blocks*** option. This is what happens if you enable it:
+
+![Syntax highlighting example](http://d.pr/i/9HM6+)
+
+Currently I support the follwing laguages:
 
 * Bash
 * C-like (C, C++, C#, and other similar languages)
@@ -105,7 +109,6 @@ Highlight           | ==So good==   | <mark>So good</mark>  |
 Superscript [^4] [^5] | hoge^(fuga) | hoge<sup>fuga</sup>   |
 Autolink            | http://t.co   | <a href="http://t.co">http://t.co</a> |
 Footnotes [^4]      | [^id] and [^id]: | As shown used in this table. |
-
 
 [^1]: If underline is disabled. _this_ will be the same as *this*.
 [^2]: Note that this is different from *blockquote* (a `> `-prefixed block), which is part of the standard Markdown syntax specification.
