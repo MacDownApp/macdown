@@ -27,3 +27,13 @@ The following editor themes and CSS files are extracted from [Mou](http://mouapp
 * Clearness Dark
 * GitHub
 * GirHub2
+
+## Development
+
+If you wish to build MacDown yourself, you will need [Cocoapods](http://cocoapods.org). After you clone the repository, run the following command inside the repository root (directory containing the `Podfile` file):
+
+```bash
+pod install
+```
+
+and open `MacDown.xcworkspace` in Xcode. Refer to the official Cocoapods guide if you need more instructions on its installation, setup, and usage.
