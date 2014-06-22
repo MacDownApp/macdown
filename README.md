@@ -10,7 +10,7 @@ MacDown is released under the terms of MIT License. You may find the content of 
 
 You may find full text of licenses about third-party components inside in the `LICENSE` directory, or the **About MacDown** panel in the application.
 
-The following editor themes are extracted from [Mou](http://mouapp.com):
+The following editor themes and CSS files are extracted from [Mou](http://mouapp.com), courtesy of Chen Luo:
 
 * Mou Fresh Air
 * Mou Fresh Air+
@@ -23,8 +23,7 @@ The following editor themes are extracted from [Mou](http://mouapp.com):
 * Tomorrow+
 * Writer
 * Writer+
-
-by courtesy of Chen Luo.
-
-The Github Markdown CSS is modified from the [Gist](https://gist.github.com/andyferra/2554919) posted by Andy Ferra.
-
+* Clearness
+* Clearness Dark
+* GitHub
+* GirHub2
