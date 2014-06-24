@@ -75,6 +75,8 @@ typedef NS_ENUM(NSInteger, MPAssetsOption)
 @property (strong) NSTimer *parseDelayTimer;
 @property (readonly) NSArray *stylesheets;
 @property (readonly) NSArray *scripts;
+@property (readonly) NSArray *prismStylesheets;
+@property (readonly) NSArray *prismScripts;
 @property BOOL previewFlushDisabled;
 @property BOOL isLoadingPreview;
 
@@ -135,27 +137,36 @@ typedef NS_ENUM(NSInteger, MPAssetsOption)
     NSMutableArray *urls =
         [NSMutableArray arrayWithObject:[NSURL fileURLWithPath:defaultStyle]];
     if (self.preferences.htmlSyntaxHighlighting)
-    {
-        [urls addObject:[[NSBundle mainBundle] URLForResource:@"prism"
-                                                withExtension:@"css"
-                                                 subdirectory:@"Prism"]];
-    }
+        [urls addObjectsFromArray:self.prismStylesheets];
     return urls;
 }
 
 - (NSArray *)scripts
 {
     NSMutableArray *urls = [NSMutableArray array];
-    NSBundle *bundle = [NSBundle mainBundle];
+
     if (self.preferences.htmlSyntaxHighlighting)
-    {
-        [urls addObject:[bundle URLForResource:@"prism"
-                                 withExtension:@"js"
-                                  subdirectory:@"Prism"]];
-    }
+        [urls addObjectsFromArray:self.prismScripts];
     if (self.preferences.htmlMathJax)
         [urls addObject:[NSURL URLWithString:kMPMathJaxCDN]];
     return urls;
+}
+
+- (NSArray *)prismStylesheets
+{
+    NSBundle *bundle = [NSBundle mainBundle];
+    NSURL *url = [bundle URLForResource:@"prism"
+                          withExtension:@"css"
+                           subdirectory:@"Prism"];
+    return @[url];
+}
+
+- (NSArray *)prismScripts
+{
+    NSBundle *bundle = [NSBundle mainBundle];
+    NSURL *url = [bundle URLForResource:@"prism" withExtension:@"js"
+                           subdirectory:@"Prism"];
+    return @[url];
 }
 
 
@@ -445,14 +456,8 @@ typedef NS_ENUM(NSInteger, MPAssetsOption)
         {
             stylesOption = MPAssetsEmbedded;
             scriptsOption = MPAssetsEmbedded;
-
-            NSBundle *bundle = [NSBundle mainBundle];
-            [styles addObject:[bundle URLForResource:@"prism"
-                                       withExtension:@"css"
-                                        subdirectory:@"Prism"]];
-            [scripts addObject:[bundle URLForResource:@"prism"
-                                        withExtension:@"js"
-                                         subdirectory:@"Prism"]];
+            [styles addObjectsFromArray:self.prismStylesheets];
+            [scripts addObjectsFromArray:self.prismScripts];
         }
         if (self.preferences.htmlMathJax)
         {
