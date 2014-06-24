@@ -87,6 +87,11 @@
 					<string>md</string>
 					<string>markdown</string>
 				</array>
+				<key>public.mime-type</key>
+				<array>
+					<string>text/x-markdown</string>
+					<string>text/plain</string>
+				</array>
 			</dict>
 		</dict>
 	</array>
