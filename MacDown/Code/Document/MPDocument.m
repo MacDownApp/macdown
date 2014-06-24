@@ -22,12 +22,32 @@ static NSString * const kMPMathJaxCDN =
     @"http://cdn.mathjax.org/mathjax/latest/MathJax.js"
     @"?config=TeX-AMS-MML_HTMLorMML";
 
+static NSString * const kMPPrismScriptDirectory = @"Prism/components";
+
 typedef NS_ENUM(NSInteger, MPAssetsOption)
 {
     MPAssetsNone,
     MPAssetsEmbedded,
     MPAssetsFullLink,
 };
+
+static NSURL *MPPrismScriptForLanguage(NSString *language)
+{
+    NSURL *url = nil;
+    NSBundle *bundle = [NSBundle mainBundle];
+
+    NSString *fileName =
+        [NSString stringWithFormat:@"prism-%@", [language lowercaseString]];
+
+    for (NSString *ext in @[@"min.js", @"js"])
+    {
+        url = [bundle URLForResource:fileName withExtension:ext
+                        subdirectory:kMPPrismScriptDirectory];
+        if (url)
+            return url;
+    }
+    return nil;
+}
 
 
 @implementation MPPreferences (Hoedown)
@@ -65,13 +85,14 @@ typedef NS_ENUM(NSInteger, MPAssetsOption)
 @property (unsafe_unretained) IBOutlet NSTextView *editor;
 @property (weak) IBOutlet WebView *preview;
 @property (nonatomic, unsafe_unretained) hoedown_renderer *htmlRenderer;
-@property HGMarkdownHighlighter *highlighter;
+@property (strong) HGMarkdownHighlighter *highlighter;
 @property int currentExtensionFlags;
 @property BOOL currentSmartyPantsFlag;
 @property BOOL currentSyntaxHighlighting;
 @property BOOL currentMathJax;
 @property (copy) NSString *currentHtml;
 @property (copy) NSString *currentStyleName;
+@property (strong) NSMutableSet *currentLaugnages;
 @property (strong) NSTimer *parseDelayTimer;
 @property (readonly) NSArray *stylesheets;
 @property (readonly) NSArray *scripts;
@@ -86,6 +107,36 @@ typedef NS_ENUM(NSInteger, MPAssetsOption)
 @end
 
 
+static hoedown_buffer *language_addition(const hoedown_buffer *language,
+                                         void *owner)
+{
+    MPDocument *document = (__bridge MPDocument *)owner;
+    NSString *lang = [[NSString alloc] initWithBytes:language->data
+                                              length:language->size
+                                            encoding:NSUTF8StringEncoding];
+
+    static NSDictionary *langMap = nil;
+    static dispatch_once_t token;
+    dispatch_once(&token, ^{
+        langMap = @{@"objective-c": @"clike",
+                    @"html": @"markup",
+                    @"xml": @"markup"};
+    });
+
+    hoedown_buffer *mapped = NULL;
+    if ([langMap objectForKey:lang])
+    {
+        lang = [langMap objectForKey:lang];
+        NSData *data = [lang dataUsingEncoding:NSUTF8StringEncoding];
+        mapped = hoedown_buffer_new(64);
+        hoedown_buffer_put(mapped, data.bytes, data.length);
+    }
+
+    [document.currentLaugnages addObject:lang];
+    return mapped;
+}
+
+
 @implementation MPDocument
 
 - (id)init
@@ -95,8 +146,8 @@ typedef NS_ENUM(NSInteger, MPAssetsOption)
         return self;
 
     self.currentHtml = @"";
+    self.currentLaugnages = [NSMutableSet set];
     self.htmlRenderer = hoedown_html_renderer_new(0, 0);
-    self.htmlRenderer->blockcode = hoedown_patch_render_blockcode;
 
     return self;
 }
@@ -128,7 +179,21 @@ typedef NS_ENUM(NSInteger, MPAssetsOption)
 {
     if (_htmlRenderer)
         hoedown_html_renderer_free(_htmlRenderer);
+
     _htmlRenderer = htmlRenderer;
+    
+    if (_htmlRenderer)
+    {
+        _htmlRenderer->blockcode = hoedown_patch_render_blockcode;
+
+        rndr_state_ex *state = malloc(sizeof(rndr_state_ex));
+        memcpy(state, _htmlRenderer->opaque, sizeof(rndr_state));
+        state->language_addition = language_addition;
+        state->owner = (__bridge void *)self;
+
+        free(_htmlRenderer->opaque);
+        _htmlRenderer->opaque = state;
+    }
 }
 
 - (NSArray *)stylesheets
@@ -164,9 +229,16 @@ typedef NS_ENUM(NSInteger, MPAssetsOption)
 - (NSArray *)prismScripts
 {
     NSBundle *bundle = [NSBundle mainBundle];
-    NSURL *url = [bundle URLForResource:@"prism" withExtension:@"js"
-                           subdirectory:@"Prism"];
-    return @[url];
+    NSMutableArray *urls = [NSMutableArray array];
+    [urls addObject:[bundle URLForResource:@"prism-core.min" withExtension:@"js"
+                              subdirectory:kMPPrismScriptDirectory]];
+    for (NSString *language in self.currentLaugnages)
+    {
+        NSURL *url = MPPrismScriptForLanguage(language);
+        if (url)
+            [urls addObject:url];
+    }
+    return urls;
 }
 
 
@@ -766,6 +838,7 @@ typedef NS_ENUM(NSInteger, MPAssetsOption)
 {
     NSData *inputData = [text dataUsingEncoding:NSUTF8StringEncoding];
 
+    [self.currentLaugnages removeAllObjects];
     hoedown_markdown *markdown =
         hoedown_markdown_new(flags, 15, self.htmlRenderer);
 
