@@ -143,7 +143,8 @@ static NSString *MPPrismDefaultThemeName()
     if (currentName.length)
         [self.highlightingThemeSelect selectItemWithTitle:currentName];
 
-    self.highlightingThemeSelect.enabled = YES;
+    if (self.preferences.htmlSyntaxHighlighting)
+        self.highlightingThemeSelect.enabled = YES;
 }
 
 @end
