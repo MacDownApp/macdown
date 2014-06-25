@@ -122,6 +122,25 @@ NSString *MPThemePathForName(NSString *name)
     return path;
 }
 
+NSURL *MPHighlightingThemeURLForName(NSString *name)
+{
+    name = [NSString stringWithFormat:@"prism-%@", [name lowercaseString]];
+    if ([name hasSuffix:@".css"])
+        name = [name substringToIndex:name.length - 4];
+
+    NSBundle *bundle = [NSBundle mainBundle];
+    NSURL *url = [bundle URLForResource:name withExtension:@"css"
+                           subdirectory:@"Prism/themes"];
+
+    // Safty net: file not found, use default.
+    if (!url)
+    {
+        url = [bundle URLForResource:@"prism" withExtension:@"css"
+                        subdirectory:@"Prism/themes"];
+    }
+    return url;
+}
+
 NSString *MPReadFileOfPath(NSString *path)
 {
     NSError *error = nil;
