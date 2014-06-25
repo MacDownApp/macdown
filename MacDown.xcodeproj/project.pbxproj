@@ -196,15 +196,15 @@
 			children = (
 				1F0D9D74194AC7F7008E1856 /* MPPreferencesViewController.h */,
 				1F0D9D75194AC7F7008E1856 /* MPPreferencesViewController.m */,
+				1F0D9D6F194AC7F7008E1856 /* MPMarkdownPreferencesViewController.h */,
+				1F0D9D70194AC7F7008E1856 /* MPMarkdownPreferencesViewController.m */,
+				1F0D9D89194AC83C008E1856 /* MPMarkdownPreferencesViewController.xib */,
 				1F0D9D69194AC7F7008E1856 /* MPEditorPreferencesViewController.h */,
 				1F0D9D6A194AC7F7008E1856 /* MPEditorPreferencesViewController.m */,
 				1F0D9D85194AC83C008E1856 /* MPEditorPreferencesViewController.xib */,
 				1F0D9D6C194AC7F7008E1856 /* MPHtmlPreferencesViewController.h */,
 				1F0D9D6D194AC7F7008E1856 /* MPHtmlPreferencesViewController.m */,
 				1F0D9D87194AC83C008E1856 /* MPHtmlPreferencesViewController.xib */,
-				1F0D9D6F194AC7F7008E1856 /* MPMarkdownPreferencesViewController.h */,
-				1F0D9D70194AC7F7008E1856 /* MPMarkdownPreferencesViewController.m */,
-				1F0D9D89194AC83C008E1856 /* MPMarkdownPreferencesViewController.xib */,
 				1F0D9D72194AC7F7008E1856 /* MPPreferences.h */,
 				1F0D9D73194AC7F7008E1856 /* MPPreferences.m */,
 			);

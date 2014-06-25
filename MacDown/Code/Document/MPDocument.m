@@ -23,6 +23,7 @@ static NSString * const kMPMathJaxCDN =
     @"?config=TeX-AMS-MML_HTMLorMML";
 
 static NSString * const kMPPrismScriptDirectory = @"Prism/components";
+static NSString * const kMPPrismThemeDirectory = @"Prism/themes";
 
 typedef NS_ENUM(NSInteger, MPAssetsOption)
 {
@@ -92,7 +93,8 @@ static NSURL *MPPrismScriptForLanguage(NSString *language)
 @property BOOL currentMathJax;
 @property (copy) NSString *currentHtml;
 @property (copy) NSString *currentStyleName;
-@property (strong) NSMutableSet *currentLaugnages;
+@property (strong) NSMutableArray *currentLanguages;
+@property (strong) NSString *currentHighlightingTheme;
 @property (strong) NSTimer *parseDelayTimer;
 @property (readonly) NSArray *stylesheets;
 @property (readonly) NSArray *scripts;
@@ -116,11 +118,19 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
                                             encoding:NSUTF8StringEncoding];
 
     static NSDictionary *langMap = nil;
+    static NSDictionary *dependencies = nil;
     static dispatch_once_t token;
     dispatch_once(&token, ^{
         langMap = @{@"objective-c": @"clike",
                     @"html": @"markup",
                     @"xml": @"markup"};
+        dependencies = @{
+            @"aspnet": @"markup", @"bash": @"clike", @"c": @"clike",
+            @"coffeescript": @"javascript", @"cpp": @"c", @"csharp": @"clike",
+            @"go": @"clike", @"groovy": @"clike", @"java": @"clike",
+            @"javascript": @"clike", @"php": @"clike", @"ruby": @"clike",
+            @"scala": @"java", @"scss": @"css", @"swift": @"clike",
+        };
     });
 
     hoedown_buffer *mapped = NULL;
@@ -132,7 +142,12 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
         hoedown_buffer_put(mapped, data.bytes, data.length);
     }
 
-    [document.currentLaugnages addObject:lang];
+    // Walk the dependencies to include other required scripts.
+    while (lang && ![document.currentLanguages containsObject:lang])
+    {
+        [document.currentLanguages insertObject:lang atIndex:0];
+        lang = dependencies[lang];
+    }
     return mapped;
 }
 
@@ -146,7 +161,7 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
         return self;
 
     self.currentHtml = @"";
-    self.currentLaugnages = [NSMutableSet set];
+    self.currentLanguages = [NSMutableArray array];
     self.htmlRenderer = hoedown_html_renderer_new(0, 0);
 
     return self;
@@ -219,11 +234,8 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
 
 - (NSArray *)prismStylesheets
 {
-    NSBundle *bundle = [NSBundle mainBundle];
-    NSURL *url = [bundle URLForResource:@"prism"
-                          withExtension:@"css"
-                           subdirectory:@"Prism"];
-    return @[url];
+    NSString *name = self.preferences.htmlHighlightingThemeName;
+    return @[MPHighlightingThemeURLForName(name)];
 }
 
 - (NSArray *)prismScripts
@@ -232,7 +244,7 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
     NSMutableArray *urls = [NSMutableArray array];
     [urls addObject:[bundle URLForResource:@"prism-core.min" withExtension:@"js"
                               subdirectory:kMPPrismScriptDirectory]];
-    for (NSString *language in self.currentLaugnages)
+    for (NSString *language in self.currentLanguages)
     {
         NSURL *url = MPPrismScriptForLanguage(language);
         if (url)
@@ -822,6 +834,7 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
     self.currentStyleName = styleName;
     self.currentSyntaxHighlighting = self.preferences.htmlSyntaxHighlighting;
     self.currentMathJax = self.preferences.htmlMathJax;
+    self.currentHighlightingTheme = self.preferences.htmlHighlightingThemeName;
 }
 
 - (void)renderIfPreferencesChanged
@@ -829,7 +842,9 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
     if (self.preferences.htmlStyleName != self.currentStyleName
             || (self.preferences.htmlSyntaxHighlighting
                 != self.currentSyntaxHighlighting)
-            || (self.preferences.htmlMathJax != self.currentMathJax))
+            || (self.preferences.htmlMathJax != self.currentMathJax)
+            || (self.preferences.htmlHighlightingThemeName
+                != self.currentHighlightingTheme))
         [self render];
 }
 
@@ -838,7 +853,7 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
 {
     NSData *inputData = [text dataUsingEncoding:NSUTF8StringEncoding];
 
-    [self.currentLaugnages removeAllObjects];
+    [self.currentLanguages removeAllObjects];
     hoedown_markdown *markdown =
         hoedown_markdown_new(flags, 15, self.htmlRenderer);
 
