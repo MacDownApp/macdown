@@ -32,22 +32,38 @@ typedef NS_ENUM(NSInteger, MPAssetsOption)
     MPAssetsFullLink,
 };
 
-static NSURL *MPPrismScriptForLanguage(NSString *language)
+static NSArray *MPPrismScriptURLsForLanguage(NSString *language)
 {
-    NSURL *url = nil;
+    NSURL *baseUrl = nil;
+    NSURL *extraUrl = nil;
     NSBundle *bundle = [NSBundle mainBundle];
 
-    NSString *fileName =
-        [NSString stringWithFormat:@"prism-%@", [language lowercaseString]];
+    language = [language lowercaseString];
+    NSString *baseFileName =
+        [NSString stringWithFormat:@"prism-%@", language];
+    NSString *extraFileName =
+        [NSString stringWithFormat:@"prism-%@-extras", language];
 
     for (NSString *ext in @[@"min.js", @"js"])
     {
-        url = [bundle URLForResource:fileName withExtension:ext
-                        subdirectory:kMPPrismScriptDirectory];
-        if (url)
-            return url;
+        if (!baseUrl)
+        {
+            baseUrl = [bundle URLForResource:baseFileName withExtension:ext
+                                subdirectory:kMPPrismScriptDirectory];
+        }
+        if (!extraUrl)
+        {
+            extraUrl = [bundle URLForResource:extraFileName withExtension:ext
+                                 subdirectory:kMPPrismScriptDirectory];
+        }
     }
-    return nil;
+
+    NSMutableArray *urls = [NSMutableArray array];
+    if (baseUrl)
+        [urls addObject:baseUrl];
+    if (extraUrl)
+        [urls addObject:extraUrl];
+    return urls;
 }
 
 
@@ -117,14 +133,15 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
                                               length:language->size
                                             encoding:NSUTF8StringEncoding];
 
-    static NSDictionary *langMap = nil;
-    static NSDictionary *dependencies = nil;
+    static NSDictionary *aliasMap = nil;
+    static NSDictionary *dependencyMap = nil;
     static dispatch_once_t token;
     dispatch_once(&token, ^{
-        langMap = @{@"objective-c": @"clike",
-                    @"html": @"markup",
-                    @"xml": @"markup"};
-        dependencies = @{
+        aliasMap = @{
+            @"objective-c": @"clike",
+            @"html": @"markup", @"xml": @"markup",
+        };
+        dependencyMap = @{
             @"aspnet": @"markup", @"bash": @"clike", @"c": @"clike",
             @"coffeescript": @"javascript", @"cpp": @"c", @"csharp": @"clike",
             @"go": @"clike", @"groovy": @"clike", @"java": @"clike",
@@ -133,21 +150,23 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
         };
     });
 
+    // Try to identify alias and point it to the "real" language name.
     hoedown_buffer *mapped = NULL;
-    if ([langMap objectForKey:lang])
+    if ([aliasMap objectForKey:lang])
     {
-        lang = [langMap objectForKey:lang];
+        lang = [aliasMap objectForKey:lang];
         NSData *data = [lang dataUsingEncoding:NSUTF8StringEncoding];
         mapped = hoedown_buffer_new(64);
         hoedown_buffer_put(mapped, data.bytes, data.length);
     }
 
-    // Walk the dependencies to include other required scripts.
+    // Walk dependencies to include all required scripts.
     while (lang && ![document.currentLanguages containsObject:lang])
     {
         [document.currentLanguages insertObject:lang atIndex:0];
-        lang = dependencies[lang];
+        lang = dependencyMap[lang];
     }
+
     return mapped;
 }
 
@@ -245,11 +264,7 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
     [urls addObject:[bundle URLForResource:@"prism-core.min" withExtension:@"js"
                               subdirectory:kMPPrismScriptDirectory]];
     for (NSString *language in self.currentLanguages)
-    {
-        NSURL *url = MPPrismScriptForLanguage(language);
-        if (url)
-            [urls addObject:url];
-    }
+        [urls addObjectsFromArray:MPPrismScriptURLsForLanguage(language)];
     return urls;
 }
 
