@@ -33,9 +33,9 @@ static NSArray *MPPrismScriptURLsForLanguage(NSString *language)
 
     language = [language lowercaseString];
     NSString *baseFileName =
-    [NSString stringWithFormat:@"prism-%@", language];
+        [NSString stringWithFormat:@"prism-%@", language];
     NSString *extraFileName =
-    [NSString stringWithFormat:@"prism-%@-extras", language];
+        [NSString stringWithFormat:@"prism-%@-extras", language];
 
     for (NSString *ext in @[@"min.js", @"js"])
     {
@@ -73,7 +73,6 @@ static NSString *MPHTMLFromMarkdown(NSString *text, int flags, BOOL smartypants,
         hoedown_html_smartypants(ob, ib->data, ib->size);
         hoedown_buffer_free(ib);
     }
-
     NSString *result = [NSString stringWithUTF8String:hoedown_buffer_cstr(ob)];
     hoedown_markdown_free(markdown);
     hoedown_buffer_free(ob);
@@ -129,7 +128,7 @@ static NSString *MPGetHTML(
             case MPAssetsEmbedded:
                 format = @"<script type=\"text/javascript\">%@</script>";
                 s = [NSString stringWithFormat:format,
-                     MPReadFileOfPath(url.path)];
+                                               MPReadFileOfPath(url.path)];
                 break;
             default:
                 break;
@@ -144,7 +143,7 @@ static NSString *MPGetHTML(
          @"<head>\n<meta charset=\"utf-8\">\n%@%@\n</head>"
          @"<body>\n%@\n%@\n</body>\n\n</html>\n");
 
-    if (title)
+    if (title.length)
         title = [NSString stringWithFormat:@"<title>%@</title>\n", title];
     else
         title = @"";
@@ -287,7 +286,7 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
     id<MPRendererDelegate> d = self.delegate;
     NSString *defaultStyle = MPStylePathForName([d rendererStyleName:self]);
     NSMutableArray *urls =
-    [NSMutableArray arrayWithObject:[NSURL fileURLWithPath:defaultStyle]];
+        [NSMutableArray arrayWithObject:[NSURL fileURLWithPath:defaultStyle]];
     if ([d rendererHasSyntaxHighlighting:self])
         [urls addObjectsFromArray:self.prismStylesheets];
     return urls;
@@ -373,8 +372,6 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
     id<MPRendererDelegate> delegate = self.delegate;
 
     NSString *title = [self.dataSource rendererHTMLTitle:self];
-    if (!title)
-        title = @"";
     NSString *html = MPGetHTML(
         title, self.currentHtml, self.stylesheets, MPAssetsFullLink,
         self.scripts, MPAssetsFullLink);
