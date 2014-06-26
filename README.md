@@ -26,7 +26,7 @@ The following editor themes and CSS files are extracted from [Mou](http://mouapp
 * Clearness
 * Clearness Dark
 * GitHub
-* GirHub2
+* GitHub2
 
 ## Development
 
