@@ -33,7 +33,7 @@ static NSString * const kMPDefaultHtmlStyleName = @"GitHub2";
         return nil;
 
     NSString *version =
-        [NSBundle mainBundle].infoDictionary[@"CFBundleShortVersionString"];
+        [NSBundle mainBundle].infoDictionary[@"CFBundleVersion"];
 
     // This is a fresh install. Set default preferences.
     if (!self.firstVersionInstalled)
