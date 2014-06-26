@@ -372,7 +372,7 @@ typedef NS_ENUM(NSInteger, MPAssetsOption)
 
 - (void)textDidChange:(NSNotification *)notification
 {
-    if (!self.preferences.markdownManualrender)
+    if (!self.preferences.markdownManualRender)
         [self delayRender];
 }
 

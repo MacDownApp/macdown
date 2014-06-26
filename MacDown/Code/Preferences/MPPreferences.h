@@ -29,7 +29,7 @@ extern NSString * const MPDidDetectFreshInstallationNotification;
 @property (assign) BOOL extensionQuote;
 @property (assign) BOOL extensionSmartyPants;
 
-@property (assign) BOOL markdownManualrender;
+@property (assign) BOOL markdownManualRender;
 
 @property (assign) NSDictionary *editorBaseFontInfo;
 @property (assign) BOOL editorConvertTabs;

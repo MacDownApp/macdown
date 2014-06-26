@@ -230,7 +230,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <binding destination="-2" name="value" keyPath="self.preferences.markdownManualrender" id="fYr-XV-X9v">
+                                    <binding destination="-2" name="value" keyPath="self.preferences.markdownManualRenderender" id="BuN-iF-cfb">
                                         <dictionary key="options">
                                             <string key="NSValueTransformerName">NSNegateBoolean</string>
                                         </dictionary>

@@ -71,7 +71,7 @@ static NSString * const kMPDefaultHtmlStyleName = @"GitHub2";
 @dynamic extensionQuote;
 @dynamic extensionSmartyPants;
 
-@dynamic markdownManualrender;
+@dynamic markdownManualRender;
 
 @dynamic editorConvertTabs;
 @dynamic editorCompleteMatchingCharacters;
