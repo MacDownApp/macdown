@@ -185,14 +185,16 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
     static NSDictionary *dependencyMap = nil;
     static dispatch_once_t token;
     dispatch_once(&token, ^{
-        aliasMap = @{@"objective-c": @"c",
+        aliasMap = @{@"objective-c": @"objectivec",
+                     @"obj-c": @"objectivec", @"objc": @"objectivec",
                      @"html": @"markup", @"xml": @"markup"};
         dependencyMap = @{
             @"aspnet": @"markup", @"bash": @"clike", @"c": @"clike",
             @"coffeescript": @"javascript", @"cpp": @"c", @"csharp": @"clike",
             @"go": @"clike", @"groovy": @"clike", @"java": @"clike",
-            @"javascript": @"clike", @"php": @"clike", @"ruby": @"clike",
-            @"scala": @"java", @"scss": @"css", @"swift": @"clike",
+            @"javascript": @"clike", @"objectivec": @"c", @"php": @"clike",
+            @"ruby": @"clike", @"scala": @"java", @"scss": @"css",
+            @"swift": @"clike",
         };
     });
 
