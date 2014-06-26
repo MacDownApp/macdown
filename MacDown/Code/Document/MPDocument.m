@@ -372,9 +372,10 @@ typedef NS_ENUM(NSInteger, MPAssetsOption)
 
 - (void)textDidChange:(NSNotification *)notification
 {
-    [self parseLaterWithCommand:@selector(parse) completionHandler:^{
-        [self render];
-    }];
+    if (!self.preferences.extensionAutorender) {
+        return;
+    }
+    [self delayRender];
 }
 
 - (void)userDefaultsDidChange:(NSNotification *)notification
@@ -614,6 +615,10 @@ typedef NS_ENUM(NSInteger, MPAssetsOption)
     [self.splitView setPosition:width ofDividerAtIndex:0];
 }
 
+- (IBAction)triggerRender:(id)sender
+{
+    [self delayRender];
+}
 
 #pragma mark - Private
 
@@ -725,6 +730,13 @@ typedef NS_ENUM(NSInteger, MPAssetsOption)
     {
         [self parse];
     }
+}
+
+- (void)delayRender
+{
+    [self parseLaterWithCommand:@selector(parse) completionHandler:^{
+        [self render];
+    }];
 }
 
 - (void)render
