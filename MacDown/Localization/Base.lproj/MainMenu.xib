@@ -401,6 +401,7 @@
                                     <action selector="triggerRender:" target="-1" id="rVC-hv-XS9"/>
                                 </connections>
                             </menuItem>
+                            <menuItem isSeparatorItem="YES" id="onf-Mq-Pah"/>
                             <menuItem title="Reset Split" keyEquivalent="0" id="0Ru-nh-aAm">
                                 <connections>
                                     <action selector="resetSplit:" target="-1" id="bAu-TE-kkp"/>
