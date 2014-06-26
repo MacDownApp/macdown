@@ -70,6 +70,7 @@ typedef NS_ENUM(NSInteger, MPAssetsOption)
 @property BOOL currentSmartyPantsFlag;
 @property BOOL currentSyntaxHighlighting;
 @property BOOL currentMathJax;
+@property BOOL currentManualRender;
 @property (copy) NSString *currentHtml;
 @property (copy) NSString *currentStyleName;
 @property (strong) NSTimer *parseDelayTimer;
@@ -755,6 +756,7 @@ typedef NS_ENUM(NSInteger, MPAssetsOption)
     self.currentStyleName = styleName;
     self.currentSyntaxHighlighting = self.preferences.htmlSyntaxHighlighting;
     self.currentMathJax = self.preferences.htmlMathJax;
+    self.currentManualRender = self.preferences.markdownManualRender;
 }
 
 - (void)renderIfPreferencesChanged
@@ -762,7 +764,10 @@ typedef NS_ENUM(NSInteger, MPAssetsOption)
     if (self.preferences.htmlStyleName != self.currentStyleName
             || (self.preferences.htmlSyntaxHighlighting
                 != self.currentSyntaxHighlighting)
-            || (self.preferences.htmlMathJax != self.currentMathJax))
+            || (self.preferences.htmlMathJax != self.currentMathJax)
+            || (!self.preferences.markdownManualRender
+                && (self.preferences.markdownManualRender
+                    != self.currentManualRender)))
         [self render];
 }
 
