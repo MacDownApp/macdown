@@ -62,7 +62,6 @@ static NSString * const kMPDefaultHtmlStyleName = @"GitHub2";
 @dynamic extensionIntraEmphasis;
 @dynamic extensionTables;
 @dynamic extensionFencedCode;
-@dynamic extensionAutorender;
 @dynamic extensionAutolink;
 @dynamic extensionStrikethough;
 @dynamic extensionUnderline;
@@ -71,6 +70,8 @@ static NSString * const kMPDefaultHtmlStyleName = @"GitHub2";
 @dynamic extensionFootnotes;
 @dynamic extensionQuote;
 @dynamic extensionSmartyPants;
+
+@dynamic markdownManualrender;
 
 @dynamic editorConvertTabs;
 @dynamic editorCompleteMatchingCharacters;
@@ -112,7 +113,6 @@ static NSString * const kMPDefaultHtmlStyleName = @"GitHub2";
     self.extensionTables = YES;
     self.extensionFencedCode = YES;
     self.extensionFootnotes = YES;
-    self.extensionAutorender = YES;
     self.editorBaseFontInfo = [NSDictionary dictionaryWithObjectsAndKeys:
         kMPDefaultEditorFontName, kMPDefaultEditorFontNameKey,
         @(kMPDefaultEditorFontPointSize), kMPDefaultEditorFontPointSizeKey,

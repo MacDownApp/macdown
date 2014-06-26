@@ -230,7 +230,11 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <binding destination="-2" name="value" keyPath="self.preferences.extensionAutorender" id="OxH-JX-KtZ"/>
+                                    <binding destination="-2" name="value" keyPath="self.preferences.markdownManualrender" id="fYr-XV-X9v">
+                                        <dictionary key="options">
+                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                        </dictionary>
+                                    </binding>
                                 </connections>
                             </button>
                         </subviews>

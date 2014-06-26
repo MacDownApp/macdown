@@ -20,7 +20,6 @@ extern NSString * const MPDidDetectFreshInstallationNotification;
 @property (assign) BOOL extensionIntraEmphasis;
 @property (assign) BOOL extensionTables;
 @property (assign) BOOL extensionFencedCode;
-@property (assign) BOOL extensionAutorender;
 @property (assign) BOOL extensionAutolink;
 @property (assign) BOOL extensionStrikethough;
 @property (assign) BOOL extensionUnderline;
@@ -29,6 +28,8 @@ extern NSString * const MPDidDetectFreshInstallationNotification;
 @property (assign) BOOL extensionFootnotes;
 @property (assign) BOOL extensionQuote;
 @property (assign) BOOL extensionSmartyPants;
+
+@property (assign) BOOL markdownManualrender;
 
 @property (assign) NSDictionary *editorBaseFontInfo;
 @property (assign) BOOL editorConvertTabs;
