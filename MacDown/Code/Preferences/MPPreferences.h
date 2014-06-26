@@ -43,6 +43,7 @@ extern NSString * const MPDidDetectFreshInstallationNotification;
 @property (assign) NSString *htmlStyleName;
 @property (assign) BOOL htmlMathJax;
 @property (assign) BOOL htmlSyntaxHighlighting;
+@property (assign) NSString *htmlHighlightingThemeName;
 @property (assign) NSURL *htmlDefaultDirectoryUrl;
 
 // Calculated values.

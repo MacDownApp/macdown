@@ -11,9 +11,16 @@
 #import "MPPreferences.h"
 
 
+static NSString *MPPrismDefaultThemeName()
+{
+    return NSLocalizedString(@"(Default)", @"Prism theme title");
+}
+
+
 @interface MPHtmlPreferencesViewController ()
 @property (weak) IBOutlet NSPopUpButton *stylesheetSelect;
 @property (weak) IBOutlet NSSegmentedControl *stylesheetFunctions;
+@property (weak) IBOutlet NSPopUpButton *highlightingThemeSelect;
 @end
 
 
@@ -42,6 +49,7 @@
 - (void)viewWillAppear
 {
     [self loadStylesheets];
+    [self loadHighlightingThemes];
 }
 
 
@@ -56,6 +64,15 @@
         self.preferences.htmlStyleName = nil;
     else
         self.preferences.htmlStyleName = title;
+}
+
+- (IBAction)changeHighlightingTheme:(NSPopUpButton *)sender
+{
+    NSString *title = sender.selectedItem.title;
+    if ([title isEqualToString:MPPrismDefaultThemeName()])
+        self.preferences.htmlHighlightingThemeName = @"";
+    else
+        self.preferences.htmlHighlightingThemeName = title;
 }
 
 - (IBAction)invokeStylesheetFunction:(NSSegmentedControl *)sender
@@ -83,7 +100,7 @@
 
 - (void)loadStylesheets
 {
-    [self.stylesheetSelect setEnabled:NO];
+    self.stylesheetSelect.enabled = NO;
     [self.stylesheetSelect removeAllItems];
 
     NSArray *itemTitles = MPListEntriesForDirectory(
@@ -94,11 +111,40 @@
     [self.stylesheetSelect addItemWithTitle:@""];
     [self.stylesheetSelect addItemsWithTitles:itemTitles];
 
-    NSString *title = [self.preferences.htmlStyleName copy];
+    NSString *title = self.preferences.htmlStyleName;
     if (title.length)
         [self.stylesheetSelect selectItemWithTitle:title];
 
-    [self.stylesheetSelect setEnabled:YES];
+    self.stylesheetSelect.enabled = YES;
+}
+
+- (void)loadHighlightingThemes
+{
+    self.highlightingThemeSelect.enabled = NO;
+    [self.highlightingThemeSelect removeAllItems];
+
+    NSBundle *bundle = [NSBundle mainBundle];
+    NSArray *urls = [bundle URLsForResourcesWithExtension:@"css"
+                                             subdirectory:@"Prism/themes"];
+    NSMutableArray *titles = [NSMutableArray arrayWithCapacity:urls.count];
+    for (NSURL *url in urls)
+    {
+        NSString *name = url.lastPathComponent;
+        if (name.length <= 10)
+            continue;
+        name = [name substringWithRange:NSMakeRange(6, name.length - 10)];
+        [titles addObject:[name capitalizedString]];
+    }
+
+    [self.highlightingThemeSelect addItemWithTitle:MPPrismDefaultThemeName()];
+    [self.highlightingThemeSelect addItemsWithTitles:titles];
+
+    NSString *currentName = self.preferences.htmlHighlightingThemeName;
+    if (currentName.length)
+        [self.highlightingThemeSelect selectItemWithTitle:currentName];
+
+    if (self.preferences.htmlSyntaxHighlighting)
+        self.highlightingThemeSelect.enabled = YES;
 }
 
 @end

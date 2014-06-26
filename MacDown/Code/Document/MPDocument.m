@@ -9,25 +9,13 @@
 #import "MPDocument.h"
 #import <WebKit/WebKit.h>
 #import <hoedown/html.h>
-#import <hoedown/markdown.h>
-#import "hoedown_html_patch.h"
 #import "HGMarkdownHighlighter.h"
 #import "MPUtilities.h"
 #import "NSString+Lookup.h"
 #import "NSTextView+Autocomplete.h"
 #import "MPPreferences.h"
+#import "MPRenderer.h"
 #import "MPExportPanelAccessoryViewController.h"
-
-static NSString * const kMPMathJaxCDN =
-    @"http://cdn.mathjax.org/mathjax/latest/MathJax.js"
-    @"?config=TeX-AMS-MML_HTMLorMML";
-
-typedef NS_ENUM(NSInteger, MPAssetsOption)
-{
-    MPAssetsNone,
-    MPAssetsEmbedded,
-    MPAssetsFullLink,
-};
 
 
 @implementation MPPreferences (Hoedown)
@@ -59,23 +47,15 @@ typedef NS_ENUM(NSInteger, MPAssetsOption)
 @end
 
 
-@interface MPDocument () <NSTextViewDelegate>
+@interface MPDocument ()
+    <NSTextViewDelegate, MPRendererDataSource, MPRendererDelegate>
 
 @property (weak) IBOutlet NSSplitView *splitView;
 @property (unsafe_unretained) IBOutlet NSTextView *editor;
 @property (weak) IBOutlet WebView *preview;
-@property (nonatomic, unsafe_unretained) hoedown_renderer *htmlRenderer;
-@property HGMarkdownHighlighter *highlighter;
-@property int currentExtensionFlags;
-@property BOOL currentSmartyPantsFlag;
-@property BOOL currentSyntaxHighlighting;
-@property BOOL currentMathJax;
-@property BOOL currentManualRender;
-@property (copy) NSString *currentHtml;
-@property (copy) NSString *currentStyleName;
-@property (strong) NSTimer *parseDelayTimer;
-@property (readonly) NSArray *stylesheets;
-@property (readonly) NSArray *scripts;
+@property (strong) HGMarkdownHighlighter *highlighter;
+@property (strong) MPRenderer *renderer;
+@property BOOL manualRender;
 @property BOOL previewFlushDisabled;
 @property BOOL isLoadingPreview;
 
@@ -87,22 +67,8 @@ typedef NS_ENUM(NSInteger, MPAssetsOption)
 
 @implementation MPDocument
 
-- (id)init
-{
-    self = [super init];
-    if (!self)
-        return self;
-
-    self.currentHtml = @"";
-    self.htmlRenderer = hoedown_html_renderer_new(0, 0);
-    self.htmlRenderer->blockcode = hoedown_patch_render_blockcode;
-
-    return self;
-}
-
 - (void)dealloc
 {
-    self.htmlRenderer = NULL;
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center removeObserver:self
                       name:NSTextDidChangeNotification
@@ -121,42 +87,6 @@ typedef NS_ENUM(NSInteger, MPAssetsOption)
 - (MPPreferences *)preferences
 {
     return [MPPreferences sharedInstance];
-}
-
-- (void)setHtmlRenderer:(hoedown_renderer *)htmlRenderer
-{
-    if (_htmlRenderer)
-        hoedown_html_renderer_free(_htmlRenderer);
-    _htmlRenderer = htmlRenderer;
-}
-
-- (NSArray *)stylesheets
-{
-    NSString *defaultStyle = MPStylePathForName(self.preferences.htmlStyleName);
-    NSMutableArray *urls =
-        [NSMutableArray arrayWithObject:[NSURL fileURLWithPath:defaultStyle]];
-    if (self.preferences.htmlSyntaxHighlighting)
-    {
-        [urls addObject:[[NSBundle mainBundle] URLForResource:@"prism"
-                                                withExtension:@"css"
-                                                 subdirectory:@"Prism"]];
-    }
-    return urls;
-}
-
-- (NSArray *)scripts
-{
-    NSMutableArray *urls = [NSMutableArray array];
-    NSBundle *bundle = [NSBundle mainBundle];
-    if (self.preferences.htmlSyntaxHighlighting)
-    {
-        [urls addObject:[bundle URLForResource:@"prism"
-                                 withExtension:@"js"
-                                  subdirectory:@"Prism"]];
-    }
-    if (self.preferences.htmlMathJax)
-        [urls addObject:[NSURL URLWithString:kMPMathJaxCDN]];
-    return urls;
 }
 
 
@@ -179,17 +109,12 @@ typedef NS_ENUM(NSInteger, MPAssetsOption)
         autosaveName = self.fileURL.absoluteString;
     controller.window.frameAutosaveName = autosaveName;
 
-    if (self.loadedString)
-    {
-        self.editor.string = self.loadedString;
-        self.loadedString = nil;
-        [self parse];
-        [self render];
-    }
-
     self.highlighter =
         [[HGMarkdownHighlighter alloc] initWithTextView:self.editor
                                            waitInterval:0.1];
+    self.renderer = [[MPRenderer alloc] init];
+    self.renderer.dataSource = self;
+    self.renderer.delegate = self;
 
     // Fix Xcode 5/Lion bug where disselecting options in IB doesn't work.
     // TODO: Can we save/set these app-wise using KVO?
@@ -197,7 +122,6 @@ typedef NS_ENUM(NSInteger, MPAssetsOption)
     self.editor.automaticLinkDetectionEnabled = NO;
     self.editor.automaticDashSubstitutionEnabled = NO;
     [self setupEditor];
-    [self.highlighter parseAndHighlightNow];
 
     self.preview.frameLoadDelegate = self;
     self.preview.policyDelegate = self;
@@ -215,6 +139,14 @@ typedef NS_ENUM(NSInteger, MPAssetsOption)
                selector:@selector(boundsDidChange:)
                    name:NSViewBoundsDidChangeNotification
                  object:self.editor.enclosingScrollView.contentView];
+
+    if (self.loadedString)
+    {
+        self.editor.string = self.loadedString;
+        self.loadedString = nil;
+        [self.renderer parseAndRenderNow];
+        [self.highlighter parseAndHighlightNow];
+    }
 }
 
 + (BOOL)autosavesInPlace
@@ -369,21 +301,98 @@ typedef NS_ENUM(NSInteger, MPAssetsOption)
 }
 
 
+#pragma mark - MPRendererDataSource
+
+- (NSString *)rendererMarkdown:(MPRenderer *)renderer
+{
+    return self.editor.string;
+}
+
+- (NSString *)rendererHTMLTitle:(MPRenderer *)renderer
+{
+    NSString *name = self.fileURL.lastPathComponent;
+
+    // TODO: Detect extensions from bundle info directly. Don't hardcode.
+    if ([name hasSuffix:@".md"])
+        name = [name substringToIndex:name.length - 3];
+    else if ([name hasSuffix:@".markdown"])
+        name = [name substringToIndex:name.length - 9];
+
+    if (name.length)
+        return name;
+    return @"";
+}
+
+
+#pragma mark - MPRendererDelegate
+
+- (int)rendererExtensions:(MPRenderer *)renderer
+{
+    return self.preferences.extensionFlags;
+}
+
+- (BOOL)rendererHasSmartyPants:(MPRenderer *)renderer
+{
+    return self.preferences.extensionSmartyPants;
+}
+
+- (NSString *)rendererStyleName:(MPRenderer *)renderer
+{
+    return self.preferences.htmlStyleName;
+}
+
+- (BOOL)rendererHasSyntaxHighlighting:(MPRenderer *)renderer
+{
+    return self.preferences.htmlSyntaxHighlighting;
+}
+
+- (BOOL)rendererHasMathJax:(MPRenderer *)renderer
+{
+    return self.preferences.htmlMathJax;
+}
+
+- (NSString *)rendererHighlightingThemeName:(MPRenderer *)renderer
+{
+    return self.preferences.htmlHighlightingThemeName;
+}
+
+- (void)renderer:(MPRenderer *)renderer didProduceHTMLOutput:(NSString *)html
+{
+    self.manualRender = self.preferences.markdownManualRender;
+    NSURL *baseUrl = self.fileURL;
+    if (!baseUrl)
+        baseUrl = self.preferences.htmlDefaultDirectoryUrl;
+    self.isLoadingPreview = YES;
+    [self.preview.mainFrame loadHTMLString:html baseURL:baseUrl];
+}
+
+
 #pragma mark - Notification handler
 
 - (void)textDidChange:(NSNotification *)notification
 {
     if (!self.preferences.markdownManualRender)
-        [self delayRender];
+        [self.renderer parseAndRenderLater];
 }
 
 - (void)userDefaultsDidChange:(NSNotification *)notification
 {
-    [self parseLaterWithCommand:@selector(parseIfPreferencesChanged)
-              completionHandler:^{
-                  [self render];
-              }];
-    [self renderIfPreferencesChanged];
+    MPRenderer *renderer = self.renderer;
+
+    // Force update if we're switching from manual to auto.
+    if (!self.preferences.markdownManualRender && self.manualRender)
+    {
+        [renderer parseAndRenderLater];
+    }
+    else
+    {
+        [renderer parseLaterWithCommand:@selector(parseIfPreferencesChanged)
+                      completionHandler:^{
+                          [renderer render];
+                      }];
+        [renderer renderIfPreferencesChanged];
+    }
+
     [self setupEditor];
 }
 
@@ -403,7 +412,7 @@ typedef NS_ENUM(NSInteger, MPAssetsOption)
 
     NSPasteboard *pasteboard = [NSPasteboard generalPasteboard];
     [pasteboard clearContents];
-    [pasteboard writeObjects:@[self.currentHtml]];
+    [pasteboard writeObjects:@[self.renderer.currentHtml]];
 }
 
 - (IBAction)exportHtml:(id)sender
@@ -429,42 +438,10 @@ typedef NS_ENUM(NSInteger, MPAssetsOption)
     [panel beginSheetModalForWindow:w completionHandler:^(NSInteger result) {
         if (result != NSFileHandlingPanelOKButton)
             return;
-
-        MPAssetsOption stylesOption = MPAssetsNone;
-        MPAssetsOption scriptsOption = MPAssetsNone;
-        NSMutableArray *styles = [NSMutableArray array];
-        NSMutableArray *scripts = [NSMutableArray array];
-
-        if (controller.stylesIncluded)
-        {
-            stylesOption = MPAssetsEmbedded;
-            NSString *path = MPStylePathForName(self.preferences.htmlStyleName);
-            [styles addObject:[NSURL fileURLWithPath:path]];
-        }
-        if (controller.highlightingIncluded)
-        {
-            stylesOption = MPAssetsEmbedded;
-            scriptsOption = MPAssetsEmbedded;
-
-            NSBundle *bundle = [NSBundle mainBundle];
-            [styles addObject:[bundle URLForResource:@"prism"
-                                       withExtension:@"css"
-                                        subdirectory:@"Prism"]];
-            [scripts addObject:[bundle URLForResource:@"prism"
-                                        withExtension:@"js"
-                                         subdirectory:@"Prism"]];
-        }
-        if (self.preferences.htmlMathJax)
-        {
-            scriptsOption = MPAssetsEmbedded;
-            [scripts addObject:[NSURL URLWithString:kMPMathJaxCDN]];
-        }
-
-        NSString *html = [self htmlDocumentFromBody:self.currentHtml
-                                        stylesheets:styles
-                                           option:stylesOption
-                                            scripts:scripts
-                                             option:scriptsOption];
+        BOOL styles = controller.stylesIncluded;
+        BOOL highlighting = controller.highlightingIncluded;
+        NSString *html = [self.renderer HTMLForExportWithStyles:styles
+                                                   highlighting:highlighting];
         [html writeToURL:panel.URL atomically:NO encoding:NSUTF8StringEncoding
                    error:NULL];
     }];
@@ -614,9 +591,9 @@ typedef NS_ENUM(NSInteger, MPAssetsOption)
     [self.splitView setPosition:width ofDividerAtIndex:0];
 }
 
-- (IBAction)triggerRender:(id)sender
+- (IBAction)render:(id)sender
 {
-    [self delayRender];
+    [self.renderer parseAndRenderLater];
 }
 
 #pragma mark - Private
@@ -663,17 +640,6 @@ typedef NS_ENUM(NSInteger, MPAssetsOption)
     [self.highlighter activate];
 }
 
-- (void)parseLaterWithCommand:(SEL)action completionHandler:(void(^)())handler
-{
-    [self.parseDelayTimer invalidate];
-    self.parseDelayTimer =
-        [NSTimer scheduledTimerWithTimeInterval:0.5
-                                         target:self
-                                       selector:action
-                                       userInfo:@{@"next": handler}
-                                        repeats:YES];
-}
-
 - (void)syncScrollers
 {
     if (!self.preferences.editorSyncScrolling)
@@ -700,182 +666,6 @@ typedef NS_ENUM(NSInteger, MPAssetsOption)
         ratio * (previewDocumentView.frame.size.height
                  - previewContentBounds.size.height);
     previewContentView.bounds = previewContentBounds;
-}
-
-- (void)parse
-{
-    void(^nextAction)() = self.parseDelayTimer.userInfo[@"next"];
-    [self.parseDelayTimer invalidate];
-
-    int flags = self.preferences.extensionFlags;
-    BOOL smartyPants = self.preferences.extensionSmartyPants;
-
-    NSString *source = self.editor.string;
-    self.currentHtml = [self htmlFromText:source
-                          withSmartyPants:smartyPants flags:flags];
-
-    // Record current parsing flags for -parseIfPreferencesChanged.
-    self.currentExtensionFlags = flags;
-    self.currentSmartyPantsFlag = smartyPants;
-
-    if (nextAction)
-        nextAction();
-}
-
-- (void)parseIfPreferencesChanged
-{
-    if (self.preferences.extensionFlags != self.currentExtensionFlags
-        | self.preferences.extensionSmartyPants != self.currentSmartyPantsFlag)
-    {
-        [self parse];
-    }
-}
-
-- (void)delayRender
-{
-    [self parseLaterWithCommand:@selector(parse) completionHandler:^{
-        [self render];
-    }];
-}
-
-- (void)render
-{
-    NSString *styleName = self.preferences.htmlStyleName;
-    NSString *html = [self htmlDocumentFromBody:self.currentHtml
-                                    stylesheets:self.stylesheets
-                                         option:MPAssetsFullLink
-                                        scripts:self.scripts
-                                         option:MPAssetsFullLink];
-    NSURL *baseUrl = self.fileURL;
-    if (!baseUrl)
-        baseUrl = self.preferences.htmlDefaultDirectoryUrl;
-    self.isLoadingPreview = YES;
-    [self.preview.mainFrame loadHTMLString:html baseURL:baseUrl];
-
-    // Record current rendering flags for -renderIfPreferencesChanged.
-    self.currentStyleName = styleName;
-    self.currentSyntaxHighlighting = self.preferences.htmlSyntaxHighlighting;
-    self.currentMathJax = self.preferences.htmlMathJax;
-    self.currentManualRender = self.preferences.markdownManualRender;
-}
-
-- (void)renderIfPreferencesChanged
-{
-    if (self.preferences.htmlStyleName != self.currentStyleName
-            || (self.preferences.htmlSyntaxHighlighting
-                != self.currentSyntaxHighlighting)
-            || (self.preferences.htmlMathJax != self.currentMathJax)
-            || (!self.preferences.markdownManualRender
-                && (self.preferences.markdownManualRender
-                    != self.currentManualRender)))
-        [self render];
-}
-
-- (NSString *)htmlFromText:(NSString *)text
-           withSmartyPants:(BOOL)smartyPantsEnabled flags:(int)flags
-{
-    NSData *inputData = [text dataUsingEncoding:NSUTF8StringEncoding];
-
-    hoedown_markdown *markdown =
-        hoedown_markdown_new(flags, 15, self.htmlRenderer);
-
-    hoedown_buffer *ob = hoedown_buffer_new(64);
-    hoedown_markdown_render(ob, inputData.bytes, inputData.length, markdown);
-    if (smartyPantsEnabled)
-    {
-        hoedown_buffer *ib = ob;
-        ob = hoedown_buffer_new(64);
-        hoedown_html_smartypants(ob, ib->data, ib->size);
-        hoedown_buffer_free(ib);
-    }
-
-    NSString *result = [NSString stringWithUTF8String:hoedown_buffer_cstr(ob)];
-    hoedown_markdown_free(markdown);
-    hoedown_buffer_free(ob);
-    return result;
-}
-
-- (NSString *)htmlDocumentFromBody:(NSString *)body
-                       stylesheets:(NSArray *)stylesheetUrls
-                            option:(MPAssetsOption)stylesOption
-                           scripts:(NSArray *)scriptUrls
-                            option:(MPAssetsOption)scriptsOption
-{
-    NSString *format;
-
-    NSString *title = @"";
-    if (self.fileURL)
-    {
-        title = self.fileURL.lastPathComponent;
-        if ([title hasSuffix:@".md"])
-            title = [title substringToIndex:title.length - 3];
-        title = [NSString stringWithFormat:@"<title>%@</title>\n", title];
-    }
-
-    // Styles.
-    NSMutableArray *styles =
-        [NSMutableArray arrayWithCapacity:stylesheetUrls.count];
-    for (NSURL *url in stylesheetUrls)
-    {
-        NSString *s = nil;
-        MPAssetsOption option = scriptsOption;
-        if (!url.isFileURL)
-            option = MPAssetsFullLink;
-        switch (option)
-        {
-            case MPAssetsFullLink:
-                format =
-                    @"<link rel=\"stylesheet\" type=\"text/css\" href=\"%@\">";
-                s = [NSString stringWithFormat:format, url.absoluteString];
-                break;
-            case MPAssetsEmbedded:
-                s = [NSString stringWithFormat:@"<style>\n%@\n</style>",
-                                               MPReadFileOfPath(url.path)];
-                break;
-            default:
-                break;
-        }
-        if (s)
-            [styles addObject:s];
-    }
-    NSString *style = [styles componentsJoinedByString:@"\n"];
-
-    // Scripts.
-    NSMutableArray *scripts =
-        [NSMutableArray arrayWithCapacity:scriptUrls.count];
-    for (NSURL *url in scriptUrls)
-    {
-        NSString *s = nil;
-        MPAssetsOption option = scriptsOption;
-        if (!url.isFileURL)
-            option = MPAssetsFullLink;
-        switch (option)
-        {
-            case MPAssetsFullLink:
-                format =
-                    @"<script type=\"text/javascript\" src=\"%@\"></script>";
-                s = [NSString stringWithFormat:format, url.absoluteString];
-                break;
-            case MPAssetsEmbedded:
-                format = @"<script type=\"text/javascript\">%@</script>";
-                s = [NSString stringWithFormat:format,
-                                               MPReadFileOfPath(url.path)];
-                break;
-            default:
-                break;
-        }
-        if (s)
-            [scripts addObject:s];
-    }
-    NSString *script = [scripts componentsJoinedByString:@"\n"];
-
-    static NSString *f =
-        (@"<!DOCTYPE html><html>\n\n"
-         @"<head>\n<meta charset=\"utf-8\">\n%@%@\n</head>"
-         @"<body>\n%@\n%@\n</body>\n\n</html>\n");
-
-    NSString *html = [NSString stringWithFormat:f, title, style, body, script];
-    return html;
 }
 
 @end

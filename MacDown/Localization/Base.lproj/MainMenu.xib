@@ -398,7 +398,7 @@
                         <items>
                             <menuItem title="Render Markdown" keyEquivalent="r" id="Vh1-jg-bbV">
                                 <connections>
-                                    <action selector="triggerRender:" target="-1" id="rVC-hv-XS9"/>
+                                    <action selector="render:" target="-1" id="rvl-Jx-Hji"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="onf-Mq-Pah"/>
