@@ -22,12 +22,49 @@ static NSString * const kMPMathJaxCDN =
     @"http://cdn.mathjax.org/mathjax/latest/MathJax.js"
     @"?config=TeX-AMS-MML_HTMLorMML";
 
+static NSString * const kMPPrismScriptDirectory = @"Prism/components";
+static NSString * const kMPPrismThemeDirectory = @"Prism/themes";
+
 typedef NS_ENUM(NSInteger, MPAssetsOption)
 {
     MPAssetsNone,
     MPAssetsEmbedded,
     MPAssetsFullLink,
 };
+
+static NSArray *MPPrismScriptURLsForLanguage(NSString *language)
+{
+    NSURL *baseUrl = nil;
+    NSURL *extraUrl = nil;
+    NSBundle *bundle = [NSBundle mainBundle];
+
+    language = [language lowercaseString];
+    NSString *baseFileName =
+        [NSString stringWithFormat:@"prism-%@", language];
+    NSString *extraFileName =
+        [NSString stringWithFormat:@"prism-%@-extras", language];
+
+    for (NSString *ext in @[@"min.js", @"js"])
+    {
+        if (!baseUrl)
+        {
+            baseUrl = [bundle URLForResource:baseFileName withExtension:ext
+                                subdirectory:kMPPrismScriptDirectory];
+        }
+        if (!extraUrl)
+        {
+            extraUrl = [bundle URLForResource:extraFileName withExtension:ext
+                                 subdirectory:kMPPrismScriptDirectory];
+        }
+    }
+
+    NSMutableArray *urls = [NSMutableArray array];
+    if (baseUrl)
+        [urls addObject:baseUrl];
+    if (extraUrl)
+        [urls addObject:extraUrl];
+    return urls;
+}
 
 
 @implementation MPPreferences (Hoedown)
@@ -65,16 +102,20 @@ typedef NS_ENUM(NSInteger, MPAssetsOption)
 @property (unsafe_unretained) IBOutlet NSTextView *editor;
 @property (weak) IBOutlet WebView *preview;
 @property (nonatomic, unsafe_unretained) hoedown_renderer *htmlRenderer;
-@property HGMarkdownHighlighter *highlighter;
+@property (strong) HGMarkdownHighlighter *highlighter;
 @property int currentExtensionFlags;
 @property BOOL currentSmartyPantsFlag;
 @property BOOL currentSyntaxHighlighting;
 @property BOOL currentMathJax;
 @property (copy) NSString *currentHtml;
 @property (copy) NSString *currentStyleName;
+@property (strong) NSMutableArray *currentLanguages;
+@property (strong) NSString *currentHighlightingTheme;
 @property (strong) NSTimer *parseDelayTimer;
 @property (readonly) NSArray *stylesheets;
 @property (readonly) NSArray *scripts;
+@property (readonly) NSArray *prismStylesheets;
+@property (readonly) NSArray *prismScripts;
 @property BOOL previewFlushDisabled;
 @property BOOL isLoadingPreview;
 
@@ -82,6 +123,52 @@ typedef NS_ENUM(NSInteger, MPAssetsOption)
 @property (copy) NSString *loadedString;
 
 @end
+
+
+static hoedown_buffer *language_addition(const hoedown_buffer *language,
+                                         void *owner)
+{
+    MPDocument *document = (__bridge MPDocument *)owner;
+    NSString *lang = [[NSString alloc] initWithBytes:language->data
+                                              length:language->size
+                                            encoding:NSUTF8StringEncoding];
+
+    static NSDictionary *aliasMap = nil;
+    static NSDictionary *dependencyMap = nil;
+    static dispatch_once_t token;
+    dispatch_once(&token, ^{
+        aliasMap = @{
+            @"objective-c": @"clike",
+            @"html": @"markup", @"xml": @"markup",
+        };
+        dependencyMap = @{
+            @"aspnet": @"markup", @"bash": @"clike", @"c": @"clike",
+            @"coffeescript": @"javascript", @"cpp": @"c", @"csharp": @"clike",
+            @"go": @"clike", @"groovy": @"clike", @"java": @"clike",
+            @"javascript": @"clike", @"php": @"clike", @"ruby": @"clike",
+            @"scala": @"java", @"scss": @"css", @"swift": @"clike",
+        };
+    });
+
+    // Try to identify alias and point it to the "real" language name.
+    hoedown_buffer *mapped = NULL;
+    if ([aliasMap objectForKey:lang])
+    {
+        lang = [aliasMap objectForKey:lang];
+        NSData *data = [lang dataUsingEncoding:NSUTF8StringEncoding];
+        mapped = hoedown_buffer_new(64);
+        hoedown_buffer_put(mapped, data.bytes, data.length);
+    }
+
+    // Walk dependencies to include all required scripts.
+    while (lang && ![document.currentLanguages containsObject:lang])
+    {
+        [document.currentLanguages insertObject:lang atIndex:0];
+        lang = dependencyMap[lang];
+    }
+
+    return mapped;
+}
 
 
 @implementation MPDocument
@@ -93,8 +180,8 @@ typedef NS_ENUM(NSInteger, MPAssetsOption)
         return self;
 
     self.currentHtml = @"";
+    self.currentLanguages = [NSMutableArray array];
     self.htmlRenderer = hoedown_html_renderer_new(0, 0);
-    self.htmlRenderer->blockcode = hoedown_patch_render_blockcode;
 
     return self;
 }
@@ -126,7 +213,21 @@ typedef NS_ENUM(NSInteger, MPAssetsOption)
 {
     if (_htmlRenderer)
         hoedown_html_renderer_free(_htmlRenderer);
+
     _htmlRenderer = htmlRenderer;
+    
+    if (_htmlRenderer)
+    {
+        _htmlRenderer->blockcode = hoedown_patch_render_blockcode;
+
+        rndr_state_ex *state = malloc(sizeof(rndr_state_ex));
+        memcpy(state, _htmlRenderer->opaque, sizeof(rndr_state));
+        state->language_addition = language_addition;
+        state->owner = (__bridge void *)self;
+
+        free(_htmlRenderer->opaque);
+        _htmlRenderer->opaque = state;
+    }
 }
 
 - (NSArray *)stylesheets
@@ -135,26 +236,35 @@ typedef NS_ENUM(NSInteger, MPAssetsOption)
     NSMutableArray *urls =
         [NSMutableArray arrayWithObject:[NSURL fileURLWithPath:defaultStyle]];
     if (self.preferences.htmlSyntaxHighlighting)
-    {
-        [urls addObject:[[NSBundle mainBundle] URLForResource:@"prism"
-                                                withExtension:@"css"
-                                                 subdirectory:@"Prism"]];
-    }
+        [urls addObjectsFromArray:self.prismStylesheets];
     return urls;
 }
 
 - (NSArray *)scripts
 {
     NSMutableArray *urls = [NSMutableArray array];
-    NSBundle *bundle = [NSBundle mainBundle];
+
     if (self.preferences.htmlSyntaxHighlighting)
-    {
-        [urls addObject:[bundle URLForResource:@"prism"
-                                 withExtension:@"js"
-                                  subdirectory:@"Prism"]];
-    }
+        [urls addObjectsFromArray:self.prismScripts];
     if (self.preferences.htmlMathJax)
         [urls addObject:[NSURL URLWithString:kMPMathJaxCDN]];
+    return urls;
+}
+
+- (NSArray *)prismStylesheets
+{
+    NSString *name = self.preferences.htmlHighlightingThemeName;
+    return @[MPHighlightingThemeURLForName(name)];
+}
+
+- (NSArray *)prismScripts
+{
+    NSBundle *bundle = [NSBundle mainBundle];
+    NSMutableArray *urls = [NSMutableArray array];
+    [urls addObject:[bundle URLForResource:@"prism-core.min" withExtension:@"js"
+                              subdirectory:kMPPrismScriptDirectory]];
+    for (NSString *language in self.currentLanguages)
+        [urls addObjectsFromArray:MPPrismScriptURLsForLanguage(language)];
     return urls;
 }
 
@@ -445,14 +555,8 @@ typedef NS_ENUM(NSInteger, MPAssetsOption)
         {
             stylesOption = MPAssetsEmbedded;
             scriptsOption = MPAssetsEmbedded;
-
-            NSBundle *bundle = [NSBundle mainBundle];
-            [styles addObject:[bundle URLForResource:@"prism"
-                                       withExtension:@"css"
-                                        subdirectory:@"Prism"]];
-            [scripts addObject:[bundle URLForResource:@"prism"
-                                        withExtension:@"js"
-                                         subdirectory:@"Prism"]];
+            [styles addObjectsFromArray:self.prismStylesheets];
+            [scripts addObjectsFromArray:self.prismScripts];
         }
         if (self.preferences.htmlMathJax)
         {
@@ -745,6 +849,7 @@ typedef NS_ENUM(NSInteger, MPAssetsOption)
     self.currentStyleName = styleName;
     self.currentSyntaxHighlighting = self.preferences.htmlSyntaxHighlighting;
     self.currentMathJax = self.preferences.htmlMathJax;
+    self.currentHighlightingTheme = self.preferences.htmlHighlightingThemeName;
 }
 
 - (void)renderIfPreferencesChanged
@@ -752,7 +857,9 @@ typedef NS_ENUM(NSInteger, MPAssetsOption)
     if (self.preferences.htmlStyleName != self.currentStyleName
             || (self.preferences.htmlSyntaxHighlighting
                 != self.currentSyntaxHighlighting)
-            || (self.preferences.htmlMathJax != self.currentMathJax))
+            || (self.preferences.htmlMathJax != self.currentMathJax)
+            || (self.preferences.htmlHighlightingThemeName
+                != self.currentHighlightingTheme))
         [self render];
 }
 
@@ -761,6 +868,7 @@ typedef NS_ENUM(NSInteger, MPAssetsOption)
 {
     NSData *inputData = [text dataUsingEncoding:NSUTF8StringEncoding];
 
+    [self.currentLanguages removeAllObjects];
     hoedown_markdown *markdown =
         hoedown_markdown_new(flags, 15, self.htmlRenderer);
 
