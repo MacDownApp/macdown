@@ -482,9 +482,10 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
 
 - (void)textDidChange:(NSNotification *)notification
 {
-    [self parseLaterWithCommand:@selector(parse) completionHandler:^{
-        [self render];
-    }];
+    if (!self.preferences.extensionAutorender) {
+        return;
+    }
+    [self delayRender];
 }
 
 - (void)userDefaultsDidChange:(NSNotification *)notification
@@ -718,6 +719,10 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
     [self.splitView setPosition:width ofDividerAtIndex:0];
 }
 
+- (IBAction)triggerRender:(id)sender
+{
+    [self delayRender];
+}
 
 #pragma mark - Private
 
@@ -829,6 +834,13 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
     {
         [self parse];
     }
+}
+
+- (void)delayRender
+{
+    [self parseLaterWithCommand:@selector(parse) completionHandler:^{
+        [self render];
+    }];
 }
 
 - (void)render

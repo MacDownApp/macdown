@@ -396,6 +396,11 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="View" id="EQZ-Zp-VNE">
                         <items>
+                            <menuItem title="Render Markdown" keyEquivalent="r" id="Vh1-jg-bbV">
+                                <connections>
+                                    <action selector="triggerRender:" target="-1" id="rVC-hv-XS9"/>
+                                </connections>
+                            </menuItem>
                             <menuItem title="Reset Split" keyEquivalent="0" id="0Ru-nh-aAm">
                                 <connections>
                                     <action selector="resetSplit:" target="-1" id="bAu-TE-kkp"/>
