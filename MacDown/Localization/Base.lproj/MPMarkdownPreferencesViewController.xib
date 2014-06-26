@@ -215,6 +215,29 @@
                     <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                     <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </box>
+                <box autoresizesSubviews="NO" fixedFrame="YES" title="Rendering" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="mtV-XP-m6K">
+                    <rect key="frame" x="17" y="16" width="177" height="56"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <view key="contentView">
+                        <rect key="frame" x="1" y="1" width="175" height="40"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xIM-eA-G2I">
+                                <rect key="frame" x="16" y="14" width="149" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="check" title="Auto-render" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="usO-DD-wcC">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <binding destination="-2" name="value" keyPath="self.preferences.extensionAutorender" id="OxH-JX-KtZ"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                    </view>
+                    <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                    <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </box>
             </subviews>
             <constraints>
                 <constraint firstItem="Ycc-Px-jbu" firstAttribute="leading" secondItem="TXy-fD-S4Y" secondAttribute="trailing" constant="8" id="23x-1v-ABO"/>

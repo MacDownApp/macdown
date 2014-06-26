@@ -20,6 +20,7 @@ extern NSString * const MPDidDetectFreshInstallationNotification;
 @property (assign) BOOL extensionIntraEmphasis;
 @property (assign) BOOL extensionTables;
 @property (assign) BOOL extensionFencedCode;
+@property (assign) BOOL extensionAutorender;
 @property (assign) BOOL extensionAutolink;
 @property (assign) BOOL extensionStrikethough;
 @property (assign) BOOL extensionUnderline;
@@ -41,6 +42,7 @@ extern NSString * const MPDidDetectFreshInstallationNotification;
 @property (assign) NSString *htmlStyleName;
 @property (assign) BOOL htmlMathJax;
 @property (assign) BOOL htmlSyntaxHighlighting;
+@property (assign) NSString *htmlHighlightingThemeName;
 @property (assign) NSURL *htmlDefaultDirectoryUrl;
 
 // Calculated values.

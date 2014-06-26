@@ -29,4 +29,5 @@ BOOL MPStringIsNewline(NSString *str);
 
 NSString *MPStylePathForName(NSString *name);
 NSString *MPThemePathForName(NSString *name);
+NSURL *MPHighlightingThemeURLForName(NSString *name);
 NSString *MPReadFileOfPath(NSString *path);
