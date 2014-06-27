@@ -438,10 +438,12 @@ static NSDictionary *MPEditorKeysToObserve()
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object
                         change:(NSDictionary *)change context:(void *)context
 {
+    if (!self.highlighter.isActive)
+        return;
     id value = change[NSKeyValueChangeNewKey];
     NSString *preferenceKey = MPEditorPreferenceKeyWithValueKey(keyPath);
-    [[NSUserDefaults standardUserDefaults] setObject:value
-                                              forKey:preferenceKey];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:value forKey:preferenceKey];
 }
 
 
