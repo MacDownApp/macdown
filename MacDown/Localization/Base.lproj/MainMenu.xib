@@ -403,6 +403,7 @@
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="onf-Mq-Pah"/>
                             <menuItem title="Reset Split" keyEquivalent="0" id="0Ru-nh-aAm">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                 <connections>
                                     <action selector="resetSplit:" target="-1" id="bAu-TE-kkp"/>
                                 </connections>
@@ -476,6 +477,49 @@
                                 <connections>
                                     <action selector="toggleComment:" target="-1" id="7Xw-6O-ibS"/>
                                 </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="kPi-GI-e6G"/>
+                            <menuItem title="Convert To" id="e8h-vX-NQb">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="Convert To" id="I8Y-e8-XDx">
+                                    <items>
+                                        <menuItem title="Header 1" keyEquivalent="1" id="NLm-rz-EyT">
+                                            <connections>
+                                                <action selector="convertToH1:" target="-1" id="Roq-qC-F5o"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Header 2" keyEquivalent="2" id="0WP-T5-QxP">
+                                            <connections>
+                                                <action selector="convertToH2:" target="-1" id="ZC7-xk-dFd"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Header 3" keyEquivalent="3" id="kSO-QG-dHa">
+                                            <connections>
+                                                <action selector="convertToH3:" target="-1" id="rb2-Ao-7hP"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Header 4" keyEquivalent="4" id="B98-b8-che">
+                                            <connections>
+                                                <action selector="convertToH4:" target="-1" id="GkK-ea-mu8"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Header 5" keyEquivalent="5" id="wlq-BA-PKH">
+                                            <connections>
+                                                <action selector="convertToH5:" target="-1" id="SM8-G5-djY"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Header 6" keyEquivalent="6" id="D4C-PE-qJi">
+                                            <connections>
+                                                <action selector="convertToH6:" target="-1" id="u4y-F9-JR3"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Paragraph" keyEquivalent="0" id="xN5-GU-ASF">
+                                            <connections>
+                                                <action selector="convertToParagraph:" target="-1" id="4BU-GT-Qyv"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="tY3-Ap-TRo"/>
                             <menuItem title="Unordered List" keyEquivalent="u" id="jn0-Kb-yH6">

@@ -516,4 +516,69 @@ static NSString * const kMPListLineHeadPattern =
     return YES;
 }
 
+- (void)makeHeaderForSelectedLinesWithLevel:(NSUInteger)level
+{
+    NSAssert(level <= 6, @"Should be 1-6, or 0 (convert to paragraph).");
+    NSString *content = self.string;
+    NSRange selectedRange = self.selectedRange;
+    NSRange lineRange = [content lineRangeForRange:selectedRange];
+
+    NSString *header = [@"###### " substringFromIndex:6 - level];
+    if (level == 0)
+        header = [header substringToIndex:header.length - 1];
+    NSUInteger headerLength = header.length;
+    NSUInteger options = NSRegularExpressionDotMatchesLineSeparators;
+    NSRegularExpression *regex =
+        [[NSRegularExpression alloc] initWithPattern:@"^(#+ )*.*?$"
+                                             options:options error:NULL];
+
+    NSMutableArray *processedLines = [NSMutableArray array];
+    NSString *toProcess = [content substringWithRange:lineRange];
+    NSArray *lines = [toProcess componentsSeparatedByString:@"\n"];
+    NSUInteger lineCount = lines.count;
+    __block NSInteger firstShift = 0;
+    __block NSInteger totalShift = 0;
+    [lines enumerateObjectsUsingBlock:^(id obj, NSUInteger index, BOOL *stop) {
+        NSString *line = obj;
+        NSTextCheckingResult *result =
+            [regex firstMatchInString:line options:0
+                                range:NSMakeRange(0, line.length)];
+        NSUInteger rangeCount = result.numberOfRanges;
+
+        // Don't process empty/whitespace-only lines unless it's the only line.
+        if (lineCount > 1)
+        {
+            NSUInteger sentinel = [line
+                locationOfFirstNonWhitespaceCharacterInLineBefore:line.length];
+            if (sentinel == line.length)
+            {
+                [processedLines addObject:line];
+                return;
+            }
+        }
+
+        NSString *lineContent = line;
+        NSRange headerRange = NSMakeRange(0, 0);
+        if (rangeCount > 1)
+            headerRange = [result rangeAtIndex:1];
+        if (headerRange.location != NSNotFound)
+        {
+            NSUInteger start = headerRange.location + headerRange.length;
+            lineContent = [line substringFromIndex:start];
+        }
+        [processedLines addObject:[header stringByAppendingString:lineContent]];
+
+        NSInteger shift = headerLength - headerRange.length;
+        if (index == 0)
+            firstShift += shift;
+        totalShift += shift;
+    }];
+    NSString *processed = [processedLines componentsJoinedByString:@"\n"];
+    [self insertText:processed replacementRange:lineRange];
+
+    selectedRange.location += firstShift;
+    selectedRange.length += totalShift - firstShift;
+    self.selectedRange = selectedRange;
+}
+
 @end

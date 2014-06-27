@@ -423,7 +423,8 @@ static NSDictionary *MPEditorKeysToObserve()
         [renderer renderIfPreferencesChanged];
     }
 
-    [self setupEditor];
+    if (self.highlighter.isActive)
+        [self setupEditor];
 }
 
 - (void)boundsDidChange:(NSNotification *)notification
@@ -487,6 +488,41 @@ static NSDictionary *MPEditorKeysToObserve()
         [html writeToURL:panel.URL atomically:NO encoding:NSUTF8StringEncoding
                    error:NULL];
     }];
+}
+
+- (IBAction)convertToH1:(id)sender
+{
+    [self.editor makeHeaderForSelectedLinesWithLevel:1];
+}
+
+- (IBAction)convertToH2:(id)sender
+{
+    [self.editor makeHeaderForSelectedLinesWithLevel:2];
+}
+
+- (IBAction)convertToH3:(id)sender
+{
+    [self.editor makeHeaderForSelectedLinesWithLevel:3];
+}
+
+- (IBAction)convertToH4:(id)sender
+{
+    [self.editor makeHeaderForSelectedLinesWithLevel:4];
+}
+
+- (IBAction)convertToH5:(id)sender
+{
+    [self.editor makeHeaderForSelectedLinesWithLevel:5];
+}
+
+- (IBAction)convertToH6:(id)sender
+{
+    [self.editor makeHeaderForSelectedLinesWithLevel:6];
+}
+
+- (IBAction)convertToParagraph:(id)sender
+{
+    [self.editor makeHeaderForSelectedLinesWithLevel:0];
 }
 
 - (IBAction)toggleStrong:(id)sender

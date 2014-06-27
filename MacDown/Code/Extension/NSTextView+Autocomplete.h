@@ -31,5 +31,6 @@
 - (void)unindentSelectedLines;
 - (BOOL)insertMappedContent;
 - (BOOL)completeNextLine;
+- (void)makeHeaderForSelectedLinesWithLevel:(NSUInteger)level;
 
 @end
