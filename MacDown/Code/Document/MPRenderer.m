@@ -310,7 +310,7 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
 
 - (void)parseAndRenderNow
 {
-    [self parseLater:0.0 withCommand:@selector(parse) completionHandler:^{
+    [self parseNowWithCommand:@selector(parse) completionHandler:^{
         [self render];
     }];
 }
@@ -320,6 +320,11 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
     [self parseLaterWithCommand:@selector(parse) completionHandler:^{
         [self render];
     }];
+}
+
+- (void)parseNowWithCommand:(SEL)action completionHandler:(void(^)())handler
+{
+    [self parseLater:0.0 withCommand:action completionHandler:handler];
 }
 
 - (void)parseLaterWithCommand:(SEL)action completionHandler:(void(^)())handler
@@ -434,7 +439,6 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
 - (void)parseLater:(NSTimeInterval)delay
        withCommand:(SEL)action completionHandler:(void(^)())handler
 {
-    [self.parseDelayTimer invalidate];
     self.parseDelayTimer =
         [NSTimer scheduledTimerWithTimeInterval:delay
                                          target:self

@@ -416,7 +416,7 @@ static NSDictionary *MPEditorKeysToObserve()
     }
     else
     {
-        [renderer parseLaterWithCommand:@selector(parseIfPreferencesChanged)
+        [renderer parseNowWithCommand:@selector(parseIfPreferencesChanged)
                       completionHandler:^{
                           [renderer render];
                       }];

@@ -18,6 +18,7 @@
 
 - (void)parseAndRenderNow;
 - (void)parseAndRenderLater;
+- (void)parseNowWithCommand:(SEL)action completionHandler:(void(^)())handler;
 - (void)parseLaterWithCommand:(SEL)action completionHandler:(void(^)())handler;
 - (void)parseIfPreferencesChanged;
 - (void)parse;
