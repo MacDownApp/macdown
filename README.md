@@ -2,7 +2,7 @@
 
 MacDown is an open source Markdown editor for OS X, released under the MIT License. It is heavily influenced by [Chen Luo](https://twitter.com/chenluois)’s [Mou](http://mouapp.com).
 
-Visit the [project site](http://macdown.uranusjr.com/) for more information.
+Visit the [project site](http://macdown.uranusjr.com/) for more information, or download [MacDown.app.zip](https://github.com/uranusjr/macdown/releases/download/v0.1.1/MacDown.app.zip) directly from the [latest releases](https://github.com/uranusjr/macdown/releases/latest) page.
 
 ## License
 
