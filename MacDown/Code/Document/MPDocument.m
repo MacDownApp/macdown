@@ -18,6 +18,34 @@
 #import "MPExportPanelAccessoryViewController.h"
 
 
+static NSString *MPEditorPreferenceKeyWithValueKey(NSString *key)
+{
+    if (!key.length)
+        return @"editor";
+    NSString *first = [[key substringToIndex:1] uppercaseString];
+    NSString *rest = [key substringFromIndex:1];
+    return [NSString stringWithFormat:@"editor%@%@", first, rest];
+}
+
+static NSDictionary *MPEditorKeysToObserve()
+{
+    static NSDictionary *keys = nil;
+    static dispatch_once_t token;
+    dispatch_once(&token, ^{
+        keys = @{@"automaticDashSubstitutionEnabled": @NO,
+                 @"automaticDataDetectionEnabled": @NO,
+                 @"automaticLinkDetectionEnabled": @NO,
+                 @"automaticQuoteSubstitutionEnabled": @NO,
+                 @"automaticSpellingCorrectionEnabled": @NO,
+                 @"automaticTextReplacementEnabled": @NO,
+                 @"continuousSpellCheckingEnabled": @NO,
+                 @"enabledTextCheckingTypes": @(NSTextCheckingAllTypes),
+                 @"grammarCheckingEnabled": @NO};
+    });
+    return keys;
+}
+
+
 @implementation MPPreferences (Hoedown)
 - (int)extensionFlags
 {
@@ -79,6 +107,8 @@
     [center removeObserver:self
                       name:NSViewBoundsDidChangeNotification
                     object:self.editor.enclosingScrollView.contentView];
+    for (NSString *key in MPEditorKeysToObserve())
+        [self.editor removeObserver:self forKeyPath:key];
 }
 
 
@@ -116,12 +146,12 @@
     self.renderer.dataSource = self;
     self.renderer.delegate = self;
 
-    // Fix Xcode 5/Lion bug where disselecting options in IB doesn't work.
-    // TODO: Can we save/set these app-wise using KVO?
-    self.editor.automaticQuoteSubstitutionEnabled = NO;
-    self.editor.automaticLinkDetectionEnabled = NO;
-    self.editor.automaticDashSubstitutionEnabled = NO;
     [self setupEditor];
+    for (NSString *key in MPEditorKeysToObserve())
+    {
+        [self.editor addObserver:self forKeyPath:key
+                         options:NSKeyValueObservingOptionNew context:NULL];
+    }
 
     self.preview.frameLoadDelegate = self;
     self.preview.policyDelegate = self;
@@ -402,6 +432,18 @@
 }
 
 
+#pragma mark - KVO
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object
+                        change:(NSDictionary *)change context:(void *)context
+{
+    id value = change[NSKeyValueChangeNewKey];
+    NSString *preferenceKey = MPEditorPreferenceKeyWithValueKey(keyPath);
+    [[NSUserDefaults standardUserDefaults] setObject:value
+                                              forKey:preferenceKey];
+}
+
+
 #pragma mark - IBAction
 
 - (IBAction)copyHtml:(id)sender
@@ -596,6 +638,7 @@
     [self.renderer parseAndRenderLater];
 }
 
+
 #pragma mark - Private
 
 - (void)setupEditor
@@ -636,6 +679,16 @@
     // Have to keep this enabled because HGMarkdownHighlighter needs them.
     NSClipView *contentView = self.editor.enclosingScrollView.contentView;
     contentView.postsBoundsChangedNotifications = YES;
+
+    NSDictionary *keysAndDefaults = MPEditorKeysToObserve();
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    for (NSString *key in keysAndDefaults)
+    {
+        NSString *preferenceKey = MPEditorPreferenceKeyWithValueKey(key);
+        id value = [defaults objectForKey:preferenceKey];
+        value = value ? value : keysAndDefaults[key];
+        [self.editor setValue:value forKey:key];
+    }
 
     [self.highlighter activate];
 }
