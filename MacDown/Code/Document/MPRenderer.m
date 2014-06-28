@@ -11,13 +11,8 @@
 #import <hoedown/markdown.h>
 #import "hoedown_html_patch.h"
 #import "MPUtilities.h"
+#import "MPAsset.h"
 
-typedef NS_ENUM(NSInteger, MPAssetsOption)
-{
-    MPAssetsNone,
-    MPAssetsEmbedded,
-    MPAssetsFullLink,
-};
 
 static NSString * const kMPMathJaxCDN =
     @"http://cdn.mathjax.org/mathjax/latest/MathJax.js"
@@ -80,63 +75,25 @@ static NSString *MPHTMLFromMarkdown(NSString *text, int flags, BOOL smartypants,
 }
 
 static NSString *MPGetHTML(
-    NSString *title, NSString *body, NSArray *stylesrc, MPAssetsOption styleopt,
-    NSArray *scriptsrc, MPAssetsOption scriptopt)
+    NSString *title, NSString *body, NSArray *styles, MPAssetOption styleopt,
+    NSArray *scripts, MPAssetOption scriptopt)
 {
-    NSString *format;
-
-    // Styles.
-    NSMutableArray *styles = [NSMutableArray array];
-    for (NSURL *url in stylesrc)
+    NSMutableArray *styleTags = [NSMutableArray array];
+    NSMutableArray *scriptTags = [NSMutableArray array];
+    for (MPStyleSheet *style in styles)
     {
-        NSString *s = nil;
-        if (!url.isFileURL)
-            styleopt = MPAssetsFullLink;
-        switch (styleopt)
-        {
-            case MPAssetsFullLink:
-                format =
-                    @"<link rel=\"stylesheet\" type=\"text/css\" href=\"%@\">";
-                s = [NSString stringWithFormat:format, url.absoluteString];
-                break;
-            case MPAssetsEmbedded:
-                s = [NSString stringWithFormat:@"<style>\n%@\n</style>",
-                                               MPReadFileOfPath(url.path)];
-                break;
-            default:
-                break;
-        }
+        NSString *s = [style htmlForOption:styleopt];
         if (s)
-            [styles addObject:s];
+            [styleTags addObject:s];
     }
-    NSString *style = [styles componentsJoinedByString:@"\n"];
-
-    // Scripts.
-    NSMutableArray *scripts = [NSMutableArray array];
-    for (NSURL *url in scriptsrc)
+    for (MPScript *script in scripts)
     {
-        NSString *s = nil;
-        if (!url.isFileURL)
-            scriptopt = MPAssetsFullLink;
-        switch (scriptopt)
-        {
-            case MPAssetsFullLink:
-                format =
-                    @"<script type=\"text/javascript\" src=\"%@\"></script>";
-                s = [NSString stringWithFormat:format, url.absoluteString];
-                break;
-            case MPAssetsEmbedded:
-                format = @"<script type=\"text/javascript\">%@</script>";
-                s = [NSString stringWithFormat:format,
-                                               MPReadFileOfPath(url.path)];
-                break;
-            default:
-                break;
-        }
+        NSString *s = [script htmlForOption:scriptopt];
         if (s)
-            [scripts addObject:s];
+            [scriptTags addObject:s];
     }
-    NSString *script = [scripts componentsJoinedByString:@"\n"];
+    NSString *style = [styleTags componentsJoinedByString:@"\n"];
+    NSString *script = [scriptTags componentsJoinedByString:@"\n"];
 
     static NSString *f =
         (@"<!DOCTYPE html><html>\n\n"
@@ -270,40 +227,48 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
 - (NSArray *)prismStylesheets
 {
     NSString *name = [self.delegate rendererHighlightingThemeName:self];
-    return @[MPHighlightingThemeURLForName(name)];
+    return @[[MPStyleSheet CSSWithURL:MPHighlightingThemeURLForName(name)]];
 }
 
 - (NSArray *)prismScripts
 {
     NSBundle *bundle = [NSBundle mainBundle];
-    NSMutableArray *urls = [NSMutableArray array];
-    [urls addObject:[bundle URLForResource:@"prism-core.min" withExtension:@"js"
-                              subdirectory:kMPPrismScriptDirectory]];
+    NSURL *url = [bundle URLForResource:@"prism-core.min" withExtension:@"js"
+                           subdirectory:kMPPrismScriptDirectory];
+    MPAsset *script = [MPScript javaScriptWithURL:url];
+    NSMutableArray *scripts = [NSMutableArray arrayWithObject:script];
     for (NSString *language in self.currentLanguages)
-        [urls addObjectsFromArray:MPPrismScriptURLsForLanguage(language)];
-    return urls;
+    {
+        for (NSURL *url in MPPrismScriptURLsForLanguage(language))
+            [scripts addObject:[MPScript javaScriptWithURL:url]];
+    }
+    return scripts;
 }
 
 - (NSArray *)stylesheets
 {
     id<MPRendererDelegate> d = self.delegate;
     NSString *defaultStyle = MPStylePathForName([d rendererStyleName:self]);
-    NSMutableArray *urls =
-        [NSMutableArray arrayWithObject:[NSURL fileURLWithPath:defaultStyle]];
+    MPStyleSheet *css =
+        [MPStyleSheet CSSWithURL:[NSURL fileURLWithPath:defaultStyle]];
+    NSMutableArray *stylesheets = [NSMutableArray arrayWithObject:css];
     if ([d rendererHasSyntaxHighlighting:self])
-        [urls addObjectsFromArray:self.prismStylesheets];
-    return urls;
+        [stylesheets addObjectsFromArray:self.prismStylesheets];
+    return stylesheets;
 }
 
 - (NSArray *)scripts
 {
     id<MPRendererDelegate> d = self.delegate;
-    NSMutableArray *urls = [NSMutableArray array];
+    NSMutableArray *scripts = [NSMutableArray array];
     if ([d rendererHasSyntaxHighlighting:self])
-        [urls addObjectsFromArray:self.prismScripts];
+        [scripts addObjectsFromArray:self.prismScripts];
     if ([d rendererHasMathJax:self])
-        [urls addObject:[NSURL URLWithString:kMPMathJaxCDN]];
-    return urls;
+    {
+        NSURL *url = [NSURL URLWithString:kMPMathJaxCDN];
+        [scripts addObject:[MPScript javaScriptWithURL:url]];
+    }
+    return scripts;
 }
 
 #pragma mark - Public
@@ -388,8 +353,8 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
 
     NSString *title = [self.dataSource rendererHTMLTitle:self];
     NSString *html = MPGetHTML(
-        title, self.currentHtml, self.stylesheets, MPAssetsFullLink,
-        self.scripts, MPAssetsFullLink);
+        title, self.currentHtml, self.stylesheets, MPAssetFullLink,
+        self.scripts, MPAssetFullLink);
     [delegate renderer:self didProduceHTMLOutput:html];
 
     self.styleName = [delegate rendererStyleName:self];
@@ -401,28 +366,29 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
 - (NSString *)HTMLForExportWithStyles:(BOOL)withStyles
                          highlighting:(BOOL)withHighlighting
 {
-    MPAssetsOption stylesOption = MPAssetsNone;
-    MPAssetsOption scriptsOption = MPAssetsNone;
+    MPAssetOption stylesOption = MPAssetNone;
+    MPAssetOption scriptsOption = MPAssetNone;
     NSMutableArray *styles = [NSMutableArray array];
     NSMutableArray *scripts = [NSMutableArray array];
 
     if (withStyles)
     {
-        stylesOption = MPAssetsEmbedded;
-        NSString *path = MPStylePathForName(self.styleName);
-        [styles addObject:[NSURL fileURLWithPath:path]];
+        stylesOption = MPAssetEmbedded;
+        NSURL *url = [NSURL fileURLWithPath:MPStylePathForName(self.styleName)];
+        [styles addObject:[MPStyleSheet CSSWithURL:url]];
     }
     if (withHighlighting)
     {
-        stylesOption = MPAssetsEmbedded;
-        scriptsOption = MPAssetsEmbedded;
+        stylesOption = MPAssetEmbedded;
+        scriptsOption = MPAssetEmbedded;
         [styles addObjectsFromArray:self.prismStylesheets];
         [scripts addObjectsFromArray:self.prismScripts];
     }
     if ([self.delegate rendererHasMathJax:self])
     {
-        scriptsOption = MPAssetsEmbedded;
-        [scripts addObject:[NSURL URLWithString:kMPMathJaxCDN]];
+        scriptsOption = MPAssetEmbedded;
+        NSURL *url = [NSURL URLWithString:kMPMathJaxCDN];
+        [scripts addObject:[MPScript javaScriptWithURL:url]];
     }
 
     NSString *title = [self.dataSource rendererHTMLTitle:self];
