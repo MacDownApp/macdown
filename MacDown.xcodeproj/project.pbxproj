@@ -47,6 +47,7 @@
 		1FC29F5C1944FC2600D616C7 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FC29F5B1944FC2600D616C7 /* XCTest.framework */; };
 		1FC29F5E1944FC4F00D616C7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1FCDCA321944F96E00B1F966 /* InfoPlist.strings */; };
 		1FD7F8DE194A0211007ED2A1 /* Data in Resources */ = {isa = PBXBuildFile; fileRef = 1FD7F8DD194A0211007ED2A1 /* Data */; };
+		1FDF9D24195EC8F900D07015 /* PreferencesMarkdown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1FDF9D23195EC8F900D07015 /* PreferencesMarkdown@2x.png */; };
 		1FF207631941CF22005B5654 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FF207621941CF22005B5654 /* WebKit.framework */; };
 		1FFF301D1948A5320009AF24 /* MPStringLookupTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FFF301C1948A5320009AF24 /* MPStringLookupTests.m */; };
 		5318159056384894AA42DB4F /* libPods-MacDownTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AEAF42BBDCEC4012B5092BB3 /* libPods-MacDownTests.a */; };
@@ -138,6 +139,7 @@
 		1FCDCA311944F96E00B1F966 /* MPPreferencesTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPPreferencesTests.m; sourceTree = "<group>"; };
 		1FCDCA331944F96E00B1F966 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1FD7F8DD194A0211007ED2A1 /* Data */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Data; sourceTree = "<group>"; };
+		1FDF9D23195EC8F900D07015 /* PreferencesMarkdown@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "PreferencesMarkdown@2x.png"; path = "Resources/PreferencesMarkdown@2x.png"; sourceTree = "<group>"; };
 		1FF207621941CF22005B5654 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		1FFF301C1948A5320009AF24 /* MPStringLookupTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPStringLookupTests.m; sourceTree = "<group>"; };
 		7C5C1FBBB3ED456285901D31 /* libPods-MacDown.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MacDown.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -237,6 +239,7 @@
 				1F8A82D819533E9300B6BF69 /* Prism */,
 				1F4C8E99194AE0B9004BF82E /* MarkdownDocument.icns */,
 				1F9A14F5194EFF1F00D1C6A9 /* PreferencesMarkdown.png */,
+				1FDF9D23195EC8F900D07015 /* PreferencesMarkdown@2x.png */,
 				1F0D9DA6194AC8CB008E1856 /* Credits.rtf */,
 				1FA6CDB81952D2CD008D5CA0 /* dsa_pub.pem */,
 				1F3A47511953E84700293259 /* help.md */,
@@ -480,6 +483,7 @@
 			files = (
 				1F8A82D919533E9300B6BF69 /* Prism in Resources */,
 				1F9A14EF194EEEDD00D1C6A9 /* Styles in Resources */,
+				1FDF9D24195EC8F900D07015 /* PreferencesMarkdown@2x.png in Resources */,
 				1F0D9DB0194AC9EE008E1856 /* MPDocument.xib in Resources */,
 				1F0D9DB1194AC9EE008E1856 /* MPEditorPreferencesViewController.xib in Resources */,
 				1F9A14F4194EF6A600D1C6A9 /* Themes in Resources */,
