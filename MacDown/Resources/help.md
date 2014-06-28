@@ -110,11 +110,11 @@ Superscript [^4] [^5] | hoge^(fuga) | hoge<sup>fuga</sup>   |
 Autolink            | http://t.co   | <a href="http://t.co">http://t.co</a> |
 Footnotes [^4]      | [^id] and [^id]: | As shown used in this table. |
 
-[^1]: If ***Underline*** is disabled. _this_ will be the same as *this*.
+[^1]: If **Underline** is disabled. _this_ will be the same as *this*.
 [^2]: Note that this is different from *blockquote* (a `> `-prefixed block), which is part of the standard Markdown syntax specification.
-[^3]: ***Quote*** and ***Smartypants*** are syntactically incompatible with each other. The former will take precedence.
-[^4]: ***Superscript*** and ***Footnotes*** are syntactically incompatible with each other. The former will take precedence.
-[^5]: LaTeX `^` superscripts in math will fail if you enabled the ***Superscript*** extension. You will need to use MathML if you want math support and ***Superscript*** together.
+[^3]: **Quote** and **Smartypants** are syntactically incompatible with each other. The former will take precedence.
+[^4]: **Superscript** and **Footnotes** are syntactically incompatible with each other. The former will take precedence.
+[^5]: LaTeX `^` superscripts in math will fail if you enabled the **Superscript** extension. You will need to use MathML if you want math support and ***Superscript*** together.
 
 
 ### Document Formatting
