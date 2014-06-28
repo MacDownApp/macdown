@@ -104,8 +104,11 @@ void styleparsing_error_callback(char *error_message, int line_number, void *con
 - (pmh_element **) parse
 {
 	pmh_element **result = NULL;
-	pmh_markdown_to_elements((char *)[_currentHighlightText UTF8String], self.extensions, &result);
-	pmh_sort_elements_by_pos(result);
+    if (_currentHighlightText)
+    {
+        pmh_markdown_to_elements((char *)[_currentHighlightText UTF8String], self.extensions, &result);
+        pmh_sort_elements_by_pos(result);
+    }
 	return result;
 }
 

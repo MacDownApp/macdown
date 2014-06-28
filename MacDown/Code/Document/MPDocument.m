@@ -97,6 +97,12 @@ static NSDictionary *MPEditorKeysToObserve()
 
 - (void)dealloc
 {
+    // Need to cleanup these so that callbacks won't crash the app.
+    [self.highlighter deactivate];
+    self.highlighter.targetTextView = nil;
+    self.preview.frameLoadDelegate = nil;
+    self.preview.policyDelegate = nil;
+
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center removeObserver:self
                       name:NSTextDidChangeNotification
