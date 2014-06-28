@@ -444,7 +444,7 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
                                          target:self
                                        selector:action
                                        userInfo:@{@"next": handler}
-                                        repeats:YES];
+                                        repeats:NO];
 }
 
 @end
