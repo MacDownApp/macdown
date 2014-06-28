@@ -387,6 +387,11 @@ static NSDictionary *MPEditorKeysToObserve()
     return self.preferences.htmlMathJax;
 }
 
+- (BOOL)rendererMathJaxInlineDollarEnabled:(MPRenderer *)renderer
+{
+    return self.preferences.htmlMathJaxInlineDollar;
+}
+
 - (NSString *)rendererHighlightingThemeName:(MPRenderer *)renderer
 {
     return self.preferences.htmlHighlightingThemeName;

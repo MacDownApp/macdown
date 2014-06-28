@@ -115,6 +115,7 @@ static NSString *MPGetHTML(
 @property (strong) NSMutableArray *currentLanguages;
 @property (readonly) NSArray *prismStylesheets;
 @property (readonly) NSArray *prismScripts;
+@property (readonly) NSArray *mathjaxScripts;
 @property (readonly) NSArray *stylesheets;
 @property (readonly) NSArray *scripts;
 @property (copy) NSString *currentHtml;
@@ -245,6 +246,24 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
     return scripts;
 }
 
+- (NSArray *)mathjaxScripts
+{
+    NSMutableArray *scripts = [NSMutableArray array];
+    NSURL *url = [NSURL URLWithString:kMPMathJaxCDN];
+    if ([self.delegate rendererMathJaxInlineDollarEnabled:self])
+    {
+        NSBundle *b = [NSBundle mainBundle];
+        MPEmbeddedScript *script =
+            [MPEmbeddedScript assetWithURL:[b URLForResource:@"inline"
+                                               withExtension:@"js"
+                                                subdirectory:@"MathJax"]
+                                   andType:kMPMathJaxConfigType];
+        [scripts addObject:script];
+    }
+    [scripts addObject:[MPScript javaScriptWithURL:url]];
+    return scripts;
+}
+
 - (NSArray *)stylesheets
 {
     id<MPRendererDelegate> d = self.delegate;
@@ -264,10 +283,7 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
     if ([d rendererHasSyntaxHighlighting:self])
         [scripts addObjectsFromArray:self.prismScripts];
     if ([d rendererHasMathJax:self])
-    {
-        NSURL *url = [NSURL URLWithString:kMPMathJaxCDN];
-        [scripts addObject:[MPScript javaScriptWithURL:url]];
-    }
+        [scripts addObjectsFromArray:self.mathjaxScripts];
     return scripts;
 }
 
@@ -387,8 +403,7 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
     if ([self.delegate rendererHasMathJax:self])
     {
         scriptsOption = MPAssetEmbedded;
-        NSURL *url = [NSURL URLWithString:kMPMathJaxCDN];
-        [scripts addObject:[MPScript javaScriptWithURL:url]];
+        [scripts addObjectsFromArray:self.mathjaxScripts];
     }
 
     NSString *title = [self.dataSource rendererHTMLTitle:self];

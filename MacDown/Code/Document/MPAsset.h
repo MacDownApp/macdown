@@ -18,6 +18,7 @@ typedef NS_ENUM(NSInteger, MPAssetOption)
 
 extern NSString * const kMPCSSType;
 extern NSString * const kMPJavaScriptType;
+extern NSString * const kMPMathJaxConfigType;
 
 
 @interface MPAsset : NSObject
@@ -31,6 +32,11 @@ extern NSString * const kMPJavaScriptType;
 + (instancetype)CSSWithURL:(NSURL *)url;
 @end
 
+
 @interface MPScript : MPAsset
 + (instancetype)javaScriptWithURL:(NSURL *)url;
+@end
+
+
+@interface MPEmbeddedScript : MPScript
 @end

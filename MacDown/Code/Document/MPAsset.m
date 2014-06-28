@@ -13,6 +13,7 @@
 
 NSString * const kMPCSSType = @"text/css";
 NSString * const kMPJavaScriptType = @"text/javascript";
+NSString * const kMPMathJaxConfigType = @"text/x-mathjax-config";
 
 
 @interface MPAsset ()
@@ -146,6 +147,18 @@ NSString * const kMPJavaScriptType = @"text/javascript";
             break;
     }
     return template;
+}
+
+@end
+
+
+@implementation MPEmbeddedScript
+
+- (NSString *)htmlForOption:(MPAssetOption)option
+{
+    if (option == MPAssetFullLink)
+        option = MPAssetEmbedded;
+    return [super htmlForOption:option];
 }
 
 @end
