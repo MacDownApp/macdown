@@ -1,0 +1,5 @@
+language: objective-c
+before_install:
+  - "gem install cocoapods --no-rdoc --no-ri"
+xcode_workspace: MacDown.xcworkspace
+xcode_scheme: MacDown
