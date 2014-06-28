@@ -1,6 +1,6 @@
 # MacDown
 
-![MacDown logo](http://d.pr/i/bEcp+)
+![MacDown logo](http://macdown.uranusjr.com/static/base/img/logo-160.png)
 
 Hello there! I’m **MacDown**, the open source Markdown editor for OS X.
 
