@@ -80,7 +80,7 @@ Currently I support the follwing laguages:
 * Gherken
 * Go
 * Groovy
-* HTTP
+* HTML
 * Java
 * JavaScript
 * Markup (*ML languages such as XML, HTML, etc.)
