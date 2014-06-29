@@ -20,6 +20,7 @@ static NSString * const kMPMathJaxCDN =
 static NSString * const kMPPrismScriptDirectory = @"Prism/components";
 static NSString * const kMPPrismThemeDirectory = @"Prism/themes";
 
+
 static NSArray *MPPrismScriptURLsForLanguage(NSString *language)
 {
     NSURL *baseUrl = nil;
@@ -214,6 +215,7 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
     if (_htmlRenderer)
     {
         _htmlRenderer->blockcode = hoedown_patch_render_blockcode;
+        _htmlRenderer->listitem = hoedown_patch_render_listitem;
 
         rndr_state_ex *state = malloc(sizeof(rndr_state_ex));
         memcpy(state, _htmlRenderer->opaque, sizeof(rndr_state));
