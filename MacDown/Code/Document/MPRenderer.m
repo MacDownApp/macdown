@@ -303,6 +303,13 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
 {
     id<MPRendererDelegate> d = self.delegate;
     NSMutableArray *scripts = [NSMutableArray array];
+    if (self.isTaskListEnabled)
+    {
+        NSBundle *bundle = [NSBundle mainBundle];
+        NSURL *url = [bundle URLForResource:@"tasklist" withExtension:@"js"
+                               subdirectory:@"Extensions"];
+        [scripts addObject:[MPScript javaScriptWithURL:url]];
+    }
     if ([d rendererHasSyntaxHighlighting:self])
         [scripts addObjectsFromArray:self.prismScripts];
     if ([d rendererHasMathJax:self])
