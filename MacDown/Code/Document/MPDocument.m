@@ -16,6 +16,7 @@
 #import "MPPreferences.h"
 #import "MPRenderer.h"
 #import "MPExportPanelAccessoryViewController.h"
+#import "MPJavaScriptHandler.h"
 
 
 static NSString *MPEditorPreferenceKeyWithValueKey(NSString *key)
@@ -76,7 +77,8 @@ static NSDictionary *MPEditorKeysToObserve()
 
 
 @interface MPDocument ()
-    <NSTextViewDelegate, MPRendererDataSource, MPRendererDelegate>
+    <NSTextViewDelegate, MPRendererDataSource, MPRendererDelegate,
+     MPJavaScriptHandlerDelegate>
 
 @property (weak) IBOutlet NSSplitView *splitView;
 @property (unsafe_unretained) IBOutlet NSTextView *editor;
@@ -161,6 +163,10 @@ static NSDictionary *MPEditorKeysToObserve()
 
     self.preview.frameLoadDelegate = self;
     self.preview.policyDelegate = self;
+
+    MPJavaScriptHandler *handler = [[MPJavaScriptHandler alloc] init];
+    handler.delegate = self;
+    [self.preview.windowScriptObject setValue:handler forKey:@"MPJSHandler"];
 
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self
@@ -405,6 +411,14 @@ static NSDictionary *MPEditorKeysToObserve()
         baseUrl = self.preferences.htmlDefaultDirectoryUrl;
     self.isLoadingPreview = YES;
     [self.preview.mainFrame loadHTMLString:html baseURL:baseUrl];
+}
+
+
+#pragma mark - MPJavaScriptHandlerDelegate
+
+- (void)checkboxWithId:(NSUInteger)boxId didChangeValue:(BOOL)checked
+{
+    NSLog(@"Changed: %ld is %@", boxId, checked ? @"checked" : @"unchecked");
 }
 
 

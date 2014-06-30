@@ -307,6 +307,13 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
         [scripts addObjectsFromArray:self.prismScripts];
     if ([d rendererHasMathJax:self])
         [scripts addObjectsFromArray:self.mathjaxScripts];
+    if (self.isTaskListEnabled)
+    {
+        NSBundle *bundle = [NSBundle mainBundle];
+        NSURL *url = [bundle URLForResource:@"tasklist" withExtension:@"js"
+                               subdirectory:@"Extensions"];
+        [scripts addObject:[MPScript javaScriptWithURL:url]];
+    }
     return scripts;
 }
 
