@@ -18,7 +18,7 @@ NSString * const kMPMathJaxConfigType = @"text/x-mathjax-config";
 
 @interface MPAsset ()
 @property (strong) NSURL *url;
-@property (strong) NSString *typeName;
+@property (copy) NSString *typeName;
 @end
 
 
@@ -35,7 +35,7 @@ NSString * const kMPMathJaxConfigType = @"text/x-mathjax-config";
     if (!self)
         return nil;
     self.url = [url copy];
-    self.typeName = [typeName copy];
+    self.typeName = typeName;
     return self;
 }
 

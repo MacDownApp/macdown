@@ -122,11 +122,11 @@ static NSString *MPGetHTML(
 @property (strong) NSTimer *parseDelayTimer;
 @property int extensions;
 @property BOOL smartypants;
-@property NSString *styleName;
+@property (copy) NSString *styleName;
 @property BOOL mathjax;
 @property BOOL syntaxHighlighting;
 @property BOOL manualRender;
-@property NSString *highlightingThemeName;
+@property (copy) NSString *highlightingThemeName;
 
 @end
 
