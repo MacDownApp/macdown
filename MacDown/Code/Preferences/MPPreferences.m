@@ -82,6 +82,7 @@ static NSString * const kMPDefaultHtmlStyleName = @"GitHub2";
 @dynamic editorLineSpacing;
 
 @dynamic htmlStyleName;
+@dynamic htmlTaskList;
 @dynamic htmlMathJax;
 @dynamic htmlMathJaxInlineDollar;
 @dynamic htmlSyntaxHighlighting;

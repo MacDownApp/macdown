@@ -205,6 +205,19 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
 
 #pragma mark - Accessor
 
+- (void)setTaskListEnabled:(int)taskListEnabled
+{
+    if (taskListEnabled == _taskListEnabled)
+        return;
+
+    _taskListEnabled = taskListEnabled;
+    rndr_state_ex *state = self.htmlRenderer->opaque;
+    if (taskListEnabled)
+        state->flags |= HOEDOWN_HTML_USE_TASK_LIST;
+    else
+        state->flags &= !HOEDOWN_HTML_USE_TASK_LIST;
+}
+
 - (void)setHtmlRenderer:(hoedown_renderer *)htmlRenderer
 {
     if (_htmlRenderer)

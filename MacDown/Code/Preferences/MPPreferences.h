@@ -41,6 +41,7 @@ extern NSString * const MPDidDetectFreshInstallationNotification;
 @property (assign) CGFloat editorLineSpacing;
 
 @property (assign) NSString *htmlStyleName;
+@property (assign) BOOL htmlTaskList;
 @property (assign) BOOL htmlMathJax;
 @property (assign) BOOL htmlMathJaxInlineDollar;
 @property (assign) BOOL htmlSyntaxHighlighting;

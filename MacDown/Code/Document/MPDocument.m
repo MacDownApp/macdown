@@ -420,9 +420,12 @@ static NSDictionary *MPEditorKeysToObserve()
 {
     MPRenderer *renderer = self.renderer;
 
-    // Force update if we're switching from manual to auto.
-    if (!self.preferences.markdownManualRender && self.manualRender)
+    // Force update if we're switching from manual to auto, or renderer settings
+    // changed.
+    if ((!self.preferences.markdownManualRender && self.manualRender)
+            || renderer.isTaskListEnabled != self.preferences.htmlTaskList)
     {
+        renderer.taskListEnabled = self.preferences.htmlTaskList;
         [renderer parseAndRenderLater];
     }
     else
