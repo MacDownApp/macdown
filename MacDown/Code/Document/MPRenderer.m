@@ -114,6 +114,7 @@ static NSString *MPGetHTML(
 
 @property (nonatomic, unsafe_unretained) hoedown_renderer *htmlRenderer;
 @property (strong) NSMutableArray *currentLanguages;
+@property (readonly) NSArray *baseStylesheets;
 @property (readonly) NSArray *prismStylesheets;
 @property (readonly) NSArray *prismScripts;
 @property (readonly) NSArray *mathjaxScripts;
@@ -240,6 +241,17 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
     }
 }
 
+- (NSArray *)baseStylesheets
+{
+    NSString *defaultStyleName =
+        MPStylePathForName([self.delegate rendererStyleName:self]);
+    NSURL *defaultStyle = [NSURL fileURLWithPath:defaultStyleName];
+
+    NSMutableArray *stylesheets = [NSMutableArray array];
+    [stylesheets addObject:[MPStyleSheet CSSWithURL:defaultStyle]];
+    return stylesheets;
+}
+
 - (NSArray *)prismStylesheets
 {
     NSString *name = [self.delegate rendererHighlightingThemeName:self];
@@ -281,12 +293,8 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
 
 - (NSArray *)stylesheets
 {
-    id<MPRendererDelegate> d = self.delegate;
-    NSString *defaultStyle = MPStylePathForName([d rendererStyleName:self]);
-    MPStyleSheet *css =
-        [MPStyleSheet CSSWithURL:[NSURL fileURLWithPath:defaultStyle]];
-    NSMutableArray *stylesheets = [NSMutableArray arrayWithObject:css];
-    if ([d rendererHasSyntaxHighlighting:self])
+    NSMutableArray *stylesheets = [self.baseStylesheets mutableCopy];
+    if ([self.delegate rendererHasSyntaxHighlighting:self])
         [stylesheets addObjectsFromArray:self.prismStylesheets];
     return stylesheets;
 }
@@ -405,8 +413,7 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
     if (withStyles)
     {
         stylesOption = MPAssetEmbedded;
-        NSURL *url = [NSURL fileURLWithPath:MPStylePathForName(self.styleName)];
-        [styles addObject:[MPStyleSheet CSSWithURL:url]];
+        [styles addObjectsFromArray:self.baseStylesheets];
     }
     if (withHighlighting)
     {
