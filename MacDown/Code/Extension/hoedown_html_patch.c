@@ -90,7 +90,12 @@ void hoedown_patch_render_listitem(
                 offset = 0;
             }
         }
-		size_t size = text->size - offset;
+        else
+        {
+            HOEDOWN_BUFPUTSL(ob, "<li>");
+            offset = 0;
+        }
+		size_t size = text->size;
 		while (size && text->data[size - offset - 1] == '\n')
 			size--;
 
