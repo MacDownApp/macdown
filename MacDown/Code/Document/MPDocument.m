@@ -9,6 +9,7 @@
 #import "MPDocument.h"
 #import <WebKit/WebKit.h>
 #import <hoedown/html.h>
+#import "hoedown_html_patch.h"
 #import "HGMarkdownHighlighter.h"
 #import "MPUtilities.h"
 #import "NSString+Lookup.h"
@@ -70,6 +71,14 @@ static NSDictionary *MPEditorKeysToObserve()
         flags |= HOEDOWN_EXT_TABLES;
     if (self.extensionUnderline)
         flags |= HOEDOWN_EXT_UNDERLINE;
+    return flags;
+}
+
+- (int)rendererFlags
+{
+    int flags = 0;
+    if (self.htmlTaskList)
+        flags |= HOEDOWN_HTML_USE_TASK_LIST;
     return flags;
 }
 @end
@@ -422,10 +431,11 @@ static NSDictionary *MPEditorKeysToObserve()
 
     // Force update if we're switching from manual to auto, or renderer settings
     // changed.
+    int rendererFlags = self.preferences.rendererFlags;
     if ((!self.preferences.markdownManualRender && self.manualRender)
-            || renderer.taskListEnabled != self.preferences.htmlTaskList)
+            || renderer.rendererFlags != rendererFlags)
     {
-        renderer.taskListEnabled = self.preferences.htmlTaskList;
+        renderer.rendererFlags = rendererFlags;
         [renderer parseAndRenderLater];
     }
     else

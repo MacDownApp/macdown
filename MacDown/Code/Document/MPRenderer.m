@@ -206,17 +206,14 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
 
 #pragma mark - Accessor
 
-- (void)setTaskListEnabled:(int)taskListEnabled
+- (void)setRendererFlags:(int)rendererFlags
 {
-    if (taskListEnabled == _taskListEnabled)
+    if (rendererFlags == _rendererFlags)
         return;
 
-    _taskListEnabled = taskListEnabled;
+    _rendererFlags = rendererFlags;
     rndr_state_ex *state = self.htmlRenderer->opaque;
-    if (taskListEnabled)
-        state->flags |= HOEDOWN_HTML_USE_TASK_LIST;
-    else
-        state->flags &= !HOEDOWN_HTML_USE_TASK_LIST;
+    state->flags = rendererFlags;
 }
 
 - (void)setHtmlRenderer:(hoedown_renderer *)htmlRenderer
@@ -303,7 +300,7 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
 {
     id<MPRendererDelegate> d = self.delegate;
     NSMutableArray *scripts = [NSMutableArray array];
-    if (self.taskListEnabled)
+    if (self.rendererFlags & HOEDOWN_HTML_USE_TASK_LIST)
     {
         NSBundle *bundle = [NSBundle mainBundle];
         NSURL *url = [bundle URLForResource:@"tasklist" withExtension:@"js"
