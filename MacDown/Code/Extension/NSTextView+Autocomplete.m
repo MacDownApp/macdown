@@ -405,7 +405,7 @@ static NSString * const kMPListLineHeadPattern =
     {
         NSBundle *bundle = [NSBundle mainBundle];
         NSString *filePath = [bundle pathForResource:@"data" ofType:@"map"
-                                         inDirectory:@"data"];
+                                         inDirectory:@"Data"];
         map = [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];
     }
     NSData *mapped = map[content];
