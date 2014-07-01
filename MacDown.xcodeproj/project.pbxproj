@@ -49,6 +49,7 @@
 		1FBBD4CB194CA36500BB3C88 /* hoedown_html_patch.c in Sources */ = {isa = PBXBuildFile; fileRef = 1FBBD4CA194CA36500BB3C88 /* hoedown_html_patch.c */; };
 		1FBDFEA11962A25A00BEEA70 /* MPGeneralPreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FBDFE9F1962A25A00BEEA70 /* MPGeneralPreferencesViewController.m */; };
 		1FBDFEA51962A27300BEEA70 /* MPGeneralPreferencesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FBDFEA31962A27300BEEA70 /* MPGeneralPreferencesViewController.xib */; };
+		1FBDFE9C196170FE00BEEA70 /* Extensions in Resources */ = {isa = PBXBuildFile; fileRef = 1FBDFE9B196170FE00BEEA70 /* Extensions */; };
 		1FC29F5C1944FC2600D616C7 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FC29F5B1944FC2600D616C7 /* XCTest.framework */; };
 		1FC29F5E1944FC4F00D616C7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1FCDCA321944F96E00B1F966 /* InfoPlist.strings */; };
 		1FD7F8DE194A0211007ED2A1 /* Data in Resources */ = {isa = PBXBuildFile; fileRef = 1FD7F8DD194A0211007ED2A1 /* Data */; };
@@ -147,6 +148,7 @@
 		1FBDFE9E1962A25A00BEEA70 /* MPGeneralPreferencesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPGeneralPreferencesViewController.h; sourceTree = "<group>"; };
 		1FBDFE9F1962A25A00BEEA70 /* MPGeneralPreferencesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPGeneralPreferencesViewController.m; sourceTree = "<group>"; };
 		1FBDFEA41962A27300BEEA70 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = MacDown/Localization/Base.lproj/MPGeneralPreferencesViewController.xib; sourceTree = SOURCE_ROOT; };
+		1FBDFE9B196170FE00BEEA70 /* Extensions */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Extensions; path = Resources/Extensions; sourceTree = "<group>"; };
 		1FC29F5B1944FC2600D616C7 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		1FCDCA301944F96E00B1F966 /* MacDownTests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MacDownTests-Info.plist"; sourceTree = "<group>"; };
 		1FCDCA311944F96E00B1F966 /* MPPreferencesTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPPreferencesTests.m; sourceTree = "<group>"; };
@@ -254,6 +256,7 @@
 				1FD7F8DD194A0211007ED2A1 /* Data */,
 				1F9A14EE194EEEDD00D1C6A9 /* Styles */,
 				1F9A14F3194EF6A600D1C6A9 /* Themes */,
+				1FBDFE9B196170FE00BEEA70 /* Extensions */,
 				1F0F3BFB195F75F200FC0B3B /* MathJax */,
 				1F8A82D819533E9300B6BF69 /* Prism */,
 				1F4C8E99194AE0B9004BF82E /* MarkdownDocument.icns */,
@@ -521,6 +524,7 @@
 				1F0D9DB3194AC9EE008E1856 /* MPMarkdownPreferencesViewController.xib in Resources */,
 				1F3A47521953E84700293259 /* help.md in Resources */,
 				1F0D9DB4194AC9EE008E1856 /* MainMenu.xib in Resources */,
+				1FBDFE9C196170FE00BEEA70 /* Extensions in Resources */,
 				1FBBD4BE194C952300BB3C88 /* MPExportPanelAccessoryViewController.xib in Resources */,
 				1FA6CDB91952D2CD008D5CA0 /* dsa_pub.pem in Resources */,
 				1F0D9DAD194AC8EF008E1856 /* Images.xcassets in Resources */,

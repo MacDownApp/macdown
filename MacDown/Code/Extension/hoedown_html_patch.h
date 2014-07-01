@@ -9,6 +9,8 @@
 #ifndef MacDown_hoedown_html_patch_h
 #define MacDown_hoedown_html_patch_h
 
+static unsigned int HOEDOWN_HTML_USE_TASK_LIST = (1 << 11);
+
 typedef struct hoedown_buffer hoedown_buffer;
 
 typedef struct rndr_state {
@@ -36,7 +38,8 @@ typedef struct rndr_state_ex {
 	unsigned int flags;
 
 	/* extra callbacks */
-	void (*link_attributes)(hoedown_buffer *ob, const hoedown_buffer *url, void *self);
+	void (*link_attributes)(
+        hoedown_buffer *ob, const hoedown_buffer *url, void *self);
 
     /* More extra callbacks */
     hoedown_buffer *(*language_addition)(const hoedown_buffer *language,
@@ -48,5 +51,8 @@ typedef struct rndr_state_ex {
 void hoedown_patch_render_blockcode(
     hoedown_buffer *ob, const hoedown_buffer *text, const hoedown_buffer *lang,
     void *opaque);
+
+void hoedown_patch_render_listitem(
+    hoedown_buffer *ob, const hoedown_buffer *text, int flags, void *opaque);
 
 #endif

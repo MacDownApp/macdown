@@ -20,6 +20,7 @@ static NSString * const kMPMathJaxCDN =
 static NSString * const kMPPrismScriptDirectory = @"Prism/components";
 static NSString * const kMPPrismThemeDirectory = @"Prism/themes";
 
+
 static NSArray *MPPrismScriptURLsForLanguage(NSString *language)
 {
     NSURL *baseUrl = nil;
@@ -113,6 +114,7 @@ static NSString *MPGetHTML(
 
 @property (nonatomic, unsafe_unretained) hoedown_renderer *htmlRenderer;
 @property (strong) NSMutableArray *currentLanguages;
+@property (readonly) NSArray *baseStylesheets;
 @property (readonly) NSArray *prismStylesheets;
 @property (readonly) NSArray *prismScripts;
 @property (readonly) NSArray *mathjaxScripts;
@@ -204,6 +206,19 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
 
 #pragma mark - Accessor
 
+- (void)setTaskListEnabled:(int)taskListEnabled
+{
+    if (taskListEnabled == _taskListEnabled)
+        return;
+
+    _taskListEnabled = taskListEnabled;
+    rndr_state_ex *state = self.htmlRenderer->opaque;
+    if (taskListEnabled)
+        state->flags |= HOEDOWN_HTML_USE_TASK_LIST;
+    else
+        state->flags &= !HOEDOWN_HTML_USE_TASK_LIST;
+}
+
 - (void)setHtmlRenderer:(hoedown_renderer *)htmlRenderer
 {
     if (_htmlRenderer)
@@ -214,6 +229,7 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
     if (_htmlRenderer)
     {
         _htmlRenderer->blockcode = hoedown_patch_render_blockcode;
+        _htmlRenderer->listitem = hoedown_patch_render_listitem;
 
         rndr_state_ex *state = malloc(sizeof(rndr_state_ex));
         memcpy(state, _htmlRenderer->opaque, sizeof(rndr_state));
@@ -223,6 +239,17 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
         free(_htmlRenderer->opaque);
         _htmlRenderer->opaque = state;
     }
+}
+
+- (NSArray *)baseStylesheets
+{
+    NSString *defaultStyleName =
+        MPStylePathForName([self.delegate rendererStyleName:self]);
+    NSURL *defaultStyle = [NSURL fileURLWithPath:defaultStyleName];
+
+    NSMutableArray *stylesheets = [NSMutableArray array];
+    [stylesheets addObject:[MPStyleSheet CSSWithURL:defaultStyle]];
+    return stylesheets;
 }
 
 - (NSArray *)prismStylesheets
@@ -266,12 +293,8 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
 
 - (NSArray *)stylesheets
 {
-    id<MPRendererDelegate> d = self.delegate;
-    NSString *defaultStyle = MPStylePathForName([d rendererStyleName:self]);
-    MPStyleSheet *css =
-        [MPStyleSheet CSSWithURL:[NSURL fileURLWithPath:defaultStyle]];
-    NSMutableArray *stylesheets = [NSMutableArray arrayWithObject:css];
-    if ([d rendererHasSyntaxHighlighting:self])
+    NSMutableArray *stylesheets = [self.baseStylesheets mutableCopy];
+    if ([self.delegate rendererHasSyntaxHighlighting:self])
         [stylesheets addObjectsFromArray:self.prismStylesheets];
     return stylesheets;
 }
@@ -280,6 +303,13 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
 {
     id<MPRendererDelegate> d = self.delegate;
     NSMutableArray *scripts = [NSMutableArray array];
+    if (self.isTaskListEnabled)
+    {
+        NSBundle *bundle = [NSBundle mainBundle];
+        NSURL *url = [bundle URLForResource:@"tasklist" withExtension:@"js"
+                               subdirectory:@"Extensions"];
+        [scripts addObject:[MPScript javaScriptWithURL:url]];
+    }
     if ([d rendererHasSyntaxHighlighting:self])
         [scripts addObjectsFromArray:self.prismScripts];
     if ([d rendererHasMathJax:self])
@@ -390,8 +420,7 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
     if (withStyles)
     {
         stylesOption = MPAssetEmbedded;
-        NSURL *url = [NSURL fileURLWithPath:MPStylePathForName(self.styleName)];
-        [styles addObject:[MPStyleSheet CSSWithURL:url]];
+        [styles addObjectsFromArray:self.baseStylesheets];
     }
     if (withHighlighting)
     {
