@@ -423,7 +423,7 @@ static NSDictionary *MPEditorKeysToObserve()
     // Force update if we're switching from manual to auto, or renderer settings
     // changed.
     if ((!self.preferences.markdownManualRender && self.manualRender)
-            || renderer.isTaskListEnabled != self.preferences.htmlTaskList)
+            || renderer.taskListEnabled != self.preferences.htmlTaskList)
     {
         renderer.taskListEnabled = self.preferences.htmlTaskList;
         [renderer parseAndRenderLater];

@@ -13,7 +13,7 @@
 
 @interface MPRenderer : NSObject
 
-@property (nonatomic, getter=isTaskListEnabled) int taskListEnabled;
+@property (nonatomic) int taskListEnabled;
 @property (weak) id<MPRendererDataSource> dataSource;
 @property (weak) id<MPRendererDelegate> delegate;
 

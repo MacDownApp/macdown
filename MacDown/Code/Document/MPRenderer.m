@@ -303,7 +303,7 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
 {
     id<MPRendererDelegate> d = self.delegate;
     NSMutableArray *scripts = [NSMutableArray array];
-    if (self.isTaskListEnabled)
+    if (self.taskListEnabled)
     {
         NSBundle *bundle = [NSBundle mainBundle];
         NSURL *url = [bundle URLForResource:@"tasklist" withExtension:@"js"
