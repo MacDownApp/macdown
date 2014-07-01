@@ -8,8 +8,10 @@
 
 #import "MPMainController.h"
 #import <MASPreferences/MASPreferencesWindowController.h>
+#import <Sparkle/SUUpdater.h>
 #import "MPUtilities.h"
 #import "MPPreferences.h"
+#import "MPGeneralPreferencesViewController.h"
 #import "MPMarkdownPreferencesViewController.h"
 #import "MPEditorPreferencesViewController.h"
 #import "MPHtmlPreferencesViewController.h"
@@ -34,6 +36,7 @@
     if (!_preferencesWindowController)
     {
         NSArray *vcs = @[
+            [[MPGeneralPreferencesViewController alloc] init],
             [[MPMarkdownPreferencesViewController alloc] init],
             [[MPEditorPreferencesViewController alloc] init],
             [[MPHtmlPreferencesViewController alloc] init],
@@ -93,6 +96,16 @@
                  object:self.prefereces];
     [self copyFiles];
     return self;
+}
+
+
+#pragma mark - SUUpdaterDelegate
+
+- (NSString *)feedURLStringForUpdater:(SUUpdater *)updater
+{
+    if (self.prefereces.updateIncludesPreReleases)
+        return [NSBundle mainBundle].infoDictionary[@"SUBetaFeedURL"];
+    return [NSBundle mainBundle].infoDictionary[@"SUFeedURL"];
 }
 
 

@@ -15,6 +15,7 @@ extern NSString * const MPDidDetectFreshInstallationNotification;
 
 @property (assign) NSString *firstVersionInstalled;
 @property (assign) NSString *latestVersionInstalled;
+@property (assign) BOOL updateIncludesPreReleases;
 
 // Extension flags.
 @property (assign) BOOL extensionIntraEmphasis;

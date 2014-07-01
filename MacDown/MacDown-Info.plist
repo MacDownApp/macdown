@@ -78,6 +78,8 @@
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<key>SUBetaFeedURL</key>
+	<string>http://macdown.uranusjr.com/sparkle/macdown-beta/appcast.xml</string>
 	<key>SUFeedURL</key>
 	<string>http://macdown.uranusjr.com/sparkle/macdown/appcast.xml</string>
 	<key>SUPublicDSAKeyFile</key>
