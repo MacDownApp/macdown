@@ -84,6 +84,7 @@ static NSString * const kMPDefaultHtmlStyleName = @"GitHub2";
 
 @dynamic htmlStyleName;
 @dynamic htmlTaskList;
+@dynamic htmlHardWrap;
 @dynamic htmlMathJax;
 @dynamic htmlMathJaxInlineDollar;
 @dynamic htmlSyntaxHighlighting;

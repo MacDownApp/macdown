@@ -79,6 +79,8 @@ static NSDictionary *MPEditorKeysToObserve()
     int flags = 0;
     if (self.htmlTaskList)
         flags |= HOEDOWN_HTML_USE_TASK_LIST;
+    if (self.htmlHardWrap)
+        flags |= HOEDOWN_HTML_HARD_WRAP;
     return flags;
 }
 @end
