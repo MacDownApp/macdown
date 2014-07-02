@@ -695,6 +695,14 @@ static NSDictionary *MPEditorKeysToObserve()
     [self.splitView setPosition:width ofDividerAtIndex:0];
 }
 
+- (IBAction)hidePreivewPane:(id)sender
+{
+  CGFloat dividerThickness = self.splitView.dividerThickness;
+  CGFloat width = (self.splitView.frame.size.width - dividerThickness);
+
+  [self.splitView setPosition:width ofDividerAtIndex:0];
+}
+
 - (IBAction)render:(id)sender
 {
     [self.renderer parseAndRenderLater];
