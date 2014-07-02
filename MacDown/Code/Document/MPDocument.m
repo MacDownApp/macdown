@@ -503,10 +503,7 @@ static NSDictionary *MPEditorKeysToObserve()
         [[MPExportPanelAccessoryViewController alloc] init];
     panel.accessoryView = controller.view;
 
-    NSWindow *w = nil;
-    NSArray *windowControllers = self.windowControllers;
-    if (windowControllers.count)
-        w = [windowControllers[0] window];
+    NSWindow *w = self.windowForSheet;
     [panel beginSheetModalForWindow:w completionHandler:^(NSInteger result) {
         if (result != NSFileHandlingPanelOKButton)
             return;
