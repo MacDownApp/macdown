@@ -222,14 +222,6 @@ static NSDictionary *MPEditorKeysToObserve()
     return [super prepareSavePanel:savePanel];
 }
 
-- (NSPrintOperation *)printOperationWithSettings:(NSDictionary *)printSettings
-                                           error:(NSError *__autoreleasing *)e
-{
-    WebFrameView *frameView = self.preview.mainFrame.frameView;
-    NSPrintInfo *printInfo = self.printInfo;
-    return [frameView printOperationWithPrintInfo:printInfo];
-}
-
 
 #pragma mark - NSTextViewDelegate
 
@@ -474,6 +466,15 @@ static NSDictionary *MPEditorKeysToObserve()
 
 
 #pragma mark - IBAction
+
+- (IBAction)printDocument:(id)sender
+{
+    NSPrintOperation *operation =
+        [NSPrintOperation printOperationWithView:self.preview];
+    [operation runOperationModalForWindow:self.windowForSheet
+                                 delegate:nil didRunSelector:NULL
+                              contextInfo:NULL];
+}
 
 - (IBAction)copyHtml:(id)sender
 {
