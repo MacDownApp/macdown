@@ -108,9 +108,6 @@ static NSDictionary *MPEditorKeysToObserve()
     right.frame = NSMakeRect(leftWidth + dividerThickness, 0.0,
                              rightWidth, right.frame.size.height);
     [self setPosition:leftWidth ofDividerAtIndex:0];
-
-    left.hidden = (leftWidth == 0.0);
-    right.hidden = (rightWidth == 0.0);
 }
 
 @end
@@ -126,6 +123,7 @@ static NSDictionary *MPEditorKeysToObserve()
 @property (strong) MPRenderer *renderer;
 @property BOOL manualRender;
 @property BOOL previewFlushDisabled;
+@property (readonly) BOOL previewVisible;
 @property BOOL isLoadingPreview;
 
 // Store file content in initializer until nib is loaded.
@@ -142,6 +140,11 @@ static NSDictionary *MPEditorKeysToObserve()
 - (MPPreferences *)preferences
 {
     return [MPPreferences sharedInstance];
+}
+
+- (BOOL)previewVisible
+{
+    return self.preview.frame.size.width;
 }
 
 
@@ -177,10 +180,6 @@ static NSDictionary *MPEditorKeysToObserve()
         [self.editor addObserver:self forKeyPath:key
                          options:NSKeyValueObservingOptionNew context:NULL];
     }
-    NSKeyValueObservingOptions options =
-        NSKeyValueObservingOptionOld|NSKeyValueObservingOptionNew;
-    [self.preview addObserver:self forKeyPath:@"hidden" options:options
-                     context:NULL];
 
     self.preview.frameLoadDelegate = self;
     self.preview.policyDelegate = self;
@@ -229,7 +228,6 @@ static NSDictionary *MPEditorKeysToObserve()
                     object:self.editor.enclosingScrollView.contentView];
     for (NSString *key in MPEditorKeysToObserve())
         [self.editor removeObserver:self forKeyPath:key];
-    [self.preview removeObserver:self forKeyPath:@"hidden"];
 
     [super canCloseDocumentWithDelegate:delegate shouldCloseSelector:selector
                             contextInfo:context];
@@ -454,7 +452,7 @@ static NSDictionary *MPEditorKeysToObserve()
 
 - (void)textDidChange:(NSNotification *)notification
 {
-    if (!self.preferences.markdownManualRender && !self.preview.isHidden)
+    if (!self.preferences.markdownManualRender && self.previewVisible)
         [self.renderer parseAndRenderLater];
 }
 
@@ -510,13 +508,6 @@ static NSDictionary *MPEditorKeysToObserve()
         NSString *preferenceKey = MPEditorPreferenceKeyWithValueKey(keyPath);
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         [defaults setObject:value forKey:preferenceKey];
-    }
-    else if (object == self.preview && [keyPath isEqualToString:@"hidden"])
-    {
-        BOOL wasHidden = [change[NSKeyValueChangeOldKey] boolValue];
-        BOOL isHidden = [change[NSKeyValueChangeNewKey] boolValue];
-        if (wasHidden && !isHidden && !self.preferences.markdownManualRender)
-            [self.renderer parseAndRenderNow];
     }
 }
 
@@ -739,22 +730,22 @@ static NSDictionary *MPEditorKeysToObserve()
 
 - (IBAction)setEditorOneQuarter:(id)sender
 {
-    [self.splitView setDividerLocation:0.25];
+    [self setSplitViewDividerLocation:0.25];
 }
 
 - (IBAction)setEditorThreeQuarters:(id)sender
 {
-    [self.splitView setDividerLocation:0.75];
+    [self setSplitViewDividerLocation:0.75];
 }
 
 - (IBAction)setEqualSplit:(id)sender
 {
-    [self.splitView setDividerLocation:0.5];
+    [self setSplitViewDividerLocation:0.5];
 }
 
 - (IBAction)hidePreivewPane:(id)sender
 {
-    [self.splitView setDividerLocation:1.0];
+    [self setSplitViewDividerLocation:1.0];
 }
 
 - (IBAction)render:(id)sender
@@ -843,6 +834,15 @@ static NSDictionary *MPEditorKeysToObserve()
         ratio * (previewDocumentView.frame.size.height
                  - previewContentBounds.size.height);
     previewContentView.bounds = previewContentBounds;
+}
+
+- (void)setSplitViewDividerLocation:(CGFloat)ratio
+{
+    BOOL wasVisible = self.previewVisible;
+    [self.splitView setDividerLocation:ratio];
+    if (!wasVisible && self.previewVisible
+            && !self.preferences.markdownManualRender)
+        [self.renderer parseAndRenderNow];
 }
 
 @end

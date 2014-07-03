@@ -400,11 +400,7 @@
                             <menuItem title="Render Markdown" keyEquivalent="r" id="Vh1-jg-bbV">
                                 <connections>
                                     <action selector="render:" target="-1" id="rvl-Jx-Hji"/>
-                                    <binding destination="LEY-zf-22t" name="enabled" keyPath="self.currentDocument.preview.hidden" id="Vef-Kf-tfW">
-                                        <dictionary key="options">
-                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
-                                        </dictionary>
-                                    </binding>
+                                    <binding destination="LEY-zf-22t" name="enabled" keyPath="self.currentDocument.previewVisible" id="5e7-rJ-oX2"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="onf-Mq-Pah"/>
