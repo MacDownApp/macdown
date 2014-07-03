@@ -400,15 +400,39 @@
                             <menuItem title="Render Markdown" keyEquivalent="r" id="Vh1-jg-bbV">
                                 <connections>
                                     <action selector="render:" target="-1" id="rvl-Jx-Hji"/>
+                                    <binding destination="LEY-zf-22t" name="enabled" keyPath="self.currentDocument.preview.hidden" id="Vef-Kf-tfW">
+                                        <dictionary key="options">
+                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                        </dictionary>
+                                    </binding>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="onf-Mq-Pah"/>
-                            <menuItem title="Reset Split" keyEquivalent="0" id="0Ru-nh-aAm">
-                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                            <menuItem title="Editor 1:3 Preview" id="VW7-VH-9yl">
+                                <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="resetSplit:" target="-1" id="bAu-TE-kkp"/>
+                                    <action selector="setEditorOneQuarter:" target="-1" id="kyy-J2-6rx"/>
                                 </connections>
                             </menuItem>
+                            <menuItem title="Editor 1:1 Preview" keyEquivalent="0" id="hOV-YQ-vzy">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                <connections>
+                                    <action selector="setEqualSplit:" target="-1" id="fJH-RN-c01"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Editor 3:1 Preview" id="NZX-Ev-sWt">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="setEditorThreeQuarters:" target="-1" id="IEv-Wg-wJA"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Hide Preview Pane" id="T74-vt-YUA">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="hidePreivewPane:" target="-1" id="99p-A1-4FF"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="Cux-kV-g5Z"/>
                             <menuItem title="Enter Full Screen" keyEquivalent="f" id="1gz-YB-DZE">
                                 <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
                                 <connections>
@@ -616,6 +640,7 @@ DQ
                 <outlet property="delegate" destination="eq0-c4-vgQ" id="UJV-6a-eCL"/>
             </connections>
         </customObject>
+        <customObject id="LEY-zf-22t" customClass="NSDocumentController"/>
         <userDefaultsController representsSharedInstance="YES" id="ow1-Qr-nTV"/>
     </objects>
 </document>
