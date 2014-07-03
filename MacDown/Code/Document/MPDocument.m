@@ -136,29 +136,6 @@ static NSDictionary *MPEditorKeysToObserve()
 
 @implementation MPDocument
 
-- (void)dealloc
-{
-    // Need to cleanup these so that callbacks won't crash the app.
-    [self.highlighter deactivate];
-    self.highlighter.targetTextView = nil;
-    self.preview.frameLoadDelegate = nil;
-    self.preview.policyDelegate = nil;
-
-    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    [center removeObserver:self
-                      name:NSTextDidChangeNotification
-                    object:self.editor];
-    [center removeObserver:self
-                      name:NSUserDefaultsDidChangeNotification
-                    object:[NSUserDefaults standardUserDefaults]];
-    [center removeObserver:self
-                      name:NSViewBoundsDidChangeNotification
-                    object:self.editor.enclosingScrollView.contentView];
-    for (NSString *key in MPEditorKeysToObserve())
-        [self.editor removeObserver:self forKeyPath:key];
-    [self.preview removeObserver:self forKeyPath:@"hidden"];
-}
-
 
 #pragma mark - Accessor
 
@@ -229,6 +206,33 @@ static NSDictionary *MPEditorKeysToObserve()
         [self.renderer parseAndRenderNow];
         [self.highlighter parseAndHighlightNow];
     }
+}
+
+- (void)canCloseDocumentWithDelegate:(id)delegate
+                 shouldCloseSelector:(SEL)selector contextInfo:(void *)context
+{
+    // Need to cleanup these so that callbacks won't crash the app.
+    [self.highlighter deactivate];
+    self.highlighter.targetTextView = nil;
+    self.preview.frameLoadDelegate = nil;
+    self.preview.policyDelegate = nil;
+
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center removeObserver:self
+                      name:NSTextDidChangeNotification
+                    object:self.editor];
+    [center removeObserver:self
+                      name:NSUserDefaultsDidChangeNotification
+                    object:[NSUserDefaults standardUserDefaults]];
+    [center removeObserver:self
+                      name:NSViewBoundsDidChangeNotification
+                    object:self.editor.enclosingScrollView.contentView];
+    for (NSString *key in MPEditorKeysToObserve())
+        [self.editor removeObserver:self forKeyPath:key];
+    [self.preview removeObserver:self forKeyPath:@"hidden"];
+
+    [super canCloseDocumentWithDelegate:delegate shouldCloseSelector:selector
+                            contextInfo:context];
 }
 
 + (BOOL)autosavesInPlace
