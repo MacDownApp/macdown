@@ -86,6 +86,36 @@ static NSDictionary *MPEditorKeysToObserve()
 @end
 
 
+@implementation NSSplitView (TwoItems)
+
+- (void)setDividerLocation:(CGFloat)ratio
+{
+    NSArray *parts = self.subviews;
+    NSAssert1(parts.count == 2, @"%@ should only be used on two-item splits.",
+              NSStringFromSelector(_cmd));
+    if (ratio < 0.0)
+        ratio = 0.0;
+    else if (ratio > 1.0)
+        ratio = 1.0;
+    CGFloat dividerThickness = self.dividerThickness;
+    CGFloat totalWidth = self.frame.size.width - dividerThickness;
+    CGFloat leftWidth = totalWidth * ratio;
+    CGFloat rightWidth = totalWidth - leftWidth;
+    NSView *left = parts[0];
+    NSView *right = parts[1];
+
+    left.frame = NSMakeRect(0.0, 0.0, leftWidth, left.frame.size.height);
+    right.frame = NSMakeRect(leftWidth + dividerThickness, 0.0,
+                             rightWidth, right.frame.size.height);
+    [self setPosition:leftWidth ofDividerAtIndex:0];
+
+    left.hidden = (leftWidth == 0.0);
+    right.hidden = (rightWidth == 0.0);
+}
+
+@end
+
+
 @interface MPDocument ()
     <NSTextViewDelegate, MPRendererDataSource, MPRendererDelegate>
 
@@ -126,6 +156,7 @@ static NSDictionary *MPEditorKeysToObserve()
                     object:self.editor.enclosingScrollView.contentView];
     for (NSString *key in MPEditorKeysToObserve())
         [self.editor removeObserver:self forKeyPath:key];
+    [self.preview removeObserver:self forKeyPath:@"hidden"];
 }
 
 
@@ -169,6 +200,10 @@ static NSDictionary *MPEditorKeysToObserve()
         [self.editor addObserver:self forKeyPath:key
                          options:NSKeyValueObservingOptionNew context:NULL];
     }
+    NSKeyValueObservingOptions options =
+        NSKeyValueObservingOptionOld|NSKeyValueObservingOptionNew;
+    [self.preview addObserver:self forKeyPath:@"hidden" options:options
+                     context:NULL];
 
     self.preview.frameLoadDelegate = self;
     self.preview.policyDelegate = self;
@@ -415,7 +450,7 @@ static NSDictionary *MPEditorKeysToObserve()
 
 - (void)textDidChange:(NSNotification *)notification
 {
-    if (!self.preferences.markdownManualRender)
+    if (!self.preferences.markdownManualRender && !self.preview.isHidden)
         [self.renderer parseAndRenderLater];
 }
 
@@ -456,12 +491,22 @@ static NSDictionary *MPEditorKeysToObserve()
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object
                         change:(NSDictionary *)change context:(void *)context
 {
-    if (!self.highlighter.isActive)
-        return;
-    id value = change[NSKeyValueChangeNewKey];
-    NSString *preferenceKey = MPEditorPreferenceKeyWithValueKey(keyPath);
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:value forKey:preferenceKey];
+    if (object == self.editor)
+    {
+        if (!self.highlighter.isActive)
+            return;
+        id value = change[NSKeyValueChangeNewKey];
+        NSString *preferenceKey = MPEditorPreferenceKeyWithValueKey(keyPath);
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setObject:value forKey:preferenceKey];
+    }
+    else if (object == self.preview && [keyPath isEqualToString:@"hidden"])
+    {
+        BOOL wasHidden = [change[NSKeyValueChangeOldKey] boolValue];
+        BOOL isHidden = [change[NSKeyValueChangeNewKey] boolValue];
+        if (wasHidden && !isHidden && !self.preferences.markdownManualRender)
+            [self.renderer parseAndRenderNow];
+    }
 }
 
 
@@ -681,26 +726,24 @@ static NSDictionary *MPEditorKeysToObserve()
     [self.editor insertText:@"&#39;"];
 }
 
-- (IBAction)resetSplit:(id)sender
+- (IBAction)setEditorOneQuarter:(id)sender
 {
-    CGFloat dividerThickness = self.splitView.dividerThickness;
-    CGFloat width = (self.splitView.frame.size.width - dividerThickness) / 2.0;
-    NSArray *parts = self.splitView.subviews;
-    NSView *left = parts[0];
-    NSView *right = parts[1];
+    [self.splitView setDividerLocation:0.25];
+}
 
-    left.frame = NSMakeRect(0.0, 0.0, width, left.frame.size.height);
-    right.frame = NSMakeRect(width + dividerThickness, 0.0,
-                             width, right.frame.size.height);
-    [self.splitView setPosition:width ofDividerAtIndex:0];
+- (IBAction)setEditorThreeQuarters:(id)sender
+{
+    [self.splitView setDividerLocation:0.75];
+}
+
+- (IBAction)setEqualSplit:(id)sender
+{
+    [self.splitView setDividerLocation:0.5];
 }
 
 - (IBAction)hidePreivewPane:(id)sender
 {
-  CGFloat dividerThickness = self.splitView.dividerThickness;
-  CGFloat width = (self.splitView.frame.size.width - dividerThickness);
-
-  [self.splitView setPosition:width ofDividerAtIndex:0];
+    [self.splitView setDividerLocation:1.0];
 }
 
 - (IBAction)render:(id)sender
