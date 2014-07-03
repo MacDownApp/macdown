@@ -166,6 +166,7 @@ static NSDictionary *MPEditorKeysToObserve()
     if (self.fileURL)
         autosaveName = self.fileURL.absoluteString;
     controller.window.frameAutosaveName = autosaveName;
+    self.splitView.autosaveName = autosaveName;
 
     self.highlighter =
         [[HGMarkdownHighlighter alloc] initWithTextView:self.editor
