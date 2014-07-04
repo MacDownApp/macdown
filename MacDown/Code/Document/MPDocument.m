@@ -110,6 +110,13 @@ static NSDictionary *MPEditorKeysToObserve()
     [self setPosition:leftWidth ofDividerAtIndex:0];
 }
 
+- (void)swapViews {
+    NSArray *parts = self.subviews;
+    NSView *left = parts[0];
+    NSView *right = parts[1];
+    self.subviews = @[right, left];
+}
+
 @end
 
 
@@ -205,6 +212,10 @@ static NSDictionary *MPEditorKeysToObserve()
         self.loadedString = nil;
         [self.renderer parseAndRenderNow];
         [self.highlighter parseAndHighlightNow];
+    }
+    
+    if (self.preferences.editorOnRight) {
+        [self.splitView swapViews];
     }
 }
 
@@ -747,6 +758,12 @@ static NSDictionary *MPEditorKeysToObserve()
 - (IBAction)hidePreivewPane:(id)sender
 {
     [self setSplitViewDividerLocation:1.0];
+}
+
+- (IBAction)swapPane:(id)sender
+{
+    [self.splitView swapViews];
+    self.preferences.editorOnRight = !self.preferences.editorOnRight;
 }
 
 - (IBAction)render:(id)sender

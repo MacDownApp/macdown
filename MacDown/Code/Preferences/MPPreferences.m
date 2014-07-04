@@ -81,6 +81,7 @@ static NSString * const kMPDefaultHtmlStyleName = @"GitHub2";
 @dynamic editorHorizontalInset;
 @dynamic editorVerticalInset;
 @dynamic editorLineSpacing;
+@dynamic editorOnRight;
 
 @dynamic htmlStyleName;
 @dynamic htmlTaskList;
@@ -127,6 +128,7 @@ static NSString * const kMPDefaultHtmlStyleName = @"GitHub2";
     self.editorVerticalInset = kMPDefaultEditorVerticalInset;
     self.editorLineSpacing = kMPDefaultEditorLineSpacing;
     self.editorSyncScrolling = kMPDefaultEditorSyncScrolling;
+    self.editorOnRight = NO;
     self.htmlStyleName = kMPDefaultHtmlStyleName;
     self.htmlDefaultDirectoryUrl = [NSURL fileURLWithPath:NSHomeDirectory()
                                               isDirectory:YES];

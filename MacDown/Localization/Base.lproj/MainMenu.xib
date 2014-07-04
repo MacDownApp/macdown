@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5056" systemVersion="14A261i" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment defaultVersion="1080" identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="5056"/>
@@ -194,7 +194,7 @@
                                                 <action selector="insertLt:" target="-1" id="sL8-Qy-kLF"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title=">" keyEquivalent="." id="wbb-Cn-yYW">
+                                        <menuItem title="&gt;" keyEquivalent="." id="wbb-Cn-yYW">
                                             <modifierMask key="keyEquivalentModifierMask" shift="YES" control="YES"/>
                                             <connections>
                                                 <action selector="insertGt:" target="-1" id="gWv-bY-uAU"/>
@@ -426,6 +426,12 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="hidePreivewPane:" target="-1" id="99p-A1-4FF"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Swap Pane" id="PQk-qQ-R0r">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="swapPane:" target="-1" id="YoW-1o-JdR"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="Cux-kV-g5Z"/>
