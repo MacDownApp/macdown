@@ -40,6 +40,7 @@ void styleparsing_error_callback(char *error_message, int line_number, void *con
 }
 
 @property(strong) NSTimer *updateTimer;
+@property(strong) NSTimer *highlightTimer;
 @property(copy) NSColor *defaultTextColor;
 @property(strong) NSThread *workerThread;
 @property(strong) NSDictionary *defaultTypingAttributes;
@@ -453,6 +454,12 @@ void styleparsing_error_callback(char *error_message, int line_number, void *con
 	[self requestParsing];
 }
 
+- (void)highlightTimerFire:(NSTimer *)timer
+{
+    self.highlightTimer = nil;
+    [self applyVisibleRangeHighlighting];
+}
+
 
 - (void) textViewTextDidChange:(NSNotification *)notification
 {
@@ -472,7 +479,12 @@ void styleparsing_error_callback(char *error_message, int line_number, void *con
 {
 	if (_cachedElements == NULL)
 		return;
-    [self applyVisibleRangeHighlighting];
+    [self.highlightTimer invalidate];
+    self.highlightTimer = nil;
+    self.highlightTimer = [NSTimer scheduledTimerWithTimeInterval:0.05
+                                                           target:self
+                                                         selector:@selector(highlightTimerFire:)
+                                                         userInfo:NULL repeats:NO];
 }
 
 
