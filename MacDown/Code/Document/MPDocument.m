@@ -121,6 +121,33 @@ static NSDictionary *MPEditorKeysToObserve()
 @end
 
 
+@implementation DOMNode (Text)
+
+- (NSString *)text
+{
+    NSMutableString *text = [NSMutableString string];
+    switch (self.nodeType)
+    {
+        case 1:
+        case 9:
+        case 11:
+            if (self.textContent.length)
+                return self.textContent;
+            for (DOMNode *c = self.firstChild; c; c = c.nextSibling)
+                [text appendString:c.text];
+            break;
+        case 3:
+        case 4:
+            return self.nodeValue;
+        default:
+            break;
+    }
+    return text;
+}
+
+@end
+
+
 @interface MPDocument ()
     <NSTextViewDelegate, MPRendererDataSource, MPRendererDelegate>
 
