@@ -110,7 +110,8 @@ static NSDictionary *MPEditorKeysToObserve()
     [self setPosition:leftWidth ofDividerAtIndex:0];
 }
 
-- (void)swapViews {
+- (void)swapViews
+{
     NSArray *parts = self.subviews;
     NSView *left = parts[0];
     NSView *right = parts[1];
@@ -214,9 +215,8 @@ static NSDictionary *MPEditorKeysToObserve()
         [self.highlighter parseAndHighlightNow];
     }
     
-    if (self.preferences.editorOnRight) {
+    if (self.preferences.editorOnRight)
         [self.splitView swapViews];
-    }
 }
 
 - (void)canCloseDocumentWithDelegate:(id)delegate
@@ -494,9 +494,8 @@ static NSDictionary *MPEditorKeysToObserve()
         [self setupEditor];
     
     if ((self.preferences.editorOnRight && self.splitView.subviews[1] == self.preview)
-            || (!self.preferences.editorOnRight && self.splitView.subviews[0] == self.preview)) {
+            || (!self.preferences.editorOnRight && self.splitView.subviews[0] == self.preview))
         [self.splitView swapViews];
-    }
 }
 
 - (void)boundsDidChange:(NSNotification *)notification
@@ -762,7 +761,10 @@ static NSDictionary *MPEditorKeysToObserve()
 
 - (IBAction)hidePreivewPane:(id)sender
 {
-    [self setSplitViewDividerLocation:1.0];
+    if (self.preferences.editorOnRight)
+        [self setSplitViewDividerLocation:0.0];
+    else
+        [self setSplitViewDividerLocation:1.0];
 }
 
 - (IBAction)render:(id)sender
