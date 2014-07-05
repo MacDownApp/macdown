@@ -492,9 +492,10 @@ static NSDictionary *MPEditorKeysToObserve()
 
     if (self.highlighter.isActive)
         [self setupEditor];
-    
-    if ((self.preferences.editorOnRight && self.splitView.subviews[1] == self.preview)
-            || (!self.preferences.editorOnRight && self.splitView.subviews[0] == self.preview))
+
+    NSArray *parts = self.splitView.subviews;
+    if ((self.preferences.editorOnRight && parts[1] == self.preview)
+            || (!self.preferences.editorOnRight && parts[0] == self.preview))
         [self.splitView swapViews];
 }
 
