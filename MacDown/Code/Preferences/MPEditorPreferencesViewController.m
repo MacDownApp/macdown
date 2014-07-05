@@ -30,7 +30,7 @@
 
 - (NSImage *)toolbarItemImage
 {
-    return [NSImage imageNamed:NSImageNameFontPanel];
+    return [NSImage imageNamed:@"PreferencesEditor"];
 }
 
 - (NSString *)toolbarItemLabel

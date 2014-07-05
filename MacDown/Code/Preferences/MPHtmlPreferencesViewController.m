@@ -35,7 +35,7 @@ static NSString *MPPrismDefaultThemeName()
 
 - (NSImage *)toolbarItemImage
 {
-    return [NSImage imageNamed:NSImageNameColorPanel];
+    return [NSImage imageNamed:@"PreferencesRendering"];
 }
 
 - (NSString *)toolbarItemLabel
