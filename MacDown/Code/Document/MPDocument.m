@@ -47,6 +47,23 @@ static NSDictionary *MPEditorKeysToObserve()
 }
 
 
+@implementation NSString (WordCount)
+
+- (NSUInteger)numberOfWords
+{
+    __block NSUInteger count = 0;
+    NSStringEnumerationOptions options =
+        NSStringEnumerationByWords | NSStringEnumerationSubstringNotRequired;
+    [self enumerateSubstringsInRange:NSMakeRange(0, self.length)
+                             options:options usingBlock:
+     ^(NSString *str, NSRange strRange, NSRange enclosingRange, BOOL *stop) {
+         count++;
+     }];
+    return count;
+}
+
+@end
+
 @implementation MPPreferences (Hoedown)
 - (int)extensionFlags
 {
@@ -154,6 +171,7 @@ static NSDictionary *MPEditorKeysToObserve()
 @property (weak) IBOutlet NSSplitView *splitView;
 @property (unsafe_unretained) IBOutlet NSTextView *editor;
 @property (weak) IBOutlet WebView *preview;
+@property (strong) NSTextField *wordCountLabel;
 @property (strong) HGMarkdownHighlighter *highlighter;
 @property (strong) MPRenderer *renderer;
 @property BOOL manualRender;
@@ -244,6 +262,34 @@ static NSDictionary *MPEditorKeysToObserve()
     
     if (self.preferences.editorOnRight)
         [self.splitView swapViews];
+
+    // Add word count label to title bar.
+    NSWindow *window = self.windowForSheet;
+    NSView *contentView = window.contentView;
+    NSTextField *wordCounter = [[NSTextField alloc] initWithFrame:NSZeroRect];
+    wordCounter.bezeled = NO;
+    wordCounter.drawsBackground = NO;
+    wordCounter.editable = NO;
+    wordCounter.alignment = NSRightTextAlignment;
+    wordCounter.textColor = [NSColor disabledControlTextColor];
+
+    NSRect oFrame = contentView.superview.frame;
+    NSRect iFrame = contentView.frame;
+    CGFloat width = 100.0;      // TODO: How can we better determine this?
+    CGFloat height = oFrame.size.height - iFrame.size.height - 1.0;
+    CGFloat x = window.frame.size.width - width - 25.0;
+    wordCounter.frame = NSMakeRect(x, iFrame.size.height - 1.0, width, height);
+    wordCounter.autoresizingMask = NSViewMinXMargin | NSViewMinYMargin;
+    [contentView.superview addSubview:wordCounter];
+
+    NSNumberFormatter *fmtr = [[NSNumberFormatter alloc] init];
+    fmtr.allowsFloats = NO;
+    fmtr.minimum = 0;
+    fmtr.positivePrefix = NSLocalizedString(@"", @"Word counter prefix");
+    fmtr.positiveSuffix = NSLocalizedString(@" words", @"Word counter suffix");
+    wordCounter.formatter = fmtr;
+    self.wordCountLabel = wordCounter;
+
 }
 
 - (void)canCloseDocumentWithDelegate:(id)delegate
@@ -386,6 +432,9 @@ static NSDictionary *MPEditorKeysToObserve()
         }
         [self syncScrollers];
     }];
+
+    NSString *text = sender.mainFrame.DOMDocument.text;
+    self.wordCountLabel.integerValue = text.numberOfWords;
 }
 
 - (void)webView:(WebView *)sender didFailLoadWithError:(NSError *)error
