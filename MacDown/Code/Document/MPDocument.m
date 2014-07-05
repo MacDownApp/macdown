@@ -492,6 +492,11 @@ static NSDictionary *MPEditorKeysToObserve()
 
     if (self.highlighter.isActive)
         [self setupEditor];
+    
+    if ((self.preferences.editorOnRight && self.splitView.subviews[1] == self.preview)
+            || (!self.preferences.editorOnRight && self.splitView.subviews[0] == self.preview)) {
+        [self.splitView swapViews];
+    }
 }
 
 - (void)boundsDidChange:(NSNotification *)notification
@@ -758,12 +763,6 @@ static NSDictionary *MPEditorKeysToObserve()
 - (IBAction)hidePreivewPane:(id)sender
 {
     [self setSplitViewDividerLocation:1.0];
-}
-
-- (IBAction)swapPane:(id)sender
-{
-    [self.splitView swapViews];
-    self.preferences.editorOnRight = !self.preferences.editorOnRight;
 }
 
 - (IBAction)render:(id)sender

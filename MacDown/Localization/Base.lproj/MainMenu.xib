@@ -428,12 +428,6 @@
                                     <action selector="hidePreivewPane:" target="-1" id="99p-A1-4FF"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Swap Pane" id="PQk-qQ-R0r">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="swapPane:" target="-1" id="YoW-1o-JdR"/>
-                                </connections>
-                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="Cux-kV-g5Z"/>
                             <menuItem title="Enter Full Screen" keyEquivalent="f" id="1gz-YB-DZE">
                                 <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
