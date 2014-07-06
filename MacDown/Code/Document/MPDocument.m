@@ -124,15 +124,23 @@ static NSDictionary *MPEditorKeysToObserve()
 @interface MPDocument ()
     <NSTextViewDelegate, MPRendererDataSource, MPRendererDelegate>
 
+typedef NS_ENUM(NSInteger, MPWordCountType) {
+    MPWordCountTypeWord,
+    MPWordCountTypeCharacter,
+    MPWordCountTypeCharacterNoSpaces
+};
+
 @property (weak) IBOutlet NSSplitView *splitView;
 @property (unsafe_unretained) IBOutlet NSTextView *editor;
 @property (weak) IBOutlet WebView *preview;
+@property (weak) IBOutlet NSButton *wordCount;
 @property (strong) HGMarkdownHighlighter *highlighter;
 @property (strong) MPRenderer *renderer;
 @property BOOL manualRender;
 @property BOOL previewFlushDisabled;
 @property (readonly) BOOL previewVisible;
 @property BOOL isLoadingPreview;
+@property (strong) NSTimer *wordCountDelayTimer;
 
 // Store file content in initializer until nib is loaded.
 @property (copy) NSString *loadedString;
@@ -217,6 +225,11 @@ static NSDictionary *MPEditorKeysToObserve()
     
     if (self.preferences.editorOnRight)
         [self.splitView swapViews];
+    
+    if (!self.preferences.editorShowWordCount)
+        [self.wordCount setHidden:YES];
+    else
+        [self updateWordCount];
 }
 
 - (void)canCloseDocumentWithDelegate:(id)delegate
@@ -466,6 +479,27 @@ static NSDictionary *MPEditorKeysToObserve()
 {
     if (!self.preferences.markdownManualRender && self.previewVisible)
         [self.renderer parseAndRenderLater];
+    
+    if (self.preferences.editorShowWordCount) {
+        NSMutableAttributedString *wordCountString =
+        [[NSMutableAttributedString alloc]
+         initWithAttributedString: self.wordCount.attributedTitle];
+        [wordCountString addAttribute:NSForegroundColorAttributeName
+                                value:[NSColor colorWithCalibratedWhite:0
+                                                                  alpha:0.4]
+                                range:NSMakeRange(0, wordCountString.length)];
+        [self.wordCount setAttributedTitle:wordCountString];
+        
+        if (self.wordCountDelayTimer.isValid)
+            [self.wordCountDelayTimer invalidate];
+            
+        self.wordCountDelayTimer =
+            [NSTimer scheduledTimerWithTimeInterval:0.5
+                                             target:self
+                                           selector:@selector(updateWordCount)
+                                           userInfo:nil
+                                            repeats:NO];
+    }
 }
 
 - (void)userDefaultsDidChange:(NSNotification *)notification
@@ -497,6 +531,13 @@ static NSDictionary *MPEditorKeysToObserve()
     if ((self.preferences.editorOnRight && parts[1] == self.preview)
             || (!self.preferences.editorOnRight && parts[0] == self.preview))
         [self.splitView swapViews];
+    
+    if (self.preferences.editorShowWordCount) {
+        [self.wordCount setHidden:NO];
+        [self updateWordCount];
+    } else {
+        [self.wordCount setHidden:YES];
+    }
 }
 
 - (void)boundsDidChange:(NSNotification *)notification
@@ -773,6 +814,17 @@ static NSDictionary *MPEditorKeysToObserve()
     [self.renderer parseAndRenderLater];
 }
 
+- (IBAction)cycleWordCountTypes:(id)sender
+{
+    if (self.preferences.editorWordCountType == MPWordCountTypeWord)
+        self.preferences.editorWordCountType = MPWordCountTypeCharacter;
+    else if (self.preferences.editorWordCountType == MPWordCountTypeCharacter)
+        self.preferences.editorWordCountType = MPWordCountTypeCharacterNoSpaces;
+    else
+        self.preferences.editorWordCountType = MPWordCountTypeWord;
+    [self updateWordCount];
+}
+
 
 #pragma mark - Private
 
@@ -863,6 +915,60 @@ static NSDictionary *MPEditorKeysToObserve()
     if (!wasVisible && self.previewVisible
             && !self.preferences.markdownManualRender)
         [self.renderer parseAndRenderNow];
+}
+
+- (void)updateWordCount
+{
+    if ([self.wordCountDelayTimer isValid])
+        [self.wordCountDelayTimer invalidate];
+    
+    NSNumber *count;
+    NSString *suffix;
+    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+    [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+    
+    // There are probably much nicer ways of getting word and character count
+    if (self.preferences.editorWordCountType == MPWordCountTypeWord) {
+        NSArray *words = [[self.editor.textStorage string]
+                           componentsSeparatedByCharactersInSet:
+                             [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        
+        NSIndexSet *separatorIndexes = [words indexesOfObjectsPassingTest:
+          ^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+              return [obj isEqualToString:@""];
+          }];
+        
+        count = [NSNumber numberWithUnsignedLong:
+                 [words count] - [separatorIndexes count]];
+        suffix = @"words";
+    } else if (self.preferences.editorWordCountType ==
+                MPWordCountTypeCharacter) {
+        count = [NSNumber numberWithUnsignedLong:
+                  [[self.editor.textStorage string] length]];
+        suffix = @"characters";
+    } else {
+        NSArray* words = [[self.editor.textStorage string]
+                           componentsSeparatedByCharactersInSet:
+                          [NSCharacterSet whitespaceCharacterSet]];
+        NSString* stringNoWhitespace = [words componentsJoinedByString:@""];
+        count = [NSNumber numberWithUnsignedLong:[stringNoWhitespace length]];
+        suffix = @"characters (No spaces)";
+    }
+    
+    [self.wordCount setTitle:[NSString stringWithFormat:@"%@ %@",
+                              [formatter stringFromNumber:count],
+                              suffix]];
+    NSUInteger suffixLength = [suffix length];
+    NSMutableAttributedString *wordCountString =
+    [[NSMutableAttributedString alloc]
+     initWithAttributedString: self.wordCount.attributedTitle];
+    [wordCountString addAttribute:NSForegroundColorAttributeName
+                            value:[NSColor colorWithCalibratedWhite:0 alpha:0.4]
+        range:NSMakeRange(wordCountString.length - suffixLength, suffixLength)];
+    [wordCountString addAttribute:NSFontAttributeName
+                            value:[NSFont systemFontOfSize:12]
+        range:NSMakeRange(wordCountString.length - suffixLength, suffixLength)];
+    [self.wordCount setAttributedTitle:wordCountString];
 }
 
 @end
