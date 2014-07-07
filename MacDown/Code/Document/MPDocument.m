@@ -47,6 +47,24 @@ static NSDictionary *MPEditorKeysToObserve()
 }
 
 
+@implementation NSString (WordCount)
+
+- (NSUInteger)numberOfWords
+{
+    __block NSUInteger count = 0;
+    NSStringEnumerationOptions options =
+    NSStringEnumerationByWords | NSStringEnumerationSubstringNotRequired;
+    [self enumerateSubstringsInRange:NSMakeRange(0, self.length)
+                             options:options usingBlock:
+     ^(NSString *str, NSRange strRange, NSRange enclosingRange, BOOL *stop) {
+         count++;
+     }];
+    return count;
+}
+
+@end
+
+
 @implementation MPPreferences (Hoedown)
 - (int)extensionFlags
 {
@@ -168,6 +186,7 @@ typedef NS_ENUM(NSInteger, MPWordCountType) {
 @property (readonly) BOOL previewVisible;
 @property BOOL isLoadingPreview;
 @property (strong) NSTimer *wordCountDelayTimer;
+@property NSUInteger totalWords;
 
 // Store file content in initializer until nib is loaded.
 @property (copy) NSString *loadedString;
@@ -257,6 +276,8 @@ typedef NS_ENUM(NSInteger, MPWordCountType) {
         [self.wordCount setHidden:YES];
     else
         [self updateWordCount];
+    
+    [self.wordCount setAlphaValue:0.9];
 }
 
 - (void)canCloseDocumentWithDelegate:(id)delegate
@@ -399,6 +420,12 @@ typedef NS_ENUM(NSInteger, MPWordCountType) {
         }
         [self syncScrollers];
     }];
+    
+    // Update word count
+    self.totalWords = [sender.mainFrame.DOMDocument.text numberOfWords];
+    
+    if (self.preferences.editorWordCountType == MPWordCountTypeWord)
+        [self updateWordCount];
 }
 
 - (void)webView:(WebView *)sender didFailLoadWithError:(NSError *)error
@@ -519,13 +546,18 @@ typedef NS_ENUM(NSInteger, MPWordCountType) {
         
         if (self.wordCountDelayTimer.isValid)
             [self.wordCountDelayTimer invalidate];
-            
-        self.wordCountDelayTimer =
-            [NSTimer scheduledTimerWithTimeInterval:0.5
-                                             target:self
-                                           selector:@selector(updateWordCount)
-                                           userInfo:nil
-                                            repeats:NO];
+        
+        if (self.preferences.editorWordCountType == MPWordCountTypeCharacter ||
+            self.preferences.editorWordCountType ==
+            MPWordCountTypeCharacterNoSpaces)
+        {
+            self.wordCountDelayTimer =
+                [NSTimer scheduledTimerWithTimeInterval:0.3
+                                                 target:self
+                                             selector:@selector(updateWordCount)
+                                               userInfo:nil
+                                                repeats:NO];
+        }
     }
 }
 
@@ -954,19 +986,9 @@ typedef NS_ENUM(NSInteger, MPWordCountType) {
     NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
     [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
     
-    // There are probably much nicer ways of getting word and character count
+    // Total words is calculated each time the HTML is rendered
     if (self.preferences.editorWordCountType == MPWordCountTypeWord) {
-        NSArray *words = [[self.editor.textStorage string]
-                           componentsSeparatedByCharactersInSet:
-                             [NSCharacterSet whitespaceAndNewlineCharacterSet]];
-        
-        NSIndexSet *separatorIndexes = [words indexesOfObjectsPassingTest:
-          ^BOOL(id obj, NSUInteger idx, BOOL *stop) {
-              return [obj isEqualToString:@""];
-          }];
-        
-        count = [NSNumber numberWithUnsignedLong:
-                 [words count] - [separatorIndexes count]];
+        count = [NSNumber numberWithUnsignedLong: self.totalWords];
         suffix = @"words";
     } else if (self.preferences.editorWordCountType ==
                 MPWordCountTypeCharacter) {
