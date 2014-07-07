@@ -282,6 +282,8 @@ static NSDictionary *MPEditorKeysToObserve()
         return ![self textViewShouldInsertNewline:textView];
     else if (commandSelector == @selector(deleteBackward:))
         return ![self textViewShouldDeleteBackward:textView];
+    else if (commandSelector == @selector(moveToLeftEndOfLine:))
+        return ![self textViewShouldMoveToLeftEndOfLine:textView];
     return NO;
 }
 
@@ -334,6 +336,19 @@ static NSDictionary *MPEditorKeysToObserve()
         [textView unindentForSpacesBefore:location];
     }
     return YES;
+}
+
+- (BOOL)textViewShouldMoveToLeftEndOfLine:(NSTextView *)textView
+{
+    if (!self.preferences.editorSmartHome)
+        return YES;
+    NSUInteger cur = textView.selectedRange.location;
+    NSUInteger location =
+        [textView.string locationOfFirstNonWhitespaceCharacterInLineBefore:cur];
+    if (location == cur)
+        return YES;
+    textView.selectedRange = NSMakeRange(location, 0);
+    return NO;
 }
 
 
