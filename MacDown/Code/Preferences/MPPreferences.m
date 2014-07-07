@@ -77,6 +77,7 @@ static NSString * const kMPDefaultHtmlStyleName = @"GitHub2";
 @dynamic editorConvertTabs;
 @dynamic editorCompleteMatchingCharacters;
 @dynamic editorSyncScrolling;
+@dynamic editorSmartHome;
 @dynamic editorStyleName;
 @dynamic editorHorizontalInset;
 @dynamic editorVerticalInset;
