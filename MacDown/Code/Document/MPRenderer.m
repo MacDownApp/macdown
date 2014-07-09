@@ -145,15 +145,38 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
     static NSDictionary *dependencyMap = nil;
     static dispatch_once_t token;
     dispatch_once(&token, ^{
-        aliasMap = @{@"objective-c": @"objectivec",
-                     @"obj-c": @"objectivec", @"objc": @"objectivec",
-                     @"html": @"markup", @"xml": @"markup"};
+        aliasMap = @{
+            @"c++": @"cpp",
+            @"coffee": @"coffeescript",
+            @"coffee-script": @"coffeescript",
+            @"cs": @"csharp",
+            @"html": @"markup",
+            @"js": @"javascript",
+            @"json": @"javascript",
+            @"objective-c": @"objectivec",
+            @"obj-c": @"objectivec",
+            @"objc": @"objectivec",
+            @"py": @"python",
+            @"rb": @"ruby",
+            @"sh": @"bash",
+            @"xml": @"markup",
+        };
         dependencyMap = @{
-            @"aspnet": @"markup", @"bash": @"clike", @"c": @"clike",
-            @"coffeescript": @"javascript", @"cpp": @"c", @"csharp": @"clike",
-            @"go": @"clike", @"groovy": @"clike", @"java": @"clike",
-            @"javascript": @"clike", @"objectivec": @"c", @"php": @"clike",
-            @"ruby": @"clike", @"scala": @"java", @"scss": @"css",
+            @"aspnet": @"markup",
+            @"bash": @"clike",
+            @"c": @"clike",
+            @"coffeescript": @"javascript",
+            @"cpp": @"c",
+            @"csharp": @"clike",
+            @"go": @"clike",
+            @"groovy": @"clike",
+            @"java": @"clike",
+            @"javascript": @"clike",
+            @"objectivec": @"c",
+            @"php": @"clike",
+            @"ruby": @"clike",
+            @"scala": @"java",
+            @"scss": @"css",
             @"swift": @"clike",
         };
     });
