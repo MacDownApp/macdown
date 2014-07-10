@@ -250,6 +250,11 @@ static NSDictionary *MPEditorKeysToObserve()
     return YES;
 }
 
++ (NSArray *)writableTypes
+{
+    return @[@"net.daringfireball.markdown"];
+}
+
 - (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError
 {
     return [self.editor.string dataUsingEncoding:NSUTF8StringEncoding];
