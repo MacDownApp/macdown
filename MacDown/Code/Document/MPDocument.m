@@ -323,7 +323,9 @@ static NSDictionary *MPEditorKeysToObserve()
 {
     if ([textView insertMappedContent])
         return NO;
-    if ([textView completeNextLine])
+    if ([textView completeNextListItem])
+        return NO;
+    if ([textView completeNextBlockquoteLine])
         return NO;
     return YES;
 }
