@@ -178,7 +178,7 @@ typedef NS_ENUM(NSInteger, MPWordCountType) {
 @property (weak) IBOutlet NSSplitView *splitView;
 @property (unsafe_unretained) IBOutlet NSTextView *editor;
 @property (weak) IBOutlet WebView *preview;
-@property (weak) IBOutlet NSButton *wordCount;
+@property (weak) IBOutlet NSPopUpButton *wordCount;
 @property (strong) HGMarkdownHighlighter *highlighter;
 @property (strong) MPRenderer *renderer;
 @property BOOL manualRender;
@@ -186,8 +186,11 @@ typedef NS_ENUM(NSInteger, MPWordCountType) {
 @property (readonly) BOOL previewVisible;
 @property BOOL isLoadingPreview;
 @property NSUInteger totalWords;
+@property (strong) NSMenuItem *wordsMenuItem;
 @property NSUInteger totalCharacters;
+@property (strong) NSMenuItem *charMenuItem;
 @property NSUInteger totalCharactersNoSpaces;
+@property (strong) NSMenuItem *charNoSpacesMenuItem;
 
 // Store file content in initializer until nib is loaded.
 @property (copy) NSString *loadedString;
@@ -279,6 +282,20 @@ typedef NS_ENUM(NSInteger, MPWordCountType) {
         [self updateWordCount];
     
     [self.wordCount setAlphaValue:0.9];
+    [self.wordCount removeAllItems];
+    self.wordsMenuItem = [[NSMenuItem alloc] initWithTitle:@"0 words"
+                                                    action:nil
+                                             keyEquivalent:@""];
+    [self.wordCount.menu addItem:self.wordsMenuItem];
+    self.charMenuItem = [[NSMenuItem alloc] initWithTitle:@"0 characters"
+                                                        action:nil
+                                                 keyEquivalent:@""];
+    [self.wordCount.menu addItem:self.charMenuItem];
+    self.charNoSpacesMenuItem =
+        [[NSMenuItem alloc] initWithTitle:@"0 characters (No spaces)"
+                                   action:nil
+                            keyEquivalent:@""];
+    [self.wordCount.menu addItem:self.charNoSpacesMenuItem];
 }
 
 - (void)canCloseDocumentWithDelegate:(id)delegate
@@ -877,14 +894,17 @@ typedef NS_ENUM(NSInteger, MPWordCountType) {
     [self.renderer parseAndRenderLater];
 }
 
-- (IBAction)cycleWordCountTypes:(id)sender
+- (IBAction)changedWordCountType:(id)sender
 {
-    if (self.preferences.editorWordCountType == MPWordCountTypeWord)
-        self.preferences.editorWordCountType = MPWordCountTypeCharacter;
-    else if (self.preferences.editorWordCountType == MPWordCountTypeCharacter)
-        self.preferences.editorWordCountType = MPWordCountTypeCharacterNoSpaces;
-    else
+    NSMenuItem *selectedItem = [(NSPopUpButton *)sender selectedItem];
+    
+    if (selectedItem == self.wordsMenuItem)
         self.preferences.editorWordCountType = MPWordCountTypeWord;
+    else if (selectedItem == self.charMenuItem)
+        self.preferences.editorWordCountType = MPWordCountTypeCharacter;
+    else if (selectedItem == self.charNoSpacesMenuItem)
+        self.preferences.editorWordCountType = MPWordCountTypeCharacterNoSpaces;
+    
     [self updateWordCount];
 }
 
@@ -987,33 +1007,31 @@ typedef NS_ENUM(NSInteger, MPWordCountType) {
     NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
     [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
     
+    NSString *wordSuffix = @"words";
+    NSString *charSuffix = @"characters";
+    NSString *charNoSpacesSuffix = @"characters (No spaces)";
+    
     // Total words is calculated each time the HTML is rendered
     if (self.preferences.editorWordCountType == MPWordCountTypeWord) {
-        count = [NSNumber numberWithUnsignedLong: self.totalWords];
-        suffix = @"words";
+        count = @(self.totalWords);
+        suffix = wordSuffix;
     } else if (self.preferences.editorWordCountType ==
-                MPWordCountTypeCharacter) {
-        count = [NSNumber numberWithUnsignedLong: self.totalCharacters];
-        suffix = @"characters";
+               MPWordCountTypeCharacter) {
+        count = @(self.totalCharacters);
+        suffix = charSuffix;
     } else {
-        count = [NSNumber numberWithUnsignedLong: self.totalCharactersNoSpaces];
-        suffix = @"characters (No spaces)";
+        count = @(self.totalCharactersNoSpaces);
+        suffix = charNoSpacesSuffix;
     }
     
-    [self.wordCount setTitle:[NSString stringWithFormat:@"%@ %@",
-                              [formatter stringFromNumber:count],
-                              suffix]];
-    NSUInteger suffixLength = [suffix length];
-    NSMutableAttributedString *wordCountString =
-    [[NSMutableAttributedString alloc]
-     initWithAttributedString: self.wordCount.attributedTitle];
-    [wordCountString addAttribute:NSForegroundColorAttributeName
-                            value:[NSColor colorWithCalibratedWhite:0 alpha:0.4]
-        range:NSMakeRange(wordCountString.length - suffixLength, suffixLength)];
-    [wordCountString addAttribute:NSFontAttributeName
-                            value:[NSFont systemFontOfSize:12]
-        range:NSMakeRange(wordCountString.length - suffixLength, suffixLength)];
-    [self.wordCount setAttributedTitle:wordCountString];
+    self.wordsMenuItem.title = [NSString stringWithFormat:@"%@ %@",
+        [formatter stringFromNumber:@(self.totalWords)], wordSuffix];
+    self.charMenuItem.title = [NSString stringWithFormat:@"%@ %@",
+        [formatter stringFromNumber:@(self.totalCharacters)], charSuffix];
+    self.charNoSpacesMenuItem.title =
+        [NSString stringWithFormat:@"%@ %@",
+         [formatter stringFromNumber:@(self.totalCharactersNoSpaces)],
+         charNoSpacesSuffix];
 }
 
 @end

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5056" systemVersion="14A261i" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5056" systemVersion="14A283o" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment defaultVersion="1080" identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="5056"/>
@@ -12,7 +12,7 @@
                 <outlet property="preview" destination="XJO-AS-uPd" id="0ZO-ec-vWJ"/>
                 <outlet property="splitView" destination="0kv-p9-H4b" id="1EO-mS-VKN"/>
                 <outlet property="window" destination="xOd-HO-29H" id="JIz-fz-R2o"/>
-                <outlet property="wordCount" destination="7qk-8M-bho" id="6zD-RB-elL"/>
+                <outlet property="wordCount" destination="kfG-Fe-ode" id="1Dg-sE-wO4"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
@@ -68,29 +68,36 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                     </scrollView>
-                                    <button appearanceType="aqua" translatesAutoresizingMaskIntoConstraints="NO" id="7qk-8M-bho">
+                                    <popUpButton appearanceType="aqua" translatesAutoresizingMaskIntoConstraints="NO" id="kfG-Fe-ode">
                                         <rect key="frame" x="163" y="12" width="184" height="31"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="180" id="53s-LN-D0C" userLabel="Width - (180) - Bevel Button - 0 words"/>
-                                            <constraint firstAttribute="height" constant="26" id="QXx-2S-vee"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="180" id="mHu-Un-sUm"/>
+                                            <constraint firstAttribute="height" constant="26" id="oA6-sw-Vyh"/>
                                         </constraints>
-                                        <buttonCell key="cell" type="bevel" title="0 words" bezelStyle="regularSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="G8g-rD-963">
+                                        <popUpButtonCell key="cell" type="bevel" title="0 words" bezelStyle="regularSquare" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" autoenablesItems="NO" altersStateOfSelectedItem="NO" selectedItem="nSU-MQ-L9d" id="KoL-wy-QnY">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="systemBold" size="12"/>
-                                        </buttonCell>
+                                            <menu key="menu" title="OtherViews" autoenablesItems="NO" id="DDR-wQ-zFz">
+                                                <items>
+                                                    <menuItem title="0 words" id="nSU-MQ-L9d"/>
+                                                    <menuItem title="Item 2" id="YPx-ln-xHY"/>
+                                                    <menuItem title="Item 3" id="Ur5-Da-p9e"/>
+                                                </items>
+                                            </menu>
+                                        </popUpButtonCell>
                                         <connections>
-                                            <action selector="cycleWordCountTypes:" target="-2" id="OVL-WO-vQJ"/>
+                                            <action selector="changedWordCountType:" target="-2" id="Ph3-iT-duJ"/>
                                         </connections>
-                                    </button>
+                                    </popUpButton>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="5HT-Up-YAd" secondAttribute="width" id="1Iu-jp-28s"/>
-                                    <constraint firstAttribute="centerX" secondItem="7qk-8M-bho" secondAttribute="centerX" id="1sv-Jr-LdE"/>
                                     <constraint firstItem="5HT-Up-YAd" firstAttribute="leading" secondItem="WJx-Xb-9af" secondAttribute="leading" id="B0V-v5-hdB"/>
                                     <constraint firstAttribute="height" secondItem="5HT-Up-YAd" secondAttribute="height" id="DgM-v8-nGA"/>
-                                    <constraint firstAttribute="bottom" secondItem="7qk-8M-bho" secondAttribute="bottom" constant="15" id="UsQ-7s-X2h"/>
+                                    <constraint firstAttribute="bottom" secondItem="kfG-Fe-ode" secondAttribute="bottom" constant="15" id="K5F-Ue-1ED"/>
                                     <constraint firstItem="5HT-Up-YAd" firstAttribute="top" secondItem="WJx-Xb-9af" secondAttribute="top" id="n0c-VL-2ue"/>
+                                    <constraint firstAttribute="centerX" secondItem="kfG-Fe-ode" secondAttribute="centerX" id="ynw-y8-yAH"/>
                                 </constraints>
                             </customView>
                             <webView fixedFrame="YES" id="XJO-AS-uPd">
