@@ -30,7 +30,7 @@
 - (void)indentSelectedLinesWithPadding:(NSString *)padding;
 - (void)unindentSelectedLines;
 - (BOOL)insertMappedContent;
-- (BOOL)completeNextLine;
+- (BOOL)completeNextListItem;
 - (void)makeHeaderForSelectedLinesWithLevel:(NSUInteger)level;
 
 @end
