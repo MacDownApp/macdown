@@ -34,7 +34,7 @@ static const unichar kMPMarkupCharacters[] = {
 
 static NSString * const kMPListLineHeadPattern =
     @"^(\\s*)((?:(?:\\*|\\+|-|)\\s+)?)((?:\\d+\\.\\s+)?)(\\S)?";
-static NSString * const kMPBlockquoteLinePattern = @"^((?:\\> ?)+)(.*)$";
+static NSString * const kMPBlockquoteLinePattern = @"^((?:\\> ?)+).*$";
 
 
 @implementation NSTextView (Autocomplete)
@@ -539,17 +539,6 @@ static NSString * const kMPBlockquoteLinePattern = @"^((?:\\> ?)+)(.*)$";
         return NO;
 
     [self insertNewline:self];
-    NSRange lineContentRange = [result rangeAtIndex:2];
-
-    // Previous line is empty. Cancel blockquote.
-    if (lineContentRange.length == 0)
-    {
-        if (MPCharacterIsNewline([line characterAtIndex:lineRange.length - 1]))
-            lineRange.length -= 1;
-        [self replaceCharactersInRange:lineRange withString:@""];
-        self.selectedRange = NSMakeRange(lineRange.location + 1, 0);
-        return YES;
-    }
 
     NSRange markersRange = [result rangeAtIndex:1];
     NSString *markers = [line substringWithRange:markersRange];
