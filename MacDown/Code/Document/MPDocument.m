@@ -221,6 +221,17 @@ static NSDictionary *MPEditorKeysToObserve()
 - (void)canCloseDocumentWithDelegate:(id)delegate
                  shouldCloseSelector:(SEL)selector contextInfo:(void *)context
 {
+    selector = @selector(document:shouldClose:contextInfo:);
+    [super canCloseDocumentWithDelegate:delegate shouldCloseSelector:selector
+                            contextInfo:context];
+}
+
+- (void)document:(NSDocument *)doc shouldClose:(BOOL)shouldClose
+     contextInfo:(void *)contextInfo
+{
+    if (!shouldClose)
+        return;
+
     // Need to cleanup these so that callbacks won't crash the app.
     [self.highlighter deactivate];
     self.highlighter.targetTextView = nil;
@@ -228,20 +239,16 @@ static NSDictionary *MPEditorKeysToObserve()
     self.preview.policyDelegate = nil;
 
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    [center removeObserver:self
-                      name:NSTextDidChangeNotification
+    [center removeObserver:self name:NSTextDidChangeNotification
                     object:self.editor];
-    [center removeObserver:self
-                      name:NSUserDefaultsDidChangeNotification
+    [center removeObserver:self name:NSUserDefaultsDidChangeNotification
                     object:[NSUserDefaults standardUserDefaults]];
-    [center removeObserver:self
-                      name:NSViewBoundsDidChangeNotification
+    [center removeObserver:self name:NSViewBoundsDidChangeNotification
                     object:self.editor.enclosingScrollView.contentView];
     for (NSString *key in MPEditorKeysToObserve())
         [self.editor removeObserver:self forKeyPath:key];
 
-    [super canCloseDocumentWithDelegate:delegate shouldCloseSelector:selector
-                            contextInfo:context];
+    [self close];
 }
 
 + (BOOL)autosavesInPlace
