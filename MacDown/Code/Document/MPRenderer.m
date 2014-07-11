@@ -125,6 +125,7 @@ static NSString *MPGetHTML(
 @property int extensions;
 @property BOOL smartypants;
 @property (copy) NSString *styleName;
+@property BOOL frontMatter;
 @property BOOL mathjax;
 @property BOOL syntaxHighlighting;
 @property BOOL manualRender;
@@ -365,8 +366,10 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
 
 - (void)parseIfPreferencesChanged
 {
-    if ([self.delegate rendererExtensions:self] != self.extensions
-            || [self.delegate rendererHasSmartyPants:self] != self.smartypants)
+    id<MPRendererDelegate> delegate = self.delegate;
+    if ([delegate rendererExtensions:self] != self.extensions
+            || [delegate rendererHasSmartyPants:self] != self.smartypants
+            || [delegate rendererDetectsFrontMatter:self] != self.frontMatter)
         [self parse];
 }
 
@@ -384,12 +387,18 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
     id<MPRendererDelegate> delegate = self.delegate;
     int extensions = [delegate rendererExtensions:self];
     BOOL smartypants = [delegate rendererHasSmartyPants:self];
+    BOOL frontMatter = [delegate rendererDetectsFrontMatter:self];
+
     NSString *markdown = [self.dataSource rendererMarkdown:self];
+    if (frontMatter)
+        markdown = [self frontMatterProcessedMarkdownFromMarkdown:markdown];
+
     self.currentHtml = MPHTMLFromMarkdown(
         markdown, extensions, smartypants, self.htmlRenderer);
 
     self.extensions = extensions;
     self.smartypants = smartypants;
+    self.frontMatter = frontMatter;
 
     if (nextAction)
         nextAction();
@@ -475,6 +484,29 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
                                        selector:action
                                        userInfo:@{@"next": handler}
                                         repeats:NO];
+}
+
+- (NSString *)frontMatterProcessedMarkdownFromMarkdown:(NSString *)input
+{
+    NSRegularExpressionOptions op = NSRegularExpressionDotMatchesLineSeparators;
+    NSRegularExpression *regex =
+        [NSRegularExpression regularExpressionWithPattern:@"^---\n(.*?\n)---"
+                                                  options:op error:NULL];
+    NSTextCheckingResult *result =
+        [regex firstMatchInString:input options:0
+                            range:NSMakeRange(0, input.length)];
+    if (!result)    // No front matter match. Do nothing.
+        return input;
+
+    NSRange frontMatterRange = [result rangeAtIndex:1];
+    NSUInteger restStart = frontMatterRange.length + 7;
+
+    NSString *frontMatter = [input substringWithRange:frontMatterRange];
+    NSString *rest = [input substringFromIndex:restStart];
+    NSString *output =
+        [NSString stringWithFormat:@"~~~\n%@~~~%@", frontMatter, rest];
+
+    return output;
 }
 
 @end

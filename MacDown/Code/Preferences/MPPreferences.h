@@ -44,6 +44,7 @@ extern NSString * const MPDidDetectFreshInstallationNotification;
 @property (assign) BOOL editorOnRight;
 
 @property (assign) NSString *htmlStyleName;
+@property (assign) BOOL htmlDetectFrontMatter;
 @property (assign) BOOL htmlTaskList;
 @property (assign) BOOL htmlHardWrap;
 @property (assign) BOOL htmlMathJax;
