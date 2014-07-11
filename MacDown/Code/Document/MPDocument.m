@@ -132,7 +132,6 @@ static NSDictionary *MPEditorKeysToObserve()
 @property BOOL manualRender;
 @property BOOL previewFlushDisabled;
 @property (readonly) BOOL previewVisible;
-@property BOOL isLoadingPreview;
 
 // Store file content in initializer until nib is loaded.
 @property (copy) NSString *loadedString;
@@ -372,7 +371,6 @@ static NSDictionary *MPEditorKeysToObserve()
 
 - (void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame
 {
-    self.isLoadingPreview = NO;
     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
         if (self.previewFlushDisabled)
         {
@@ -397,16 +395,15 @@ static NSDictionary *MPEditorKeysToObserve()
         request:(NSURLRequest *)request frame:(WebFrame *)frame
                 decisionListener:(id<WebPolicyDecisionListener>)listener
 {
-    if (self.isLoadingPreview)
+    switch ([information[WebActionNavigationTypeKey] integerValue])
     {
-        // We are rendering ourselves.
-        [listener use];
-    }
-    else
-    {
-        // An external location is requested. Hijack.
-        [listener ignore];
-        [[NSWorkspace sharedWorkspace] openURL:request.URL];
+        case WebNavigationTypeLinkClicked:
+            [listener ignore];
+            [[NSWorkspace sharedWorkspace] openURL:request.URL];
+            break;
+        default:
+            [listener use];
+            break;
     }
 }
 
@@ -477,7 +474,6 @@ static NSDictionary *MPEditorKeysToObserve()
     NSURL *baseUrl = self.fileURL;
     if (!baseUrl)
         baseUrl = self.preferences.htmlDefaultDirectoryUrl;
-    self.isLoadingPreview = YES;
     [self.preview.mainFrame loadHTMLString:html baseURL:baseUrl];
 }
 
