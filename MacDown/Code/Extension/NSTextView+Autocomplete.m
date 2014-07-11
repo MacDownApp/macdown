@@ -441,7 +441,6 @@ static NSString * const kMPListLineHeadPattern =
     NSRange range = NSMakeRange(start, end - start);
     NSString *line = [self.string substringWithRange:range];
 
-
     NSRegularExpressionOptions options = NSRegularExpressionAnchorsMatchLines;
     NSRegularExpression *regex =
         [[NSRegularExpression alloc] initWithPattern:kMPListLineHeadPattern
@@ -473,6 +472,7 @@ static NSString * const kMPListLineHeadPattern =
             replaceRange.location += start;
             [self replaceCharactersInRange:range withString:@""];
         }
+        t = @"";
     }
     else if (isUl)
     {
@@ -488,10 +488,10 @@ static NSString * const kMPListLineHeadPattern =
         NSInteger i = captured.integerValue + 1;
         t = [NSString stringWithFormat:@"%ld.", i];
     }
-    [self insertNewline:self];
     if (!t)
-        return YES;
+        return NO;
 
+    [self insertNewline:self];
     location += 1;  // Shift for inserted newline.
     NSString *it = [NSString stringWithFormat:@"%@%@", indent, t];
     NSUInteger contentLength = content.length;
