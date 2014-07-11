@@ -34,6 +34,7 @@ static const unichar kMPMarkupCharacters[] = {
 
 static NSString * const kMPListLineHeadPattern =
     @"^(\\s*)((?:(?:\\*|\\+|-|)\\s+)?)((?:\\d+\\.\\s+)?)(\\S)?";
+static NSString * const kMPBlockquoteLinePattern = @"^((?:\\> ?)+)(.*)$";
 
 
 @implementation NSTextView (Autocomplete)
@@ -513,6 +514,58 @@ static NSString * const kMPListLineHeadPattern =
 
     // Insert completion for normal cases.
     [self insertText:[NSString stringWithFormat:@"%@ ", it]];
+    return YES;
+}
+
+- (BOOL)completeNextBlockquoteLine
+{
+    NSRange selectedRange = self.selectedRange;
+    NSString *content = self.string;
+    NSUInteger contentLength = content.length;
+    if (selectedRange.length || !contentLength)
+        return NO;
+
+    NSRange lineRange = [content lineRangeForRange:selectedRange];
+    NSString *line = [content substringWithRange:lineRange];
+
+    NSRegularExpressionOptions options = NSRegularExpressionAnchorsMatchLines;
+    NSRegularExpression *regex =
+        [[NSRegularExpression alloc] initWithPattern:kMPBlockquoteLinePattern
+                                             options:options error:NULL];
+    NSTextCheckingResult *result =
+        [regex firstMatchInString:line options:0
+                            range:NSMakeRange(0, lineRange.length)];
+    if (!result || result.range.location == NSNotFound)
+        return NO;
+
+    [self insertNewline:self];
+    NSRange lineContentRange = [result rangeAtIndex:2];
+
+    // Previous line is empty. Cancel blockquote.
+    if (lineContentRange.length == 0)
+    {
+        if (MPCharacterIsNewline([line characterAtIndex:lineRange.length - 1]))
+            lineRange.length -= 1;
+        [self replaceCharactersInRange:lineRange withString:@""];
+        self.selectedRange = NSMakeRange(lineRange.location + 1, 0);
+        return YES;
+    }
+
+    NSRange markersRange = [result rangeAtIndex:1];
+    NSString *markers = [line substringWithRange:markersRange];
+    NSUInteger nextLineStart = selectedRange.location + 1;
+
+    // Has identical markers. Accept this.
+    NSRange nextMarkersRange = NSMakeRange(nextLineStart, markersRange.length);
+    if (contentLength > nextLineStart + markersRange.length)
+    {
+        NSString *nextMarkers = [content substringWithRange:nextMarkersRange];
+        if ([nextMarkers isEqualToString:markers])
+            return YES;
+    }
+
+    // Insert completion.
+    [self insertText:markers];
     return YES;
 }
 

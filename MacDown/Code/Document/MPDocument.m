@@ -325,6 +325,8 @@ static NSDictionary *MPEditorKeysToObserve()
         return NO;
     if ([textView completeNextListItem])
         return NO;
+    if ([textView completeNextBlockquoteLine])
+        return NO;
     return YES;
 }
 
