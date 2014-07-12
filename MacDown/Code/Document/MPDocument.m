@@ -300,6 +300,14 @@ typedef NS_ENUM(NSInteger, MPWordCountType) {
                                    action:nil
                             keyEquivalent:@""];
     [self.wordCount.menu addItem:self.charNoSpacesMenuItem];
+    
+    if (self.preferences.editorWordCountType == MPWordCountTypeWord)
+        [self.wordCount selectItem:self.wordsMenuItem];
+    else if (self.preferences.editorWordCountType == MPWordCountTypeCharacter)
+        [self.wordCount selectItem:self.charMenuItem];
+    else if (self.preferences.editorWordCountType
+             == MPWordCountTypeCharacterNoSpaces)
+        [self.wordCount selectItem:self.charNoSpacesMenuItem];
 }
 
 - (void)canCloseDocumentWithDelegate:(id)delegate
@@ -576,17 +584,6 @@ typedef NS_ENUM(NSInteger, MPWordCountType) {
 {
     if (!self.preferences.markdownManualRender && self.previewVisible)
         [self.renderer parseAndRenderLater];
-    
-    if (self.preferences.editorShowWordCount) {
-        NSMutableAttributedString *wordCountString =
-        [[NSMutableAttributedString alloc]
-         initWithAttributedString: self.wordCount.attributedTitle];
-        [wordCountString addAttribute:NSForegroundColorAttributeName
-                                value:[NSColor colorWithCalibratedWhite:0
-                                                                  alpha:0.4]
-                                range:NSMakeRange(0, wordCountString.length)];
-        [self.wordCount setAttributedTitle:wordCountString];
-    }
 }
 
 - (void)selectionDidChange:(NSNotification *)notification
@@ -1015,27 +1012,11 @@ typedef NS_ENUM(NSInteger, MPWordCountType) {
 
 - (void)updateWordCount
 {
-    NSNumber *count;
-    NSString *suffix;
     NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
     [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
-    
     NSString *wordSuffix = @"words";
     NSString *charSuffix = @"characters";
     NSString *charNoSpacesSuffix = @"characters (No spaces)";
-    
-    // Total words is calculated each time the HTML is rendered
-    if (self.preferences.editorWordCountType == MPWordCountTypeWord) {
-        count = @(self.totalWords);
-        suffix = wordSuffix;
-    } else if (self.preferences.editorWordCountType ==
-               MPWordCountTypeCharacter) {
-        count = @(self.totalCharacters);
-        suffix = charSuffix;
-    } else {
-        count = @(self.totalCharactersNoSpaces);
-        suffix = charNoSpacesSuffix;
-    }
     
     self.wordsMenuItem.title = [NSString stringWithFormat:@"%@ %@",
         [formatter stringFromNumber:@(self.totalWords)], wordSuffix];

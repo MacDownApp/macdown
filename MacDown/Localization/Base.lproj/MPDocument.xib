@@ -77,7 +77,7 @@
                                         </constraints>
                                         <popUpButtonCell key="cell" type="bevel" title="0 words" bezelStyle="regularSquare" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" autoenablesItems="NO" altersStateOfSelectedItem="NO" selectedItem="nSU-MQ-L9d" id="KoL-wy-QnY">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="systemBold" size="12"/>
+                                            <font key="font" metaFont="cellTitle"/>
                                             <menu key="menu" title="OtherViews" autoenablesItems="NO" id="DDR-wQ-zFz">
                                                 <items>
                                                     <menuItem title="0 words" id="nSU-MQ-L9d"/>
