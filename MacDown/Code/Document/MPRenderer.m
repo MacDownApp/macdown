@@ -9,7 +9,9 @@
 #import "MPRenderer.h"
 #import <hoedown/html.h>
 #import <hoedown/markdown.h>
+#import <YAML-Framework/YAMLSerialization.h>
 #import "hoedown_html_patch.h"
+#import "NSObject+HTMLTabularize.h"
 #import "MPUtilities.h"
 #import "MPAsset.h"
 
@@ -502,10 +504,15 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
     NSUInteger restStart = frontMatterRange.length + 7;
 
     NSString *frontMatter = [input substringWithRange:frontMatterRange];
+    NSArray *objects =
+        [YAMLSerialization objectsWithYAMLString:frontMatter
+                                         options:kYAMLReadOptionStringScalars
+                                           error:NULL];
+    if (!objects.count)
+        return input;
+    NSString *table = [objects[0] HTMLTable];
     NSString *rest = [input substringFromIndex:restStart];
-    NSString *output =
-        [NSString stringWithFormat:@"~~~\n%@~~~%@", frontMatter, rest];
-
+    NSString *output = [NSString stringWithFormat:@"%@\n%@", table, rest];
     return output;
 }
 
