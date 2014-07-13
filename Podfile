@@ -2,6 +2,7 @@
 # platform :ios, "6.0"
 
 target "MacDown" do
+  pod 'handlebars-objc'                     # Template engine.
   pod 'hoedown', :inhibit_warnings => true  # Markdown to HTML.
   pod 'MASPreferences'                      # Preference window.
   pod 'PAPreferences'                       # Preference singleton.
