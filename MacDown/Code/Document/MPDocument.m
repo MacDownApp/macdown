@@ -177,6 +177,7 @@ typedef NS_ENUM(NSInteger, MPWordCountType) {
 
 @property (weak) IBOutlet NSSplitView *splitView;
 @property (unsafe_unretained) IBOutlet NSTextView *editor;
+@property (weak) IBOutlet NSLayoutConstraint *editorPaddingBottom;
 @property (weak) IBOutlet WebView *preview;
 @property (weak) IBOutlet NSPopUpButton *wordCount;
 @property (strong) HGMarkdownHighlighter *highlighter;
@@ -611,10 +612,13 @@ typedef NS_ENUM(NSInteger, MPWordCountType) {
     
     if (self.preferences.editorShowWordCount) {
         [self.wordCount setHidden:NO];
+        self.editorPaddingBottom.constant = 35.0;
         [self updateWordCount];
     } else {
         [self.wordCount setHidden:YES];
+        self.editorPaddingBottom.constant = 0.0;
     }
+    [self.splitView setNeedsLayout:YES];
 }
 
 - (void)boundsDidChange:(NSNotification *)notification
@@ -956,6 +960,12 @@ typedef NS_ENUM(NSInteger, MPWordCountType) {
         value = value ? value : keysAndDefaults[key];
         [self.editor setValue:value forKey:key];
     }
+
+    NSView *editorChrome = self.editor.enclosingScrollView.superview;
+    CALayer *layer = [CALayer layer];
+    layer.backgroundColor = self.editor.backgroundColor.CGColor;
+    editorChrome.wantsLayer = YES;
+    editorChrome.layer = layer;
 
     [self.highlighter activate];
 }
