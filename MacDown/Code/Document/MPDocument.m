@@ -14,6 +14,7 @@
 #import "MPUtilities.h"
 #import "NSString+Lookup.h"
 #import "NSTextView+Autocomplete.h"
+#import "WebView+WebViewPrivateHeaders.h"
 #import "MPPreferences.h"
 #import "MPRenderer.h"
 #import "MPExportPanelAccessoryViewController.h"
@@ -384,6 +385,9 @@ static NSDictionary *MPEditorKeysToObserve()
             [sender.window enableFlushWindow];
             self.previewFlushDisabled = NO;
         }
+		
+        [self scaleWebview];
+
         [self syncScrollers];
     }];
 }
@@ -851,6 +855,30 @@ static NSDictionary *MPEditorKeysToObserve()
     }
 
     [self.highlighter activate];
+}
+
+- (void)scaleWebview
+{
+    NSNumber *fontSizeNum = self.preferences.editorBaseFontInfo[@"size"];
+    CFNumberRef fontSizeNumCF = (__bridge CFNumberRef)(fontSizeNum);
+    CGFloat fontSize;
+    CFNumberGetValue(fontSizeNumCF, kCFNumberCGFloatType, &fontSize);
+    
+    const CGFloat defaultSize = 12.0;
+    CGFloat scale = fontSize/defaultSize;
+    
+#if 0
+	// Sadly, this doesn’t work correctly.
+    // It looks fine, but selections are offset relative to the mouse cursor.
+    NSScrollView *previewScrollView =
+    self.preview.mainFrame.frameView.documentView.enclosingScrollView;
+    NSClipView *previewContentView = previewScrollView.contentView;
+    [previewContentView scaleUnitSquareToSize:NSMakeSize(scale, scale)];
+    [previewContentView setNeedsDisplay:YES];
+#else
+	// Warning: This is private webkit API and NOT App Store-safe!
+	[self.preview setPageSizeMultiplier:scale];
+#endif
 }
 
 - (void)syncScrollers
