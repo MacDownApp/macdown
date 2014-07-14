@@ -335,6 +335,7 @@
 				AB3B8954FAB54E3C803DDAEE /* Pods-MacDownTests.xcconfig */,
 			);
 			sourceTree = "<group>";
+			usesTabs = 0;
 		};
 		1FA6DE221941CC9E000409FB /* Products */ = {
 			isa = PBXGroup;
