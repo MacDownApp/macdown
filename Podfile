@@ -3,6 +3,7 @@
 
 target "MacDown" do
   pod 'hoedown', :inhibit_warnings => true  # Markdown to HTML.
+  pod 'JJPluralForm'
   pod 'MASPreferences'                      # Preference window.
   pod 'PAPreferences'                       # Preference singleton.
   pod 'Sparkle-pornel'                      # Sparkle fork.

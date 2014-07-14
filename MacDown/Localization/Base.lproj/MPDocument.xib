@@ -13,7 +13,7 @@
                 <outlet property="preview" destination="XJO-AS-uPd" id="0ZO-ec-vWJ"/>
                 <outlet property="splitView" destination="0kv-p9-H4b" id="1EO-mS-VKN"/>
                 <outlet property="window" destination="xOd-HO-29H" id="JIz-fz-R2o"/>
-                <outlet property="wordCount" destination="kfG-Fe-ode" id="1Dg-sE-wO4"/>
+                <outlet property="wordCountWidget" destination="kfG-Fe-ode" id="I5T-mG-zWc"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
@@ -88,7 +88,7 @@
                                             </menu>
                                         </popUpButtonCell>
                                         <connections>
-                                            <action selector="changedWordCountType:" target="-2" id="Ph3-iT-duJ"/>
+                                            <binding destination="-2" name="selectedIndex" keyPath="self.preferences.editorWordCountType" id="DIO-2B-7rB"/>
                                         </connections>
                                     </popUpButton>
                                 </subviews>
@@ -126,5 +126,6 @@
                 <outlet property="delegate" destination="-2" id="0bl-1N-x8E"/>
             </connections>
         </window>
+        <userDefaultsController representsSharedInstance="YES" id="xWe-NS-iYh"/>
     </objects>
 </document>
