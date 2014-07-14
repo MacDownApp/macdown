@@ -257,10 +257,6 @@ typedef NS_ENUM(NSInteger, MPWordCountType) {
                    name:NSTextDidChangeNotification
                  object:self.editor];
     [center addObserver:self
-               selector:@selector(selectionDidChange:)
-                   name:NSTextViewDidChangeSelectionNotification
-                 object:self.editor];
-    [center addObserver:self
                selector:@selector(userDefaultsDidChange:)
                    name:NSUserDefaultsDidChangeNotification
                  object:[NSUserDefaults standardUserDefaults]];
@@ -322,9 +318,6 @@ typedef NS_ENUM(NSInteger, MPWordCountType) {
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center removeObserver:self
                       name:NSTextDidChangeNotification
-                    object:self.editor];
-    [center removeObserver:self
-                      name:NSTextViewDidChangeSelectionNotification
                     object:self.editor];
     [center removeObserver:self
                       name:NSUserDefaultsDidChangeNotification
@@ -586,11 +579,6 @@ typedef NS_ENUM(NSInteger, MPWordCountType) {
         [self.renderer parseAndRenderLater];
 }
 
-- (void)selectionDidChange:(NSNotification *)notification
-{
-    [self checkCursorIntersectsWordCount];
-}
-
 - (void)userDefaultsDidChange:(NSNotification *)notification
 {
     MPRenderer *renderer = self.renderer;
@@ -639,7 +627,6 @@ typedef NS_ENUM(NSInteger, MPWordCountType) {
         self.editor.frame = editorFrame;
     }
     [self syncScrollers];
-    [self checkCursorIntersectsWordCount];
 }
 
 
@@ -1026,27 +1013,6 @@ typedef NS_ENUM(NSInteger, MPWordCountType) {
         [NSString stringWithFormat:@"%@ %@",
          [formatter stringFromNumber:@(self.totalCharactersNoSpaces)],
          charNoSpacesSuffix];
-}
-
-- (void)checkCursorIntersectsWordCount
-{
-    NSUInteger rectCount;
-    NSRange charRange = self.editor.selectedRange;
-    NSRectArray rectArray =
-    [self.editor.layoutManager rectArrayForCharacterRange:charRange
-                             withinSelectedCharacterRange:charRange
-                                          inTextContainer:self.editor.textContainer
-                                                rectCount:&rectCount];
-    NSRect selectedRect = rectArray[0];
-    selectedRect.origin.x += self.editor.textContainerOrigin.x;
-    selectedRect.origin.y += self.editor.textContainerOrigin.y;
-    NSRect wordCountRect = [self.editor convertRect:self.wordCount.bounds
-                                           fromView:self.wordCount];
-    
-    if (CGRectIntersectsRect(selectedRect, wordCountRect))
-        [self.wordCount setAlphaValue:0.3];
-    else
-        [self.wordCount setAlphaValue:0.9];
 }
 
 @end
