@@ -5,10 +5,10 @@ target "MacDown" do
   pod 'handlebars-objc'
   pod 'hoedown', :inhibit_warnings => true
   pod 'LibYAML', :inhibit_warnings => true
+  pod 'M13OrderedDictionary'
   pod 'MASPreferences'      # Preference window.
   pod 'PAPreferences'       # Preference singleton.
   pod 'Sparkle-pornel'      # Sparkle fork.
-  pod 'YAML-Framework', :inhibit_warnings => true
 end
 
 target "MacDownTests" do

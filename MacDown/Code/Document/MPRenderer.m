@@ -9,7 +9,7 @@
 #import "MPRenderer.h"
 #import <hoedown/html.h>
 #import <hoedown/markdown.h>
-#import <YAML-Framework/YAMLSerialization.h>
+#import "YAMLSerialization.h"
 #import "hoedown_html_patch.h"
 #import "NSObject+HTMLTabularize.h"
 #import "MPUtilities.h"
