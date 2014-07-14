@@ -16,6 +16,7 @@
 #import "MPAutosaving.h"
 #import "NSString+Lookup.h"
 #import "NSTextView+Autocomplete.h"
+#import "WebView+WebViewPrivateHeaders.h"
 #import "MPPreferences.h"
 #import "MPRenderer.h"
 #import "MPPreferencesViewController.h"
@@ -230,6 +231,7 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
 // Store file content in initializer until nib is loaded.
 @property (copy) NSString *loadedString;
 
+- (void)scaleWebview;
 - (void)syncScrollers;
 
 @end
@@ -239,6 +241,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
     __block id weakObj = obj;
     return ^{
         [weakObj setPreviewFlushDisabled:NO];
+        [weakObj scaleWebview];
         [weakObj syncScrollers];
     };
 }
@@ -1300,6 +1303,30 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
     self.splitView.layer = layer;
 
     [self.highlighter activate];
+}
+
+- (void)scaleWebview
+{
+    NSNumber *fontSizeNum = self.preferences.editorBaseFontInfo[@"size"];
+    CFNumberRef fontSizeNumCF = (__bridge CFNumberRef)(fontSizeNum);
+    CGFloat fontSize;
+    CFNumberGetValue(fontSizeNumCF, kCFNumberCGFloatType, &fontSize);
+    
+    const CGFloat defaultSize = 12.0;
+    CGFloat scale = fontSize/defaultSize;
+    
+#if 0
+    // Sadly, this doesn’t work correctly.
+    // It looks fine, but selections are offset relative to the mouse cursor.
+    NSScrollView *previewScrollView =
+    self.preview.mainFrame.frameView.documentView.enclosingScrollView;
+    NSClipView *previewContentView = previewScrollView.contentView;
+    [previewContentView scaleUnitSquareToSize:NSMakeSize(scale, scale)];
+    [previewContentView setNeedsDisplay:YES];
+#else
+    // Warning: This is private webkit API and NOT App Store-safe!
+    [self.preview setPageSizeMultiplier:scale];
+#endif
 }
 
 - (void)syncScrollers
