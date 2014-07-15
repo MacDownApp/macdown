@@ -8,6 +8,7 @@
 
 #import "MPDocument.h"
 #import <WebKit/WebKit.h>
+#import <JJPluralForm/JJPluralForm.h>
 #import <hoedown/html.h>
 #import "hoedown_html_patch.h"
 #import "HGMarkdownHighlighter.h"
@@ -45,6 +46,24 @@ static NSDictionary *MPEditorKeysToObserve()
     });
     return keys;
 }
+
+
+@implementation NSString (WordCount)
+
+- (NSUInteger)numberOfWords
+{
+    __block NSUInteger count = 0;
+    NSStringEnumerationOptions options =
+    NSStringEnumerationByWords | NSStringEnumerationSubstringNotRequired;
+    [self enumerateSubstringsInRange:NSMakeRange(0, self.length)
+                             options:options usingBlock:
+     ^(NSString *str, NSRange strRange, NSRange enclosingRange, BOOL *stop) {
+         count++;
+     }];
+    return count;
+}
+
+@end
 
 
 @implementation MPPreferences (Hoedown)
@@ -121,17 +140,58 @@ static NSDictionary *MPEditorKeysToObserve()
 @end
 
 
+@implementation DOMNode (Text)
+
+- (NSString *)text
+{
+    NSMutableString *text = [NSMutableString string];
+    switch (self.nodeType)
+    {
+        case 1:
+        case 9:
+        case 11:
+            if (self.textContent.length)
+                return self.textContent;
+            for (DOMNode *c = self.firstChild; c; c = c.nextSibling)
+                [text appendString:c.text];
+            break;
+        case 3:
+        case 4:
+            return self.nodeValue;
+        default:
+            break;
+    }
+    return text;
+}
+
+@end
+
+
 @interface MPDocument ()
     <NSTextViewDelegate, MPRendererDataSource, MPRendererDelegate>
 
+typedef NS_ENUM(NSUInteger, MPWordCountType) {
+    MPWordCountTypeWord,
+    MPWordCountTypeCharacter,
+    MPWordCountTypeCharacterNoSpaces,
+};
+
 @property (weak) IBOutlet NSSplitView *splitView;
 @property (unsafe_unretained) IBOutlet NSTextView *editor;
+@property (weak) IBOutlet NSLayoutConstraint *editorPaddingBottom;
 @property (weak) IBOutlet WebView *preview;
+@property (weak) IBOutlet NSPopUpButton *wordCountWidget;
 @property (strong) HGMarkdownHighlighter *highlighter;
 @property (strong) MPRenderer *renderer;
 @property BOOL manualRender;
 @property BOOL previewFlushDisabled;
 @property (readonly) BOOL previewVisible;
+@property (nonatomic) NSUInteger totalWords;
+@property (nonatomic) NSUInteger totalCharacters;
+@property (nonatomic) NSUInteger totalCharactersNoSpaces;
+@property (strong) NSMenuItem *wordsMenuItem;
+@property (strong) NSMenuItem *charMenuItem;
+@property (strong) NSMenuItem *charNoSpacesMenuItem;
 
 // Store file content in initializer until nib is loaded.
 @property (copy) NSString *loadedString;
@@ -152,6 +212,37 @@ static NSDictionary *MPEditorKeysToObserve()
 - (BOOL)previewVisible
 {
     return self.preview.frame.size.width;
+}
+
+- (void)setTotalWords:(NSUInteger)value
+{
+    _totalWords = value;
+    NSString *key = NSLocalizedString(@"WORDS_PLURAL_STRING", @"");
+    NSInteger rule = kJJPluralFormRule.integerValue;
+    self.wordsMenuItem.title =
+        [JJPluralForm pluralStringForNumber:value withPluralForms:key
+                            usingPluralRule:rule localizeNumeral:NO];
+}
+
+- (void)setTotalCharacters:(NSUInteger)value
+{
+    _totalCharacters = value;
+    NSString *key = NSLocalizedString(@"CHARACTERS_PLURAL_STRING", @"");
+    NSInteger rule = kJJPluralFormRule.integerValue;
+    self.charMenuItem.title =
+        [JJPluralForm pluralStringForNumber:value withPluralForms:key
+                            usingPluralRule:rule localizeNumeral:NO];
+}
+
+- (void)setTotalCharactersNoSpaces:(NSUInteger)value
+{
+    _totalCharactersNoSpaces = value;
+    NSString *key = NSLocalizedString(@"CHARACTERS_NO_SPACES_PLURAL_STRING",
+                                      @"");
+    NSInteger rule = kJJPluralFormRule.integerValue;
+    self.charNoSpacesMenuItem.title =
+        [JJPluralForm pluralStringForNumber:value withPluralForms:key
+                            usingPluralRule:rule localizeNumeral:NO];
 }
 
 
@@ -216,6 +307,23 @@ static NSDictionary *MPEditorKeysToObserve()
     
     if (self.preferences.editorOnRight)
         [self.splitView swapViews];
+
+    self.wordsMenuItem = [[NSMenuItem alloc] initWithTitle:@"" action:NULL
+                                             keyEquivalent:@""];
+    self.charMenuItem = [[NSMenuItem alloc] initWithTitle:@"" action:NULL
+                                            keyEquivalent:@""];
+    self.charNoSpacesMenuItem = [[NSMenuItem alloc] initWithTitle:@""
+                                                           action:NULL
+                                                    keyEquivalent:@""];
+
+    NSPopUpButton *wordCountWidget = self.wordCountWidget;
+    [wordCountWidget removeAllItems];
+    [wordCountWidget.menu addItem:self.wordsMenuItem];
+    [wordCountWidget.menu addItem:self.charMenuItem];
+    [wordCountWidget.menu addItem:self.charNoSpacesMenuItem];
+    [wordCountWidget selectItemAtIndex:self.preferences.editorWordCountType];
+    wordCountWidget.alphaValue = 0.9;
+    wordCountWidget.hidden = !self.preferences.editorShowWordCount;
 }
 
 - (void)canCloseDocumentWithDelegate:(id)delegate
@@ -386,6 +494,30 @@ static NSDictionary *MPEditorKeysToObserve()
         }
         [self syncScrollers];
     }];
+    
+    // Update word count
+    if (self.preferences.editorShowWordCount)
+    {
+        static NSRegularExpression *regex = nil;
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            regex = [NSRegularExpression regularExpressionWithPattern:@"\\s"
+                                                              options:0
+                                                                error:NULL];
+        });
+
+        NSString *text = sender.mainFrame.DOMDocument.text;
+        NSCharacterSet *sp = [NSCharacterSet whitespaceAndNewlineCharacterSet];
+        NSString *trimmedDocument = [text stringByTrimmingCharactersInSet:sp];
+        NSString *noWhitespace =
+            [regex stringByReplacingMatchesInString:text options:0
+                                              range:NSMakeRange(0, text.length)
+                                       withTemplate:@""];
+
+        self.totalWords = text.numberOfWords;
+        self.totalCharacters = trimmedDocument.length;
+        self.totalCharactersNoSpaces = noWhitespace.length;
+    }
 }
 
 - (void)webView:(WebView *)sender didFailLoadWithError:(NSError *)error
@@ -522,6 +654,18 @@ static NSDictionary *MPEditorKeysToObserve()
     if ((self.preferences.editorOnRight && parts[1] == self.preview)
             || (!self.preferences.editorOnRight && parts[0] == self.preview))
         [self.splitView swapViews];
+
+    if (self.preferences.editorShowWordCount)
+    {
+        self.wordCountWidget.hidden = NO;
+        self.editorPaddingBottom.constant = 35.0;
+    }
+    else
+    {
+        self.wordCountWidget.hidden = YES;
+        self.editorPaddingBottom.constant = 0.0;
+    }
+    self.splitView.needsLayout = YES;
 }
 
 - (void)boundsDidChange:(NSNotification *)notification
@@ -849,6 +993,12 @@ static NSDictionary *MPEditorKeysToObserve()
         value = value ? value : keysAndDefaults[key];
         [self.editor setValue:value forKey:key];
     }
+
+    NSView *editorChrome = self.editor.enclosingScrollView.superview;
+    CALayer *layer = [CALayer layer];
+    layer.backgroundColor = self.editor.backgroundColor.CGColor;
+    editorChrome.wantsLayer = YES;
+    editorChrome.layer = layer;
 
     [self.highlighter activate];
 }

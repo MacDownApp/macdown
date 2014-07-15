@@ -4,6 +4,7 @@
 target "MacDown" do
   pod 'handlebars-objc'                     # Template engine.
   pod 'hoedown', :inhibit_warnings => true  # Markdown to HTML.
+  pod 'JJPluralForm'
   pod 'MASPreferences'                      # Preference window.
   pod 'PAPreferences'                       # Preference singleton.
   pod 'Sparkle-pornel'                      # Sparkle fork.

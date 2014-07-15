@@ -27,6 +27,7 @@
 		1F0D9DB3194AC9EE008E1856 /* MPMarkdownPreferencesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F0D9D89194AC83C008E1856 /* MPMarkdownPreferencesViewController.xib */; };
 		1F0D9DB4194AC9EE008E1856 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F0D9D81194AC83C008E1856 /* MainMenu.xib */; };
 		1F0F3BFC195F75F200FC0B3B /* MathJax in Resources */ = {isa = PBXBuildFile; fileRef = 1F0F3BFB195F75F200FC0B3B /* MathJax */; };
+		1F27896B1973BEB100EE696A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1F2789691973BEB100EE696A /* Localizable.strings */; };
 		1F3A47521953E84700293259 /* help.md in Resources */ = {isa = PBXBuildFile; fileRef = 1F3A47511953E84700293259 /* help.md */; };
 		1F4C8E9A194AE0B9004BF82E /* MarkdownDocument.icns in Resources */ = {isa = PBXBuildFile; fileRef = 1F4C8E99194AE0B9004BF82E /* MarkdownDocument.icns */; };
 		1F51C9A5194565050015A96F /* MPPreferencesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDCA311944F96E00B1F966 /* MPPreferencesTests.m */; };
@@ -111,6 +112,7 @@
 		1F0D9DAE194AC905008E1856 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Code/main.m; sourceTree = "<group>"; };
 		1F0D9DB5194ACA33008E1856 /* MacDown-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "MacDown-Prefix.pch"; path = "Code/MacDown-Prefix.pch"; sourceTree = "<group>"; };
 		1F0F3BFB195F75F200FC0B3B /* MathJax */ = {isa = PBXFileReference; lastKnownFileType = folder; name = MathJax; path = Resources/MathJax; sourceTree = "<group>"; };
+		1F27896A1973BEB100EE696A /* Base */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = Base; path = Localization/Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1F3A47511953E84700293259 /* help.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = help.md; path = Resources/help.md; sourceTree = "<group>"; };
 		1F4C8E99194AE0B9004BF82E /* MarkdownDocument.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = MarkdownDocument.icns; path = Resources/MarkdownDocument.icns; sourceTree = "<group>"; };
 		1F51C9A1194564670015A96F /* libPods-MacDown-PAPreferences.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-MacDown-PAPreferences.a"; path = "../../../../Library/Developer/Xcode/DerivedData/MacDown-ggdtxvuybojeqbhjydkhilziizrv/Build/Products/Debug/libPods-MacDown-PAPreferences.a"; sourceTree = "<group>"; };
@@ -389,6 +391,7 @@
 				1F4C8E9B194AE0C3004BF82E /* Resources */,
 				1F0D9DA3194AC8B3008E1856 /* MacDown-Info.plist */,
 				1F0D9DA8194AC8CB008E1856 /* InfoPlist.strings */,
+				1F2789691973BEB100EE696A /* Localizable.strings */,
 				1F0D9DAC194AC8EF008E1856 /* Images.xcassets */,
 			);
 			name = "Supporting Files";
@@ -518,6 +521,7 @@
 				1FBDFE9C196170FE00BEEA70 /* Extensions in Resources */,
 				1FBBD4BE194C952300BB3C88 /* MPExportPanelAccessoryViewController.xib in Resources */,
 				1FA6CDB91952D2CD008D5CA0 /* dsa_pub.pem in Resources */,
+				1F27896B1973BEB100EE696A /* Localizable.strings in Resources */,
 				1F0D9DAD194AC8EF008E1856 /* Images.xcassets in Resources */,
 				1F0D9DAA194AC8CB008E1856 /* Credits.rtf in Resources */,
 				1FBDFEA51962A27300BEEA70 /* MPGeneralPreferencesViewController.xib in Resources */,
@@ -730,6 +734,14 @@
 				1F0D9DA9194AC8CB008E1856 /* en */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		1F2789691973BEB100EE696A /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1F27896A1973BEB100EE696A /* Base */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 		1FBBD4BC194C952300BB3C88 /* MPExportPanelAccessoryViewController.xib */ = {

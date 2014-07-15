@@ -42,6 +42,8 @@ extern NSString * const MPDidDetectFreshInstallationNotification;
 @property (assign) CGFloat editorVerticalInset;
 @property (assign) CGFloat editorLineSpacing;
 @property (assign) BOOL editorOnRight;
+@property (assign) BOOL editorShowWordCount;
+@property (assign) NSInteger editorWordCountType;
 
 @property (assign) NSString *htmlStyleName;
 @property (assign) BOOL htmlTaskList;
