@@ -409,6 +409,10 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
 - (BOOL)textView:(NSTextView *)textView shouldChangeTextInRange:(NSRange)range
                                               replacementString:(NSString *)str
 {
+    // Ignore if this originates from an IM marked text commit event.
+    if (NSIntersectionRange(textView.markedRange, range).length)
+        return YES;
+
     if (self.preferences.editorCompleteMatchingCharacters)
     {
         BOOL strikethrough = self.preferences.extensionStrikethough;
