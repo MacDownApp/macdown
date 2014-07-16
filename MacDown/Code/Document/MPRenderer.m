@@ -389,18 +389,27 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
     id<MPRendererDelegate> delegate = self.delegate;
     int extensions = [delegate rendererExtensions:self];
     BOOL smartypants = [delegate rendererHasSmartyPants:self];
-    BOOL frontMatter = [delegate rendererDetectsFrontMatter:self];
+    BOOL hasFrontMatter = [delegate rendererDetectsFrontMatter:self];
 
     NSString *markdown = [self.dataSource rendererMarkdown:self];
-    if (frontMatter)
-        markdown = [self frontMatterProcessedMarkdownFromMarkdown:markdown];
+    if (hasFrontMatter)
+    {
+        NSRange restRange = NSMakeRange(0, markdown.length);
+        NSString *frontMatter = [self frontMatterFromMarkdown:markdown
+                                                    restRange:&restRange];
+        if (frontMatter.length)
+        {
+            NSString *rest = [markdown substringWithRange:restRange];
+            markdown = [NSString stringWithFormat:@"%@\n%@", frontMatter, rest];
+        }
+    }
 
     self.currentHtml = MPHTMLFromMarkdown(
         markdown, extensions, smartypants, self.htmlRenderer);
 
     self.extensions = extensions;
     self.smartypants = smartypants;
-    self.frontMatter = frontMatter;
+    self.frontMatter = hasFrontMatter;
 
     if (nextAction)
         nextAction();
@@ -488,7 +497,8 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
                                         repeats:NO];
 }
 
-- (NSString *)frontMatterProcessedMarkdownFromMarkdown:(NSString *)input
+- (NSString *)frontMatterFromMarkdown:(NSString *)input
+                            restRange:(out NSRange *)restRange
 {
     NSRegularExpressionOptions op = NSRegularExpressionDotMatchesLineSeparators;
     NSRegularExpression *regex =
@@ -498,7 +508,11 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
         [regex firstMatchInString:input options:0
                             range:NSMakeRange(0, input.length)];
     if (!result)    // No front matter match. Do nothing.
-        return input;
+    {
+        if (restRange)
+            *restRange = NSMakeRange(0, input.length);
+        return nil;
+    }
 
     NSRange frontMatterRange = [result rangeAtIndex:1];
     NSUInteger restStart = frontMatterRange.length + 7;
@@ -509,11 +523,15 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
                                          options:kYAMLReadOptionStringScalars
                                            error:NULL];
     if (!objects.count)
-        return input;
+    {
+        if (restRange)
+            *restRange = NSMakeRange(0, input.length);
+        return nil;
+    }
     NSString *table = [objects[0] HTMLTable];
-    NSString *rest = [input substringFromIndex:restStart];
-    NSString *output = [NSString stringWithFormat:@"%@\n%@", table, rest];
-    return output;
+    if (restRange)
+        *restRange = NSMakeRange(restStart, input.length - restStart);
+    return table;
 }
 
 @end
