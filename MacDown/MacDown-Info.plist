@@ -16,7 +16,6 @@
 			<key>CFBundleTypeMIMETypes</key>
 			<array>
 				<string>text/x-markdown</string>
-				<string>text/plain</string>
 			</array>
 			<key>CFBundleTypeName</key>
 			<string>Markdown</string>
@@ -126,7 +125,6 @@
 				<key>public.mime-type</key>
 				<array>
 					<string>text/x-markdown</string>
-					<string>text/plain</string>
 				</array>
 			</dict>
 		</dict>
