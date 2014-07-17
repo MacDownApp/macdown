@@ -2,12 +2,14 @@
 # platform :ios, "6.0"
 
 target "MacDown" do
-  pod 'handlebars-objc'                     # Template engine.
-  pod 'hoedown', :inhibit_warnings => true  # Markdown to HTML.
-  pod 'JJPluralForm'
-  pod 'MASPreferences'                      # Preference window.
-  pod 'PAPreferences'                       # Preference singleton.
-  pod 'Sparkle-pornel'                      # Sparkle fork.
+  pod 'handlebars-objc'
+  pod 'hoedown', :inhibit_warnings => true
+  pod 'JJPluralForm'        # Plural form localization.
+  pod 'LibYAML', :inhibit_warnings => true
+  pod 'M13OrderedDictionary'
+  pod 'MASPreferences'      # Preference window.
+  pod 'PAPreferences'       # Preference singleton.
+  pod 'Sparkle-pornel'      # Sparkle fork.
 end
 
 target "MacDownTests" do

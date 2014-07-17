@@ -591,6 +591,11 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
     return self.preferences.htmlStyleName;
 }
 
+- (BOOL)rendererDetectsFrontMatter:(MPRenderer *)renderer
+{
+    return self.preferences.htmlDetectFrontMatter;
+}
+
 - (BOOL)rendererHasSyntaxHighlighting:(MPRenderer *)renderer
 {
     return self.preferences.htmlSyntaxHighlighting;

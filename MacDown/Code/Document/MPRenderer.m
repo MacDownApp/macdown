@@ -9,7 +9,9 @@
 #import "MPRenderer.h"
 #import <hoedown/html.h>
 #import <hoedown/markdown.h>
+#import "YAMLSerialization.h"
 #import "hoedown_html_patch.h"
+#import "NSObject+HTMLTabularize.h"
 #import "MPUtilities.h"
 #import "MPAsset.h"
 
@@ -125,6 +127,7 @@ static NSString *MPGetHTML(
 @property int extensions;
 @property BOOL smartypants;
 @property (copy) NSString *styleName;
+@property BOOL frontMatter;
 @property BOOL mathjax;
 @property BOOL syntaxHighlighting;
 @property BOOL manualRender;
@@ -365,8 +368,10 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
 
 - (void)parseIfPreferencesChanged
 {
-    if ([self.delegate rendererExtensions:self] != self.extensions
-            || [self.delegate rendererHasSmartyPants:self] != self.smartypants)
+    id<MPRendererDelegate> delegate = self.delegate;
+    if ([delegate rendererExtensions:self] != self.extensions
+            || [delegate rendererHasSmartyPants:self] != self.smartypants
+            || [delegate rendererDetectsFrontMatter:self] != self.frontMatter)
         [self parse];
 }
 
@@ -384,12 +389,27 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
     id<MPRendererDelegate> delegate = self.delegate;
     int extensions = [delegate rendererExtensions:self];
     BOOL smartypants = [delegate rendererHasSmartyPants:self];
+    BOOL hasFrontMatter = [delegate rendererDetectsFrontMatter:self];
+
     NSString *markdown = [self.dataSource rendererMarkdown:self];
+    if (hasFrontMatter)
+    {
+        NSRange restRange = NSMakeRange(0, markdown.length);
+        NSString *frontMatter = [self frontMatterFromMarkdown:markdown
+                                                    restRange:&restRange];
+        if (frontMatter.length)
+        {
+            NSString *rest = [markdown substringWithRange:restRange];
+            markdown = [NSString stringWithFormat:@"%@\n%@", frontMatter, rest];
+        }
+    }
+
     self.currentHtml = MPHTMLFromMarkdown(
         markdown, extensions, smartypants, self.htmlRenderer);
 
     self.extensions = extensions;
     self.smartypants = smartypants;
+    self.frontMatter = hasFrontMatter;
 
     if (nextAction)
         nextAction();
@@ -475,6 +495,43 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
                                        selector:action
                                        userInfo:@{@"next": handler}
                                         repeats:NO];
+}
+
+- (NSString *)frontMatterFromMarkdown:(NSString *)input
+                            restRange:(out NSRange *)restRange
+{
+    NSRegularExpressionOptions op = NSRegularExpressionDotMatchesLineSeparators;
+    NSRegularExpression *regex =
+        [NSRegularExpression regularExpressionWithPattern:@"^---\n(.*?\n)---"
+                                                  options:op error:NULL];
+    NSTextCheckingResult *result =
+        [regex firstMatchInString:input options:0
+                            range:NSMakeRange(0, input.length)];
+    if (!result)    // No front matter match. Do nothing.
+    {
+        if (restRange)
+            *restRange = NSMakeRange(0, input.length);
+        return nil;
+    }
+
+    NSRange frontMatterRange = [result rangeAtIndex:1];
+    NSUInteger restStart = frontMatterRange.length + 7;
+
+    NSString *frontMatter = [input substringWithRange:frontMatterRange];
+    NSArray *objects =
+        [YAMLSerialization objectsWithYAMLString:frontMatter
+                                         options:kYAMLReadOptionStringScalars
+                                           error:NULL];
+    if (!objects.count)
+    {
+        if (restRange)
+            *restRange = NSMakeRange(0, input.length);
+        return nil;
+    }
+    NSString *table = [objects[0] HTMLTable];
+    if (restRange)
+        *restRange = NSMakeRange(restStart, input.length - restStart);
+    return table;
 }
 
 @end

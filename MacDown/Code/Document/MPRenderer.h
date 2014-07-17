@@ -45,6 +45,7 @@
 - (int)rendererExtensions:(MPRenderer *)renderer;
 - (BOOL)rendererHasSmartyPants:(MPRenderer *)renderer;
 - (NSString *)rendererStyleName:(MPRenderer *)renderer;
+- (BOOL)rendererDetectsFrontMatter:(MPRenderer *)renderer;
 - (BOOL)rendererHasSyntaxHighlighting:(MPRenderer *)renderer;
 - (BOOL)rendererHasMathJax:(MPRenderer *)renderer;
 - (BOOL)rendererMathJaxInlineDollarEnabled:(MPRenderer *)renderer;

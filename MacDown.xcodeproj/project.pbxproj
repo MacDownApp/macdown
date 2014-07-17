@@ -57,6 +57,9 @@
 		1FFEB31D19729FEF00B2254F /* test.css in Resources */ = {isa = PBXBuildFile; fileRef = 1FFEB31C19729FEF00B2254F /* test.css */; };
 		1FFEB31E1972A28400B2254F /* test.js in Resources */ = {isa = PBXBuildFile; fileRef = 1FFEB31A19729FD500B2254F /* test.js */; };
 		1FFEB3201972B04D00B2254F /* test.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1FFEB31F1972B04D00B2254F /* test.txt */; };
+		1FFEB3251972D88900B2254F /* NSObject+HTMLTabularize.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEB3241972D88900B2254F /* NSObject+HTMLTabularize.m */; };
+		1FFEB3271972DAB400B2254F /* MPHTMLTabularizeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEB3261972DAB400B2254F /* MPHTMLTabularizeTests.m */; };
+		1FFEB32B19737D6E00B2254F /* YAMLSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEB32A19737D6E00B2254F /* YAMLSerialization.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc -Wno-unused-variable"; }; };
 		1FFF301D1948A5320009AF24 /* MPStringLookupTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FFF301C1948A5320009AF24 /* MPStringLookupTests.m */; };
 		5318159056384894AA42DB4F /* libPods-MacDownTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AEAF42BBDCEC4012B5092BB3 /* libPods-MacDownTests.a */; };
 		B49728377A904875B2963C38 /* libPods-MacDown.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C5C1FBBB3ED456285901D31 /* libPods-MacDown.a */; };
@@ -159,6 +162,11 @@
 		1FFEB31A19729FD500B2254F /* test.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = test.js; sourceTree = "<group>"; };
 		1FFEB31C19729FEF00B2254F /* test.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = test.css; sourceTree = "<group>"; };
 		1FFEB31F1972B04D00B2254F /* test.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test.txt; sourceTree = "<group>"; };
+		1FFEB3231972D88900B2254F /* NSObject+HTMLTabularize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+HTMLTabularize.h"; sourceTree = "<group>"; };
+		1FFEB3241972D88900B2254F /* NSObject+HTMLTabularize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+HTMLTabularize.m"; sourceTree = "<group>"; };
+		1FFEB3261972DAB400B2254F /* MPHTMLTabularizeTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPHTMLTabularizeTests.m; sourceTree = "<group>"; };
+		1FFEB32919737D6E00B2254F /* YAMLSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YAMLSerialization.h; sourceTree = "<group>"; };
+		1FFEB32A19737D6E00B2254F /* YAMLSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YAMLSerialization.m; sourceTree = "<group>"; };
 		1FFF301C1948A5320009AF24 /* MPStringLookupTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPStringLookupTests.m; sourceTree = "<group>"; };
 		7C5C1FBBB3ED456285901D31 /* libPods-MacDown.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MacDown.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F8797E748AA4BCA96DFA790 /* Pods-MacDown.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacDown.xcconfig"; path = "Pods/Pods-MacDown.xcconfig"; sourceTree = "<group>"; };
@@ -193,6 +201,8 @@
 		1F0D9D5D194AC7CF008E1856 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				1FFEB3231972D88900B2254F /* NSObject+HTMLTabularize.h */,
+				1FFEB3241972D88900B2254F /* NSObject+HTMLTabularize.m */,
 				1F0D9D5E194AC7CF008E1856 /* NSString+Lookup.h */,
 				1F0D9D5F194AC7CF008E1856 /* NSString+Lookup.m */,
 				1F0D9D60194AC7CF008E1856 /* NSTextView+Autocomplete.h */,
@@ -283,6 +293,7 @@
 			isa = PBXGroup;
 			children = (
 				1F8A83561953453A00B6BF69 /* peg-markdown-highlight */,
+				1FFEB32819737D6E00B2254F /* YAML-framework */,
 			);
 			name = Dependency;
 			path = MacDown;
@@ -403,6 +414,7 @@
 				1FCDCA311944F96E00B1F966 /* MPPreferencesTests.m */,
 				1FFF301C1948A5320009AF24 /* MPStringLookupTests.m */,
 				1FFEB31819729F7C00B2254F /* MPAssetTests.m */,
+				1FFEB3261972DAB400B2254F /* MPHTMLTabularizeTests.m */,
 				1FCDCA371944F97800B1F966 /* Supporting Files */,
 			);
 			path = MacDownTests;
@@ -419,6 +431,16 @@
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
+		};
+		1FFEB32819737D6E00B2254F /* YAML-framework */ = {
+			isa = PBXGroup;
+			children = (
+				1FFEB32919737D6E00B2254F /* YAMLSerialization.h */,
+				1FFEB32A19737D6E00B2254F /* YAMLSerialization.m */,
+			);
+			name = "YAML-framework";
+			path = "Dependency/YAML-framework";
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
@@ -636,7 +658,9 @@
 				1F0D9D7C194AC7F7008E1856 /* MPPreferences.m in Sources */,
 				1F0D9DAF194AC905008E1856 /* main.m in Sources */,
 				1F0D9D66194AC7CF008E1856 /* NSTextView+Autocomplete.m in Sources */,
+				1FFEB32B19737D6E00B2254F /* YAMLSerialization.m in Sources */,
 				1F64CCC9195F5AB900CE619A /* MPAsset.m in Sources */,
+				1FFEB3251972D88900B2254F /* NSObject+HTMLTabularize.m in Sources */,
 				1F9A14EC194EEE9900D1C6A9 /* MPExportPanelAccessoryViewController.m in Sources */,
 				1FBDFEA11962A25A00BEEA70 /* MPGeneralPreferencesViewController.m in Sources */,
 				1F9A14ED194EEE9900D1C6A9 /* MPMainController.m in Sources */,
@@ -656,6 +680,7 @@
 			files = (
 				1FFEB31919729F7C00B2254F /* MPAssetTests.m in Sources */,
 				1F51C9A5194565050015A96F /* MPPreferencesTests.m in Sources */,
+				1FFEB3271972DAB400B2254F /* MPHTMLTabularizeTests.m in Sources */,
 				1FFF301D1948A5320009AF24 /* MPStringLookupTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

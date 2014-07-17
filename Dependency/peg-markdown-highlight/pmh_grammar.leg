@@ -65,7 +65,7 @@ SetextHeading = SetextHeading1 | SetextHeading2
 
 SetextBottom1 = "===" '='* Newline
 
-SetextBottom2 = "---" '-'* Newline
+SetextBottom2 = "----" '-'* Newline
 
 SetextHeading1 =  &(RawLine SetextBottom1)
                   s:LocMarker
@@ -415,7 +415,7 @@ Entity =    < s:LocMarker
 Endline =   LineBreak | TerminalEndline | NormalEndline
 
 NormalEndline =   Sp Newline !BlankLine !'>' !AtxStart
-                  !(Line ("===" '='* | "---" '-'*) Newline)
+                  !(Line ("===" '='* | "----" '-'*) Newline)
 
 TerminalEndline = Sp Newline Eof
 
