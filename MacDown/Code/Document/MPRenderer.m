@@ -57,8 +57,9 @@ static NSArray *MPPrismScriptURLsForLanguage(NSString *language)
     return urls;
 }
 
-static NSString *MPHTMLFromMarkdown(NSString *text, int flags, BOOL smartypants,
-                                    hoedown_renderer *renderer)
+static NSString *MPHTMLFromMarkdown(
+    NSString *text, int flags, BOOL smartypants, NSString *frontMatter,
+    hoedown_renderer *renderer)
 {
     NSData *inputData = [text dataUsingEncoding:NSUTF8StringEncoding];
     hoedown_markdown *markdown = hoedown_markdown_new(flags, 15, renderer);
@@ -74,6 +75,8 @@ static NSString *MPHTMLFromMarkdown(NSString *text, int flags, BOOL smartypants,
     NSString *result = [NSString stringWithUTF8String:hoedown_buffer_cstr(ob)];
     hoedown_markdown_free(markdown);
     hoedown_buffer_free(ob);
+    if (frontMatter)
+        result = [NSString stringWithFormat:@"%@\n%@", frontMatter, result];
     return result;
 }
 
@@ -391,21 +394,19 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
     BOOL smartypants = [delegate rendererHasSmartyPants:self];
     BOOL hasFrontMatter = [delegate rendererDetectsFrontMatter:self];
 
+    NSString *frontMatter = nil;
     NSString *markdown = [self.dataSource rendererMarkdown:self];
     if (hasFrontMatter)
     {
         NSRange restRange = NSMakeRange(0, markdown.length);
-        NSString *frontMatter = [self frontMatterFromMarkdown:markdown
+        frontMatter = [self frontMatterFromMarkdown:markdown
                                                     restRange:&restRange];
         if (frontMatter.length)
-        {
-            NSString *rest = [markdown substringWithRange:restRange];
-            markdown = [NSString stringWithFormat:@"%@\n%@", frontMatter, rest];
-        }
+            markdown = [markdown substringWithRange:restRange];
     }
 
     self.currentHtml = MPHTMLFromMarkdown(
-        markdown, extensions, smartypants, self.htmlRenderer);
+        markdown, extensions, smartypants, frontMatter, self.htmlRenderer);
 
     self.extensions = extensions;
     self.smartypants = smartypants;
