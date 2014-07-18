@@ -343,6 +343,8 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
     // Need to cleanup these so that callbacks won't crash the app.
     [self.highlighter deactivate];
     self.highlighter.targetTextView = nil;
+    self.highlighter = nil;
+    self.renderer = nil;
     self.preview.frameLoadDelegate = nil;
     self.preview.policyDelegate = nil;
 
