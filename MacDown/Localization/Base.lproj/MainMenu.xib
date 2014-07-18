@@ -397,6 +397,12 @@
                                     <binding destination="LEY-zf-22t" name="enabled" keyPath="self.currentDocument.previewVisible" id="5e7-rJ-oX2"/>
                                 </connections>
                             </menuItem>
+                            <menuItem title="Renders TOC" id="v6B-Cb-FlX">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="toggleTOCRendering:" target="-1" id="CfY-Zz-Yyy"/>
+                                </connections>
+                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="onf-Mq-Pah"/>
                             <menuItem title="Left 1:3 Right" id="VW7-VH-9yl">
                                 <modifierMask key="keyEquivalentModifierMask"/>
