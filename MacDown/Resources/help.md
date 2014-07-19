@@ -17,11 +17,15 @@ The original Markdown syntax specification can be found [here](http://daringfire
 
 I support all the original Markdown syntaxes. Various non-standard ones can also be turned on/off from the **Markdown** preference pane:
 
-![Markdown preferences pane](http://d.pr/i/hsm4+)
+![Markdown preferences pane](http://d.pr/i/RQEi+)
 
 You can also specify extra HTML rendering options through the **Rendering** pane:
 
-![Rendering preferences pane](http://d.pr/i/jA0m+)
+![Rendering preferences pane](http://d.pr/i/rT4d+)
+
+And you can also configure various behaviors in the **General** preferences pane.
+
+![General preferences pane](http://d.pr/i/rvwu+)
 
 ### Block Formatting
 
@@ -94,6 +98,8 @@ Currently I support the follwing laguages:
 * SQL
 * Swift
 
+Along with various aliases. Check out the full identifier list on [this page](http://macdown.uranusjr.com/features/).
+
 
 ### Inline Formatting
 
@@ -148,7 +154,7 @@ or (in MathML)
 
 You can customize the editor to you liking in the **Editor** preferences pane:
 
-![](http://d.pr/i/F5rQ+)
+![Editor preferences pane](http://d.pr/i/6OL5+)
 
 
 ### Styling
@@ -156,9 +162,6 @@ You can customize the editor to you liking in the **Editor** preferences pane:
 My editor provides syntax highlighting. You can edit the base font and the coloring/sizing theme. I provided some default themes (courtesy of [Mou](http://mouapp.com)’s creator, Chen Luo) if you don’t know where to start.
 
 You can also edit, or even add new themes if you want to! Just click the ***Reveal*** button, and start moving things around. Remember to use the correct file extension (`.styles`), though. I’m picky about that.
-
-
-### Behaviors
 
 I offer auto-completion and other functions to ease your editing experience. If you don’t like it, however, you can turn them off.
 
