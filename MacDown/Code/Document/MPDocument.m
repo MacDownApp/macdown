@@ -389,6 +389,7 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
     NSString *title = [self.editor.string titleString];
     if (title)
         savePanel.nameFieldStringValue = title;
+    savePanel.allowedFileTypes = nil;   // Allow all extensions.
     return [super prepareSavePanel:savePanel];
 }
 
