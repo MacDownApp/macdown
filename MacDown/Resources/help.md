@@ -121,6 +121,7 @@ Footnotes [^4]        | [\^6] and [\^6]: | [^6] and footnote 6 below |
 [^3]: **Quote** and **Smartypants** are syntactically incompatible with each other. The former will take precedence.
 [^4]: **Superscript** and **Footnotes** are syntactically incompatible with each other. The former will take precedence.
 [^5]: LaTeX `^` superscripts in math will fail if you enabled the **Superscript** extension. You will need to use MathML if you want math support and ***Superscript*** together.
+[^6]: This is a footnote.
 
 
 ### Document Formatting
@@ -132,7 +133,7 @@ The ***Smartypants*** extension automatically transforms stright quotes (`"` and
 
 You have already seen how I can highlight your fenced code blocks. See the [Fenced Code Block](#fenced-code-block) section if you haven’t!
 
-I can also render TeX-like math syntaxes, if you allow me to.[^6] I can do inline math like this: \\( 1 + 1 \\) or this (in MathML): <math><mn>1</mn><mo>+</mo><mn>1</mn></math>, and block math:[^5]
+I can also render TeX-like math syntaxes, if you allow me to.[^7] I can do inline math like this: \\( 1 + 1 \\) or this (in MathML): <math><mn>1</mn><mo>+</mo><mn>1</mn></math>, and block math:[^5]
 
 \\[
     A^T_S = B
@@ -147,7 +148,7 @@ or (in MathML)
 </math>
 
 
-[^6]: Internet connection required.
+[^7]: Internet connection required.
 
 
 ## Editor Options
