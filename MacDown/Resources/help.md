@@ -105,16 +105,16 @@ Along with various aliases. Check out the full identifier list on [this page](ht
 
 The following is a list of optional inline markups supported:
 
-Option name         | Markup        | Result if enabled     |
---------------------|---------------|-----------------------|
-Intra-word emphasis | This*is*good  | This<em>is</em>good   |
-Strikethrough       | ~~Much wow~~  | <del>Much wow</del>   |
-Underline [^1]      | _So doge_     | <u>So doge</u>        |
-Quote [^2] [^3]     | "Such editor" | <q>Such editor</q>    |
-Highlight           | ==So good==   | <mark>So good</mark>  |
-Superscript [^4] [^5] | hoge^(fuga) | hoge<sup>fuga</sup>   |
-Autolink            | http://t.co   | <a href="http://t.co">http://t.co</a> |
-Footnotes [^4]      | [^id] and [^id]: | As shown used in this table. |
+Option name           | Markup           | Result if enabled     |
+----------------------|------------------|-----------------------|
+Intra-word emphasis   | This\*is\*good   | This<em>is</em>good   |
+Strikethrough         | \~~Much wow\~~   | <del>Much wow</del>   |
+Underline [^1]        | \_So doge\_      | <u>So doge</u>        |
+Quote [^2] [^3]       | "Such editor"    | <q>Such editor</q>    |
+Highlight             | \==So good\==    | <mark>So good</mark>  |
+Superscript [^4] [^5] | hoge\^(fuga)     | hoge<sup>fuga</sup>   |
+Autolink              | http://t.co      | <a href="http://t.co">http://t.co</a> |
+Footnotes [^4]        | [\^6] and [\^6]: | [^6] and footnote 6 below |
 
 [^1]: If **Underline** is disabled. _this_ will be the same as *this*.
 [^2]: Note that this is different from *blockquote* (a `> `-prefixed block), which is part of the standard Markdown syntax specification.
