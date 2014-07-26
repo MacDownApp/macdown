@@ -682,14 +682,19 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
 
 - (void)boundsDidChange:(NSNotification *)notification
 {
-    CGFloat clipWidth = [notification.object frame].size.width;
-    NSRect editorFrame = self.editor.frame;
-    if (editorFrame.size.width != clipWidth)
-    {
-        editorFrame.size.width = clipWidth;
-        self.editor.frame = editorFrame;
+    static BOOL shouldHandleNotification = YES;
+    if (shouldHandleNotification) {
+        shouldHandleNotification = NO;
+        CGFloat clipWidth = [notification.object frame].size.width;
+        NSRect editorFrame = self.editor.frame;
+        if (editorFrame.size.width != clipWidth)
+        {
+            editorFrame.size.width = clipWidth;
+            self.editor.frame = editorFrame;
+        }
+        [self syncScrollers];
+        shouldHandleNotification = YES;
     }
-    [self syncScrollers];
 }
 
 
