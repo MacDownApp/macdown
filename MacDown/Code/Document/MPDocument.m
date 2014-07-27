@@ -453,6 +453,8 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
         return NO;
     if ([textView completeNextBlockquoteLine])
         return NO;
+    if ([textView completeNextIndentedLine])
+        return NO;
     return YES;
 }
 
