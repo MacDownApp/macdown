@@ -432,7 +432,12 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
 
 - (BOOL)textViewShouldInsertTab:(NSTextView *)textView
 {
-    if (self.preferences.editorConvertTabs)
+    if (textView.selectedRange.length != 0)
+    {
+        [self indent:nil];
+        return NO;
+    }
+    else if (self.preferences.editorConvertTabs)
     {
         [textView insertSpacesForTab];
         return NO;
@@ -447,6 +452,8 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
     if ([textView completeNextListItem])
         return NO;
     if ([textView completeNextBlockquoteLine])
+        return NO;
+    if ([textView completeNextIndentedLine])
         return NO;
     return YES;
 }

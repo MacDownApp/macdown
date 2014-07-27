@@ -558,6 +558,25 @@ static NSString * const kMPBlockquoteLinePattern = @"^((?:\\> ?)+).*$";
     return YES;
 }
 
+- (BOOL)completeNextIndentedLine
+{
+    NSRange selectedRange = self.selectedRange;
+    if (selectedRange.length)
+        return NO;
+
+    NSString *content = self.string;
+    NSUInteger start = [content lineRangeForRange:selectedRange].location;
+    NSUInteger end = [content locationOfFirstNonWhitespaceCharacterInLineBefore:
+                      selectedRange.location];
+    if (end <= start)
+        return NO;
+
+    [self insertNewline:self];
+    NSRange indentRange = NSMakeRange(start, end - start);
+    [self insertText:[content substringWithRange:indentRange]];
+    return YES;
+}
+
 - (void)makeHeaderForSelectedLinesWithLevel:(NSUInteger)level
 {
     NSAssert(level <= 6, @"Should be 1-6, or 0 (convert to paragraph).");

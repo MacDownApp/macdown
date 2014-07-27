@@ -32,6 +32,7 @@
 - (BOOL)insertMappedContent;
 - (BOOL)completeNextListItem;
 - (BOOL)completeNextBlockquoteLine;
+- (BOOL)completeNextIndentedLine;
 - (void)makeHeaderForSelectedLinesWithLevel:(NSUInteger)level;
 
 @end
