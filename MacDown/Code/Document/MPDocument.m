@@ -386,9 +386,22 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
 
 - (BOOL)prepareSavePanel:(NSSavePanel *)savePanel
 {
+    static NSRegularExpression *regex = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        regex = [NSRegularExpression regularExpressionWithPattern:@"[/|:]"
+                                                          options:0 error:NULL];
+    });
+
     NSString *title = [self.editor.string titleString];
     if (title)
+    {
+        NSRange range = NSMakeRange(0, title.length);
+        title = [regex stringByReplacingMatchesInString:title options:0
+                                                  range:range
+                                           withTemplate:@"-"];
         savePanel.nameFieldStringValue = title;
+    }
     savePanel.allowedFileTypes = nil;   // Allow all extensions.
     return [super prepareSavePanel:savePanel];
 }
