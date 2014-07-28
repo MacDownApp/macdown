@@ -453,10 +453,6 @@ static NSString * const kMPBlockquoteLinePattern = @"^((?:\\> ?)+).*$";
     if (!result || result.range.location == NSNotFound)
         return NO;
 
-    NSMutableString *indent = [[NSMutableString alloc] init];
-    for (NSUInteger i = 0; i < [result rangeAtIndex:1].length; i++)
-        [indent appendString:@" "];
-
     NSString *t = nil;
     BOOL isUl = ([result rangeAtIndex:2].length != 0);
     BOOL isOl = ([result rangeAtIndex:3].length != 0);
@@ -494,7 +490,8 @@ static NSString * const kMPBlockquoteLinePattern = @"^((?:\\> ?)+).*$";
 
     [self insertNewline:self];
     location += 1;  // Shift for inserted newline.
-    NSString *it = [NSString stringWithFormat:@"%@%@", indent, t];
+
+    NSString *indent = [line substringWithRange:[result rangeAtIndex:1]];
     NSUInteger contentLength = content.length;
 
     // Has matching list item. Only insert indent.
@@ -507,6 +504,7 @@ static NSString * const kMPBlockquoteLinePattern = @"^((?:\\> ?)+).*$";
     }
 
     // Has indent and matching list item. Accept it.
+    NSString *it = [NSString stringWithFormat:@"%@%@", indent, t];
     r = NSMakeRange(location, it.length);
     if (contentLength > location + it.length
             && [[content substringWithRange:r] isEqualToString:it])
