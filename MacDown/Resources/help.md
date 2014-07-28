@@ -40,7 +40,7 @@ Content Cell  | Content Cell
 
 You can align cell contents with syntax like this:
 
-| Left-Aligned  | Center Aligned  | Right Aligned |
+| Left Aligned  | Center Aligned  | Right Aligned |
 |:------------- |:---------------:| -------------:|
 | col 3 is      | some wordy text |         $1600 |
 | col 2 is      | centered        |           $12 |
@@ -56,7 +56,7 @@ This is a fenced code block:
 p 'Hello world!'
 ```
 
-You can also use waves (`~`) instead of backticks (`` ` ``):
+You can also use waves (`~`) instead of back ticks (`` ` ``):
 
 ~~~
 print('Hello world!')
@@ -75,7 +75,7 @@ The language ID will be used to highlight the code inside if you tick the ***Ena
 
 ![Syntax highlighting example](http://d.pr/i/9HM6+)
 
-Currently I support the follwing laguages:
+Currently I support the following languages:
 
 * Bash
 * C-like (C, C++, C#, and other similar languages)
@@ -126,7 +126,7 @@ Footnotes [^4]        | [\^6] and [\^6]: | [^6] and footnote 6 below |
 
 ### Document Formatting
 
-The ***Smartypants*** extension automatically transforms stright quotes (`"` and `'`) in your text into typographer’s quotes (`“`, `”`, `‘`, and `’`) according to the context.[^3] Very useful if you’re a typography freak like I am.
+The ***Smartypants*** extension automatically transforms straight quotes (`"` and `'`) in your text into typographer’s quotes (`“`, `”`, `‘`, and `’`) according to the context.[^3] Very useful if you’re a typography freak like I am.
 
 
 ### HTML Rendering
