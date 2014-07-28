@@ -75,30 +75,7 @@ The language ID will be used to highlight the code inside if you tick the ***Ena
 
 ![Syntax highlighting example](http://d.pr/i/9HM6+)
 
-Currently I support the following languages:
-
-* Bash
-* C-like (C, C++, C#, and other similar languages)
-* CoffeeScript
-* CSS
-* Gherken
-* Go
-* Groovy
-* HTTP
-* Java
-* JavaScript
-* Markup (*ML languages such as XML, HTML, etc.)
-* NSIS
-* PHP
-* Python
-* Rip
-* Ruby
-* Sass (Scss)
-* Scala
-* SQL
-* Swift
-
-Along with various aliases. Check out the full identifier list on [this page](http://macdown.uranusjr.com/features/).
+I support many popular languages as well as some generic syntax descriptions that can be used if your language of choice is not supported. See [relevant sections on the official site](http://macdown.uranusjr.com/features/) for a full list of supported syntaxes.
 
 
 ### Inline Formatting
