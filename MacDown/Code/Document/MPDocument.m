@@ -36,7 +36,6 @@ static NSDictionary *MPEditorKeysToObserve()
     dispatch_once(&token, ^{
         keys = @{@"automaticDashSubstitutionEnabled": @NO,
                  @"automaticDataDetectionEnabled": @NO,
-                 @"automaticLinkDetectionEnabled": @NO,
                  @"automaticQuoteSubstitutionEnabled": @NO,
                  @"automaticSpellingCorrectionEnabled": @NO,
                  @"automaticTextReplacementEnabled": @NO,
@@ -980,6 +979,7 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
 - (void)setupEditor
 {
     [self.highlighter deactivate];
+    self.editor.automaticLinkDetectionEnabled = NO;
     self.editor.font = [self.preferences.editorBaseFont copy];
 
     int extensions = pmh_EXT_NOTES;
