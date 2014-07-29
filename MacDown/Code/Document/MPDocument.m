@@ -106,6 +106,17 @@ static NSDictionary *MPEditorKeysToObserve()
 
 @implementation NSSplitView (TwoItems)
 
+- (CGFloat)dividerLocation
+{
+    NSArray *parts = self.subviews;
+    NSAssert1(parts.count == 2, @"%@ should only be used on two-item splits.",
+              NSStringFromSelector(_cmd));
+
+    CGFloat totalWidth = self.frame.size.width - self.dividerThickness;
+    CGFloat leftWidth = [parts[0] frame].size.width;
+    return leftWidth / totalWidth;
+}
+
 - (void)setDividerLocation:(CGFloat)ratio
 {
     NSArray *parts = self.subviews;
@@ -184,6 +195,7 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
 @property (strong) MPRenderer *renderer;
 @property BOOL manualRender;
 @property BOOL previewFlushDisabled;
+@property CGFloat previousSplitRatio;
 @property (readonly) BOOL previewVisible;
 @property (nonatomic) NSUInteger totalWords;
 @property (nonatomic) NSUInteger totalCharacters;
@@ -246,6 +258,16 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
 
 
 #pragma mark - Override
+
+- (instancetype)init
+{
+    self = [super init];
+    if (!self)
+        return nil;
+
+    self.previousSplitRatio = -1.0;
+    return self;
+}
 
 - (NSString *)windowNibName
 {
@@ -407,9 +429,19 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
 
 - (BOOL)validateUserInterfaceItem:(id<NSValidatedUserInterfaceItem>)item
 {
-    if (item.action == @selector(hidePreivewPane:))
-        ((NSMenuItem *)item).hidden = !self.previewVisible;
-    return [super validateUserInterfaceItem:item];
+    BOOL result = [super validateUserInterfaceItem:item];
+    SEL action = item.action;
+    if (action == @selector(hidePreivewPane:))
+    {
+        BOOL validness = self.previewVisible;
+        ((NSMenuItem *)item).hidden = !validness;
+    }
+    else if (action == @selector(restorePreviewPane:))
+    {
+        BOOL validness = !self.previewVisible && self.previousSplitRatio >= 0.0;
+        ((NSMenuItem *)item).hidden = !validness;
+    }
+    return result;
 }
 
 
@@ -691,7 +723,11 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
     NSArray *parts = self.splitView.subviews;
     if ((self.preferences.editorOnRight && parts[1] == self.preview)
             || (!self.preferences.editorOnRight && parts[0] == self.preview))
+    {
         [self.splitView swapViews];
+        if (!self.previewVisible && self.previousSplitRatio >= 0.0)
+            self.previousSplitRatio = 1.0 - self.previousSplitRatio;
+    }
 
     if (self.preferences.editorShowWordCount)
     {
@@ -969,10 +1005,17 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
 
 - (IBAction)hidePreivewPane:(id)sender
 {
+    self.previousSplitRatio = self.splitView.dividerLocation;
     if (self.preferences.editorOnRight)
         [self setSplitViewDividerLocation:0.0];
     else
         [self setSplitViewDividerLocation:1.0];
+}
+
+- (IBAction)restorePreviewPane:(id)sender
+{
+    if (self.previousSplitRatio >= 0.0)
+        [self setSplitViewDividerLocation:self.previousSplitRatio];
 }
 
 - (IBAction)render:(id)sender
