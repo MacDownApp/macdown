@@ -210,7 +210,7 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
 
 - (BOOL)previewVisible
 {
-    return self.preview.frame.size.width;
+    return (self.preview.frame.size.width != 0.0);
 }
 
 - (void)setTotalWords:(NSUInteger)value
