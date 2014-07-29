@@ -405,6 +405,13 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
     return [super prepareSavePanel:savePanel];
 }
 
+- (BOOL)validateUserInterfaceItem:(id<NSValidatedUserInterfaceItem>)item
+{
+    if (item.action == @selector(hidePreivewPane:))
+        ((NSMenuItem *)item).hidden = !self.previewVisible;
+    return [super validateUserInterfaceItem:item];
+}
+
 
 #pragma mark - NSTextViewDelegate
 
