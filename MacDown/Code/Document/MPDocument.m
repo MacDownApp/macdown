@@ -142,7 +142,7 @@ static NSDictionary *MPEditorKeysToObserve()
 
 @implementation DOMNode (Text)
 
-- (NSString *)text
+- (NSString *)nodeText
 {
     NSMutableString *text = [NSMutableString string];
     switch (self.nodeType)
@@ -153,7 +153,7 @@ static NSDictionary *MPEditorKeysToObserve()
             if (self.textContent.length)
                 return self.textContent;
             for (DOMNode *c = self.firstChild; c; c = c.nextSibling)
-                [text appendString:c.text];
+                [text appendString:c.nodeText];
             break;
         case 3:
         case 4:
@@ -513,7 +513,7 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
                                                                 error:NULL];
         });
 
-        NSString *text = sender.mainFrame.DOMDocument.text;
+        NSString *text = sender.mainFrame.DOMDocument.nodeText;
         NSCharacterSet *sp = [NSCharacterSet whitespaceAndNewlineCharacterSet];
         NSString *trimmedDocument = [text stringByTrimmingCharactersInSet:sp];
         NSString *noWhitespace =
