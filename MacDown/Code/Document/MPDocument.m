@@ -99,7 +99,7 @@ static NSString *MPAutosavePropertyKey(
         flags |= HOEDOWN_EXT_SUPERSCRIPT;
     if (self.extensionTables)
         flags |= HOEDOWN_EXT_TABLES;
-    if (self.extensionUnderline)
+    if (self.extensionUnderline || self.htmlMathJax)
         flags |= HOEDOWN_EXT_UNDERLINE;
     return flags;
 }
@@ -111,6 +111,8 @@ static NSString *MPAutosavePropertyKey(
         flags |= HOEDOWN_HTML_USE_TASK_LIST;
     if (self.htmlHardWrap)
         flags |= HOEDOWN_HTML_HARD_WRAP;
+    if (self.htmlMathJax)
+        flags |= HOEDOWN_HTML_DISABLE_UNDERSCORE;
     return flags;
 }
 @end

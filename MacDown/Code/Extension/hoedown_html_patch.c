@@ -14,6 +14,7 @@
 
 #define USE_XHTML(opt) (opt->flags & HOEDOWN_HTML_USE_XHTML)
 #define USE_TASK_LIST(opt) (opt->flags & HOEDOWN_HTML_USE_TASK_LIST)
+#define UNDERSCORE_EMPH_OFF(opt) (opt->flags & HOEDOWN_HTML_DISABLE_UNDERSCORE)
 
 // rndr_blockcode from HEAD. The "language-" prefix in class in needed to make
 // the HTML compatible with Prism.
@@ -102,4 +103,25 @@ void hoedown_patch_render_listitem(
 		hoedown_buffer_put(ob, text->data + offset, size - offset);
 	}
 	HOEDOWN_BUFPUTSL(ob, "</li>\n");
+}
+
+
+// Disable underscore emphasis if HOEDOWN_EXT_DISABLE_UNDERSCORE is on.
+int hoedown_patch_render_underline(
+    hoedown_buffer *ob, const hoedown_buffer *text, void *opaque)
+{
+	if (!text || !text->size)
+		return 0;
+
+    rndr_state_ex *state = opaque;
+    if (UNDERSCORE_EMPH_OFF(state))
+        HOEDOWN_BUFPUTSL(ob, "_");
+    else
+        HOEDOWN_BUFPUTSL(ob, "<u>");
+	hoedown_buffer_put(ob, text->data, text->size);
+    if (UNDERSCORE_EMPH_OFF(state))
+        HOEDOWN_BUFPUTSL(ob, "_");
+    else
+        HOEDOWN_BUFPUTSL(ob, "</u>");
+	return 1;
 }
