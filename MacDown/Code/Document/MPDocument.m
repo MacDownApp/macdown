@@ -150,8 +150,13 @@ static NSDictionary *MPEditorKeysToObserve()
         case 1:
         case 9:
         case 11:
-            if (self.textContent.length)
-                return self.textContent;
+            if ([self respondsToSelector:@selector(tagName)])
+            {
+                NSString *tagName = [(id)self tagName];
+                if ([tagName isEqualToString:@"SCRIPT"]
+                        || [tagName isEqualToString:@"STYLE"])
+                    break;
+            }
             for (DOMNode *c = self.firstChild; c; c = c.nextSibling)
                 [text appendString:c.nodeText];
             break;
