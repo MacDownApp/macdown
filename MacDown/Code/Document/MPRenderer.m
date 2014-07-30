@@ -83,7 +83,20 @@ static NSString *MPHTMLFromMarkdown(
         hoedown_markdown_render(
             ob, inputData.bytes, inputData.length, markdown);
         NSString *toc = [NSString stringWithUTF8String:hoedown_buffer_cstr(ob)];
-        result = [NSString stringWithFormat:@"%@\n%@", toc, result];
+
+        static NSRegularExpression *tocRegex = nil;
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            NSString *pattern = @"<p.*?>\\s*\\[TOC\\]\\s*</p>";
+            NSRegularExpressionOptions ops = NSRegularExpressionCaseInsensitive;
+            tocRegex = [[NSRegularExpression alloc] initWithPattern:pattern
+                                                            options:ops
+                                                              error:NULL];
+        });
+        NSRange replaceRange = NSMakeRange(0, result.length);
+        result = [tocRegex stringByReplacingMatchesInString:result options:0
+                                                      range:replaceRange
+                                               withTemplate:toc];
         hoedown_markdown_free(markdown);
         hoedown_buffer_free(ob);
     }
