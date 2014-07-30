@@ -121,6 +121,7 @@
 		1F51C9A1194564670015A96F /* libPods-MacDown-PAPreferences.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-MacDown-PAPreferences.a"; path = "../../../../Library/Developer/Xcode/DerivedData/MacDown-ggdtxvuybojeqbhjydkhilziizrv/Build/Products/Debug/libPods-MacDown-PAPreferences.a"; sourceTree = "<group>"; };
 		1F64CCC7195F5AB900CE619A /* MPAsset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPAsset.h; sourceTree = "<group>"; };
 		1F64CCC8195F5AB900CE619A /* MPAsset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPAsset.m; sourceTree = "<group>"; };
+		1F70CCD81978F03E00703429 /* MPAutosaving.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MPAutosaving.h; sourceTree = "<group>"; };
 		1F8A82D819533E9300B6BF69 /* Prism */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Prism; path = Resources/Prism; sourceTree = "<group>"; };
 		1F8A83571953454F00B6BF69 /* HGMarkdownHighlighter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HGMarkdownHighlighter.h; path = "Dependency/peg-markdown-highlight/HGMarkdownHighlighter.h"; sourceTree = SOURCE_ROOT; };
 		1F8A83581953454F00B6BF69 /* HGMarkdownHighlighter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HGMarkdownHighlighter.m; path = "Dependency/peg-markdown-highlight/HGMarkdownHighlighter.m"; sourceTree = SOURCE_ROOT; };
@@ -219,6 +220,7 @@
 			children = (
 				1F0D9D63194AC7CF008E1856 /* MPUtilities.h */,
 				1F0D9D64194AC7CF008E1856 /* MPUtilities.m */,
+				1F70CCD81978F03E00703429 /* MPAutosaving.h */,
 			);
 			name = Utility;
 			path = Code/Utility;

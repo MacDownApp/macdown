@@ -59,10 +59,10 @@ static NSArray *MPPrismScriptURLsForLanguage(NSString *language)
 
 static NSString *MPHTMLFromMarkdown(
     NSString *text, int flags, BOOL smartypants, NSString *frontMatter,
-    hoedown_renderer *renderer)
+    hoedown_renderer *htmlRenderer, hoedown_renderer *tocRenderer)
 {
     NSData *inputData = [text dataUsingEncoding:NSUTF8StringEncoding];
-    hoedown_markdown *markdown = hoedown_markdown_new(flags, 15, renderer);
+    hoedown_markdown *markdown = hoedown_markdown_new(flags, 15, htmlRenderer);
     hoedown_buffer *ob = hoedown_buffer_new(64);
     hoedown_markdown_render(ob, inputData.bytes, inputData.length, markdown);
     if (smartypants)
@@ -75,8 +75,34 @@ static NSString *MPHTMLFromMarkdown(
     NSString *result = [NSString stringWithUTF8String:hoedown_buffer_cstr(ob)];
     hoedown_markdown_free(markdown);
     hoedown_buffer_free(ob);
+
+    if (tocRenderer)
+    {
+        markdown = hoedown_markdown_new(flags, 15, tocRenderer);
+        ob = hoedown_buffer_new(64);
+        hoedown_markdown_render(
+            ob, inputData.bytes, inputData.length, markdown);
+        NSString *toc = [NSString stringWithUTF8String:hoedown_buffer_cstr(ob)];
+
+        static NSRegularExpression *tocRegex = nil;
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            NSString *pattern = @"<p.*?>\\s*\\[TOC\\]\\s*</p>";
+            NSRegularExpressionOptions ops = NSRegularExpressionCaseInsensitive;
+            tocRegex = [[NSRegularExpression alloc] initWithPattern:pattern
+                                                            options:ops
+                                                              error:NULL];
+        });
+        NSRange replaceRange = NSMakeRange(0, result.length);
+        result = [tocRegex stringByReplacingMatchesInString:result options:0
+                                                      range:replaceRange
+                                               withTemplate:toc];
+        hoedown_markdown_free(markdown);
+        hoedown_buffer_free(ob);
+    }
     if (frontMatter)
         result = [NSString stringWithFormat:@"%@\n%@", frontMatter, result];
+    
     return result;
 }
 
@@ -117,6 +143,7 @@ static NSString *MPGetHTML(
 
 @interface MPRenderer ()
 
+@property (nonatomic, unsafe_unretained) hoedown_renderer *tocRenderer;
 @property (nonatomic, unsafe_unretained) hoedown_renderer *htmlRenderer;
 @property (strong) NSMutableArray *currentLanguages;
 @property (readonly) NSArray *baseStylesheets;
@@ -129,6 +156,7 @@ static NSString *MPGetHTML(
 @property (strong) NSTimer *parseDelayTimer;
 @property int extensions;
 @property BOOL smartypants;
+@property BOOL TOC;
 @property (copy) NSString *styleName;
 @property BOOL frontMatter;
 @property BOOL mathjax;
@@ -222,13 +250,15 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
 
     self.currentHtml = @"";
     self.currentLanguages = [NSMutableArray array];
-    self.htmlRenderer = hoedown_html_renderer_new(0, 0);
+    self.tocRenderer = hoedown_html_toc_renderer_new(6);
+    self.htmlRenderer = hoedown_html_renderer_new(0, 6);
 
     return self;
 }
 
 - (void)dealloc
 {
+    self.tocRenderer = NULL;
     self.htmlRenderer = NULL;
 }
 
@@ -243,6 +273,13 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
     _rendererFlags = rendererFlags;
     rndr_state_ex *state = self.htmlRenderer->opaque;
     state->flags = rendererFlags;
+}
+
+- (void)setTocRenderer:(hoedown_renderer *)tocRenderer
+{
+    if (_tocRenderer)
+        hoedown_html_renderer_free(_tocRenderer);
+    _tocRenderer = tocRenderer;
 }
 
 - (void)setHtmlRenderer:(hoedown_renderer *)htmlRenderer
@@ -374,6 +411,7 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
     id<MPRendererDelegate> delegate = self.delegate;
     if ([delegate rendererExtensions:self] != self.extensions
             || [delegate rendererHasSmartyPants:self] != self.smartypants
+            || [delegate rendererRendersTOC:self] != self.TOC
             || [delegate rendererDetectsFrontMatter:self] != self.frontMatter)
         [self parse];
 }
@@ -393,6 +431,7 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
     int extensions = [delegate rendererExtensions:self];
     BOOL smartypants = [delegate rendererHasSmartyPants:self];
     BOOL hasFrontMatter = [delegate rendererDetectsFrontMatter:self];
+    BOOL hasTOC = [delegate rendererRendersTOC:self];
 
     NSString *frontMatter = nil;
     NSString *markdown = [self.dataSource rendererMarkdown:self];
@@ -404,12 +443,16 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
         if (frontMatter.length)
             markdown = [markdown substringWithRange:restRange];
     }
-
+    hoedown_renderer *tocRenderer = NULL;
+    if (hasTOC)
+        tocRenderer = self.tocRenderer;
     self.currentHtml = MPHTMLFromMarkdown(
-        markdown, extensions, smartypants, frontMatter, self.htmlRenderer);
+        markdown, extensions, smartypants, frontMatter, self.htmlRenderer,
+        tocRenderer);
 
     self.extensions = extensions;
     self.smartypants = smartypants;
+    self.TOC = hasTOC;
     self.frontMatter = hasFrontMatter;
 
     if (nextAction)

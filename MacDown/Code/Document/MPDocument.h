@@ -14,4 +14,6 @@
 
 @property (nonatomic, readonly) MPPreferences *preferences;
 
+- (IBAction)toggleTOCRendering:(id)sender;
+
 @end

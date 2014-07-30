@@ -13,11 +13,15 @@
 #import "hoedown_html_patch.h"
 #import "HGMarkdownHighlighter.h"
 #import "MPUtilities.h"
+#import "MPAutosaving.h"
 #import "NSString+Lookup.h"
 #import "NSTextView+Autocomplete.h"
 #import "MPPreferences.h"
 #import "MPRenderer.h"
 #import "MPExportPanelAccessoryViewController.h"
+
+
+static NSString * const kMPRendersTOCPropertyKey = @"Renders TOC";
 
 
 static NSString *MPEditorPreferenceKeyWithValueKey(NSString *key)
@@ -44,6 +48,14 @@ static NSDictionary *MPEditorKeysToObserve()
                  @"grammarCheckingEnabled": @NO};
     });
     return keys;
+}
+
+static NSString *MPAutosavePropertyKey(
+    id<MPAutosaving> object, NSString *propertyName)
+{
+    NSString *className = NSStringFromClass([object class]);
+    return [NSString stringWithFormat:@"%@ %@ %@", className, propertyName,
+                                                   object.autosaveName];
 }
 
 
@@ -172,7 +184,7 @@ static NSDictionary *MPEditorKeysToObserve()
 
 
 @interface MPDocument ()
-    <NSTextViewDelegate, MPRendererDataSource, MPRendererDelegate>
+    <NSTextViewDelegate, MPAutosaving, MPRendererDataSource, MPRendererDelegate>
 
 typedef NS_ENUM(NSUInteger, MPWordCountType) {
     MPWordCountTypeWord,
@@ -185,10 +197,12 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
 @property (weak) IBOutlet NSLayoutConstraint *editorPaddingBottom;
 @property (weak) IBOutlet WebView *preview;
 @property (weak) IBOutlet NSPopUpButton *wordCountWidget;
+@property (copy, nonatomic) NSString *autosaveName;
 @property (strong) HGMarkdownHighlighter *highlighter;
 @property (strong) MPRenderer *renderer;
 @property BOOL manualRender;
 @property BOOL previewFlushDisabled;
+@property (nonatomic) BOOL rendersTOC;
 @property (readonly) BOOL previewVisible;
 @property (nonatomic) NSUInteger totalWords;
 @property (nonatomic) NSUInteger totalCharacters;
@@ -249,6 +263,25 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
                             usingPluralRule:rule localizeNumeral:NO];
 }
 
+- (void)setAutosaveName:(NSString *)autosaveName
+{
+    _autosaveName = autosaveName;
+    self.splitView.autosaveName = autosaveName;
+}
+
+- (BOOL)rendersTOC
+{
+    NSString *key = MPAutosavePropertyKey(self, kMPRendersTOCPropertyKey);
+    BOOL value = [[NSUserDefaults standardUserDefaults] boolForKey:key];
+    return value;
+}
+
+- (void)setRendersTOC:(BOOL)rendersTOC
+{
+    NSString *key = MPAutosavePropertyKey(self, kMPRendersTOCPropertyKey);
+    [[NSUserDefaults standardUserDefaults] setBool:rendersTOC forKey:key];
+}
+
 
 #pragma mark - Override
 
@@ -268,7 +301,7 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
     if (self.fileURL)
         autosaveName = self.fileURL.absoluteString;
     controller.window.frameAutosaveName = autosaveName;
-    self.splitView.autosaveName = autosaveName;
+    self.autosaveName = autosaveName;
 
     self.highlighter =
         [[HGMarkdownHighlighter alloc] initWithTextView:self.editor
@@ -408,6 +441,16 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
     }
     savePanel.allowedFileTypes = nil;   // Allow all extensions.
     return [super prepareSavePanel:savePanel];
+}
+
+
+#pragma mark - NSMenuValidation
+
+- (BOOL)validateMenuItem:(NSMenuItem *)menuItem
+{
+    if (menuItem.action == @selector(toggleTOCRendering:))
+        menuItem.state = self.rendersTOC ? NSOnState : NSOffState;
+    return YES;
 }
 
 
@@ -611,6 +654,11 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
 - (BOOL)rendererHasSmartyPants:(MPRenderer *)renderer
 {
     return self.preferences.extensionSmartyPants;
+}
+
+- (BOOL)rendererRendersTOC:(MPRenderer *)renderer
+{
+    return self.rendersTOC;
 }
 
 - (NSString *)rendererStyleName:(MPRenderer *)renderer
@@ -976,6 +1024,14 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
 - (IBAction)render:(id)sender
 {
     [self.renderer parseAndRenderLater];
+}
+
+- (IBAction)toggleTOCRendering:(id)sender
+{
+    BOOL nextState = NO;
+    if ([sender state] == NSOffState)
+        nextState = YES;
+    self.rendersTOC = nextState;
 }
 
 
