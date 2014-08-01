@@ -428,6 +428,12 @@
                                     <action selector="hidePreivewPane:" target="-1" id="99p-A1-4FF"/>
                                 </connections>
                             </menuItem>
+                            <menuItem title="Restore Preview Pane" id="OIG-zA-Uha">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="restorePreviewPane:" target="-1" id="TbS-zr-oVA"/>
+                                </connections>
+                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="Cux-kV-g5Z"/>
                             <menuItem title="Enter Full Screen" keyEquivalent="f" id="1gz-YB-DZE">
                                 <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
