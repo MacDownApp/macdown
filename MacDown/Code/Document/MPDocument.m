@@ -185,6 +185,7 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
 @property (strong) MPRenderer *renderer;
 @property BOOL manualRender;
 @property BOOL previewFlushDisabled;
+@property BOOL shouldHandleBoundsChange;
 @property (readonly) BOOL previewVisible;
 @property (nonatomic) NSUInteger totalWords;
 @property (nonatomic) NSUInteger totalCharacters;
@@ -247,6 +248,14 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
 
 
 #pragma mark - Override
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self)
+        self.shouldHandleBoundsChange = YES;
+    return self;
+}
 
 - (NSString *)windowNibName
 {
@@ -682,19 +691,19 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
 
 - (void)boundsDidChange:(NSNotification *)notification
 {
-    static BOOL shouldHandleNotification = YES;
-    if (shouldHandleNotification) {
-        shouldHandleNotification = NO;
-        CGFloat clipWidth = [notification.object frame].size.width;
-        NSRect editorFrame = self.editor.frame;
-        if (editorFrame.size.width != clipWidth)
-        {
-            editorFrame.size.width = clipWidth;
-            self.editor.frame = editorFrame;
-        }
-        [self syncScrollers];
-        shouldHandleNotification = YES;
+    if (!self.shouldHandleBoundsChange)
+        return;
+
+    self.shouldHandleBoundsChange = NO;
+    CGFloat clipWidth = [notification.object frame].size.width;
+    NSRect editorFrame = self.editor.frame;
+    if (editorFrame.size.width != clipWidth)
+    {
+        editorFrame.size.width = clipWidth;
+        self.editor.frame = editorFrame;
     }
+    [self syncScrollers];
+    self.shouldHandleBoundsChange = YES;
 }
 
 
