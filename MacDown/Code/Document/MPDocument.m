@@ -585,6 +585,20 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
         [textView.string locationOfFirstNonWhitespaceCharacterInLineBefore:cur];
     if (location == cur)
         return YES;
+
+    // We don't want to jump rows when the line is wrapped. (#103)
+    // If the line is wrapped, the target will be higher than the current glyph.
+    NSLayoutManager *manager = textView.layoutManager;
+    NSTextContainer *container = textView.textContainer;
+    NSRect targetRect =
+        [manager boundingRectForGlyphRange:NSMakeRange(location, 1)
+                           inTextContainer:container];
+    NSRect currentRect =
+        [manager boundingRectForGlyphRange:NSMakeRange(cur, 1)
+                           inTextContainer:container];
+    if (targetRect.origin.y < currentRect.origin.y)
+        return YES;
+
     textView.selectedRange = NSMakeRange(location, 0);
     return NO;
 }
