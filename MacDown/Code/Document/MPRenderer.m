@@ -293,7 +293,6 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
     {
         _htmlRenderer->blockcode = hoedown_patch_render_blockcode;
         _htmlRenderer->listitem = hoedown_patch_render_listitem;
-        _htmlRenderer->underline = hoedown_patch_render_underline;
 
         rndr_state_ex *state = malloc(sizeof(rndr_state_ex));
         memcpy(state, _htmlRenderer->opaque, sizeof(rndr_state));

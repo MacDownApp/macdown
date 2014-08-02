@@ -10,7 +10,6 @@
 #define MacDown_hoedown_html_patch_h
 
 static unsigned int HOEDOWN_HTML_USE_TASK_LIST = (1 << 11);
-static unsigned int HOEDOWN_HTML_DISABLE_UNDERSCORE = (1 << 12);
 
 typedef struct hoedown_buffer hoedown_buffer;
 
@@ -55,8 +54,5 @@ void hoedown_patch_render_blockcode(
 
 void hoedown_patch_render_listitem(
     hoedown_buffer *ob, const hoedown_buffer *text, int flags, void *opaque);
-
-int hoedown_patch_render_underline(
-    hoedown_buffer *ob, const hoedown_buffer *text, void *opaque);
 
 #endif
