@@ -503,15 +503,19 @@ static NSString * const kMPBlockquoteLinePattern = @"^((?:\\> ?)+).*$";
         return YES;
     }
 
-    // Has indent and matching list item. Accept it.
     NSString *it = [NSString stringWithFormat:@"%@%@", indent, t];
+
+    // Has indent and matching list item. Accept it.
     r = NSMakeRange(location, it.length);
     if (contentLength > location + it.length
             && [[content substringWithRange:r] isEqualToString:it])
         return YES;
 
     // Insert completion for normal cases.
-    [self insertText:[NSString stringWithFormat:@"%@ ", it]];
+    if (t.length)
+        it = [NSString stringWithFormat:@"%@ ", it];
+    else
+        [self insertText:it];
     return YES;
 }
 
