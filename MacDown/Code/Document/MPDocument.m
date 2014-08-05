@@ -481,17 +481,12 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
         BOOL validness = !self.previewVisible && self.previousSplitRatio >= 0.0;
         ((NSMenuItem *)item).hidden = !validness;
     }
+    else if (action == @selector(toggleTOCRendering:))
+    {
+        NSInteger state = self.rendersTOC ? NSOnState : NSOffState;
+        ((NSMenuItem *)item).state = state;
+    }
     return result;
-}
-
-
-#pragma mark - NSMenuValidation
-
-- (BOOL)validateMenuItem:(NSMenuItem *)menuItem
-{
-    if (menuItem.action == @selector(toggleTOCRendering:))
-        menuItem.state = self.rendersTOC ? NSOnState : NSOffState;
-    return YES;
 }
 
 
