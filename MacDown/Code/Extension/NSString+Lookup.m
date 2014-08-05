@@ -45,26 +45,6 @@
     return p;
 }
 
-- (NSRange)rangeOfLinesInRange:(NSRange)range
-{
-    if (self.length == 0)
-        return NSMakeRange(0, 0);
-
-    NSUInteger location = range.location;
-    NSUInteger length = range.length;
-    NSUInteger start = [self locationOfFirstNewlineBefore:location] + 1;
-    NSUInteger end = location + length - 1;
-    if (end >= self.length - 1)
-        end = self.length - 2;
-    if (!MPCharacterIsNewline([self characterAtIndex:end]))
-        end = [self locationOfFirstNewlineAfter:end];
-    if (end < start)
-        end = start;
-    if (end < self.length)
-        end++;
-    return NSMakeRange(start, end - start);
-}
-
 - (NSString *)titleString
 {
     NSString *pattern = @"\\s+(\\S.*)$";
