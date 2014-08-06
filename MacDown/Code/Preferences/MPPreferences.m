@@ -49,6 +49,7 @@ static NSString * const kMPDefaultHtmlStyleName = @"GitHub2";
                              object:self];
         }];
     }
+    [self loadDefaultUserDefaults];
     self.latestVersionInstalled = version;
     return self;
 }
@@ -82,6 +83,8 @@ static NSString * const kMPDefaultHtmlStyleName = @"GitHub2";
 @dynamic editorHorizontalInset;
 @dynamic editorVerticalInset;
 @dynamic editorLineSpacing;
+@dynamic editorWidthLimited;
+@dynamic editorMaximumWidth;
 @dynamic editorOnRight;
 @dynamic editorShowWordCount;
 @dynamic editorWordCountType;
@@ -138,6 +141,13 @@ static NSString * const kMPDefaultHtmlStyleName = @"GitHub2";
     self.htmlStyleName = kMPDefaultHtmlStyleName;
     self.htmlDefaultDirectoryUrl = [NSURL fileURLWithPath:NSHomeDirectory()
                                               isDirectory:YES];
+}
+
+- (void)loadDefaultUserDefaults
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if (![defaults objectForKey:@"editorMaximumWidth"])
+        self.editorMaximumWidth = 1000.0;
 }
 
 @end

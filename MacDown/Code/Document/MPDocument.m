@@ -1121,6 +1121,15 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
 
     CGFloat x = self.preferences.editorHorizontalInset;
     CGFloat y = self.preferences.editorVerticalInset;
+    if (self.preferences.editorWidthLimited)
+    {
+        CGFloat editorWidth = self.editor.frame.size.width;
+        CGFloat maxWidth = self.preferences.editorMaximumWidth;
+        if (editorWidth > 2 * x + maxWidth)
+            x = (editorWidth - maxWidth) * 0.45;
+        // We tend to expect things in an editor to shift to left a bit. Hence
+        // the 0.45 instead of 0.5 (which whould feel a bit too much).
+    }
     self.editor.textContainerInset = NSMakeSize(x, y);
 
     NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
