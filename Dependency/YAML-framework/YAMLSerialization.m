@@ -47,11 +47,11 @@ __YAMLSerializationObjectWithYAMLDocument (yaml_document_t *document, YAMLReadOp
 
     // Mutability options
     Class arrayClass = [NSMutableArray class]; // TODO: FIXME:
-    Class dictionaryClass = [NSMutableOrderedDictionary class]; // TODO: FIXME:
+    Class dictionaryClass = [M13MutableOrderedDictionary class]; // TODO: FIXME:
     Class stringClass = [NSString class];
     if (opt & kYAMLReadOptionMutableContainers) {
         arrayClass = [NSMutableArray class];
-        dictionaryClass = [NSMutableOrderedDictionary class];
+        dictionaryClass = [M13MutableOrderedDictionary class];
         if (opt & kYAMLReadOptionMutableContainersAndLeaves) {
             stringClass = [NSMutableString class];
         }
