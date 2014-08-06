@@ -454,7 +454,12 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
                                                           options:0 error:NULL];
     });
 
-    NSString *title = [self.editor.string titleString];
+    NSString *title = nil;
+    NSString *string = self.editor.string;
+    if (self.preferences.htmlDetectFrontMatter)
+        title = [[[string frontMatter:NULL] objectForKey:@"title"] description];
+    if (!title)
+        title = [string titleString];
     if (title)
     {
         NSRange range = NSMakeRange(0, title.length);
