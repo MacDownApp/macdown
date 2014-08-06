@@ -9,9 +9,9 @@
 #import "MPRenderer.h"
 #import <hoedown/html.h>
 #import <hoedown/markdown.h>
-#import "YAMLSerialization.h"
 #import "hoedown_html_patch.h"
 #import "NSObject+HTMLTabularize.h"
+#import "NSString+Lookup.h"
 #import "MPUtilities.h"
 #import "MPAsset.h"
 
@@ -433,22 +433,20 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
     BOOL hasFrontMatter = [delegate rendererDetectsFrontMatter:self];
     BOOL hasTOC = [delegate rendererRendersTOC:self];
 
-    NSString *frontMatter = nil;
+    id frontMatter = nil;
     NSString *markdown = [self.dataSource rendererMarkdown:self];
     if (hasFrontMatter)
     {
-        NSRange restRange = NSMakeRange(0, markdown.length);
-        frontMatter = [self frontMatterFromMarkdown:markdown
-                                                    restRange:&restRange];
-        if (frontMatter.length)
-            markdown = [markdown substringWithRange:restRange];
+        NSUInteger offset = 0;
+        frontMatter = [markdown frontMatter:&offset];
+        markdown = [markdown substringFromIndex:offset];
     }
     hoedown_renderer *tocRenderer = NULL;
     if (hasTOC)
         tocRenderer = self.tocRenderer;
     self.currentHtml = MPHTMLFromMarkdown(
-        markdown, extensions, smartypants, frontMatter, self.htmlRenderer,
-        tocRenderer);
+        markdown, extensions, smartypants, [frontMatter HTMLTable],
+        self.htmlRenderer, tocRenderer);
 
     self.extensions = extensions;
     self.smartypants = smartypants;
@@ -539,43 +537,6 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
                                        selector:action
                                        userInfo:@{@"next": handler}
                                         repeats:NO];
-}
-
-- (NSString *)frontMatterFromMarkdown:(NSString *)input
-                            restRange:(out NSRange *)restRange
-{
-    NSRegularExpressionOptions op = NSRegularExpressionDotMatchesLineSeparators;
-    NSRegularExpression *regex =
-        [NSRegularExpression regularExpressionWithPattern:@"^---\n(.*?\n)---"
-                                                  options:op error:NULL];
-    NSTextCheckingResult *result =
-        [regex firstMatchInString:input options:0
-                            range:NSMakeRange(0, input.length)];
-    if (!result)    // No front matter match. Do nothing.
-    {
-        if (restRange)
-            *restRange = NSMakeRange(0, input.length);
-        return nil;
-    }
-
-    NSRange frontMatterRange = [result rangeAtIndex:1];
-    NSUInteger restStart = frontMatterRange.length + 7;
-
-    NSString *frontMatter = [input substringWithRange:frontMatterRange];
-    NSArray *objects =
-        [YAMLSerialization objectsWithYAMLString:frontMatter
-                                         options:kYAMLReadOptionStringScalars
-                                           error:NULL];
-    if (!objects.count)
-    {
-        if (restRange)
-            *restRange = NSMakeRange(0, input.length);
-        return nil;
-    }
-    NSString *table = [objects[0] HTMLTable];
-    if (restRange)
-        *restRange = NSMakeRange(restStart, input.length - restStart);
-    return table;
 }
 
 @end
