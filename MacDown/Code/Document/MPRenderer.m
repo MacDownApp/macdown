@@ -340,13 +340,20 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
 {
     NSMutableArray *scripts = [NSMutableArray array];
     NSURL *url = [NSURL URLWithString:kMPMathJaxCDN];
+    NSBundle *bundle = [NSBundle mainBundle];
+    MPEmbeddedScript *script = nil;
+    script =
+        [MPEmbeddedScript assetWithURL:[bundle URLForResource:@"callback"
+                                                withExtension:@"js"
+                                                 subdirectory:@"MathJax"]
+                               andType:kMPMathJaxConfigType];
+    [scripts addObject:script];
     if ([self.delegate rendererMathJaxInlineDollarEnabled:self])
     {
-        NSBundle *b = [NSBundle mainBundle];
-        MPEmbeddedScript *script =
-            [MPEmbeddedScript assetWithURL:[b URLForResource:@"inline"
-                                               withExtension:@"js"
-                                                subdirectory:@"MathJax"]
+        script =
+            [MPEmbeddedScript assetWithURL:[bundle URLForResource:@"inline"
+                                                    withExtension:@"js"
+                                                     subdirectory:@"MathJax"]
                                    andType:kMPMathJaxConfigType];
         [scripts addObject:script];
     }

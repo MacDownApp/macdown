@@ -19,6 +19,7 @@
 #import "MPPreferences.h"
 #import "MPRenderer.h"
 #import "MPExportPanelAccessoryViewController.h"
+#import "MPMathJaxListener.h"
 
 
 static NSString * const kMPRendersTOCPropertyKey = @"Renders TOC";
@@ -615,14 +616,20 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
 
 - (void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame
 {
-    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-        if (self.previewFlushDisabled)
-        {
-            [sender.window enableFlushWindow];
-            self.previewFlushDisabled = NO;
-        }
-        [self syncScrollers];
-    }];
+    // If MathJax is on, completion is furthur delayed until MathJax is done.
+    // The completion method will be invoked by the JavaScript callback handler.
+    if (!self.preferences.htmlMathJax)
+    {
+        NSOperationQueue *queue = [NSOperationQueue mainQueue];
+        [queue addOperationWithBlock:self.previewLoadingCompletionHandler];
+    }
+    else
+    {
+        MPMathJaxListener *listener = [[MPMathJaxListener alloc] init];
+        [listener addCallback:self.previewLoadingCompletionHandler
+                       forKey:@"End"];
+        [sender.windowScriptObject setValue:listener forKey:@"MathJaxListener"];
+    }
     
     // Update word count
     if (self.preferences.editorShowWordCount)
@@ -1211,6 +1218,19 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
     if (!wasVisible && self.previewVisible
             && !self.preferences.markdownManualRender)
         [self.renderer parseAndRenderNow];
+}
+
+- (void(^)())previewLoadingCompletionHandler
+{
+    __block id weaKSelf = self;
+    return ^{
+        if ([weaKSelf previewFlushDisabled])
+        {
+            [[weaKSelf preview].window enableFlushWindow];
+            [weaKSelf setPreviewFlushDisabled:NO];
+        }
+        [weaKSelf syncScrollers];
+    };
 }
 
 @end
