@@ -514,8 +514,7 @@ static NSString * const kMPBlockquoteLinePattern = @"^((?:\\> ?)+).*$";
     // Insert completion for normal cases.
     if (t.length)
         it = [NSString stringWithFormat:@"%@ ", it];
-    else
-        [self insertText:it];
+    [self insertText:it];
     return YES;
 }
 
