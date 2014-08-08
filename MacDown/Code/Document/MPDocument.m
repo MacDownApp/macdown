@@ -518,7 +518,7 @@ static NSDictionary *MPEditorKeysToObserve()
     }];
 }
 
-- (IBAction)exportPDF:(id)sender
+- (IBAction)exportPdf:(id)sender
 {
     NSSavePanel *panel = [NSSavePanel savePanel];
     panel.allowedFileTypes = @[@"pdf"];
