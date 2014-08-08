@@ -897,6 +897,46 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
     }];
 }
 
+- (IBAction)exportPdf:(id)sender
+{
+    NSSavePanel *panel = [NSSavePanel savePanel];
+    panel.allowedFileTypes = @[@"pdf"];
+    if (self.fileURL)
+    {
+        NSString *fileName = self.fileURL.lastPathComponent;
+        if ([fileName hasSuffix:@".md"])
+            fileName = [fileName substringToIndex:(fileName.length - 3)];
+        panel.nameFieldStringValue = fileName;
+    }
+    
+    NSWindow *w = nil;
+    NSArray *windowControllers = self.windowControllers;
+    if (windowControllers.count > 0)
+        w = [windowControllers[0] window];
+
+    [panel beginSheetModalForWindow:w completionHandler:^(NSInteger result) {
+        if (result != NSFileHandlingPanelOKButton)
+            return;
+        
+        NSPrintInfo *info = [[NSPrintInfo sharedPrintInfo] copy];
+        [info setHorizontalPagination: NSAutoPagination];
+        [info setVerticalPagination: NSAutoPagination];
+        [info setVerticallyCentered: NO];
+        
+        NSMutableDictionary *dict = info.dictionary;
+        [dict setObject:NSPrintSaveJob forKey:NSPrintJobDisposition];
+        [dict setObject:[[panel URL] path] forKey:NSPrintSavePath];
+        
+        NSView *view = [[[self.preview mainFrame] frameView] documentView];
+        NSPrintOperation *op = [NSPrintOperation printOperationWithView:view
+                                                              printInfo:info];
+        
+        [op setShowsPrintPanel:NO];
+        [op setShowsProgressPanel:NO];
+        [op runOperation];
+    }];
+}
+
 - (IBAction)convertToH1:(id)sender
 {
     [self.editor makeHeaderForSelectedLinesWithLevel:1];
