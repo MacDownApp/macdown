@@ -143,8 +143,6 @@ static NSString *MPGetHTML(
 
 @interface MPRenderer ()
 
-@property (nonatomic, unsafe_unretained) hoedown_renderer *tocRenderer;
-@property (nonatomic, unsafe_unretained) hoedown_renderer *htmlRenderer;
 @property (strong) NSMutableArray *currentLanguages;
 @property (readonly) NSArray *baseStylesheets;
 @property (readonly) NSArray *prismStylesheets;
@@ -239,6 +237,23 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
     return mapped;
 }
 
+static hoedown_renderer *MPCreateHTMLRenderer(MPRenderer *renderer)
+{
+    int flags = renderer.rendererFlags;
+    hoedown_renderer *htmlRenderer = hoedown_html_renderer_new(flags, 6);
+    htmlRenderer->blockcode = hoedown_patch_render_blockcode;
+    htmlRenderer->listitem = hoedown_patch_render_listitem;
+
+    rndr_state_ex *state = malloc(sizeof(rndr_state_ex));
+    memcpy(state, htmlRenderer->opaque, sizeof(rndr_state));
+    state->language_addition = language_addition;
+    state->owner = (__bridge void *)renderer;
+
+    free(htmlRenderer->opaque);
+    htmlRenderer->opaque = state;
+    return htmlRenderer;
+}
+
 
 @implementation MPRenderer
 
@@ -250,59 +265,11 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
 
     self.currentHtml = @"";
     self.currentLanguages = [NSMutableArray array];
-    self.tocRenderer = hoedown_html_toc_renderer_new(6);
-    self.htmlRenderer = hoedown_html_renderer_new(0, 6);
 
     return self;
 }
 
-- (void)dealloc
-{
-    self.tocRenderer = NULL;
-    self.htmlRenderer = NULL;
-}
-
-
 #pragma mark - Accessor
-
-- (void)setRendererFlags:(int)rendererFlags
-{
-    if (rendererFlags == _rendererFlags)
-        return;
-
-    _rendererFlags = rendererFlags;
-    rndr_state_ex *state = self.htmlRenderer->opaque;
-    state->flags = rendererFlags;
-}
-
-- (void)setTocRenderer:(hoedown_renderer *)tocRenderer
-{
-    if (_tocRenderer)
-        hoedown_html_renderer_free(_tocRenderer);
-    _tocRenderer = tocRenderer;
-}
-
-- (void)setHtmlRenderer:(hoedown_renderer *)htmlRenderer
-{
-    if (_htmlRenderer)
-        hoedown_html_renderer_free(_htmlRenderer);
-
-    _htmlRenderer = htmlRenderer;
-
-    if (_htmlRenderer)
-    {
-        _htmlRenderer->blockcode = hoedown_patch_render_blockcode;
-        _htmlRenderer->listitem = hoedown_patch_render_listitem;
-
-        rndr_state_ex *state = malloc(sizeof(rndr_state_ex));
-        memcpy(state, _htmlRenderer->opaque, sizeof(rndr_state));
-        state->language_addition = language_addition;
-        state->owner = (__bridge void *)self;
-
-        free(_htmlRenderer->opaque);
-        _htmlRenderer->opaque = state;
-    }
-}
 
 - (NSArray *)baseStylesheets
 {
@@ -441,12 +408,16 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
         frontMatter = [markdown frontMatter:&offset];
         markdown = [markdown substringFromIndex:offset];
     }
+    hoedown_renderer *htmlRenderer = MPCreateHTMLRenderer(self);
     hoedown_renderer *tocRenderer = NULL;
     if (hasTOC)
-        tocRenderer = self.tocRenderer;
+        tocRenderer = hoedown_html_toc_renderer_new(6);
     self.currentHtml = MPHTMLFromMarkdown(
         markdown, extensions, smartypants, [frontMatter HTMLTable],
-        self.htmlRenderer, tocRenderer);
+        htmlRenderer, tocRenderer);
+    if (tocRenderer)
+        hoedown_html_renderer_free(tocRenderer);
+    hoedown_html_renderer_free(htmlRenderer);
 
     self.extensions = extensions;
     self.smartypants = smartypants;
