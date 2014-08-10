@@ -115,24 +115,36 @@
 {
     NSFileManager *manager = [NSFileManager defaultManager];
     NSString *root = MPDataDirectory(nil);
-    if ([manager fileExistsAtPath:root])
-        return;
-
-    [manager createDirectoryAtPath:root
-       withIntermediateDirectories:YES attributes:nil error:NULL];
-    NSBundle *bundle = [NSBundle mainBundle];
-    NSURL *target =
-        [NSURL fileURLWithPath:MPDataDirectory(kMPStylesDirectoryName)];
-    if (![manager fileExistsAtPath:target.path])
+    if (![manager fileExistsAtPath:root])
     {
-        NSURL *source = [bundle URLForResource:@"Styles" withExtension:@""];
-        [manager copyItemAtURL:source toURL:target error:NULL];
+        [manager createDirectoryAtPath:root
+           withIntermediateDirectories:YES attributes:nil error:NULL];
     }
-    target = [NSURL fileURLWithPath:MPDataDirectory(kMPThemesDirectoryName)];
-    if (![manager fileExistsAtPath:target.path])
+
+    NSBundle *bundle = [NSBundle mainBundle];
+    for (NSString *key in @[kMPStylesDirectoryName, kMPThemesDirectoryName])
     {
-        NSURL *source = [bundle URLForResource:@"Themes" withExtension:@""];
-        [manager copyItemAtURL:source toURL:target error:NULL];
+        NSURL *dirSource = [bundle URLForResource:key withExtension:@""];
+        NSURL *dirTarget = [NSURL fileURLWithPath:MPDataDirectory(key)];
+
+        // If the directory doesn't exist, just copy the whole thing.
+        if (![manager fileExistsAtPath:dirTarget.path])
+        {
+            [manager copyItemAtURL:dirSource toURL:dirTarget error:NULL];
+            continue;
+        }
+
+        // Check for existence of each file and copy if it's not there.
+        NSArray *contents = [manager contentsOfDirectoryAtURL:dirSource
+                                   includingPropertiesForKeys:nil options:0
+                                                        error:NULL];
+        for (NSURL *fileSource in contents)
+        {
+            NSString *name = fileSource.lastPathComponent;
+            NSURL *fileTarget = [dirTarget URLByAppendingPathComponent:name];
+            if (![manager fileExistsAtPath:fileTarget.path])
+                [manager copyItemAtURL:fileSource toURL:fileTarget error:NULL];
+        }
     }
 }
 
