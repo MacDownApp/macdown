@@ -447,26 +447,11 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
 
 - (BOOL)prepareSavePanel:(NSSavePanel *)savePanel
 {
-    static NSRegularExpression *regex = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        regex = [NSRegularExpression regularExpressionWithPattern:@"[/|:]"
-                                                          options:0 error:NULL];
-    });
-
-    NSString *title = nil;
-    NSString *string = self.editor.string;
-    if (self.preferences.htmlDetectFrontMatter)
-        title = [[[string frontMatter:NULL] objectForKey:@"title"] description];
-    if (!title)
-        title = [string titleString];
-    if (title)
+    NSString *fileName = self.presumedFileName;
+    if (fileName)
     {
-        NSRange range = NSMakeRange(0, title.length);
-        title = [regex stringByReplacingMatchesInString:title options:0
-                                                  range:range
-                                           withTemplate:@"-"];
-        savePanel.nameFieldStringValue = title;
+        fileName = [fileName stringByAppendingPathExtension:@"md"];
+        savePanel.nameFieldStringValue = fileName;
     }
     savePanel.allowedFileTypes = nil;   // Allow all extensions.
     return [super prepareSavePanel:savePanel];
@@ -696,17 +681,8 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
 
 - (NSString *)rendererHTMLTitle:(MPRenderer *)renderer
 {
-    NSString *name = self.fileURL.lastPathComponent;
-
-    // TODO: Detect extensions from bundle info directly. Don't hardcode.
-    if ([name hasSuffix:@".md"])
-        name = [name substringToIndex:name.length - 3];
-    else if ([name hasSuffix:@".markdown"])
-        name = [name substringToIndex:name.length - 9];
-
-    if (name.length)
-        return name;
-    return @"";
+    NSString *n = self.fileURL.lastPathComponent.stringByDeletingPathExtension;
+    return n ? n : @"";
 }
 
 
@@ -883,13 +859,8 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
 {
     NSSavePanel *panel = [NSSavePanel savePanel];
     panel.allowedFileTypes = @[@"html"];
-    if (self.fileURL)
-    {
-        NSString *fileName = self.fileURL.lastPathComponent;
-        if ([fileName hasSuffix:@".md"])
-            fileName = [fileName substringToIndex:(fileName.length - 3)];
-        panel.nameFieldStringValue = fileName;
-    }
+    if (self.presumedFileName)
+        panel.nameFieldStringValue = self.presumedFileName;
 
     MPExportPanelAccessoryViewController *controller =
         [[MPExportPanelAccessoryViewController alloc] init];
@@ -912,13 +883,8 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
 {
     NSSavePanel *panel = [NSSavePanel savePanel];
     panel.allowedFileTypes = @[@"pdf"];
-    if (self.fileURL)
-    {
-        NSString *fileName = self.fileURL.lastPathComponent;
-        if ([fileName hasSuffix:@".md"])
-            fileName = [fileName substringToIndex:(fileName.length - 3)];
-        panel.nameFieldStringValue = fileName;
-    }
+    if (self.presumedFileName)
+        panel.nameFieldStringValue = self.presumedFileName;
     
     NSWindow *w = nil;
     NSArray *windowControllers = self.windowControllers;
@@ -1256,6 +1222,35 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
     if (!wasVisible && self.previewVisible
             && !self.preferences.markdownManualRender)
         [self.renderer parseAndRenderNow];
+}
+
+- (NSString *)presumedFileName
+{
+    if (self.fileURL)
+        return self.fileURL.lastPathComponent.stringByDeletingPathExtension;
+
+    NSString *title = nil;
+    NSString *string = self.editor.string;
+    if (self.preferences.htmlDetectFrontMatter)
+        title = [[[string frontMatter:NULL] objectForKey:@"title"] description];
+    if (title)
+        return title;
+
+    title = string.titleString;
+    if (!title)
+        return nil;
+
+    static NSRegularExpression *regex = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        regex = [NSRegularExpression regularExpressionWithPattern:@"[/|:]"
+                                                          options:0 error:NULL];
+    });
+
+    NSRange range = NSMakeRange(0, title.length);
+    title = [regex stringByReplacingMatchesInString:title options:0 range:range
+                                       withTemplate:@"-"];
+    return title;
 }
 
 @end
