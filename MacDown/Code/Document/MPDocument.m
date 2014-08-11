@@ -213,6 +213,7 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
 @property (strong) MPRenderer *renderer;
 @property CGFloat previousSplitRatio;
 @property BOOL manualRender;
+@property BOOL printing;
 @property BOOL previewFlushDisabled;
 @property BOOL shouldHandleBoundsChange;
 @property (nonatomic) BOOL rendersTOC;
@@ -466,6 +467,38 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
     info.verticalPagination = NSAutoPagination;
     info.verticallyCentered = NO;
     return info;
+}
+
+- (NSPrintOperation *)printOperationWithSettings:(NSDictionary *)printSettings
+                                           error:(NSError *__autoreleasing *)e
+{
+    NSPrintInfo *info = [self.printInfo copy];
+    [info.dictionary addEntriesFromDictionary:printSettings];
+
+    WebFrameView *view = self.preview.mainFrame.frameView;
+    NSPrintOperation *op = [view printOperationWithPrintInfo:info];
+    return op;
+}
+
+- (void)printDocumentWithSettings:(NSDictionary *)printSettings
+                   showPrintPanel:(BOOL)showPrintPanel delegate:(id)delegate
+                 didPrintSelector:(SEL)selector contextInfo:(void *)contextInfo
+{
+    self.printing = YES;
+    NSInvocation *invocation = nil;
+    if (delegate && selector)
+    {
+        NSMethodSignature *signature =
+            [NSMethodSignature methodSignatureForSelector:selector];
+        invocation = [NSInvocation invocationWithMethodSignature:signature];
+        invocation.target = delegate;
+        if (contextInfo)
+            [invocation setArgument:&contextInfo atIndex:2];
+    }
+    [super printDocumentWithSettings:printSettings
+                      showPrintPanel:showPrintPanel delegate:self
+                    didPrintSelector:@selector(document:didPrint:context:)
+                         contextInfo:(void *)invocation];
 }
 
 - (BOOL)validateUserInterfaceItem:(id<NSValidatedUserInterfaceItem>)item
@@ -739,7 +772,8 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
     NSURL *baseUrl = self.fileURL;
     if (!baseUrl)
         baseUrl = self.preferences.htmlDefaultDirectoryUrl;
-    [self.preview.mainFrame loadHTMLString:html baseURL:baseUrl];
+    if (!self.printing)
+        [self.preview.mainFrame loadHTMLString:html baseURL:baseUrl];
 }
 
 
@@ -834,15 +868,6 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
 
 
 #pragma mark - IBAction
-
-- (IBAction)printDocument:(id)sender
-{
-    NSPrintOperation *operation =
-        [NSPrintOperation printOperationWithView:self.preview];
-    [operation runOperationModalForWindow:self.windowForSheet
-                                 delegate:nil didRunSelector:NULL
-                              contextInfo:NULL];
-}
 
 - (IBAction)copyHtml:(id)sender
 {
@@ -1251,6 +1276,22 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
     title = [regex stringByReplacingMatchesInString:title options:0 range:range
                                        withTemplate:@"-"];
     return title;
+}
+
+- (void)document:(NSDocument *)doc didPrint:(BOOL)ok context:(void *)context
+{
+    if ([doc respondsToSelector:@selector(setPrinting:)])
+        [(id)doc setPrinting:NO];
+    if (context)
+    {
+        NSInvocation *invocation = (__bridge NSInvocation *)context;
+        if ([invocation isKindOfClass:[NSInvocation class]])
+        {
+            [invocation setArgument:&doc atIndex:0];
+            [invocation setArgument:&ok atIndex:1];
+            [invocation invoke];
+        }
+    }
 }
 
 @end
