@@ -472,6 +472,17 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
     return [super prepareSavePanel:savePanel];
 }
 
+- (NSPrintInfo *)printInfo
+{
+    NSPrintInfo *info = [super printInfo];
+    if (!info)
+        info = [[NSPrintInfo sharedPrintInfo] copy];
+    info.horizontalPagination = NSAutoPagination;
+    info.verticalPagination = NSAutoPagination;
+    info.verticallyCentered = NO;
+    return info;
+}
+
 - (BOOL)validateUserInterfaceItem:(id<NSValidatedUserInterfaceItem>)item
 {
     BOOL result = [super validateUserInterfaceItem:item];
@@ -917,22 +928,16 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
     [panel beginSheetModalForWindow:w completionHandler:^(NSInteger result) {
         if (result != NSFileHandlingPanelOKButton)
             return;
-        
-        NSPrintInfo *info = [[NSPrintInfo sharedPrintInfo] copy];
-        [info setHorizontalPagination: NSAutoPagination];
-        [info setVerticalPagination: NSAutoPagination];
-        [info setVerticallyCentered: NO];
-        
-        NSMutableDictionary *dict = info.dictionary;
-        [dict setObject:NSPrintSaveJob forKey:NSPrintJobDisposition];
-        [dict setObject:[[panel URL] path] forKey:NSPrintSavePath];
-        
-        NSView *view = [[[self.preview mainFrame] frameView] documentView];
+        NSPrintInfo *info = self.printInfo;
+        [info.dictionary addEntriesFromDictionary:@{
+            NSPrintJobDisposition: NSPrintSaveJob,
+            NSPrintJobSavingURL: panel.URL
+        }];
+        NSView *view = self.preview.mainFrame.frameView.documentView;
         NSPrintOperation *op = [NSPrintOperation printOperationWithView:view
                                                               printInfo:info];
-        
-        [op setShowsPrintPanel:NO];
-        [op setShowsProgressPanel:NO];
+        op.showsPrintPanel = NO;
+        op.showsProgressPanel = NO;
         [op runOperation];
     }];
 }
