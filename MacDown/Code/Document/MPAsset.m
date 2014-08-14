@@ -65,7 +65,10 @@ NSString * const kMPMathJaxConfigType = @"text/x-mathjax-config";
         case MPAssetEmbedded:
             if (self.url.isFileURL)
             {
-                context[@"content"] = MPReadFileOfPath(self.url.path);
+                NSString *content = MPReadFileOfPath(self.url.path);
+                if ([content hasSuffix:@"\n"])
+                    content = [content substringToIndex:content.length - 2];
+                context[@"content"] = content;
                 break;
             }
             // Non-file URLs fallthrough to be treated as full links.
