@@ -275,8 +275,9 @@ static hoedown_renderer *MPCreateHTMLRenderer(MPRenderer *renderer)
 {
     NSString *defaultStyleName =
         MPStylePathForName([self.delegate rendererStyleName:self]);
+    if (!defaultStyleName)
+        return @[];
     NSURL *defaultStyle = [NSURL fileURLWithPath:defaultStyleName];
-
     NSMutableArray *stylesheets = [NSMutableArray array];
     [stylesheets addObject:[MPStyleSheet CSSWithURL:defaultStyle]];
     return stylesheets;

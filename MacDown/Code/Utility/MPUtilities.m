@@ -108,6 +108,8 @@ BOOL MPStringIsNewline(NSString *str)
 
 NSString *MPStylePathForName(NSString *name)
 {
+    if (!name)
+        return nil;
     if (![name hasSuffix:kMPStyleFileExtension])
         name = [NSString stringWithFormat:@"%@%@", name, kMPStyleFileExtension];
     NSString *path = MPPathToDataFile(name, kMPStylesDirectoryName);
