@@ -889,6 +889,8 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
 
     MPExportPanelAccessoryViewController *controller =
         [[MPExportPanelAccessoryViewController alloc] init];
+    controller.stylesIncluded = (BOOL)self.preferences.htmlStyleName;
+    controller.highlightingIncluded = self.preferences.htmlSyntaxHighlighting;
     panel.accessoryView = controller.view;
 
     NSWindow *w = self.windowForSheet;
