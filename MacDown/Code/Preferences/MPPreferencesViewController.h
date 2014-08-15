@@ -10,6 +10,9 @@
 @class MPPreferences;
 
 
+extern NSString * const MPDidRequestEditorSetupNotification;
+extern NSString * const MPDidRequestPreviewRenderNotification;
+
 @interface MPPreferencesViewController : NSViewController
 
 - (id)init;

@@ -88,8 +88,13 @@ static NSString *MPPrismDefaultThemeName()
             break;
         }
         case 1:     // Reload
+        {
             [self loadStylesheets];
+            NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+            [center postNotificationName:MPDidRequestPreviewRenderNotification
+                                  object:self];
             break;
+        }
         default:
             break;
     }
