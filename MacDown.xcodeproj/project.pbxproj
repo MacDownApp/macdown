@@ -27,6 +27,7 @@
 		1F0D9DB3194AC9EE008E1856 /* MPMarkdownPreferencesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F0D9D89194AC83C008E1856 /* MPMarkdownPreferencesViewController.xib */; };
 		1F0D9DB4194AC9EE008E1856 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F0D9D81194AC83C008E1856 /* MainMenu.xib */; };
 		1F0F3BFC195F75F200FC0B3B /* MathJax in Resources */ = {isa = PBXBuildFile; fileRef = 1F0F3BFB195F75F200FC0B3B /* MathJax */; };
+		1F23A92119928E650052DB78 /* MPMathJaxListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F23A92019928E650052DB78 /* MPMathJaxListener.m */; };
 		1F27896B1973BEB100EE696A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1F2789691973BEB100EE696A /* Localizable.strings */; };
 		1F3A47521953E84700293259 /* help.md in Resources */ = {isa = PBXBuildFile; fileRef = 1F3A47511953E84700293259 /* help.md */; };
 		1F4C8E9A194AE0B9004BF82E /* MarkdownDocument.icns in Resources */ = {isa = PBXBuildFile; fileRef = 1F4C8E99194AE0B9004BF82E /* MarkdownDocument.icns */; };
@@ -115,6 +116,8 @@
 		1F0D9DAE194AC905008E1856 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Code/main.m; sourceTree = "<group>"; };
 		1F0D9DB5194ACA33008E1856 /* MacDown-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "MacDown-Prefix.pch"; path = "Code/MacDown-Prefix.pch"; sourceTree = "<group>"; };
 		1F0F3BFB195F75F200FC0B3B /* MathJax */ = {isa = PBXFileReference; lastKnownFileType = folder; name = MathJax; path = Resources/MathJax; sourceTree = "<group>"; };
+		1F23A91F19928E650052DB78 /* MPMathJaxListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPMathJaxListener.h; sourceTree = "<group>"; };
+		1F23A92019928E650052DB78 /* MPMathJaxListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPMathJaxListener.m; sourceTree = "<group>"; };
 		1F27896A1973BEB100EE696A /* Base */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = Base; path = Localization/Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1F3A47511953E84700293259 /* help.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = help.md; path = Resources/help.md; sourceTree = "<group>"; };
 		1F4C8E99194AE0B9004BF82E /* MarkdownDocument.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = MarkdownDocument.icns; path = Resources/MarkdownDocument.icns; sourceTree = "<group>"; };
@@ -221,6 +224,8 @@
 				1F0D9D63194AC7CF008E1856 /* MPUtilities.h */,
 				1F0D9D64194AC7CF008E1856 /* MPUtilities.m */,
 				1F70CCD81978F03E00703429 /* MPAutosaving.h */,
+				1F23A91F19928E650052DB78 /* MPMathJaxListener.h */,
+				1F23A92019928E650052DB78 /* MPMathJaxListener.m */,
 			);
 			name = Utility;
 			path = Code/Utility;
@@ -670,6 +675,7 @@
 				1F0D9D7D194AC7F7008E1856 /* MPPreferencesViewController.m in Sources */,
 				1F0D9D65194AC7CF008E1856 /* NSString+Lookup.m in Sources */,
 				1F8A835E1953454F00B6BF69 /* HGMarkdownHighlightingStyle.m in Sources */,
+				1F23A92119928E650052DB78 /* MPMathJaxListener.m in Sources */,
 				1F0D9D67194AC7CF008E1856 /* MPUtilities.m in Sources */,
 				1F0D9D78194AC7F7008E1856 /* MPHtmlPreferencesViewController.m in Sources */,
 				1F0D9D7C194AC7F7008E1856 /* MPPreferences.m in Sources */,

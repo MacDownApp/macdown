@@ -19,6 +19,7 @@
 #import "MPPreferences.h"
 #import "MPRenderer.h"
 #import "MPExportPanelAccessoryViewController.h"
+#import "MPMathJaxListener.h"
 
 
 static NSString * const kMPRendersTOCPropertyKey = @"Renders TOC";
@@ -228,7 +229,22 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
 // Store file content in initializer until nib is loaded.
 @property (copy) NSString *loadedString;
 
+- (void)syncScrollers;
+
 @end
+
+static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
+{
+    __block id weakObj = obj;
+    return ^{
+        if ([weakObj previewFlushDisabled])
+        {
+            [[weakObj preview].window enableFlushWindow];
+            [weakObj setPreviewFlushDisabled:NO];
+        }
+        [weakObj syncScrollers];
+    };
+}
 
 
 @implementation MPDocument
@@ -644,14 +660,20 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
 
 - (void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame
 {
-    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-        if (self.previewFlushDisabled)
-        {
-            [sender.window enableFlushWindow];
-            self.previewFlushDisabled = NO;
-        }
-        [self syncScrollers];
-    }];
+    // If MathJax is on, completion is furthur delayed until MathJax is done.
+    // The completion method will be invoked by the JavaScript callback handler.
+    id callback = MPGetPreviewLoadingCompletionHandler(self);
+    if (!self.preferences.htmlMathJax)
+    {
+        NSOperationQueue *queue = [NSOperationQueue mainQueue];
+        [queue addOperationWithBlock:callback];
+    }
+    else
+    {
+        MPMathJaxListener *listener = [[MPMathJaxListener alloc] init];
+        [listener addCallback:callback forKey:@"End"];
+        [sender.windowScriptObject setValue:listener forKey:@"MathJaxListener"];
+    }
     
     // Update word count
     if (self.preferences.editorShowWordCount)
