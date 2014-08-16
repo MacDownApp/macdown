@@ -137,8 +137,13 @@
             break;
         }
         case 1:     // Reload
+        {
             [self loadThemes];
+            NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+            [center postNotificationName:MPDidRequestEditorSetupNotification
+                                  object:self];
             break;
+        }
         default:
             break;
     }

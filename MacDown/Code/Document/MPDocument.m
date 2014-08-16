@@ -18,6 +18,7 @@
 #import "NSTextView+Autocomplete.h"
 #import "MPPreferences.h"
 #import "MPRenderer.h"
+#import "MPPreferencesViewController.h"
 #import "MPExportPanelAccessoryViewController.h"
 #import "MPMathJaxListener.h"
 
@@ -362,18 +363,18 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
     self.preview.policyDelegate = self;
 
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    [center addObserver:self
-               selector:@selector(textDidChange:)
-                   name:NSTextDidChangeNotification
-                 object:self.editor];
-    [center addObserver:self
-               selector:@selector(userDefaultsDidChange:)
+    [center addObserver:self selector:@selector(textDidChange:)
+                   name:NSTextDidChangeNotification object:self.editor];
+    [center addObserver:self selector:@selector(userDefaultsDidChange:)
                    name:NSUserDefaultsDidChangeNotification
                  object:[NSUserDefaults standardUserDefaults]];
-    [center addObserver:self
-               selector:@selector(boundsDidChange:)
+    [center addObserver:self selector:@selector(boundsDidChange:)
                    name:NSViewBoundsDidChangeNotification
                  object:self.editor.enclosingScrollView.contentView];
+    [center addObserver:self selector:@selector(didRequestEditorReload:)
+                   name:MPDidRequestEditorSetupNotification object:nil];
+    [center addObserver:self selector:@selector(didRequestPreviewReload:)
+                   name:MPDidRequestPreviewRenderNotification object:nil];
 
     if (self.loadedString)
     {
@@ -433,6 +434,10 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
                     object:[NSUserDefaults standardUserDefaults]];
     [center removeObserver:self name:NSViewBoundsDidChangeNotification
                     object:self.editor.enclosingScrollView.contentView];
+    [center removeObserver:self name:MPDidRequestPreviewRenderNotification
+                    object:nil];
+    [center removeObserver:self name:MPDidRequestEditorSetupNotification
+                    object:nil];
     for (NSString *key in MPEditorKeysToObserve())
         [self.editor removeObserver:self forKeyPath:key];
 
@@ -869,6 +874,16 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
     }
     [self syncScrollers];
     self.shouldHandleBoundsChange = YES;
+}
+
+- (void)didRequestEditorReload:(NSNotification *)notification
+{
+    [self setupEditor];
+}
+
+- (void)didRequestPreviewReload:(NSNotification *)notification
+{
+    [self render:nil];
 }
 
 
