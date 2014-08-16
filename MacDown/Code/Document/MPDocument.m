@@ -371,9 +371,9 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
     [center addObserver:self selector:@selector(boundsDidChange:)
                    name:NSViewBoundsDidChangeNotification
                  object:self.editor.enclosingScrollView.contentView];
-    [center addObserver:self selector:@selector(setupEditor)
+    [center addObserver:self selector:@selector(didRequestEditorReload:)
                    name:MPDidRequestEditorSetupNotification object:nil];
-    [center addObserver:self selector:@selector(render:)
+    [center addObserver:self selector:@selector(didRequestPreviewReload:)
                    name:MPDidRequestPreviewRenderNotification object:nil];
 
     if (self.loadedString)
@@ -874,6 +874,16 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
     }
     [self syncScrollers];
     self.shouldHandleBoundsChange = YES;
+}
+
+- (void)didRequestEditorReload:(NSNotification *)notification
+{
+    [self setupEditor];
+}
+
+- (void)didRequestPreviewReload:(NSNotification *)notification
+{
+    [self render:nil];
 }
 
 
