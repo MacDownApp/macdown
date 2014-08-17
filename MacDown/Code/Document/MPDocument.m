@@ -361,6 +361,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
 
     self.preview.frameLoadDelegate = self;
     self.preview.policyDelegate = self;
+    self.preview.editingDelegate = self;
 
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self selector:@selector(textDidChange:)
@@ -729,6 +730,26 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
             [listener use];
             break;
     }
+}
+
+
+#pragma mark - WebEditingDelegate
+
+- (BOOL)webView:(WebView *)webView doCommandBySelector:(SEL)selector
+{
+    if (selector == @selector(copy:))
+    {
+        NSString *html = webView.selectedDOMRange.markupString;
+
+        // Inject the HTML content later so that it doesn't get cleared during
+        // the native copy operation.
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            NSPasteboard *pb = [NSPasteboard generalPasteboard];
+            if (![pb stringForType:@"public.html"])
+                [pb setString:html forType:@"public.html"];
+        }];
+    }
+    return NO;
 }
 
 
