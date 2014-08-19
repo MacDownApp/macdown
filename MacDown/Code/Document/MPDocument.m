@@ -645,7 +645,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
     NSRect currentRect =
         [manager boundingRectForGlyphRange:NSMakeRange(cur, 1)
                            inTextContainer:container];
-    if (targetRect.origin.y > currentRect.origin.y)
+    if (targetRect.origin.y != currentRect.origin.y)
         return YES;
 
     textView.selectedRange = NSMakeRange(location, 0);
