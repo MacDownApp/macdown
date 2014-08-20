@@ -463,8 +463,12 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
 - (BOOL)readFromData:(NSData *)data ofType:(NSString *)typeName
                error:(NSError **)outError
 {
-    self.loadedString = [[NSString alloc] initWithData:data
+    NSString *content = [[NSString alloc] initWithData:data
                                               encoding:NSUTF8StringEncoding];
+    if (!content)
+        return NO;
+
+    self.loadedString = content;
     return YES;
 }
 
