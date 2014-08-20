@@ -666,23 +666,27 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
         self.previewFlushDisabled = YES;
         [sender.window disableFlushWindow];
     }
+
+    // If MathJax is off, the on-completion callback will be invoked directly
+    // when loading is done (in -webView:didFinishLoadForFrame:).
+    if (self.preferences.htmlMathJax)
+    {
+        MPMathJaxListener *listener = [[MPMathJaxListener alloc] init];
+        [listener addCallback:MPGetPreviewLoadingCompletionHandler(self)
+                       forKey:@"End"];
+        [sender.windowScriptObject setValue:listener forKey:@"MathJaxListener"];
+    }
 }
 
 - (void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame
 {
-    // If MathJax is on, completion is furthur delayed until MathJax is done.
-    // The completion method will be invoked by the JavaScript callback handler.
-    id callback = MPGetPreviewLoadingCompletionHandler(self);
+    // If MathJax is on, the on-completion callback will be invoked by the
+    // JavaScript handler injected in -webView:didCommitLoadForFrame:.
     if (!self.preferences.htmlMathJax)
     {
+        id callback = MPGetPreviewLoadingCompletionHandler(self);
         NSOperationQueue *queue = [NSOperationQueue mainQueue];
         [queue addOperationWithBlock:callback];
-    }
-    else
-    {
-        MPMathJaxListener *listener = [[MPMathJaxListener alloc] init];
-        [listener addCallback:callback forKey:@"End"];
-        [sender.windowScriptObject setValue:listener forKey:@"MathJaxListener"];
     }
     
     // Update word count
