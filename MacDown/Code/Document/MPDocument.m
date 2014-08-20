@@ -1288,11 +1288,16 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
         [self.editor setValue:value forKey:key];
     }
 
+    CGColorRef backgroundCGColor = self.editor.backgroundColor.CGColor;
     NSView *editorChrome = self.editor.enclosingScrollView.superview;
+
     CALayer *layer = [CALayer layer];
-    layer.backgroundColor = self.editor.backgroundColor.CGColor;
-    editorChrome.wantsLayer = YES;
+    layer.backgroundColor = backgroundCGColor;
     editorChrome.layer = layer;
+
+    layer = [CALayer layer];
+    layer.backgroundColor = backgroundCGColor;
+    self.splitView.layer = layer;
 
     [self.highlighter activate];
 }
