@@ -216,7 +216,7 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
 @property CGFloat previousSplitRatio;
 @property BOOL manualRender;
 @property BOOL printing;
-@property BOOL previewFlushDisabled;
+@property (atomic) BOOL previewFlushDisabled;
 @property BOOL shouldHandleBoundsChange;
 @property (nonatomic) BOOL rendersTOC;
 @property (readonly) BOOL previewVisible;
@@ -238,17 +238,15 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
 {
     __block id weakObj = obj;
     return ^{
-        if ([weakObj previewFlushDisabled])
-        {
-            [[weakObj preview].window enableFlushWindow];
-            [weakObj setPreviewFlushDisabled:NO];
-        }
+        [weakObj setPreviewFlushDisabled:NO];
         [weakObj syncScrollers];
     };
 }
 
 
 @implementation MPDocument
+
+@synthesize previewFlushDisabled = _previewFlushDisabled;
 
 
 #pragma mark - Accessor
@@ -261,6 +259,28 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
 - (BOOL)previewVisible
 {
     return (self.preview.frame.size.width != 0.0);
+}
+
+- (BOOL)previewFlushDisabled
+{
+    @synchronized(self) {
+        return _previewFlushDisabled;
+    }
+}
+
+- (void)setPreviewFlushDisabled:(BOOL)value
+{
+    @synchronized(self) {
+        if (_previewFlushDisabled == value)
+            return;
+
+        NSWindow *window = self.preview.window;
+        if (value)
+            [window disableFlushWindow];
+        else
+            [window enableFlushWindow];
+        _previewFlushDisabled = value;
+    }
 }
 
 - (void)setTotalWords:(NSUInteger)value
@@ -661,11 +681,8 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
 
 - (void)webView:(WebView *)sender didCommitLoadForFrame:(WebFrame *)frame
 {
-    if (!self.previewFlushDisabled && sender.window)
-    {
+    if (sender.window)
         self.previewFlushDisabled = YES;
-        [sender.window disableFlushWindow];
-    }
 
     // If MathJax is off, the on-completion callback will be invoked directly
     // when loading is done (in -webView:didFinishLoadForFrame:).
