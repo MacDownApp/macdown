@@ -18,8 +18,6 @@ BUILD_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'Build')
 APP_PATH = os.path.join(BUILD_DIR, 'MacDown.app')
 ZIP_PATH = os.path.join(BUILD_DIR, 'MacDown.app.zip')
 
-NULL = os.devnull
-
 
 class CommandError(Exception):
     pass
