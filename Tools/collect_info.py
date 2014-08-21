@@ -34,20 +34,27 @@ def main(argv):
     print()
 
     archive = zipfile.ZipFile(argv[1])
-    version = None
+    bundle_version = None
+    short_version = None
     with archive.open('MacDown.app/Contents/Info.plist') as plist:
         tree = ElementTree.parse(plist)
         root = tree.getroot()
         for infodict in root:
-            has_key = False
+            has_key = None
             for child in infodict:
-                if has_key:
-                    version = child.text
-                    break
-                if child.tag == 'key' and child.text == 'CFBundleVersion':
-                    has_key = True
+                if has_key == 'CFBundleVersion':
+                    bundle_version = child.text
+                    has_key = None
+                elif has_key == 'CFBundleShortVersionString':
+                    short_version = child.text
+                    has_key = None
+                elif child.tag == 'key':
+                    has_key = child.text
     print('Bundle version:')
-    print(version)
+    print(bundle_version)
+    print()
+    print('Short version:')
+    print(short_version)
     print()
 
 
