@@ -168,6 +168,7 @@ xcuserdata
 # Other files
 #
 
+Build/
 Pods/
 Dependency/peg-markdown-highlight/pmh_parser_core.c
 Dependency/peg-markdown-highlight/pmh_parser.c
