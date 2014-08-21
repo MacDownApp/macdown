@@ -10,6 +10,10 @@ from xml.etree import ElementTree
 OPENSSL = '/usr/bin/openssl'
 
 
+def print_value(key, value):
+    print('{key}:\n{value}\n'.format(key=key, value=value))
+
+
 def main(argv):
     if len(argv) < 3:
         name = os.path.basename(argv[0])
@@ -29,9 +33,7 @@ def main(argv):
     os.system(command)
     print()
 
-    print('Archive size:')
-    print(os.path.getsize(archive_path))
-    print()
+    print_value('Archive size', os.path.getsize(archive_path))
 
     archive = zipfile.ZipFile(argv[1])
     bundle_version = None
@@ -50,12 +52,8 @@ def main(argv):
                     has_key = None
                 elif child.tag == 'key':
                     has_key = child.text
-    print('Bundle version:')
-    print(bundle_version)
-    print()
-    print('Short version:')
-    print(short_version)
-    print()
+    print_value('Bundle version', bundle_version)
+    print_value('Short version', short_version)
 
 
 if __name__ == '__main__':
