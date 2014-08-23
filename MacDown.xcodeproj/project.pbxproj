@@ -53,6 +53,8 @@
 		1FC29F5C1944FC2600D616C7 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FC29F5B1944FC2600D616C7 /* XCTest.framework */; };
 		1FC29F5E1944FC4F00D616C7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1FCDCA321944F96E00B1F966 /* InfoPlist.strings */; };
 		1FCE066419633D6C00DC83B4 /* Data in Resources */ = {isa = PBXBuildFile; fileRef = 1FCE066319633D6B00DC83B4 /* Data */; };
+		1FF1420219A8987500CF8A6A /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FF1420119A8987500CF8A6A /* JavaScriptCore.framework */; };
+		1FF1420419A8A24800CF8A6A /* MPUtilityTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1420319A8A24800CF8A6A /* MPUtilityTests.m */; };
 		1FF207631941CF22005B5654 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FF207621941CF22005B5654 /* WebKit.framework */; };
 		1FFEB31919729F7C00B2254F /* MPAssetTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEB31819729F7C00B2254F /* MPAssetTests.m */; };
 		1FFEB31D19729FEF00B2254F /* test.css in Resources */ = {isa = PBXBuildFile; fileRef = 1FFEB31C19729FEF00B2254F /* test.css */; };
@@ -161,6 +163,8 @@
 		1FCDCA311944F96E00B1F966 /* MPPreferencesTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPPreferencesTests.m; sourceTree = "<group>"; };
 		1FCDCA331944F96E00B1F966 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1FCE066319633D6B00DC83B4 /* Data */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Data; path = Resources/Data; sourceTree = "<group>"; };
+		1FF1420119A8987500CF8A6A /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
+		1FF1420319A8A24800CF8A6A /* MPUtilityTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPUtilityTests.m; sourceTree = "<group>"; };
 		1FF207621941CF22005B5654 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		1FFEB31819729F7C00B2254F /* MPAssetTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPAssetTests.m; sourceTree = "<group>"; };
 		1FFEB31A19729FD500B2254F /* test.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = test.js; sourceTree = "<group>"; };
@@ -183,6 +187,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FF1420219A8987500CF8A6A /* JavaScriptCore.framework in Frameworks */,
 				1FF207631941CF22005B5654 /* WebKit.framework in Frameworks */,
 				1FA6DE251941CC9E000409FB /* Cocoa.framework in Frameworks */,
 				B49728377A904875B2963C38 /* libPods-MacDown.a in Frameworks */,
@@ -369,6 +374,7 @@
 		1FA6DE231941CC9E000409FB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1FF1420119A8987500CF8A6A /* JavaScriptCore.framework */,
 				1F51C9A1194564670015A96F /* libPods-MacDown-PAPreferences.a */,
 				1FC29F5B1944FC2600D616C7 /* XCTest.framework */,
 				1FF207621941CF22005B5654 /* WebKit.framework */,
@@ -419,6 +425,7 @@
 		1FCDCA2F1944F96E00B1F966 /* MacDownTests */ = {
 			isa = PBXGroup;
 			children = (
+				1FF1420319A8A24800CF8A6A /* MPUtilityTests.m */,
 				1FCDCA311944F96E00B1F966 /* MPPreferencesTests.m */,
 				1FFF301C1948A5320009AF24 /* MPStringLookupTests.m */,
 				1FFEB31819729F7C00B2254F /* MPAssetTests.m */,
@@ -604,7 +611,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "SOURCE=$PWD/Dependency/prism\nTARGET=$PWD/MacDown/Resources/Prism\ncp -r $SOURCE/components $TARGET\ncp -r $SOURCE/themes $TARGET";
+			shellScript = "SOURCE=$PWD/Dependency/prism\nTARGET=$PWD/MacDown/Resources/Prism\ncp -r $SOURCE/components $TARGET\ncp -r $SOURCE/themes $TARGET\ncp -r $SOURCE/components.js $TARGET";
 			showEnvVarsInLog = 0;
 		};
 		46C28C219A3C4CCD94797747 /* Copy Pods Resources */ = {
@@ -706,6 +713,7 @@
 			files = (
 				1FFEB31919729F7C00B2254F /* MPAssetTests.m in Sources */,
 				1F51C9A5194565050015A96F /* MPPreferencesTests.m in Sources */,
+				1FF1420419A8A24800CF8A6A /* MPUtilityTests.m in Sources */,
 				1FFEB3271972DAB400B2254F /* MPHTMLTabularizeTests.m in Sources */,
 				1FFF301D1948A5320009AF24 /* MPStringLookupTests.m in Sources */,
 			);

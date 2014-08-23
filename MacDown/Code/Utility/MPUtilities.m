@@ -7,6 +7,7 @@
 //
 
 #import "MPUtilities.h"
+#import <JavaScriptCore/JavaScriptCore.h>
 
 NSString * const kMPStylesDirectoryName = @"Styles";
 NSString * const kMPStyleFileExtension = @".css";
@@ -153,3 +154,45 @@ NSString *MPReadFileOfPath(NSString *path)
         return @"";
     return s;
 }
+
+id MPGetObjectFromJavaScript(NSString *code, NSString *variableName)
+{
+    if (!code.length)
+        return nil;
+
+    id object = nil;
+    JSGlobalContextRef cxt = NULL;
+    JSStringRef varn = NULL;
+    JSValueRef exc = NULL;
+
+    do {
+        cxt = JSGlobalContextCreate(NULL);
+        JSStringRef js = JSStringCreateWithCFString((__bridge CFStringRef)code);
+        JSObjectRef glb = JSContextGetGlobalObject(cxt);
+        JSEvaluateScript(cxt, js, NULL, NULL, 0, &exc);
+        if (exc)
+            break;
+
+        varn = JSStringCreateWithUTF8CString([variableName UTF8String]);
+        JSValueRef val = JSObjectGetProperty(cxt, glb, varn, &exc);
+
+        JSStringRef jsonr = JSValueCreateJSONString(cxt, val, 0, &exc);
+        if (exc)
+            break;
+
+        size_t sz = JSStringGetLength(jsonr) + 1;   // NULL terminated.
+        char *buffer = malloc(sz);
+        JSStringGetUTF8CString(jsonr, buffer, sz);
+        NSData *data = [NSData dataWithBytes:buffer length:sz - 1];
+        object = [NSJSONSerialization JSONObjectWithData:data options:0
+                                                   error:NULL];
+        free(buffer);
+    } while (0);
+
+    if (varn)
+        JSStringRelease(varn);
+    if (cxt)
+        JSGlobalContextRelease(cxt);
+    return object;
+}
+

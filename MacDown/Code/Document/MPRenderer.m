@@ -174,7 +174,7 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
                                             encoding:NSUTF8StringEncoding];
 
     static NSDictionary *aliasMap = nil;
-    static NSDictionary *dependencyMap = nil;
+    static NSDictionary *languageMap = nil;
     static dispatch_once_t token;
     dispatch_once(&token, ^{
         aliasMap = @{
@@ -193,24 +193,15 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
             @"sh": @"bash",
             @"xml": @"markup",
         };
-        dependencyMap = @{
-            @"aspnet": @"markup",
-            @"bash": @"clike",
-            @"c": @"clike",
-            @"coffeescript": @"javascript",
-            @"cpp": @"c",
-            @"csharp": @"clike",
-            @"go": @"clike",
-            @"groovy": @"clike",
-            @"java": @"clike",
-            @"javascript": @"clike",
-            @"objectivec": @"c",
-            @"php": @"clike",
-            @"ruby": @"clike",
-            @"scala": @"java",
-            @"scss": @"css",
-            @"swift": @"clike",
-        };
+
+        NSBundle *bundle = [NSBundle mainBundle];
+        NSURL *url = [bundle URLForResource:@"components" withExtension:@"js"
+                               subdirectory:@"Prism"];
+        NSString *code = [NSString stringWithContentsOfURL:url
+                                                  encoding:NSUTF8StringEncoding
+                                                     error:NULL];
+        NSDictionary *comp = MPGetObjectFromJavaScript(code, @"components");
+        languageMap = comp[@"languages"];
     });
 
     // Try to identify alias and point it to the "real" language name.
@@ -231,7 +222,7 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
         if (index != NSNotFound)
             [languages removeObjectAtIndex:index];
         [languages insertObject:lang atIndex:0];
-        lang = dependencyMap[lang];
+        lang = languageMap[lang][@"require"];
     }
     
     return mapped;
