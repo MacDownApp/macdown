@@ -162,23 +162,26 @@ id MPGetObjectFromJavaScript(NSString *code, NSString *variableName)
 
     id object = nil;
     JSGlobalContextRef cxt = NULL;
+    JSStringRef js = NULL;
     JSStringRef varn = NULL;
-    JSValueRef exc = NULL;
+    JSStringRef jsonr = NULL;
 
     do {
+        JSValueRef exc = NULL;
+
         cxt = JSGlobalContextCreate(NULL);
-        JSStringRef js = JSStringCreateWithCFString((__bridge CFStringRef)code);
-        JSObjectRef glb = JSContextGetGlobalObject(cxt);
+        js = JSStringCreateWithCFString((__bridge CFStringRef)code);
         JSEvaluateScript(cxt, js, NULL, NULL, 0, &exc);
         if (exc)
             break;
 
         varn = JSStringCreateWithUTF8CString([variableName UTF8String]);
-        JSValueRef val = JSObjectGetProperty(cxt, glb, varn, &exc);
+        JSObjectRef global = JSContextGetGlobalObject(cxt);
+        JSValueRef val = JSObjectGetProperty(cxt, global, varn, &exc);
 
         // JavaScript Object -> JSON -> Foundation Object.
         // Not the best way to do this, but enough for our purpose.
-        JSStringRef jsonr = JSValueCreateJSONString(cxt, val, 0, &exc);
+        jsonr = JSValueCreateJSONString(cxt, val, 0, &exc);
         if (exc)
             break;
         size_t sz = JSStringGetLength(jsonr) + 1;   // NULL terminated.
@@ -190,10 +193,14 @@ id MPGetObjectFromJavaScript(NSString *code, NSString *variableName)
                                                    error:NULL];
     } while (0);
 
+    if (jsonr)
+        JSStringRelease(jsonr);
     if (varn)
         JSStringRelease(varn);
     if (cxt)
         JSGlobalContextRelease(cxt);
+    if (js)
+        JSStringRelease(js);
     return object;
 }
 
