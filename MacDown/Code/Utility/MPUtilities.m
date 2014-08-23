@@ -176,17 +176,18 @@ id MPGetObjectFromJavaScript(NSString *code, NSString *variableName)
         varn = JSStringCreateWithUTF8CString([variableName UTF8String]);
         JSValueRef val = JSObjectGetProperty(cxt, glb, varn, &exc);
 
+        // JavaScript Object -> JSON -> Foundation Object.
+        // Not the best way to do this, but enough for our purpose.
         JSStringRef jsonr = JSValueCreateJSONString(cxt, val, 0, &exc);
         if (exc)
             break;
-
         size_t sz = JSStringGetLength(jsonr) + 1;   // NULL terminated.
-        char *buffer = malloc(sz);
+        char *buffer = (char *)malloc(sz * sizeof(char));
         JSStringGetUTF8CString(jsonr, buffer, sz);
-        NSData *data = [NSData dataWithBytes:buffer length:sz - 1];
+        NSData *data = [NSData dataWithBytesNoCopy:buffer length:sz - 1
+                                      freeWhenDone:YES];
         object = [NSJSONSerialization JSONObjectWithData:data options:0
                                                    error:NULL];
-        free(buffer);
     } while (0);
 
     if (varn)
