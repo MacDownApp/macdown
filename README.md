@@ -35,11 +35,10 @@ The following editor themes and CSS files are extracted from [Mou](http://mouapp
 If you wish to build MacDown yourself, you will need Git and [Cocoapods](http://cocoapods.org). After you clone the repository, run the following command inside the repository root (directory containing this `README.md` file):
 
 ```bash
-git submodule init
-git submodule update
+git submodule update --init --recursive
 pod install
 ```
 
-and open `MacDown.xcworkspace` in Xcode. The first two commands intialise the dependency submodule(s) used in MacDown; the last one installs dependencies managed by Cocoapods.
+and open `MacDown.xcworkspace` in Xcode. The first command intialise the dependency submodule(s) used in MacDown; the second one installs dependencies managed by Cocoapods.
 
-Refer to the official guides of Git and Cocoapods if you need more instructions. If you run into build issues, try running `git submodule update` and `pod install` again to update the dependencies.
+Refer to the official guides of Git and Cocoapods if you need more instructions. If you run into build issues later on, try running those commands again to update the dependencies.
