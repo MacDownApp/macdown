@@ -33,7 +33,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="578"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <subviews>
-                            <customView appearanceType="aqua" id="WJx-Xb-9af">
+                            <customView id="WJx-Xb-9af">
                                 <rect key="frame" x="0.0" y="0.0" width="509" height="578"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
@@ -69,7 +69,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                     </scrollView>
-                                    <popUpButton appearanceType="aqua" translatesAutoresizingMaskIntoConstraints="NO" id="kfG-Fe-ode">
+                                    <popUpButton translatesAutoresizingMaskIntoConstraints="NO" id="kfG-Fe-ode">
                                         <rect key="frame" x="163" y="2" width="184" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <constraints>
