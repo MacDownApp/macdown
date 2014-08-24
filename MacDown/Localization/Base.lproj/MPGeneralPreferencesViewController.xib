@@ -60,7 +60,7 @@
                                     <binding destination="-2" name="value" keyPath="self.preferences.editorOnRight" id="ACj-cC-Ver"/>
                                 </connections>
                             </button>
-                            <button appearanceType="aqua" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WVd-hz-Dcr">
+                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WVd-hz-Dcr">
                                 <rect key="frame" x="16" y="9" width="285" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="check" title="Show word count" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="oeW-bF-ybW">
