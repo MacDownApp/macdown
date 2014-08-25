@@ -1232,7 +1232,6 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
 - (void)setupEditor
 {
     [self.highlighter deactivate];
-    self.editor.automaticLinkDetectionEnabled = NO;
     self.editor.font = [self.preferences.editorBaseFont copy];
 
     int extensions = pmh_EXT_NOTES;
@@ -1300,6 +1299,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
     self.splitView.layer = layer;
 
     [self.highlighter activate];
+    self.editor.automaticLinkDetectionEnabled = NO;
 }
 
 - (void)syncScrollers

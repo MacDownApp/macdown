@@ -257,7 +257,7 @@ void styleparsing_error_callback(char *error_message, int line_number, void *con
 	
 	[textStorage applyFontTraits:_clearFontTraitMask range:range];
 	[textStorage removeAttribute:NSBackgroundColorAttributeName range:range];
-//	[textStorage removeAttribute:NSLinkAttributeName range:range];
+	[textStorage removeAttribute:NSLinkAttributeName range:range];
     if (self.targetTextView.typingAttributes && self.resetTypingAttributes)
     {
         [textStorage addAttribute:NSParagraphStyleAttributeName
