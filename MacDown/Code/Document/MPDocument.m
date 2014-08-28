@@ -215,6 +215,7 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
 @property (strong) MPRenderer *renderer;
 @property CGFloat previousSplitRatio;
 @property BOOL manualRender;
+@property BOOL copying;
 @property BOOL printing;
 @property (atomic) BOOL previewFlushDisabled;
 @property BOOL shouldHandleBoundsChange;
@@ -841,6 +842,14 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
 
 - (void)renderer:(MPRenderer *)renderer didProduceHTMLOutput:(NSString *)html
 {
+    // Delayed copying for -copyHtml.
+    if (self.copying)
+    {
+        self.copying = NO;
+        NSPasteboard *pasteboard = [NSPasteboard generalPasteboard];
+        [pasteboard clearContents];
+        [pasteboard writeObjects:@[self.renderer.currentHtml]];
+    }
     self.manualRender = self.preferences.markdownManualRender;
     NSURL *baseUrl = self.fileURL;
     if (!baseUrl)
@@ -958,6 +967,15 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
     // respecting the selection range.
     [self.preview setSelectedDOMRange:nil affinity:NSSelectionAffinityUpstream];
 
+    // If the preview is hidden, the HTML are not updating on text change.
+    // Perform one extra rendering so that the HTML is up to date, and do the
+    // copy in the rendering callback.
+    if (!self.previewVisible)
+    {
+        self.copying = YES;
+        [self.renderer parseAndRenderNow];
+        return;
+    }
     NSPasteboard *pasteboard = [NSPasteboard generalPasteboard];
     [pasteboard clearContents];
     [pasteboard writeObjects:@[self.renderer.currentHtml]];
