@@ -52,6 +52,21 @@ static NSDictionary *MPEditorKeysToObserve()
     return keys;
 }
 
+static NSSet *MPEditorPreferencesToObserve()
+{
+    static NSSet *keys = nil;
+    static dispatch_once_t token;
+    dispatch_once(&token, ^{
+        keys = [NSSet setWithArray:@[
+            @"editorBaseFontInfo", @"extensionFootnotes",
+            @"editorHorizontalInset", @"editorVerticalInset",
+            @"editorWidthLimited", @"editorMaximumWidth", @"editorLineSpacing",
+            @"editorStyleName",
+        ]];
+    });
+    return keys;
+}
+
 static NSString *MPAutosavePropertyKey(
     id<MPAutosaving> object, NSString *propertyName)
 {
@@ -374,6 +389,13 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
     self.renderer.delegate = self;
 
     [self setupEditor];
+
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    for (NSString *key in MPEditorPreferencesToObserve())
+    {
+        [defaults addObserver:self forKeyPath:key
+                      options:NSKeyValueObservingOptionNew context:NULL];
+    }
     for (NSString *key in MPEditorKeysToObserve())
     {
         [self.editor addObserver:self forKeyPath:key
@@ -460,6 +482,9 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
                     object:nil];
     [center removeObserver:self name:MPDidRequestEditorSetupNotification
                     object:nil];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    for (NSString *key in MPEditorPreferencesToObserve())
+        [defaults removeObserver:self forKeyPath:key];
     for (NSString *key in MPEditorKeysToObserve())
         [self.editor removeObserver:self forKeyPath:key];
 
@@ -889,9 +914,6 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
         [renderer renderIfPreferencesChanged];
     }
 
-    if (self.highlighter.isActive)
-        [self setupEditor];
-
     NSArray *parts = self.splitView.subviews;
     if ((self.preferences.editorOnRight && parts[1] == self.preview)
             || (!self.preferences.editorOnRight && parts[0] == self.preview))
@@ -955,6 +977,11 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
         NSString *preferenceKey = MPEditorPreferenceKeyWithValueKey(keyPath);
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         [defaults setObject:value forKey:preferenceKey];
+    }
+    else if (object == [NSUserDefaults standardUserDefaults])
+    {
+        if (self.highlighter.isActive)
+            [self setupEditor];
     }
 }
 
