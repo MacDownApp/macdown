@@ -57,12 +57,12 @@ static NSSet *MPEditorPreferencesToObserve()
     static NSSet *keys = nil;
     static dispatch_once_t token;
     dispatch_once(&token, ^{
-        keys = [NSSet setWithArray:@[
+        keys = [NSSet setWithObjects:
             @"editorBaseFontInfo", @"extensionFootnotes",
             @"editorHorizontalInset", @"editorVerticalInset",
             @"editorWidthLimited", @"editorMaximumWidth", @"editorLineSpacing",
-            @"editorStyleName",
-        ]];
+            @"editorStyleName", nil
+        ];
     });
     return keys;
 }
