@@ -11,6 +11,10 @@
 #import "MPPreferences.h"
 
 
+NSString * const MPDidRequestEditorSetupNotificationKeyName =
+    @"MPDidRequestEditorSetupNotificationKeyNameKey";
+
+
 @interface MPEditorPreferencesViewController () <NSTextFieldDelegate>
 @property (weak) IBOutlet NSTextField *fontPreviewField;
 @property (weak) IBOutlet NSPopUpButton *themeSelect;
@@ -140,8 +144,10 @@
         {
             [self loadThemes];
             NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+            NSString *name = MPDidRequestEditorSetupNotificationKeyName;
+            NSString *key = NSStringFromSelector(@selector(editorStyleName));
             [center postNotificationName:MPDidRequestEditorSetupNotification
-                                  object:self];
+                                  object:self userInfo:@{name: key}];
             break;
         }
         default:

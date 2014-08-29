@@ -19,6 +19,7 @@
 #import "MPPreferences.h"
 #import "MPRenderer.h"
 #import "MPPreferencesViewController.h"
+#import "MPEditorPreferencesViewController.h"
 #import "MPExportPanelAccessoryViewController.h"
 #import "MPMathJaxListener.h"
 
@@ -388,7 +389,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
     self.renderer.dataSource = self;
     self.renderer.delegate = self;
 
-    [self setupEditor];
+    [self setupEditor:nil];
 
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     for (NSString *key in MPEditorPreferencesToObserve())
@@ -955,7 +956,9 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
 
 - (void)didRequestEditorReload:(NSNotification *)notification
 {
-    [self setupEditor];
+    NSString *key =
+        notification.userInfo[MPDidRequestEditorSetupNotificationKeyName];
+    [self setupEditor:key];
 }
 
 - (void)didRequestPreviewReload:(NSNotification *)notification
@@ -981,7 +984,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
     else if (object == [NSUserDefaults standardUserDefaults])
     {
         if (self.highlighter.isActive)
-            [self setupEditor];
+            [self setupEditor:keyPath];
     }
 }
 
@@ -1274,48 +1277,64 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
 
 #pragma mark - Private
 
-- (void)setupEditor
+- (void)setupEditor:(NSString *)changedKey
 {
     [self.highlighter deactivate];
-    self.editor.font = [self.preferences.editorBaseFont copy];
 
-    int extensions = pmh_EXT_NOTES;
-    if (self.preferences.extensionFootnotes)
-        extensions = pmh_EXT_NONE;
-    self.highlighter.extensions = extensions;
-
-    CGFloat x = self.preferences.editorHorizontalInset;
-    CGFloat y = self.preferences.editorVerticalInset;
-    if (self.preferences.editorWidthLimited)
+    if (!changedKey || [changedKey isEqualToString:@"extensionFootnotes"])
     {
-        CGFloat editorWidth = self.editor.frame.size.width;
-        CGFloat maxWidth = self.preferences.editorMaximumWidth;
-        if (editorWidth > 2 * x + maxWidth)
-            x = (editorWidth - maxWidth) * 0.45;
-        // We tend to expect things in an editor to shift to left a bit. Hence
-        // the 0.45 instead of 0.5 (which whould feel a bit too much).
+        int extensions = pmh_EXT_NOTES;
+        if (self.preferences.extensionFootnotes)
+            extensions = pmh_EXT_NONE;
+        self.highlighter.extensions = extensions;
     }
-    self.editor.textContainerInset = NSMakeSize(x, y);
 
-    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
-    style.lineSpacing = self.preferences.editorLineSpacing;
-    self.editor.defaultParagraphStyle = [style copy];
-
-    self.editor.textColor = nil;
-    self.editor.backgroundColor = nil;
-    self.highlighter.styles = nil;
-    [self.highlighter readClearTextStylesFromTextView];
-
-    NSString *themeName = [self.preferences.editorStyleName copy];
-    if (themeName.length)
+    if (!changedKey || [changedKey isEqualToString:@"editorHorizontalInset"]
+            || [changedKey isEqualToString:@"editorVerticalInset"]
+            || [changedKey isEqualToString:@"editorWidthLimited"]
+            || [changedKey isEqualToString:@"editorMaximumWidth"])
     {
-        NSString *path = MPThemePathForName(themeName);
-        NSString *themeString = MPReadFileOfPath(path);
-        [self.highlighter applyStylesFromStylesheet:themeString
-                                   withErrorHandler:
-            ^(NSArray *errorMessages) {
-                self.preferences.editorStyleName = nil;
-            }];
+        CGFloat x = self.preferences.editorHorizontalInset;
+        CGFloat y = self.preferences.editorVerticalInset;
+        if (self.preferences.editorWidthLimited)
+        {
+            CGFloat editorWidth = self.editor.frame.size.width;
+            CGFloat maxWidth = self.preferences.editorMaximumWidth;
+            if (editorWidth > 2 * x + maxWidth)
+                x = (editorWidth - maxWidth) * 0.45;
+            // We tend to expect things in an editor to shift to left a bit.
+            // Hence the 0.45 instead of 0.5 (which whould feel a bit too much).
+        }
+        self.editor.textContainerInset = NSMakeSize(x, y);
+    }
+
+    if (!changedKey || [changedKey isEqualToString:@"editorLineSpacing"])
+    {
+        NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+        style.lineSpacing = self.preferences.editorLineSpacing;
+        self.editor.defaultParagraphStyle = [style copy];
+    }
+
+    if (!changedKey || [changedKey isEqualToString:@"editorBaseFontInfo"]
+            || [changedKey isEqualToString:@"editorStyleName"])
+    {
+        self.editor.font = [self.preferences.editorBaseFont copy];
+        self.editor.textColor = nil;
+        self.editor.backgroundColor = nil;
+        self.highlighter.styles = nil;
+        [self.highlighter readClearTextStylesFromTextView];
+
+        NSString *themeName = [self.preferences.editorStyleName copy];
+        if (themeName.length)
+        {
+            NSString *path = MPThemePathForName(themeName);
+            NSString *themeString = MPReadFileOfPath(path);
+            [self.highlighter applyStylesFromStylesheet:themeString
+                                       withErrorHandler:
+                ^(NSArray *errorMessages) {
+                    self.preferences.editorStyleName = nil;
+                }];
+        }
     }
 
     // Have to keep this enabled because HGMarkdownHighlighter needs them.
