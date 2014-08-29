@@ -1401,6 +1401,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
     if (!wasVisible && self.previewVisible
             && !self.preferences.markdownManualRender)
         [self.renderer parseAndRenderNow];
+    [self setupEditor:NSStringFromSelector(@selector(editorHorizontalInset))];
 }
 
 - (NSString *)presumedFileName
