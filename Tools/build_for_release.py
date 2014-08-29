@@ -55,8 +55,8 @@ def main(argv):
             shutil.rmtree(BUILD_DIR)
         except OSError:
             pass
-        else:
-            os.mkdir(BUILD_DIR)
+    if not os.path.exists(BUILD_DIR):
+        os.mkdir(BUILD_DIR)
     execute(
         XCODEBUILD, 'clean', '-workspace', 'MacDown.xcworkspace',
         '-scheme', 'MacDown',
