@@ -513,6 +513,10 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
     info.horizontalPagination = NSAutoPagination;
     info.verticalPagination = NSAutoPagination;
     info.verticallyCentered = NO;
+    info.topMargin = 0.0;
+    info.leftMargin = 0.0;
+    info.rightMargin = 0.0;
+    info.bottomMargin = 0.0;
     return info;
 }
 
