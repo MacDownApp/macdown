@@ -15,8 +15,8 @@ XCODEBUILD = '/usr/bin/xcodebuild'
 OSASCRIPT = '/usr/bin/osascript'
 
 BUILD_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'Build')
-APP_PATH = os.path.join(BUILD_DIR, 'MacDown.app')
-ZIP_PATH = os.path.join(BUILD_DIR, 'MacDown.app.zip')
+APP_NAME = 'MacDown.app'
+ZIP_NAME = 'MacDown.app.zip'
 
 
 class CommandError(Exception):
@@ -61,10 +61,11 @@ def main(argv):
         XCODEBUILD, 'clean', '-workspace', 'MacDown.xcworkspace',
         '-scheme', 'MacDown',
     )
+    os.chdir(BUILD_DIR)
 
     print('Building application archive...')
     output = execute(
-        XCODEBUILD, 'archive', '-workspace', 'MacDown.xcworkspace',
+        XCODEBUILD, 'archive', '-workspace', '../MacDown.xcworkspace',
         '-scheme', 'MacDown',
     )
     match = re.search(r'^\s*ARCHIVE_PATH: (.+)$', output, re.MULTILINE)
@@ -72,12 +73,12 @@ def main(argv):
     print('Exporting application bundle...')
     execute(
         XCODEBUILD, '-exportArchive', '-exportFormat', 'app',
-        '-archivePath', archive_path, '-exportPath', APP_PATH,
+        '-archivePath', archive_path, '-exportPath', APP_NAME,
     )
 
     # Zip.
-    with zipfile.ZipFile(ZIP_PATH, 'w') as f:
-        for root, dirs, files in os.walk(APP_PATH):
+    with zipfile.ZipFile(ZIP_NAME, 'w') as f:
+        for root, dirs, files in os.walk(APP_NAME):
             for file in files:
                 f.write(os.path.join(root, file))
 
@@ -89,16 +90,16 @@ def main(argv):
     print()
     print('DSA signature:')
     command = (
-        '{openssl} dgst -sha1 -binary < "{zip_path}" | '
+        '{openssl} dgst -sha1 -binary < "{zip_name}" | '
         '{openssl} dgst -dss1 -sign "{cert}" | '
         '{openssl} enc -base64'
-    ).format(openssl=OPENSSL, zip_path=ZIP_PATH, cert=cert_path)
+    ).format(openssl=OPENSSL, zip_name=ZIP_NAME, cert=cert_path)
     os.system(command)
     print()
 
-    print_value('Archive size', os.path.getsize(ZIP_PATH))
+    print_value('Archive size', os.path.getsize(ZIP_NAME))
 
-    with open(os.path.join(APP_PATH, 'Contents', 'Info.plist')) as plist:
+    with open(os.path.join(APP_NAME, 'Contents', 'Info.plist')) as plist:
         tree = ElementTree.parse(plist)
         root = tree.getroot()
         for infodict in root:
@@ -116,7 +117,7 @@ def main(argv):
     print_value('Short version', short_version)
 
     script = 'tell application "Finder" to reveal POSIX file "{zip}"'.format(
-        zip=os.path.abspath(ZIP_PATH)
+        zip=os.path.abspath(ZIP_NAME)
     )
     execute(OSASCRIPT, '-e', script)
 
