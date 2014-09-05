@@ -1308,16 +1308,13 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
         self.editor.textContainerInset = NSMakeSize(x, y);
     }
 
-    if (!changedKey || [changedKey isEqualToString:@"editorLineSpacing"])
+    if (!changedKey || [changedKey isEqualToString:@"editorBaseFontInfo"]
+            || [changedKey isEqualToString:@"editorStyleName"]
+            || [changedKey isEqualToString:@"editorLineSpacing"])
     {
         NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
         style.lineSpacing = self.preferences.editorLineSpacing;
         self.editor.defaultParagraphStyle = [style copy];
-    }
-
-    if (!changedKey || [changedKey isEqualToString:@"editorBaseFontInfo"]
-            || [changedKey isEqualToString:@"editorStyleName"])
-    {
         self.editor.font = [self.preferences.editorBaseFont copy];
         self.editor.textColor = nil;
         self.editor.backgroundColor = nil;
