@@ -67,7 +67,7 @@ NSString * const kMPMathJaxConfigType = @"text/x-mathjax-config";
             {
                 NSString *content = MPReadFileOfPath(self.url.path);
                 if ([content hasSuffix:@"\n"])
-                    content = [content substringToIndex:content.length - 2];
+                    content = [content substringToIndex:content.length - 1];
                 context[@"content"] = content;
                 break;
             }
