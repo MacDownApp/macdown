@@ -238,6 +238,7 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
 @property (nonatomic) BOOL rendersTOC;
 @property (readonly) BOOL previewVisible;
 @property (nonatomic, readonly) BOOL editorOnRight;
+@property (nonatomic, readonly) BOOL needsHtml;
 @property (nonatomic) NSUInteger totalWords;
 @property (nonatomic) NSUInteger totalCharacters;
 @property (nonatomic) NSUInteger totalCharactersNoSpaces;
@@ -289,6 +290,13 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
 - (BOOL)editorOnRight
 {
     return (self.splitView.subviews[0] == self.preview);
+}
+
+- (BOOL)needsHtml
+{
+    if (self.preferences.markdownManualRender)
+        return NO;
+    return (self.previewVisible || self.preferences.editorShowWordCount);
 }
 
 - (void)setPreviewFlushDisabled:(BOOL)value
@@ -899,7 +907,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
 
 - (void)textDidChange:(NSNotification *)notification
 {
-    if (!self.preferences.markdownManualRender && self.previewVisible)
+    if (self.needsHtml)
         [self.renderer parseAndRenderLater];
 }
 
@@ -1002,7 +1010,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
     // If the preview is hidden, the HTML are not updating on text change.
     // Perform one extra rendering so that the HTML is up to date, and do the
     // copy in the rendering callback.
-    if (!self.previewVisible)
+    if (!self.needsHtml)
     {
         self.copying = YES;
         [self.renderer parseAndRenderNow];
