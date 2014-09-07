@@ -237,6 +237,7 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
 @property BOOL shouldHandleBoundsChange;
 @property (nonatomic) BOOL rendersTOC;
 @property (readonly) BOOL previewVisible;
+@property (nonatomic, readonly) BOOL editorOnRight;
 @property (nonatomic) NSUInteger totalWords;
 @property (nonatomic) NSUInteger totalCharacters;
 @property (nonatomic) NSUInteger totalCharactersNoSpaces;
@@ -283,6 +284,11 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
     @synchronized(self) {
         return _previewFlushDisabled;
     }
+}
+
+- (BOOL)editorOnRight
+{
+    return (self.splitView.subviews[0] == self.preview);
 }
 
 - (void)setPreviewFlushDisabled:(BOOL)value
@@ -915,15 +921,18 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
         [renderer renderIfPreferencesChanged];
     }
 
-    NSArray *parts = self.splitView.subviews;
-    if ((self.preferences.editorOnRight && parts[1] == self.preview)
-            || (!self.preferences.editorOnRight && parts[0] == self.preview))
+    if (self.preferences.editorOnRight != self.editorOnRight)
     {
         [self.splitView swapViews];
         if (!self.previewVisible && self.previousSplitRatio >= 0.0)
             self.previousSplitRatio = 1.0 - self.previousSplitRatio;
+
+        // Need to queue this or the views won't be initialised correctly.
+        // Don't really know why, but this works.
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            self.splitView.needsLayout = YES;
+        }];
     }
-    self.splitView.needsLayout = YES;
 }
 
 - (void)boundsDidChange:(NSNotification *)notification
