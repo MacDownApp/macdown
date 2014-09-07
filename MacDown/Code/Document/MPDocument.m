@@ -17,6 +17,7 @@
 #import "NSString+Lookup.h"
 #import "NSTextView+Autocomplete.h"
 #import "MPPreferences.h"
+#import "MPEditorView.h"
 #import "MPRenderer.h"
 #import "MPPreferencesViewController.h"
 #import "MPEditorPreferencesViewController.h"
@@ -62,7 +63,8 @@ static NSSet *MPEditorPreferencesToObserve()
             @"editorBaseFontInfo", @"extensionFootnotes",
             @"editorHorizontalInset", @"editorVerticalInset",
             @"editorWidthLimited", @"editorMaximumWidth", @"editorLineSpacing",
-            @"editorStyleName", @"editorShowWordCount", nil
+            @"editorStyleName", @"editorShowWordCount", @"editorScrollsPastEnd",
+            nil
         ];
     });
     return keys;
@@ -222,7 +224,7 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
 };
 
 @property (weak) IBOutlet NSSplitView *splitView;
-@property (unsafe_unretained) IBOutlet NSTextView *editor;
+@property (unsafe_unretained) IBOutlet MPEditorView *editor;
 @property (weak) IBOutlet NSLayoutConstraint *editorPaddingBottom;
 @property (weak) IBOutlet WebView *preview;
 @property (weak) IBOutlet NSPopUpButton *wordCountWidget;
@@ -1361,6 +1363,18 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
             self.wordCountWidget.hidden = YES;
             self.editorPaddingBottom.constant = 0.0;
         }
+    }
+
+    if (!changedKey || [changedKey isEqualToString:@"editorScrollsPastEnd"])
+    {
+        self.editor.scrollsPastEnd = self.preferences.editorScrollsPastEnd;
+        NSRect contentRect = self.editor.contentRect;
+        NSSize minSize = self.editor.enclosingScrollView.contentSize;
+        if (contentRect.size.height < minSize.height)
+            contentRect.size.height = minSize.height;
+        if (contentRect.size.width < minSize.width)
+            contentRect.size.width = minSize.width;
+        self.editor.frame = contentRect;
     }
 
     if (!changedKey)

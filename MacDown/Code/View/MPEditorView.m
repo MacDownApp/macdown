@@ -19,13 +19,17 @@
 
 - (void)setFrameSize:(NSSize)newSize
 {
-    CGFloat inset = self.textContainerInset.height;
-    CGFloat line = self.font.pointSize + self.defaultParagraphStyle.lineSpacing;
-    CGFloat ch = self.contentRect.size.height + inset - line;
-    CGFloat eh = self.enclosingScrollView.contentSize.height - inset - line;
-    CGFloat offset = ch < eh ? ch : eh;
-    if (offset > inset + line)
-        newSize.height += offset;
+    if (self.scrollsPastEnd)
+    {
+        CGFloat inset = self.textContainerInset.height;
+        CGFloat topPadding = inset + self.font.pointSize
+                           + self.defaultParagraphStyle.lineSpacing;
+        CGFloat ch = self.contentRect.size.height - topPadding;
+        CGFloat eh = self.enclosingScrollView.contentSize.height - topPadding;
+        CGFloat offset = ch < eh ? ch : eh;
+        if (offset > topPadding)
+            newSize.height += offset;
+    }
     [super setFrameSize:newSize];
 }
 
@@ -61,9 +65,13 @@
 
 - (void)updateContentRect
 {
-    self.contentRect =
-        [self.layoutManager usedRectForTextContainer:self.textContainer];
-    [self setFrameSize:self.frame.size];    // Force -setFrameSize.
+    NSRect r = [self.layoutManager usedRectForTextContainer:self.textContainer];
+    NSSize inset = self.textContainerInset;
+    r.size.width += 2 * inset.width;
+    r.size.height += 2 * inset.height;
+    self.contentRect = r;
+    if (self.scrollsPastEnd)
+        [self setFrameSize:self.frame.size];    // Force -setFrameSize.
 }
 
 @end
