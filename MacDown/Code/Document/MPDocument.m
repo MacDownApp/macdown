@@ -1335,19 +1335,6 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
         self.splitView.wantsLayer = YES;
     }
 
-    NSClipView *contentView = self.editor.enclosingScrollView.contentView;
-    contentView.postsBoundsChangedNotifications = YES;
-
-    NSDictionary *keysAndDefaults = MPEditorKeysToObserve();
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    for (NSString *key in keysAndDefaults)
-    {
-        NSString *preferenceKey = MPEditorPreferenceKeyWithValueKey(key);
-        id value = [defaults objectForKey:preferenceKey];
-        value = value ? value : keysAndDefaults[key];
-        [self.editor setValue:value forKey:key];
-    }
-
     if (!changedKey || [changedKey isEqualToString:@"editorShowWordCount"])
     {
         if (self.preferences.editorShowWordCount)
@@ -1359,6 +1346,22 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
         {
             self.wordCountWidget.hidden = YES;
             self.editorPaddingBottom.constant = 0.0;
+        }
+    }
+
+    if (!changedKey)
+    {
+        NSClipView *contentView = self.editor.enclosingScrollView.contentView;
+        contentView.postsBoundsChangedNotifications = YES;
+
+        NSDictionary *keysAndDefaults = MPEditorKeysToObserve();
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        for (NSString *key in keysAndDefaults)
+        {
+            NSString *preferenceKey = MPEditorPreferenceKeyWithValueKey(key);
+            id value = [defaults objectForKey:preferenceKey];
+            value = value ? value : keysAndDefaults[key];
+            [self.editor setValue:value forKey:key];
         }
     }
 
