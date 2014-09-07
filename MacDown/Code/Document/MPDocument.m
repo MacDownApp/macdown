@@ -19,6 +19,7 @@
 #import "MPPreferences.h"
 #import "MPRenderer.h"
 #import "MPPreferencesViewController.h"
+#import "MPEditorPreferencesViewController.h"
 #import "MPExportPanelAccessoryViewController.h"
 #import "MPMathJaxListener.h"
 
@@ -48,6 +49,21 @@ static NSDictionary *MPEditorKeysToObserve()
                  @"continuousSpellCheckingEnabled": @NO,
                  @"enabledTextCheckingTypes": @(NSTextCheckingAllTypes),
                  @"grammarCheckingEnabled": @NO};
+    });
+    return keys;
+}
+
+static NSSet *MPEditorPreferencesToObserve()
+{
+    static NSSet *keys = nil;
+    static dispatch_once_t token;
+    dispatch_once(&token, ^{
+        keys = [NSSet setWithObjects:
+            @"editorBaseFontInfo", @"extensionFootnotes",
+            @"editorHorizontalInset", @"editorVerticalInset",
+            @"editorWidthLimited", @"editorMaximumWidth", @"editorLineSpacing",
+            @"editorStyleName", @"editorShowWordCount", nil
+        ];
     });
     return keys;
 }
@@ -221,6 +237,7 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
 @property BOOL shouldHandleBoundsChange;
 @property (nonatomic) BOOL rendersTOC;
 @property (readonly) BOOL previewVisible;
+@property (nonatomic, readonly) BOOL editorOnRight;
 @property (nonatomic) NSUInteger totalWords;
 @property (nonatomic) NSUInteger totalCharacters;
 @property (nonatomic) NSUInteger totalCharactersNoSpaces;
@@ -267,6 +284,11 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
     @synchronized(self) {
         return _previewFlushDisabled;
     }
+}
+
+- (BOOL)editorOnRight
+{
+    return (self.splitView.subviews[0] == self.preview);
 }
 
 - (void)setPreviewFlushDisabled:(BOOL)value
@@ -373,7 +395,14 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
     self.renderer.dataSource = self;
     self.renderer.delegate = self;
 
-    [self setupEditor];
+    [self setupEditor:nil];
+
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    for (NSString *key in MPEditorPreferencesToObserve())
+    {
+        [defaults addObserver:self forKeyPath:key
+                      options:NSKeyValueObservingOptionNew context:NULL];
+    }
     for (NSString *key in MPEditorKeysToObserve())
     {
         [self.editor addObserver:self forKeyPath:key
@@ -460,6 +489,9 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
                     object:nil];
     [center removeObserver:self name:MPDidRequestEditorSetupNotification
                     object:nil];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    for (NSString *key in MPEditorPreferencesToObserve())
+        [defaults removeObserver:self forKeyPath:key];
     for (NSString *key in MPEditorKeysToObserve())
         [self.editor removeObserver:self forKeyPath:key];
 
@@ -893,29 +925,18 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
         [renderer renderIfPreferencesChanged];
     }
 
-    if (self.highlighter.isActive)
-        [self setupEditor];
-
-    NSArray *parts = self.splitView.subviews;
-    if ((self.preferences.editorOnRight && parts[1] == self.preview)
-            || (!self.preferences.editorOnRight && parts[0] == self.preview))
+    if (self.preferences.editorOnRight != self.editorOnRight)
     {
         [self.splitView swapViews];
         if (!self.previewVisible && self.previousSplitRatio >= 0.0)
             self.previousSplitRatio = 1.0 - self.previousSplitRatio;
-    }
 
-    if (self.preferences.editorShowWordCount)
-    {
-        self.wordCountWidget.hidden = NO;
-        self.editorPaddingBottom.constant = 35.0;
+        // Need to queue this or the views won't be initialised correctly.
+        // Don't really know why, but this works.
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            self.splitView.needsLayout = YES;
+        }];
     }
-    else
-    {
-        self.wordCountWidget.hidden = YES;
-        self.editorPaddingBottom.constant = 0.0;
-    }
-    self.splitView.needsLayout = YES;
 }
 
 - (void)boundsDidChange:(NSNotification *)notification
@@ -937,7 +958,9 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
 
 - (void)didRequestEditorReload:(NSNotification *)notification
 {
-    [self setupEditor];
+    NSString *key =
+        notification.userInfo[MPDidRequestEditorSetupNotificationKeyName];
+    [self setupEditor:key];
 }
 
 - (void)didRequestPreviewReload:(NSNotification *)notification
@@ -959,6 +982,11 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
         NSString *preferenceKey = MPEditorPreferenceKeyWithValueKey(keyPath);
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         [defaults setObject:value forKey:preferenceKey];
+    }
+    else if (object == [NSUserDefaults standardUserDefaults])
+    {
+        if (self.highlighter.isActive)
+            [self setupEditor:keyPath];
     }
 }
 
@@ -1251,69 +1279,105 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
 
 #pragma mark - Private
 
-- (void)setupEditor
+- (void)setupEditor:(NSString *)changedKey
 {
     [self.highlighter deactivate];
-    self.editor.font = [self.preferences.editorBaseFont copy];
 
-    int extensions = pmh_EXT_NOTES;
-    if (self.preferences.extensionFootnotes)
-        extensions = pmh_EXT_NONE;
-    self.highlighter.extensions = extensions;
-
-    CGFloat x = self.preferences.editorHorizontalInset;
-    CGFloat y = self.preferences.editorVerticalInset;
-    if (self.preferences.editorWidthLimited)
+    if (!changedKey || [changedKey isEqualToString:@"extensionFootnotes"])
     {
-        CGFloat editorWidth = self.editor.frame.size.width;
-        CGFloat maxWidth = self.preferences.editorMaximumWidth;
-        if (editorWidth > 2 * x + maxWidth)
-            x = (editorWidth - maxWidth) * 0.45;
-        // We tend to expect things in an editor to shift to left a bit. Hence
-        // the 0.45 instead of 0.5 (which whould feel a bit too much).
-    }
-    self.editor.textContainerInset = NSMakeSize(x, y);
-
-    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
-    style.lineSpacing = self.preferences.editorLineSpacing;
-    self.editor.defaultParagraphStyle = [style copy];
-
-    self.editor.textColor = nil;
-    self.editor.backgroundColor = nil;
-    self.highlighter.styles = nil;
-    [self.highlighter readClearTextStylesFromTextView];
-
-    NSString *themeName = [self.preferences.editorStyleName copy];
-    if (themeName.length)
-    {
-        NSString *path = MPThemePathForName(themeName);
-        NSString *themeString = MPReadFileOfPath(path);
-        [self.highlighter applyStylesFromStylesheet:themeString
-                                   withErrorHandler:
-            ^(NSArray *errorMessages) {
-                self.preferences.editorStyleName = nil;
-            }];
+        int extensions = pmh_EXT_NOTES;
+        if (self.preferences.extensionFootnotes)
+            extensions = pmh_EXT_NONE;
+        self.highlighter.extensions = extensions;
     }
 
-    // Have to keep this enabled because HGMarkdownHighlighter needs them.
-    NSClipView *contentView = self.editor.enclosingScrollView.contentView;
-    contentView.postsBoundsChangedNotifications = YES;
-
-    NSDictionary *keysAndDefaults = MPEditorKeysToObserve();
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    for (NSString *key in keysAndDefaults)
+    if (!changedKey || [changedKey isEqualToString:@"editorHorizontalInset"]
+            || [changedKey isEqualToString:@"editorVerticalInset"]
+            || [changedKey isEqualToString:@"editorWidthLimited"]
+            || [changedKey isEqualToString:@"editorMaximumWidth"])
     {
-        NSString *preferenceKey = MPEditorPreferenceKeyWithValueKey(key);
-        id value = [defaults objectForKey:preferenceKey];
-        value = value ? value : keysAndDefaults[key];
-        [self.editor setValue:value forKey:key];
+        CGFloat x = self.preferences.editorHorizontalInset;
+        CGFloat y = self.preferences.editorVerticalInset;
+        if (self.preferences.editorWidthLimited)
+        {
+            CGFloat editorWidth = self.editor.frame.size.width;
+            CGFloat maxWidth = self.preferences.editorMaximumWidth;
+            if (editorWidth > 2 * x + maxWidth)
+                x = (editorWidth - maxWidth) * 0.45;
+            // We tend to expect things in an editor to shift to left a bit.
+            // Hence the 0.45 instead of 0.5 (which whould feel a bit too much).
+        }
+        self.editor.textContainerInset = NSMakeSize(x, y);
     }
 
-    NSView *editorChrome = self.editor.enclosingScrollView.superview;
-    CALayer *layer = [CALayer layer];
-    layer.backgroundColor = self.editor.backgroundColor.CGColor;
-    editorChrome.layer = layer;
-    editorChrome.wantsLayer = YES;
+    if (!changedKey || [changedKey isEqualToString:@"editorBaseFontInfo"]
+            || [changedKey isEqualToString:@"editorStyleName"]
+            || [changedKey isEqualToString:@"editorLineSpacing"])
+    {
+        NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+        style.lineSpacing = self.preferences.editorLineSpacing;
+        self.editor.defaultParagraphStyle = [style copy];
+        self.editor.font = [self.preferences.editorBaseFont copy];
+        self.editor.textColor = nil;
+        self.editor.backgroundColor = nil;
+        self.highlighter.styles = nil;
+        [self.highlighter readClearTextStylesFromTextView];
+
+        NSString *themeName = [self.preferences.editorStyleName copy];
+        if (themeName.length)
+        {
+            NSString *path = MPThemePathForName(themeName);
+            NSString *themeString = MPReadFileOfPath(path);
+            [self.highlighter applyStylesFromStylesheet:themeString
+                                       withErrorHandler:
+                ^(NSArray *errorMessages) {
+                    self.preferences.editorStyleName = nil;
+                }];
+        }
+
+        CGColorRef backgroundCGColor = self.editor.backgroundColor.CGColor;
+        NSView *editorChrome = self.editor.enclosingScrollView.superview;
+
+        CALayer *layer = [CALayer layer];
+        layer.backgroundColor = backgroundCGColor;
+        editorChrome.layer = layer;
+        editorChrome.wantsLayer = YES;
+
+        layer = [CALayer layer];
+        layer.backgroundColor = backgroundCGColor;
+        self.splitView.layer = layer;
+        self.splitView.wantsLayer = YES;
+    }
+
+    if (!changedKey || [changedKey isEqualToString:@"editorShowWordCount"])
+    {
+        if (self.preferences.editorShowWordCount)
+        {
+            self.wordCountWidget.hidden = NO;
+            self.editorPaddingBottom.constant = 35.0;
+        }
+        else
+        {
+            self.wordCountWidget.hidden = YES;
+            self.editorPaddingBottom.constant = 0.0;
+        }
+    }
+
+    if (!changedKey)
+    {
+        NSClipView *contentView = self.editor.enclosingScrollView.contentView;
+        contentView.postsBoundsChangedNotifications = YES;
+
+        NSDictionary *keysAndDefaults = MPEditorKeysToObserve();
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        for (NSString *key in keysAndDefaults)
+        {
+            NSString *preferenceKey = MPEditorPreferenceKeyWithValueKey(key);
+            id value = [defaults objectForKey:preferenceKey];
+            value = value ? value : keysAndDefaults[key];
+            [self.editor setValue:value forKey:key];
+        }
+    }
 
     [self.highlighter activate];
     self.editor.automaticLinkDetectionEnabled = NO;
@@ -1354,6 +1418,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
     if (!wasVisible && self.previewVisible
             && !self.preferences.markdownManualRender)
         [self.renderer parseAndRenderNow];
+    [self setupEditor:NSStringFromSelector(@selector(editorHorizontalInset))];
 }
 
 - (NSString *)presumedFileName
