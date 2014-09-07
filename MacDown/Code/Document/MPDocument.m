@@ -62,7 +62,7 @@ static NSSet *MPEditorPreferencesToObserve()
             @"editorBaseFontInfo", @"extensionFootnotes",
             @"editorHorizontalInset", @"editorVerticalInset",
             @"editorWidthLimited", @"editorMaximumWidth", @"editorLineSpacing",
-            @"editorStyleName", nil
+            @"editorStyleName", @"editorShowWordCount", nil
         ];
     });
     return keys;
@@ -923,17 +923,6 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
         if (!self.previewVisible && self.previousSplitRatio >= 0.0)
             self.previousSplitRatio = 1.0 - self.previousSplitRatio;
     }
-
-    if (self.preferences.editorShowWordCount)
-    {
-        self.wordCountWidget.hidden = NO;
-        self.editorPaddingBottom.constant = 35.0;
-    }
-    else
-    {
-        self.wordCountWidget.hidden = YES;
-        self.editorPaddingBottom.constant = 0.0;
-    }
     self.splitView.needsLayout = YES;
 }
 
@@ -1357,7 +1346,22 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
 
     layer = [CALayer layer];
     layer.backgroundColor = backgroundCGColor;
+    self.splitView.wantsLayer = YES;
     self.splitView.layer = layer;
+
+    if (!changedKey || [changedKey isEqualToString:@"editorShowWordCount"])
+    {
+        if (self.preferences.editorShowWordCount)
+        {
+            self.wordCountWidget.hidden = NO;
+            self.editorPaddingBottom.constant = 35.0;
+        }
+        else
+        {
+            self.wordCountWidget.hidden = YES;
+            self.editorPaddingBottom.constant = 0.0;
+        }
+    }
 
     [self.highlighter activate];
     self.editor.automaticLinkDetectionEnabled = NO;
