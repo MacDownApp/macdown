@@ -11,6 +11,11 @@
 #import "MPUtilities.h"
 
 
+static const unichar kMPLeftSingleQuotation  = L'\u2018';
+static const unichar kMPRightSingleQuotation = L'\u2019';
+static const unichar kMPLeftDoubleQuotation  = L'\u201c';
+static const unichar kMPRightDoubleQuotation = L'\u201d';
+
 static const unichar kMPMatchingCharactersMap[][2] = {
     {L'(', L')'},
     {L'[', L']'},
@@ -21,8 +26,8 @@ static const unichar kMPMatchingCharactersMap[][2] = {
     {L'\uff08', L'\uff09'},     // full-width parentheses
     {L'\u300c', L'\u300d'},     // corner brackets
     {L'\u300e', L'\u300f'},     // white corner brackets
-    {L'\u2018', L'\u2019'},     // single quotes
-    {L'\u201c', L'\u201d'},     // double quotes
+    {kMPLeftSingleQuotation, kMPRightSingleQuotation},
+    {kMPLeftDoubleQuotation, kMPRightDoubleQuotation},
     {L'\0', L'\0'},
 };
 
@@ -108,6 +113,14 @@ static NSString * const kMPBlockquoteLinePattern = @"^((?:\\> ?)+).*$";
 - (BOOL)completeMatchingCharacterForText:(NSString *)string
                               atLocation:(NSUInteger)location
 {
+    static NSCharacterSet *boundaryCharacters = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        NSMutableCharacterSet *s =
+            [NSMutableCharacterSet whitespaceAndNewlineCharacterSet];
+        [s formUnionWithCharacterSet:[NSCharacterSet punctuationCharacterSet]];
+        boundaryCharacters = [s copy];
+    });
     NSString *content = self.string;
     NSUInteger contentLength = content.length;
 
@@ -119,14 +132,30 @@ static NSString * const kMPBlockquoteLinePattern = @"^((?:\\> ?)+).*$";
     if (location > 0 && location <= contentLength)
         p = [content characterAtIndex:location - 1];
 
-    NSCharacterSet *delims = [NSCharacterSet whitespaceAndNewlineCharacterSet];
     for (const unichar *cs = kMPMatchingCharactersMap[0]; *cs != 0; cs += 2)
     {
-        if ([delims characterIsMember:n] && c == cs[0] && n != cs[1]
-            && ([delims characterIsMember:p] || cs[0] != cs[1]))
+        if ([boundaryCharacters characterIsMember:n] && c == cs[0] && n != cs[1]
+            && ([boundaryCharacters characterIsMember:p] || cs[0] != cs[1]))
         {
             NSRange range = NSMakeRange(location, 0);
             NSString *completion = [NSString stringWithCharacters:cs length:2];
+            if (self.isAutomaticQuoteSubstitutionEnabled)
+            {
+                unichar c = L'\0';
+                switch (cs[0])
+                {
+                    case L'\"':
+                        c = kMPLeftDoubleQuotation;
+                        break;
+                    case L'\'':
+                        c = kMPLeftSingleQuotation;
+                        break;
+                    default:
+                        break;
+                }
+                if (c)
+                    completion = [NSString stringWithCharacters:&c length:1];
+            }
             [self insertText:completion replacementRange:range];
 
             range.location += string.length;
