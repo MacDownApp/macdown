@@ -1321,9 +1321,20 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
                     self.preferences.editorStyleName = nil;
                 }];
         }
+
+        CGColorRef backgroundCGColor = self.editor.backgroundColor.CGColor;
+        NSView *editorChrome = self.editor.enclosingScrollView.superview;
+
+        CALayer *layer = [CALayer layer];
+        layer.backgroundColor = backgroundCGColor;
+        editorChrome.layer = layer;
+
+        layer = [CALayer layer];
+        layer.backgroundColor = backgroundCGColor;
+        self.splitView.layer = layer;
+        self.splitView.wantsLayer = YES;
     }
 
-    // Have to keep this enabled because HGMarkdownHighlighter needs them.
     NSClipView *contentView = self.editor.enclosingScrollView.contentView;
     contentView.postsBoundsChangedNotifications = YES;
 
@@ -1336,18 +1347,6 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
         value = value ? value : keysAndDefaults[key];
         [self.editor setValue:value forKey:key];
     }
-
-    CGColorRef backgroundCGColor = self.editor.backgroundColor.CGColor;
-    NSView *editorChrome = self.editor.enclosingScrollView.superview;
-
-    CALayer *layer = [CALayer layer];
-    layer.backgroundColor = backgroundCGColor;
-    editorChrome.layer = layer;
-
-    layer = [CALayer layer];
-    layer.backgroundColor = backgroundCGColor;
-    self.splitView.wantsLayer = YES;
-    self.splitView.layer = layer;
 
     if (!changedKey || [changedKey isEqualToString:@"editorShowWordCount"])
     {
