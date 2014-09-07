@@ -55,4 +55,8 @@ void hoedown_patch_render_blockcode(
 void hoedown_patch_render_listitem(
     hoedown_buffer *ob, const hoedown_buffer *text, int flags, void *opaque);
 
+void hoedown_patch_render_table(
+    hoedown_buffer *ob, const hoedown_buffer *header,
+    const hoedown_buffer *body, void *opaque);
+
 #endif

@@ -35,8 +35,8 @@
 {
     NSArray *array = @[@"Foo", @42, @2.71828, [NSNull null]];
     NSString *expected =
-        @"<table><tbody><tr><td>Foo</td><td>42</td><td>2.71828</td><td></td>"
-        @"</tr></tbody></table>";
+        @"<table class=\"table\"><tbody><tr><td>Foo</td><td>42</td>"
+        @"<td>2.71828</td><td></td></tr></tbody></table>";
 
     XCTAssertEqualObjects([array HTMLTable], expected, @"Array");
 }
@@ -46,10 +46,10 @@
     NSDictionary *dict = @{@"Foo": @"Bar", @"Pi": @3.141592654, @2.72: @"e",
                            @"Info": @[@"Moo"]};
     NSString *expected =
-        @"<table><thead><tr><th>Info</th><th>Foo</th><th>Pi</th><th>2.72</th>"
-        @"</tr></thead><tbody><tr><td><table><tbody><tr><td>Moo</td></tr>"
-        @"</tbody></table></td><td>Bar</td><td>3.141592654</td><td>e</td></tr>"
-        @"</tbody></table>";
+        @"<table class=\"table\"><thead><tr><th>Info</th><th>Foo</th>"
+        @"<th>Pi</th><th>2.72</th></tr></thead><tbody><tr><td>"
+        @"<table class=\"table\"><tbody><tr><td>Moo</td></tr></tbody></table>"
+        @"</td><td>Bar</td><td>3.141592654</td><td>e</td></tr></tbody></table>";
 
     XCTAssertEqualObjects([dict HTMLTable], expected, @"Dictionary");
 }

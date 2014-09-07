@@ -46,7 +46,7 @@
 - (NSString *)HTMLTable
 {
     static NSString *template =
-        @"<table><tbody><tr>"
+        @"<table class=\"table\"><tbody><tr>"
         @"{{#each objects}}<td>{{{HTMLTable this}}}</td>{{/each}}"
         @"</tr></tbody></table>";
     static NSDictionary *helpers = nil;
@@ -69,7 +69,7 @@
 - (NSString *)HTMLTable
 {
     static NSString *template =
-        @"<table><thead><tr>"
+        @"<table class=\"table\"><thead><tr>"
         @"{{#each keys}}<th>{{{HTMLTable this}}}</th>{{/each}}"
         @"</tr></thead><tbody><tr>"
         @"{{#each objects}}<td>{{{HTMLTable this}}}</td>{{/each}}"
@@ -98,7 +98,7 @@
 - (NSString *)HTMLTable
 {
     static NSString *template =
-        @"<table><thead><tr>"
+        @"<table class=\"table\"><thead><tr>"
         @"{{#each keys}}<th>{{{HTMLTable this}}}</th>{{/each}}"
         @"</tr></thead><tbody><tr>"
         @"{{#each objects}}<td>{{{HTMLTable this}}}</td>{{/each}}"

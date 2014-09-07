@@ -234,6 +234,7 @@ static hoedown_renderer *MPCreateHTMLRenderer(MPRenderer *renderer)
     hoedown_renderer *htmlRenderer = hoedown_html_renderer_new(flags, 6);
     htmlRenderer->blockcode = hoedown_patch_render_blockcode;
     htmlRenderer->listitem = hoedown_patch_render_listitem;
+    htmlRenderer->table = hoedown_patch_render_table;
 
     rndr_state_ex *state = malloc(sizeof(rndr_state_ex));
     memcpy(state, htmlRenderer->opaque, sizeof(rndr_state));

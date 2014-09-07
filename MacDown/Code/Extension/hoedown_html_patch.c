@@ -103,3 +103,18 @@ void hoedown_patch_render_listitem(
 	}
 	HOEDOWN_BUFPUTSL(ob, "</li>\n");
 }
+
+// Add .table class to table for Bootstrap.
+void hoedown_patch_render_table(
+    hoedown_buffer *ob, const hoedown_buffer *header,
+    const hoedown_buffer *body, void *opaque)
+{
+    if (ob->size) hoedown_buffer_putc(ob, '\n');
+    HOEDOWN_BUFPUTSL(ob, "<table class=\"table\"><thead>\n");
+    if (header)
+        hoedown_buffer_put(ob, header->data, header->size);
+    HOEDOWN_BUFPUTSL(ob, "</thead><tbody>\n");
+    if (body)
+        hoedown_buffer_put(ob, body->data, body->size);
+    HOEDOWN_BUFPUTSL(ob, "</tbody></table>\n");
+}
