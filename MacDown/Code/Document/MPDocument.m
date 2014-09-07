@@ -237,7 +237,7 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
 
 static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
 {
-    __block id weakObj = obj;
+    __weak id weakObj = obj;
     return ^{
         [weakObj setPreviewFlushDisabled:NO];
         [weakObj syncScrollers];
