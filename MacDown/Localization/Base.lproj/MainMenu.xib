@@ -393,13 +393,7 @@
                             </menuItem>
                             <menuItem title="Hide Preview Pane" keyEquivalent="H" id="T74-vt-YUA">
                                 <connections>
-                                    <action selector="hidePreivewPane:" target="-1" id="99p-A1-4FF"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Restore Preview Pane" keyEquivalent="H" id="OIG-zA-Uha">
-                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
-                                <connections>
-                                    <action selector="restorePreviewPane:" target="-1" id="TbS-zr-oVA"/>
+                                    <action selector="togglePreivewPane:" target="-1" id="03s-kD-O7K"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="Cux-kV-g5Z"/>
