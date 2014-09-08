@@ -596,15 +596,16 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
 {
     BOOL result = [super validateUserInterfaceItem:item];
     SEL action = item.action;
-    if (action == @selector(hidePreivewPane:))
+    if (action == @selector(togglePreivewPane:))
     {
-        BOOL validness = self.previewVisible;
-        ((NSMenuItem *)item).hidden = !validness;
-    }
-    else if (action == @selector(restorePreviewPane:))
-    {
-        BOOL validness = !self.previewVisible && self.previousSplitRatio >= 0.0;
-        ((NSMenuItem *)item).hidden = !validness;
+        NSMenuItem *it = ((NSMenuItem *)item);
+        it.hidden = (!self.previewVisible && self.previousSplitRatio < 0.0);
+        it.title = self.previewVisible ?
+            NSLocalizedString(@"Hide Preview Pane",
+                              @"Toggle preview pane menu item") :
+            NSLocalizedString(@"Restore Preview Pane",
+                              @"Toggle preview pane menu item");
+
     }
     else if (action == @selector(toggleTOCRendering:))
     {
@@ -1211,36 +1212,6 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
     [self.editor insertText:@"\n\n"];
 }
 
-- (IBAction)insertAmp:(id)sender
-{
-    [self.editor insertText:@"&amp;"];
-}
-
-- (IBAction)insertLt:(id)sender
-{
-    [self.editor insertText:@"&lt;"];
-}
-
-- (IBAction)insertGt:(id)sender
-{
-    [self.editor insertText:@"&gt;"];
-}
-
-- (IBAction)insertNbsp:(id)sender
-{
-    [self.editor insertText:@"&nbsp;"];
-}
-
-- (IBAction)insertQuot:(id)sender
-{
-    [self.editor insertText:@"&quot;"];
-}
-
-- (IBAction)insert39:(id)sender
-{
-    [self.editor insertText:@"&#39;"];
-}
-
 - (IBAction)setEditorOneQuarter:(id)sender
 {
     [self setSplitViewDividerLocation:0.25];
@@ -1256,19 +1227,21 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
     [self setSplitViewDividerLocation:0.5];
 }
 
-- (IBAction)hidePreivewPane:(id)sender
+- (IBAction)togglePreivewPane:(id)sender
 {
-    self.previousSplitRatio = self.splitView.dividerLocation;
-    if (self.preferences.editorOnRight)
-        [self setSplitViewDividerLocation:0.0];
+    if (self.previewVisible)
+    {
+        self.previousSplitRatio = self.splitView.dividerLocation;
+        if (self.preferences.editorOnRight)
+            [self setSplitViewDividerLocation:0.0];
+        else
+            [self setSplitViewDividerLocation:1.0];
+    }
     else
-        [self setSplitViewDividerLocation:1.0];
-}
-
-- (IBAction)restorePreviewPane:(id)sender
-{
-    if (self.previousSplitRatio >= 0.0)
-        [self setSplitViewDividerLocation:self.previousSplitRatio];
+    {
+        if (self.previousSplitRatio >= 0.0)
+            [self setSplitViewDividerLocation:self.previousSplitRatio];
+    }
 }
 
 - (IBAction)render:(id)sender
