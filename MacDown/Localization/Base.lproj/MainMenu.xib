@@ -191,50 +191,6 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="uyl-h8-XO2"/>
-                            <menuItem title="Insert HTML Entities" id="p17-UE-4IA">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="Insert HTML Entities" id="n1c-du-n8f">
-                                    <items>
-                                        <menuItem title="&amp;" keyEquivalent="7" id="b5k-nv-ZDs">
-                                            <modifierMask key="keyEquivalentModifierMask" shift="YES" control="YES"/>
-                                            <connections>
-                                                <action selector="insertAmp:" target="-1" id="JWO-aK-Uvi"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="&lt;" keyEquivalent="," id="zSi-NG-D3L">
-                                            <modifierMask key="keyEquivalentModifierMask" shift="YES" control="YES"/>
-                                            <connections>
-                                                <action selector="insertLt:" target="-1" id="sL8-Qy-kLF"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title=">" keyEquivalent="." id="wbb-Cn-yYW">
-                                            <modifierMask key="keyEquivalentModifierMask" shift="YES" control="YES"/>
-                                            <connections>
-                                                <action selector="insertGt:" target="-1" id="gWv-bY-uAU"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Non-Breaking Space" keyEquivalent=" " id="Rkz-py-Fiq">
-                                            <modifierMask key="keyEquivalentModifierMask" shift="YES" control="YES"/>
-                                            <connections>
-                                                <action selector="insertNbsp:" target="-1" id="6Jn-Ii-DFv"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="&quot;" keyEquivalent="'" id="gpn-zW-cLv">
-                                            <modifierMask key="keyEquivalentModifierMask" shift="YES" control="YES"/>
-                                            <connections>
-                                                <action selector="insertQuot:" target="-1" id="9GI-BK-kfC"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="'" keyEquivalent="'" id="Im9-FU-qgJ">
-                                            <modifierMask key="keyEquivalentModifierMask" control="YES"/>
-                                            <connections>
-                                                <action selector="insert39:" target="-1" id="o7r-DP-asQ"/>
-                                            </connections>
-                                        </menuItem>
-                                    </items>
-                                </menu>
-                            </menuItem>
-                            <menuItem isSeparatorItem="YES" id="NWz-2U-Olb"/>
                             <menuItem title="Find" id="4EN-yA-p0u">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Find" id="1b7-l0-nxx">
@@ -424,7 +380,7 @@
                                 </connections>
                             </menuItem>
                             <menuItem title="Left 1:1 Right" keyEquivalent="0" id="hOV-YQ-vzy">
-                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
                                 <connections>
                                     <action selector="setEqualSplit:" target="-1" id="fJH-RN-c01"/>
                                 </connections>
@@ -435,14 +391,13 @@
                                     <action selector="setEditorThreeQuarters:" target="-1" id="IEv-Wg-wJA"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Hide Preview Pane" id="T74-vt-YUA">
-                                <modifierMask key="keyEquivalentModifierMask"/>
+                            <menuItem title="Hide Preview Pane" keyEquivalent="H" id="T74-vt-YUA">
                                 <connections>
                                     <action selector="hidePreivewPane:" target="-1" id="99p-A1-4FF"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Restore Preview Pane" id="OIG-zA-Uha">
-                                <modifierMask key="keyEquivalentModifierMask"/>
+                            <menuItem title="Restore Preview Pane" keyEquivalent="H" id="OIG-zA-Uha">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                 <connections>
                                     <action selector="restorePreviewPane:" target="-1" id="TbS-zr-oVA"/>
                                 </connections>
@@ -562,14 +517,12 @@
                                 </menu>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="tY3-Ap-TRo"/>
-                            <menuItem title="Unordered List" keyEquivalent="u" id="jn0-Kb-yH6">
-                                <modifierMask key="keyEquivalentModifierMask" control="YES"/>
+                            <menuItem title="Unordered List" keyEquivalent="U" id="jn0-Kb-yH6">
                                 <connections>
                                     <action selector="toggleUnorderedList:" target="-1" id="K5g-7x-qoV"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Blockquote" keyEquivalent="b" id="twd-Mb-qNx">
-                                <modifierMask key="keyEquivalentModifierMask" control="YES"/>
+                            <menuItem title="Blockquote" keyEquivalent="B" id="twd-Mb-qNx">
                                 <connections>
                                     <action selector="toggleBlockquote:" target="-1" id="W3I-fA-sUG"/>
                                 </connections>
@@ -586,14 +539,12 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="SZ5-8G-rD3"/>
-                            <menuItem title="Link" keyEquivalent="L" id="GIg-Wo-P8m">
-                                <modifierMask key="keyEquivalentModifierMask" control="YES"/>
+                            <menuItem title="Link" keyEquivalent="K" id="GIg-Wo-P8m">
                                 <connections>
                                     <action selector="toggleLink:" target="-1" id="Ebm-MA-ubE"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="Image" keyEquivalent="I" id="VkR-aw-5AU">
-                                <modifierMask key="keyEquivalentModifierMask" control="YES"/>
                                 <connections>
                                     <action selector="toggleImage:" target="-1" id="xuX-4U-p9x"/>
                                 </connections>
