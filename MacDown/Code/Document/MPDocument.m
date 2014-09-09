@@ -222,6 +222,7 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
 };
 
 @property (weak) IBOutlet NSSplitView *splitView;
+@property (weak) IBOutlet NSView *editorContainer;
 @property (unsafe_unretained) IBOutlet NSTextView *editor;
 @property (weak) IBOutlet NSLayoutConstraint *editorPaddingBottom;
 @property (weak) IBOutlet WebView *preview;
@@ -237,6 +238,7 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
 @property BOOL shouldHandleBoundsChange;
 @property (nonatomic) BOOL rendersTOC;
 @property (readonly) BOOL previewVisible;
+@property (readonly) BOOL editorVisible;
 @property (nonatomic, readonly) BOOL needsHtml;
 @property (nonatomic) NSUInteger totalWords;
 @property (nonatomic) NSUInteger totalCharacters;
@@ -277,6 +279,11 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
 - (BOOL)previewVisible
 {
     return (self.preview.frame.size.width != 0.0);
+}
+
+- (BOOL)editorVisible
+{
+    return (self.editorContainer.frame.size.width != 0.0);
 }
 
 - (BOOL)previewFlushDisabled
@@ -597,6 +604,15 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
             NSLocalizedString(@"Restore Preview Pane",
                               @"Toggle preview pane menu item");
 
+    }
+    else if (action == @selector(toggleEditorPane:))
+    {
+        NSMenuItem *it = (NSMenuItem*)item;
+        it.title = self.editorVisible ?
+        NSLocalizedString(@"Hide Editor Pane",
+                          @"Toggle editor pane menu item") :
+        NSLocalizedString(@"Restore Editor Pane",
+                          @"Toggle editor pane menu item");
     }
     else if (action == @selector(toggleTOCRendering:))
     {
@@ -1220,6 +1236,23 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
     }
 }
 
+- (IBAction)toggleEditorPane:(id)sender
+{
+    if (self.editorVisible)
+    {
+        self.previousSplitRatio = self.splitView.dividerLocation;
+        if (self.preferences.editorOnRight)
+            [self setSplitViewDividerLocation:1.0f];
+        else
+            [self setSplitViewDividerLocation:0.0f];
+    }
+    else
+    {
+        if (self.previousSplitRatio >= 0.0f)
+            [self setSplitViewDividerLocation:self.previousSplitRatio];
+    }
+}
+
 - (IBAction)render:(id)sender
 {
     [self.renderer parseAndRenderLater];
@@ -1293,12 +1326,11 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
         }
 
         CGColorRef backgroundCGColor = self.editor.backgroundColor.CGColor;
-        NSView *editorChrome = self.editor.enclosingScrollView.superview;
 
         CALayer *layer = [CALayer layer];
         layer.backgroundColor = backgroundCGColor;
-        editorChrome.layer = layer;
-        editorChrome.wantsLayer = YES;
+        self.editorContainer.layer = layer;
+        self.editorContainer.wantsLayer = YES;
 
         layer = [CALayer layer];
         layer.backgroundColor = backgroundCGColor;

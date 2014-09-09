@@ -396,6 +396,11 @@
                                     <action selector="togglePreivewPane:" target="-1" id="03s-kD-O7K"/>
                                 </connections>
                             </menuItem>
+                            <menuItem title="Hide Editor Pane" keyEquivalent="E" id="wHk-AQ-iOQ">
+                                <connections>
+                                    <action selector="toggleEditorPane:" target="-1" id="BGN-6z-VZN"/>
+                                </connections>
+                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="Cux-kV-g5Z"/>
                             <menuItem title="Enter Full Screen" keyEquivalent="f" id="1gz-YB-DZE">
                                 <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
