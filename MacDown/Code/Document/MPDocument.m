@@ -62,7 +62,7 @@ static NSSet *MPEditorPreferencesToObserve()
             @"editorBaseFontInfo", @"extensionFootnotes",
             @"editorHorizontalInset", @"editorVerticalInset",
             @"editorWidthLimited", @"editorMaximumWidth", @"editorLineSpacing",
-            @"editorStyleName", @"editorShowWordCount", nil
+            @"editorStyleName", @"editorShowWordCount", @"editorOnRight", nil
         ];
     });
     return keys;
@@ -237,7 +237,6 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
 @property BOOL shouldHandleBoundsChange;
 @property (nonatomic) BOOL rendersTOC;
 @property (readonly) BOOL previewVisible;
-@property (nonatomic, readonly) BOOL editorOnRight;
 @property (nonatomic, readonly) BOOL needsHtml;
 @property (nonatomic) NSUInteger totalWords;
 @property (nonatomic) NSUInteger totalCharacters;
@@ -285,11 +284,6 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
     @synchronized(self) {
         return _previewFlushDisabled;
     }
-}
-
-- (BOOL)editorOnRight
-{
-    return (self.splitView.subviews[0] == self.preview);
 }
 
 - (BOOL)needsHtml
@@ -442,9 +436,6 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
         [self.renderer parseAndRenderNow];
         [self.highlighter parseAndHighlightNow];
     }
-    
-    if (self.preferences.editorOnRight)
-        [self.splitView swapViews];
 
     self.wordsMenuItem = [[NSMenuItem alloc] initWithTitle:@"" action:NULL
                                              keyEquivalent:@""];
@@ -933,19 +924,6 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
                       }];
         [renderer renderIfPreferencesChanged];
     }
-
-    if (self.preferences.editorOnRight != self.editorOnRight)
-    {
-        [self.splitView swapViews];
-        if (!self.previewVisible && self.previousSplitRatio >= 0.0)
-            self.previousSplitRatio = 1.0 - self.previousSplitRatio;
-
-        // Need to queue this or the views won't be initialised correctly.
-        // Don't really know why, but this works.
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            self.splitView.needsLayout = YES;
-        }];
-    }
 }
 
 - (void)boundsDidChange:(NSNotification *)notification
@@ -1232,10 +1210,8 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
     if (self.previewVisible)
     {
         self.previousSplitRatio = self.splitView.dividerLocation;
-        if (self.preferences.editorOnRight)
-            [self setSplitViewDividerLocation:0.0];
-        else
-            [self setSplitViewDividerLocation:1.0];
+        BOOL editorOnRight = self.preferences.editorOnRight;
+        [self setSplitViewDividerLocation:(editorOnRight ? 0.0 : 1.0)];
     }
     else
     {
@@ -1357,6 +1333,25 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
             id value = [defaults objectForKey:preferenceKey];
             value = value ? value : keysAndDefaults[key];
             [self.editor setValue:value forKey:key];
+        }
+    }
+
+    if (!changedKey || [changedKey isEqualToString:@"editorOnRight"])
+    {
+        BOOL editorOnRight = self.preferences.editorOnRight;
+        NSArray *subviews = self.splitView.subviews;
+        if ((!editorOnRight && subviews[0] == self.preview)
+            || (editorOnRight && subviews[1] == self.preview))
+        {
+            [self.splitView swapViews];
+            if (!self.previewVisible && self.previousSplitRatio >= 0.0)
+                self.previousSplitRatio = 1.0 - self.previousSplitRatio;
+
+            // Need to queue this or the views won't be initialised correctly.
+            // Don't really know why, but this works.
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                self.splitView.needsLayout = YES;
+            }];
         }
     }
 
