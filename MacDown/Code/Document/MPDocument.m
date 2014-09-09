@@ -1350,12 +1350,11 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
         }
 
         CGColorRef backgroundCGColor = self.editor.backgroundColor.CGColor;
-        NSView *editorChrome = self.editor.enclosingScrollView.superview;
 
         CALayer *layer = [CALayer layer];
         layer.backgroundColor = backgroundCGColor;
-        editorChrome.layer = layer;
-        editorChrome.wantsLayer = YES;
+        self.editorContainer.layer = layer;
+        self.editorContainer.wantsLayer = YES;
 
         layer = [CALayer layer];
         layer.backgroundColor = backgroundCGColor;
