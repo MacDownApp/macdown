@@ -1242,13 +1242,13 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
     {
         self.previousSplitRatio = self.splitView.dividerLocation;
         if (self.preferences.editorOnRight)
-            [self setSplitViewDividerLocation:1.0f];
+            [self setSplitViewDividerLocation:1.0];
         else
-            [self setSplitViewDividerLocation:0.0f];
+            [self setSplitViewDividerLocation:0.0];
     }
     else
     {
-        if (self.previousSplitRatio >= 0.0f)
+        if (self.previousSplitRatio >= 0.0)
             [self setSplitViewDividerLocation:self.previousSplitRatio];
     }
 }
