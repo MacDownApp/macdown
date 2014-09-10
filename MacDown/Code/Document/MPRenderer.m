@@ -435,12 +435,14 @@ static hoedown_renderer *MPCreateHTMLRenderer(MPRenderer *renderer)
         changed = YES;
     else if ([d rendererHasMathJax:self] != self.mathjax)
         changed = YES;
-    else if (![[d rendererHighlightingThemeName:self]
+    else if ([d rendererHighlightingThemeName:self] != self.highlightingThemeName &&
+             ![[d rendererHighlightingThemeName:self]
                    isEqualToString:self.highlightingThemeName])
         changed = YES;
-    else if (![[d rendererStyleName:self] isEqualToString:self.styleName])
+    else if ([d rendererStyleName:self] != self.styleName &&
+             ![[d rendererStyleName:self] isEqualToString:self.styleName])
         changed = YES;
-
+    
     if (changed)
         [self render];
 }
