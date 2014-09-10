@@ -442,6 +442,7 @@ static hoedown_renderer *MPCreateHTMLRenderer(MPRenderer *renderer)
     else if ([d rendererStyleName:self] != self.styleName &&
              ![[d rendererStyleName:self] isEqualToString:self.styleName])
         changed = YES;
+    
     if (changed)
         [self render];
 }
