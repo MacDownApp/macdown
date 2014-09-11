@@ -140,6 +140,12 @@ static NSString *MPGetHTML(
     return html;
 }
 
+static inline BOOL MPAreNilableStringsEqual(NSString *s1, NSString *s2)
+{
+    // The == part takes care of cases where s1 and s2 are both nil.
+    return ([s1 isEqualToString:s2] || s1 == s2);
+}
+
 
 @interface MPRenderer ()
 
@@ -435,12 +441,11 @@ static hoedown_renderer *MPCreateHTMLRenderer(MPRenderer *renderer)
         changed = YES;
     else if ([d rendererHasMathJax:self] != self.mathjax)
         changed = YES;
-    else if ([d rendererHighlightingThemeName:self] != self.highlightingThemeName &&
-             ![[d rendererHighlightingThemeName:self]
-               isEqualToString:self.highlightingThemeName])
+    else if (!MPAreNilableStringsEqual(
+            [d rendererHighlightingThemeName:self], self.highlightingThemeName))
         changed = YES;
-    else if ([d rendererStyleName:self] != self.styleName &&
-             ![[d rendererStyleName:self] isEqualToString:self.styleName])
+    else if (!MPAreNilableStringsEqual(
+            [d rendererStyleName:self], self.styleName))
         changed = YES;
 
     if (changed)
