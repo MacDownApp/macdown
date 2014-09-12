@@ -10,7 +10,7 @@
 
 @interface MPEditorView : NSTextView
 
-@property BOOL scrollsPastEnd;
+@property (nonatomic) BOOL scrollsPastEnd;
 - (NSRect)contentRect;
 
 @end

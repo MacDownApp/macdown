@@ -8,26 +8,33 @@
 
 #import "MPEditorView.h"
 
+
 @interface MPEditorView ()
 
 @property NSRect contentRect;
+@property CGFloat trailingHeight;
 
 @end
 
 
 @implementation MPEditorView
 
+- (void)setScrollsPastEnd:(BOOL)scrollsPastEnd
+{
+    _scrollsPastEnd = scrollsPastEnd;
+    if (scrollsPastEnd)
+        [self updateContentGeometry];
+}
+
 - (void)setFrameSize:(NSSize)newSize
 {
     if (self.scrollsPastEnd)
     {
-        CGFloat inset = self.textContainerInset.height;
-        CGFloat topPadding = inset + self.font.pointSize
-                           + self.defaultParagraphStyle.lineSpacing;
-        CGFloat ch = self.contentRect.size.height - topPadding;
-        CGFloat eh = self.enclosingScrollView.contentSize.height - topPadding;
+        CGFloat ch = self.contentRect.size.height;
+        CGFloat eh = self.enclosingScrollView.contentSize.height;
         CGFloat offset = ch < eh ? ch : eh;
-        if (offset > topPadding)
+        offset -= self.trailingHeight + 2 * self.textContainerInset.height;
+        if (offset > 0)
             newSize.height += offset;
     }
     [super setFrameSize:newSize];
@@ -46,9 +53,12 @@
 - (void)setString:(NSString *)string
 {
     [super setString:string];
-    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-        [self updateContentRect];
-    }];
+    if (self.scrollsPastEnd)
+    {
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            [self updateContentGeometry];
+        }];
+    }
 }
 
 /** Overriden to perform extra operation on text change.
@@ -60,18 +70,44 @@
 - (void)didChangeText
 {
     [super didChangeText];
-    [self updateContentRect];
+    if (self.scrollsPastEnd)
+        [self updateContentGeometry];
 }
 
-- (void)updateContentRect
+- (void)updateContentGeometry
 {
-    NSRect r = [self.layoutManager usedRectForTextContainer:self.textContainer];
+    static NSCharacterSet *visibleCharacterSet = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        NSCharacterSet *ws = [NSCharacterSet whitespaceAndNewlineCharacterSet];
+        visibleCharacterSet = ws.invertedSet;
+    });
+
+    NSString *content = self.string;
+    NSLayoutManager *manager = self.layoutManager;
+    NSTextContainer *container = self.textContainer;
+    NSRect r = [manager usedRectForTextContainer:container];
+
+    NSRange lastRange = [content rangeOfCharacterFromSet:visibleCharacterSet
+                                                 options:NSBackwardsSearch];
+    NSRect junkRect = r;
+    if (lastRange.location != NSNotFound)
+    {
+        NSUInteger contentLength = content.length;
+        NSUInteger firstJunkLocation = lastRange.location + lastRange.length;
+        NSRange junkRange = NSMakeRange(firstJunkLocation,
+                                        contentLength - firstJunkLocation);
+        junkRect = [manager boundingRectForGlyphRange:junkRange
+                                      inTextContainer:container];
+    }
+    self.trailingHeight = junkRect.size.height;
+
     NSSize inset = self.textContainerInset;
     r.size.width += 2 * inset.width;
     r.size.height += 2 * inset.height;
     self.contentRect = r;
-    if (self.scrollsPastEnd)
-        [self setFrameSize:self.frame.size];    // Force -setFrameSize.
+
+    [self setFrameSize:self.frame.size];    // Force size update.
 }
 
 @end
