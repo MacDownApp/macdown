@@ -19,11 +19,26 @@
 
 @implementation MPEditorView
 
+@synthesize scrollsPastEnd = _scrollsPastEnd;
+
+- (BOOL)scrollsPastEnd
+{
+    @synchronized(self) {
+        return _scrollsPastEnd;
+    }
+}
+
 - (void)setScrollsPastEnd:(BOOL)scrollsPastEnd
 {
-    _scrollsPastEnd = scrollsPastEnd;
-    if (scrollsPastEnd)
-        [self updateContentGeometry];
+    @synchronized(self) {
+        _scrollsPastEnd = scrollsPastEnd;
+        if (scrollsPastEnd)
+        {
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                [self updateContentGeometry];
+            }];
+        }
+    }
 }
 
 - (void)setFrameSize:(NSSize)newSize
