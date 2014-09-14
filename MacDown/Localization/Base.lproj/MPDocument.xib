@@ -108,6 +108,9 @@
                                 <webPreferences key="preferences" defaultFontSize="12" defaultFixedFontSize="12">
                                     <nil key="identifier"/>
                                 </webPreferences>
+                                <connections>
+                                    <outlet property="UIDelegate" destination="-2" id="5Ky-Oy-jNW"/>
+                                </connections>
                             </webView>
                         </subviews>
                         <holdingPriorities>

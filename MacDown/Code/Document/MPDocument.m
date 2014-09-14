@@ -830,6 +830,13 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
     return NO;
 }
 
+#pragma mark - WebUIDelegate
+
+- (NSUInteger)webView:(WebView *)webView
+        dragDestinationActionMaskForDraggingInfo:(id<NSDraggingInfo>)info
+{
+    return WebDragDestinationActionNone;
+}
 
 #pragma mark - MPRendererDataSource
 
