@@ -7,6 +7,7 @@
 //
 
 #import "MPRenderer.h"
+#import <limits.h>
 #import <hoedown/html.h>
 #import <hoedown/markdown.h>
 #import "hoedown_html_patch.h"
@@ -21,6 +22,7 @@ static NSString * const kMPMathJaxCDN =
     @"?config=TeX-AMS-MML_HTMLorMML";
 static NSString * const kMPPrismScriptDirectory = @"Prism/components";
 static NSString * const kMPPrismThemeDirectory = @"Prism/themes";
+static size_t kMPRendererNestingLevel = SIZE_MAX;
 
 
 static NSArray *MPPrismScriptURLsForLanguage(NSString *language)
@@ -62,7 +64,8 @@ static NSString *MPHTMLFromMarkdown(
     hoedown_renderer *htmlRenderer, hoedown_renderer *tocRenderer)
 {
     NSData *inputData = [text dataUsingEncoding:NSUTF8StringEncoding];
-    hoedown_markdown *markdown = hoedown_markdown_new(flags, 15, htmlRenderer);
+    hoedown_markdown *markdown = hoedown_markdown_new(
+        flags, kMPRendererNestingLevel, htmlRenderer);
     hoedown_buffer *ob = hoedown_buffer_new(64);
     hoedown_markdown_render(ob, inputData.bytes, inputData.length, markdown);
     if (smartypants)
@@ -78,7 +81,8 @@ static NSString *MPHTMLFromMarkdown(
 
     if (tocRenderer)
     {
-        markdown = hoedown_markdown_new(flags, 15, tocRenderer);
+        markdown = hoedown_markdown_new(flags,
+            kMPRendererNestingLevel, tocRenderer);
         ob = hoedown_buffer_new(64);
         hoedown_markdown_render(
             ob, inputData.bytes, inputData.length, markdown);
@@ -237,7 +241,7 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
 static hoedown_renderer *MPCreateHTMLRenderer(MPRenderer *renderer)
 {
     int flags = renderer.rendererFlags;
-    hoedown_renderer *htmlRenderer = hoedown_html_renderer_new(flags, 6);
+    hoedown_renderer *htmlRenderer = hoedown_html_renderer_new(flags, 0);
     htmlRenderer->blockcode = hoedown_patch_render_blockcode;
     htmlRenderer->listitem = hoedown_patch_render_listitem;
 
@@ -416,7 +420,7 @@ static hoedown_renderer *MPCreateHTMLRenderer(MPRenderer *renderer)
     hoedown_renderer *htmlRenderer = MPCreateHTMLRenderer(self);
     hoedown_renderer *tocRenderer = NULL;
     if (hasTOC)
-        tocRenderer = hoedown_html_toc_renderer_new(6);
+        tocRenderer = hoedown_html_toc_renderer_new(0);
     self.currentHtml = MPHTMLFromMarkdown(
         markdown, extensions, smartypants, [frontMatter HTMLTable],
         htmlRenderer, tocRenderer);
