@@ -709,8 +709,10 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
     NSUInteger cur = textView.selectedRange.location;
     NSUInteger location =
         [textView.string locationOfFirstNonWhitespaceCharacterInLineBefore:cur];
-    if (location == cur)
+    if (location == cur || cur == 0)
         return YES;
+    else if (cur >= textView.string.length)
+        cur = textView.string.length - 1;
 
     // We don't want to jump rows when the line is wrapped. (#103)
     // If the line is wrapped, the target will be higher than the current glyph.
