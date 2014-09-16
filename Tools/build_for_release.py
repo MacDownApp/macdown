@@ -41,6 +41,24 @@ def print_value(key, value):
     print('{key}:\n{value}\n'.format(key=key, value=value))
 
 
+def archive_dir(zip_f, directory):
+    contents = os.listdir(directory)
+    if not contents:    # Empty directory.
+        info = zipfile.ZipInfo(directory)
+        zip_f.writestr(info, '')
+    for item in contents:
+        full_path = os.path.join(directory, item)
+        if os.path.islink(full_path):
+            info = zipfile.ZipInfo(full_path)
+            info.create_system = 3
+            info.external_attr = 2716663808
+            zip_f.writestr(info, os.readlink(full_path))
+        elif os.path.isdir(full_path):
+            archive_dir(zip_f, full_path)
+        else:
+            zip_f.write(full_path)
+
+
 def main(argv):
     if len(argv) < 2:
         name = os.path.basename(argv[0])
@@ -78,9 +96,7 @@ def main(argv):
 
     # Zip.
     with zipfile.ZipFile(ZIP_NAME, 'w') as f:
-        for root, dirs, files in os.walk(APP_NAME):
-            for file in files:
-                f.write(os.path.join(root, file))
+        archive_dir(f, APP_NAME)
 
     raw_input(
         'Build finished. Press Return to display bundle information and '
