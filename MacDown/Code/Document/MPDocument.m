@@ -192,9 +192,10 @@ static NSString *MPAutosavePropertyKey(
         case 11:
             if ([self respondsToSelector:@selector(tagName)])
             {
-                NSString *tagName = [(id)self tagName];
+                NSString *tagName = [(id)self tagName].uppercaseString;
                 if ([tagName isEqualToString:@"SCRIPT"]
-                        || [tagName isEqualToString:@"STYLE"])
+                        || [tagName isEqualToString:@"STYLE"]
+                        || [tagName isEqualToString:@"HEAD"])
                     break;
             }
             for (DOMNode *c = self.firstChild; c; c = c.nextSibling)
