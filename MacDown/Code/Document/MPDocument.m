@@ -1340,11 +1340,6 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
         layer.backgroundColor = backgroundCGColor;
         self.editorContainer.layer = layer;
         self.editorContainer.wantsLayer = YES;
-
-        layer = [CALayer layer];
-        layer.backgroundColor = backgroundCGColor;
-        self.splitView.layer = layer;
-        self.splitView.wantsLayer = YES;
     }
 
     if (!changedKey || [changedKey isEqualToString:@"editorShowWordCount"])
