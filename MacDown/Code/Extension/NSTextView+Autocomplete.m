@@ -451,7 +451,7 @@ static NSString * const kMPBlockquoteLinePattern = @"^((?:\\> ?)+).*$";
     return YES;
 }
 
-- (BOOL)completeNextListItem
+- (BOOL)completeNextListItem:(BOOL)autoIncrement
 {
     NSRange selectedRange = self.selectedRange;
     NSUInteger location = selectedRange.location;
@@ -511,7 +511,9 @@ static NSString * const kMPBlockquoteLinePattern = @"^((?:\\> ?)+).*$";
         NSRange range = [result rangeAtIndex:3];
         range.length -= 1;      // Exclude trailing space.
         NSString *captured = [line substringWithRange:range];
-        NSInteger i = captured.integerValue + 1;
+        NSInteger i = captured.integerValue;
+        if (autoIncrement)
+            i += 1;
         t = [NSString stringWithFormat:@"%ld.", i];
     }
     if (!t)

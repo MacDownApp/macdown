@@ -75,6 +75,7 @@ static NSString * const kMPDefaultHtmlStyleName = @"GitHub2";
 
 @dynamic markdownManualRender;
 
+@dynamic editorAutoIncrementNumberedLists;
 @dynamic editorConvertTabs;
 @dynamic editorCompleteMatchingCharacters;
 @dynamic editorSyncScrolling;
@@ -148,6 +149,8 @@ static NSString * const kMPDefaultHtmlStyleName = @"GitHub2";
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     if (![defaults objectForKey:@"editorMaximumWidth"])
         self.editorMaximumWidth = 1000.0;
+    if (![defaults objectForKey:@"editorAutoIncrementNumberedLists"])
+        self.editorAutoIncrementNumberedLists = YES;
 }
 
 @end
