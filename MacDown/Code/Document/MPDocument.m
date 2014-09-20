@@ -679,7 +679,8 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
 {
     if ([textView insertMappedContent])
         return NO;
-    if ([textView completeNextListItem])
+    if ([textView completeNextListItem:
+            self.preferences.editorAutoIncrementNumberedLists])
         return NO;
     if ([textView completeNextBlockquoteLine])
         return NO;
