@@ -92,7 +92,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <binding destination="-2" name="value" keyPath="self.preferences.editorAutoIncrementNumberedLists" id="XlE-d9-6dc"/>
+                                    <binding destination="-2" name="value" keyPath="self.preferences.editorCompleteMatchingCharacters" id="yRO-gj-ERf"/>
                                 </connections>
                             </button>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="NV7-zh-ydN">
