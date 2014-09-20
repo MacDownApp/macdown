@@ -10,7 +10,7 @@ Visit the [project site](http://macdown.uranusjr.com/) for more information, or 
 
 MacDown is released under the terms of MIT License. You may find the content of the license [here](http://opensource.org/licenses/MIT), or inside the `LICENSE` directory.
 
-You may find full text of licenses about third-party components inside in the `LICENSE` directory, or the **About MacDown** panel in the application.
+You may find full text of licenses about third-party components in the `LICENSE` directory, or the **About MacDown** panel in the application.
 
 The following editor themes and CSS files are extracted from [Mou](http://mouapp.com), courtesy of Chen Luo:
 
@@ -32,13 +32,13 @@ The following editor themes and CSS files are extracted from [Mou](http://mouapp
 
 ## Development
 
-If you wish to build MacDown yourself, you will need Git and [Cocoapods](http://cocoapods.org). After you clone the repository, run the following command inside the repository root (directory containing this `README.md` file):
+If you wish to build MacDown yourself, you will need Git and [CocoaPods](http://cocoapods.org). After you clone the repository, run the following commands inside the repository root (directory containing this `README.md` file):
 
 ```bash
 git submodule update --init --recursive
 pod install
 ```
 
-and open `MacDown.xcworkspace` in Xcode. The first command intialise the dependency submodule(s) used in MacDown; the second one installs dependencies managed by Cocoapods.
+and open `MacDown.xcworkspace` in Xcode. The first command initialises the dependency submodule(s) used in MacDown; the second one installs dependencies managed by CocoaPods.
 
-Refer to the official guides of Git and Cocoapods if you need more instructions. If you run into build issues later on, try running those commands again to update the dependencies.
+Refer to the official guides of Git and CocoaPods if you need more instructions. If you run into build issues later on, try running those commands again to update the dependencies.
