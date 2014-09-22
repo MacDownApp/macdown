@@ -32,7 +32,15 @@ The following editor themes and CSS files are extracted from [Mou](http://mouapp
 
 ## Development
 
-If you wish to build MacDown yourself, you will need Git and [CocoaPods](http://cocoapods.org). After you clone the repository, run the following commands inside the repository root (directory containing this `README.md` file):
+If you wish to build MacDown yourself, you will need the following components/tools:
+
+* OS X 10.8 SDK
+* Git
+* [CocoaPods](http://cocoapods.org)
+
+The OS X 10.8 SDK should be bundled with Xcode 5, but not with Xcode 6+. If your version of Xcode does not contain the appropriate SDK, grab a copy of Xcode 5.1.1 from [Apple’s Developer Downloads page](https://developer.apple.com/downloads/index.action) (free developer ID required), which contains the 10.8 SDK. You may also find [this answer](http://stackoverflow.com/a/11424966/1376863) on StackOverflow useful if you want to use the SDK in Xcode 6 (or later).
+
+After cloning the repository, run the following commands inside the repository root (directory containing this `README.md` file):
 
 ```bash
 git submodule update --init --recursive
