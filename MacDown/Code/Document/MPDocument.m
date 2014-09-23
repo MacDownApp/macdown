@@ -1330,6 +1330,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
         {
             self.wordCountWidget.hidden = NO;
             self.editorPaddingBottom.constant = 35.0;
+            [self updateWordCount];
         }
         else
         {
