@@ -765,27 +765,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
     
     // Update word count
     if (self.preferences.editorShowWordCount)
-    {
-        static NSRegularExpression *regex = nil;
-        static dispatch_once_t onceToken;
-        dispatch_once(&onceToken, ^{
-            regex = [NSRegularExpression regularExpressionWithPattern:@"\\s"
-                                                              options:0
-                                                                error:NULL];
-        });
-
-        NSString *text = sender.mainFrame.DOMDocument.nodeText;
-        NSCharacterSet *sp = [NSCharacterSet whitespaceAndNewlineCharacterSet];
-        NSString *trimmedDocument = [text stringByTrimmingCharactersInSet:sp];
-        NSString *noWhitespace =
-            [regex stringByReplacingMatchesInString:text options:0
-                                              range:NSMakeRange(0, text.length)
-                                       withTemplate:@""];
-
-        self.totalWords = text.numberOfWords;
-        self.totalCharacters = trimmedDocument.length;
-        self.totalCharactersNoSpaces = noWhitespace.length;
-    }
+        [self updateWordCount];
 }
 
 - (void)webView:(WebView *)sender didFailLoadWithError:(NSError *)error
@@ -1462,6 +1442,20 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
     title = [regex stringByReplacingMatchesInString:title options:0 range:range
                                        withTemplate:@"-"];
     return title;
+}
+
+- (void)updateWordCount
+{
+    NSString *text = self.preview.mainFrame.DOMDocument.nodeText;
+    NSCharacterSet *sp = [NSCharacterSet whitespaceAndNewlineCharacterSet];
+    NSArray *comps = [text componentsSeparatedByCharactersInSet:sp];
+
+    NSString *trimmedDocument = [text stringByTrimmingCharactersInSet:sp];
+    NSString *noWhitespace = [comps componentsJoinedByString:@""];
+
+    self.totalWords = text.numberOfWords;
+    self.totalCharacters = trimmedDocument.length;
+    self.totalCharactersNoSpaces = noWhitespace.length;
 }
 
 - (void)document:(NSDocument *)doc didPrint:(BOOL)ok context:(void *)context
