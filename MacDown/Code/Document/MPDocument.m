@@ -235,7 +235,6 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
 @property BOOL manualRender;
 @property BOOL copying;
 @property BOOL printing;
-@property (atomic) BOOL previewFlushDisabled;
 @property BOOL shouldHandleBoundsChange;
 @property (nonatomic) BOOL rendersTOC;
 @property (readonly) BOOL previewVisible;
@@ -255,20 +254,21 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
 
 @end
 
-static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
+static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 {
-    __weak id weakObj = obj;
+    MPDocument *weakObj = doc;
     return ^{
-        [weakObj setPreviewFlushDisabled:NO];
+        NSWindow *window = weakObj.preview.window;
+        @synchronized(window) {
+            if (window.isFlushWindowDisabled)
+                [window enableFlushWindow];
+        }
         [weakObj syncScrollers];
     };
 }
 
 
 @implementation MPDocument
-
-@synthesize previewFlushDisabled = _previewFlushDisabled;
-
 
 #pragma mark - Accessor
 
@@ -287,33 +287,11 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
     return (self.editorContainer.frame.size.width != 0.0);
 }
 
-- (BOOL)previewFlushDisabled
-{
-    @synchronized(self) {
-        return _previewFlushDisabled;
-    }
-}
-
 - (BOOL)needsHtml
 {
     if (self.preferences.markdownManualRender)
         return NO;
     return (self.previewVisible || self.preferences.editorShowWordCount);
-}
-
-- (void)setPreviewFlushDisabled:(BOOL)value
-{
-    @synchronized(self) {
-        if (_previewFlushDisabled == value)
-            return;
-
-        NSWindow *window = self.preview.window;
-        if (value)
-            [window disableFlushWindow];
-        else
-            [window enableFlushWindow];
-        _previewFlushDisabled = value;
-    }
 }
 
 - (void)setTotalWords:(NSUInteger)value
@@ -738,8 +716,11 @@ static void (^MPGetPreviewLoadingCompletionHandler(id obj))()
 
 - (void)webView:(WebView *)sender didCommitLoadForFrame:(WebFrame *)frame
 {
-    if (sender.window)
-        self.previewFlushDisabled = YES;
+    NSWindow *window = sender.window;
+    @synchronized(window) {
+        if (!window.isFlushWindowDisabled)
+            [window disableFlushWindow];
+    }
 
     // If MathJax is off, the on-completion callback will be invoked directly
     // when loading is done (in -webView:didFinishLoadForFrame:).
