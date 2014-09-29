@@ -256,7 +256,7 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
 
 static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 {
-    MPDocument *weakObj = doc;
+    __weak MPDocument *weakObj = doc;
     return ^{
         NSWindow *window = weakObj.preview.window;
         @synchronized(window) {
