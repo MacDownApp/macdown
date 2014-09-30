@@ -32,6 +32,8 @@ static NSString * const kMPDefaultHtmlStyleName = @"GitHub2";
     if (!self)
         return nil;
 
+    [self cleanupObsoleteAutosaveValues];
+
     NSString *version =
         [NSBundle mainBundle].infoDictionary[@"CFBundleVersion"];
 
@@ -120,6 +122,31 @@ static NSString * const kMPDefaultHtmlStyleName = @"GitHub2";
 
 
 #pragma mark - Private
+
+- (void)cleanupObsoleteAutosaveValues
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSMutableArray *keysToRemove = [NSMutableArray array];
+    for (NSString *key in defaults.dictionaryRepresentation)
+    {
+        for (NSString *p in @[@"NSSplitView Subview Frames", @"NSWindow Frame"])
+        {
+            if (![key hasPrefix:p] || key.length < p.length + 1)
+                continue;
+            NSString *path = [key substringFromIndex:p.length + 1];
+            NSURL *url = [NSURL URLWithString:path];
+            if (!url.isFileURL)
+                continue;
+
+            NSFileManager *manager = [NSFileManager defaultManager];
+            if (![manager fileExistsAtPath:url.path])
+                [keysToRemove addObject:key];
+            break;
+        }
+    }
+    for (NSString *key in keysToRemove)
+        [defaults removeObjectForKey:key];
+}
 
 - (void)loadDefaultPreferences
 {
