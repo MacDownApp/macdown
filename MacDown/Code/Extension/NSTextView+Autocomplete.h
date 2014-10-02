@@ -35,4 +35,6 @@
 - (BOOL)completeNextIndentedLine;
 - (void)makeHeaderForSelectedLinesWithLevel:(NSUInteger)level;
 
+- (BOOL)isAtEmptyListItemEnd;
+
 @end

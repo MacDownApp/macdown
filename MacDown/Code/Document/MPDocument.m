@@ -640,7 +640,8 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 
 - (BOOL)textViewShouldInsertTab:(NSTextView *)textView
 {
-    if (textView.selectedRange.length != 0)
+    if (textView.selectedRange.length != 0
+        || [textView isAtEmptyListItemEnd])
     {
         [self indent:nil];
         return NO;

@@ -39,6 +39,8 @@ static const unichar kMPMarkupCharacters[] = {
 
 static NSString * const kMPListLineHeadPattern =
     @"^(\\s*)((?:(?:\\*|\\+|-|)\\s+)?)((?:\\d+\\.\\s+)?)(\\S)?";
+static NSString * const kMPListEmptyLinePattern =
+    @"^(\\s*)((?:(?:\\*|\\+|-|)\\s+)?)((?:\\d+\\.\\s+)?)$";
 static NSString * const kMPBlockquoteLinePattern = @"^((?:\\> ?)+).*$";
 
 
@@ -672,6 +674,31 @@ static NSString * const kMPBlockquoteLinePattern = @"^((?:\\> ?)+).*$";
     selectedRange.location += firstShift;
     selectedRange.length += totalShift - firstShift;
     self.selectedRange = selectedRange;
+}
+
+- (BOOL)isAtEmptyListItemEnd
+{
+    NSRange selectedRange = self.selectedRange;
+    if (selectedRange.length != 0)
+        return NO;
+
+    NSString *text = self.string;
+    NSRange lineRange = [text lineRangeForRange:selectedRange];
+    if (selectedRange.location != lineRange.location + lineRange.length)
+        return NO;
+
+    NSString *line = [text substringWithRange:lineRange];
+    NSUInteger lineLength = line.length;
+
+    NSRegularExpression *regex =
+        [[NSRegularExpression alloc] initWithPattern:kMPListEmptyLinePattern
+                                             options:0 error:NULL];
+    NSTextCheckingResult *r =
+        [regex firstMatchInString:line options:0
+                            range:NSMakeRange(0, lineLength)];
+    if (!r || r.range.location != 0 || r.range.length != lineLength)
+        return NO;
+    return YES;
 }
 
 @end
