@@ -28,7 +28,7 @@
 - (BOOL)toggleForMarkupPrefix:(NSString *)prefix suffix:(NSString *)suffix;
 - (void)toggleBlockWithPattern:(NSString *)pattern prefix:(NSString *)prefix;
 - (void)indentSelectedLinesWithPadding:(NSString *)padding;
-- (void)unindentSelectedLines;
+- (BOOL)unindentSelectedLines;
 - (BOOL)insertMappedContent;
 - (BOOL)completeNextListItem:(BOOL)autoIncrement;
 - (BOOL)completeNextBlockquoteLine;

@@ -670,6 +670,11 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 
 - (BOOL)textViewShouldDeleteBackward:(NSTextView *)textView
 {
+    if ([textView isAtEmptyListItemEnd])
+    {
+        if ([self.editor unindentSelectedLines])
+            return NO;
+    }
     if (self.preferences.editorCompleteMatchingCharacters)
     {
         NSUInteger location = self.editor.selectedRange.location;

@@ -385,7 +385,7 @@ static NSString * const kMPBlockquoteLinePattern = @"^((?:\\> ?)+).*$";
     self.selectedRange = selectedRange;
 }
 
-- (void)unindentSelectedLines
+- (BOOL)unindentSelectedLines
 {
     NSString *content = self.string;
     NSRange selectedRange = self.selectedRange;
@@ -419,11 +419,14 @@ static NSString * const kMPBlockquoteLinePattern = @"^((?:\\> ?)+).*$";
         [modLines addObject:line];
     }];
     NSString *processed = [modLines componentsJoinedByString:@"\n"];
+    if ([[content substringWithRange:lineRange] isEqualToString:processed])
+        return NO;
     [self insertText:processed replacementRange:lineRange];
 
     selectedRange.location -= firstShift;
     selectedRange.length -= totalShift - firstShift;
     self.selectedRange = selectedRange;
+    return YES;
 }
 
 - (BOOL)insertMappedContent
