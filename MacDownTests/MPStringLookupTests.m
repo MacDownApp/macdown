@@ -154,7 +154,7 @@
 
     string = @"#123";
     title = [string titleString];
-    XCTAssertEqualObjects(title, nil, @"Incorrect title.");
+    XCTAssertNil(title, @"Incorrect title.");
 
     string = @"\n# 123\n";
     title = [string titleString];
@@ -170,11 +170,11 @@
 
     string = @"123\n456\n";
     title = [string titleString];
-    XCTAssertEqualObjects(title, nil, @"Incorrect title.");
+    XCTAssertNil(title, @"Incorrect title.");
 
     string = @"####### 123\n";
     title = [string titleString];
-    XCTAssertEqualObjects(title, nil, @"Incorrect title.");
+    XCTAssertNil(title, @"Incorrect title.");
 }
 
 @end

@@ -176,10 +176,12 @@
 		1FFEB32919737D6E00B2254F /* YAMLSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YAMLSerialization.h; sourceTree = "<group>"; };
 		1FFEB32A19737D6E00B2254F /* YAMLSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YAMLSerialization.m; sourceTree = "<group>"; };
 		1FFF301C1948A5320009AF24 /* MPStringLookupTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPStringLookupTests.m; sourceTree = "<group>"; };
+		481332E4A369446F177A8DF0 /* Pods-MacDown.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacDown.release.xcconfig"; path = "Pods/Target Support Files/Pods-MacDown/Pods-MacDown.release.xcconfig"; sourceTree = "<group>"; };
 		7C5C1FBBB3ED456285901D31 /* libPods-MacDown.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MacDown.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		7F8797E748AA4BCA96DFA790 /* Pods-MacDown.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacDown.xcconfig"; path = "Pods/Pods-MacDown.xcconfig"; sourceTree = "<group>"; };
-		AB3B8954FAB54E3C803DDAEE /* Pods-MacDownTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacDownTests.xcconfig"; path = "Pods/Pods-MacDownTests.xcconfig"; sourceTree = "<group>"; };
+		A9105A2DE3384B0DB400BAD1 /* Pods-MacDown.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacDown.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MacDown/Pods-MacDown.debug.xcconfig"; sourceTree = "<group>"; };
 		AEAF42BBDCEC4012B5092BB3 /* libPods-MacDownTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MacDownTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BDCDF2E157FE72C2ED7438DD /* Pods-MacDownTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacDownTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MacDownTests/Pods-MacDownTests.release.xcconfig"; sourceTree = "<group>"; };
+		E352E0A2562DCE60302D805E /* Pods-MacDownTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacDownTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MacDownTests/Pods-MacDownTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -356,8 +358,7 @@
 				1FCDCA2F1944F96E00B1F966 /* MacDownTests */,
 				1FA6DE231941CC9E000409FB /* Frameworks */,
 				1FA6DE221941CC9E000409FB /* Products */,
-				7F8797E748AA4BCA96DFA790 /* Pods-MacDown.xcconfig */,
-				AB3B8954FAB54E3C803DDAEE /* Pods-MacDownTests.xcconfig */,
+				FF36D9424F9F1EFC35FA3D33 /* Pods */,
 			);
 			sourceTree = "<group>";
 			usesTabs = 0;
@@ -456,6 +457,17 @@
 			name = "YAML-framework";
 			path = "Dependency/YAML-framework";
 			sourceTree = SOURCE_ROOT;
+		};
+		FF36D9424F9F1EFC35FA3D33 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A9105A2DE3384B0DB400BAD1 /* Pods-MacDown.debug.xcconfig */,
+				481332E4A369446F177A8DF0 /* Pods-MacDown.release.xcconfig */,
+				E352E0A2562DCE60302D805E /* Pods-MacDownTests.debug.xcconfig */,
+				BDCDF2E157FE72C2ED7438DD /* Pods-MacDownTests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
@@ -626,7 +638,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-MacDown-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MacDown/Pods-MacDown-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		694A3D57598E431C90D512B9 /* Check Pods Manifest.lock */ = {
@@ -656,7 +668,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-MacDownTests-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MacDownTests/Pods-MacDownTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		A4C68C7905CF45C89A0CC47D /* Check Pods Manifest.lock */ = {
@@ -903,7 +915,7 @@
 		};
 		1FA6DE561941CC9E000409FB /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7F8797E748AA4BCA96DFA790 /* Pods-MacDown.xcconfig */;
+			baseConfigurationReference = A9105A2DE3384B0DB400BAD1 /* Pods-MacDown.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -919,7 +931,7 @@
 		};
 		1FA6DE571941CC9E000409FB /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7F8797E748AA4BCA96DFA790 /* Pods-MacDown.xcconfig */;
+			baseConfigurationReference = 481332E4A369446F177A8DF0 /* Pods-MacDown.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -935,9 +947,10 @@
 		};
 		1FA6DE591941CC9E000409FB /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AB3B8954FAB54E3C803DDAEE /* Pods-MacDownTests.xcconfig */;
+			baseConfigurationReference = E352E0A2562DCE60302D805E /* Pods-MacDownTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/MacDown.app/Contents/MacOS/MacDown";
+				CLANG_ENABLE_MODULES = NO;
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
@@ -963,9 +976,10 @@
 		};
 		1FA6DE5A1941CC9E000409FB /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AB3B8954FAB54E3C803DDAEE /* Pods-MacDownTests.xcconfig */;
+			baseConfigurationReference = BDCDF2E157FE72C2ED7438DD /* Pods-MacDownTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/MacDown.app/Contents/MacOS/MacDown";
+				CLANG_ENABLE_MODULES = NO;
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
