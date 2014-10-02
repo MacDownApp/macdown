@@ -60,7 +60,7 @@ static NSArray *MPPrismScriptURLsForLanguage(NSString *language)
 }
 
 static NSString *MPHTMLFromMarkdown(
-    NSString *text, int flags, BOOL smartypants, NSString *frontMatter,
+    NSString *text, int flags, BOOL smartypants,
     hoedown_renderer *htmlRenderer, hoedown_renderer *tocRenderer)
 {
     NSData *inputData = [text dataUsingEncoding:NSUTF8StringEncoding];
@@ -104,15 +104,12 @@ static NSString *MPHTMLFromMarkdown(
         hoedown_markdown_free(markdown);
         hoedown_buffer_free(ob);
     }
-    if (frontMatter)
-        result = [NSString stringWithFormat:@"%@\n%@", frontMatter, result];
-    
     return result;
 }
 
 static NSString *MPGetHTML(
     NSString *title, NSString *body, NSArray *styles, MPAssetOption styleopt,
-    NSArray *scripts, MPAssetOption scriptopt)
+    NSArray *scripts, MPAssetOption scriptopt, id frontMatter)
 {
     NSMutableArray *styleTags = [NSMutableArray array];
     NSMutableArray *scriptTags = [NSMutableArray array];
@@ -130,6 +127,12 @@ static NSString *MPGetHTML(
     }
     NSString *style = [styleTags componentsJoinedByString:@"\n"];
     NSString *script = [scriptTags componentsJoinedByString:@"\n"];
+
+    if (frontMatter)
+    {
+        NSString *fm = [frontMatter HTMLTable];
+        body = [NSString stringWithFormat:@"%@\n%@", fm, body];
+    }
 
     static NSString *f =
         (@"<!DOCTYPE html><html>\n\n"
@@ -161,6 +164,7 @@ static inline BOOL MPAreNilableStringsEqual(NSString *s1, NSString *s2)
 @property (readonly) NSArray *stylesheets;
 @property (readonly) NSArray *scripts;
 @property (copy) NSString *currentHtml;
+@property (copy) id currentFrontMatter;
 @property (strong) NSTimer *parseDelayTimer;
 @property int extensions;
 @property BOOL smartypants;
@@ -421,9 +425,9 @@ static hoedown_renderer *MPCreateHTMLRenderer(MPRenderer *renderer)
     hoedown_renderer *tocRenderer = NULL;
     if (hasTOC)
         tocRenderer = hoedown_html_toc_renderer_new(0);
+    self.currentFrontMatter = frontMatter;
     self.currentHtml = MPHTMLFromMarkdown(
-        markdown, extensions, smartypants, [frontMatter HTMLTable],
-        htmlRenderer, tocRenderer);
+        markdown, extensions, smartypants, htmlRenderer, tocRenderer);
     if (tocRenderer)
         hoedown_html_renderer_free(tocRenderer);
     hoedown_html_renderer_free(htmlRenderer);
@@ -463,7 +467,7 @@ static hoedown_renderer *MPCreateHTMLRenderer(MPRenderer *renderer)
     NSString *title = [self.dataSource rendererHTMLTitle:self];
     NSString *html = MPGetHTML(
         title, self.currentHtml, self.stylesheets, MPAssetFullLink,
-        self.scripts, MPAssetFullLink);
+        self.scripts, MPAssetFullLink, self.currentFrontMatter);
     [delegate renderer:self didProduceHTMLOutput:html];
 
     self.styleName = [delegate rendererStyleName:self];
@@ -502,7 +506,8 @@ static hoedown_renderer *MPCreateHTMLRenderer(MPRenderer *renderer)
     if (!title)
         title = @"";
     NSString *html = MPGetHTML(
-        title, self.currentHtml, styles, stylesOption, scripts, scriptsOption);
+        title, self.currentHtml, styles, stylesOption, scripts, scriptsOption,
+        self.currentFrontMatter);
     return html;
 }
 
