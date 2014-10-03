@@ -249,11 +249,15 @@ static NSString * const kMPBlockquoteLinePattern = @"^((?:\\> ?)+).*$";
     if (whitespaceCount < 2)
         return NO;
 
-    NSUInteger offset =
-        ([self.string locationOfFirstNewlineBefore:location] + 1) % 4;
+    NSUInteger lineStart = [string locationOfFirstNewlineBefore:location] + 1;
+    if (location <= lineStart)
+        return NO;
+
+    NSUInteger offset = (location - lineStart) % 4;
     if (offset == 0)
         offset = 4;
-    offset = offset > whitespaceCount ? whitespaceCount : 4;
+    if (whitespaceCount < offset)
+        offset = whitespaceCount;
     NSRange range = NSMakeRange(location - offset, offset);
 
     [self replaceCharactersInRange:range withString:@""];
