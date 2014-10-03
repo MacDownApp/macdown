@@ -213,11 +213,11 @@ static NSString * const kMPBlockquoteLinePattern = @"^((?:\\> ?)+).*$";
     return NO;
 }
 
-- (void)deleteMatchingCharactersAround:(NSUInteger)location
+- (BOOL)deleteMatchingCharactersAround:(NSUInteger)location
 {
     NSString *string = self.string;
     if (location == 0 || location >= string.length)
-        return;
+        return NO;
 
     unichar f = [string characterAtIndex:location - 1];
     unichar b = [string characterAtIndex:location];
@@ -226,14 +226,16 @@ static NSString * const kMPBlockquoteLinePattern = @"^((?:\\> ?)+).*$";
     {
         if (f == cs[0] && b == cs[1])
         {
-            [self replaceCharactersInRange:NSMakeRange(location, 1)
-                                withString:@""];
-            break;
+            NSRange range = NSMakeRange(location, 1);
+            [self shouldChangeTextInRange:range replacementString:@""];
+            [self replaceCharactersInRange:range withString:@""];
+            return YES;
         }
     }
+    return NO;
 }
 
-- (void)unindentForSpacesBefore:(NSUInteger)location
+- (BOOL)unindentForSpacesBefore:(NSUInteger)location
 {
     NSString *string = self.string;
 
@@ -246,17 +248,22 @@ static NSString * const kMPBlockquoteLinePattern = @"^((?:\\> ?)+).*$";
             break;
     }
     if (whitespaceCount < 2)
-        return;
+        return NO;
 
-    NSUInteger offset =
-        ([self.string locationOfFirstNewlineBefore:location] + 1) % 4;
+    NSUInteger lineStart = [string locationOfFirstNewlineBefore:location] + 1;
+    if (location <= lineStart)
+        return NO;
+
+    NSUInteger offset = (location - lineStart) % 4;
     if (offset == 0)
         offset = 4;
-    offset = offset > whitespaceCount ? whitespaceCount : 4;
-    NSRange range = NSMakeRange(location - offset, offset);
+    if (whitespaceCount < offset)
+        offset = whitespaceCount;
 
-    // Leave a space for the original delete action to handle.
-    [self replaceCharactersInRange:range withString:@" "];
+    NSRange range = NSMakeRange(location - offset, offset);
+    [self shouldChangeTextInRange:range replacementString:@""];
+    [self replaceCharactersInRange:range withString:@""];
+    return YES;
 }
 
 - (BOOL)toggleForMarkupPrefix:(NSString *)prefix suffix:(NSString *)suffix
@@ -496,6 +503,7 @@ static NSString * const kMPBlockquoteLinePattern = @"^((?:\\> ?)+).*$";
         if (replaceRange.length)
         {
             replaceRange.location += start;
+            [self shouldChangeTextInRange:range replacementString:@""];
             [self replaceCharactersInRange:range withString:@""];
         }
         t = @"";
