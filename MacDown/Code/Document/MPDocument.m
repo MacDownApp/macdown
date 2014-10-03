@@ -672,12 +672,14 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     if (self.preferences.editorCompleteMatchingCharacters)
     {
         NSUInteger location = self.editor.selectedRange.location;
-        [textView deleteMatchingCharactersAround:location];
+        if ([textView deleteMatchingCharactersAround:location])
+            return NO;
     }
     if (self.preferences.editorConvertTabs)
     {
         NSUInteger location = self.editor.selectedRange.location;
-        [textView unindentForSpacesBefore:location];
+        if ([textView unindentForSpacesBefore:location])
+            return NO;
     }
     return YES;
 }

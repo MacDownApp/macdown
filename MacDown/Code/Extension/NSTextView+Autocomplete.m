@@ -213,11 +213,11 @@ static NSString * const kMPBlockquoteLinePattern = @"^((?:\\> ?)+).*$";
     return NO;
 }
 
-- (void)deleteMatchingCharactersAround:(NSUInteger)location
+- (BOOL)deleteMatchingCharactersAround:(NSUInteger)location
 {
     NSString *string = self.string;
     if (location == 0 || location >= string.length)
-        return;
+        return NO;
 
     unichar f = [string characterAtIndex:location - 1];
     unichar b = [string characterAtIndex:location];
@@ -228,12 +228,13 @@ static NSString * const kMPBlockquoteLinePattern = @"^((?:\\> ?)+).*$";
         {
             [self replaceCharactersInRange:NSMakeRange(location, 1)
                                 withString:@""];
-            break;
+            return YES;
         }
     }
+    return NO;
 }
 
-- (void)unindentForSpacesBefore:(NSUInteger)location
+- (BOOL)unindentForSpacesBefore:(NSUInteger)location
 {
     NSString *string = self.string;
 
@@ -246,7 +247,7 @@ static NSString * const kMPBlockquoteLinePattern = @"^((?:\\> ?)+).*$";
             break;
     }
     if (whitespaceCount < 2)
-        return;
+        return NO;
 
     NSUInteger offset =
         ([self.string locationOfFirstNewlineBefore:location] + 1) % 4;
@@ -255,8 +256,8 @@ static NSString * const kMPBlockquoteLinePattern = @"^((?:\\> ?)+).*$";
     offset = offset > whitespaceCount ? whitespaceCount : 4;
     NSRange range = NSMakeRange(location - offset, offset);
 
-    // Leave a space for the original delete action to handle.
-    [self replaceCharactersInRange:range withString:@" "];
+    [self replaceCharactersInRange:range withString:@""];
+    return YES;
 }
 
 - (BOOL)toggleForMarkupPrefix:(NSString *)prefix suffix:(NSString *)suffix
