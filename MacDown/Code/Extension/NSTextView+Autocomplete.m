@@ -226,8 +226,9 @@ static NSString * const kMPBlockquoteLinePattern = @"^((?:\\> ?)+).*$";
     {
         if (f == cs[0] && b == cs[1])
         {
-            [self replaceCharactersInRange:NSMakeRange(location, 1)
-                                withString:@""];
+            NSRange range = NSMakeRange(location, 1);
+            [self shouldChangeTextInRange:range replacementString:@""];
+            [self replaceCharactersInRange:range withString:@""];
             return YES;
         }
     }
@@ -258,8 +259,9 @@ static NSString * const kMPBlockquoteLinePattern = @"^((?:\\> ?)+).*$";
         offset = 4;
     if (whitespaceCount < offset)
         offset = whitespaceCount;
-    NSRange range = NSMakeRange(location - offset, offset);
 
+    NSRange range = NSMakeRange(location - offset, offset);
+    [self shouldChangeTextInRange:range replacementString:@""];
     [self replaceCharactersInRange:range withString:@""];
     return YES;
 }
@@ -501,6 +503,7 @@ static NSString * const kMPBlockquoteLinePattern = @"^((?:\\> ?)+).*$";
         if (replaceRange.length)
         {
             replaceRange.location += start;
+            [self shouldChangeTextInRange:range replacementString:@""];
             [self replaceCharactersInRange:range withString:@""];
         }
         t = @"";
