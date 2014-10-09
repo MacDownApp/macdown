@@ -226,7 +226,7 @@ static NSString * const kMPBlockquoteLinePattern = @"^((?:\\> ?)+).*$";
     {
         if (f == cs[0] && b == cs[1])
         {
-            NSRange range = NSMakeRange(location, 1);
+            NSRange range = NSMakeRange(location - 1, 2);
             [self shouldChangeTextInRange:range replacementString:@""];
             [self replaceCharactersInRange:range withString:@""];
             return YES;
