@@ -124,6 +124,7 @@ static NSString * const kMPBlockquoteLinePattern = @"^((?:\\> ?)+).*$";
     NSString *content = self.string;
     NSUInteger contentLength = content.length;
 
+    BOOL hasMarkedText = self.hasMarkedText;
     unichar c = [string characterAtIndex:0];
     unichar n = ' ';
     unichar p = ' ';
@@ -134,6 +135,11 @@ static NSString * const kMPBlockquoteLinePattern = @"^((?:\\> ?)+).*$";
 
     for (const unichar *cs = kMPMatchingCharactersMap[0]; *cs != 0; cs += 2)
     {
+        // Ignore IM input of ASCII charaters.
+        if (hasMarkedText && cs[0] < L'\u0100')
+            continue;
+
+        // First part of matching characters.
         if ([boundaryCharacters characterIsMember:n] && c == cs[0] && n != cs[1]
             && ([boundaryCharacters characterIsMember:p] || cs[0] != cs[1]))
         {
@@ -162,6 +168,7 @@ static NSString * const kMPBlockquoteLinePattern = @"^((?:\\> ?)+).*$";
             self.selectedRange = range;
             return YES;
         }
+        // Second part of matching characters (shift without really inserting).
         else if (c == cs[1] && n == cs[1])
         {
             NSRange range = NSMakeRange(location + 1, 0);
