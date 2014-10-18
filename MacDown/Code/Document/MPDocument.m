@@ -495,6 +495,20 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     return @[@"net.daringfireball.markdown"];
 }
 
+- (BOOL)writeToURL:(NSURL *)url ofType:(NSString *)typeName
+             error:(NSError *__autoreleasing *)outError
+{
+    if (self.preferences.editorEnsuresNewlineAtEndOfFile)
+    {
+        NSCharacterSet *newlines = [NSCharacterSet newlineCharacterSet];
+        NSString *text = self.editor.string;
+        NSUInteger end = text.length;
+        if (![newlines characterIsMember:[text characterAtIndex:end - 1]])
+            [self.editor insertText:@"\n" replacementRange:NSMakeRange(end, 0)];
+    }
+    return [super writeToURL:url ofType:typeName error:outError];
+}
+
 - (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError
 {
     return [self.editor.string dataUsingEncoding:NSUTF8StringEncoding];
