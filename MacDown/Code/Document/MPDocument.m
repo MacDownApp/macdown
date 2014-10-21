@@ -375,6 +375,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     NSString *autosaveName = @"Markdown";
     if (self.fileURL)
         autosaveName = self.fileURL.absoluteString;
+    [controller.window performZoom:self];
     controller.window.frameAutosaveName = autosaveName;
     self.autosaveName = autosaveName;
 
