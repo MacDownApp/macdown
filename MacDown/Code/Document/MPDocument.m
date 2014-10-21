@@ -370,14 +370,14 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     [super windowControllerDidLoadNib:controller];
 
     // All files use their absolute path to keep their window states.
-    // New files share a common autosave name so that we can get a preferred
-    // window size when creating new documents.
-    NSString *autosaveName = @"Markdown";
-    if (self.fileURL)
-        autosaveName = self.fileURL.absoluteString;
+    // New files always use a default layout.
     [controller.window performZoom:self];
-    controller.window.frameAutosaveName = autosaveName;
-    self.autosaveName = autosaveName;
+    if (self.fileURL)
+    {
+        NSString *autosaveName = self.fileURL.absoluteString;
+        controller.window.frameAutosaveName = autosaveName;
+        self.autosaveName = autosaveName;
+    }
 
     self.highlighter =
         [[HGMarkdownHighlighter alloc] initWithTextView:self.editor
