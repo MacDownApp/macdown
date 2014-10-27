@@ -48,6 +48,7 @@
 - (NSString *)rendererStyleName:(MPRenderer *)renderer;
 - (BOOL)rendererDetectsFrontMatter:(MPRenderer *)renderer;
 - (BOOL)rendererHasSyntaxHighlighting:(MPRenderer *)renderer;
+- (BOOL)rendererHasLineNumbers:(MPRenderer *)renderer;
 - (BOOL)rendererHasMathJax:(MPRenderer *)renderer;
 - (BOOL)rendererMathJaxInlineDollarEnabled:(MPRenderer *)renderer;
 - (NSString *)rendererHighlightingThemeName:(MPRenderer *)renderer;

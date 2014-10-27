@@ -12,5 +12,6 @@
 
 @property (getter=isStylesIncluded) BOOL stylesIncluded;
 @property (getter=isHighlightingIncluded) BOOL highlightingIncluded;
+@property (getter=isLineNumbersIncluded) BOOL lineNumbersIncluded;
 
 @end

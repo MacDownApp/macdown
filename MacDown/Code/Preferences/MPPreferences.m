@@ -103,6 +103,7 @@ static NSString * const kMPDefaultHtmlStyleName = @"GitHub2";
 @dynamic htmlSyntaxHighlighting;
 @dynamic htmlDefaultDirectoryUrl;
 @dynamic htmlHighlightingThemeName;
+@dynamic htmlLineNumbers;
 
 // Private preference.
 @dynamic editorBaseFontInfo;
@@ -171,6 +172,7 @@ static NSString * const kMPDefaultHtmlStyleName = @"GitHub2";
     self.htmlStyleName = kMPDefaultHtmlStyleName;
     self.htmlDefaultDirectoryUrl = [NSURL fileURLWithPath:NSHomeDirectory()
                                               isDirectory:YES];
+    self.htmlLineNumbers = NO;
 }
 
 - (void)loadDefaultUserDefaults
