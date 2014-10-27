@@ -170,6 +170,7 @@ static inline BOOL MPAreNilableStringsEqual(NSString *s1, NSString *s2)
 @property BOOL frontMatter;
 @property BOOL mathjax;
 @property BOOL syntaxHighlighting;
+@property BOOL lineNumbers;
 @property BOOL manualRender;
 @property (copy) NSString *highlightingThemeName;
 
@@ -297,7 +298,17 @@ static void MPFreeHTMLRenderer(hoedown_renderer *htmlRenderer)
 - (NSArray *)prismStylesheets
 {
     NSString *name = [self.delegate rendererHighlightingThemeName:self];
-    return @[[MPStyleSheet CSSWithURL:MPHighlightingThemeURLForName(name)]];
+    NSMutableArray *stylesheets = [NSMutableArray arrayWithObject:[MPStyleSheet CSSWithURL:MPHighlightingThemeURLForName(name)]];
+    
+    // add line numbers if enabled
+    if ([self.delegate rendererHasLineNumbers:self]) {
+        NSBundle *bundle = [NSBundle mainBundle];
+        NSURL *lineNumbersStylesheet = [bundle URLForResource:@"prism-line-numbers"
+                                            withExtension:@"css"
+                                             subdirectory:@"Prism/plugins/line-numbers"];
+        [stylesheets addObject:[MPStyleSheet CSSWithURL:lineNumbersStylesheet]];
+    }
+    return stylesheets;
 }
 
 - (NSArray *)prismScripts
@@ -311,6 +322,14 @@ static void MPFreeHTMLRenderer(hoedown_renderer *htmlRenderer)
     {
         for (NSURL *url in MPPrismScriptURLsForLanguage(language))
             [scripts addObject:[MPScript javaScriptWithURL:url]];
+    }
+    
+    // add line numbers if enabled
+    if ([self.delegate rendererHasLineNumbers:self]) {
+        NSURL *lineNumbersScript = [bundle URLForResource:@"prism-line-numbers.min"
+                                            withExtension:@"js"
+                                             subdirectory:@"Prism/plugins/line-numbers"];
+        [scripts addObject:[MPScript javaScriptWithURL:lineNumbersScript]];
     }
     return scripts;
 }
@@ -444,6 +463,8 @@ static void MPFreeHTMLRenderer(hoedown_renderer *htmlRenderer)
     id<MPRendererDelegate> d = self.delegate;
     if ([d rendererHasSyntaxHighlighting:self] != self.syntaxHighlighting)
         changed = YES;
+    else if ([d rendererHasLineNumbers:self] != self.lineNumbers)
+        changed = YES;
     else if ([d rendererHasMathJax:self] != self.mathjax)
         changed = YES;
     else if (!MPAreNilableStringsEqual(
@@ -470,6 +491,7 @@ static void MPFreeHTMLRenderer(hoedown_renderer *htmlRenderer)
     self.styleName = [delegate rendererStyleName:self];
     self.mathjax = [delegate rendererHasMathJax:self];
     self.syntaxHighlighting = [delegate rendererHasSyntaxHighlighting:self];
+    self.lineNumbers = [delegate rendererHasLineNumbers:self];
     self.highlightingThemeName = [delegate rendererHighlightingThemeName:self];
 }
 

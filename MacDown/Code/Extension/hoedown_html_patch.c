@@ -29,7 +29,7 @@ void hoedown_patch_render_blockcode(
         hoedown_buffer *mapped = NULL;
         if (extra->language_addition)
             mapped = extra->language_addition(lang, extra->owner);
-		HOEDOWN_BUFPUTSL(ob, "<pre><code class=\"language-");
+		HOEDOWN_BUFPUTSL(ob, "<pre class=\"line-numbers\"><code class=\"language-");
         if (mapped)
         {
             hoedown_escape_html(ob, mapped->data, mapped->size, 0);
@@ -44,10 +44,17 @@ void hoedown_patch_render_blockcode(
 		HOEDOWN_BUFPUTSL(ob, "<pre><code>");
 	}
 
-	if (text)
-		hoedown_escape_html(ob, text->data, text->size, 0);
-
-	HOEDOWN_BUFPUTSL(ob, "</code></pre>\n");
+    if (text) {
+        // prism line numbers plugin expects ending </code> tag to be on same line as
+        // code block, so remove any trailing newline
+        size_t size = text->size;
+        if (size && text->data[size - 1] == '\n') {
+            size--;
+        }
+        hoedown_escape_html(ob, text->data, size, 0);
+    }
+    
+	HOEDOWN_BUFPUTSL(ob, "</code>\n</pre>\n");
 }
 
 // Supports task list syntax if HOEDOWN_HTML_USE_TASK_LIST is on.
