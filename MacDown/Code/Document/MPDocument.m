@@ -9,7 +9,7 @@
 #import "MPDocument.h"
 #import <WebKit/WebKit.h>
 #import <JJPluralForm/JJPluralForm.h>
-#import <hoedown/html.h>
+#import "html.h"
 #import "hoedown_html_patch.h"
 #import "HGMarkdownHighlighter.h"
 #import "MPUtilities.h"
@@ -22,7 +22,6 @@
 #import "MPPreferencesViewController.h"
 #import "MPEditorPreferencesViewController.h"
 #import "MPExportPanelAccessoryViewController.h"
-#import "MPMathJaxListener.h"
 
 
 static NSString * const kMPRendersTOCPropertyKey = @"Renders TOC";
@@ -100,7 +99,7 @@ static NSString *MPAutosavePropertyKey(
 @implementation MPPreferences (Hoedown)
 - (int)extensionFlags
 {
-    int flags = HOEDOWN_EXT_LAX_SPACING;
+    hoedown_extensions flags = HOEDOWN_EXT_MATH | HOEDOWN_EXT_MATH_EXPLICIT;
     if (self.extensionAutolink)
         flags |= HOEDOWN_EXT_AUTOLINK;
     if (self.extensionFencedCode)
@@ -740,28 +739,13 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
         if (!window.isFlushWindowDisabled)
             [window disableFlushWindow];
     }
-
-    // If MathJax is off, the on-completion callback will be invoked directly
-    // when loading is done (in -webView:didFinishLoadForFrame:).
-    if (self.preferences.htmlMathJax)
-    {
-        MPMathJaxListener *listener = [[MPMathJaxListener alloc] init];
-        [listener addCallback:MPGetPreviewLoadingCompletionHandler(self)
-                       forKey:@"End"];
-        [sender.windowScriptObject setValue:listener forKey:@"MathJaxListener"];
-    }
 }
 
 - (void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame
 {
-    // If MathJax is on, the on-completion callback will be invoked by the
-    // JavaScript handler injected in -webView:didCommitLoadForFrame:.
-    if (!self.preferences.htmlMathJax)
-    {
-        id callback = MPGetPreviewLoadingCompletionHandler(self);
-        NSOperationQueue *queue = [NSOperationQueue mainQueue];
-        [queue addOperationWithBlock:callback];
-    }
+    id callback = MPGetPreviewLoadingCompletionHandler(self);
+    NSOperationQueue *queue = [NSOperationQueue mainQueue];
+    [queue addOperationWithBlock:callback];
     
     // Update word count
     if (self.preferences.editorShowWordCount)
@@ -868,14 +852,14 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     return self.preferences.htmlSyntaxHighlighting;
 }
 
-- (BOOL)rendererHasMathJax:(MPRenderer *)renderer
+- (BOOL)rendererHasKatex:(MPRenderer *)renderer
 {
-    return self.preferences.htmlMathJax;
+    return self.preferences.htmlKatex;
 }
 
-- (BOOL)rendererMathJaxInlineDollarEnabled:(MPRenderer *)renderer
+- (BOOL)rendererKatexInlineDollarEnabled:(MPRenderer *)renderer
 {
-    return self.preferences.htmlMathJaxInlineDollar;
+    return self.preferences.htmlKatexInlineDollar;
 }
 
 - (NSString *)rendererHighlightingThemeName:(MPRenderer *)renderer
