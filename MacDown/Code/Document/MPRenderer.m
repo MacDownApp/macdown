@@ -23,6 +23,7 @@ static NSString * const kMPMathJaxCDN =
 static NSString * const kMPPrismScriptDirectory = @"Prism/components";
 static NSString * const kMPPrismThemeDirectory = @"Prism/themes";
 static size_t kMPRendererNestingLevel = SIZE_MAX;
+static int kMPRendererTOCLevel = 6;  // h1 to h6.
 
 
 static NSArray *MPPrismScriptURLsForLanguage(NSString *language)
@@ -420,7 +421,7 @@ static hoedown_renderer *MPCreateHTMLRenderer(MPRenderer *renderer)
     hoedown_renderer *htmlRenderer = MPCreateHTMLRenderer(self);
     hoedown_renderer *tocRenderer = NULL;
     if (hasTOC)
-        tocRenderer = hoedown_html_toc_renderer_new(0);
+        tocRenderer = hoedown_html_toc_renderer_new(kMPRendererTOCLevel);
     self.currentHtml = MPHTMLFromMarkdown(
         markdown, extensions, smartypants, [frontMatter HTMLTable],
         htmlRenderer, tocRenderer);
