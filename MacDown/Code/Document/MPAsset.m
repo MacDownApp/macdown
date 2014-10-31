@@ -7,7 +7,7 @@
 //
 
 #import "MPAsset.h"
-#import "DMTemplateEngine.h"
+#import <HBHandlebars/HBHandlebars.h>
 #import "MPUtilities.h"
 
 
@@ -65,7 +65,10 @@ NSString * const kMPMathJaxConfigType = @"text/x-mathjax-config";
         case MPAssetEmbedded:
             if (self.url.isFileURL)
             {
-                context[@"content"] = MPReadFileOfPath(self.url.path);
+                NSString *content = MPReadFileOfPath(self.url.path);
+                if ([content hasSuffix:@"\n"])
+                    content = [content substringToIndex:content.length - 1];
+                context[@"content"] = content;
                 break;
             }
             // Non-file URLs fallthrough to be treated as full links.
@@ -78,8 +81,9 @@ NSString * const kMPMathJaxConfigType = @"text/x-mathjax-config";
     if (!template || !context.count)
         return nil;
 
-    DMTemplateEngine *engine = [DMTemplateEngine engineWithTemplate:template];
-    NSString *result = [engine renderAgainst:context];
+    NSString *result = [HBHandlebars renderTemplateString:template
+                                              withContext:context error:NULL];
+
     return result;
 }
 
@@ -103,14 +107,14 @@ NSString * const kMPMathJaxConfigType = @"text/x-mathjax-config";
         case MPAssetEmbedded:
             if (self.url.isFileURL)
             {
-                template = (@"<style type=\"{% typeName %}\">\n"
-                            @"{% content %}\n</style>");
+                template = (@"<style type=\"{{ typeName }}\">\n"
+                            @"{{{ content }}}\n</style>");
                 break;
             }
             // Non-file URLs fallthrough to be treated as full links.
         case MPAssetFullLink:
-            template = (@"<link rel=\"stylesheet\" type=\"{% typeName %}\" "
-                        @"href=\"{% url %}\">");
+            template = (@"<link rel=\"stylesheet\" type=\"{{ typeName }}\" "
+                        @"href=\"{{ url }}\">");
             break;
     }
     return template;
@@ -136,13 +140,13 @@ NSString * const kMPMathJaxConfigType = @"text/x-mathjax-config";
         case MPAssetEmbedded:
             if (self.url.isFileURL)
             {
-                template = (@"<script type=\"{% typeName %}\">\n"
-                            @"{% content %}\n</script>");
+                template = (@"<script type=\"{{ typeName }}\">\n"
+                            @"{{{ content }}}\n</script>");
                 break;
             }
             // Non-file URLs fall-through to be treated as full links.
         case MPAssetFullLink:
-            template = (@"<script type=\"{% typeName %}\" src=\"{% url %}\">"
+            template = (@"<script type=\"{{ typeName }}\" src=\"{{ url }}\">"
                         @"</script>");
             break;
     }

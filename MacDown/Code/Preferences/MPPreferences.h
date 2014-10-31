@@ -33,16 +33,25 @@ extern NSString * const MPDidDetectFreshInstallationNotification;
 @property (assign) BOOL markdownManualRender;
 
 @property (assign) NSDictionary *editorBaseFontInfo;
+@property (assign) BOOL editorAutoIncrementNumberedLists;
 @property (assign) BOOL editorConvertTabs;
 @property (assign) BOOL editorCompleteMatchingCharacters;
 @property (assign) BOOL editorSyncScrolling;
+@property (assign) BOOL editorSmartHome;
 @property (assign) NSString *editorStyleName;
 @property (assign) CGFloat editorHorizontalInset;
 @property (assign) CGFloat editorVerticalInset;
 @property (assign) CGFloat editorLineSpacing;
+@property (assign) BOOL editorWidthLimited;
+@property (assign) CGFloat editorMaximumWidth;
 @property (assign) BOOL editorOnRight;
+@property (assign) BOOL editorShowWordCount;
+@property (assign) NSInteger editorWordCountType;
+@property (assign) BOOL editorScrollsPastEnd;
+@property (assign) BOOL editorEnsuresNewlineAtEndOfFile;
 
 @property (assign) NSString *htmlStyleName;
+@property (assign) BOOL htmlDetectFrontMatter;
 @property (assign) BOOL htmlTaskList;
 @property (assign) BOOL htmlHardWrap;
 @property (assign) BOOL htmlMathJax;

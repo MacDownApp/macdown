@@ -10,6 +10,11 @@
 #import "MPPreferences.h"
 
 
+NSString * const MPDidRequestPreviewRenderNotification =
+    @"MPDidRequestPreviewRenderNotificationName";
+NSString * const MPDidRequestEditorSetupNotification =
+    @"MPDidRequestEditorSetupNotificationName";
+
 @implementation MPPreferencesViewController
 
 - (id)init

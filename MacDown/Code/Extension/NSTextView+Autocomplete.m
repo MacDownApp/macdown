@@ -11,6 +11,11 @@
 #import "MPUtilities.h"
 
 
+static const unichar kMPLeftSingleQuotation  = L'\u2018';
+static const unichar kMPRightSingleQuotation = L'\u2019';
+static const unichar kMPLeftDoubleQuotation  = L'\u201c';
+static const unichar kMPRightDoubleQuotation = L'\u201d';
+
 static const unichar kMPMatchingCharactersMap[][2] = {
     {L'(', L')'},
     {L'[', L']'},
@@ -21,8 +26,8 @@ static const unichar kMPMatchingCharactersMap[][2] = {
     {L'\uff08', L'\uff09'},     // full-width parentheses
     {L'\u300c', L'\u300d'},     // corner brackets
     {L'\u300e', L'\u300f'},     // white corner brackets
-    {L'\u2018', L'\u2019'},     // single quotes
-    {L'\u201c', L'\u201d'},     // double quotes
+    {kMPLeftSingleQuotation, kMPRightSingleQuotation},
+    {kMPLeftDoubleQuotation, kMPRightDoubleQuotation},
     {L'\0', L'\0'},
 };
 
@@ -34,6 +39,7 @@ static const unichar kMPMarkupCharacters[] = {
 
 static NSString * const kMPListLineHeadPattern =
     @"^(\\s*)((?:(?:\\*|\\+|-|)\\s+)?)((?:\\d+\\.\\s+)?)(\\S)?";
+static NSString * const kMPBlockquoteLinePattern = @"^((?:\\> ?)+).*$";
 
 
 @implementation NSTextView (Autocomplete)
@@ -107,6 +113,14 @@ static NSString * const kMPListLineHeadPattern =
 - (BOOL)completeMatchingCharacterForText:(NSString *)string
                               atLocation:(NSUInteger)location
 {
+    static NSCharacterSet *boundaryCharacters = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        NSMutableCharacterSet *s =
+            [NSMutableCharacterSet whitespaceAndNewlineCharacterSet];
+        [s formUnionWithCharacterSet:[NSCharacterSet punctuationCharacterSet]];
+        boundaryCharacters = [s copy];
+    });
     NSString *content = self.string;
     NSUInteger contentLength = content.length;
 
@@ -118,14 +132,30 @@ static NSString * const kMPListLineHeadPattern =
     if (location > 0 && location <= contentLength)
         p = [content characterAtIndex:location - 1];
 
-    NSCharacterSet *delims = [NSCharacterSet whitespaceAndNewlineCharacterSet];
     for (const unichar *cs = kMPMatchingCharactersMap[0]; *cs != 0; cs += 2)
     {
-        if ([delims characterIsMember:n] && c == cs[0] && n != cs[1]
-            && ([delims characterIsMember:p] || cs[0] != cs[1]))
+        if ([boundaryCharacters characterIsMember:n] && c == cs[0] && n != cs[1]
+            && ([boundaryCharacters characterIsMember:p] || cs[0] != cs[1]))
         {
             NSRange range = NSMakeRange(location, 0);
             NSString *completion = [NSString stringWithCharacters:cs length:2];
+            if (self.isAutomaticQuoteSubstitutionEnabled)
+            {
+                unichar c = L'\0';
+                switch (cs[0])
+                {
+                    case L'\"':
+                        c = kMPLeftDoubleQuotation;
+                        break;
+                    case L'\'':
+                        c = kMPLeftSingleQuotation;
+                        break;
+                    default:
+                        break;
+                }
+                if (c)
+                    completion = [NSString stringWithCharacters:&c length:1];
+            }
             [self insertText:completion replacementRange:range];
 
             range.location += string.length;
@@ -183,11 +213,11 @@ static NSString * const kMPListLineHeadPattern =
     return NO;
 }
 
-- (void)deleteMatchingCharactersAround:(NSUInteger)location
+- (BOOL)deleteMatchingCharactersAround:(NSUInteger)location
 {
     NSString *string = self.string;
     if (location == 0 || location >= string.length)
-        return;
+        return NO;
 
     unichar f = [string characterAtIndex:location - 1];
     unichar b = [string characterAtIndex:location];
@@ -196,14 +226,16 @@ static NSString * const kMPListLineHeadPattern =
     {
         if (f == cs[0] && b == cs[1])
         {
-            [self replaceCharactersInRange:NSMakeRange(location, 1)
-                                withString:@""];
-            break;
+            NSRange range = NSMakeRange(location - 1, 2);
+            [self shouldChangeTextInRange:range replacementString:@""];
+            [self replaceCharactersInRange:range withString:@""];
+            return YES;
         }
     }
+    return NO;
 }
 
-- (void)unindentForSpacesBefore:(NSUInteger)location
+- (BOOL)unindentForSpacesBefore:(NSUInteger)location
 {
     NSString *string = self.string;
 
@@ -216,17 +248,22 @@ static NSString * const kMPListLineHeadPattern =
             break;
     }
     if (whitespaceCount < 2)
-        return;
+        return NO;
 
-    NSUInteger offset =
-        ([self.string locationOfFirstNewlineBefore:location] + 1) % 4;
+    NSUInteger lineStart = [string locationOfFirstNewlineBefore:location] + 1;
+    if (location <= lineStart)
+        return NO;
+
+    NSUInteger offset = (location - lineStart) % 4;
     if (offset == 0)
         offset = 4;
-    offset = offset > whitespaceCount ? whitespaceCount : 4;
-    NSRange range = NSMakeRange(location - offset, offset);
+    if (whitespaceCount < offset)
+        offset = whitespaceCount;
 
-    // Leave a space for the original delete action to handle.
-    [self replaceCharactersInRange:range withString:@" "];
+    NSRange range = NSMakeRange(location - offset, offset);
+    [self shouldChangeTextInRange:range replacementString:@""];
+    [self replaceCharactersInRange:range withString:@""];
+    return YES;
 }
 
 - (BOOL)toggleForMarkupPrefix:(NSString *)prefix suffix:(NSString *)suffix
@@ -421,7 +458,7 @@ static NSString * const kMPListLineHeadPattern =
     return YES;
 }
 
-- (BOOL)completeNextLine
+- (BOOL)completeNextListItem:(BOOL)autoIncrement
 {
     NSRange selectedRange = self.selectedRange;
     NSUInteger location = selectedRange.location;
@@ -441,7 +478,6 @@ static NSString * const kMPListLineHeadPattern =
     NSRange range = NSMakeRange(start, end - start);
     NSString *line = [self.string substringWithRange:range];
 
-
     NSRegularExpressionOptions options = NSRegularExpressionAnchorsMatchLines;
     NSRegularExpression *regex =
         [[NSRegularExpression alloc] initWithPattern:kMPListLineHeadPattern
@@ -452,10 +488,6 @@ static NSString * const kMPListLineHeadPattern =
                             range:NSMakeRange(0, line.length)];
     if (!result || result.range.location == NSNotFound)
         return NO;
-
-    NSMutableString *indent = [[NSMutableString alloc] init];
-    for (NSUInteger i = 0; i < [result rangeAtIndex:1].length; i++)
-        [indent appendString:@" "];
 
     NSString *t = nil;
     BOOL isUl = ([result rangeAtIndex:2].length != 0);
@@ -471,8 +503,10 @@ static NSString * const kMPListLineHeadPattern =
         if (replaceRange.length)
         {
             replaceRange.location += start;
+            [self shouldChangeTextInRange:range replacementString:@""];
             [self replaceCharactersInRange:range withString:@""];
         }
+        t = @"";
     }
     else if (isUl)
     {
@@ -485,15 +519,18 @@ static NSString * const kMPListLineHeadPattern =
         NSRange range = [result rangeAtIndex:3];
         range.length -= 1;      // Exclude trailing space.
         NSString *captured = [line substringWithRange:range];
-        NSInteger i = captured.integerValue + 1;
+        NSInteger i = captured.integerValue;
+        if (autoIncrement)
+            i += 1;
         t = [NSString stringWithFormat:@"%ld.", i];
     }
-    [self insertNewline:self];
     if (!t)
-        return YES;
+        return NO;
 
+    [self insertNewline:self];
     location += 1;  // Shift for inserted newline.
-    NSString *it = [NSString stringWithFormat:@"%@%@", indent, t];
+
+    NSString *indent = [line substringWithRange:[result rangeAtIndex:1]];
     NSUInteger contentLength = content.length;
 
     // Has matching list item. Only insert indent.
@@ -505,6 +542,8 @@ static NSString * const kMPListLineHeadPattern =
         return YES;
     }
 
+    NSString *it = [NSString stringWithFormat:@"%@%@", indent, t];
+
     // Has indent and matching list item. Accept it.
     r = NSMakeRange(location, it.length);
     if (contentLength > location + it.length
@@ -512,7 +551,69 @@ static NSString * const kMPListLineHeadPattern =
         return YES;
 
     // Insert completion for normal cases.
-    [self insertText:[NSString stringWithFormat:@"%@ ", it]];
+    if (t.length)
+        it = [NSString stringWithFormat:@"%@ ", it];
+    [self insertText:it];
+    return YES;
+}
+
+- (BOOL)completeNextBlockquoteLine
+{
+    NSRange selectedRange = self.selectedRange;
+    NSString *content = self.string;
+    NSUInteger contentLength = content.length;
+    if (selectedRange.length || !contentLength)
+        return NO;
+
+    NSRange lineRange = [content lineRangeForRange:selectedRange];
+    NSString *line = [content substringWithRange:lineRange];
+
+    NSRegularExpressionOptions options = NSRegularExpressionAnchorsMatchLines;
+    NSRegularExpression *regex =
+        [[NSRegularExpression alloc] initWithPattern:kMPBlockquoteLinePattern
+                                             options:options error:NULL];
+    NSTextCheckingResult *result =
+        [regex firstMatchInString:line options:0
+                            range:NSMakeRange(0, lineRange.length)];
+    if (!result || result.range.location == NSNotFound)
+        return NO;
+
+    [self insertNewline:self];
+
+    NSRange markersRange = [result rangeAtIndex:1];
+    NSString *markers = [line substringWithRange:markersRange];
+    NSUInteger nextLineStart = selectedRange.location + 1;
+
+    // Has identical markers. Accept this.
+    NSRange nextMarkersRange = NSMakeRange(nextLineStart, markersRange.length);
+    if (contentLength > nextLineStart + markersRange.length)
+    {
+        NSString *nextMarkers = [content substringWithRange:nextMarkersRange];
+        if ([nextMarkers isEqualToString:markers])
+            return YES;
+    }
+
+    // Insert completion.
+    [self insertText:markers];
+    return YES;
+}
+
+- (BOOL)completeNextIndentedLine
+{
+    NSRange selectedRange = self.selectedRange;
+    if (selectedRange.length)
+        return NO;
+
+    NSString *content = self.string;
+    NSUInteger start = [content lineRangeForRange:selectedRange].location;
+    NSUInteger end = [content locationOfFirstNonWhitespaceCharacterInLineBefore:
+                      selectedRange.location];
+    if (end <= start)
+        return NO;
+
+    [self insertNewline:self];
+    NSRange indentRange = NSMakeRange(start, end - start);
+    [self insertText:[content substringWithRange:indentRange]];
     return YES;
 }
 

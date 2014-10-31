@@ -16,7 +16,6 @@
 			<key>CFBundleTypeMIMETypes</key>
 			<array>
 				<string>text/x-markdown</string>
-				<string>text/plain</string>
 			</array>
 			<key>CFBundleTypeName</key>
 			<string>Markdown</string>
@@ -35,7 +34,23 @@
 			<key>CFBundleTypeExtensions</key>
 			<array/>
 			<key>CFBundleTypeMIMETypes</key>
-			<array/>
+			<array>
+				<string>text/plain</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>NSStringPboardType</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.text</string>
+			</array>
+			<key>LSTypeIsPackage</key>
+			<integer>0</integer>
+			<key>NSDocumentClass</key>
+			<string>MPDocument</string>
+		</dict>
+		<dict>
 			<key>CFBundleTypeName</key>
 			<string>Document</string>
 			<key>CFBundleTypeRole</key>
@@ -84,7 +99,7 @@
 	<string>http://macdown.uranusjr.com/sparkle/macdown/appcast.xml</string>
 	<key>SUPublicDSAKeyFile</key>
 	<string>dsa_pub.pem</string>
-	<key>UTImportedTypeDeclarations</key>
+	<key>UTExportedTypeDeclarations</key>
 	<array>
 		<dict>
 			<key>UTTypeConformsTo</key>
@@ -110,7 +125,6 @@
 				<key>public.mime-type</key>
 				<array>
 					<string>text/x-markdown</string>
-					<string>text/plain</string>
 				</array>
 			</dict>
 		</dict>

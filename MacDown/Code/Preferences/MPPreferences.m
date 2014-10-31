@@ -32,6 +32,8 @@ static NSString * const kMPDefaultHtmlStyleName = @"GitHub2";
     if (!self)
         return nil;
 
+    [self cleanupObsoleteAutosaveValues];
+
     NSString *version =
         [NSBundle mainBundle].infoDictionary[@"CFBundleVersion"];
 
@@ -49,6 +51,7 @@ static NSString * const kMPDefaultHtmlStyleName = @"GitHub2";
                              object:self];
         }];
     }
+    [self loadDefaultUserDefaults];
     self.latestVersionInstalled = version;
     return self;
 }
@@ -74,16 +77,25 @@ static NSString * const kMPDefaultHtmlStyleName = @"GitHub2";
 
 @dynamic markdownManualRender;
 
+@dynamic editorAutoIncrementNumberedLists;
 @dynamic editorConvertTabs;
 @dynamic editorCompleteMatchingCharacters;
 @dynamic editorSyncScrolling;
+@dynamic editorSmartHome;
 @dynamic editorStyleName;
 @dynamic editorHorizontalInset;
 @dynamic editorVerticalInset;
 @dynamic editorLineSpacing;
+@dynamic editorWidthLimited;
+@dynamic editorMaximumWidth;
 @dynamic editorOnRight;
+@dynamic editorShowWordCount;
+@dynamic editorWordCountType;
+@dynamic editorScrollsPastEnd;
+@dynamic editorEnsuresNewlineAtEndOfFile;
 
 @dynamic htmlStyleName;
+@dynamic htmlDetectFrontMatter;
 @dynamic htmlTaskList;
 @dynamic htmlHardWrap;
 @dynamic htmlMathJax;
@@ -113,6 +125,31 @@ static NSString * const kMPDefaultHtmlStyleName = @"GitHub2";
 
 #pragma mark - Private
 
+- (void)cleanupObsoleteAutosaveValues
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSMutableArray *keysToRemove = [NSMutableArray array];
+    for (NSString *key in defaults.dictionaryRepresentation)
+    {
+        for (NSString *p in @[@"NSSplitView Subview Frames", @"NSWindow Frame"])
+        {
+            if (![key hasPrefix:p] || key.length < p.length + 1)
+                continue;
+            NSString *path = [key substringFromIndex:p.length + 1];
+            NSURL *url = [NSURL URLWithString:path];
+            if (!url.isFileURL)
+                continue;
+
+            NSFileManager *manager = [NSFileManager defaultManager];
+            if (![manager fileExistsAtPath:url.path])
+                [keysToRemove addObject:key];
+            break;
+        }
+    }
+    for (NSString *key in keysToRemove)
+        [defaults removeObjectForKey:key];
+}
+
 - (void)loadDefaultPreferences
 {
     self.extensionIntraEmphasis = YES;
@@ -129,9 +166,20 @@ static NSString * const kMPDefaultHtmlStyleName = @"GitHub2";
     self.editorLineSpacing = kMPDefaultEditorLineSpacing;
     self.editorSyncScrolling = kMPDefaultEditorSyncScrolling;
     self.editorOnRight = NO;
+    self.editorShowWordCount = NO;
+    self.editorWordCountType = 0;
     self.htmlStyleName = kMPDefaultHtmlStyleName;
     self.htmlDefaultDirectoryUrl = [NSURL fileURLWithPath:NSHomeDirectory()
                                               isDirectory:YES];
+}
+
+- (void)loadDefaultUserDefaults
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if (![defaults objectForKey:@"editorMaximumWidth"])
+        self.editorMaximumWidth = 1000.0;
+    if (![defaults objectForKey:@"editorAutoIncrementNumberedLists"])
+        self.editorAutoIncrementNumberedLists = YES;
 }
 
 @end

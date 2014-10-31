@@ -31,3 +31,5 @@ NSString *MPStylePathForName(NSString *name);
 NSString *MPThemePathForName(NSString *name);
 NSURL *MPHighlightingThemeURLForName(NSString *name);
 NSString *MPReadFileOfPath(NSString *path);
+
+id MPGetObjectFromJavaScript(NSString *code, NSString *variableName);

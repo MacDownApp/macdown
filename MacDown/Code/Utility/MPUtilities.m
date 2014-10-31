@@ -7,6 +7,7 @@
 //
 
 #import "MPUtilities.h"
+#import <JavaScriptCore/JavaScriptCore.h>
 
 NSString * const kMPStylesDirectoryName = @"Styles";
 NSString * const kMPStyleFileExtension = @".css";
@@ -108,6 +109,8 @@ BOOL MPStringIsNewline(NSString *str)
 
 NSString *MPStylePathForName(NSString *name)
 {
+    if (!name)
+        return nil;
     if (![name hasSuffix:kMPStyleFileExtension])
         name = [NSString stringWithFormat:@"%@%@", name, kMPStyleFileExtension];
     NSString *path = MPPathToDataFile(name, kMPStylesDirectoryName);
@@ -151,3 +154,53 @@ NSString *MPReadFileOfPath(NSString *path)
         return @"";
     return s;
 }
+
+id MPGetObjectFromJavaScript(NSString *code, NSString *variableName)
+{
+    if (!code.length)
+        return nil;
+
+    id object = nil;
+    JSGlobalContextRef cxt = NULL;
+    JSStringRef js = NULL;
+    JSStringRef varn = NULL;
+    JSStringRef jsonr = NULL;
+
+    do {
+        JSValueRef exc = NULL;
+
+        cxt = JSGlobalContextCreate(NULL);
+        js = JSStringCreateWithCFString((__bridge CFStringRef)code);
+        JSEvaluateScript(cxt, js, NULL, NULL, 0, &exc);
+        if (exc)
+            break;
+
+        varn = JSStringCreateWithUTF8CString([variableName UTF8String]);
+        JSObjectRef global = JSContextGetGlobalObject(cxt);
+        JSValueRef val = JSObjectGetProperty(cxt, global, varn, &exc);
+
+        // JavaScript Object -> JSON -> Foundation Object.
+        // Not the best way to do this, but enough for our purpose.
+        jsonr = JSValueCreateJSONString(cxt, val, 0, &exc);
+        if (exc)
+            break;
+        size_t sz = JSStringGetLength(jsonr) + 1;   // NULL terminated.
+        char *buffer = (char *)malloc(sz * sizeof(char));
+        JSStringGetUTF8CString(jsonr, buffer, sz);
+        NSData *data = [NSData dataWithBytesNoCopy:buffer length:sz - 1
+                                      freeWhenDone:YES];
+        object = [NSJSONSerialization JSONObjectWithData:data options:0
+                                                   error:NULL];
+    } while (0);
+
+    if (jsonr)
+        JSStringRelease(jsonr);
+    if (varn)
+        JSStringRelease(varn);
+    if (cxt)
+        JSGlobalContextRelease(cxt);
+    if (js)
+        JSStringRelease(js);
+    return object;
+}
+

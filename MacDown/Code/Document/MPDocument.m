@@ -8,15 +8,24 @@
 
 #import "MPDocument.h"
 #import <WebKit/WebKit.h>
+#import <JJPluralForm/JJPluralForm.h>
 #import <hoedown/html.h>
 #import "hoedown_html_patch.h"
 #import "HGMarkdownHighlighter.h"
 #import "MPUtilities.h"
+#import "MPAutosaving.h"
 #import "NSString+Lookup.h"
 #import "NSTextView+Autocomplete.h"
 #import "MPPreferences.h"
+#import "MPEditorView.h"
 #import "MPRenderer.h"
+#import "MPPreferencesViewController.h"
+#import "MPEditorPreferencesViewController.h"
 #import "MPExportPanelAccessoryViewController.h"
+#import "MPMathJaxListener.h"
+
+
+static NSString * const kMPRendersTOCPropertyKey = @"Renders TOC";
 
 
 static NSString *MPEditorPreferenceKeyWithValueKey(NSString *key)
@@ -35,7 +44,6 @@ static NSDictionary *MPEditorKeysToObserve()
     dispatch_once(&token, ^{
         keys = @{@"automaticDashSubstitutionEnabled": @NO,
                  @"automaticDataDetectionEnabled": @NO,
-                 @"automaticLinkDetectionEnabled": @NO,
                  @"automaticQuoteSubstitutionEnabled": @NO,
                  @"automaticSpellingCorrectionEnabled": @NO,
                  @"automaticTextReplacementEnabled": @NO,
@@ -45,6 +53,48 @@ static NSDictionary *MPEditorKeysToObserve()
     });
     return keys;
 }
+
+static NSSet *MPEditorPreferencesToObserve()
+{
+    static NSSet *keys = nil;
+    static dispatch_once_t token;
+    dispatch_once(&token, ^{
+        keys = [NSSet setWithObjects:
+            @"editorBaseFontInfo", @"extensionFootnotes",
+            @"editorHorizontalInset", @"editorVerticalInset",
+            @"editorWidthLimited", @"editorMaximumWidth", @"editorLineSpacing",
+            @"editorOnRight", @"editorStyleName", @"editorShowWordCount",
+            @"editorScrollsPastEnd", nil
+        ];
+    });
+    return keys;
+}
+
+static NSString *MPAutosavePropertyKey(
+    id<MPAutosaving> object, NSString *propertyName)
+{
+    NSString *className = NSStringFromClass([object class]);
+    return [NSString stringWithFormat:@"%@ %@ %@", className, propertyName,
+                                                   object.autosaveName];
+}
+
+
+@implementation NSString (WordCount)
+
+- (NSUInteger)numberOfWords
+{
+    __block NSUInteger count = 0;
+    NSStringEnumerationOptions options =
+    NSStringEnumerationByWords | NSStringEnumerationSubstringNotRequired;
+    [self enumerateSubstringsInRange:NSMakeRange(0, self.length)
+                             options:options usingBlock:
+     ^(NSString *str, NSRange strRange, NSRange enclosingRange, BOOL *stop) {
+         count++;
+     }];
+    return count;
+}
+
+@end
 
 
 @implementation MPPreferences (Hoedown)
@@ -88,6 +138,17 @@ static NSDictionary *MPEditorKeysToObserve()
 
 @implementation NSSplitView (TwoItems)
 
+- (CGFloat)dividerLocation
+{
+    NSArray *parts = self.subviews;
+    NSAssert1(parts.count == 2, @"%@ should only be used on two-item splits.",
+              NSStringFromSelector(_cmd));
+
+    CGFloat totalWidth = self.frame.size.width - self.dividerThickness;
+    CGFloat leftWidth = [parts[0] frame].size.width;
+    return leftWidth / totalWidth;
+}
+
 - (void)setDividerLocation:(CGFloat)ratio
 {
     NSArray *parts = self.subviews;
@@ -121,27 +182,95 @@ static NSDictionary *MPEditorKeysToObserve()
 @end
 
 
-@interface MPDocument ()
-    <NSTextViewDelegate, MPRendererDataSource, MPRendererDelegate>
+@implementation DOMNode (Text)
 
-@property (weak) IBOutlet NSSplitView *splitView;
-@property (unsafe_unretained) IBOutlet NSTextView *editor;
-@property (weak) IBOutlet WebView *preview;
-@property (strong) HGMarkdownHighlighter *highlighter;
-@property (strong) MPRenderer *renderer;
-@property BOOL manualRender;
-@property BOOL previewFlushDisabled;
-@property (readonly) BOOL previewVisible;
-@property BOOL isLoadingPreview;
-
-// Store file content in initializer until nib is loaded.
-@property (copy) NSString *loadedString;
+- (NSString *)nodeText
+{
+    NSMutableString *text = [NSMutableString string];
+    switch (self.nodeType)
+    {
+        case 1:
+        case 9:
+        case 11:
+            if ([self respondsToSelector:@selector(tagName)])
+            {
+                NSString *tagName = [(id)self tagName].uppercaseString;
+                if ([tagName isEqualToString:@"SCRIPT"]
+                        || [tagName isEqualToString:@"STYLE"]
+                        || [tagName isEqualToString:@"HEAD"])
+                    break;
+            }
+            for (DOMNode *c = self.firstChild; c; c = c.nextSibling)
+                [text appendString:c.nodeText];
+            break;
+        case 3:
+        case 4:
+            return self.nodeValue;
+        default:
+            break;
+    }
+    return text;
+}
 
 @end
 
 
-@implementation MPDocument
+@interface MPDocument ()
+    <NSTextViewDelegate, MPAutosaving, MPRendererDataSource, MPRendererDelegate>
 
+typedef NS_ENUM(NSUInteger, MPWordCountType) {
+    MPWordCountTypeWord,
+    MPWordCountTypeCharacter,
+    MPWordCountTypeCharacterNoSpaces,
+};
+
+@property (weak) IBOutlet NSSplitView *splitView;
+@property (weak) IBOutlet NSView *editorContainer;
+@property (unsafe_unretained) IBOutlet MPEditorView *editor;
+@property (weak) IBOutlet NSLayoutConstraint *editorPaddingBottom;
+@property (weak) IBOutlet WebView *preview;
+@property (weak) IBOutlet NSPopUpButton *wordCountWidget;
+@property (copy, nonatomic) NSString *autosaveName;
+@property (strong) HGMarkdownHighlighter *highlighter;
+@property (strong) MPRenderer *renderer;
+@property CGFloat previousSplitRatio;
+@property BOOL manualRender;
+@property BOOL copying;
+@property BOOL printing;
+@property BOOL shouldHandleBoundsChange;
+@property (nonatomic) BOOL rendersTOC;
+@property (readonly) BOOL previewVisible;
+@property (readonly) BOOL editorVisible;
+@property (nonatomic, readonly) BOOL needsHtml;
+@property (nonatomic) NSUInteger totalWords;
+@property (nonatomic) NSUInteger totalCharacters;
+@property (nonatomic) NSUInteger totalCharactersNoSpaces;
+@property (strong) NSMenuItem *wordsMenuItem;
+@property (strong) NSMenuItem *charMenuItem;
+@property (strong) NSMenuItem *charNoSpacesMenuItem;
+
+// Store file content in initializer until nib is loaded.
+@property (copy) NSString *loadedString;
+
+- (void)syncScrollers;
+
+@end
+
+static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
+{
+    __weak MPDocument *weakObj = doc;
+    return ^{
+        NSWindow *window = weakObj.preview.window;
+        @synchronized(window) {
+            if (window.isFlushWindowDisabled)
+                [window enableFlushWindow];
+        }
+        [weakObj syncScrollers];
+    };
+}
+
+
+@implementation MPDocument
 
 #pragma mark - Accessor
 
@@ -152,11 +281,84 @@ static NSDictionary *MPEditorKeysToObserve()
 
 - (BOOL)previewVisible
 {
-    return self.preview.frame.size.width;
+    return (self.preview.frame.size.width != 0.0);
+}
+
+- (BOOL)editorVisible
+{
+    return (self.editorContainer.frame.size.width != 0.0);
+}
+
+- (BOOL)needsHtml
+{
+    if (self.preferences.markdownManualRender)
+        return NO;
+    return (self.previewVisible || self.preferences.editorShowWordCount);
+}
+
+- (void)setTotalWords:(NSUInteger)value
+{
+    _totalWords = value;
+    NSString *key = NSLocalizedString(@"WORDS_PLURAL_STRING", @"");
+    NSInteger rule = kJJPluralFormRule.integerValue;
+    self.wordsMenuItem.title =
+        [JJPluralForm pluralStringForNumber:value withPluralForms:key
+                            usingPluralRule:rule localizeNumeral:NO];
+}
+
+- (void)setTotalCharacters:(NSUInteger)value
+{
+    _totalCharacters = value;
+    NSString *key = NSLocalizedString(@"CHARACTERS_PLURAL_STRING", @"");
+    NSInteger rule = kJJPluralFormRule.integerValue;
+    self.charMenuItem.title =
+        [JJPluralForm pluralStringForNumber:value withPluralForms:key
+                            usingPluralRule:rule localizeNumeral:NO];
+}
+
+- (void)setTotalCharactersNoSpaces:(NSUInteger)value
+{
+    _totalCharactersNoSpaces = value;
+    NSString *key = NSLocalizedString(@"CHARACTERS_NO_SPACES_PLURAL_STRING",
+                                      @"");
+    NSInteger rule = kJJPluralFormRule.integerValue;
+    self.charNoSpacesMenuItem.title =
+        [JJPluralForm pluralStringForNumber:value withPluralForms:key
+                            usingPluralRule:rule localizeNumeral:NO];
+}
+
+- (void)setAutosaveName:(NSString *)autosaveName
+{
+    _autosaveName = autosaveName;
+    self.splitView.autosaveName = autosaveName;
+}
+
+- (BOOL)rendersTOC
+{
+    NSString *key = MPAutosavePropertyKey(self, kMPRendersTOCPropertyKey);
+    BOOL value = [[NSUserDefaults standardUserDefaults] boolForKey:key];
+    return value;
+}
+
+- (void)setRendersTOC:(BOOL)rendersTOC
+{
+    NSString *key = MPAutosavePropertyKey(self, kMPRendersTOCPropertyKey);
+    [[NSUserDefaults standardUserDefaults] setBool:rendersTOC forKey:key];
 }
 
 
 #pragma mark - Override
+
+- (instancetype)init
+{
+    self = [super init];
+    if (!self)
+        return nil;
+
+    self.shouldHandleBoundsChange = YES;
+    self.previousSplitRatio = -1.0;
+    return self;
+}
 
 - (NSString *)windowNibName
 {
@@ -168,13 +370,14 @@ static NSDictionary *MPEditorKeysToObserve()
     [super windowControllerDidLoadNib:controller];
 
     // All files use their absolute path to keep their window states.
-    // New files share a common autosave name so that we can get a preferred
-    // window size when creating new documents.
-    NSString *autosaveName = @"Markdown";
+    // New files always use a default layout.
+    [controller.window performZoom:self];
     if (self.fileURL)
-        autosaveName = self.fileURL.absoluteString;
-    controller.window.frameAutosaveName = autosaveName;
-    self.splitView.autosaveName = autosaveName;
+    {
+        NSString *autosaveName = self.fileURL.absoluteString;
+        controller.window.frameAutosaveName = autosaveName;
+        self.autosaveName = autosaveName;
+    }
 
     self.highlighter =
         [[HGMarkdownHighlighter alloc] initWithTextView:self.editor
@@ -183,7 +386,14 @@ static NSDictionary *MPEditorKeysToObserve()
     self.renderer.dataSource = self;
     self.renderer.delegate = self;
 
-    [self setupEditor];
+    [self setupEditor:nil];
+
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    for (NSString *key in MPEditorPreferencesToObserve())
+    {
+        [defaults addObserver:self forKeyPath:key
+                      options:NSKeyValueObservingOptionNew context:NULL];
+    }
     for (NSString *key in MPEditorKeysToObserve())
     {
         [self.editor addObserver:self forKeyPath:key
@@ -192,20 +402,21 @@ static NSDictionary *MPEditorKeysToObserve()
 
     self.preview.frameLoadDelegate = self;
     self.preview.policyDelegate = self;
+    self.preview.editingDelegate = self;
 
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    [center addObserver:self
-               selector:@selector(textDidChange:)
-                   name:NSTextDidChangeNotification
-                 object:self.editor];
-    [center addObserver:self
-               selector:@selector(userDefaultsDidChange:)
+    [center addObserver:self selector:@selector(textDidChange:)
+                   name:NSTextDidChangeNotification object:self.editor];
+    [center addObserver:self selector:@selector(userDefaultsDidChange:)
                    name:NSUserDefaultsDidChangeNotification
                  object:[NSUserDefaults standardUserDefaults]];
-    [center addObserver:self
-               selector:@selector(boundsDidChange:)
+    [center addObserver:self selector:@selector(boundsDidChange:)
                    name:NSViewBoundsDidChangeNotification
                  object:self.editor.enclosingScrollView.contentView];
+    [center addObserver:self selector:@selector(didRequestEditorReload:)
+                   name:MPDidRequestEditorSetupNotification object:nil];
+    [center addObserver:self selector:@selector(didRequestPreviewReload:)
+                   name:MPDidRequestPreviewRenderNotification object:nil];
 
     if (self.loadedString)
     {
@@ -214,40 +425,89 @@ static NSDictionary *MPEditorKeysToObserve()
         [self.renderer parseAndRenderNow];
         [self.highlighter parseAndHighlightNow];
     }
-    
-    if (self.preferences.editorOnRight)
-        [self.splitView swapViews];
+
+    self.wordsMenuItem = [[NSMenuItem alloc] initWithTitle:@"" action:NULL
+                                             keyEquivalent:@""];
+    self.charMenuItem = [[NSMenuItem alloc] initWithTitle:@"" action:NULL
+                                            keyEquivalent:@""];
+    self.charNoSpacesMenuItem = [[NSMenuItem alloc] initWithTitle:@""
+                                                           action:NULL
+                                                    keyEquivalent:@""];
+
+    NSPopUpButton *wordCountWidget = self.wordCountWidget;
+    [wordCountWidget removeAllItems];
+    [wordCountWidget.menu addItem:self.wordsMenuItem];
+    [wordCountWidget.menu addItem:self.charMenuItem];
+    [wordCountWidget.menu addItem:self.charNoSpacesMenuItem];
+    [wordCountWidget selectItemAtIndex:self.preferences.editorWordCountType];
+    wordCountWidget.alphaValue = 0.9;
+    wordCountWidget.hidden = !self.preferences.editorShowWordCount;
 }
 
 - (void)canCloseDocumentWithDelegate:(id)delegate
                  shouldCloseSelector:(SEL)selector contextInfo:(void *)context
 {
+    selector = @selector(document:shouldClose:contextInfo:);
+    [super canCloseDocumentWithDelegate:delegate shouldCloseSelector:selector
+                            contextInfo:context];
+}
+
+- (void)document:(NSDocument *)doc shouldClose:(BOOL)shouldClose
+     contextInfo:(void *)contextInfo
+{
+    if (!shouldClose)
+        return;
+
     // Need to cleanup these so that callbacks won't crash the app.
     [self.highlighter deactivate];
     self.highlighter.targetTextView = nil;
+    self.highlighter = nil;
+    self.renderer = nil;
     self.preview.frameLoadDelegate = nil;
     self.preview.policyDelegate = nil;
 
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    [center removeObserver:self
-                      name:NSTextDidChangeNotification
+    [center removeObserver:self name:NSTextDidChangeNotification
                     object:self.editor];
-    [center removeObserver:self
-                      name:NSUserDefaultsDidChangeNotification
+    [center removeObserver:self name:NSUserDefaultsDidChangeNotification
                     object:[NSUserDefaults standardUserDefaults]];
-    [center removeObserver:self
-                      name:NSViewBoundsDidChangeNotification
+    [center removeObserver:self name:NSViewBoundsDidChangeNotification
                     object:self.editor.enclosingScrollView.contentView];
+    [center removeObserver:self name:MPDidRequestPreviewRenderNotification
+                    object:nil];
+    [center removeObserver:self name:MPDidRequestEditorSetupNotification
+                    object:nil];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    for (NSString *key in MPEditorPreferencesToObserve())
+        [defaults removeObserver:self forKeyPath:key];
     for (NSString *key in MPEditorKeysToObserve())
         [self.editor removeObserver:self forKeyPath:key];
 
-    [super canCloseDocumentWithDelegate:delegate shouldCloseSelector:selector
-                            contextInfo:context];
+    [self close];
 }
 
 + (BOOL)autosavesInPlace
 {
     return YES;
+}
+
++ (NSArray *)writableTypes
+{
+    return @[@"net.daringfireball.markdown"];
+}
+
+- (BOOL)writeToURL:(NSURL *)url ofType:(NSString *)typeName
+             error:(NSError *__autoreleasing *)outError
+{
+    if (self.preferences.editorEnsuresNewlineAtEndOfFile)
+    {
+        NSCharacterSet *newlines = [NSCharacterSet newlineCharacterSet];
+        NSString *text = self.editor.string;
+        NSUInteger end = text.length;
+        if (![newlines characterIsMember:[text characterAtIndex:end - 1]])
+            [self.editor insertText:@"\n" replacementRange:NSMakeRange(end, 0)];
+    }
+    return [super writeToURL:url ofType:typeName error:outError];
 }
 
 - (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError
@@ -258,17 +518,104 @@ static NSDictionary *MPEditorKeysToObserve()
 - (BOOL)readFromData:(NSData *)data ofType:(NSString *)typeName
                error:(NSError **)outError
 {
-    self.loadedString = [[NSString alloc] initWithData:data
+    NSString *content = [[NSString alloc] initWithData:data
                                               encoding:NSUTF8StringEncoding];
+    if (!content)
+        return NO;
+
+    self.loadedString = content;
     return YES;
 }
 
 - (BOOL)prepareSavePanel:(NSSavePanel *)savePanel
 {
-    NSString *title = [self.editor.string titleString];
-    if (title)
-        savePanel.nameFieldStringValue = title;
+    NSString *fileName = self.presumedFileName;
+    if (fileName)
+    {
+        fileName = [fileName stringByAppendingPathExtension:@"md"];
+        savePanel.nameFieldStringValue = fileName;
+    }
+    savePanel.allowedFileTypes = nil;   // Allow all extensions.
     return [super prepareSavePanel:savePanel];
+}
+
+- (NSPrintInfo *)printInfo
+{
+    NSPrintInfo *info = [super printInfo];
+    if (!info)
+        info = [[NSPrintInfo sharedPrintInfo] copy];
+    info.horizontalPagination = NSAutoPagination;
+    info.verticalPagination = NSAutoPagination;
+    info.verticallyCentered = NO;
+    info.topMargin = 0.0;
+    info.leftMargin = 0.0;
+    info.rightMargin = 0.0;
+    info.bottomMargin = 0.0;
+    return info;
+}
+
+- (NSPrintOperation *)printOperationWithSettings:(NSDictionary *)printSettings
+                                           error:(NSError *__autoreleasing *)e
+{
+    NSPrintInfo *info = [self.printInfo copy];
+    [info.dictionary addEntriesFromDictionary:printSettings];
+
+    WebFrameView *view = self.preview.mainFrame.frameView;
+    NSPrintOperation *op = [view printOperationWithPrintInfo:info];
+    return op;
+}
+
+- (void)printDocumentWithSettings:(NSDictionary *)printSettings
+                   showPrintPanel:(BOOL)showPrintPanel delegate:(id)delegate
+                 didPrintSelector:(SEL)selector contextInfo:(void *)contextInfo
+{
+    self.printing = YES;
+    NSInvocation *invocation = nil;
+    if (delegate && selector)
+    {
+        NSMethodSignature *signature =
+            [NSMethodSignature methodSignatureForSelector:selector];
+        invocation = [NSInvocation invocationWithMethodSignature:signature];
+        invocation.target = delegate;
+        if (contextInfo)
+            [invocation setArgument:&contextInfo atIndex:2];
+    }
+    [super printDocumentWithSettings:printSettings
+                      showPrintPanel:showPrintPanel delegate:self
+                    didPrintSelector:@selector(document:didPrint:context:)
+                         contextInfo:(void *)invocation];
+}
+
+- (BOOL)validateUserInterfaceItem:(id<NSValidatedUserInterfaceItem>)item
+{
+    BOOL result = [super validateUserInterfaceItem:item];
+    SEL action = item.action;
+    if (action == @selector(togglePreivewPane:))
+    {
+        NSMenuItem *it = ((NSMenuItem *)item);
+        it.hidden = (!self.previewVisible && self.previousSplitRatio < 0.0);
+        it.title = self.previewVisible ?
+            NSLocalizedString(@"Hide Preview Pane",
+                              @"Toggle preview pane menu item") :
+            NSLocalizedString(@"Restore Preview Pane",
+                              @"Toggle preview pane menu item");
+
+    }
+    else if (action == @selector(toggleEditorPane:))
+    {
+        NSMenuItem *it = (NSMenuItem*)item;
+        it.title = self.editorVisible ?
+        NSLocalizedString(@"Hide Editor Pane",
+                          @"Toggle editor pane menu item") :
+        NSLocalizedString(@"Restore Editor Pane",
+                          @"Toggle editor pane menu item");
+    }
+    else if (action == @selector(toggleTOCRendering:))
+    {
+        NSInteger state = self.rendersTOC ? NSOnState : NSOffState;
+        ((NSMenuItem *)item).state = state;
+    }
+    return result;
 }
 
 
@@ -282,12 +629,18 @@ static NSDictionary *MPEditorKeysToObserve()
         return ![self textViewShouldInsertNewline:textView];
     else if (commandSelector == @selector(deleteBackward:))
         return ![self textViewShouldDeleteBackward:textView];
+    else if (commandSelector == @selector(moveToLeftEndOfLine:))
+        return ![self textViewShouldMoveToLeftEndOfLine:textView];
     return NO;
 }
 
 - (BOOL)textView:(NSTextView *)textView shouldChangeTextInRange:(NSRange)range
                                               replacementString:(NSString *)str
 {
+    // Ignore if this originates from an IM marked text commit event.
+    if (NSIntersectionRange(textView.markedRange, range).length)
+        return YES;
+
     if (self.preferences.editorCompleteMatchingCharacters)
     {
         BOOL strikethrough = self.preferences.extensionStrikethough;
@@ -304,7 +657,12 @@ static NSDictionary *MPEditorKeysToObserve()
 
 - (BOOL)textViewShouldInsertTab:(NSTextView *)textView
 {
-    if (self.preferences.editorConvertTabs)
+    if (textView.selectedRange.length != 0)
+    {
+        [self indent:nil];
+        return NO;
+    }
+    else if (self.preferences.editorConvertTabs)
     {
         [textView insertSpacesForTab];
         return NO;
@@ -316,7 +674,12 @@ static NSDictionary *MPEditorKeysToObserve()
 {
     if ([textView insertMappedContent])
         return NO;
-    if ([textView completeNextLine])
+    if ([textView completeNextListItem:
+            self.preferences.editorAutoIncrementNumberedLists])
+        return NO;
+    if ([textView completeNextBlockquoteLine])
+        return NO;
+    if ([textView completeNextIndentedLine])
         return NO;
     return YES;
 }
@@ -326,14 +689,45 @@ static NSDictionary *MPEditorKeysToObserve()
     if (self.preferences.editorCompleteMatchingCharacters)
     {
         NSUInteger location = self.editor.selectedRange.location;
-        [textView deleteMatchingCharactersAround:location];
+        if ([textView deleteMatchingCharactersAround:location])
+            return NO;
     }
     if (self.preferences.editorConvertTabs)
     {
         NSUInteger location = self.editor.selectedRange.location;
-        [textView unindentForSpacesBefore:location];
+        if ([textView unindentForSpacesBefore:location])
+            return NO;
     }
     return YES;
+}
+
+- (BOOL)textViewShouldMoveToLeftEndOfLine:(NSTextView *)textView
+{
+    if (!self.preferences.editorSmartHome)
+        return YES;
+    NSUInteger cur = textView.selectedRange.location;
+    NSUInteger location =
+        [textView.string locationOfFirstNonWhitespaceCharacterInLineBefore:cur];
+    if (location == cur || cur == 0)
+        return YES;
+    else if (cur >= textView.string.length)
+        cur = textView.string.length - 1;
+
+    // We don't want to jump rows when the line is wrapped. (#103)
+    // If the line is wrapped, the target will be higher than the current glyph.
+    NSLayoutManager *manager = textView.layoutManager;
+    NSTextContainer *container = textView.textContainer;
+    NSRect targetRect =
+        [manager boundingRectForGlyphRange:NSMakeRange(location, 1)
+                           inTextContainer:container];
+    NSRect currentRect =
+        [manager boundingRectForGlyphRange:NSMakeRange(cur, 1)
+                           inTextContainer:container];
+    if (targetRect.origin.y != currentRect.origin.y)
+        return YES;
+
+    textView.selectedRange = NSMakeRange(location, 0);
+    return NO;
 }
 
 
@@ -341,24 +735,37 @@ static NSDictionary *MPEditorKeysToObserve()
 
 - (void)webView:(WebView *)sender didCommitLoadForFrame:(WebFrame *)frame
 {
-    if (!self.previewFlushDisabled && sender.window)
+    NSWindow *window = sender.window;
+    @synchronized(window) {
+        if (!window.isFlushWindowDisabled)
+            [window disableFlushWindow];
+    }
+
+    // If MathJax is off, the on-completion callback will be invoked directly
+    // when loading is done (in -webView:didFinishLoadForFrame:).
+    if (self.preferences.htmlMathJax)
     {
-        self.previewFlushDisabled = YES;
-        [sender.window disableFlushWindow];
+        MPMathJaxListener *listener = [[MPMathJaxListener alloc] init];
+        [listener addCallback:MPGetPreviewLoadingCompletionHandler(self)
+                       forKey:@"End"];
+        [sender.windowScriptObject setValue:listener forKey:@"MathJaxListener"];
     }
 }
 
 - (void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame
 {
-    self.isLoadingPreview = NO;
-    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-        if (self.previewFlushDisabled)
-        {
-            [sender.window enableFlushWindow];
-            self.previewFlushDisabled = NO;
-        }
-        [self syncScrollers];
-    }];
+    // If MathJax is on, the on-completion callback will be invoked by the
+    // JavaScript handler injected in -webView:didCommitLoadForFrame:.
+    if (!self.preferences.htmlMathJax)
+    {
+        id callback = MPGetPreviewLoadingCompletionHandler(self);
+        NSOperationQueue *queue = [NSOperationQueue mainQueue];
+        [queue addOperationWithBlock:callback];
+    }
+    
+    // Update word count
+    if (self.preferences.editorShowWordCount)
+        [self updateWordCount];
 }
 
 - (void)webView:(WebView *)sender didFailLoadWithError:(NSError *)error
@@ -375,19 +782,45 @@ static NSDictionary *MPEditorKeysToObserve()
         request:(NSURLRequest *)request frame:(WebFrame *)frame
                 decisionListener:(id<WebPolicyDecisionListener>)listener
 {
-    if (self.isLoadingPreview)
+    switch ([information[WebActionNavigationTypeKey] integerValue])
     {
-        // We are rendering ourselves.
-        [listener use];
-    }
-    else
-    {
-        // An external location is requested. Hijack.
-        [listener ignore];
-        [[NSWorkspace sharedWorkspace] openURL:request.URL];
+        case WebNavigationTypeLinkClicked:
+            [listener ignore];
+            [[NSWorkspace sharedWorkspace] openURL:request.URL];
+            break;
+        default:
+            [listener use];
+            break;
     }
 }
 
+
+#pragma mark - WebEditingDelegate
+
+- (BOOL)webView:(WebView *)webView doCommandBySelector:(SEL)selector
+{
+    if (selector == @selector(copy:))
+    {
+        NSString *html = webView.selectedDOMRange.markupString;
+
+        // Inject the HTML content later so that it doesn't get cleared during
+        // the native copy operation.
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            NSPasteboard *pb = [NSPasteboard generalPasteboard];
+            if (![pb stringForType:@"public.html"])
+                [pb setString:html forType:@"public.html"];
+        }];
+    }
+    return NO;
+}
+
+#pragma mark - WebUIDelegate
+
+- (NSUInteger)webView:(WebView *)webView
+        dragDestinationActionMaskForDraggingInfo:(id<NSDraggingInfo>)info
+{
+    return WebDragDestinationActionNone;
+}
 
 #pragma mark - MPRendererDataSource
 
@@ -398,17 +831,8 @@ static NSDictionary *MPEditorKeysToObserve()
 
 - (NSString *)rendererHTMLTitle:(MPRenderer *)renderer
 {
-    NSString *name = self.fileURL.lastPathComponent;
-
-    // TODO: Detect extensions from bundle info directly. Don't hardcode.
-    if ([name hasSuffix:@".md"])
-        name = [name substringToIndex:name.length - 3];
-    else if ([name hasSuffix:@".markdown"])
-        name = [name substringToIndex:name.length - 9];
-
-    if (name.length)
-        return name;
-    return @"";
+    NSString *n = self.fileURL.lastPathComponent.stringByDeletingPathExtension;
+    return n ? n : @"";
 }
 
 
@@ -424,9 +848,19 @@ static NSDictionary *MPEditorKeysToObserve()
     return self.preferences.extensionSmartyPants;
 }
 
+- (BOOL)rendererRendersTOC:(MPRenderer *)renderer
+{
+    return self.rendersTOC;
+}
+
 - (NSString *)rendererStyleName:(MPRenderer *)renderer
 {
     return self.preferences.htmlStyleName;
+}
+
+- (BOOL)rendererDetectsFrontMatter:(MPRenderer *)renderer
+{
+    return self.preferences.htmlDetectFrontMatter;
 }
 
 - (BOOL)rendererHasSyntaxHighlighting:(MPRenderer *)renderer
@@ -451,12 +885,20 @@ static NSDictionary *MPEditorKeysToObserve()
 
 - (void)renderer:(MPRenderer *)renderer didProduceHTMLOutput:(NSString *)html
 {
+    // Delayed copying for -copyHtml.
+    if (self.copying)
+    {
+        self.copying = NO;
+        NSPasteboard *pasteboard = [NSPasteboard generalPasteboard];
+        [pasteboard clearContents];
+        [pasteboard writeObjects:@[self.renderer.currentHtml]];
+    }
     self.manualRender = self.preferences.markdownManualRender;
     NSURL *baseUrl = self.fileURL;
     if (!baseUrl)
         baseUrl = self.preferences.htmlDefaultDirectoryUrl;
-    self.isLoadingPreview = YES;
-    [self.preview.mainFrame loadHTMLString:html baseURL:baseUrl];
+    if (!self.printing)
+        [self.preview.mainFrame loadHTMLString:html baseURL:baseUrl];
 }
 
 
@@ -464,7 +906,7 @@ static NSDictionary *MPEditorKeysToObserve()
 
 - (void)textDidChange:(NSNotification *)notification
 {
-    if (!self.preferences.markdownManualRender && self.previewVisible)
+    if (self.needsHtml)
         [self.renderer parseAndRenderLater];
 }
 
@@ -489,17 +931,14 @@ static NSDictionary *MPEditorKeysToObserve()
                       }];
         [renderer renderIfPreferencesChanged];
     }
-
-    if (self.highlighter.isActive)
-        [self setupEditor];
-    
-    if ((self.preferences.editorOnRight && self.splitView.subviews[1] == self.preview)
-            || (!self.preferences.editorOnRight && self.splitView.subviews[0] == self.preview))
-        [self.splitView swapViews];
 }
 
 - (void)boundsDidChange:(NSNotification *)notification
 {
+    if (!self.shouldHandleBoundsChange)
+        return;
+
+    self.shouldHandleBoundsChange = NO;
     CGFloat clipWidth = [notification.object frame].size.width;
     NSRect editorFrame = self.editor.frame;
     if (editorFrame.size.width != clipWidth)
@@ -508,6 +947,19 @@ static NSDictionary *MPEditorKeysToObserve()
         self.editor.frame = editorFrame;
     }
     [self syncScrollers];
+    self.shouldHandleBoundsChange = YES;
+}
+
+- (void)didRequestEditorReload:(NSNotification *)notification
+{
+    NSString *key =
+        notification.userInfo[MPDidRequestEditorSetupNotificationKeyName];
+    [self setupEditor:key];
+}
+
+- (void)didRequestPreviewReload:(NSNotification *)notification
+{
+    [self render:nil];
 }
 
 
@@ -525,19 +977,15 @@ static NSDictionary *MPEditorKeysToObserve()
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         [defaults setObject:value forKey:preferenceKey];
     }
+    else if (object == [NSUserDefaults standardUserDefaults])
+    {
+        if (self.highlighter.isActive)
+            [self setupEditor:keyPath];
+    }
 }
 
 
 #pragma mark - IBAction
-
-- (IBAction)printDocument:(id)sender
-{
-    NSPrintOperation *operation =
-        [NSPrintOperation printOperationWithView:self.preview];
-    [operation runOperationModalForWindow:self.windowForSheet
-                                 delegate:nil didRunSelector:NULL
-                              contextInfo:NULL];
-}
 
 - (IBAction)copyHtml:(id)sender
 {
@@ -545,6 +993,15 @@ static NSDictionary *MPEditorKeysToObserve()
     // respecting the selection range.
     [self.preview setSelectedDOMRange:nil affinity:NSSelectionAffinityUpstream];
 
+    // If the preview is hidden, the HTML are not updating on text change.
+    // Perform one extra rendering so that the HTML is up to date, and do the
+    // copy in the rendering callback.
+    if (!self.needsHtml)
+    {
+        self.copying = YES;
+        [self.renderer parseAndRenderNow];
+        return;
+    }
     NSPasteboard *pasteboard = [NSPasteboard generalPasteboard];
     [pasteboard clearContents];
     [pasteboard writeObjects:@[self.renderer.currentHtml]];
@@ -554,16 +1011,13 @@ static NSDictionary *MPEditorKeysToObserve()
 {
     NSSavePanel *panel = [NSSavePanel savePanel];
     panel.allowedFileTypes = @[@"html"];
-    if (self.fileURL)
-    {
-        NSString *fileName = self.fileURL.lastPathComponent;
-        if ([fileName hasSuffix:@".md"])
-            fileName = [fileName substringToIndex:(fileName.length - 3)];
-        panel.nameFieldStringValue = fileName;
-    }
+    if (self.presumedFileName)
+        panel.nameFieldStringValue = self.presumedFileName;
 
     MPExportPanelAccessoryViewController *controller =
         [[MPExportPanelAccessoryViewController alloc] init];
+    controller.stylesIncluded = (BOOL)self.preferences.htmlStyleName;
+    controller.highlightingIncluded = self.preferences.htmlSyntaxHighlighting;
     panel.accessoryView = controller.view;
 
     NSWindow *w = self.windowForSheet;
@@ -576,6 +1030,35 @@ static NSDictionary *MPEditorKeysToObserve()
                                                    highlighting:highlighting];
         [html writeToURL:panel.URL atomically:NO encoding:NSUTF8StringEncoding
                    error:NULL];
+    }];
+}
+
+- (IBAction)exportPdf:(id)sender
+{
+    NSSavePanel *panel = [NSSavePanel savePanel];
+    panel.allowedFileTypes = @[@"pdf"];
+    if (self.presumedFileName)
+        panel.nameFieldStringValue = self.presumedFileName;
+    
+    NSWindow *w = nil;
+    NSArray *windowControllers = self.windowControllers;
+    if (windowControllers.count > 0)
+        w = [windowControllers[0] window];
+
+    [panel beginSheetModalForWindow:w completionHandler:^(NSInteger result) {
+        if (result != NSFileHandlingPanelOKButton)
+            return;
+        NSPrintInfo *info = self.printInfo;
+        [info.dictionary addEntriesFromDictionary:@{
+            NSPrintJobDisposition: NSPrintSaveJob,
+            NSPrintJobSavingURL: panel.URL
+        }];
+        NSView *view = self.preview.mainFrame.frameView.documentView;
+        NSPrintOperation *op = [NSPrintOperation printOperationWithView:view
+                                                              printInfo:info];
+        op.showsPrintPanel = NO;
+        op.showsProgressPanel = NO;
+        [op runOperation];
     }];
 }
 
@@ -702,46 +1185,12 @@ static NSDictionary *MPEditorKeysToObserve()
     NSUInteger newlineAfter =
         [content locationOfFirstNewlineAfter:location + length - 1];
 
-    // This is an empty line. Treat as normal return key.
+    // If we are on an empty line, treat as normal return key; otherwise insert
+    // two newlines.
     if (location == newlineBefore + 1 && location == newlineAfter)
-    {
         [self.editor insertNewline:self];
-        return;
-    }
-
-    // Insert two newlines after the current line, and jump to there.
-    self.editor.selectedRange = NSMakeRange(newlineAfter, 0);
-    [self.editor insertText:@"\n\n"];
-}
-
-- (IBAction)insertAmp:(id)sender
-{
-    [self.editor insertText:@"&amp;"];
-}
-
-- (IBAction)insertLt:(id)sender
-{
-    [self.editor insertText:@"&lt;"];
-}
-
-- (IBAction)insertGt:(id)sender
-{
-    [self.editor insertText:@"&gt;"];
-}
-
-- (IBAction)insertNbsp:(id)sender
-{
-    [self.editor insertText:@"&nbsp;"];
-}
-
-- (IBAction)insertQuot:(id)sender
-{
-    [self.editor insertText:@"&quot;"];
-}
-
-- (IBAction)insert39:(id)sender
-{
-    [self.editor insertText:@"&#39;"];
+    else
+        [self.editor insertText:@"\n\n"];
 }
 
 - (IBAction)setEditorOneQuarter:(id)sender
@@ -759,12 +1208,36 @@ static NSDictionary *MPEditorKeysToObserve()
     [self setSplitViewDividerLocation:0.5];
 }
 
-- (IBAction)hidePreivewPane:(id)sender
+- (IBAction)togglePreivewPane:(id)sender
 {
-    if (self.preferences.editorOnRight)
-        [self setSplitViewDividerLocation:0.0];
+    if (self.previewVisible)
+    {
+        self.previousSplitRatio = self.splitView.dividerLocation;
+        BOOL editorOnRight = self.preferences.editorOnRight;
+        [self setSplitViewDividerLocation:(editorOnRight ? 0.0 : 1.0)];
+    }
     else
-        [self setSplitViewDividerLocation:1.0];
+    {
+        if (self.previousSplitRatio >= 0.0)
+            [self setSplitViewDividerLocation:self.previousSplitRatio];
+    }
+}
+
+- (IBAction)toggleEditorPane:(id)sender
+{
+    if (self.editorVisible)
+    {
+        self.previousSplitRatio = self.splitView.dividerLocation;
+        if (self.preferences.editorOnRight)
+            [self setSplitViewDividerLocation:1.0];
+        else
+            [self setSplitViewDividerLocation:0.0];
+    }
+    else
+    {
+        if (self.previousSplitRatio >= 0.0)
+            [self setSplitViewDividerLocation:self.previousSplitRatio];
+    }
 }
 
 - (IBAction)render:(id)sender
@@ -772,59 +1245,145 @@ static NSDictionary *MPEditorKeysToObserve()
     [self.renderer parseAndRenderLater];
 }
 
+- (IBAction)toggleTOCRendering:(id)sender
+{
+    BOOL nextState = NO;
+    if ([sender state] == NSOffState)
+        nextState = YES;
+    self.rendersTOC = nextState;
+}
+
 
 #pragma mark - Private
 
-- (void)setupEditor
+- (void)setupEditor:(NSString *)changedKey
 {
     [self.highlighter deactivate];
-    self.editor.font = [self.preferences.editorBaseFont copy];
 
-    int extensions = pmh_EXT_NOTES;
-    if (self.preferences.extensionFootnotes)
-        extensions = pmh_EXT_NONE;
-    self.highlighter.extensions = extensions;
-
-    CGFloat x = self.preferences.editorHorizontalInset;
-    CGFloat y = self.preferences.editorVerticalInset;
-    self.editor.textContainerInset = NSMakeSize(x, y);
-
-    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
-    style.lineSpacing = self.preferences.editorLineSpacing;
-    self.editor.defaultParagraphStyle = [style copy];
-
-    self.editor.textColor = nil;
-    self.editor.backgroundColor = nil;
-    self.highlighter.styles = nil;
-    [self.highlighter readClearTextStylesFromTextView];
-
-    NSString *themeName = [self.preferences.editorStyleName copy];
-    if (themeName.length)
+    if (!changedKey || [changedKey isEqualToString:@"extensionFootnotes"])
     {
-        NSString *path = MPThemePathForName(themeName);
-        NSString *themeString = MPReadFileOfPath(path);
-        [self.highlighter applyStylesFromStylesheet:themeString
-                                   withErrorHandler:
-            ^(NSArray *errorMessages) {
-                self.preferences.editorStyleName = nil;
-            }];
+        int extensions = pmh_EXT_NOTES;
+        if (self.preferences.extensionFootnotes)
+            extensions = pmh_EXT_NONE;
+        self.highlighter.extensions = extensions;
     }
 
-    // Have to keep this enabled because HGMarkdownHighlighter needs them.
-    NSClipView *contentView = self.editor.enclosingScrollView.contentView;
-    contentView.postsBoundsChangedNotifications = YES;
-
-    NSDictionary *keysAndDefaults = MPEditorKeysToObserve();
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    for (NSString *key in keysAndDefaults)
+    if (!changedKey || [changedKey isEqualToString:@"editorHorizontalInset"]
+            || [changedKey isEqualToString:@"editorVerticalInset"]
+            || [changedKey isEqualToString:@"editorWidthLimited"]
+            || [changedKey isEqualToString:@"editorMaximumWidth"])
     {
-        NSString *preferenceKey = MPEditorPreferenceKeyWithValueKey(key);
-        id value = [defaults objectForKey:preferenceKey];
-        value = value ? value : keysAndDefaults[key];
-        [self.editor setValue:value forKey:key];
+        CGFloat x = self.preferences.editorHorizontalInset;
+        CGFloat y = self.preferences.editorVerticalInset;
+        if (self.preferences.editorWidthLimited)
+        {
+            CGFloat editorWidth = self.editor.frame.size.width;
+            CGFloat maxWidth = self.preferences.editorMaximumWidth;
+            if (editorWidth > 2 * x + maxWidth)
+                x = (editorWidth - maxWidth) * 0.45;
+            // We tend to expect things in an editor to shift to left a bit.
+            // Hence the 0.45 instead of 0.5 (which whould feel a bit too much).
+        }
+        self.editor.textContainerInset = NSMakeSize(x, y);
+    }
+
+    if (!changedKey || [changedKey isEqualToString:@"editorBaseFontInfo"]
+            || [changedKey isEqualToString:@"editorStyleName"]
+            || [changedKey isEqualToString:@"editorLineSpacing"])
+    {
+        NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+        style.lineSpacing = self.preferences.editorLineSpacing;
+        self.editor.defaultParagraphStyle = [style copy];
+        self.editor.font = [self.preferences.editorBaseFont copy];
+        self.editor.textColor = nil;
+        self.editor.backgroundColor = nil;
+        self.highlighter.styles = nil;
+        [self.highlighter readClearTextStylesFromTextView];
+
+        NSString *themeName = [self.preferences.editorStyleName copy];
+        if (themeName.length)
+        {
+            NSString *path = MPThemePathForName(themeName);
+            NSString *themeString = MPReadFileOfPath(path);
+            [self.highlighter applyStylesFromStylesheet:themeString
+                                       withErrorHandler:
+                ^(NSArray *errorMessages) {
+                    self.preferences.editorStyleName = nil;
+                }];
+        }
+
+        CGColorRef backgroundCGColor = self.editor.backgroundColor.CGColor;
+
+        CALayer *layer = [CALayer layer];
+        layer.backgroundColor = backgroundCGColor;
+        self.editorContainer.layer = layer;
+        self.editorContainer.wantsLayer = YES;
+    }
+
+    if (!changedKey || [changedKey isEqualToString:@"editorShowWordCount"])
+    {
+        if (self.preferences.editorShowWordCount)
+        {
+            self.wordCountWidget.hidden = NO;
+            self.editorPaddingBottom.constant = 35.0;
+            [self updateWordCount];
+        }
+        else
+        {
+            self.wordCountWidget.hidden = YES;
+            self.editorPaddingBottom.constant = 0.0;
+        }
+    }
+
+    if (!changedKey || [changedKey isEqualToString:@"editorScrollsPastEnd"])
+    {
+        self.editor.scrollsPastEnd = self.preferences.editorScrollsPastEnd;
+        NSRect contentRect = self.editor.contentRect;
+        NSSize minSize = self.editor.enclosingScrollView.contentSize;
+        if (contentRect.size.height < minSize.height)
+            contentRect.size.height = minSize.height;
+        if (contentRect.size.width < minSize.width)
+            contentRect.size.width = minSize.width;
+        self.editor.frame = contentRect;
+    }
+
+    if (!changedKey)
+    {
+        NSClipView *contentView = self.editor.enclosingScrollView.contentView;
+        contentView.postsBoundsChangedNotifications = YES;
+
+        NSDictionary *keysAndDefaults = MPEditorKeysToObserve();
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        for (NSString *key in keysAndDefaults)
+        {
+            NSString *preferenceKey = MPEditorPreferenceKeyWithValueKey(key);
+            id value = [defaults objectForKey:preferenceKey];
+            value = value ? value : keysAndDefaults[key];
+            [self.editor setValue:value forKey:key];
+        }
+    }
+
+    if (!changedKey || [changedKey isEqualToString:@"editorOnRight"])
+    {
+        BOOL editorOnRight = self.preferences.editorOnRight;
+        NSArray *subviews = self.splitView.subviews;
+        if ((!editorOnRight && subviews[0] == self.preview)
+            || (editorOnRight && subviews[1] == self.preview))
+        {
+            [self.splitView swapViews];
+            if (!self.previewVisible && self.previousSplitRatio >= 0.0)
+                self.previousSplitRatio = 1.0 - self.previousSplitRatio;
+
+            // Need to queue this or the views won't be initialised correctly.
+            // Don't really know why, but this works.
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                self.splitView.needsLayout = YES;
+            }];
+        }
     }
 
     [self.highlighter activate];
+    self.editor.automaticLinkDetectionEnabled = NO;
 }
 
 - (void)syncScrollers
@@ -862,6 +1421,66 @@ static NSDictionary *MPEditorKeysToObserve()
     if (!wasVisible && self.previewVisible
             && !self.preferences.markdownManualRender)
         [self.renderer parseAndRenderNow];
+    [self setupEditor:NSStringFromSelector(@selector(editorHorizontalInset))];
+}
+
+- (NSString *)presumedFileName
+{
+    if (self.fileURL)
+        return self.fileURL.lastPathComponent.stringByDeletingPathExtension;
+
+    NSString *title = nil;
+    NSString *string = self.editor.string;
+    if (self.preferences.htmlDetectFrontMatter)
+        title = [[[string frontMatter:NULL] objectForKey:@"title"] description];
+    if (title)
+        return title;
+
+    title = string.titleString;
+    if (!title)
+        return nil;
+
+    static NSRegularExpression *regex = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        regex = [NSRegularExpression regularExpressionWithPattern:@"[/|:]"
+                                                          options:0 error:NULL];
+    });
+
+    NSRange range = NSMakeRange(0, title.length);
+    title = [regex stringByReplacingMatchesInString:title options:0 range:range
+                                       withTemplate:@"-"];
+    return title;
+}
+
+- (void)updateWordCount
+{
+    NSString *text = self.preview.mainFrame.DOMDocument.nodeText;
+    NSCharacterSet *sp = [NSCharacterSet whitespaceAndNewlineCharacterSet];
+    NSArray *comps = [text componentsSeparatedByCharactersInSet:sp];
+
+    NSString *trimmedDocument = [text stringByTrimmingCharactersInSet:sp];
+    NSString *noWhitespace = [comps componentsJoinedByString:@""];
+
+    self.totalWords = text.numberOfWords;
+    self.totalCharacters = trimmedDocument.length;
+    self.totalCharactersNoSpaces = noWhitespace.length;
+}
+
+- (void)document:(NSDocument *)doc didPrint:(BOOL)ok context:(void *)context
+{
+    if ([doc respondsToSelector:@selector(setPrinting:)])
+        [(id)doc setPrinting:NO];
+    if (context)
+    {
+        NSInvocation *invocation = (__bridge NSInvocation *)context;
+        if ([invocation isKindOfClass:[NSInvocation class]])
+        {
+            [invocation setArgument:&doc atIndex:0];
+            [invocation setArgument:&ok atIndex:1];
+            [invocation invoke];
+        }
+    }
 }
 
 @end

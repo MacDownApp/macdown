@@ -7,6 +7,7 @@
 //
 
 #import "NSString+Lookup.h"
+#import "YAMLSerialization.h"
 #import "MPUtilities.h"
 
 
@@ -45,24 +46,36 @@
     return p;
 }
 
-- (NSRange)rangeOfLinesInRange:(NSRange)range
+- (id)frontMatter:(NSUInteger *)contentOffset
 {
-    if (self.length == 0)
-        return NSMakeRange(0, 0);
+    NSRegularExpressionOptions op = NSRegularExpressionDotMatchesLineSeparators;
+    NSRegularExpression *regex =
+        [NSRegularExpression regularExpressionWithPattern:@"^---\n(.*?\n)---"
+                                                  options:op error:NULL];
+    NSTextCheckingResult *result =
+        [regex firstMatchInString:self options:0
+                            range:NSMakeRange(0, self.length)];
+    if (!result)    // No front matter match. Do nothing.
+    {
+        if (contentOffset)
+            *contentOffset = 0;
+        return nil;
+    }
 
-    NSUInteger location = range.location;
-    NSUInteger length = range.length;
-    NSUInteger start = [self locationOfFirstNewlineBefore:location] + 1;
-    NSUInteger end = location + length - 1;
-    if (end >= self.length - 1)
-        end = self.length - 2;
-    if (!MPCharacterIsNewline([self characterAtIndex:end]))
-        end = [self locationOfFirstNewlineAfter:end];
-    if (end < start)
-        end = start;
-    if (end < self.length)
-        end++;
-    return NSMakeRange(start, end - start);
+    NSString *frontMatter = [self substringWithRange:[result rangeAtIndex:1]];
+    NSArray *objects =
+        [YAMLSerialization objectsWithYAMLString:frontMatter
+                                         options:kYAMLReadOptionStringScalars
+                                           error:NULL];
+    if (!objects.count)
+    {
+        if (contentOffset)
+            *contentOffset = 0;
+        return nil;
+    }
+    if (contentOffset)
+        *contentOffset = [result rangeAtIndex:0].length;
+    return objects[0];
 }
 
 - (NSString *)titleString
