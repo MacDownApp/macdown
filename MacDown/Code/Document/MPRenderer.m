@@ -242,7 +242,8 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
 static hoedown_renderer *MPCreateHTMLRenderer(MPRenderer *renderer)
 {
     int flags = renderer.rendererFlags;
-    hoedown_renderer *htmlRenderer = hoedown_html_renderer_new(flags, 0);
+    hoedown_renderer *htmlRenderer = hoedown_html_renderer_new(
+        flags, kMPRendererTOCLevel);
     htmlRenderer->blockcode = hoedown_patch_render_blockcode;
     htmlRenderer->listitem = hoedown_patch_render_listitem;
 
