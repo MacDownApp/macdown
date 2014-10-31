@@ -1185,16 +1185,12 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     NSUInteger newlineAfter =
         [content locationOfFirstNewlineAfter:location + length - 1];
 
-    // This is an empty line. Treat as normal return key.
+    // If we are on an empty line, treat as normal return key; otherwise insert
+    // two newlines.
     if (location == newlineBefore + 1 && location == newlineAfter)
-    {
         [self.editor insertNewline:self];
-        return;
-    }
-
-    // Insert two newlines after the current line, and jump to there.
-    self.editor.selectedRange = NSMakeRange(newlineAfter, 0);
-    [self.editor insertText:@"\n\n"];
+    else
+        [self.editor insertText:@"\n\n"];
 }
 
 - (IBAction)setEditorOneQuarter:(id)sender
