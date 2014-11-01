@@ -547,10 +547,10 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     info.horizontalPagination = NSAutoPagination;
     info.verticalPagination = NSAutoPagination;
     info.verticallyCentered = NO;
-    info.topMargin = 0.0;
+    info.topMargin = 50.0;
     info.leftMargin = 0.0;
     info.rightMargin = 0.0;
-    info.bottomMargin = 0.0;
+    info.bottomMargin = 50.0;
     return info;
 }
 
@@ -1057,7 +1057,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
         NSPrintOperation *op = [NSPrintOperation printOperationWithView:view
                                                               printInfo:info];
         op.showsPrintPanel = NO;
-        op.showsProgressPanel = NO;
+        op.showsProgressPanel = YES;
         [op runOperation];
     }];
 }
