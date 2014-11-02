@@ -13,7 +13,6 @@
 
 NSString * const kMPCSSType = @"text/css";
 NSString * const kMPJavaScriptType = @"text/javascript";
-NSString * const kMPMathJaxConfigType = @"text/x-mathjax-config";
 
 
 @interface MPAsset ()

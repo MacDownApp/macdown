@@ -5,7 +5,6 @@ source 'https://github.com/CocoaPods/Specs.git'
 
 target "MacDown" do
   pod 'handlebars-objc', '~> 1.3'
-  pod 'hoedown', '~> 2.0', :inhibit_warnings => true
   pod 'JJPluralForm', '~> 2.1'      # Plural form localization.
   pod 'LibYAML', '~> 0.1', :inhibit_warnings => true
   pod 'M13OrderedDictionary', '~> 1.0'

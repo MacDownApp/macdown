@@ -50,9 +50,13 @@ typedef struct rndr_state_ex {
 
 void hoedown_patch_render_blockcode(
     hoedown_buffer *ob, const hoedown_buffer *text, const hoedown_buffer *lang,
-    void *opaque);
+    const hoedown_renderer_data *data);
 
 void hoedown_patch_render_listitem(
-    hoedown_buffer *ob, const hoedown_buffer *text, int flags, void *opaque);
+    hoedown_buffer *ob, const hoedown_buffer *text, hoedown_list_flags flags,
+    const hoedown_renderer_data *data);
+
+int hoedown_patch_render_math(hoedown_buffer *ob, const hoedown_buffer *text,
+    int displaymode, const hoedown_renderer_data *data);
 
 #endif

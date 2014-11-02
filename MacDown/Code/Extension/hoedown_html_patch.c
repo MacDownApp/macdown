@@ -7,9 +7,8 @@
 //
 
 #include <string.h>
-#include <hoedown/escape.h>
-#include <hoedown/markdown.h>
-#include <hoedown/html.h>
+#include "escape.h"
+#include "html.h"
 #include "hoedown_html_patch.h"
 
 #define USE_XHTML(opt) (opt->flags & HOEDOWN_HTML_USE_XHTML)
@@ -19,12 +18,12 @@
 // the HTML compatible with Prism.
 void hoedown_patch_render_blockcode(
     hoedown_buffer *ob, const hoedown_buffer *text, const hoedown_buffer *lang,
-    void *opaque)
+    const hoedown_renderer_data *data)
 {
 	if (ob->size) hoedown_buffer_putc(ob, '\n');
 
 	if (lang) {
-        rndr_state_ex *state = opaque;
+        rndr_state_ex *state = data->opaque;
         hoedown_buffer *mapped = NULL;
         if (state->language_addition)
             mapped = state->language_addition(lang, state->owner);
@@ -52,11 +51,12 @@ void hoedown_patch_render_blockcode(
 // Supports task list syntax if HOEDOWN_HTML_USE_TASK_LIST is on.
 // Implementation based on hoextdown.
 void hoedown_patch_render_listitem(
-    hoedown_buffer *ob, const hoedown_buffer *text, int flags, void *opaque)
+    hoedown_buffer *ob, const hoedown_buffer *text, hoedown_list_flags flags,
+    const hoedown_renderer_data *data)
 {
 	if (text)
     {
-        rndr_state_ex *state = opaque;
+        rndr_state_ex *state = data->opaque;
         size_t offset = 0;
         if (flags & HOEDOWN_LI_BLOCK)
             offset = 3;
@@ -102,4 +102,15 @@ void hoedown_patch_render_listitem(
 		hoedown_buffer_put(ob, text->data + offset, size - offset);
 	}
 	HOEDOWN_BUFPUTSL(ob, "</li>\n");
+}
+
+int hoedown_patch_render_math(hoedown_buffer *ob, const hoedown_buffer *text,
+    int displaymode, const hoedown_renderer_data *data)
+{
+    
+    HOEDOWN_BUFPUTSL(ob, "<span class=\"katex\">");
+    hoedown_buffer_put(ob, text->data, text->size);
+    HOEDOWN_BUFPUTSL(ob, "</span>");
+    
+    return 1;
 }

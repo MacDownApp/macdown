@@ -8,8 +8,8 @@
 
 #import "MPRenderer.h"
 #import <limits.h>
-#import <hoedown/html.h>
-#import <hoedown/markdown.h>
+#import "html.h"
+#import "document.h"
 #import "hoedown_html_patch.h"
 #import "NSObject+HTMLTabularize.h"
 #import "NSString+Lookup.h"
@@ -17,11 +17,10 @@
 #import "MPAsset.h"
 
 
-static NSString * const kMPMathJaxCDN =
-    @"http://cdn.mathjax.org/mathjax/latest/MathJax.js"
-    @"?config=TeX-AMS-MML_HTMLorMML";
-static NSString * const kMPPrismScriptDirectory = @"Prism/components";
-static NSString * const kMPPrismThemeDirectory = @"Prism/themes";
+static NSString * const kMPKateXScriptDirectory = @"katex";
+static NSString * const kMPKatexStylesheetDirectory = @"katex";
+static NSString * const kMPPrismScriptDirectory = @"prism/components";
+static NSString * const kMPPrismThemeDirectory = @"prism/themes";
 static size_t kMPRendererNestingLevel = SIZE_MAX;
 static int kMPRendererTOCLevel = 6;  // h1 to h6.
 
@@ -65,10 +64,10 @@ static NSString *MPHTMLFromMarkdown(
     hoedown_renderer *htmlRenderer, hoedown_renderer *tocRenderer)
 {
     NSData *inputData = [text dataUsingEncoding:NSUTF8StringEncoding];
-    hoedown_markdown *markdown = hoedown_markdown_new(
-        flags, kMPRendererNestingLevel, htmlRenderer);
+    hoedown_document *markdown = hoedown_document_new(
+        htmlRenderer, flags, kMPRendererNestingLevel);
     hoedown_buffer *ob = hoedown_buffer_new(64);
-    hoedown_markdown_render(ob, inputData.bytes, inputData.length, markdown);
+    hoedown_document_render(markdown, ob, inputData.bytes, inputData.length);
     if (smartypants)
     {
         hoedown_buffer *ib = ob;
@@ -77,16 +76,16 @@ static NSString *MPHTMLFromMarkdown(
         hoedown_buffer_free(ib);
     }
     NSString *result = [NSString stringWithUTF8String:hoedown_buffer_cstr(ob)];
-    hoedown_markdown_free(markdown);
+    hoedown_document_free(markdown);
     hoedown_buffer_free(ob);
 
     if (tocRenderer)
     {
-        markdown = hoedown_markdown_new(flags,
-            kMPRendererNestingLevel, tocRenderer);
+        markdown = hoedown_document_new(tocRenderer, flags,
+            kMPRendererNestingLevel);
         ob = hoedown_buffer_new(64);
-        hoedown_markdown_render(
-            ob, inputData.bytes, inputData.length, markdown);
+        hoedown_document_render(
+            markdown, ob, inputData.bytes, inputData.length);
         NSString *toc = [NSString stringWithUTF8String:hoedown_buffer_cstr(ob)];
 
         static NSRegularExpression *tocRegex = nil;
@@ -102,7 +101,7 @@ static NSString *MPHTMLFromMarkdown(
         result = [tocRegex stringByReplacingMatchesInString:result options:0
                                                       range:replaceRange
                                                withTemplate:toc];
-        hoedown_markdown_free(markdown);
+        hoedown_document_free(markdown);
         hoedown_buffer_free(ob);
     }
     if (frontMatter)
@@ -158,7 +157,7 @@ static inline BOOL MPAreNilableStringsEqual(NSString *s1, NSString *s2)
 @property (readonly) NSArray *baseStylesheets;
 @property (readonly) NSArray *prismStylesheets;
 @property (readonly) NSArray *prismScripts;
-@property (readonly) NSArray *mathjaxScripts;
+@property (readonly) NSArray *katexScripts;
 @property (readonly) NSArray *stylesheets;
 @property (readonly) NSArray *scripts;
 @property (copy) NSString *currentHtml;
@@ -168,7 +167,7 @@ static inline BOOL MPAreNilableStringsEqual(NSString *s1, NSString *s2)
 @property BOOL TOC;
 @property (copy) NSString *styleName;
 @property BOOL frontMatter;
-@property BOOL mathjax;
+@property BOOL katex;
 @property BOOL syntaxHighlighting;
 @property BOOL manualRender;
 @property (copy) NSString *highlightingThemeName;
@@ -246,6 +245,7 @@ static hoedown_renderer *MPCreateHTMLRenderer(MPRenderer *renderer)
         flags, kMPRendererTOCLevel);
     htmlRenderer->blockcode = hoedown_patch_render_blockcode;
     htmlRenderer->listitem = hoedown_patch_render_listitem;
+    htmlRenderer->math = hoedown_patch_render_math;
 
     rndr_state_ex *state = malloc(sizeof(rndr_state_ex));
     memcpy(state, htmlRenderer->opaque, sizeof(rndr_state));
@@ -307,28 +307,18 @@ static hoedown_renderer *MPCreateHTMLRenderer(MPRenderer *renderer)
     return scripts;
 }
 
-- (NSArray *)mathjaxScripts
+- (NSArray *)katexScripts
 {
-    NSMutableArray *scripts = [NSMutableArray array];
-    NSURL *url = [NSURL URLWithString:kMPMathJaxCDN];
     NSBundle *bundle = [NSBundle mainBundle];
-    MPEmbeddedScript *script = nil;
-    script =
-        [MPEmbeddedScript assetWithURL:[bundle URLForResource:@"callback"
-                                                withExtension:@"js"
-                                                 subdirectory:@"MathJax"]
-                               andType:kMPMathJaxConfigType];
-    [scripts addObject:script];
-    if ([self.delegate rendererMathJaxInlineDollarEnabled:self])
-    {
-        script =
-            [MPEmbeddedScript assetWithURL:[bundle URLForResource:@"inline"
-                                                    withExtension:@"js"
-                                                     subdirectory:@"MathJax"]
-                                   andType:kMPMathJaxConfigType];
-        [scripts addObject:script];
-    }
-    [scripts addObject:[MPScript javaScriptWithURL:url]];
+    NSURL *url1 = [bundle URLForResource:@"katex.min"
+                          withExtension:@"js"
+                          subdirectory:kMPKateXScriptDirectory];
+    NSURL *url2 = [bundle URLForResource:@"watchkatex"
+                          withExtension:@"js"];
+    NSArray *scripts = @[
+        [MPScript javaScriptWithURL:url1],
+        [MPScript javaScriptWithURL:url2]
+    ];
     return scripts;
 }
 
@@ -337,6 +327,13 @@ static hoedown_renderer *MPCreateHTMLRenderer(MPRenderer *renderer)
     NSMutableArray *stylesheets = [self.baseStylesheets mutableCopy];
     if ([self.delegate rendererHasSyntaxHighlighting:self])
         [stylesheets addObjectsFromArray:self.prismStylesheets];
+    if ([self.delegate rendererHasKatex:self]) {
+        NSBundle *bundle = [NSBundle mainBundle];
+        NSURL *url = [bundle URLForResource:@"katex.min"
+                             withExtension:@"css"
+                             subdirectory:kMPKatexStylesheetDirectory];
+        [stylesheets addObject:[MPStyleSheet CSSWithURL:url]];
+    }
     return stylesheets;
 }
 
@@ -353,8 +350,8 @@ static hoedown_renderer *MPCreateHTMLRenderer(MPRenderer *renderer)
     }
     if ([d rendererHasSyntaxHighlighting:self])
         [scripts addObjectsFromArray:self.prismScripts];
-    if ([d rendererHasMathJax:self])
-        [scripts addObjectsFromArray:self.mathjaxScripts];
+    if ([d rendererHasKatex:self])
+        [scripts addObjectsFromArray:self.katexScripts];
     return scripts;
 }
 
@@ -445,7 +442,7 @@ static hoedown_renderer *MPCreateHTMLRenderer(MPRenderer *renderer)
     id<MPRendererDelegate> d = self.delegate;
     if ([d rendererHasSyntaxHighlighting:self] != self.syntaxHighlighting)
         changed = YES;
-    else if ([d rendererHasMathJax:self] != self.mathjax)
+    else if ([d rendererHasKatex:self] != self.katex)
         changed = YES;
     else if (!MPAreNilableStringsEqual(
             [d rendererHighlightingThemeName:self], self.highlightingThemeName))
@@ -469,7 +466,7 @@ static hoedown_renderer *MPCreateHTMLRenderer(MPRenderer *renderer)
     [delegate renderer:self didProduceHTMLOutput:html];
 
     self.styleName = [delegate rendererStyleName:self];
-    self.mathjax = [delegate rendererHasMathJax:self];
+    self.katex = [delegate rendererHasKatex:self];
     self.syntaxHighlighting = [delegate rendererHasSyntaxHighlighting:self];
     self.highlightingThemeName = [delegate rendererHighlightingThemeName:self];
 }
@@ -494,10 +491,10 @@ static hoedown_renderer *MPCreateHTMLRenderer(MPRenderer *renderer)
         [styles addObjectsFromArray:self.prismStylesheets];
         [scripts addObjectsFromArray:self.prismScripts];
     }
-    if ([self.delegate rendererHasMathJax:self])
+    if ([self.delegate rendererHasKatex:self])
     {
         scriptsOption = MPAssetEmbedded;
-        [scripts addObjectsFromArray:self.mathjaxScripts];
+        [scripts addObjectsFromArray:self.katexScripts];
     }
 
     NSString *title = [self.dataSource rendererHTMLTitle:self];

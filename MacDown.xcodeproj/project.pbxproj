@@ -26,8 +26,6 @@
 		1F0D9DB2194AC9EE008E1856 /* MPHtmlPreferencesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F0D9D87194AC83C008E1856 /* MPHtmlPreferencesViewController.xib */; };
 		1F0D9DB3194AC9EE008E1856 /* MPMarkdownPreferencesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F0D9D89194AC83C008E1856 /* MPMarkdownPreferencesViewController.xib */; };
 		1F0D9DB4194AC9EE008E1856 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F0D9D81194AC83C008E1856 /* MainMenu.xib */; };
-		1F0F3BFC195F75F200FC0B3B /* MathJax in Resources */ = {isa = PBXBuildFile; fileRef = 1F0F3BFB195F75F200FC0B3B /* MathJax */; };
-		1F23A92119928E650052DB78 /* MPMathJaxListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F23A92019928E650052DB78 /* MPMathJaxListener.m */; };
 		1F27896B1973BEB100EE696A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1F2789691973BEB100EE696A /* Localizable.strings */; };
 		1F396E6619B0EA17000D3EFC /* MPEditorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F396E6519B0EA17000D3EFC /* MPEditorView.m */; };
 		1F3A47521953E84700293259 /* help.md in Resources */ = {isa = PBXBuildFile; fileRef = 1F3A47511953E84700293259 /* help.md */; };
@@ -66,6 +64,77 @@
 		1FFEB32B19737D6E00B2254F /* YAMLSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEB32A19737D6E00B2254F /* YAMLSerialization.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc -Wno-unused-variable"; }; };
 		1FFF301D1948A5320009AF24 /* MPStringLookupTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FFF301C1948A5320009AF24 /* MPStringLookupTests.m */; };
 		5318159056384894AA42DB4F /* libPods-MacDownTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AEAF42BBDCEC4012B5092BB3 /* libPods-MacDownTests.a */; };
+		5D26826919FF3C2600EC4D89 /* katex in Resources */ = {isa = PBXBuildFile; fileRef = 5D26826819FF3C2600EC4D89 /* katex */; };
+		5D7EA59019FF505B008477A3 /* .editorconfig in Resources */ = {isa = PBXBuildFile; fileRef = 5D7EA53B19FF505B008477A3 /* .editorconfig */; };
+		5D7EA59119FF505B008477A3 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 5D7EA53C19FF505B008477A3 /* .gitignore */; };
+		5D7EA59219FF505B008477A3 /* .travis.yml in Resources */ = {isa = PBXBuildFile; fileRef = 5D7EA53D19FF505B008477A3 /* .travis.yml */; };
+		5D7EA59519FF505B008477A3 /* hoedown.def in Resources */ = {isa = PBXBuildFile; fileRef = 5D7EA54219FF505B008477A3 /* hoedown.def */; };
+		5D7EA59619FF505B008477A3 /* html_block_names.gperf in Resources */ = {isa = PBXBuildFile; fileRef = 5D7EA54319FF505B008477A3 /* html_block_names.gperf */; };
+		5D7EA59719FF505B008477A3 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 5D7EA54419FF505B008477A3 /* LICENSE */; };
+		5D7EA59819FF505B008477A3 /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = 5D7EA54519FF505B008477A3 /* Makefile */; };
+		5D7EA59919FF505B008477A3 /* Makefile.win in Resources */ = {isa = PBXBuildFile; fileRef = 5D7EA54619FF505B008477A3 /* Makefile.win */; };
+		5D7EA59A19FF505B008477A3 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 5D7EA54719FF505B008477A3 /* README.md */; };
+		5D7EA59B19FF505B008477A3 /* autolink.c in Sources */ = {isa = PBXBuildFile; fileRef = 5D7EA54919FF505B008477A3 /* autolink.c */; };
+		5D7EA59C19FF505B008477A3 /* buffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 5D7EA54B19FF505B008477A3 /* buffer.c */; };
+		5D7EA59D19FF505B008477A3 /* document.c in Sources */ = {isa = PBXBuildFile; fileRef = 5D7EA54D19FF505B008477A3 /* document.c */; };
+		5D7EA59E19FF505B008477A3 /* escape.c in Sources */ = {isa = PBXBuildFile; fileRef = 5D7EA54F19FF505B008477A3 /* escape.c */; };
+		5D7EA59F19FF505B008477A3 /* html.c in Sources */ = {isa = PBXBuildFile; fileRef = 5D7EA55119FF505B008477A3 /* html.c */; };
+		5D7EA5A019FF505B008477A3 /* html_blocks.c in Sources */ = {isa = PBXBuildFile; fileRef = 5D7EA55319FF505B008477A3 /* html_blocks.c */; };
+		5D7EA5A119FF505B008477A3 /* html_smartypants.c in Sources */ = {isa = PBXBuildFile; fileRef = 5D7EA55419FF505B008477A3 /* html_smartypants.c */; };
+		5D7EA5A219FF505B008477A3 /* stack.c in Sources */ = {isa = PBXBuildFile; fileRef = 5D7EA55519FF505B008477A3 /* stack.c */; };
+		5D7EA5A319FF505B008477A3 /* version.c in Sources */ = {isa = PBXBuildFile; fileRef = 5D7EA55719FF505B008477A3 /* version.c */; };
+		5D7EA5A419FF505B008477A3 /* config.json in Resources */ = {isa = PBXBuildFile; fileRef = 5D7EA55A19FF505B008477A3 /* config.json */; };
+		5D7EA5A519FF505B008477A3 /* MarkdownTest.pl in Resources */ = {isa = PBXBuildFile; fileRef = 5D7EA55C19FF505B008477A3 /* MarkdownTest.pl */; };
+		5D7EA5A619FF505B008477A3 /* Amps and angle encoding.html in Resources */ = {isa = PBXBuildFile; fileRef = 5D7EA55E19FF505B008477A3 /* Amps and angle encoding.html */; };
+		5D7EA5A719FF505B008477A3 /* Amps and angle encoding.text in Sources */ = {isa = PBXBuildFile; fileRef = 5D7EA55F19FF505B008477A3 /* Amps and angle encoding.text */; };
+		5D7EA5A819FF505B008477A3 /* Auto links.html in Resources */ = {isa = PBXBuildFile; fileRef = 5D7EA56019FF505B008477A3 /* Auto links.html */; };
+		5D7EA5A919FF505B008477A3 /* Auto links.text in Sources */ = {isa = PBXBuildFile; fileRef = 5D7EA56119FF505B008477A3 /* Auto links.text */; };
+		5D7EA5AA19FF505B008477A3 /* Backslash escapes.html in Resources */ = {isa = PBXBuildFile; fileRef = 5D7EA56219FF505B008477A3 /* Backslash escapes.html */; };
+		5D7EA5AB19FF505B008477A3 /* Backslash escapes.text in Sources */ = {isa = PBXBuildFile; fileRef = 5D7EA56319FF505B008477A3 /* Backslash escapes.text */; };
+		5D7EA5AC19FF505B008477A3 /* Blockquotes with code blocks.html in Resources */ = {isa = PBXBuildFile; fileRef = 5D7EA56419FF505B008477A3 /* Blockquotes with code blocks.html */; };
+		5D7EA5AD19FF505B008477A3 /* Blockquotes with code blocks.text in Sources */ = {isa = PBXBuildFile; fileRef = 5D7EA56519FF505B008477A3 /* Blockquotes with code blocks.text */; };
+		5D7EA5AE19FF505B008477A3 /* Code Blocks.html in Resources */ = {isa = PBXBuildFile; fileRef = 5D7EA56619FF505B008477A3 /* Code Blocks.html */; };
+		5D7EA5AF19FF505B008477A3 /* Code Blocks.text in Sources */ = {isa = PBXBuildFile; fileRef = 5D7EA56719FF505B008477A3 /* Code Blocks.text */; };
+		5D7EA5B019FF505B008477A3 /* Code Spans.html in Resources */ = {isa = PBXBuildFile; fileRef = 5D7EA56819FF505B008477A3 /* Code Spans.html */; };
+		5D7EA5B119FF505B008477A3 /* Code Spans.text in Sources */ = {isa = PBXBuildFile; fileRef = 5D7EA56919FF505B008477A3 /* Code Spans.text */; };
+		5D7EA5B219FF505B008477A3 /* Hard-wrapped paragraphs with list-like lines.html in Resources */ = {isa = PBXBuildFile; fileRef = 5D7EA56A19FF505B008477A3 /* Hard-wrapped paragraphs with list-like lines.html */; };
+		5D7EA5B319FF505B008477A3 /* Hard-wrapped paragraphs with list-like lines.text in Sources */ = {isa = PBXBuildFile; fileRef = 5D7EA56B19FF505B008477A3 /* Hard-wrapped paragraphs with list-like lines.text */; };
+		5D7EA5B419FF505B008477A3 /* Horizontal rules.html in Resources */ = {isa = PBXBuildFile; fileRef = 5D7EA56C19FF505B008477A3 /* Horizontal rules.html */; };
+		5D7EA5B519FF505B008477A3 /* Horizontal rules.text in Sources */ = {isa = PBXBuildFile; fileRef = 5D7EA56D19FF505B008477A3 /* Horizontal rules.text */; };
+		5D7EA5B619FF505B008477A3 /* Inline HTML (Advanced).html in Resources */ = {isa = PBXBuildFile; fileRef = 5D7EA56E19FF505B008477A3 /* Inline HTML (Advanced).html */; };
+		5D7EA5B719FF505B008477A3 /* Inline HTML (Advanced).text in Sources */ = {isa = PBXBuildFile; fileRef = 5D7EA56F19FF505B008477A3 /* Inline HTML (Advanced).text */; };
+		5D7EA5B819FF505B008477A3 /* Inline HTML (Simple).html in Resources */ = {isa = PBXBuildFile; fileRef = 5D7EA57019FF505B008477A3 /* Inline HTML (Simple).html */; };
+		5D7EA5B919FF505B008477A3 /* Inline HTML (Simple).text in Sources */ = {isa = PBXBuildFile; fileRef = 5D7EA57119FF505B008477A3 /* Inline HTML (Simple).text */; };
+		5D7EA5BA19FF505B008477A3 /* Inline HTML comments.html in Resources */ = {isa = PBXBuildFile; fileRef = 5D7EA57219FF505B008477A3 /* Inline HTML comments.html */; };
+		5D7EA5BB19FF505B008477A3 /* Inline HTML comments.text in Sources */ = {isa = PBXBuildFile; fileRef = 5D7EA57319FF505B008477A3 /* Inline HTML comments.text */; };
+		5D7EA5BC19FF505B008477A3 /* Links, inline style.html in Resources */ = {isa = PBXBuildFile; fileRef = 5D7EA57419FF505B008477A3 /* Links, inline style.html */; };
+		5D7EA5BD19FF505B008477A3 /* Links, inline style.text in Sources */ = {isa = PBXBuildFile; fileRef = 5D7EA57519FF505B008477A3 /* Links, inline style.text */; };
+		5D7EA5BE19FF505B008477A3 /* Links, reference style.html in Resources */ = {isa = PBXBuildFile; fileRef = 5D7EA57619FF505B008477A3 /* Links, reference style.html */; };
+		5D7EA5BF19FF505B008477A3 /* Links, reference style.text in Sources */ = {isa = PBXBuildFile; fileRef = 5D7EA57719FF505B008477A3 /* Links, reference style.text */; };
+		5D7EA5C019FF505B008477A3 /* Links, shortcut references.html in Resources */ = {isa = PBXBuildFile; fileRef = 5D7EA57819FF505B008477A3 /* Links, shortcut references.html */; };
+		5D7EA5C119FF505B008477A3 /* Links, shortcut references.text in Sources */ = {isa = PBXBuildFile; fileRef = 5D7EA57919FF505B008477A3 /* Links, shortcut references.text */; };
+		5D7EA5C219FF505B008477A3 /* Literal quotes in titles.html in Resources */ = {isa = PBXBuildFile; fileRef = 5D7EA57A19FF505B008477A3 /* Literal quotes in titles.html */; };
+		5D7EA5C319FF505B008477A3 /* Literal quotes in titles.text in Sources */ = {isa = PBXBuildFile; fileRef = 5D7EA57B19FF505B008477A3 /* Literal quotes in titles.text */; };
+		5D7EA5C419FF505B008477A3 /* Markdown Documentation - Basics.html in Resources */ = {isa = PBXBuildFile; fileRef = 5D7EA57C19FF505B008477A3 /* Markdown Documentation - Basics.html */; };
+		5D7EA5C519FF505B008477A3 /* Markdown Documentation - Basics.text in Sources */ = {isa = PBXBuildFile; fileRef = 5D7EA57D19FF505B008477A3 /* Markdown Documentation - Basics.text */; };
+		5D7EA5C619FF505B008477A3 /* Markdown Documentation - Syntax.html in Resources */ = {isa = PBXBuildFile; fileRef = 5D7EA57E19FF505B008477A3 /* Markdown Documentation - Syntax.html */; };
+		5D7EA5C719FF505B008477A3 /* Markdown Documentation - Syntax.text in Sources */ = {isa = PBXBuildFile; fileRef = 5D7EA57F19FF505B008477A3 /* Markdown Documentation - Syntax.text */; };
+		5D7EA5C819FF505B008477A3 /* Nested blockquotes.html in Resources */ = {isa = PBXBuildFile; fileRef = 5D7EA58019FF505B008477A3 /* Nested blockquotes.html */; };
+		5D7EA5C919FF505B008477A3 /* Nested blockquotes.text in Sources */ = {isa = PBXBuildFile; fileRef = 5D7EA58119FF505B008477A3 /* Nested blockquotes.text */; };
+		5D7EA5CA19FF505B008477A3 /* Ordered and unordered lists.html in Resources */ = {isa = PBXBuildFile; fileRef = 5D7EA58219FF505B008477A3 /* Ordered and unordered lists.html */; };
+		5D7EA5CB19FF505B008477A3 /* Ordered and unordered lists.text in Sources */ = {isa = PBXBuildFile; fileRef = 5D7EA58319FF505B008477A3 /* Ordered and unordered lists.text */; };
+		5D7EA5CC19FF505B008477A3 /* Strong and em together.html in Resources */ = {isa = PBXBuildFile; fileRef = 5D7EA58419FF505B008477A3 /* Strong and em together.html */; };
+		5D7EA5CD19FF505B008477A3 /* Strong and em together.text in Sources */ = {isa = PBXBuildFile; fileRef = 5D7EA58519FF505B008477A3 /* Strong and em together.text */; };
+		5D7EA5CE19FF505B008477A3 /* Tabs.html in Resources */ = {isa = PBXBuildFile; fileRef = 5D7EA58619FF505B008477A3 /* Tabs.html */; };
+		5D7EA5CF19FF505B008477A3 /* Tabs.text in Sources */ = {isa = PBXBuildFile; fileRef = 5D7EA58719FF505B008477A3 /* Tabs.text */; };
+		5D7EA5D019FF505B008477A3 /* Tidyness.html in Resources */ = {isa = PBXBuildFile; fileRef = 5D7EA58819FF505B008477A3 /* Tidyness.html */; };
+		5D7EA5D119FF505B008477A3 /* Tidyness.text in Sources */ = {isa = PBXBuildFile; fileRef = 5D7EA58919FF505B008477A3 /* Tidyness.text */; };
+		5D7EA5D219FF505B008477A3 /* runner.py in Resources */ = {isa = PBXBuildFile; fileRef = 5D7EA58A19FF505B008477A3 /* runner.py */; };
+		5D7EA5D319FF505B008477A3 /* Escape character.html in Resources */ = {isa = PBXBuildFile; fileRef = 5D7EA58C19FF505B008477A3 /* Escape character.html */; };
+		5D7EA5D419FF505B008477A3 /* Escape character.text in Sources */ = {isa = PBXBuildFile; fileRef = 5D7EA58D19FF505B008477A3 /* Escape character.text */; };
+		5D7EA5D519FF505B008477A3 /* Math.html in Resources */ = {isa = PBXBuildFile; fileRef = 5D7EA58E19FF505B008477A3 /* Math.html */; };
+		5D7EA5D619FF505B008477A3 /* Math.text in Sources */ = {isa = PBXBuildFile; fileRef = 5D7EA58F19FF505B008477A3 /* Math.text */; };
+		5DDDAABF1A000F100088FCC9 /* watchkatex.js in Resources */ = {isa = PBXBuildFile; fileRef = 5DDDAABE1A000F100088FCC9 /* watchkatex.js */; };
 		B49728377A904875B2963C38 /* libPods-MacDown.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C5C1FBBB3ED456285901D31 /* libPods-MacDown.a */; };
 /* End PBXBuildFile section */
 
@@ -118,9 +187,6 @@
 		1F0D9DAC194AC8EF008E1856 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		1F0D9DAE194AC905008E1856 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Code/main.m; sourceTree = "<group>"; };
 		1F0D9DB5194ACA33008E1856 /* MacDown-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "MacDown-Prefix.pch"; path = "Code/MacDown-Prefix.pch"; sourceTree = "<group>"; };
-		1F0F3BFB195F75F200FC0B3B /* MathJax */ = {isa = PBXFileReference; lastKnownFileType = folder; name = MathJax; path = Resources/MathJax; sourceTree = "<group>"; };
-		1F23A91F19928E650052DB78 /* MPMathJaxListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPMathJaxListener.h; sourceTree = "<group>"; };
-		1F23A92019928E650052DB78 /* MPMathJaxListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPMathJaxListener.m; sourceTree = "<group>"; };
 		1F27896A1973BEB100EE696A /* Base */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = Base; path = Localization/Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1F396E6419B0EA17000D3EFC /* MPEditorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPEditorView.h; sourceTree = "<group>"; };
 		1F396E6519B0EA17000D3EFC /* MPEditorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPEditorView.m; sourceTree = "<group>"; };
@@ -180,6 +246,84 @@
 		1FFEB32A19737D6E00B2254F /* YAMLSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YAMLSerialization.m; sourceTree = "<group>"; };
 		1FFF301C1948A5320009AF24 /* MPStringLookupTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPStringLookupTests.m; sourceTree = "<group>"; };
 		481332E4A369446F177A8DF0 /* Pods-MacDown.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacDown.release.xcconfig"; path = "Pods/Target Support Files/Pods-MacDown/Pods-MacDown.release.xcconfig"; sourceTree = "<group>"; };
+		5D26826819FF3C2600EC4D89 /* katex */ = {isa = PBXFileReference; lastKnownFileType = folder; path = katex; sourceTree = "<group>"; };
+		5D7EA53B19FF505B008477A3 /* .editorconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .editorconfig; sourceTree = "<group>"; };
+		5D7EA53C19FF505B008477A3 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		5D7EA53D19FF505B008477A3 /* .travis.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .travis.yml; sourceTree = "<group>"; };
+		5D7EA54219FF505B008477A3 /* hoedown.def */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = hoedown.def; sourceTree = "<group>"; };
+		5D7EA54319FF505B008477A3 /* html_block_names.gperf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = html_block_names.gperf; sourceTree = "<group>"; };
+		5D7EA54419FF505B008477A3 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		5D7EA54519FF505B008477A3 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		5D7EA54619FF505B008477A3 /* Makefile.win */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Makefile.win; sourceTree = "<group>"; };
+		5D7EA54719FF505B008477A3 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		5D7EA54919FF505B008477A3 /* autolink.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = autolink.c; sourceTree = "<group>"; };
+		5D7EA54A19FF505B008477A3 /* autolink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = autolink.h; sourceTree = "<group>"; };
+		5D7EA54B19FF505B008477A3 /* buffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = buffer.c; sourceTree = "<group>"; };
+		5D7EA54C19FF505B008477A3 /* buffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = buffer.h; sourceTree = "<group>"; };
+		5D7EA54D19FF505B008477A3 /* document.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = document.c; sourceTree = "<group>"; };
+		5D7EA54E19FF505B008477A3 /* document.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = document.h; sourceTree = "<group>"; };
+		5D7EA54F19FF505B008477A3 /* escape.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = escape.c; sourceTree = "<group>"; };
+		5D7EA55019FF505B008477A3 /* escape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = escape.h; sourceTree = "<group>"; };
+		5D7EA55119FF505B008477A3 /* html.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = html.c; sourceTree = "<group>"; };
+		5D7EA55219FF505B008477A3 /* html.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = html.h; sourceTree = "<group>"; };
+		5D7EA55319FF505B008477A3 /* html_blocks.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = html_blocks.c; sourceTree = "<group>"; };
+		5D7EA55419FF505B008477A3 /* html_smartypants.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = html_smartypants.c; sourceTree = "<group>"; };
+		5D7EA55519FF505B008477A3 /* stack.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stack.c; sourceTree = "<group>"; };
+		5D7EA55619FF505B008477A3 /* stack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stack.h; sourceTree = "<group>"; };
+		5D7EA55719FF505B008477A3 /* version.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = version.c; sourceTree = "<group>"; };
+		5D7EA55819FF505B008477A3 /* version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = version.h; sourceTree = "<group>"; };
+		5D7EA55A19FF505B008477A3 /* config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = config.json; sourceTree = "<group>"; };
+		5D7EA55C19FF505B008477A3 /* MarkdownTest.pl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.perl; path = MarkdownTest.pl; sourceTree = "<group>"; };
+		5D7EA55E19FF505B008477A3 /* Amps and angle encoding.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "Amps and angle encoding.html"; sourceTree = "<group>"; };
+		5D7EA55F19FF505B008477A3 /* Amps and angle encoding.text */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "Amps and angle encoding.text"; sourceTree = "<group>"; };
+		5D7EA56019FF505B008477A3 /* Auto links.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "Auto links.html"; sourceTree = "<group>"; };
+		5D7EA56119FF505B008477A3 /* Auto links.text */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "Auto links.text"; sourceTree = "<group>"; };
+		5D7EA56219FF505B008477A3 /* Backslash escapes.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "Backslash escapes.html"; sourceTree = "<group>"; };
+		5D7EA56319FF505B008477A3 /* Backslash escapes.text */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "Backslash escapes.text"; sourceTree = "<group>"; };
+		5D7EA56419FF505B008477A3 /* Blockquotes with code blocks.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "Blockquotes with code blocks.html"; sourceTree = "<group>"; };
+		5D7EA56519FF505B008477A3 /* Blockquotes with code blocks.text */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "Blockquotes with code blocks.text"; sourceTree = "<group>"; };
+		5D7EA56619FF505B008477A3 /* Code Blocks.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "Code Blocks.html"; sourceTree = "<group>"; };
+		5D7EA56719FF505B008477A3 /* Code Blocks.text */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "Code Blocks.text"; sourceTree = "<group>"; };
+		5D7EA56819FF505B008477A3 /* Code Spans.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "Code Spans.html"; sourceTree = "<group>"; };
+		5D7EA56919FF505B008477A3 /* Code Spans.text */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "Code Spans.text"; sourceTree = "<group>"; };
+		5D7EA56A19FF505B008477A3 /* Hard-wrapped paragraphs with list-like lines.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "Hard-wrapped paragraphs with list-like lines.html"; sourceTree = "<group>"; };
+		5D7EA56B19FF505B008477A3 /* Hard-wrapped paragraphs with list-like lines.text */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "Hard-wrapped paragraphs with list-like lines.text"; sourceTree = "<group>"; };
+		5D7EA56C19FF505B008477A3 /* Horizontal rules.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "Horizontal rules.html"; sourceTree = "<group>"; };
+		5D7EA56D19FF505B008477A3 /* Horizontal rules.text */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "Horizontal rules.text"; sourceTree = "<group>"; };
+		5D7EA56E19FF505B008477A3 /* Inline HTML (Advanced).html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "Inline HTML (Advanced).html"; sourceTree = "<group>"; };
+		5D7EA56F19FF505B008477A3 /* Inline HTML (Advanced).text */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "Inline HTML (Advanced).text"; sourceTree = "<group>"; };
+		5D7EA57019FF505B008477A3 /* Inline HTML (Simple).html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "Inline HTML (Simple).html"; sourceTree = "<group>"; };
+		5D7EA57119FF505B008477A3 /* Inline HTML (Simple).text */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "Inline HTML (Simple).text"; sourceTree = "<group>"; };
+		5D7EA57219FF505B008477A3 /* Inline HTML comments.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "Inline HTML comments.html"; sourceTree = "<group>"; };
+		5D7EA57319FF505B008477A3 /* Inline HTML comments.text */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "Inline HTML comments.text"; sourceTree = "<group>"; };
+		5D7EA57419FF505B008477A3 /* Links, inline style.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "Links, inline style.html"; sourceTree = "<group>"; };
+		5D7EA57519FF505B008477A3 /* Links, inline style.text */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "Links, inline style.text"; sourceTree = "<group>"; };
+		5D7EA57619FF505B008477A3 /* Links, reference style.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "Links, reference style.html"; sourceTree = "<group>"; };
+		5D7EA57719FF505B008477A3 /* Links, reference style.text */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "Links, reference style.text"; sourceTree = "<group>"; };
+		5D7EA57819FF505B008477A3 /* Links, shortcut references.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "Links, shortcut references.html"; sourceTree = "<group>"; };
+		5D7EA57919FF505B008477A3 /* Links, shortcut references.text */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "Links, shortcut references.text"; sourceTree = "<group>"; };
+		5D7EA57A19FF505B008477A3 /* Literal quotes in titles.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "Literal quotes in titles.html"; sourceTree = "<group>"; };
+		5D7EA57B19FF505B008477A3 /* Literal quotes in titles.text */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "Literal quotes in titles.text"; sourceTree = "<group>"; };
+		5D7EA57C19FF505B008477A3 /* Markdown Documentation - Basics.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "Markdown Documentation - Basics.html"; sourceTree = "<group>"; };
+		5D7EA57D19FF505B008477A3 /* Markdown Documentation - Basics.text */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "Markdown Documentation - Basics.text"; sourceTree = "<group>"; };
+		5D7EA57E19FF505B008477A3 /* Markdown Documentation - Syntax.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "Markdown Documentation - Syntax.html"; sourceTree = "<group>"; };
+		5D7EA57F19FF505B008477A3 /* Markdown Documentation - Syntax.text */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "Markdown Documentation - Syntax.text"; sourceTree = "<group>"; };
+		5D7EA58019FF505B008477A3 /* Nested blockquotes.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "Nested blockquotes.html"; sourceTree = "<group>"; };
+		5D7EA58119FF505B008477A3 /* Nested blockquotes.text */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "Nested blockquotes.text"; sourceTree = "<group>"; };
+		5D7EA58219FF505B008477A3 /* Ordered and unordered lists.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "Ordered and unordered lists.html"; sourceTree = "<group>"; };
+		5D7EA58319FF505B008477A3 /* Ordered and unordered lists.text */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "Ordered and unordered lists.text"; sourceTree = "<group>"; };
+		5D7EA58419FF505B008477A3 /* Strong and em together.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "Strong and em together.html"; sourceTree = "<group>"; };
+		5D7EA58519FF505B008477A3 /* Strong and em together.text */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "Strong and em together.text"; sourceTree = "<group>"; };
+		5D7EA58619FF505B008477A3 /* Tabs.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Tabs.html; sourceTree = "<group>"; };
+		5D7EA58719FF505B008477A3 /* Tabs.text */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Tabs.text; sourceTree = "<group>"; };
+		5D7EA58819FF505B008477A3 /* Tidyness.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Tidyness.html; sourceTree = "<group>"; };
+		5D7EA58919FF505B008477A3 /* Tidyness.text */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Tidyness.text; sourceTree = "<group>"; };
+		5D7EA58A19FF505B008477A3 /* runner.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = runner.py; sourceTree = "<group>"; };
+		5D7EA58C19FF505B008477A3 /* Escape character.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "Escape character.html"; sourceTree = "<group>"; };
+		5D7EA58D19FF505B008477A3 /* Escape character.text */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "Escape character.text"; sourceTree = "<group>"; };
+		5D7EA58E19FF505B008477A3 /* Math.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Math.html; sourceTree = "<group>"; };
+		5D7EA58F19FF505B008477A3 /* Math.text */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Math.text; sourceTree = "<group>"; };
+		5DDDAABE1A000F100088FCC9 /* watchkatex.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = watchkatex.js; sourceTree = "<group>"; };
 		7C5C1FBBB3ED456285901D31 /* libPods-MacDown.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MacDown.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9105A2DE3384B0DB400BAD1 /* Pods-MacDown.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacDown.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MacDown/Pods-MacDown.debug.xcconfig"; sourceTree = "<group>"; };
 		AEAF42BBDCEC4012B5092BB3 /* libPods-MacDownTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MacDownTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -234,8 +378,6 @@
 				1F0D9D63194AC7CF008E1856 /* MPUtilities.h */,
 				1F0D9D64194AC7CF008E1856 /* MPUtilities.m */,
 				1F70CCD81978F03E00703429 /* MPAutosaving.h */,
-				1F23A91F19928E650052DB78 /* MPMathJaxListener.h */,
-				1F23A92019928E650052DB78 /* MPMathJaxListener.m */,
 			);
 			name = Utility;
 			path = Code/Utility;
@@ -293,11 +435,12 @@
 		1F4C8E9B194AE0C3004BF82E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				5DDDAABE1A000F100088FCC9 /* watchkatex.js */,
+				5D26826819FF3C2600EC4D89 /* katex */,
 				1FCE066319633D6B00DC83B4 /* Data */,
 				1F9A14EE194EEEDD00D1C6A9 /* Styles */,
 				1F9A14F3194EF6A600D1C6A9 /* Themes */,
 				1FBDFE9B196170FE00BEEA70 /* Extensions */,
-				1F0F3BFB195F75F200FC0B3B /* MathJax */,
 				1F8A82D819533E9300B6BF69 /* Prism */,
 				1F4C8E99194AE0B9004BF82E /* MarkdownDocument.icns */,
 				1F0D9DA6194AC8CB008E1856 /* Credits.rtf */,
@@ -413,6 +556,7 @@
 		1FCDC9EB1944F89B00B1F966 /* MacDown */ = {
 			isa = PBXGroup;
 			children = (
+				5D7EA53A19FF505B008477A3 /* hoedown */,
 				1F0D9D62194AC7CF008E1856 /* Utility */,
 				1F0D9D5D194AC7CF008E1856 /* Extension */,
 				1F396E6319B0EA17000D3EFC /* View */,
@@ -471,6 +615,129 @@
 			name = "YAML-framework";
 			path = "Dependency/YAML-framework";
 			sourceTree = SOURCE_ROOT;
+		};
+		5D7EA53A19FF505B008477A3 /* hoedown */ = {
+			isa = PBXGroup;
+			children = (
+				5D7EA53B19FF505B008477A3 /* .editorconfig */,
+				5D7EA53C19FF505B008477A3 /* .gitignore */,
+				5D7EA53D19FF505B008477A3 /* .travis.yml */,
+				5D7EA54219FF505B008477A3 /* hoedown.def */,
+				5D7EA54319FF505B008477A3 /* html_block_names.gperf */,
+				5D7EA54419FF505B008477A3 /* LICENSE */,
+				5D7EA54519FF505B008477A3 /* Makefile */,
+				5D7EA54619FF505B008477A3 /* Makefile.win */,
+				5D7EA54719FF505B008477A3 /* README.md */,
+				5D7EA54819FF505B008477A3 /* src */,
+				5D7EA55919FF505B008477A3 /* test */,
+			);
+			path = hoedown;
+			sourceTree = "<group>";
+		};
+		5D7EA54819FF505B008477A3 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				5D7EA54919FF505B008477A3 /* autolink.c */,
+				5D7EA54A19FF505B008477A3 /* autolink.h */,
+				5D7EA54B19FF505B008477A3 /* buffer.c */,
+				5D7EA54C19FF505B008477A3 /* buffer.h */,
+				5D7EA54D19FF505B008477A3 /* document.c */,
+				5D7EA54E19FF505B008477A3 /* document.h */,
+				5D7EA54F19FF505B008477A3 /* escape.c */,
+				5D7EA55019FF505B008477A3 /* escape.h */,
+				5D7EA55119FF505B008477A3 /* html.c */,
+				5D7EA55219FF505B008477A3 /* html.h */,
+				5D7EA55319FF505B008477A3 /* html_blocks.c */,
+				5D7EA55419FF505B008477A3 /* html_smartypants.c */,
+				5D7EA55519FF505B008477A3 /* stack.c */,
+				5D7EA55619FF505B008477A3 /* stack.h */,
+				5D7EA55719FF505B008477A3 /* version.c */,
+				5D7EA55819FF505B008477A3 /* version.h */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		5D7EA55919FF505B008477A3 /* test */ = {
+			isa = PBXGroup;
+			children = (
+				5D7EA55A19FF505B008477A3 /* config.json */,
+				5D7EA55B19FF505B008477A3 /* MarkdownTest_1.0.3 */,
+				5D7EA58A19FF505B008477A3 /* runner.py */,
+				5D7EA58B19FF505B008477A3 /* Tests */,
+			);
+			path = test;
+			sourceTree = "<group>";
+		};
+		5D7EA55B19FF505B008477A3 /* MarkdownTest_1.0.3 */ = {
+			isa = PBXGroup;
+			children = (
+				5D7EA55C19FF505B008477A3 /* MarkdownTest.pl */,
+				5D7EA55D19FF505B008477A3 /* Tests */,
+			);
+			path = MarkdownTest_1.0.3;
+			sourceTree = "<group>";
+		};
+		5D7EA55D19FF505B008477A3 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				5D7EA55E19FF505B008477A3 /* Amps and angle encoding.html */,
+				5D7EA55F19FF505B008477A3 /* Amps and angle encoding.text */,
+				5D7EA56019FF505B008477A3 /* Auto links.html */,
+				5D7EA56119FF505B008477A3 /* Auto links.text */,
+				5D7EA56219FF505B008477A3 /* Backslash escapes.html */,
+				5D7EA56319FF505B008477A3 /* Backslash escapes.text */,
+				5D7EA56419FF505B008477A3 /* Blockquotes with code blocks.html */,
+				5D7EA56519FF505B008477A3 /* Blockquotes with code blocks.text */,
+				5D7EA56619FF505B008477A3 /* Code Blocks.html */,
+				5D7EA56719FF505B008477A3 /* Code Blocks.text */,
+				5D7EA56819FF505B008477A3 /* Code Spans.html */,
+				5D7EA56919FF505B008477A3 /* Code Spans.text */,
+				5D7EA56A19FF505B008477A3 /* Hard-wrapped paragraphs with list-like lines.html */,
+				5D7EA56B19FF505B008477A3 /* Hard-wrapped paragraphs with list-like lines.text */,
+				5D7EA56C19FF505B008477A3 /* Horizontal rules.html */,
+				5D7EA56D19FF505B008477A3 /* Horizontal rules.text */,
+				5D7EA56E19FF505B008477A3 /* Inline HTML (Advanced).html */,
+				5D7EA56F19FF505B008477A3 /* Inline HTML (Advanced).text */,
+				5D7EA57019FF505B008477A3 /* Inline HTML (Simple).html */,
+				5D7EA57119FF505B008477A3 /* Inline HTML (Simple).text */,
+				5D7EA57219FF505B008477A3 /* Inline HTML comments.html */,
+				5D7EA57319FF505B008477A3 /* Inline HTML comments.text */,
+				5D7EA57419FF505B008477A3 /* Links, inline style.html */,
+				5D7EA57519FF505B008477A3 /* Links, inline style.text */,
+				5D7EA57619FF505B008477A3 /* Links, reference style.html */,
+				5D7EA57719FF505B008477A3 /* Links, reference style.text */,
+				5D7EA57819FF505B008477A3 /* Links, shortcut references.html */,
+				5D7EA57919FF505B008477A3 /* Links, shortcut references.text */,
+				5D7EA57A19FF505B008477A3 /* Literal quotes in titles.html */,
+				5D7EA57B19FF505B008477A3 /* Literal quotes in titles.text */,
+				5D7EA57C19FF505B008477A3 /* Markdown Documentation - Basics.html */,
+				5D7EA57D19FF505B008477A3 /* Markdown Documentation - Basics.text */,
+				5D7EA57E19FF505B008477A3 /* Markdown Documentation - Syntax.html */,
+				5D7EA57F19FF505B008477A3 /* Markdown Documentation - Syntax.text */,
+				5D7EA58019FF505B008477A3 /* Nested blockquotes.html */,
+				5D7EA58119FF505B008477A3 /* Nested blockquotes.text */,
+				5D7EA58219FF505B008477A3 /* Ordered and unordered lists.html */,
+				5D7EA58319FF505B008477A3 /* Ordered and unordered lists.text */,
+				5D7EA58419FF505B008477A3 /* Strong and em together.html */,
+				5D7EA58519FF505B008477A3 /* Strong and em together.text */,
+				5D7EA58619FF505B008477A3 /* Tabs.html */,
+				5D7EA58719FF505B008477A3 /* Tabs.text */,
+				5D7EA58819FF505B008477A3 /* Tidyness.html */,
+				5D7EA58919FF505B008477A3 /* Tidyness.text */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		5D7EA58B19FF505B008477A3 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				5D7EA58C19FF505B008477A3 /* Escape character.html */,
+				5D7EA58D19FF505B008477A3 /* Escape character.text */,
+				5D7EA58E19FF505B008477A3 /* Math.html */,
+				5D7EA58F19FF505B008477A3 /* Math.text */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
 		};
 		FF36D9424F9F1EFC35FA3D33 /* Pods */ = {
 			isa = PBXGroup;
@@ -576,23 +843,58 @@
 				1F8A82D919533E9300B6BF69 /* Prism in Resources */,
 				1F9A14EF194EEEDD00D1C6A9 /* Styles in Resources */,
 				1F0D9DB0194AC9EE008E1856 /* MPDocument.xib in Resources */,
+				5D7EA5CE19FF505B008477A3 /* Tabs.html in Resources */,
 				1F0D9DB1194AC9EE008E1856 /* MPEditorPreferencesViewController.xib in Resources */,
 				1F9A14F4194EF6A600D1C6A9 /* Themes in Resources */,
+				5D7EA5CA19FF505B008477A3 /* Ordered and unordered lists.html in Resources */,
+				5D7EA59119FF505B008477A3 /* .gitignore in Resources */,
 				1F0D9DB2194AC9EE008E1856 /* MPHtmlPreferencesViewController.xib in Resources */,
+				5D7EA5AC19FF505B008477A3 /* Blockquotes with code blocks.html in Resources */,
+				5D7EA5AA19FF505B008477A3 /* Backslash escapes.html in Resources */,
+				5D7EA5D019FF505B008477A3 /* Tidyness.html in Resources */,
+				5D7EA59519FF505B008477A3 /* hoedown.def in Resources */,
+				5D7EA5BA19FF505B008477A3 /* Inline HTML comments.html in Resources */,
 				1F0D9DB3194AC9EE008E1856 /* MPMarkdownPreferencesViewController.xib in Resources */,
+				5D7EA5C619FF505B008477A3 /* Markdown Documentation - Syntax.html in Resources */,
+				5D7EA5BC19FF505B008477A3 /* Links, inline style.html in Resources */,
+				5D7EA5A419FF505B008477A3 /* config.json in Resources */,
 				1F3A47521953E84700293259 /* help.md in Resources */,
+				5D7EA59919FF505B008477A3 /* Makefile.win in Resources */,
+				5DDDAABF1A000F100088FCC9 /* watchkatex.js in Resources */,
+				5D7EA5B019FF505B008477A3 /* Code Spans.html in Resources */,
+				5D7EA5A819FF505B008477A3 /* Auto links.html in Resources */,
 				1F0D9DB4194AC9EE008E1856 /* MainMenu.xib in Resources */,
+				5D7EA5AE19FF505B008477A3 /* Code Blocks.html in Resources */,
 				1FBDFE9C196170FE00BEEA70 /* Extensions in Resources */,
 				1FBBD4BE194C952300BB3C88 /* MPExportPanelAccessoryViewController.xib in Resources */,
 				1FA6CDB91952D2CD008D5CA0 /* dsa_pub.pem in Resources */,
+				5D26826919FF3C2600EC4D89 /* katex in Resources */,
+				5D7EA5C819FF505B008477A3 /* Nested blockquotes.html in Resources */,
+				5D7EA5BE19FF505B008477A3 /* Links, reference style.html in Resources */,
+				5D7EA5A619FF505B008477A3 /* Amps and angle encoding.html in Resources */,
+				5D7EA5B619FF505B008477A3 /* Inline HTML (Advanced).html in Resources */,
+				5D7EA59719FF505B008477A3 /* LICENSE in Resources */,
 				1F27896B1973BEB100EE696A /* Localizable.strings in Resources */,
+				5D7EA5CC19FF505B008477A3 /* Strong and em together.html in Resources */,
 				1F0D9DAD194AC8EF008E1856 /* Images.xcassets in Resources */,
+				5D7EA5B819FF505B008477A3 /* Inline HTML (Simple).html in Resources */,
 				1F0D9DAA194AC8CB008E1856 /* Credits.rtf in Resources */,
+				5D7EA59019FF505B008477A3 /* .editorconfig in Resources */,
+				5D7EA5D219FF505B008477A3 /* runner.py in Resources */,
+				5D7EA59219FF505B008477A3 /* .travis.yml in Resources */,
 				1FBDFEA51962A27300BEEA70 /* MPGeneralPreferencesViewController.xib in Resources */,
-				1F0F3BFC195F75F200FC0B3B /* MathJax in Resources */,
 				1F4C8E9A194AE0B9004BF82E /* MarkdownDocument.icns in Resources */,
 				1F0D9DAB194AC8CB008E1856 /* InfoPlist.strings in Resources */,
+				5D7EA5B219FF505B008477A3 /* Hard-wrapped paragraphs with list-like lines.html in Resources */,
+				5D7EA5D319FF505B008477A3 /* Escape character.html in Resources */,
+				5D7EA5C219FF505B008477A3 /* Literal quotes in titles.html in Resources */,
+				5D7EA5D519FF505B008477A3 /* Math.html in Resources */,
+				5D7EA59619FF505B008477A3 /* html_block_names.gperf in Resources */,
+				5D7EA5A519FF505B008477A3 /* MarkdownTest.pl in Resources */,
+				5D7EA5C419FF505B008477A3 /* Markdown Documentation - Basics.html in Resources */,
+				5D7EA5C019FF505B008477A3 /* Links, shortcut references.html in Resources */,
 				1FCE066419633D6C00DC83B4 /* Data in Resources */,
+				5D7EA5B419FF505B008477A3 /* Horizontal rules.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -709,28 +1011,62 @@
 			files = (
 				1F396E6619B0EA17000D3EFC /* MPEditorView.m in Sources */,
 				1F0D9D7A194AC7F7008E1856 /* MPMarkdownPreferencesViewController.m in Sources */,
+				5D7EA5D419FF505B008477A3 /* Escape character.text in Sources */,
+				5D7EA5CB19FF505B008477A3 /* Ordered and unordered lists.text in Sources */,
 				1F0D9D7D194AC7F7008E1856 /* MPPreferencesViewController.m in Sources */,
 				1F0D9D65194AC7CF008E1856 /* NSString+Lookup.m in Sources */,
+				5D7EA5A319FF505B008477A3 /* version.c in Sources */,
+				5D7EA5B719FF505B008477A3 /* Inline HTML (Advanced).text in Sources */,
 				1F8A835E1953454F00B6BF69 /* HGMarkdownHighlightingStyle.m in Sources */,
-				1F23A92119928E650052DB78 /* MPMathJaxListener.m in Sources */,
 				1F0D9D67194AC7CF008E1856 /* MPUtilities.m in Sources */,
+				5D7EA5AD19FF505B008477A3 /* Blockquotes with code blocks.text in Sources */,
+				5D7EA5C319FF505B008477A3 /* Literal quotes in titles.text in Sources */,
+				5D7EA5C719FF505B008477A3 /* Markdown Documentation - Syntax.text in Sources */,
 				1F0D9D78194AC7F7008E1856 /* MPHtmlPreferencesViewController.m in Sources */,
 				1F0D9D7C194AC7F7008E1856 /* MPPreferences.m in Sources */,
+				5D7EA59C19FF505B008477A3 /* buffer.c in Sources */,
+				5D7EA5D119FF505B008477A3 /* Tidyness.text in Sources */,
+				5D7EA5AB19FF505B008477A3 /* Backslash escapes.text in Sources */,
 				1F0D9DAF194AC905008E1856 /* main.m in Sources */,
+				5D7EA59D19FF505B008477A3 /* document.c in Sources */,
 				1F0D9D66194AC7CF008E1856 /* NSTextView+Autocomplete.m in Sources */,
+				5D7EA59F19FF505B008477A3 /* html.c in Sources */,
+				5D7EA5A119FF505B008477A3 /* html_smartypants.c in Sources */,
+				5D7EA59819FF505B008477A3 /* Makefile in Sources */,
 				1FFEB32B19737D6E00B2254F /* YAMLSerialization.m in Sources */,
 				1F64CCC9195F5AB900CE619A /* MPAsset.m in Sources */,
 				1FFEB3251972D88900B2254F /* NSObject+HTMLTabularize.m in Sources */,
 				1F9A14EC194EEE9900D1C6A9 /* MPExportPanelAccessoryViewController.m in Sources */,
+				5D7EA59E19FF505B008477A3 /* escape.c in Sources */,
+				5D7EA5BD19FF505B008477A3 /* Links, inline style.text in Sources */,
+				5D7EA5A719FF505B008477A3 /* Amps and angle encoding.text in Sources */,
+				5D7EA5BF19FF505B008477A3 /* Links, reference style.text in Sources */,
+				5D7EA5CF19FF505B008477A3 /* Tabs.text in Sources */,
+				5D7EA59A19FF505B008477A3 /* README.md in Sources */,
 				1FBDFEA11962A25A00BEEA70 /* MPGeneralPreferencesViewController.m in Sources */,
+				5D7EA5C919FF505B008477A3 /* Nested blockquotes.text in Sources */,
+				5D7EA5A019FF505B008477A3 /* html_blocks.c in Sources */,
+				5D7EA5CD19FF505B008477A3 /* Strong and em together.text in Sources */,
 				1F9A14ED194EEE9900D1C6A9 /* MPMainController.m in Sources */,
 				1F002A23195B3DAE008B8D93 /* MPRenderer.m in Sources */,
+				5D7EA5A219FF505B008477A3 /* stack.c in Sources */,
 				1FBBD4CB194CA36500BB3C88 /* hoedown_html_patch.c in Sources */,
 				1F8A8364195346B200B6BF69 /* pmh_styleparser.c in Sources */,
+				5D7EA5B319FF505B008477A3 /* Hard-wrapped paragraphs with list-like lines.text in Sources */,
+				5D7EA5B119FF505B008477A3 /* Code Spans.text in Sources */,
+				5D7EA5C519FF505B008477A3 /* Markdown Documentation - Basics.text in Sources */,
+				5D7EA5D619FF505B008477A3 /* Math.text in Sources */,
+				5D7EA5A919FF505B008477A3 /* Auto links.text in Sources */,
 				1F0D9D93194AC852008E1856 /* MPDocument.m in Sources */,
+				5D7EA5AF19FF505B008477A3 /* Code Blocks.text in Sources */,
+				5D7EA59B19FF505B008477A3 /* autolink.c in Sources */,
+				5D7EA5B919FF505B008477A3 /* Inline HTML (Simple).text in Sources */,
 				1F0D9D76194AC7F7008E1856 /* MPEditorPreferencesViewController.m in Sources */,
 				1F8A83621953461800B6BF69 /* pmh_parser.c in Sources */,
+				5D7EA5C119FF505B008477A3 /* Links, shortcut references.text in Sources */,
+				5D7EA5B519FF505B008477A3 /* Horizontal rules.text in Sources */,
 				1F8A835D1953454F00B6BF69 /* HGMarkdownHighlighter.m in Sources */,
+				5D7EA5BB19FF505B008477A3 /* Inline HTML comments.text in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

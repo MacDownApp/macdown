@@ -2,6 +2,20 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>UIAppFonts</key>
+	<array>
+		<string>KaTeX_AMS-Regular.ttf</string>
+		<string>KaTeX_Main-Bold.ttf</string>
+		<string>KaTeX_Main-Italic.ttf</string>
+		<string>KaTeX_Main-Regular.ttf</string>
+		<string>KaTeX_Math-BoldItalic.ttf</string>
+		<string>KaTeX_Math-Italic.ttf</string>
+		<string>KaTeX_Math-Regular.ttf</string>
+		<string>KaTeX_Size1-Regular.ttf</string>
+		<string>KaTeX_Size2-Regular.ttf</string>
+		<string>KaTeX_Size3-Regular.ttf</string>
+		<string>KaTeX_Size4-Regular.ttf</string>
+	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDocumentTypes</key>
