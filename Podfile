@@ -11,7 +11,7 @@ target "MacDown" do
   pod 'M13OrderedDictionary', '~> 1.0'
   pod 'MASPreferences', '~> 1.1'    # Preference window.
   pod 'PAPreferences', '~> 0.3'     # Preference singleton.
-  pod 'Sparkle', '~> 1.7'           # Updater.
+  pod 'Sparkle', '< 1.8'           # Updater.
 end
 
 target "MacDownTests" do
