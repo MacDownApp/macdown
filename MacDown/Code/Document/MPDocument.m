@@ -1048,11 +1048,30 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     [panel beginSheetModalForWindow:w completionHandler:^(NSInteger result) {
         if (result != NSFileHandlingPanelOKButton)
             return;
+
+        // Margin calculation based on https://github.com/scottgarner/URL2PDF
         NSPrintInfo *info = self.printInfo;
+        NSRect imageableBounds = info.imageablePageBounds;
+        NSSize paperSize = info.paperSize;
+        if (imageableBounds.size.width > paperSize.width)
+        {
+            imageableBounds.origin.x = 0;
+            imageableBounds.size.width = paperSize.width;
+        }
+        if (imageableBounds.size.height > paperSize.height)
+        {
+            imageableBounds.origin.y = 0;
+            imageableBounds.size.height = paperSize.height;
+        }
         [info.dictionary addEntriesFromDictionary:@{
             NSPrintJobDisposition: NSPrintSaveJob,
-            NSPrintJobSavingURL: panel.URL
+            NSPrintJobSavingURL: panel.URL,
+            NSPrintBottomMargin: @(imageableBounds.origin.y / 2.0),
+            NSPrintTopMargin: @(imageableBounds.origin.y / 2.0),
+            NSPrintLeftMargin: @(imageableBounds.origin.x / 2.0),
+            NSPrintRightMargin: @(imageableBounds.origin.x / 2.0),
         }];
+
         NSView *view = self.preview.mainFrame.frameView.documentView;
         NSPrintOperation *op = [NSPrintOperation printOperationWithView:view
                                                               printInfo:info];
