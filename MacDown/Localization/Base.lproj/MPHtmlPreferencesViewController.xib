@@ -19,16 +19,16 @@
             <rect key="frame" x="0.0" y="0.0" width="405" height="279"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0ez-nk-c3q">
-                    <rect key="frame" x="18" y="241" width="87" height="17"/>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0ez-nk-c3q">
+                    <rect key="frame" x="18" y="241" width="84" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="CSS:" id="9I3-I7-HLu">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <popUpButton verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wgm-Sy-7mr">
-                    <rect key="frame" x="109" y="236" width="157" height="26"/>
+                <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Wgm-Sy-7mr">
+                    <rect key="frame" x="106" y="236" width="158" height="26"/>
                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="DYB-rZ-iFG" id="9Mg-zg-Kvi">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="menu"/>
@@ -44,8 +44,8 @@
                         <action selector="changeStylesheet:" target="-2" id="7Rl-Wk-slw"/>
                     </connections>
                 </popUpButton>
-                <segmentedControl horizontalHuggingPriority="300" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IJe-cc-YKn">
-                    <rect key="frame" x="269" y="237" width="118" height="24"/>
+                <segmentedControl horizontalHuggingPriority="300" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IJe-cc-YKn">
+                    <rect key="frame" x="267" y="237" width="120" height="24"/>
                     <segmentedCell key="cell" borderStyle="border" alignment="left" style="rounded" trackingMode="momentary" id="0rH-I9-Dxr">
                         <font key="font" metaFont="smallSystem"/>
                         <segments>
@@ -57,16 +57,16 @@
                         <action selector="invokeStylesheetFunction:" target="-2" id="Sif-ZC-IKZ"/>
                     </connections>
                 </segmentedControl>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="f62-wu-Z6p">
-                    <rect key="frame" x="18" y="20" width="87" height="17"/>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="f62-wu-Z6p">
+                    <rect key="frame" x="18" y="20" width="84" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Default path:" id="e1A-Mm-svq">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <pathControl verticalHuggingPriority="750" misplaced="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bih-Hu-dSj">
-                    <rect key="frame" x="108" y="16" width="280" height="22"/>
+                <pathControl verticalHuggingPriority="750" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bih-Hu-dSj">
+                    <rect key="frame" x="105" y="16" width="283" height="22"/>
                     <pathCell key="cell" controlSize="small" selectable="YES" editable="YES" alignment="left" pathStyle="popUp" id="eXH-Mm-BJH">
                         <font key="font" metaFont="smallSystem"/>
                         <url key="url" string="file:///Applications/"/>
@@ -78,8 +78,8 @@
                         <binding destination="-2" name="value" keyPath="self.preferences.htmlDefaultDirectoryUrl" id="LXh-LR-z6o"/>
                     </connections>
                 </pathControl>
-                <button misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5mI-gS-xH9">
-                    <rect key="frame" x="109" y="155" width="278" height="18"/>
+                <button translatesAutoresizingMaskIntoConstraints="NO" id="5mI-gS-xH9">
+                    <rect key="frame" x="106" y="155" width="281" height="18"/>
                     <buttonCell key="cell" type="check" title="TeX-like math syntax" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="6vg-3f-KWk">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
@@ -88,8 +88,8 @@
                         <binding destination="-2" name="value" keyPath="self.preferences.htmlMathJax" id="5XK-Jc-sXV"/>
                     </connections>
                 </button>
-                <button misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zna-RM-nBO">
-                    <rect key="frame" x="109" y="203" width="278" height="18"/>
+                <button translatesAutoresizingMaskIntoConstraints="NO" id="Zna-RM-nBO">
+                    <rect key="frame" x="106" y="203" width="281" height="18"/>
                     <buttonCell key="cell" type="check" title="Syntax highlighting in code blocks" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="BuQ-02-oQB">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
@@ -98,16 +98,16 @@
                         <binding destination="-2" name="value" keyPath="self.preferences.htmlSyntaxHighlighting" id="ZCs-9P-w9j"/>
                     </connections>
                 </button>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HzY-ws-XRq">
-                    <rect key="frame" x="127" y="115" width="260" height="14"/>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="HzY-ws-XRq">
+                    <rect key="frame" x="124" y="115" width="263" height="14"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Math support requires Internet connection." id="5Ch-dG-juL">
                         <font key="font" metaFont="smallSystem"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <popUpButton verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2I4-c8-jan">
-                    <rect key="frame" x="186" y="176" width="202" height="22"/>
+                <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2I4-c8-jan">
+                    <rect key="frame" x="183" y="176" width="205" height="22"/>
                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="dvX-w7-kuE">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="smallSystem"/>
@@ -118,8 +118,8 @@
                         <binding destination="-2" name="enabled" keyPath="self.preferences.htmlSyntaxHighlighting" id="i0o-0b-t8K"/>
                     </connections>
                 </popUpButton>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dd4-T9-cLi">
-                    <rect key="frame" x="127" y="181" width="56" height="14"/>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Dd4-T9-cLi">
+                    <rect key="frame" x="124" y="181" width="56" height="14"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="52" id="Trd-jx-pmE"/>
                     </constraints>
@@ -129,8 +129,8 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <button misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="u5h-MS-cR3">
-                    <rect key="frame" x="126" y="134" width="261" height="18"/>
+                <button translatesAutoresizingMaskIntoConstraints="NO" id="u5h-MS-cR3">
+                    <rect key="frame" x="123" y="134" width="264" height="18"/>
                     <buttonCell key="cell" type="check" title="Use dollar sign ($) as inline delimiter" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="GF9-Dm-IoB">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="smallSystem"/>
@@ -140,8 +140,8 @@
                         <binding destination="-2" name="value" keyPath="self.preferences.htmlMathJaxInlineDollar" id="wa6-Ue-wPT"/>
                     </connections>
                 </button>
-                <button misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="P7Z-ag-nPR">
-                    <rect key="frame" x="109" y="91" width="278" height="18"/>
+                <button translatesAutoresizingMaskIntoConstraints="NO" id="P7Z-ag-nPR">
+                    <rect key="frame" x="106" y="91" width="281" height="18"/>
                     <buttonCell key="cell" type="check" title="Task list syntax" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="kBf-iW-HlH">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
@@ -150,8 +150,8 @@
                         <binding destination="-2" name="value" keyPath="self.preferences.htmlTaskList" id="HnE-V1-mJS"/>
                     </connections>
                 </button>
-                <button misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lxX-Pm-dhn">
-                    <rect key="frame" x="109" y="51" width="278" height="18"/>
+                <button translatesAutoresizingMaskIntoConstraints="NO" id="lxX-Pm-dhn">
+                    <rect key="frame" x="106" y="51" width="281" height="18"/>
                     <buttonCell key="cell" type="check" title="Translate newlines to &lt;br&gt; tags" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Sty-qG-J6K">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
@@ -160,8 +160,8 @@
                         <binding destination="-2" name="value" keyPath="self.preferences.htmlHardWrap" id="sGz-hW-fNw"/>
                     </connections>
                 </button>
-                <button misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hfI-Rf-3Cr">
-                    <rect key="frame" x="109" y="71" width="278" height="18"/>
+                <button translatesAutoresizingMaskIntoConstraints="NO" id="hfI-Rf-3Cr">
+                    <rect key="frame" x="106" y="71" width="281" height="18"/>
                     <buttonCell key="cell" type="check" title="Detect Jekyll front-matter" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="iXi-Pv-mFl">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
