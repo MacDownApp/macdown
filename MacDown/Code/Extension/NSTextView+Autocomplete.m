@@ -140,11 +140,12 @@ static NSString * const kMPBlockquoteLinePattern = @"^((?:\\> ?)+).*$";
             continue;
 
         // First part of matching characters.
-        if ([boundaryCharacters characterIsMember:n] && c == cs[0] && n != cs[1]
+        if ([boundaryCharacters characterIsMember:n] && c == cs[0]
             && ([boundaryCharacters characterIsMember:p] || cs[0] != cs[1]))
         {
             NSRange range = NSMakeRange(location, 0);
             NSString *completion = [NSString stringWithCharacters:cs length:2];
+            // Mimic OS X's quote substitution if it's on.
             if (self.isAutomaticQuoteSubstitutionEnabled)
             {
                 unichar c = L'\0';
@@ -159,7 +160,7 @@ static NSString * const kMPBlockquoteLinePattern = @"^((?:\\> ?)+).*$";
                     default:
                         break;
                 }
-                if (c)
+                if (c != L'\0')
                     completion = [NSString stringWithCharacters:&c length:1];
             }
             [self insertText:completion replacementRange:range];
