@@ -100,7 +100,7 @@ static NSString *MPAutosavePropertyKey(
 @implementation MPPreferences (Hoedown)
 - (int)extensionFlags
 {
-    int flags = HOEDOWN_EXT_LAX_SPACING;
+    int flags = 0;
     if (self.extensionAutolink)
         flags |= HOEDOWN_EXT_AUTOLINK;
     if (self.extensionFencedCode)

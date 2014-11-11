@@ -9,7 +9,7 @@
 #import "MPRenderer.h"
 #import <limits.h>
 #import <hoedown/html.h>
-#import <hoedown/markdown.h>
+#import <hoedown/document.h>
 #import "hoedown_html_patch.h"
 #import "NSObject+HTMLTabularize.h"
 #import "NSString+Lookup.h"
@@ -65,10 +65,10 @@ static NSString *MPHTMLFromMarkdown(
     hoedown_renderer *htmlRenderer, hoedown_renderer *tocRenderer)
 {
     NSData *inputData = [text dataUsingEncoding:NSUTF8StringEncoding];
-    hoedown_markdown *markdown = hoedown_markdown_new(
-        flags, kMPRendererNestingLevel, htmlRenderer);
+    hoedown_document *document = hoedown_document_new(
+        htmlRenderer, flags, kMPRendererNestingLevel);
     hoedown_buffer *ob = hoedown_buffer_new(64);
-    hoedown_markdown_render(ob, inputData.bytes, inputData.length, markdown);
+    hoedown_document_render(document, ob, inputData.bytes, inputData.length);
     if (smartypants)
     {
         hoedown_buffer *ib = ob;
@@ -77,16 +77,16 @@ static NSString *MPHTMLFromMarkdown(
         hoedown_buffer_free(ib);
     }
     NSString *result = [NSString stringWithUTF8String:hoedown_buffer_cstr(ob)];
-    hoedown_markdown_free(markdown);
+    hoedown_document_free(document);
     hoedown_buffer_free(ob);
 
     if (tocRenderer)
     {
-        markdown = hoedown_markdown_new(flags,
-            kMPRendererNestingLevel, tocRenderer);
+        document = hoedown_document_new(
+            tocRenderer, flags, kMPRendererNestingLevel);
         ob = hoedown_buffer_new(64);
-        hoedown_markdown_render(
-            ob, inputData.bytes, inputData.length, markdown);
+        hoedown_document_render(
+            document, ob, inputData.bytes, inputData.length);
         NSString *toc = [NSString stringWithUTF8String:hoedown_buffer_cstr(ob)];
 
         static NSRegularExpression *tocRegex = nil;
@@ -102,7 +102,7 @@ static NSString *MPHTMLFromMarkdown(
         result = [tocRegex stringByReplacingMatchesInString:result options:0
                                                       range:replaceRange
                                                withTemplate:toc];
-        hoedown_markdown_free(markdown);
+        hoedown_document_free(document);
         hoedown_buffer_free(ob);
     }
     if (frontMatter)
@@ -247,14 +247,22 @@ static hoedown_renderer *MPCreateHTMLRenderer(MPRenderer *renderer)
     htmlRenderer->blockcode = hoedown_patch_render_blockcode;
     htmlRenderer->listitem = hoedown_patch_render_listitem;
 
-    rndr_state_ex *state = malloc(sizeof(rndr_state_ex));
-    memcpy(state, htmlRenderer->opaque, sizeof(rndr_state));
-    state->language_addition = language_addition;
-    state->owner = (__bridge void *)renderer;
+    hoedown_html_renderer_state_extra *extra =
+        hoedown_malloc(sizeof(hoedown_html_renderer_state_extra));
+    extra->language_addition = language_addition;
+    extra->owner = (__bridge void *)renderer;
 
-    free(htmlRenderer->opaque);
-    htmlRenderer->opaque = state;
+    ((hoedown_html_renderer_state *)htmlRenderer->opaque)->opaque = extra;
     return htmlRenderer;
+}
+
+static void MPFreeHTMLRenderer(hoedown_renderer *htmlRenderer)
+{
+    hoedown_html_renderer_state_extra *extra =
+        ((hoedown_html_renderer_state *)htmlRenderer->opaque)->opaque;
+    if (extra)
+        free(extra);
+    hoedown_html_renderer_free(htmlRenderer);
 }
 
 
@@ -428,7 +436,7 @@ static hoedown_renderer *MPCreateHTMLRenderer(MPRenderer *renderer)
         htmlRenderer, tocRenderer);
     if (tocRenderer)
         hoedown_html_renderer_free(tocRenderer);
-    hoedown_html_renderer_free(htmlRenderer);
+    MPFreeHTMLRenderer(htmlRenderer);
 
     self.extensions = extensions;
     self.smartypants = smartypants;

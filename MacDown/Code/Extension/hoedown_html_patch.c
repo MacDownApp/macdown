@@ -8,7 +8,7 @@
 
 #include <string.h>
 #include <hoedown/escape.h>
-#include <hoedown/markdown.h>
+#include <hoedown/document.h>
 #include <hoedown/html.h>
 #include "hoedown_html_patch.h"
 
@@ -19,15 +19,16 @@
 // the HTML compatible with Prism.
 void hoedown_patch_render_blockcode(
     hoedown_buffer *ob, const hoedown_buffer *text, const hoedown_buffer *lang,
-    void *opaque)
+    const hoedown_renderer_data *data)
 {
 	if (ob->size) hoedown_buffer_putc(ob, '\n');
 
 	if (lang) {
-        rndr_state_ex *state = opaque;
+        hoedown_html_renderer_state_extra *extra =
+            ((hoedown_html_renderer_state *)data->opaque)->opaque;
         hoedown_buffer *mapped = NULL;
-        if (state->language_addition)
-            mapped = state->language_addition(lang, state->owner);
+        if (extra->language_addition)
+            mapped = extra->language_addition(lang, extra->owner);
 		HOEDOWN_BUFPUTSL(ob, "<pre><code class=\"language-");
         if (mapped)
         {
@@ -52,11 +53,12 @@ void hoedown_patch_render_blockcode(
 // Supports task list syntax if HOEDOWN_HTML_USE_TASK_LIST is on.
 // Implementation based on hoextdown.
 void hoedown_patch_render_listitem(
-    hoedown_buffer *ob, const hoedown_buffer *text, int flags, void *opaque)
+    hoedown_buffer *ob, const hoedown_buffer *text, hoedown_list_flags flags,
+    const hoedown_renderer_data *data)
 {
 	if (text)
     {
-        rndr_state_ex *state = opaque;
+        hoedown_html_renderer_state *state = data->opaque;
         size_t offset = 0;
         if (flags & HOEDOWN_LI_BLOCK)
             offset = 3;
