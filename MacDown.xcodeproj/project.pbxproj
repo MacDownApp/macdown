@@ -51,6 +51,7 @@
 		1FBDFE9C196170FE00BEEA70 /* Extensions in Resources */ = {isa = PBXBuildFile; fileRef = 1FBDFE9B196170FE00BEEA70 /* Extensions */; };
 		1FBDFEA11962A25A00BEEA70 /* MPGeneralPreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FBDFE9F1962A25A00BEEA70 /* MPGeneralPreferencesViewController.m */; };
 		1FBDFEA51962A27300BEEA70 /* MPGeneralPreferencesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FBDFEA31962A27300BEEA70 /* MPGeneralPreferencesViewController.xib */; };
+		1FBE8E0F1A11DB1E003E1EF4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FBE8E0E1A11DB1E003E1EF4 /* main.m */; };
 		1FC29F5C1944FC2600D616C7 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FC29F5B1944FC2600D616C7 /* XCTest.framework */; };
 		1FC29F5E1944FC4F00D616C7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1FCDCA321944F96E00B1F966 /* InfoPlist.strings */; };
 		1FCE066419633D6C00DC83B4 /* Data in Resources */ = {isa = PBXBuildFile; fileRef = 1FCE066319633D6B00DC83B4 /* Data */; };
@@ -67,7 +68,6 @@
 		1FFF301D1948A5320009AF24 /* MPStringLookupTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FFF301C1948A5320009AF24 /* MPStringLookupTests.m */; };
 		5318159056384894AA42DB4F /* libPods-MacDownTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AEAF42BBDCEC4012B5092BB3 /* libPods-MacDownTests.a */; };
 		905EF1A9196164CA00FC3CE9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 905EF1A8196164CA00FC3CE9 /* Foundation.framework */; };
-		905EF1AC196164CA00FC3CE9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 905EF1AB196164CA00FC3CE9 /* main.m */; };
 		905EF1B7196164F300FC3CE9 /* macdown in Copy command line utility */ = {isa = PBXBuildFile; fileRef = 905EF1A7196164CA00FC3CE9 /* macdown */; };
 		B49728377A904875B2963C38 /* libPods-MacDown.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C5C1FBBB3ED456285901D31 /* libPods-MacDown.a */; };
 /* End PBXBuildFile section */
@@ -194,6 +194,7 @@
 		1FBDFE9E1962A25A00BEEA70 /* MPGeneralPreferencesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPGeneralPreferencesViewController.h; sourceTree = "<group>"; };
 		1FBDFE9F1962A25A00BEEA70 /* MPGeneralPreferencesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPGeneralPreferencesViewController.m; sourceTree = "<group>"; };
 		1FBDFEA41962A27300BEEA70 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = MacDown/Localization/Base.lproj/MPGeneralPreferencesViewController.xib; sourceTree = SOURCE_ROOT; };
+		1FBE8E0E1A11DB1E003E1EF4 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "macdown-cmd/main.m"; sourceTree = SOURCE_ROOT; };
 		1FC29F5B1944FC2600D616C7 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		1FCDCA301944F96E00B1F966 /* MacDownTests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MacDownTests-Info.plist"; sourceTree = "<group>"; };
 		1FCDCA311944F96E00B1F966 /* MPPreferencesTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPPreferencesTests.m; sourceTree = "<group>"; };
@@ -214,10 +215,9 @@
 		1FFF301C1948A5320009AF24 /* MPStringLookupTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPStringLookupTests.m; sourceTree = "<group>"; };
 		481332E4A369446F177A8DF0 /* Pods-MacDown.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacDown.release.xcconfig"; path = "Pods/Target Support Files/Pods-MacDown/Pods-MacDown.release.xcconfig"; sourceTree = "<group>"; };
 		7C5C1FBBB3ED456285901D31 /* libPods-MacDown.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MacDown.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		A9105A2DE3384B0DB400BAD1 /* Pods-MacDown.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacDown.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MacDown/Pods-MacDown.debug.xcconfig"; sourceTree = "<group>"; };
 		905EF1A7196164CA00FC3CE9 /* macdown */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = macdown; sourceTree = BUILT_PRODUCTS_DIR; };
 		905EF1A8196164CA00FC3CE9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		905EF1AB196164CA00FC3CE9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		A9105A2DE3384B0DB400BAD1 /* Pods-MacDown.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacDown.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MacDown/Pods-MacDown.debug.xcconfig"; sourceTree = "<group>"; };
 		AEAF42BBDCEC4012B5092BB3 /* libPods-MacDownTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MacDownTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDCDF2E157FE72C2ED7438DD /* Pods-MacDownTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacDownTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MacDownTests/Pods-MacDownTests.release.xcconfig"; sourceTree = "<group>"; };
 		E352E0A2562DCE60302D805E /* Pods-MacDownTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacDownTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MacDownTests/Pods-MacDownTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -413,7 +413,7 @@
 				1F8A83551953453100B6BF69 /* Dependency */,
 				1FCDC9EB1944F89B00B1F966 /* MacDown */,
 				1FCDCA2F1944F96E00B1F966 /* MacDownTests */,
-				905EF1AA196164CA00FC3CE9 /* MacDown-cmd */,
+				905EF1AA196164CA00FC3CE9 /* macdown-cmd */,
 				1FA6DE231941CC9E000409FB /* Frameworks */,
 				1FA6DE221941CC9E000409FB /* Products */,
 				FF36D9424F9F1EFC35FA3D33 /* Pods */,
@@ -519,6 +519,15 @@
 			path = "Dependency/YAML-framework";
 			sourceTree = SOURCE_ROOT;
 		};
+		905EF1AA196164CA00FC3CE9 /* macdown-cmd */ = {
+			isa = PBXGroup;
+			children = (
+				1FBE8E0E1A11DB1E003E1EF4 /* main.m */,
+			);
+			name = "macdown-cmd";
+			path = "MacDown-cmd";
+			sourceTree = "<group>";
+		};
 		FF36D9424F9F1EFC35FA3D33 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -528,14 +537,6 @@
 				BDCDF2E157FE72C2ED7438DD /* Pods-MacDownTests.release.xcconfig */,
 			);
 			name = Pods;
-            sourceTree = "<group>";
-        };
-		905EF1AA196164CA00FC3CE9 /* MacDown-cmd */ = {
-			isa = PBXGroup;
-			children = (
-				905EF1AB196164CA00FC3CE9 /* main.m */,
-			);
-			path = "MacDown-cmd";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -825,7 +826,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				905EF1AC196164CA00FC3CE9 /* main.m in Sources */,
+				1FBE8E0F1A11DB1E003E1EF4 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1161,6 +1162,7 @@
 				905EF1B2196164CA00FC3CE9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
