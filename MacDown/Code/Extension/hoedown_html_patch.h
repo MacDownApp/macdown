@@ -9,7 +9,7 @@
 #ifndef MacDown_hoedown_html_patch_h
 #define MacDown_hoedown_html_patch_h
 
-static unsigned int HOEDOWN_HTML_USE_TASK_LIST = (1 << 11);
+static unsigned int HOEDOWN_HTML_USE_TASK_LIST = (1 << 4);
 
 typedef struct hoedown_buffer hoedown_buffer;
 
