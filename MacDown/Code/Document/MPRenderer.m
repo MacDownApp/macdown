@@ -327,15 +327,6 @@ static void MPFreeHTMLRenderer(hoedown_renderer *htmlRenderer)
                                                  subdirectory:@"MathJax"]
                                andType:kMPMathJaxConfigType];
     [scripts addObject:script];
-    if ([self.delegate rendererMathJaxInlineDollarEnabled:self])
-    {
-        script =
-            [MPEmbeddedScript assetWithURL:[bundle URLForResource:@"inline"
-                                                    withExtension:@"js"
-                                                     subdirectory:@"MathJax"]
-                                   andType:kMPMathJaxConfigType];
-        [scripts addObject:script];
-    }
     [scripts addObject:[MPScript javaScriptWithURL:url]];
     return scripts;
 }

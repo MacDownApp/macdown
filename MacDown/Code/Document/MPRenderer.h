@@ -49,7 +49,6 @@
 - (BOOL)rendererDetectsFrontMatter:(MPRenderer *)renderer;
 - (BOOL)rendererHasSyntaxHighlighting:(MPRenderer *)renderer;
 - (BOOL)rendererHasMathJax:(MPRenderer *)renderer;
-- (BOOL)rendererMathJaxInlineDollarEnabled:(MPRenderer *)renderer;
 - (NSString *)rendererHighlightingThemeName:(MPRenderer *)renderer;
 - (void)renderer:(MPRenderer *)renderer didProduceHTMLOutput:(NSString *)html;
 
