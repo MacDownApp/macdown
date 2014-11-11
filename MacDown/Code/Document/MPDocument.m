@@ -100,7 +100,7 @@ static NSString *MPAutosavePropertyKey(
 @implementation MPPreferences (Hoedown)
 - (int)extensionFlags
 {
-    int flags = HOEDOWN_EXT_LAX_SPACING;
+    int flags = 0;
     if (self.extensionAutolink)
         flags |= HOEDOWN_EXT_AUTOLINK;
     if (self.extensionFencedCode)
@@ -121,6 +121,10 @@ static NSString *MPAutosavePropertyKey(
         flags |= HOEDOWN_EXT_TABLES;
     if (self.extensionUnderline)
         flags |= HOEDOWN_EXT_UNDERLINE;
+    if (self.htmlMathJax)
+        flags |= HOEDOWN_EXT_MATH;
+    if (self.htmlMathJaxInlineDollar)
+        flags |= HOEDOWN_EXT_MATH_EXPLICIT;
     return flags;
 }
 
@@ -871,11 +875,6 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 - (BOOL)rendererHasMathJax:(MPRenderer *)renderer
 {
     return self.preferences.htmlMathJax;
-}
-
-- (BOOL)rendererMathJaxInlineDollarEnabled:(MPRenderer *)renderer
-{
-    return self.preferences.htmlMathJaxInlineDollar;
 }
 
 - (NSString *)rendererHighlightingThemeName:(MPRenderer *)renderer
