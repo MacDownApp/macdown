@@ -50,3 +50,11 @@ pod install
 and open `MacDown.xcworkspace` in Xcode. The first command initialises the dependency submodule(s) used in MacDown; the second one installs dependencies managed by CocoaPods.
 
 Refer to the official guides of Git and CocoaPods if you need more instructions. If you run into build issues later on, try running those commands again to update the dependencies.
+
+## Discussion
+
+[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/uranusjr/macdown?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+
+Join our Gitter channel if you have any problems with MacDown. Any suggestions are welcomed, too!
+
+You can also [file an issue directly](https://github.com/uranusjr/macdown/issues/new) on GitHub if you prefer so. But please, **search first to make sure no-one has reported the same issue already** before opening one yourself. MacDown does not update in your computer immediately when we make changes, so something you experienced might be known, or even fixed in the development version.
