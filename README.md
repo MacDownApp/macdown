@@ -55,6 +55,6 @@ Refer to the official guides of Git and CocoaPods if you need more instructions.
 
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/uranusjr/macdown?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
-Join our Gitter channel if you have any problems with MacDown. Any suggestions are welcomed, too!
+Join our [Gitter channel](https://gitter.im/uranusjr/macdown?utm_source=share-link&utm_medium=link&utm_campaign=share-link) if you have any problems with MacDown. Any suggestions are welcomed, too!
 
 You can also [file an issue directly](https://github.com/uranusjr/macdown/issues/new) on GitHub if you prefer so. But please, **search first to make sure no-one has reported the same issue already** before opening one yourself. MacDown does not update in your computer immediately when we make changes, so something you experienced might be known, or even fixed in the development version.
