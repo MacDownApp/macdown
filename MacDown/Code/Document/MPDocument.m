@@ -1409,16 +1409,14 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     if (!self.preferences.editorSyncScrolling)
         return;
 
-    NSScrollView *editorScrollView = self.editor.enclosingScrollView;
-    NSClipView *editorContentView = editorScrollView.contentView;
-    NSView *editorDocumentView = editorScrollView.documentView;
-    NSRect editorDocumentFrame = editorDocumentView.frame;
-    NSRect editorContentBounds = editorContentView.bounds;
+    NSRect contentBounds = [self.editor.enclosingScrollView.contentView bounds];
+    NSRect realContentRect = self.editor.contentRect;
+
     CGFloat ratio = 0.0;
-    if (editorDocumentFrame.size.height > editorContentBounds.size.height)
+    if (realContentRect.size.height > contentBounds.size.height)
     {
-        ratio = editorContentBounds.origin.y /
-            (editorDocumentFrame.size.height - editorContentBounds.size.height);
+        ratio = contentBounds.origin.y /
+            (realContentRect.size.height - contentBounds.size.height);
     }
 
     NSScrollView *previewScrollView =
