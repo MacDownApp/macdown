@@ -586,9 +586,9 @@
 			productReference = 1FA6DE451941CC9E000409FB /* MacDownTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		905EF1A6196164CA00FC3CE9 /* MacDown-cmd */ = {
+		905EF1A6196164CA00FC3CE9 /* macdown-cmd */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 905EF1B3196164CA00FC3CE9 /* Build configuration list for PBXNativeTarget "MacDown-cmd" */;
+			buildConfigurationList = 905EF1B3196164CA00FC3CE9 /* Build configuration list for PBXNativeTarget "macdown-cmd" */;
 			buildPhases = (
 				905EF1A3196164CA00FC3CE9 /* Sources */,
 				905EF1A4196164CA00FC3CE9 /* Frameworks */,
@@ -598,7 +598,7 @@
 			);
 			dependencies = (
 			);
-			name = "MacDown-cmd";
+			name = "macdown-cmd";
 			productName = "MacDown-cmd";
 			productReference = 905EF1A7196164CA00FC3CE9 /* macdown */;
 			productType = "com.apple.product-type.tool";
@@ -639,7 +639,7 @@
 			targets = (
 				1FA6DE201941CC9E000409FB /* MacDown */,
 				1FA6DE441941CC9E000409FB /* MacDownTests */,
-				905EF1A6196164CA00FC3CE9 /* MacDown-cmd */,
+				905EF1A6196164CA00FC3CE9 /* macdown-cmd */,
 			);
 		};
 /* End PBXProject section */
@@ -845,7 +845,7 @@
 		};
 		905EF1B5196164DD00FC3CE9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 905EF1A6196164CA00FC3CE9 /* MacDown-cmd */;
+			target = 905EF1A6196164CA00FC3CE9 /* macdown-cmd */;
 			targetProxy = 905EF1B4196164DD00FC3CE9 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -1155,7 +1155,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		905EF1B3196164CA00FC3CE9 /* Build configuration list for PBXNativeTarget "MacDown-cmd" */ = {
+		905EF1B3196164CA00FC3CE9 /* Build configuration list for PBXNativeTarget "macdown-cmd" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				905EF1B1196164CA00FC3CE9 /* Debug */,
