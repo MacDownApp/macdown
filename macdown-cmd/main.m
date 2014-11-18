@@ -1,12 +1,15 @@
 //
 //  main.m
-//  MacDown-cmd
+//  macdown-cmd
 //
 //  Created by Esben Sorig on 30/06/2014.
 //  Copyright (c) 2014 Tzu-ping Chung . All rights reserved.
 //
 
 #import <AppKit/AppKit.h>
+#import "NSUserDefaults+Suite.h"
+
+static NSString * const kMPMacDownSuiteName = @"com.uranusjr.macdown";
 
 int main(int argc, const char * argv[])
 {
@@ -22,8 +25,9 @@ int main(int argc, const char * argv[])
             [urls addObject:url.absoluteString];
         }
         NSUserDefaults *defaults =
-            [[NSUserDefaults alloc] initWithSuiteName:@"com.uranusjr.macdown"];
-        [defaults setObject:urls.allObjects forKey:@"filesToOpenOnNextLaunch"];
+            [[NSUserDefaults alloc] initWithSuiteNamed:kMPMacDownSuiteName];
+        [defaults setObject:urls.allObjects forKey:@"filesToOpenOnNextLaunch"
+               inSuiteNamed:kMPMacDownSuiteName];
         [defaults synchronize];
 
         [[NSWorkspace sharedWorkspace] launchApplication:@"MacDown"];
