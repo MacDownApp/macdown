@@ -505,10 +505,10 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 {
     if (self.preferences.editorEnsuresNewlineAtEndOfFile)
     {
-        NSCharacterSet *newlines = [NSCharacterSet newlineCharacterSet];
+        NSCharacterSet *newline = [NSCharacterSet newlineCharacterSet];
         NSString *text = self.editor.string;
         NSUInteger end = text.length;
-        if (![newlines characterIsMember:[text characterAtIndex:end - 1]])
+        if (end && ![newline characterIsMember:[text characterAtIndex:end - 1]])
             [self.editor insertText:@"\n" replacementRange:NSMakeRange(end, 0)];
     }
     return [super writeToURL:url ofType:typeName error:outError];
