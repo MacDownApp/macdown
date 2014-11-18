@@ -163,8 +163,8 @@
         else
         {
             NSDocument *doc = [c openUntitledDocumentAndDisplay:YES error:NULL];
-            doc.fileURL = url;
             doc.draft = YES;
+            doc.fileURL = url;
         }
     }
     self.prefereces.filesToOpenOnNextLaunch = nil;
