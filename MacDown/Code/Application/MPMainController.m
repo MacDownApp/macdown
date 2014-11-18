@@ -95,6 +95,7 @@
                    name:MPDidDetectFreshInstallationNotification
                  object:self.prefereces];
     [self copyFiles];
+    [self openPendingFiles];
     return self;
 }
 
@@ -148,7 +149,26 @@
     }
 }
 
-
+- (void)openPendingFiles
+{
+    NSDocumentController *c = [NSDocumentController sharedDocumentController];
+    for (NSString *path in self.prefereces.filesToOpenOnNextLaunch)
+    {
+        NSURL *url = [NSURL URLWithString:path];
+        if ([url checkResourceIsReachableAndReturnError:NULL])
+        {
+            [c openDocumentWithContentsOfURL:url display:YES
+                           completionHandler:NULL];
+        }
+        else
+        {
+            NSDocument *doc = [c openUntitledDocumentAndDisplay:YES error:NULL];
+            doc.fileURL = url;
+            doc.draft = YES;
+        }
+    }
+    self.prefereces.filesToOpenOnNextLaunch = nil;
+}
 
 
 #pragma mark - Notification handler
