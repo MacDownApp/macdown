@@ -10,8 +10,8 @@ target "MacDown" do
   pod 'LibYAML', '~> 0.1', :inhibit_warnings => true
   pod 'M13OrderedDictionary', '~> 1.0'
   pod 'MASPreferences', '~> 1.1'    # Preference window.
-  pod 'PAPreferences', '~> 0.3'     # Preference singleton.
-  pod 'Sparkle', '< 1.8'           # Updater.
+  pod 'PAPreferences', '~> 0.4'     # Preference singleton.
+  pod 'Sparkle', '< 1.8'            # Updater.
 end
 
 target "MacDownTests" do
