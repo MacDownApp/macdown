@@ -7,9 +7,15 @@
 //
 
 #import <AppKit/AppKit.h>
+#import "version.h"
 #import "NSUserDefaults+Suite.h"
 
 static NSString * const kMPMacDownSuiteName = @"com.uranusjr.macdown";
+
+void printHelp()
+{
+    printf("MacDown %s\n", kMPApplicationVersion);
+}
 
 int main(int argc, const char * argv[])
 {
@@ -21,6 +27,12 @@ int main(int argc, const char * argv[])
         for (int i = 1; i < argc; i++)
         {
             NSString *argument = [NSString stringWithUTF8String:argv[i]];
+            if ([argument isEqualToString:@"-v"]
+                || [argument isEqualToString:@"--version"])
+            {
+                printHelp();
+                exit(EXIT_SUCCESS);
+            }
             NSURL *url = [NSURL URLWithString:argument relativeToURL:pwdUrl];
             [urls addObject:url.absoluteString];
         }
@@ -32,6 +44,6 @@ int main(int argc, const char * argv[])
 
         [[NSWorkspace sharedWorkspace] launchApplication:@"MacDown"];
     }
-    return 0;
+    return EXIT_SUCCESS;
 }
 

@@ -81,6 +81,13 @@
 			remoteGlobalIDString = 1FA6DE201941CC9E000409FB;
 			remoteInfo = MarkPad;
 		};
+		1FCD71171A20BB6B00C028B5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1FCD71131A20BA3A00C028B5 /* version.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 1FCD710D1A20BA3A00C028B5;
+			remoteInfo = version;
+		};
 		1FE2197719534A5D00DB931F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 1F8A837E195348C500B6BF69 /* peg-markdown-highlight.xcodeproj */;
@@ -199,6 +206,8 @@
 		1FBDFEA41962A27300BEEA70 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = MacDown/Localization/Base.lproj/MPGeneralPreferencesViewController.xib; sourceTree = SOURCE_ROOT; };
 		1FBE8E0E1A11DB1E003E1EF4 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "macdown-cmd/main.m"; sourceTree = SOURCE_ROOT; };
 		1FC29F5B1944FC2600D616C7 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		1FCD71131A20BA3A00C028B5 /* version.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = version.xcodeproj; sourceTree = "<group>"; };
+		1FCD711A1A20BE2F00C028B5 /* version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = version.h; path = Dependency/version/version.h; sourceTree = SOURCE_ROOT; };
 		1FCDCA301944F96E00B1F966 /* MacDownTests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MacDownTests-Info.plist"; sourceTree = "<group>"; };
 		1FCDCA311944F96E00B1F966 /* MPPreferencesTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPPreferencesTests.m; sourceTree = "<group>"; };
 		1FCDCA331944F96E00B1F966 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -366,6 +375,7 @@
 		1F8A83551953453100B6BF69 /* Dependency */ = {
 			isa = PBXGroup;
 			children = (
+				1FCD70FC1A20B9FD00C028B5 /* version */,
 				1F8A83561953453A00B6BF69 /* peg-markdown-highlight */,
 				1FFEB32819737D6E00B2254F /* YAML-framework */,
 			);
@@ -460,6 +470,22 @@
 			name = "Other Frameworks";
 			sourceTree = "<group>";
 		};
+		1FCD70FC1A20B9FD00C028B5 /* version */ = {
+			isa = PBXGroup;
+			children = (
+				1FCD71131A20BA3A00C028B5 /* version.xcodeproj */,
+			);
+			name = version;
+			path = Dependency/version;
+			sourceTree = SOURCE_ROOT;
+		};
+		1FCD71141A20BA3A00C028B5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		1FCDC9EB1944F89B00B1F966 /* MacDown */ = {
 			isa = PBXGroup;
 			children = (
@@ -525,6 +551,7 @@
 		905EF1AA196164CA00FC3CE9 /* macdown-cmd */ = {
 			isa = PBXGroup;
 			children = (
+				1FCD711A1A20BE2F00C028B5 /* version.h */,
 				1F2A17261A1BB3E30055A107 /* NSUserDefaults+Suite.h */,
 				1F2A17271A1BB3E30055A107 /* NSUserDefaults+Suite.m */,
 				1FBE8E0E1A11DB1E003E1EF4 /* main.m */,
@@ -602,6 +629,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				1FCD71181A20BB6B00C028B5 /* PBXTargetDependency */,
 			);
 			name = "macdown-cmd";
 			productName = "MacDown-cmd";
@@ -638,6 +666,10 @@
 				{
 					ProductGroup = 1F8A837F195348C500B6BF69 /* Products */;
 					ProjectRef = 1F8A837E195348C500B6BF69 /* peg-markdown-highlight.xcodeproj */;
+				},
+				{
+					ProductGroup = 1FCD71141A20BA3A00C028B5 /* Products */;
+					ProjectRef = 1FCD71131A20BA3A00C028B5 /* version.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -843,6 +875,11 @@
 			isa = PBXTargetDependency;
 			target = 1FA6DE201941CC9E000409FB /* MacDown */;
 			targetProxy = 1FA6DE491941CC9E000409FB /* PBXContainerItemProxy */;
+		};
+		1FCD71181A20BB6B00C028B5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = version;
+			targetProxy = 1FCD71171A20BB6B00C028B5 /* PBXContainerItemProxy */;
 		};
 		1FE2197819534A5D00DB931F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
