@@ -56,4 +56,5 @@ function get_bundle_version() {
             BUNDLE_VERSION="${MASTER_COMMIT_COUNT}.${BRANCH_COMMIT_COUNT}"
         fi
     fi
+    echo $BUNDLE_VERSION
 }
