@@ -14,7 +14,8 @@ static NSString * const kMPMacDownSuiteName = @"com.uranusjr.macdown";
 
 void printHelp()
 {
-    printf("MacDown %s\n", kMPApplicationVersion);
+    printf("MacDown %s (%s)\n",
+           kMPApplicationShortVersion, kMPApplicationBundleVersion);
 }
 
 int main(int argc, const char * argv[])
