@@ -1,0 +1,31 @@
+PODS:
+  - handlebars-objc (1.3.0)
+  - hoedown (3.0.0)
+  - JJPluralForm (2.1)
+  - LibYAML (0.1.4)
+  - M13OrderedDictionary (1.0.5)
+  - MASPreferences (1.1.2)
+  - PAPreferences (0.4)
+  - Sparkle (1.7.1)
+
+DEPENDENCIES:
+  - handlebars-objc (~> 1.3)
+  - hoedown (~> 3.0)
+  - JJPluralForm (~> 2.1)
+  - LibYAML (~> 0.1)
+  - M13OrderedDictionary (~> 1.0)
+  - MASPreferences (~> 1.1)
+  - PAPreferences (~> 0.4)
+  - Sparkle (< 1.8)
+
+SPEC CHECKSUMS:
+  handlebars-objc: ced98b23adddc7b3fbf7473fb40225255e53f591
+  hoedown: d7b4579420f036df11884b55017bd38a67bcabb6
+  JJPluralForm: 14142b5f85ac6abdc3a2cf45f1af61fe6559ea60
+  LibYAML: d447960375d9114187bfddba6e6c24d69bff11f8
+  M13OrderedDictionary: 17dd456dd096dc1de8f810b93d70ae964063e0ff
+  MASPreferences: 48debf3a161039bb979e617b7416bc07bd879f75
+  PAPreferences: 3916ab2f4f332f0a9ed7d45c63dd628ea814a11c
+  Sparkle: fde5ffeb7bf01db28925499ce2a75977763af58a
+
+COCOAPODS: 0.35.0

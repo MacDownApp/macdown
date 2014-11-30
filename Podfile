@@ -15,6 +15,6 @@ target "MacDown" do
 end
 
 target "MacDownTests" do
-  pod 'PAPreferences'
+  pod 'PAPreferences', '~> 0.4'
 end
 
