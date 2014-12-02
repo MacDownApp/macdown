@@ -1204,6 +1204,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
+				INSTALL_PATH = /usr/bin;
 				PRODUCT_NAME = macdown;
 			};
 			name = Debug;
@@ -1214,6 +1215,7 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "";
+				INSTALL_PATH = /usr/bin;
 				PRODUCT_NAME = macdown;
 			};
 			name = Release;
