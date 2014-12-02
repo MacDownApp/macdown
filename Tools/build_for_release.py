@@ -10,6 +10,12 @@ import zipfile
 from xml.etree import ElementTree
 
 
+try:
+    input = raw_input
+except NameError:   # Python 3 does not have raw_input.
+    pass
+
+
 OPENSSL = '/usr/bin/openssl'
 XCODEBUILD = '/usr/bin/xcodebuild'
 OSASCRIPT = '/usr/bin/osascript'
@@ -98,7 +104,7 @@ def main(argv):
     with zipfile.ZipFile(ZIP_NAME, 'w') as f:
         archive_dir(f, APP_NAME)
 
-    raw_input(
+    input(
         'Build finished. Press Return to display bundle information and '
         'reveal ZIP archive.'
     )
