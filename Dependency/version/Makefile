@@ -1,4 +1,4 @@
-ALL: clean version.h
+ALL: version.h
 
 version.h:
 	bash ../../Tools/generate_version_header.sh
