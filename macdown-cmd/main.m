@@ -7,46 +7,21 @@
 //
 
 #import <AppKit/AppKit.h>
-#import "version.h"
+#import <GBCli/GBCli.h>
 #import "NSUserDefaults+Suite.h"
-
-static NSString * const kMPApplicationName = @"MacDown";
-static NSString * const kMPApplicationSuiteName = @"com.uranusjr.macdown";
-
-NS_INLINE NSStringEncoding MPGetSystemEncoding()
-{
-    // TODO: Really detect CLI encoding.
-    return NSUTF8StringEncoding;
-}
-
-NS_INLINE NSString *MPCreateArgument(const char *arg)
-{
-    return [[NSString alloc] initWithCString:arg
-                                    encoding:MPGetSystemEncoding()];
-}
-
-NS_INLINE void printHelp()
-{
-    const char *appName =
-        [kMPApplicationName cStringUsingEncoding:MPGetSystemEncoding()];
-    printf("%s %s (%s)\n",
-           appName, kMPApplicationShortVersion, kMPApplicationBundleVersion);
-}
+#import "MPGlobals.h"
+#import "MPArgumentProcessor.h"
 
 int main(int argc, const char * argv[])
 {
     @autoreleasepool
     {
-        // If the first argument is -v or --version, print the version and exit.
-        if (argc > 1)
-        {
-            NSString *f = MPCreateArgument(argv[1]);
-            if ([f isEqualToString:@"-v"] || [f isEqualToString:@"--version"])
-            {
-                printHelp();
-                exit(EXIT_SUCCESS);
-            }
-        }
+        MPArgumentProcessor *argproc = [[MPArgumentProcessor alloc] init];
+
+        if (argproc.printsHelp)
+            [argproc printHelp:YES];
+        else if (argproc.printsVersion)
+            [argproc printVersion:YES];
 
         // Treat all arguments as file names to open. Convert them to absolute
         // paths and store them (as an array) in MacDown's user defaults to
@@ -54,9 +29,8 @@ int main(int argc, const char * argv[])
         NSString *pwd = [NSFileManager defaultManager].currentDirectoryPath;
         NSURL *pwdUrl = [NSURL fileURLWithPath:pwd isDirectory:YES];
         NSMutableSet *urls = [NSMutableSet set];
-        for (int i = 1; i < argc; i++)
+        for (NSString *argument in argproc.arguments)
         {
-            NSString *argument = MPCreateArgument(argv[i]);
             NSURL *url = [NSURL URLWithString:argument relativeToURL:pwdUrl];
             [urls addObject:url.absoluteString];
         }

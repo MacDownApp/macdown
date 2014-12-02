@@ -18,3 +18,6 @@ target "MacDownTests" do
   pod 'PAPreferences'
 end
 
+target "macdown-cmd" do
+  pod 'GBCli'
+end
