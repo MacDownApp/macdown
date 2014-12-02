@@ -1,0 +1,125 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXFileReference section */
+		1FCD71191A20BB8B00C028B5 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		1FCD71081A20BA3A00C028B5 = {
+			isa = PBXGroup;
+			children = (
+				1FCD71191A20BB8B00C028B5 /* Makefile */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXLegacyTarget section */
+		1FCD710D1A20BA3A00C028B5 /* version */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "$(ACTION)";
+			buildConfigurationList = 1FCD71101A20BA3A00C028B5 /* Build configuration list for PBXLegacyTarget "version" */;
+			buildPhases = (
+			);
+			buildToolPath = /usr/bin/make;
+			dependencies = (
+			);
+			name = version;
+			passBuildSettingsInEnvironment = 1;
+			productName = version;
+		};
+/* End PBXLegacyTarget section */
+
+/* Begin PBXProject section */
+		1FCD71091A20BA3A00C028B5 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				ORGANIZATIONNAME = uranusjr;
+				TargetAttributes = {
+					1FCD710D1A20BA3A00C028B5 = {
+						CreatedOnToolsVersion = 6.1;
+					};
+				};
+			};
+			buildConfigurationList = 1FCD710C1A20BA3A00C028B5 /* Build configuration list for PBXProject "version" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 1FCD71081A20BA3A00C028B5;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1FCD710D1A20BA3A00C028B5 /* version */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin XCBuildConfiguration section */
+		1FCD710E1A20BA3A00C028B5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ONLY_ACTIVE_ARCH = YES;
+			};
+			name = Debug;
+		};
+		1FCD710F1A20BA3A00C028B5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		1FCD71111A20BA3A00C028B5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUGGING_SYMBOLS = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		1FCD71121A20BA3A00C028B5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1FCD710C1A20BA3A00C028B5 /* Build configuration list for PBXProject "version" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1FCD710E1A20BA3A00C028B5 /* Debug */,
+				1FCD710F1A20BA3A00C028B5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1FCD71101A20BA3A00C028B5 /* Build configuration list for PBXLegacyTarget "version" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1FCD71111A20BA3A00C028B5 /* Debug */,
+				1FCD71121A20BA3A00C028B5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 1FCD71091A20BA3A00C028B5 /* Project object */;
+}

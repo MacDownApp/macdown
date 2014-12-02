@@ -173,6 +173,7 @@ xcuserdata
 
 Build/
 Pods/
+Dependency/version/version.h
 Dependency/peg-markdown-highlight/pmh_parser_core.c
 Dependency/peg-markdown-highlight/pmh_parser.c
 Dependency/peg-markdown-highlight/*.o
