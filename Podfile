@@ -19,5 +19,5 @@ target "MacDownTests" do
 end
 
 target "macdown-cmd" do
-  pod 'GBCli'
+  pod 'GBCli', '~> 1.0'
 end

@@ -1,4 +1,5 @@
 PODS:
+  - GBCli (1.1)
   - handlebars-objc (1.3.0)
   - hoedown (3.0.0)
   - JJPluralForm (2.1)
@@ -9,6 +10,7 @@ PODS:
   - Sparkle (1.7.1)
 
 DEPENDENCIES:
+  - GBCli (~> 1.0)
   - handlebars-objc (~> 1.3)
   - hoedown (~> 3.0)
   - JJPluralForm (~> 2.1)
@@ -19,6 +21,7 @@ DEPENDENCIES:
   - Sparkle (< 1.8)
 
 SPEC CHECKSUMS:
+  GBCli: 304718a0ff52cb39ea7ae1bcb3c4cb40c5a48c8d
   handlebars-objc: ced98b23adddc7b3fbf7473fb40225255e53f591
   hoedown: d7b4579420f036df11884b55017bd38a67bcabb6
   JJPluralForm: 14142b5f85ac6abdc3a2cf45f1af61fe6559ea60
@@ -28,4 +31,4 @@ SPEC CHECKSUMS:
   PAPreferences: 3916ab2f4f332f0a9ed7d45c63dd628ea814a11c
   Sparkle: fde5ffeb7bf01db28925499ce2a75977763af58a
 
-COCOAPODS: 0.35.0
+COCOAPODS: 0.34.4
