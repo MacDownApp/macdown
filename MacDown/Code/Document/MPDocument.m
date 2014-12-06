@@ -373,15 +373,21 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 {
     [super windowControllerDidLoadNib:controller];
 
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+
     // All files use their absolute path to keep their window states.
-    // New files always use a default layout.
-    [controller.window performZoom:self];
+    NSString *autosaveName = @"Untitled";
     if (self.fileURL)
-    {
-        NSString *autosaveName = self.fileURL.absoluteString;
-        controller.window.frameAutosaveName = autosaveName;
-        self.autosaveName = autosaveName;
-    }
+        autosaveName = self.fileURL.absoluteString;
+    controller.window.frameAutosaveName = autosaveName;
+    self.autosaveName = autosaveName;
+
+    // Perform initial resizing manually because for some reason untitled
+    // documents do not pick up the autosaved frame automatically in 10.10.
+    NSString *key =
+        [NSString stringWithFormat:@"NSWindow Frame %@", autosaveName];
+    NSString *rectString = [defaults objectForKey:key];
+    [controller.window setFrameFromString:rectString];
 
     self.highlighter =
         [[HGMarkdownHighlighter alloc] initWithTextView:self.editor
@@ -392,7 +398,6 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 
     [self setupEditor:nil];
 
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     for (NSString *key in MPEditorPreferencesToObserve())
     {
         [defaults addObserver:self forKeyPath:key
