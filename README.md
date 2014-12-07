@@ -36,7 +36,7 @@ If you wish to build MacDown yourself, you will need the following components/to
 
 * OS X 10.8 SDK
 * Git
-* [CocoaPods](http://cocoapods.org)
+* [CocoaPods](http://cocoapods.org) [^1]
 
 The OS X 10.8 SDK should be bundled with Xcode 5, but not with Xcode 6+. If your version of Xcode does not contain the appropriate SDK, grab a copy of Xcode 5.1.1 from [Apple’s Developer Downloads page](https://developer.apple.com/downloads/index.action) (free developer ID required), which contains the 10.8 SDK. You may also find [this answer](http://stackoverflow.com/a/11424966/1376863) on StackOverflow useful if you want to use the SDK in Xcode 6 (or later).
 
@@ -60,3 +60,5 @@ Join our [Gitter channel](https://gitter.im/uranusjr/macdown?utm_source=share-li
 You can also [file an issue directly](https://github.com/uranusjr/macdown/issues/new) on GitHub if you prefer so. But please, **search first to make sure no-one has reported the same issue already** before opening one yourself. MacDown does not update in your computer immediately when we make changes, so something you experienced might be known, or even fixed in the development version.
 
 MacDown depends a lot on other open source projects, such as [Hoedown](https://github.com/hoedown/hoedown) for Markdown-to-HTML rendering, [Prism](http://prismjs.com) for syntax highlighting (in code blocks), and [PEG Markdown Highlight](https://github.com/ali-rantakari/peg-markdown-highlight) for editor highlighting. If you find problems when using those particular features, you can also consider reporting them directly to upstream projects as well as to MacDown’s issue tracker. I will do what I can if you report it here, but sometimes it can be more beneficial to interact with them directly.
+
+[^1]: Due to an [upstream bug](https://github.com/CocoaPods/CocoaPods/issues/2559), Xcode may fail to build certain dependencies if you use CocoaPods 0.35. To avoid the problem, you need to install an older version of CocoaPods (0.34.4 is recommended), and use that to build the dependencies instead. See [this comment](https://github.com/uranusjr/macdown/issues/220#issuecomment-65014799) for detailed instructions.
