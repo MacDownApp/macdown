@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment defaultVersion="1080" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="5056"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6254"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="MPGeneralPreferencesViewController">
@@ -12,21 +12,46 @@
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="Hz6-mo-xeY">
             <rect key="frame" x="0.0" y="0.0" width="353" height="205"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <box autoresizesSubviews="NO" fixedFrame="YES" title="Behavior" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="Nma-PL-ZvX">
+                <box autoresizesSubviews="NO" title="Update" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="eLn-fW-Agu">
+                    <rect key="frame" x="17" y="16" width="319" height="54"/>
+                    <view key="contentView">
+                        <rect key="frame" x="1" y="1" width="317" height="38"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button translatesAutoresizingMaskIntoConstraints="NO" id="jet-bG-trd">
+                                <rect key="frame" x="16" y="12" width="285" height="18"/>
+                                <buttonCell key="cell" type="check" title="Include pre-releases" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="vbz-fv-8BX">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <binding destination="-2" name="value" keyPath="self.preferences.updateIncludesPreReleases" id="Q7f-f6-kMa"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                    </view>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="jet-bG-trd" secondAttribute="trailing" constant="16" id="VK9-Ao-jOk"/>
+                        <constraint firstItem="jet-bG-trd" firstAttribute="leading" secondItem="eLn-fW-Agu" secondAttribute="leading" constant="16" id="e2S-8L-OrT"/>
+                        <constraint firstAttribute="bottom" secondItem="jet-bG-trd" secondAttribute="bottom" constant="11" id="pLo-Eb-bLY"/>
+                        <constraint firstItem="jet-bG-trd" firstAttribute="top" secondItem="eLn-fW-Agu" secondAttribute="top" constant="25" id="xyX-s5-Vap"/>
+                    </constraints>
+                    <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                    <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </box>
+                <box autoresizesSubviews="NO" title="Behavior" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="Nma-PL-ZvX">
                     <rect key="frame" x="17" y="74" width="319" height="111"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <view key="contentView">
                         <rect key="frame" x="1" y="1" width="317" height="95"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6Nz-Ft-FbR">
+                            <button translatesAutoresizingMaskIntoConstraints="NO" id="6Nz-Ft-FbR">
                                 <rect key="frame" x="16" y="69" width="285" height="18"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="check" title="Update preview automatically as you type" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="npz-xj-plX">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -40,9 +65,8 @@
                                     </binding>
                                 </connections>
                             </button>
-                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vab-4T-IU5">
+                            <button translatesAutoresizingMaskIntoConstraints="NO" id="Vab-4T-IU5">
                                 <rect key="frame" x="16" y="49" width="285" height="18"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="check" title="Sync preview scrollbar when editor scrolls" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="2Uj-Sx-FjV">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -51,9 +75,8 @@
                                     <binding destination="-2" name="value" keyPath="self.preferences.editorSyncScrolling" id="jyJ-xe-ppE"/>
                                 </connections>
                             </button>
-                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fjb-tU-1Kw">
+                            <button translatesAutoresizingMaskIntoConstraints="NO" id="fjb-tU-1Kw">
                                 <rect key="frame" x="16" y="29" width="285" height="18"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="check" title="Put editor on the right" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="bUn-PQ-5Ez">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -62,51 +85,51 @@
                                     <binding destination="-2" name="value" keyPath="self.preferences.editorOnRight" id="ACj-cC-Ver"/>
                                 </connections>
                             </button>
-                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WVd-hz-Dcr">
+                            <button translatesAutoresizingMaskIntoConstraints="NO" id="WVd-hz-Dcr">
                                 <rect key="frame" x="16" y="9" width="285" height="18"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="check" title="Show word count" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="oeW-bF-ybW">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
+                                    <binding destination="-2" name="value" keyPath="self.preferences.editorShowWordCount" id="WA5-xF-5Qz"/>
                                     <binding destination="-2" name="enabled" keyPath="self.preferences.markdownManualRender" id="HKC-UK-eNM">
                                         <dictionary key="options">
                                             <string key="NSValueTransformerName">NSNegateBoolean</string>
                                         </dictionary>
                                     </binding>
-                                    <binding destination="-2" name="value" keyPath="self.preferences.editorShowWordCount" id="WA5-xF-5Qz"/>
                                 </connections>
                             </button>
                         </subviews>
                     </view>
-                    <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                    <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                </box>
-                <box autoresizesSubviews="NO" fixedFrame="YES" title="Update" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="eLn-fW-Agu">
-                    <rect key="frame" x="17" y="16" width="319" height="54"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <view key="contentView">
-                        <rect key="frame" x="1" y="1" width="317" height="38"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jet-bG-trd">
-                                <rect key="frame" x="16" y="12" width="285" height="18"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="check" title="Include pre-releases" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="vbz-fv-8BX">
-                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <binding destination="-2" name="value" keyPath="self.preferences.updateIncludesPreReleases" id="Q7f-f6-kMa"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                    </view>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="WVd-hz-Dcr" secondAttribute="bottom" constant="8" id="4pE-cc-nCe"/>
+                        <constraint firstItem="WVd-hz-Dcr" firstAttribute="top" secondItem="fjb-tU-1Kw" secondAttribute="bottom" constant="6" id="AbE-wh-MyY"/>
+                        <constraint firstItem="fjb-tU-1Kw" firstAttribute="trailing" secondItem="WVd-hz-Dcr" secondAttribute="trailing" id="HWP-TA-xoQ"/>
+                        <constraint firstItem="fjb-tU-1Kw" firstAttribute="trailing" secondItem="Vab-4T-IU5" secondAttribute="trailing" id="IsS-km-ej1"/>
+                        <constraint firstItem="6Nz-Ft-FbR" firstAttribute="leading" secondItem="Nma-PL-ZvX" secondAttribute="leading" constant="16" id="NPi-sy-rU3"/>
+                        <constraint firstItem="fjb-tU-1Kw" firstAttribute="leading" secondItem="WVd-hz-Dcr" secondAttribute="leading" id="OXk-Mo-Fzs"/>
+                        <constraint firstItem="fjb-tU-1Kw" firstAttribute="leading" secondItem="Vab-4T-IU5" secondAttribute="leading" id="bvb-m9-hTu"/>
+                        <constraint firstItem="6Nz-Ft-FbR" firstAttribute="top" secondItem="Nma-PL-ZvX" secondAttribute="top" constant="25" id="cXH-fv-aC3"/>
+                        <constraint firstItem="fjb-tU-1Kw" firstAttribute="leading" secondItem="6Nz-Ft-FbR" secondAttribute="leading" id="gky-y1-akH"/>
+                        <constraint firstAttribute="trailing" secondItem="6Nz-Ft-FbR" secondAttribute="trailing" constant="16" id="m09-i5-bDQ"/>
+                        <constraint firstItem="fjb-tU-1Kw" firstAttribute="trailing" secondItem="6Nz-Ft-FbR" secondAttribute="trailing" id="o51-5a-aTK"/>
+                        <constraint firstItem="fjb-tU-1Kw" firstAttribute="top" secondItem="Vab-4T-IU5" secondAttribute="bottom" constant="6" id="rdS-RI-1wI"/>
+                        <constraint firstItem="Vab-4T-IU5" firstAttribute="top" secondItem="6Nz-Ft-FbR" secondAttribute="bottom" constant="6" id="y99-Br-qld"/>
+                    </constraints>
                     <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                     <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </box>
             </subviews>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="Nma-PL-ZvX" secondAttribute="trailing" constant="20" id="7AR-va-uLZ"/>
+                <constraint firstAttribute="trailing" secondItem="eLn-fW-Agu" secondAttribute="trailing" constant="20" id="WfE-wJ-Oq2"/>
+                <constraint firstItem="Nma-PL-ZvX" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="20" id="iYe-cB-Pgg"/>
+                <constraint firstItem="Nma-PL-ZvX" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="20" id="nRV-kH-E8J"/>
+                <constraint firstAttribute="bottom" secondItem="eLn-fW-Agu" secondAttribute="bottom" constant="20" id="pKz-Wr-JXJ"/>
+                <constraint firstItem="eLn-fW-Agu" firstAttribute="top" secondItem="Nma-PL-ZvX" secondAttribute="bottom" constant="8" id="ukc-kh-dKs"/>
+                <constraint firstItem="eLn-fW-Agu" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="20" id="zzB-Cu-ZkZ"/>
+            </constraints>
         </customView>
         <userDefaultsController representsSharedInstance="YES" id="gqb-sS-PAs"/>
     </objects>
