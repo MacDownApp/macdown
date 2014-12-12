@@ -14,7 +14,7 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="Hz6-mo-xeY">
-            <rect key="frame" x="0.0" y="0.0" width="353" height="205"/>
+            <rect key="frame" x="0.0" y="0.0" width="353" height="228"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <box autoresizesSubviews="NO" title="Update" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="eLn-fW-Agu">
@@ -25,6 +25,9 @@
                         <subviews>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="jet-bG-trd">
                                 <rect key="frame" x="16" y="12" width="285" height="18"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="14" id="Prd-FU-8Gz"/>
+                                </constraints>
                                 <buttonCell key="cell" type="check" title="Include pre-releases" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="vbz-fv-8BX">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -45,13 +48,16 @@
                     <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </box>
                 <box autoresizesSubviews="NO" title="Behavior" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="Nma-PL-ZvX">
-                    <rect key="frame" x="17" y="74" width="319" height="111"/>
+                    <rect key="frame" x="17" y="74" width="319" height="134"/>
                     <view key="contentView">
-                        <rect key="frame" x="1" y="1" width="317" height="95"/>
+                        <rect key="frame" x="1" y="1" width="317" height="118"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="6Nz-Ft-FbR">
-                                <rect key="frame" x="16" y="69" width="285" height="18"/>
+                                <rect key="frame" x="16" y="72" width="285" height="18"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="14" id="HtO-jU-tMN"/>
+                                </constraints>
                                 <buttonCell key="cell" type="check" title="Update preview automatically as you type" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="npz-xj-plX">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -66,7 +72,10 @@
                                 </connections>
                             </button>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="Vab-4T-IU5">
-                                <rect key="frame" x="16" y="49" width="285" height="18"/>
+                                <rect key="frame" x="16" y="52" width="285" height="18"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="14" id="X3J-8y-4eQ"/>
+                                </constraints>
                                 <buttonCell key="cell" type="check" title="Sync preview scrollbar when editor scrolls" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="2Uj-Sx-FjV">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -76,7 +85,10 @@
                                 </connections>
                             </button>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="fjb-tU-1Kw">
-                                <rect key="frame" x="16" y="29" width="285" height="18"/>
+                                <rect key="frame" x="16" y="32" width="285" height="18"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="14" id="gLz-Pu-BCz"/>
+                                </constraints>
                                 <buttonCell key="cell" type="check" title="Put editor on the right" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="bUn-PQ-5Ez">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -86,7 +98,10 @@
                                 </connections>
                             </button>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="WVd-hz-Dcr">
-                                <rect key="frame" x="16" y="9" width="285" height="18"/>
+                                <rect key="frame" x="16" y="12" width="285" height="18"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="14" id="8H5-jQ-GoX"/>
+                                </constraints>
                                 <buttonCell key="cell" type="check" title="Show word count" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="oeW-bF-ybW">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -100,36 +115,58 @@
                                     </binding>
                                 </connections>
                             </button>
+                            <button translatesAutoresizingMaskIntoConstraints="NO" id="hqr-gd-6gi">
+                                <rect key="frame" x="16" y="92" width="285" height="18"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="14" id="mpk-Ws-hqc"/>
+                                </constraints>
+                                <buttonCell key="cell" type="check" title="Ensure open document on launch" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="l9N-wk-WRY">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="updateWordCounterVisibility:" target="-2" id="COx-AW-eef"/>
+                                    <binding destination="-2" name="value" keyPath="self.preferences.supressesUntitledDocumentOnLaunch" id="r2p-vy-69v">
+                                        <dictionary key="options">
+                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
+                            </button>
                         </subviews>
                     </view>
                     <constraints>
-                        <constraint firstAttribute="bottom" secondItem="WVd-hz-Dcr" secondAttribute="bottom" constant="8" id="4pE-cc-nCe"/>
-                        <constraint firstItem="WVd-hz-Dcr" firstAttribute="top" secondItem="fjb-tU-1Kw" secondAttribute="bottom" constant="6" id="AbE-wh-MyY"/>
-                        <constraint firstItem="fjb-tU-1Kw" firstAttribute="trailing" secondItem="WVd-hz-Dcr" secondAttribute="trailing" id="HWP-TA-xoQ"/>
-                        <constraint firstItem="fjb-tU-1Kw" firstAttribute="trailing" secondItem="Vab-4T-IU5" secondAttribute="trailing" id="IsS-km-ej1"/>
-                        <constraint firstItem="6Nz-Ft-FbR" firstAttribute="leading" secondItem="Nma-PL-ZvX" secondAttribute="leading" constant="16" id="NPi-sy-rU3"/>
-                        <constraint firstItem="fjb-tU-1Kw" firstAttribute="leading" secondItem="WVd-hz-Dcr" secondAttribute="leading" id="OXk-Mo-Fzs"/>
-                        <constraint firstItem="fjb-tU-1Kw" firstAttribute="leading" secondItem="Vab-4T-IU5" secondAttribute="leading" id="bvb-m9-hTu"/>
-                        <constraint firstItem="6Nz-Ft-FbR" firstAttribute="top" secondItem="Nma-PL-ZvX" secondAttribute="top" constant="25" id="cXH-fv-aC3"/>
-                        <constraint firstItem="fjb-tU-1Kw" firstAttribute="leading" secondItem="6Nz-Ft-FbR" secondAttribute="leading" id="gky-y1-akH"/>
-                        <constraint firstAttribute="trailing" secondItem="6Nz-Ft-FbR" secondAttribute="trailing" constant="16" id="m09-i5-bDQ"/>
-                        <constraint firstItem="fjb-tU-1Kw" firstAttribute="trailing" secondItem="6Nz-Ft-FbR" secondAttribute="trailing" id="o51-5a-aTK"/>
-                        <constraint firstItem="fjb-tU-1Kw" firstAttribute="top" secondItem="Vab-4T-IU5" secondAttribute="bottom" constant="6" id="rdS-RI-1wI"/>
-                        <constraint firstItem="Vab-4T-IU5" firstAttribute="top" secondItem="6Nz-Ft-FbR" secondAttribute="bottom" constant="6" id="y99-Br-qld"/>
+                        <constraint firstAttribute="trailing" secondItem="hqr-gd-6gi" secondAttribute="trailing" constant="16" id="050-P6-6Q9"/>
+                        <constraint firstAttribute="bottom" secondItem="WVd-hz-Dcr" secondAttribute="bottom" constant="11" id="1pL-Wp-XXB"/>
+                        <constraint firstItem="Vab-4T-IU5" firstAttribute="top" secondItem="6Nz-Ft-FbR" secondAttribute="bottom" constant="6" id="31p-jR-rzi"/>
+                        <constraint firstItem="hqr-gd-6gi" firstAttribute="top" secondItem="Nma-PL-ZvX" secondAttribute="top" constant="25" id="6Mb-tY-7wI"/>
+                        <constraint firstItem="Vab-4T-IU5" firstAttribute="leading" secondItem="Nma-PL-ZvX" secondAttribute="leading" constant="16" id="8aq-hn-bjs"/>
+                        <constraint firstAttribute="trailing" secondItem="6Nz-Ft-FbR" secondAttribute="trailing" constant="16" id="Lqi-dK-wgJ"/>
+                        <constraint firstItem="6Nz-Ft-FbR" firstAttribute="leading" secondItem="Nma-PL-ZvX" secondAttribute="leading" constant="16" id="WgZ-Pa-k56"/>
+                        <constraint firstAttribute="trailing" secondItem="fjb-tU-1Kw" secondAttribute="trailing" constant="16" id="Wvf-1I-DQm"/>
+                        <constraint firstItem="6Nz-Ft-FbR" firstAttribute="top" secondItem="hqr-gd-6gi" secondAttribute="bottom" constant="6" id="c9i-fc-zgb"/>
+                        <constraint firstAttribute="trailing" secondItem="Vab-4T-IU5" secondAttribute="trailing" constant="16" id="kc1-Ng-Kpx"/>
+                        <constraint firstItem="fjb-tU-1Kw" firstAttribute="leading" secondItem="Nma-PL-ZvX" secondAttribute="leading" constant="16" id="kzA-gF-Nyd"/>
+                        <constraint firstItem="fjb-tU-1Kw" firstAttribute="top" secondItem="Vab-4T-IU5" secondAttribute="bottom" constant="6" id="moa-aq-zlD"/>
+                        <constraint firstItem="hqr-gd-6gi" firstAttribute="leading" secondItem="Nma-PL-ZvX" secondAttribute="leading" constant="16" id="u4C-SI-nyN"/>
+                        <constraint firstAttribute="trailing" secondItem="WVd-hz-Dcr" secondAttribute="trailing" constant="16" id="uRT-1C-K3N"/>
+                        <constraint firstItem="WVd-hz-Dcr" firstAttribute="top" secondItem="fjb-tU-1Kw" secondAttribute="bottom" constant="6" id="xCP-pS-blG"/>
+                        <constraint firstItem="WVd-hz-Dcr" firstAttribute="leading" secondItem="Nma-PL-ZvX" secondAttribute="leading" constant="16" id="zbN-Fc-lwD"/>
                     </constraints>
                     <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                     <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </box>
             </subviews>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="Nma-PL-ZvX" secondAttribute="trailing" constant="20" id="7AR-va-uLZ"/>
-                <constraint firstAttribute="trailing" secondItem="eLn-fW-Agu" secondAttribute="trailing" constant="20" id="WfE-wJ-Oq2"/>
-                <constraint firstItem="Nma-PL-ZvX" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="20" id="iYe-cB-Pgg"/>
-                <constraint firstItem="Nma-PL-ZvX" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="20" id="nRV-kH-E8J"/>
-                <constraint firstAttribute="bottom" secondItem="eLn-fW-Agu" secondAttribute="bottom" constant="20" id="pKz-Wr-JXJ"/>
-                <constraint firstItem="eLn-fW-Agu" firstAttribute="top" secondItem="Nma-PL-ZvX" secondAttribute="bottom" constant="8" id="ukc-kh-dKs"/>
-                <constraint firstItem="eLn-fW-Agu" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="20" id="zzB-Cu-ZkZ"/>
+                <constraint firstItem="eLn-fW-Agu" firstAttribute="top" secondItem="Nma-PL-ZvX" secondAttribute="bottom" constant="8" id="7vO-LB-boi"/>
+                <constraint firstItem="eLn-fW-Agu" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="20" id="JVD-9m-cDN"/>
+                <constraint firstItem="Nma-PL-ZvX" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="20" id="Xks-uM-jKA"/>
+                <constraint firstAttribute="trailing" secondItem="eLn-fW-Agu" secondAttribute="trailing" constant="20" id="g57-m5-Sn8"/>
+                <constraint firstItem="Nma-PL-ZvX" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="20" id="gEA-mp-WFK"/>
+                <constraint firstAttribute="trailing" secondItem="Nma-PL-ZvX" secondAttribute="trailing" constant="20" id="vgl-l0-6gP"/>
+                <constraint firstAttribute="bottom" secondItem="eLn-fW-Agu" secondAttribute="bottom" constant="20" id="vuS-pt-xOq"/>
             </constraints>
+            <point key="canvasLocation" x="324.5" y="392"/>
         </customView>
         <userDefaultsController representsSharedInstance="YES" id="gqb-sS-PAs"/>
     </objects>

@@ -100,6 +100,14 @@
 }
 
 
+#pragma mark - NSApplicationDelegate
+
+- (BOOL)applicationShouldOpenUntitledFile:(NSApplication *)sender
+{
+    return !self.prefereces.supressesUntitledDocumentOnLaunch;
+}
+
+
 #pragma mark - SUUpdaterDelegate
 
 - (NSString *)feedURLStringForUpdater:(SUUpdater *)updater

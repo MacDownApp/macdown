@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 @class MPPreferences;
 
-@interface MPMainController : NSObject
+@interface MPMainController : NSObject <NSApplicationDelegate>
 
 @property (nonatomic, readonly) MPPreferences *prefereces;
 
