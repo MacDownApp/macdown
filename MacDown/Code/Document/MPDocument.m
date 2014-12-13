@@ -514,7 +514,11 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
         NSString *text = self.editor.string;
         NSUInteger end = text.length;
         if (end && ![newline characterIsMember:[text characterAtIndex:end - 1]])
+        {
+            NSRange selection = self.editor.selectedRange;
             [self.editor insertText:@"\n" replacementRange:NSMakeRange(end, 0)];
+            self.editor.selectedRange = selection;
+        }
     }
     return [super writeToURL:url ofType:typeName error:outError];
 }
