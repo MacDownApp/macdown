@@ -9,9 +9,17 @@
 #import "MPEditorView.h"
 
 
+NS_INLINE BOOL MPAreRectsEqual(NSRect r1, NSRect r2)
+{
+    return (r1.origin.x == r2.origin.x && r1.origin.y == r2.origin.y
+            && r1.size.width == r2.size.width
+            && r1.size.height == r2.size.height);
+}
+
+
 @interface MPEditorView ()
 
-@property NSRect contentRect;
+@property (nonatomic) NSRect contentRect;
 @property CGFloat trailingHeight;
 
 @end
@@ -19,6 +27,7 @@
 
 @implementation MPEditorView
 
+@synthesize contentRect = _contentRect;
 @synthesize scrollsPastEnd = _scrollsPastEnd;
 
 - (BOOL)scrollsPastEnd
@@ -38,7 +47,19 @@
                 [self updateContentGeometry];
             }];
         }
+        else
+        {
+            // Clears contentRect to fallback to self.frame.
+            self.contentRect = NSZeroRect;
+        }
     }
+}
+
+- (NSRect)contentRect
+{
+    if (MPAreRectsEqual(_contentRect, NSZeroRect))
+        return self.frame;
+    return _contentRect;
 }
 
 - (void)setFrameSize:(NSSize)newSize
