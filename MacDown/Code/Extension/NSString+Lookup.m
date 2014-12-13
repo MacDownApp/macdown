@@ -46,6 +46,13 @@
     return p;
 }
 
+- (NSArray *)matchesForPattern:(NSString *)p
+{
+    NSRegularExpression *e =
+        [[NSRegularExpression alloc] initWithPattern:p options:0 error:NULL];
+    return [e matchesInString:self options:0 range:NSMakeRange(0, self.length)];
+}
+
 - (id)frontMatter:(NSUInteger *)contentOffset
 {
     NSRegularExpressionOptions op = NSRegularExpressionDotMatchesLineSeparators;

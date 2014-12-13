@@ -30,7 +30,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="1024" height="578"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <splitView focusRingType="none" dividerStyle="thin" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0kv-p9-H4b">
+                    <splitView focusRingType="none" dividerStyle="thin" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0kv-p9-H4b" customClass="MPDocumentSplitView">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="578"/>
                         <subviews>
                             <customView id="WJx-Xb-9af">
@@ -113,6 +113,9 @@
                             <real value="250"/>
                             <real value="250"/>
                         </holdingPriorities>
+                        <connections>
+                            <outlet property="delegate" destination="-2" id="b5o-6h-tOo"/>
+                        </connections>
                     </splitView>
                 </subviews>
                 <constraints>
