@@ -19,7 +19,7 @@ NS_INLINE BOOL MPAreRectsEqual(NSRect r1, NSRect r2)
 
 @interface MPEditorView ()
 
-@property (nonatomic) NSRect contentRect;
+@property NSRect contentRect;
 @property CGFloat trailingHeight;
 
 @end
@@ -57,9 +57,18 @@ NS_INLINE BOOL MPAreRectsEqual(NSRect r1, NSRect r2)
 
 - (NSRect)contentRect
 {
-    if (MPAreRectsEqual(_contentRect, NSZeroRect))
-        return self.frame;
-    return _contentRect;
+    @synchronized(self) {
+        if (MPAreRectsEqual(_contentRect, NSZeroRect))
+            return self.frame;
+        return _contentRect;
+    }
+}
+
+- (void)setContentRect:(NSRect)rect
+{
+    @synchronized(self) {
+        _contentRect = rect;
+    }
 }
 
 - (void)setFrameSize:(NSSize)newSize
