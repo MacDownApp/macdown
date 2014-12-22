@@ -168,7 +168,6 @@ static inline BOOL MPAreNilableStringsEqual(NSString *s1, NSString *s2)
 @property BOOL TOC;
 @property (copy) NSString *styleName;
 @property BOOL frontMatter;
-@property BOOL mathjax;
 @property BOOL syntaxHighlighting;
 @property BOOL manualRender;
 @property (copy) NSString *highlightingThemeName;
@@ -444,8 +443,6 @@ static void MPFreeHTMLRenderer(hoedown_renderer *htmlRenderer)
     id<MPRendererDelegate> d = self.delegate;
     if ([d rendererHasSyntaxHighlighting:self] != self.syntaxHighlighting)
         changed = YES;
-    else if ([d rendererHasMathJax:self] != self.mathjax)
-        changed = YES;
     else if (!MPAreNilableStringsEqual(
             [d rendererHighlightingThemeName:self], self.highlightingThemeName))
         changed = YES;
@@ -468,7 +465,6 @@ static void MPFreeHTMLRenderer(hoedown_renderer *htmlRenderer)
     [delegate renderer:self didProduceHTMLOutput:html];
 
     self.styleName = [delegate rendererStyleName:self];
-    self.mathjax = [delegate rendererHasMathJax:self];
     self.syntaxHighlighting = [delegate rendererHasSyntaxHighlighting:self];
     self.highlightingThemeName = [delegate rendererHighlightingThemeName:self];
 }
