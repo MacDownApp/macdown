@@ -24,7 +24,7 @@
                         <subviews>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="J8u-0k-Z3s">
                                 <rect key="frame" x="16" y="32" width="147" height="18"/>
-                                <buttonCell key="cell" type="check" title="Tables" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="z8g-3M-hbc">
+                                <buttonCell key="cell" type="check" title="Table" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="z8g-3M-hbc">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
@@ -136,7 +136,7 @@
                             </button>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="Y8p-KQ-Vis">
                                 <rect key="frame" x="16" y="12" width="149" height="18"/>
-                                <buttonCell key="cell" type="check" title="Footnotes" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="0yU-vT-72e">
+                                <buttonCell key="cell" type="check" title="Footnote" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="0yU-vT-72e">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
