@@ -1358,15 +1358,16 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 
 - (void)redrawDivider
 {
-    // Request divider redraw to match editor background color (or preview if
-    // editor is hidden).
-    NSColor *color;
-    if (self.editorVisible)
+    // Request divider redraw to match editor's background color.
+    NSColor *color = self.editor.backgroundColor;
+    if (!self.editorVisible)
     {
-        color = self.editor.backgroundColor;
-    }
-    else
-    {
+        // If the editor is NOT visible, detect preview's background color via
+        // DOM query and use it instead. This is more expensive; we should try
+        // to avoid it.
+        // TODO: Is it possible to cache this until the user switches the style?
+        // Will need to take account of the user MODIFIES the style without
+        // switching. Complicated. This will do for now.
         DOMDocument *doc = self.preview.mainFrameDocument;
         id body = [[doc getElementsByTagName:@"body"] item:0];
         DOMCSSStyleDeclaration *style = [doc getComputedStyle:body
