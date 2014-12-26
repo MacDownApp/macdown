@@ -51,6 +51,8 @@ and open `MacDown.xcworkspace` in Xcode. The first command initialises the depen
 
 Refer to the official guides of Git and CocoaPods if you need more instructions. If you run into build issues later on, try running those commands again to update the dependencies.
 
+Note newest pod has the problem to build this project, see [this issue](https://github.com/uranusjr/macdown/issues/220).
+
 ## Discussion
 
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/uranusjr/macdown?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
