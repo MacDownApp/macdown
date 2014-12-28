@@ -32,26 +32,36 @@ The following editor themes and CSS files are extracted from [Mou](http://mouapp
 
 ## Development
 
+### Requirements
+
 If you wish to build MacDown yourself, you will need the following components/tools:
 
-* OS X 10.8 SDK
+* OS X SDK (10.8 or later)
 * Git
 * [CocoaPods](http://cocoapods.org)
 
 > Note: Due to an [upstream bug](https://github.com/CocoaPods/CocoaPods/issues/2559), Xcode will fail to build certain dependencies if you use the latest version of CocoaPods (0.35 at the time of writing). To avoid the problem and build the project correctly, you need to install an older version of CocoaPods (0.34.4 is recommended), and use that to build the dependencies instead. See [comment in issue #220](https://github.com/uranusjr/macdown/issues/220#issuecomment-65014799) for detailed instructions.
 
-The OS X 10.8 SDK should be bundled with Xcode 5, but not with Xcode 6+. If your version of Xcode does not contain the appropriate SDK, grab a copy of Xcode 5.1.1 from [Apple’s Developer Downloads page](https://developer.apple.com/downloads/index.action) (free developer ID required), which contains the 10.8 SDK. You may also find [this answer](http://stackoverflow.com/a/11424966/1376863) on StackOverflow useful if you want to use the SDK in Xcode 6 (or later).
+An appropriate SDK should be bundled with Xcode 5 or later versions.
+
+### Environment Setup
 
 After cloning the repository, run the following commands inside the repository root (directory containing this `README.md` file):
 
 ```bash
-git submodule update --init --recursive
+git submodule init
+git submodule update
 pod install
 ```
 
 and open `MacDown.xcworkspace` in Xcode. The first command initialises the dependency submodule(s) used in MacDown; the second one installs dependencies managed by CocoaPods.
 
-Refer to the official guides of Git and CocoaPods if you need more instructions. If you run into build issues later on, try running those commands again to update the dependencies.
+Refer to the official guides of Git and CocoaPods if you need more instructions. If you run into build issues later on, try running the following commands to update dependencies:
+
+```bash
+git submodule update
+pod install
+```
 
 ## Discussion
 
