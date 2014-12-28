@@ -14,9 +14,11 @@
 #import "HGMarkdownHighlighter.h"
 #import "MPUtilities.h"
 #import "MPAutosaving.h"
+#import "NSColor+HTML.h"
 #import "NSString+Lookup.h"
 #import "NSTextView+Autocomplete.h"
 #import "MPPreferences.h"
+#import "MPDocumentSplitView.h"
 #import "MPEditorView.h"
 #import "MPRenderer.h"
 #import "MPPreferencesViewController.h"
@@ -139,53 +141,6 @@ static NSString *MPAutosavePropertyKey(
 }
 @end
 
-
-@implementation NSSplitView (TwoItems)
-
-- (CGFloat)dividerLocation
-{
-    NSArray *parts = self.subviews;
-    NSAssert1(parts.count == 2, @"%@ should only be used on two-item splits.",
-              NSStringFromSelector(_cmd));
-
-    CGFloat totalWidth = self.frame.size.width - self.dividerThickness;
-    CGFloat leftWidth = [parts[0] frame].size.width;
-    return leftWidth / totalWidth;
-}
-
-- (void)setDividerLocation:(CGFloat)ratio
-{
-    NSArray *parts = self.subviews;
-    NSAssert1(parts.count == 2, @"%@ should only be used on two-item splits.",
-              NSStringFromSelector(_cmd));
-    if (ratio < 0.0)
-        ratio = 0.0;
-    else if (ratio > 1.0)
-        ratio = 1.0;
-    CGFloat dividerThickness = self.dividerThickness;
-    CGFloat totalWidth = self.frame.size.width - dividerThickness;
-    CGFloat leftWidth = totalWidth * ratio;
-    CGFloat rightWidth = totalWidth - leftWidth;
-    NSView *left = parts[0];
-    NSView *right = parts[1];
-
-    left.frame = NSMakeRect(0.0, 0.0, leftWidth, left.frame.size.height);
-    right.frame = NSMakeRect(leftWidth + dividerThickness, 0.0,
-                             rightWidth, right.frame.size.height);
-    [self setPosition:leftWidth ofDividerAtIndex:0];
-}
-
-- (void)swapViews
-{
-    NSArray *parts = self.subviews;
-    NSView *left = parts[0];
-    NSView *right = parts[1];
-    self.subviews = @[right, left];
-}
-
-@end
-
-
 @implementation DOMNode (Text)
 
 - (NSString *)nodeText
@@ -220,7 +175,8 @@ static NSString *MPAutosavePropertyKey(
 
 
 @interface MPDocument ()
-    <NSTextViewDelegate, MPAutosaving, MPRendererDataSource, MPRendererDelegate>
+    <NSSplitViewDelegate, NSTextViewDelegate,
+     MPAutosaving, MPRendererDataSource, MPRendererDelegate>
 
 typedef NS_ENUM(NSUInteger, MPWordCountType) {
     MPWordCountTypeWord,
@@ -228,7 +184,7 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
     MPWordCountTypeCharacterNoSpaces,
 };
 
-@property (weak) IBOutlet NSSplitView *splitView;
+@property (weak) IBOutlet MPDocumentSplitView *splitView;
 @property (weak) IBOutlet NSView *editorContainer;
 @property (unsafe_unretained) IBOutlet MPEditorView *editor;
 @property (weak) IBOutlet NSLayoutConstraint *editorPaddingBottom;
@@ -397,6 +353,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     self.renderer.delegate = self;
 
     [self setupEditor:nil];
+    [self redrawDivider];
 
     for (NSString *key in MPEditorPreferencesToObserve())
     {
@@ -629,6 +586,14 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
         ((NSMenuItem *)item).state = state;
     }
     return result;
+}
+
+
+#pragma mark - NSSplitViewDelegate
+
+- (void)splitViewDidResizeSubviews:(NSNotification *)notification
+{
+    [self redrawDivider];
 }
 
 
@@ -989,6 +954,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     {
         if (self.highlighter.isActive)
             [self setupEditor:keyPath];
+        [self redrawDivider];
     }
 }
 
@@ -1388,6 +1354,27 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 
     [self.highlighter activate];
     self.editor.automaticLinkDetectionEnabled = NO;
+}
+
+- (void)redrawDivider
+{
+    // Request divider redraw to match editor's background color.
+    NSColor *color = self.editor.backgroundColor;
+    if (!self.editorVisible)
+    {
+        // If the editor is NOT visible, detect preview's background color via
+        // DOM query and use it instead. This is more expensive; we should try
+        // to avoid it.
+        // TODO: Is it possible to cache this until the user switches the style?
+        // Will need to take account of the user MODIFIES the style without
+        // switching. Complicated. This will do for now.
+        DOMDocument *doc = self.preview.mainFrameDocument;
+        id body = [[doc getElementsByTagName:@"body"] item:0];
+        DOMCSSStyleDeclaration *style = [doc getComputedStyle:body
+                                                pseudoElement:nil];
+        color = [NSColor colorWithHTMLName:[style backgroundColor]];
+    }
+    self.splitView.dividerColor = color;
 }
 
 - (void)syncScrollers
