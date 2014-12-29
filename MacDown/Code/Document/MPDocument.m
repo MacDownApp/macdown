@@ -87,7 +87,7 @@ static NSString *MPAutosavePropertyKey(
 {
     __block NSUInteger count = 0;
     NSStringEnumerationOptions options =
-    NSStringEnumerationByWords | NSStringEnumerationSubstringNotRequired;
+        NSStringEnumerationByWords | NSStringEnumerationSubstringNotRequired;
     [self enumerateSubstringsInRange:NSMakeRange(0, self.length)
                              options:options usingBlock:
      ^(NSString *str, NSRange strRange, NSRange enclosingRange, BOOL *stop) {
