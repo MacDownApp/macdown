@@ -22,15 +22,16 @@
     NSScanner *scanner = [NSScanner scannerWithString:string];
     [scanner scanHexInt:&result];
 
+    // BGR (because we work from the end).
     CGFloat components[3] = {0.0, 0.0, 0.0};
-    for (int i = 3; i >= 0; i--)
+    for (int i = 0; i < 3; i++)
     {
-        components[i] = (result % max) / (max * 1.0);
-        result /= max;
+        components[i] = (result % (max + 1)) / (max * 1.0);
+        result /= (max + 1);
     }
 
-    return [NSColor colorWithRed:components[0] green:components[1]
-                            blue:components[2] alpha:1.0];
+    return [NSColor colorWithRed:components[2] green:components[1]
+                            blue:components[0] alpha:1.0];
 }
 
 // Implementation based on DTCoreText.

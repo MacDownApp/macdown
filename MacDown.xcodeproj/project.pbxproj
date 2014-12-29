@@ -28,6 +28,7 @@
 		1F0D9DB4194AC9EE008E1856 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F0D9D81194AC83C008E1856 /* MainMenu.xib */; };
 		1F0F3BFC195F75F200FC0B3B /* MathJax in Resources */ = {isa = PBXBuildFile; fileRef = 1F0F3BFB195F75F200FC0B3B /* MathJax */; };
 		1F23A92119928E650052DB78 /* MPMathJaxListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F23A92019928E650052DB78 /* MPMathJaxListener.m */; };
+		1F25E1C31A50F4F10029371D /* MPColorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F25E1C21A50F4F10029371D /* MPColorTests.m */; };
 		1F27896B1973BEB100EE696A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1F2789691973BEB100EE696A /* Localizable.strings */; };
 		1F2A17281A1BB3E30055A107 /* NSUserDefaults+Suite.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F2A17271A1BB3E30055A107 /* NSUserDefaults+Suite.m */; };
 		1F33F2A11A3B4B660001C849 /* MPDocumentSplitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F33F2A01A3B4B660001C849 /* MPDocumentSplitView.m */; };
@@ -166,6 +167,7 @@
 		1F0F3BFB195F75F200FC0B3B /* MathJax */ = {isa = PBXFileReference; lastKnownFileType = folder; name = MathJax; path = Resources/MathJax; sourceTree = "<group>"; };
 		1F23A91F19928E650052DB78 /* MPMathJaxListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPMathJaxListener.h; sourceTree = "<group>"; };
 		1F23A92019928E650052DB78 /* MPMathJaxListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPMathJaxListener.m; sourceTree = "<group>"; };
+		1F25E1C21A50F4F10029371D /* MPColorTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPColorTests.m; sourceTree = "<group>"; };
 		1F27896A1973BEB100EE696A /* Base */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = Base; path = Localization/Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1F2A17261A1BB3E30055A107 /* NSUserDefaults+Suite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSUserDefaults+Suite.h"; path = "macdown-cmd/NSUserDefaults+Suite.h"; sourceTree = SOURCE_ROOT; };
 		1F2A17271A1BB3E30055A107 /* NSUserDefaults+Suite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSUserDefaults+Suite.m"; path = "macdown-cmd/NSUserDefaults+Suite.m"; sourceTree = SOURCE_ROOT; };
@@ -537,6 +539,7 @@
 			isa = PBXGroup;
 			children = (
 				1FF1420319A8A24800CF8A6A /* MPUtilityTests.m */,
+				1F25E1C21A50F4F10029371D /* MPColorTests.m */,
 				1FCDCA311944F96E00B1F966 /* MPPreferencesTests.m */,
 				1FFF301C1948A5320009AF24 /* MPStringLookupTests.m */,
 				1FFEB31819729F7C00B2254F /* MPAssetTests.m */,
@@ -914,6 +917,7 @@
 				1F51C9A5194565050015A96F /* MPPreferencesTests.m in Sources */,
 				1FF1420419A8A24800CF8A6A /* MPUtilityTests.m in Sources */,
 				1FFEB3271972DAB400B2254F /* MPHTMLTabularizeTests.m in Sources */,
+				1F25E1C31A50F4F10029371D /* MPColorTests.m in Sources */,
 				1FFF301D1948A5320009AF24 /* MPStringLookupTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
