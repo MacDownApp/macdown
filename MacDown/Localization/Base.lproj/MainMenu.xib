@@ -406,6 +406,12 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="Cux-kV-g5Z"/>
+                            <menuItem title="Detach Preview" id="Zd9-dE-It5">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="togglePreviewDetached:" target="-1" id="aDh-4P-8bR"/>
+                                </connections>
+                            </menuItem>
                             <menuItem title="Enter Full Screen" keyEquivalent="f" id="1gz-YB-DZE">
                                 <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
                                 <connections>
