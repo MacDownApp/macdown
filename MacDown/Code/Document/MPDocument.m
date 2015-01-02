@@ -1287,7 +1287,6 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
         CALayer *layer = [CALayer layer];
         layer.backgroundColor = backgroundCGColor;
         self.editorContainer.layer = layer;
-        self.editorContainer.wantsLayer = YES;
     }
 
     if (!changedKey || [changedKey isEqualToString:@"editorShowWordCount"])
