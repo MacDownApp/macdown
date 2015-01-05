@@ -42,7 +42,7 @@ If you wish to build MacDown yourself, you will need the following components/to
 
 You may also need to install Xcode’s command line tools with the following command:
 
-    xcode-select install
+    xcode-select --install
 
 > Note: Due to an [upstream bug](https://github.com/CocoaPods/CocoaPods/issues/2559), Xcode will fail to build certain dependencies if you use the latest version of CocoaPods (0.35 at the time of writing). To avoid the problem and build the project correctly, you need to install an older version of CocoaPods (0.34.4 is recommended), and use that to build the dependencies instead. See [comment in issue #220](https://github.com/uranusjr/macdown/issues/220#issuecomment-65014799) for detailed instructions.
 
