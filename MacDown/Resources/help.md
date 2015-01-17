@@ -83,22 +83,20 @@ I support many popular languages as well as some generic syntax descriptions tha
 The following is a list of optional inline markups supported:
 
 Option name           | Markup           | Result if enabled     |
-----------------------|------------------|-----------------------|
-Intra-word emphasis   | This\*is\*good   | This<em>is</em>good   |
-Strikethrough         | \~~Much wow\~~   | <del>Much wow</del>   |
-Underline [^1]        | \_So doge\_      | <u>So doge</u>        |
-Quote [^2] [^3]       | "Such editor"    | <q>Such editor</q>    |
-Highlight             | \==So good\==    | <mark>So good</mark>  |
-Superscript [^4] [^5] | hoge\^(fuga)     | hoge<sup>fuga</sup>   |
-Autolink              | http://t.co      | <a href="http://t.co">http://t.co</a> |
-Footnotes [^4]        | [\^6] and [\^6]: | [^6] and footnote 6 below |
+--------------------|------------------|-----------------------|
+Intra-word emphasis | This\*is\*good   | This<em>is</em>good   |
+Strikethrough       | \~~Much wow\~~   | <del>Much wow</del>   |
+Underline [^1]      | \_So doge\_      | <u>So doge</u>        |
+Quote [^2] [^3]     | \"Such editor\"  | <q>Such editor</q>    |
+Highlight           | \==So good\==    | <mark>So good</mark>  |
+Superscript         | hoge\^(fuga)     | hoge<sup>fuga</sup>   |
+Autolink            | http://t.co      | <a href="http://t.co">http://t.co</a> |
+Footnotes           | [\^4] and [\^4]: | <sup id="fnref4"><a href="#fn4">4</a></sup> and footnote 4 below |
 
 [^1]: If **Underline** is disabled. _this_ will be the same as *this*.
 [^2]: Note that this is different from *blockquote* (a `> `-prefixed block), which is part of the standard Markdown syntax specification.
 [^3]: **Quote** and **Smartypants** are syntactically incompatible with each other. The former will take precedence.
-[^4]: **Superscript** and **Footnotes** are syntactically incompatible with each other. The former will take precedence.
-[^5]: LaTeX `^` superscripts in math will fail if you enabled the **Superscript** extension. You will need to use MathML if you want math support and ***Superscript*** together.
-[^6]: This is a footnote.
+[^4]: This is a footnote.
 
 
 ### Document Formatting
