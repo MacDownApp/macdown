@@ -31,7 +31,7 @@
 static NSString * const kMPRendersTOCPropertyKey = @"Renders TOC";
 
 
-static NSString *MPEditorPreferenceKeyWithValueKey(NSString *key)
+NS_INLINE NSString *MPEditorPreferenceKeyWithValueKey(NSString *key)
 {
     if (!key.length)
         return @"editor";
@@ -40,7 +40,7 @@ static NSString *MPEditorPreferenceKeyWithValueKey(NSString *key)
     return [NSString stringWithFormat:@"editor%@%@", first, rest];
 }
 
-static NSDictionary *MPEditorKeysToObserve()
+NS_INLINE NSDictionary *MPEditorKeysToObserve()
 {
     static NSDictionary *keys = nil;
     static dispatch_once_t token;
@@ -57,7 +57,7 @@ static NSDictionary *MPEditorKeysToObserve()
     return keys;
 }
 
-static NSSet *MPEditorPreferencesToObserve()
+NS_INLINE NSSet *MPEditorPreferencesToObserve()
 {
     static NSSet *keys = nil;
     static dispatch_once_t token;
@@ -73,7 +73,7 @@ static NSSet *MPEditorPreferencesToObserve()
     return keys;
 }
 
-static NSString *MPAutosavePropertyKey(
+NS_INLINE NSString *MPAutosavePropertyKey(
     id<MPAutosaving> object, NSString *propertyName)
 {
     NSString *className = NSStringFromClass([object class]);
