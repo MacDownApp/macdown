@@ -149,6 +149,7 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
 @property BOOL copying;
 @property BOOL printing;
 @property BOOL shouldHandleBoundsChange;
+@property BOOL isPreviewReady;
 @property (nonatomic) BOOL rendersTOC;
 @property (readonly) BOOL previewVisible;
 @property (readonly) BOOL editorVisible;
@@ -266,6 +267,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     if (!self)
         return nil;
 
+    self.isPreviewReady = NO;
     self.shouldHandleBoundsChange = YES;
     self.previousSplitRatio = -1.0;
     return self;
@@ -359,6 +361,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     [wordCountWidget selectItemAtIndex:self.preferences.editorWordCountType];
     wordCountWidget.alphaValue = 0.9;
     wordCountWidget.hidden = !self.preferences.editorShowWordCount;
+    wordCountWidget.enabled = NO;
 }
 
 - (void)canCloseDocumentWithDelegate:(id)delegate
@@ -691,6 +694,8 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
         NSOperationQueue *queue = [NSOperationQueue mainQueue];
         [queue addOperationWithBlock:callback];
     }
+
+    self.isPreviewReady = YES;
     
     // Update word count
     if (self.preferences.editorShowWordCount)
@@ -1399,6 +1404,9 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     self.totalWords = count.words;
     self.totalCharacters = count.characters;
     self.totalCharactersNoSpaces = count.characterWithoutSpaces;
+
+    if (self.isPreviewReady)
+        self.wordCountWidget.enabled = YES;
 }
 
 - (void)document:(NSDocument *)doc didPrint:(BOOL)ok context:(void *)context
