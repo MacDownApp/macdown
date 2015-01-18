@@ -817,6 +817,11 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     return self.preferences.htmlHighlightingThemeName;
 }
 
+- (BOOL)rendererHasLineNumbers:(MPRenderer *)renderer
+{
+    return self.preferences.htmlLineNumbers;
+}
+
 - (void)renderer:(MPRenderer *)renderer didProduceHTMLOutput:(NSString *)html
 {
     // Delayed copying for -copyHtml.

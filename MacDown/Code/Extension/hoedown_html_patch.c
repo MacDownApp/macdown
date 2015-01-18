@@ -29,7 +29,7 @@ void hoedown_patch_render_blockcode(
         hoedown_buffer *mapped = NULL;
         if (extra->language_addition)
             mapped = extra->language_addition(lang, extra->owner);
-		HOEDOWN_BUFPUTSL(ob, "<pre><code class=\"language-");
+        HOEDOWN_BUFPUTSL(ob, "<pre class=\"line-numbers\"><code class=\"language-");
         if (mapped)
         {
             hoedown_escape_html(ob, mapped->data, mapped->size, 0);
@@ -45,7 +45,15 @@ void hoedown_patch_render_blockcode(
 	}
 
 	if (text)
-		hoedown_escape_html(ob, text->data, text->size, 0);
+    {
+        // to prevent prism from adding a blank line at the end of code blocks,
+        // remove any trailing newline character
+        size_t size = text->size;
+        if (size && text->data[size - 1] == '\n') {
+            size--;
+        }
+        hoedown_escape_html(ob, text->data, size, 0);
+    }
 
 	HOEDOWN_BUFPUTSL(ob, "</code></pre>\n");
 }
