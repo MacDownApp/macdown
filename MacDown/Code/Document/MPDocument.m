@@ -17,6 +17,7 @@
 #import "NSColor+HTML.h"
 #import "NSString+Lookup.h"
 #import "NSTextView+Autocomplete.h"
+#import "DOMNode+Text.h"
 #import "MPPreferences.h"
 #import "MPDocumentSplitView.h"
 #import "MPEditorView.h"
@@ -81,24 +82,6 @@ static NSString *MPAutosavePropertyKey(
 }
 
 
-@implementation NSString (WordCount)
-
-- (NSUInteger)numberOfWords
-{
-    __block NSUInteger count = 0;
-    NSStringEnumerationOptions options =
-        NSStringEnumerationByWords | NSStringEnumerationSubstringNotRequired;
-    [self enumerateSubstringsInRange:NSMakeRange(0, self.length)
-                             options:options usingBlock:
-     ^(NSString *str, NSRange strRange, NSRange enclosingRange, BOOL *stop) {
-         count++;
-     }];
-    return count;
-}
-
-@end
-
-
 @implementation MPPreferences (Hoedown)
 - (int)extensionFlags
 {
@@ -139,38 +122,6 @@ static NSString *MPAutosavePropertyKey(
         flags |= HOEDOWN_HTML_HARD_WRAP;
     return flags;
 }
-@end
-
-@implementation DOMNode (Text)
-
-- (NSString *)nodeText
-{
-    NSMutableString *text = [NSMutableString string];
-    switch (self.nodeType)
-    {
-        case 1:
-        case 9:
-        case 11:
-            if ([self respondsToSelector:@selector(tagName)])
-            {
-                NSString *tagName = [(id)self tagName].uppercaseString;
-                if ([tagName isEqualToString:@"SCRIPT"]
-                        || [tagName isEqualToString:@"STYLE"]
-                        || [tagName isEqualToString:@"HEAD"])
-                    break;
-            }
-            for (DOMNode *c = self.firstChild; c; c = c.nextSibling)
-                [text appendString:c.nodeText];
-            break;
-        case 3:
-        case 4:
-            return self.nodeValue;
-        default:
-            break;
-    }
-    return text;
-}
-
 @end
 
 
@@ -1443,16 +1394,11 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 
 - (void)updateWordCount
 {
-    NSString *text = self.preview.mainFrame.DOMDocument.nodeText;
-    NSCharacterSet *sp = [NSCharacterSet whitespaceAndNewlineCharacterSet];
-    NSArray *comps = [text componentsSeparatedByCharactersInSet:sp];
+    DOMNodeTextCount count = self.preview.mainFrame.DOMDocument.textCount;
 
-    NSString *trimmedDocument = [text stringByTrimmingCharactersInSet:sp];
-    NSString *noWhitespace = [comps componentsJoinedByString:@""];
-
-    self.totalWords = text.numberOfWords;
-    self.totalCharacters = trimmedDocument.length;
-    self.totalCharactersNoSpaces = noWhitespace.length;
+    self.totalWords = count.words;
+    self.totalCharacters = count.characters;
+    self.totalCharactersNoSpaces = count.characterWithoutSpaces;
 }
 
 - (void)document:(NSDocument *)doc didPrint:(BOOL)ok context:(void *)context
