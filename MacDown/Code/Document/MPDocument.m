@@ -305,9 +305,6 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     self.renderer.dataSource = self;
     self.renderer.delegate = self;
 
-    [self setupEditor:nil];
-    [self redrawDivider];
-
     for (NSString *key in MPEditorPreferencesToObserve())
     {
         [defaults addObserver:self forKeyPath:key
@@ -362,6 +359,14 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     wordCountWidget.alphaValue = 0.9;
     wordCountWidget.hidden = !self.preferences.editorShowWordCount;
     wordCountWidget.enabled = NO;
+
+    // These needs to be queued until after the window is shown, so that editor
+    // can have the correct dimention for size-limiting and stuff. See
+    // https://github.com/uranusjr/macdown/issues/236
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+        [self setupEditor:nil];
+        [self redrawDivider];
+    }];
 }
 
 - (void)canCloseDocumentWithDelegate:(id)delegate
