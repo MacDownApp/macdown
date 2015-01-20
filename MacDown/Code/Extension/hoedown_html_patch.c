@@ -29,7 +29,12 @@ void hoedown_patch_render_blockcode(
         hoedown_buffer *mapped = NULL;
         if (extra->language_addition)
             mapped = extra->language_addition(lang, extra->owner);
-        HOEDOWN_BUFPUTSL(ob, "<pre class=\"line-numbers\"><code class=\"language-");
+
+        if (extra->blockcode_flags & HOEDOWN_BLOCKCODE_LINE_NUMBERS)
+            HOEDOWN_BUFPUTSL(ob, "<pre class=\"line-numbers\">");
+        else
+            HOEDOWN_BUFPUTSL(ob, "<pre>");
+        HOEDOWN_BUFPUTSL(ob, "<code class=\"language-");
         if (mapped)
         {
             hoedown_escape_html(ob, mapped->data, mapped->size, 0);

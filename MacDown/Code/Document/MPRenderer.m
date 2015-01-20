@@ -249,9 +249,14 @@ static hoedown_renderer *MPCreateHTMLRenderer(MPRenderer *renderer)
     htmlRenderer->blockcode = hoedown_patch_render_blockcode;
     htmlRenderer->listitem = hoedown_patch_render_listitem;
 
+    int blockCodeFlags = 0;
+    if ([renderer.delegate rendererHasLineNumbers:renderer])
+        blockCodeFlags |= HOEDOWN_BLOCKCODE_LINE_NUMBERS;
+    
     hoedown_html_renderer_state_extra *extra =
         hoedown_malloc(sizeof(hoedown_html_renderer_state_extra));
     extra->language_addition = language_addition;
+    extra->blockcode_flags = blockCodeFlags;
     extra->owner = (__bridge void *)renderer;
 
     ((hoedown_html_renderer_state *)htmlRenderer->opaque)->opaque = extra;
@@ -412,7 +417,8 @@ static void MPFreeHTMLRenderer(hoedown_renderer *htmlRenderer)
     if ([delegate rendererExtensions:self] != self.extensions
             || [delegate rendererHasSmartyPants:self] != self.smartypants
             || [delegate rendererRendersTOC:self] != self.TOC
-            || [delegate rendererDetectsFrontMatter:self] != self.frontMatter)
+            || [delegate rendererDetectsFrontMatter:self] != self.frontMatter
+            || [delegate rendererHasLineNumbers:self] != self.lineNumbers)
         [self parse];
 }
 
@@ -456,6 +462,7 @@ static void MPFreeHTMLRenderer(hoedown_renderer *htmlRenderer)
     self.smartypants = smartypants;
     self.TOC = hasTOC;
     self.frontMatter = hasFrontMatter;
+    self.lineNumbers = [delegate rendererHasLineNumbers:self];
 
     if (nextAction)
         nextAction();
@@ -472,8 +479,6 @@ static void MPFreeHTMLRenderer(hoedown_renderer *htmlRenderer)
         changed = YES;
     else if (!MPAreNilableStringsEqual(
             [d rendererStyleName:self], self.styleName))
-        changed = YES;
-    else if ([d rendererHasLineNumbers:self] != self.lineNumbers)
         changed = YES;
 
     if (changed)
@@ -493,7 +498,6 @@ static void MPFreeHTMLRenderer(hoedown_renderer *htmlRenderer)
     self.styleName = [delegate rendererStyleName:self];
     self.syntaxHighlighting = [delegate rendererHasSyntaxHighlighting:self];
     self.highlightingThemeName = [delegate rendererHighlightingThemeName:self];
-    self.lineNumbers = [delegate rendererHasLineNumbers:self];
 }
 
 - (NSString *)HTMLForExportWithStyles:(BOOL)withStyles

@@ -11,6 +11,11 @@
 
 static unsigned int HOEDOWN_HTML_USE_TASK_LIST = (1 << 4);
 
+typedef enum hoedown_blockcode_flags {
+    // show line numbers in code blocks
+    HOEDOWN_BLOCKCODE_LINE_NUMBERS = (1 << 0)
+} hoedown_blockcode_flags;
+
 typedef struct hoedown_buffer hoedown_buffer;
 
 typedef struct hoedown_html_renderer_state_extra {
@@ -18,6 +23,7 @@ typedef struct hoedown_html_renderer_state_extra {
     /* More extra callbacks */
     hoedown_buffer *(*language_addition)(const hoedown_buffer *language,
                                          void *owner);
+    hoedown_blockcode_flags blockcode_flags;
     void *owner;
 
 } hoedown_html_renderer_state_extra;
