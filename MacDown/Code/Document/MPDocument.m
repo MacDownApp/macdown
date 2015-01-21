@@ -118,6 +118,8 @@ NS_INLINE NSString *MPAutosavePropertyKey(
     int flags = 0;
     if (self.htmlTaskList)
         flags |= HOEDOWN_HTML_USE_TASK_LIST;
+    if (self.htmlLineNumbers)
+        flags |= HOEDOWN_HTML_BLOCKCODE_LINE_NUMBERS;
     if (self.htmlHardWrap)
         flags |= HOEDOWN_HTML_HARD_WRAP;
     return flags;

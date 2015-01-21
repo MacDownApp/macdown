@@ -60,6 +60,7 @@ extern NSString * const MPDidDetectFreshInstallationNotification;
 @property (assign) BOOL htmlMathJaxInlineDollar;
 @property (assign) BOOL htmlSyntaxHighlighting;
 @property (assign) NSString *htmlHighlightingThemeName;
+@property (assign) BOOL htmlLineNumbers;
 @property (assign) NSURL *htmlDefaultDirectoryUrl;
 
 // Calculated values.

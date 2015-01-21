@@ -105,6 +105,7 @@ static NSString * const kMPDefaultHtmlStyleName = @"GitHub2";
 @dynamic htmlSyntaxHighlighting;
 @dynamic htmlDefaultDirectoryUrl;
 @dynamic htmlHighlightingThemeName;
+@dynamic htmlLineNumbers;
 
 // Private preference.
 @dynamic editorBaseFontInfo;

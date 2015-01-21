@@ -22,6 +22,7 @@ static NSString * const kMPMathJaxCDN =
     @"?config=TeX-AMS-MML_HTMLorMML";
 static NSString * const kMPPrismScriptDirectory = @"Prism/components";
 static NSString * const kMPPrismThemeDirectory = @"Prism/themes";
+static NSString * const kMPPrismPluginDirectory = @"Prism/plugins";
 static size_t kMPRendererNestingLevel = SIZE_MAX;
 static int kMPRendererTOCLevel = 6;  // h1 to h6.
 
@@ -169,6 +170,7 @@ static inline BOOL MPAreNilableStringsEqual(NSString *s1, NSString *s2)
 @property (copy) NSString *styleName;
 @property BOOL frontMatter;
 @property BOOL syntaxHighlighting;
+@property BOOL lineNumbers;
 @property BOOL manualRender;
 @property (copy) NSString *highlightingThemeName;
 
@@ -246,7 +248,7 @@ static hoedown_renderer *MPCreateHTMLRenderer(MPRenderer *renderer)
         flags, kMPRendererTOCLevel);
     htmlRenderer->blockcode = hoedown_patch_render_blockcode;
     htmlRenderer->listitem = hoedown_patch_render_listitem;
-
+    
     hoedown_html_renderer_state_extra *extra =
         hoedown_malloc(sizeof(hoedown_html_renderer_state_extra));
     extra->language_addition = language_addition;
@@ -297,7 +299,21 @@ static void MPFreeHTMLRenderer(hoedown_renderer *htmlRenderer)
 - (NSArray *)prismStylesheets
 {
     NSString *name = [self.delegate rendererHighlightingThemeName:self];
-    return @[[MPStyleSheet CSSWithURL:MPHighlightingThemeURLForName(name)]];
+    MPAsset *stylesheet =
+        [MPStyleSheet CSSWithURL:MPHighlightingThemeURLForName(name)];
+
+    NSMutableArray *stylesheets = [NSMutableArray arrayWithObject:stylesheet];
+
+    if (self.rendererFlags & HOEDOWN_HTML_BLOCKCODE_LINE_NUMBERS)
+    {
+        NSBundle *bundle = [NSBundle mainBundle];
+        NSURL *url = [bundle URLForResource:@"line-numbers/prism-line-numbers"
+                              withExtension:@"css"
+                               subdirectory:kMPPrismPluginDirectory];
+        [stylesheets addObject:[MPStyleSheet CSSWithURL:url]];
+    }
+
+    return stylesheets;
 }
 
 - (NSArray *)prismScripts
@@ -311,6 +327,14 @@ static void MPFreeHTMLRenderer(hoedown_renderer *htmlRenderer)
     {
         for (NSURL *url in MPPrismScriptURLsForLanguage(language))
             [scripts addObject:[MPScript javaScriptWithURL:url]];
+    }
+
+    if (self.rendererFlags & HOEDOWN_HTML_BLOCKCODE_LINE_NUMBERS)
+    {
+        NSURL *url =
+            [bundle URLForResource:@"line-numbers/prism-line-numbers.min"
+                     withExtension:@"js" subdirectory:kMPPrismPluginDirectory];
+        [scripts addObject:[MPScript javaScriptWithURL:url]];
     }
     return scripts;
 }

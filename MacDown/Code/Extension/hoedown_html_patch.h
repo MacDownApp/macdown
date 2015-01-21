@@ -10,6 +10,7 @@
 #define MacDown_hoedown_html_patch_h
 
 static unsigned int HOEDOWN_HTML_USE_TASK_LIST = (1 << 4);
+static unsigned int HOEDOWN_HTML_BLOCKCODE_LINE_NUMBERS = (1 << 5);
 
 typedef struct hoedown_buffer hoedown_buffer;
 
