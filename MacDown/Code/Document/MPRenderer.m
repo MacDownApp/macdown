@@ -304,7 +304,8 @@ static void MPFreeHTMLRenderer(hoedown_renderer *htmlRenderer)
 - (NSArray *)prismStylesheets
 {
     NSString *name = [self.delegate rendererHighlightingThemeName:self];
-    MPAsset *stylesheet = [MPStyleSheet CSSWithURL:MPHighlightingThemeURLForName(name)];
+    MPAsset *stylesheet =
+        [MPStyleSheet CSSWithURL:MPHighlightingThemeURLForName(name)];
 
     NSMutableArray *stylesheets = [NSMutableArray arrayWithObject:stylesheet];
 
@@ -335,9 +336,9 @@ static void MPFreeHTMLRenderer(hoedown_renderer *htmlRenderer)
 
     if ([self.delegate rendererHasLineNumbers:self])
     {
-        NSURL *url = [bundle URLForResource:@"line-numbers/prism-line-numbers.min"
-                              withExtension:@"js"
-                               subdirectory:kMPPrismPluginDirectory];
+        NSURL *url =
+            [bundle URLForResource:@"line-numbers/prism-line-numbers.min"
+                     withExtension:@"js" subdirectory:kMPPrismPluginDirectory];
         [scripts addObject:[MPScript javaScriptWithURL:url]];
     }
     return scripts;
