@@ -23,18 +23,19 @@ void hoedown_patch_render_blockcode(
 {
 	if (ob->size) hoedown_buffer_putc(ob, '\n');
 
-	if (lang) {
-        hoedown_html_renderer_state_extra *extra =
-            ((hoedown_html_renderer_state *)data->opaque)->opaque;
+	if (lang)
+    {
+        hoedown_html_renderer_state *state = data->opaque;
+        hoedown_html_renderer_state_extra *extra = state->opaque;
+
         hoedown_buffer *mapped = NULL;
         if (extra->language_addition)
             mapped = extra->language_addition(lang, extra->owner);
 
-        if (extra->blockcode_flags & HOEDOWN_BLOCKCODE_LINE_NUMBERS)
-            HOEDOWN_BUFPUTSL(ob, "<pre class=\"line-numbers\">");
-        else
-            HOEDOWN_BUFPUTSL(ob, "<pre>");
-        HOEDOWN_BUFPUTSL(ob, "<code class=\"language-");
+        HOEDOWN_BUFPUTSL(ob, "<pre");
+        if (state->flags & HOEDOWN_HTML_BLOCKCODE_LINE_NUMBERS)
+            HOEDOWN_BUFPUTSL(ob, " class=\"line-numbers\"");
+        HOEDOWN_BUFPUTSL(ob, "><code class=\"language-");
         if (mapped)
         {
             hoedown_escape_html(ob, mapped->data, mapped->size, 0);
@@ -45,18 +46,19 @@ void hoedown_patch_render_blockcode(
             hoedown_escape_html(ob, lang->data, lang->size, 0);
         }
 		HOEDOWN_BUFPUTSL(ob, "\">");
-	} else {
+	}
+    else
+    {
 		HOEDOWN_BUFPUTSL(ob, "<pre><code>");
 	}
 
 	if (text)
     {
-        // to prevent prism from adding a blank line at the end of code blocks,
-        // remove any trailing newline character
+        // Remove last newline to prevent prism from adding a blank line at the
+        // end of code blocks.
         size_t size = text->size;
-        if (size && text->data[size - 1] == '\n') {
+        if (size > 0 && text->data[size - 1] == '\n')
             size--;
-        }
         hoedown_escape_html(ob, text->data, size, 0);
     }
 

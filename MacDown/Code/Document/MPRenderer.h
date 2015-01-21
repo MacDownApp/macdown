@@ -50,7 +50,6 @@
 - (BOOL)rendererHasSyntaxHighlighting:(MPRenderer *)renderer;
 - (BOOL)rendererHasMathJax:(MPRenderer *)renderer;
 - (NSString *)rendererHighlightingThemeName:(MPRenderer *)renderer;
-- (BOOL)rendererHasLineNumbers:(MPRenderer *)renderer;
 - (void)renderer:(MPRenderer *)renderer didProduceHTMLOutput:(NSString *)html;
 
 @end
