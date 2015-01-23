@@ -840,6 +840,9 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 
 - (void)renderer:(MPRenderer *)renderer didProduceHTMLOutput:(NSString *)html
 {
+    if (self.printing)
+        return;
+
     // Delayed copying for -copyHtml.
     if (self.copying)
     {
@@ -848,20 +851,18 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
         [pasteboard clearContents];
         [pasteboard writeObjects:@[self.renderer.currentHtml]];
     }
-    self.manualRender = self.preferences.markdownManualRender;
-    if (!self.printing)
+
+    NSURL *baseUrl = self.fileURL;
+    if (!baseUrl)   // Unsaved doument; just use the window title.
     {
-        NSURL *baseUrl = self.fileURL;
-        if (!baseUrl)   // Unsaved doument; just use the window title.
-        {
-            NSString *filename = [NSString stringWithFormat:
-                                  @"%@%@", self.windowForSheet.title, @".md"];
-            baseUrl = self.preferences.htmlDefaultDirectoryUrl;
-            baseUrl = [NSURL URLWithString:filename relativeToURL:baseUrl];
-        }
-        [self.preview.mainFrame loadHTMLString:html baseURL:baseUrl];
-        self.currentBaseUrl = baseUrl;
+        NSString *filename = [NSString stringWithFormat:
+                              @"%@%@", self.windowForSheet.title, @".md"];
+        baseUrl = self.preferences.htmlDefaultDirectoryUrl;
+        baseUrl = [NSURL URLWithString:filename relativeToURL:baseUrl];
     }
+    [self.preview.mainFrame loadHTMLString:html baseURL:baseUrl];
+    self.manualRender = self.preferences.markdownManualRender;
+    self.currentBaseUrl = baseUrl;
 }
 
 
