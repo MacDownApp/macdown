@@ -82,6 +82,20 @@ NS_INLINE NSString *MPAutosavePropertyKey(
 }
 
 
+@implementation NSURL (Convert)
+
+- (NSString *)absoluteBaseURLString
+{
+    // Remove fragment (#anchor) and query string.
+    NSString *base = self.absoluteString;
+    base = [base componentsSeparatedByString:@"?"].firstObject;
+    base = [base componentsSeparatedByString:@"#"].firstObject;
+    return base;
+}
+
+@end
+
+
 @implementation MPPreferences (Hoedown)
 - (int)extensionFlags
 {
@@ -152,6 +166,7 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
 @property BOOL printing;
 @property BOOL shouldHandleBoundsChange;
 @property BOOL isPreviewReady;
+@property (strong) NSURL *currentBaseUrl;
 @property (nonatomic) BOOL rendersTOC;
 @property (readonly) BOOL previewVisible;
 @property (readonly) BOOL editorVisible;
@@ -726,13 +741,17 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     switch ([information[WebActionNavigationTypeKey] integerValue])
     {
         case WebNavigationTypeLinkClicked:
-            [listener ignore];
-            [[NSWorkspace sharedWorkspace] openURL:request.URL];
+            if (![self isCurrentBaseUrl:request.URL])
+            {
+                [listener ignore];
+                [[NSWorkspace sharedWorkspace] openURL:request.URL];
+                return;
+            }
             break;
         default:
-            [listener use];
             break;
     }
+    [listener use];
 }
 
 
@@ -830,11 +849,19 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
         [pasteboard writeObjects:@[self.renderer.currentHtml]];
     }
     self.manualRender = self.preferences.markdownManualRender;
-    NSURL *baseUrl = self.fileURL;
-    if (!baseUrl)
-        baseUrl = self.preferences.htmlDefaultDirectoryUrl;
     if (!self.printing)
+    {
+        NSURL *baseUrl = self.fileURL;
+        if (!baseUrl)   // Unsaved doument; just use the window title.
+        {
+            NSString *filename = [NSString stringWithFormat:
+                                  @"%@%@", self.windowForSheet.title, @".md"];
+            baseUrl = self.preferences.htmlDefaultDirectoryUrl;
+            baseUrl = [NSURL URLWithString:filename relativeToURL:baseUrl];
+        }
         [self.preview.mainFrame loadHTMLString:html baseURL:baseUrl];
+        self.currentBaseUrl = baseUrl;
+    }
 }
 
 
@@ -1414,6 +1441,13 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 
     if (self.isPreviewReady)
         self.wordCountWidget.enabled = YES;
+}
+
+- (BOOL)isCurrentBaseUrl:(NSURL *)another
+{
+    NSString *mine = self.currentBaseUrl.absoluteBaseURLString;
+    NSString *theirs = another.absoluteBaseURLString;
+    return mine == theirs || [mine isEqualToString:theirs];
 }
 
 - (void)document:(NSDocument *)doc didPrint:(BOOL)ok context:(void *)context
