@@ -29,6 +29,7 @@
 		1F0F3BFC195F75F200FC0B3B /* MathJax in Resources */ = {isa = PBXBuildFile; fileRef = 1F0F3BFB195F75F200FC0B3B /* MathJax */; };
 		1F23A92119928E650052DB78 /* MPMathJaxListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F23A92019928E650052DB78 /* MPMathJaxListener.m */; };
 		1F25E1C31A50F4F10029371D /* MPColorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F25E1C21A50F4F10029371D /* MPColorTests.m */; };
+		1F2649B01A7406DB00EF6AF3 /* NSDocumentController+Document.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F2649AF1A7406DB00EF6AF3 /* NSDocumentController+Document.m */; };
 		1F27896B1973BEB100EE696A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1F2789691973BEB100EE696A /* Localizable.strings */; };
 		1F2A17281A1BB3E30055A107 /* NSUserDefaults+Suite.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F2A17271A1BB3E30055A107 /* NSUserDefaults+Suite.m */; };
 		1F3386E61A6B999600FC88C4 /* DOMNode+Text.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F3386E51A6B999600FC88C4 /* DOMNode+Text.m */; };
@@ -169,6 +170,8 @@
 		1F23A91F19928E650052DB78 /* MPMathJaxListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPMathJaxListener.h; sourceTree = "<group>"; };
 		1F23A92019928E650052DB78 /* MPMathJaxListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPMathJaxListener.m; sourceTree = "<group>"; };
 		1F25E1C21A50F4F10029371D /* MPColorTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPColorTests.m; sourceTree = "<group>"; };
+		1F2649AE1A7406DB00EF6AF3 /* NSDocumentController+Document.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDocumentController+Document.h"; sourceTree = "<group>"; };
+		1F2649AF1A7406DB00EF6AF3 /* NSDocumentController+Document.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDocumentController+Document.m"; sourceTree = "<group>"; };
 		1F27896A1973BEB100EE696A /* Base */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = Base; path = Localization/Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1F2A17261A1BB3E30055A107 /* NSUserDefaults+Suite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSUserDefaults+Suite.h"; path = "macdown-cmd/NSUserDefaults+Suite.h"; sourceTree = SOURCE_ROOT; };
 		1F2A17271A1BB3E30055A107 /* NSUserDefaults+Suite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSUserDefaults+Suite.m"; path = "macdown-cmd/NSUserDefaults+Suite.m"; sourceTree = SOURCE_ROOT; };
@@ -295,6 +298,8 @@
 				1F3386E51A6B999600FC88C4 /* DOMNode+Text.m */,
 				1F33F2A21A3B56D20001C849 /* NSColor+HTML.h */,
 				1F33F2A31A3B56D20001C849 /* NSColor+HTML.m */,
+				1F2649AE1A7406DB00EF6AF3 /* NSDocumentController+Document.h */,
+				1F2649AF1A7406DB00EF6AF3 /* NSDocumentController+Document.m */,
 				1FFEB3231972D88900B2254F /* NSObject+HTMLTabularize.h */,
 				1FFEB3241972D88900B2254F /* NSObject+HTMLTabularize.m */,
 				1F0D9D5E194AC7CF008E1856 /* NSString+Lookup.h */,
@@ -893,6 +898,7 @@
 				1F8A835E1953454F00B6BF69 /* HGMarkdownHighlightingStyle.m in Sources */,
 				1F33F2A11A3B4B660001C849 /* MPDocumentSplitView.m in Sources */,
 				1F23A92119928E650052DB78 /* MPMathJaxListener.m in Sources */,
+				1F2649B01A7406DB00EF6AF3 /* NSDocumentController+Document.m in Sources */,
 				1F0D9D67194AC7CF008E1856 /* MPUtilities.m in Sources */,
 				1F0D9D78194AC7F7008E1856 /* MPHtmlPreferencesViewController.m in Sources */,
 				1F0D9D7C194AC7F7008E1856 /* MPPreferences.m in Sources */,

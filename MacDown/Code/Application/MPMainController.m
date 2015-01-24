@@ -10,6 +10,7 @@
 #import <MASPreferences/MASPreferencesWindowController.h>
 #import <Sparkle/SUUpdater.h>
 #import "MPUtilities.h"
+#import "NSDocumentController+Document.h"
 #import "MPPreferences.h"
 #import "MPGeneralPreferencesViewController.h"
 #import "MPMarkdownPreferencesViewController.h"
@@ -170,9 +171,7 @@
         }
         else
         {
-            NSDocument *doc = [c openUntitledDocumentAndDisplay:YES error:NULL];
-            doc.draft = YES;
-            doc.fileURL = url;
+            [c openUntitledDocumentForURL:url display:YES error:NULL];
         }
     }
     self.prefereces.filesToOpenOnNextLaunch = nil;
