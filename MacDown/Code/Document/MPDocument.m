@@ -15,6 +15,7 @@
 #import "MPUtilities.h"
 #import "MPAutosaving.h"
 #import "NSColor+HTML.h"
+#import "NSDocumentController+Document.h"
 #import "NSString+Lookup.h"
 #import "NSTextView+Autocomplete.h"
 #import "DOMNode+Text.h"
@@ -757,7 +758,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
             if (![self isCurrentBaseUrl:request.URL])
             {
                 [listener ignore];
-                [[NSWorkspace sharedWorkspace] openURL:request.URL];
+                [self openOrCreateFileForUrl:request.URL];
                 return;
             }
             break;
@@ -1458,6 +1459,25 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     NSString *theirs = another.absoluteBaseURLString;
     return mine == theirs || [mine isEqualToString:theirs];
 }
+
+- (void)openOrCreateFileForUrl:(NSURL *)url
+{
+    // TODO: Make this togglable in preferences.
+    // If this is a file URL and the target does not exist, create and open it.
+    if (self.preferences.createFileForLinkTarget && url.isFileURL
+        && ![[NSFileManager defaultManager] fileExistsAtPath:url.path])
+    {
+        NSDocumentController *controller =
+            [NSDocumentController sharedDocumentController];
+        [controller openUntitledDocumentForURL:url display:YES error:NULL];
+        return;
+    }
+
+    // Try to open it.
+    if ([[NSWorkspace sharedWorkspace] openURL:url])
+        return;
+}
+
 
 - (void)document:(NSDocument *)doc didPrint:(BOOL)ok context:(void *)context
 {
