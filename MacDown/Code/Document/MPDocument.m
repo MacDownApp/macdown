@@ -1464,7 +1464,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 {
     // TODO: Make this togglable in preferences.
     // If this is a file URL and the target does not exist, create and open it.
-    if (url.isFileURL
+    if (self.preferences.createFileForLinkTarget && url.isFileURL
         && ![[NSFileManager defaultManager] fileExistsAtPath:url.path])
     {
         NSDocumentController *controller =
