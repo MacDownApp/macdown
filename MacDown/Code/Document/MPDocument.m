@@ -853,13 +853,8 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     }
 
     NSURL *baseUrl = self.fileURL;
-    if (!baseUrl)   // Unsaved doument; just use the window title.
-    {
-        NSString *filename = [NSString stringWithFormat:
-                              @"%@%@", self.windowForSheet.title, @".md"];
+    if (!baseUrl)   // Unsaved doument; just use the default URL.
         baseUrl = self.preferences.htmlDefaultDirectoryUrl;
-        baseUrl = [NSURL URLWithString:filename relativeToURL:baseUrl];
-    }
     [self.preview.mainFrame loadHTMLString:html baseURL:baseUrl];
     self.manualRender = self.preferences.markdownManualRender;
     self.currentBaseUrl = baseUrl;
