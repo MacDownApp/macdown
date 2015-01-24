@@ -481,6 +481,19 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
         fileName = [fileName stringByAppendingPathExtension:@"md"];
         savePanel.nameFieldStringValue = fileName;
     }
+    if (self.fileURL && self.fileURL.isFileURL)
+    {
+        NSString *path = self.fileURL.path;
+
+        // Use path of parent directory if this is a file. Otherwise this is it.
+        BOOL isDir = NO;
+        BOOL exists = [[NSFileManager defaultManager] fileExistsAtPath:path
+                                                           isDirectory:&isDir];
+        if (!exists || !isDir)
+            path = [path stringByDeletingLastPathComponent];
+
+        savePanel.directoryURL = [NSURL fileURLWithPath:path];
+    }
     savePanel.allowedFileTypes = nil;   // Allow all extensions.
     return [super prepareSavePanel:savePanel];
 }
