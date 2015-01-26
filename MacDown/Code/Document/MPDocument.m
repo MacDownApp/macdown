@@ -30,6 +30,7 @@
 
 
 static NSString * const kMPRendersTOCPropertyKey = @"Renders TOC";
+static NSString * const kMPDefaultAutosaveName = @"Untitled";
 
 
 NS_INLINE NSString *MPEditorPreferenceKeyWithValueKey(NSString *key)
@@ -80,6 +81,14 @@ NS_INLINE NSString *MPAutosavePropertyKey(
     NSString *className = NSStringFromClass([object class]);
     return [NSString stringWithFormat:@"%@ %@ %@", className, propertyName,
                                                    object.autosaveName];
+}
+
+NS_INLINE NSString *MPRectStringForAutosaveName(NSString *name)
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *key = [NSString stringWithFormat:@"NSWindow Frame %@", name];
+    NSString *rectString = [defaults objectForKey:key];
+    return rectString;
 }
 
 
@@ -303,7 +312,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
     // All files use their absolute path to keep their window states.
-    NSString *autosaveName = @"Untitled";
+    NSString *autosaveName = kMPDefaultAutosaveName;
     if (self.fileURL)
         autosaveName = self.fileURL.absoluteString;
     controller.window.frameAutosaveName = autosaveName;
@@ -311,10 +320,9 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 
     // Perform initial resizing manually because for some reason untitled
     // documents do not pick up the autosaved frame automatically in 10.10.
-    NSString *key =
-        [NSString stringWithFormat:@"NSWindow Frame %@", autosaveName];
-    NSString *rectString = [defaults objectForKey:key];
-    [controller.window setFrameFromString:rectString];
+    NSString *rectString = MPRectStringForAutosaveName(autosaveName);
+    if (rectString)
+        [controller.window setFrameFromString:rectString];
 
     self.highlighter =
         [[HGMarkdownHighlighter alloc] initWithTextView:self.editor
