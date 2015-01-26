@@ -321,6 +321,8 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     // Perform initial resizing manually because for some reason untitled
     // documents do not pick up the autosaved frame automatically in 10.10.
     NSString *rectString = MPRectStringForAutosaveName(autosaveName);
+    if (!rectString)
+        rectString = MPRectStringForAutosaveName(kMPDefaultAutosaveName);
     if (rectString)
         [controller.window setFrameFromString:rectString];
 
