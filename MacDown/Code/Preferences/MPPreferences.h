@@ -38,6 +38,7 @@ extern NSString * const MPDidDetectFreshInstallationNotification;
 @property (assign) NSDictionary *editorBaseFontInfo;
 @property (assign) BOOL editorAutoIncrementNumberedLists;
 @property (assign) BOOL editorConvertTabs;
+@property (assign) BOOL editorInsertPrefixInBlock;
 @property (assign) BOOL editorCompleteMatchingCharacters;
 @property (assign) BOOL editorSyncScrolling;
 @property (assign) BOOL editorSmartHome;
