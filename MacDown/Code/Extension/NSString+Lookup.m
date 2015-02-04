@@ -15,24 +15,23 @@
 
 - (NSInteger)locationOfFirstNewlineBefore:(NSUInteger)location
 {
-    NSUInteger length = self.length;
-    if (location > length)
-        location = length;
-    NSInteger p = location - 1;
-    while (p >= 0 && !MPCharacterIsNewline([self characterAtIndex:p]))
-        p--;
-    return p;
+    if (location > self.length)
+        location = self.length;
+    NSUInteger start;
+    [self getLineStart:&start end:NULL contentsEnd:NULL
+              forRange:NSMakeRange(location, 0)];
+    return start - 1;
 }
 
 - (NSUInteger)locationOfFirstNewlineAfter:(NSUInteger)location
 {
-    NSUInteger length = self.length;
-    if (location >= length)
-        return length;
-    NSInteger p = location + 1;
-    while (p < length && !MPCharacterIsNewline([self characterAtIndex:p]))
-        p++;
-    return p;
+    location++;
+    if (location > self.length)
+        location = self.length;
+    NSUInteger end;
+    [self getLineStart:NULL end:NULL contentsEnd:&end
+              forRange:NSMakeRange(location, 0)];
+    return end;
 }
 
 - (NSUInteger)locationOfFirstNonWhitespaceCharacterInLineBefore:(NSUInteger)loc
