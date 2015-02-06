@@ -1,7 +1,7 @@
 #!/bin/bash
 
 pushd `dirname $0` > /dev/null
-source $(pwd -P)/utils.sh
+source "$(pwd -P)"/utils.sh
 popd > /dev/null
 
 SHORT_VERSION=$(get_short_version)
