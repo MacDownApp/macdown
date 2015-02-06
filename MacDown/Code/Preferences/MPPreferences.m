@@ -82,6 +82,7 @@ static NSString * const kMPDefaultHtmlStyleName = @"GitHub2";
 
 @dynamic editorAutoIncrementNumberedLists;
 @dynamic editorConvertTabs;
+@dynamic editorInsertPrefixInBlock;
 @dynamic editorCompleteMatchingCharacters;
 @dynamic editorSyncScrolling;
 @dynamic editorSmartHome;
@@ -184,6 +185,8 @@ static NSString * const kMPDefaultHtmlStyleName = @"GitHub2";
         self.editorMaximumWidth = 1000.0;
     if (![defaults objectForKey:@"editorAutoIncrementNumberedLists"])
         self.editorAutoIncrementNumberedLists = YES;
+    if (![defaults objectForKey:@"editorInsertPrefixInBlock"])
+        self.editorInsertPrefixInBlock = YES;
 }
 
 @end

@@ -87,28 +87,28 @@ Option name           | Markup           | Result if enabled     |
 Intra-word emphasis | This\*is\*good   | This<em>is</em>good   |
 Strikethrough       | \~~Much wow\~~   | <del>Much wow</del>   |
 Underline [^1]      | \_So doge\_      | <u>So doge</u>        |
-Quote [^2] [^3]     | \"Such editor\"  | <q>Such editor</q>    |
+Quote [^2]          | \"Such editor\"  | <q>Such editor</q>    |
 Highlight           | \==So good\==    | <mark>So good</mark>  |
 Superscript         | hoge\^(fuga)     | hoge<sup>fuga</sup>   |
 Autolink            | http://t.co      | <a href="http://t.co">http://t.co</a> |
-Footnotes           | [\^4] and [\^4]: | <sup id="fnref4"><a href="#fn4">4</a></sup> and footnote 4 below |
+Footnotes           | [\^3] and [\^3]: | [^3] and footnote 3 below |
 
 [^1]: If **Underline** is disabled. _this_ will be the same as *this*.
-[^2]: Note that this is different from *blockquote* (a `> `-prefixed block), which is part of the standard Markdown syntax specification.
-[^3]: **Quote** and **Smartypants** are syntactically incompatible with each other. The former will take precedence.
-[^4]: This is a footnote.
+[^2]: Note that this is different from *blockquote* (a `> `-prefixed block), which is part of the standard Markdown syntax specification. This will break if you enable **Smartypants** (see below).
+[^3]: This is a footnote.
 
 
 ### Document Formatting
 
-The ***Smartypants*** extension automatically transforms straight quotes (`"` and `'`) in your text into typographer’s quotes (`“`, `”`, `‘`, and `’`) according to the context.[^3] Very useful if you’re a typography freak like I am.
+The ***Smartypants*** extension automatically transforms straight quotes (`"` and `'`) in your text into typographer’s quotes (`“`, `”`, `‘`, and `’`) according to the context.[^4] Very useful if you’re a typography freak like I am.
 
+[^4]: This is syntactically incompatible, and will break the **Quote** Markdown extension.
 
 ### HTML Rendering
 
 You have already seen how I can highlight your fenced code blocks. See the [Fenced Code Block](#fenced-code-block) section if you haven’t!
 
-I can also render TeX-like math syntaxes, if you allow me to.[^7] I can do inline math like this: \\( 1 + 1 \\) or this (in MathML): <math><mn>1</mn><mo>+</mo><mn>1</mn></math>, and block math:[^5]
+I can also render TeX-like math syntaxes, if you allow me to.[^5] I can do inline math like this: \\( 1 + 1 \\) or this (in MathML): <math><mn>1</mn><mo>+</mo><mn>1</mn></math>, and block math:
 
 \\[
     A^T_S = B
@@ -123,7 +123,7 @@ or (in MathML)
 </math>
 
 
-[^7]: Internet connection required.
+[^5]: Internet connection required.
 
 
 ## Editor Options

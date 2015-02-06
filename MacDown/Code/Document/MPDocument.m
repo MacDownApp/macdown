@@ -362,14 +362,6 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     [center addObserver:self selector:@selector(didRequestPreviewReload:)
                    name:MPDidRequestPreviewRenderNotification object:nil];
 
-    if (self.loadedString)
-    {
-        self.editor.string = self.loadedString;
-        self.loadedString = nil;
-        [self.renderer parseAndRenderNow];
-        [self.highlighter parseAndHighlightNow];
-    }
-
     self.wordsMenuItem = [[NSMenuItem alloc] initWithTitle:@"" action:NULL
                                              keyEquivalent:@""];
     self.charMenuItem = [[NSMenuItem alloc] initWithTitle:@"" action:NULL
@@ -394,6 +386,14 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
         [self setupEditor:nil];
         [self redrawDivider];
+
+        if (self.loadedString)
+        {
+            self.editor.string = self.loadedString;
+            self.loadedString = nil;
+            [self.renderer parseAndRenderNow];
+            [self.highlighter parseAndHighlightNow];
+        }
     }];
 }
 
@@ -652,10 +652,12 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 {
     if ([textView insertMappedContent])
         return NO;
-    if ([textView completeNextListItem:
+
+    BOOL inserts = self.preferences.editorInsertPrefixInBlock;
+    if (inserts && [textView completeNextListItem:
             self.preferences.editorAutoIncrementNumberedLists])
         return NO;
-    if ([textView completeNextBlockquoteLine])
+    if (inserts && [textView completeNextBlockquoteLine])
         return NO;
     if ([textView completeNextIndentedLine])
         return NO;
