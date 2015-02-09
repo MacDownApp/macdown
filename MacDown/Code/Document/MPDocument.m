@@ -119,6 +119,16 @@ NS_INLINE NSColor *MPGetWebViewBackgroundColor(WebView *webview)
 @end
 
 
+@implementation WebView (Shortcut)
+
+- (NSScrollView *)enclosingScrollView
+{
+    return self.mainFrame.frameView.documentView.enclosingScrollView;
+}
+
+@end
+
+
 @implementation MPPreferences (Hoedown)
 - (int)extensionFlags
 {
@@ -217,7 +227,8 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
             if (window.isFlushWindowDisabled)
                 [window enableFlushWindow];
         }
-        [weakObj syncScrollers];
+        if (weakObj.preferences.editorSyncScrolling)
+            [weakObj syncScrollers];
     };
 }
 
@@ -944,7 +955,8 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
         editorFrame.size.width = clipWidth;
         self.editor.frame = editorFrame;
     }
-    [self syncScrollers];
+    if (self.preferences.editorSyncScrolling)
+        [self syncScrollers];
     self.shouldHandleBoundsChange = YES;
 }
 
@@ -1408,9 +1420,6 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 
 - (void)syncScrollers
 {
-    if (!self.preferences.editorSyncScrolling)
-        return;
-
     NSRect contentBounds = [self.editor.enclosingScrollView.contentView bounds];
     NSRect realContentRect = self.editor.contentRect;
 
@@ -1421,8 +1430,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
             (realContentRect.size.height - contentBounds.size.height);
     }
 
-    NSScrollView *previewScrollView =
-        self.preview.mainFrame.frameView.documentView.enclosingScrollView;
+    NSScrollView *previewScrollView = self.preview.enclosingScrollView;
     NSClipView *previewContentView = previewScrollView.contentView;
     NSView *previewDocumentView = previewScrollView.documentView;
     NSRect previewContentBounds = previewContentView.bounds;
