@@ -106,6 +106,24 @@ NS_INLINE NSString *MPRectStringForAutosaveName(NSString *name)
 @end
 
 
+@implementation WebView (Shortcut)
+
+- (NSColor *)backgroundColor
+{
+    DOMDocument *doc = self.mainFrameDocument;
+    DOMNodeList *nodes = [doc getElementsByTagName:@"body"];
+    if (!nodes.length)
+        return nil;
+    id bodyNode = [nodes item:0];
+    DOMCSSStyleDeclaration *style = [doc getComputedStyle:bodyNode
+                                            pseudoElement:nil];
+    NSColor *color = [NSColor colorWithHTMLName:[style backgroundColor]];
+    return color;
+}
+
+@end
+
+
 @implementation MPPreferences (Hoedown)
 - (int)extensionFlags
 {
@@ -1369,23 +1387,28 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 
 - (void)redrawDivider
 {
-    // Request divider redraw to match editor's background color.
-    NSColor *color = self.editor.backgroundColor;
     if (!self.editorVisible)
     {
-        // If the editor is NOT visible, detect preview's background color via
+        // If the editor is not visible, detect preview's background color via
         // DOM query and use it instead. This is more expensive; we should try
         // to avoid it.
         // TODO: Is it possible to cache this until the user switches the style?
         // Will need to take account of the user MODIFIES the style without
         // switching. Complicated. This will do for now.
-        DOMDocument *doc = self.preview.mainFrameDocument;
-        id body = [[doc getElementsByTagName:@"body"] item:0];
-        DOMCSSStyleDeclaration *style = [doc getComputedStyle:body
-                                                pseudoElement:nil];
-        color = [NSColor colorWithHTMLName:[style backgroundColor]];
+        self.splitView.dividerColor = self.preview.backgroundColor;
     }
-    self.splitView.dividerColor = color;
+    else if (!self.previewVisible)
+    {
+        // If the editor is visible, match its background color.
+        self.splitView.dividerColor = self.editor.backgroundColor;
+    }
+    else
+    {
+        // If both sides are visible, draw a default "transparent" divider.
+        // This works around the possibile problem of divider's color being too
+        // similar to both the editor and preview and being obscured.
+        self.splitView.dividerColor = nil;
+    }
 }
 
 - (void)syncScrollers
