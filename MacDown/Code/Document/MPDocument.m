@@ -203,6 +203,7 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
 @property (nonatomic) BOOL rendersTOC;
 @property (readonly) BOOL previewVisible;
 @property (readonly) BOOL editorVisible;
+@property CGFloat lastPreviewScrollTop;
 @property (nonatomic, readonly) BOOL needsHtml;
 @property (nonatomic) NSUInteger totalWords;
 @property (nonatomic) NSUInteger totalCharacters;
@@ -222,13 +223,23 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 {
     __weak MPDocument *weakObj = doc;
     return ^{
-        NSWindow *window = weakObj.preview.window;
+        WebView *webView = weakObj.preview;
+        NSWindow *window = webView.window;
         @synchronized(window) {
             if (window.isFlushWindowDisabled)
                 [window enableFlushWindow];
         }
         if (weakObj.preferences.editorSyncScrolling)
+        {
             [weakObj syncScrollers];
+        }
+        else
+        {
+            NSClipView *contentView = webView.enclosingScrollView.contentView;
+            NSRect bounds = contentView.bounds;
+            bounds.origin.y = weakObj.lastPreviewScrollTop;
+            contentView.bounds = bounds;
+        }
     };
 }
 
@@ -385,6 +396,9 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
                    name:MPDidRequestEditorSetupNotification object:nil];
     [center addObserver:self selector:@selector(didRequestPreviewReload:)
                    name:MPDidRequestPreviewRenderNotification object:nil];
+    [center addObserver:self selector:@selector(previewDidLiveScroll:)
+                   name:NSScrollViewDidEndLiveScrollNotification
+                 object:self.preview.enclosingScrollView];
 
     self.wordsMenuItem = [[NSMenuItem alloc] initWithTitle:@"" action:NULL
                                              keyEquivalent:@""];
@@ -454,6 +468,8 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
                     object:nil];
     [center removeObserver:self name:MPDidRequestEditorSetupNotification
                     object:nil];
+    [center removeObserver:self name:NSScrollViewDidEndLiveScrollNotification
+                    object:self.preview];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     for (NSString *key in MPEditorPreferencesToObserve())
         [defaults removeObserver:self forKeyPath:key];
@@ -768,7 +784,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     }
 
     self.isPreviewReady = YES;
-    
+
     // Update word count
     if (self.preferences.editorShowWordCount)
         [self updateWordCount];
@@ -970,6 +986,12 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 - (void)didRequestPreviewReload:(NSNotification *)notification
 {
     [self render:nil];
+}
+
+- (void)previewDidLiveScroll:(NSNotification *)notification
+{
+    NSClipView *contentView = self.preview.enclosingScrollView.contentView;
+    self.lastPreviewScrollTop = contentView.bounds.origin.y;
 }
 
 
