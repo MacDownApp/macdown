@@ -91,6 +91,19 @@ NS_INLINE NSString *MPRectStringForAutosaveName(NSString *name)
     return rectString;
 }
 
+NS_INLINE NSColor *MPGetWebViewBackgroundColor(WebView *webview)
+{
+    DOMDocument *doc = webview.mainFrameDocument;
+    DOMNodeList *nodes = [doc getElementsByTagName:@"body"];
+    if (!nodes.length)
+        return nil;
+
+    id bodyNode = [nodes item:0];
+    DOMCSSStyleDeclaration *style = [doc getComputedStyle:bodyNode
+                                            pseudoElement:nil];
+    return [NSColor colorWithHTMLName:[style backgroundColor]];
+}
+
 
 @implementation NSURL (Convert)
 
@@ -101,24 +114,6 @@ NS_INLINE NSString *MPRectStringForAutosaveName(NSString *name)
     base = [base componentsSeparatedByString:@"?"].firstObject;
     base = [base componentsSeparatedByString:@"#"].firstObject;
     return base;
-}
-
-@end
-
-
-@implementation WebView (Shortcut)
-
-- (NSColor *)backgroundColor
-{
-    DOMDocument *doc = self.mainFrameDocument;
-    DOMNodeList *nodes = [doc getElementsByTagName:@"body"];
-    if (!nodes.length)
-        return nil;
-    id bodyNode = [nodes item:0];
-    DOMCSSStyleDeclaration *style = [doc getComputedStyle:bodyNode
-                                            pseudoElement:nil];
-    NSColor *color = [NSColor colorWithHTMLName:[style backgroundColor]];
-    return color;
 }
 
 @end
@@ -1395,7 +1390,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
         // TODO: Is it possible to cache this until the user switches the style?
         // Will need to take account of the user MODIFIES the style without
         // switching. Complicated. This will do for now.
-        self.splitView.dividerColor = self.preview.backgroundColor;
+        self.splitView.dividerColor = MPGetWebViewBackgroundColor(self.preview);
     }
     else if (!self.previewVisible)
     {
