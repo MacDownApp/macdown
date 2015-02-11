@@ -941,7 +941,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     NSRect editorFrame = self.editor.frame;
     if (editorFrame.size.width != clipWidth)
     {
-        editorFrame.size.width = clipWidth;
+        editorFrame.size.width = round(clipWidth);
         self.editor.frame = editorFrame;
     }
     [self syncScrollers];
