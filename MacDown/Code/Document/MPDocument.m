@@ -937,11 +937,11 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
         return;
 
     self.shouldHandleBoundsChange = NO;
-    CGFloat clipWidth = round([notification.object frame].size.width);
+    CGFloat clipWidth = [notification.object frame].size.width;
     NSRect editorFrame = self.editor.frame;
-    if (fabs(editorFrame.size.width - clipWidth) >= 1.0)
+    if (fabs(editorFrame.size.width - clipWidth) > 2.0)
     {
-        editorFrame.size.width = clipWidth;
+        editorFrame.size.width = round(clipWidth);
         self.editor.frame = editorFrame;
     }
     [self syncScrollers];
