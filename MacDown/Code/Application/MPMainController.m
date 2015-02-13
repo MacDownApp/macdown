@@ -18,6 +18,31 @@
 #import "MPHtmlPreferencesViewController.h"
 
 
+NS_INLINE void MPOpenBundledFile(NSString *resource, NSString *extension)
+{
+    NSURL *source = [[NSBundle mainBundle] URLForResource:resource
+                                            withExtension:extension];
+    NSString *filename = source.absoluteString.lastPathComponent;
+    NSURL *target = [NSURL fileURLWithPathComponents:@[NSTemporaryDirectory(),
+                                                       filename]];
+    BOOL ok = NO;
+    NSFileManager *manager = [NSFileManager defaultManager];
+    [manager removeItemAtURL:target error:NULL];
+    ok = [manager copyItemAtURL:source toURL:target error:NULL];
+    if (!ok)
+        return;
+    NSDocumentController *c = [NSDocumentController sharedDocumentController];
+    [c openDocumentWithContentsOfURL:target display:YES completionHandler:
+     ^(NSDocument *document, BOOL wasOpen, NSError *error) {
+         if (!document || wasOpen || error)
+             return;
+         NSRect frame = [NSScreen mainScreen].visibleFrame;
+         for (NSWindowController *wc in document.windowControllers)
+             [wc.window setFrame:frame display:YES];
+     }];
+}
+
+
 @interface MPMainController ()
 @property (readonly) NSWindowController *preferencesWindowController;
 @end
@@ -59,27 +84,7 @@
 
 - (IBAction)showHelp:(id)sender
 {
-    NSDocumentController *c =
-        [NSDocumentController sharedDocumentController];
-    NSURL *source = [[NSBundle mainBundle] URLForResource:@"help"
-                                            withExtension:@"md"];
-    NSURL *target = [NSURL fileURLWithPathComponents:@[NSTemporaryDirectory(),
-                                                       @"help.md"]];
-    BOOL ok = NO;
-    NSFileManager *manager = [NSFileManager defaultManager];
-    [manager removeItemAtURL:target error:NULL];
-    ok = [manager copyItemAtURL:source toURL:target error:NULL];
-    if (ok)
-    {
-        [c openDocumentWithContentsOfURL:target display:YES completionHandler:
-            ^(NSDocument *document, BOOL wasOpen, NSError *error) {
-                if (!document || wasOpen || error)
-                    return;
-                NSRect frame = [NSScreen mainScreen].visibleFrame;
-                for (NSWindowController *wc in document.windowControllers)
-                    [wc.window setFrame:frame display:YES];
-            }];
-    }
+    MPOpenBundledFile(@"help", @"md");
 }
 
 
