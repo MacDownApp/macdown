@@ -29,6 +29,7 @@ NS_INLINE void MPOpenBundledFile(NSString *resource, NSString *extension)
     NSFileManager *manager = [NSFileManager defaultManager];
     [manager removeItemAtURL:target error:NULL];
     ok = [manager copyItemAtURL:source toURL:target error:NULL];
+
     if (!ok)
         return;
     NSDocumentController *c = [NSDocumentController sharedDocumentController];
@@ -180,6 +181,20 @@ NS_INLINE void MPOpenBundledFile(NSString *resource, NSString *extension)
         }
     }
     self.prefereces.filesToOpenOnNextLaunch = nil;
+
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *comps =
+        [calendar components:NSCalendarUnitDay|NSCalendarUnitMonth
+                    fromDate:[NSDate date]];
+    if (comps.month == 2 && comps.day == 14
+        && ([NSUserName().lowercaseString hasPrefix:@"mosky"]
+            || [NSFullUserName().lowercaseString hasPrefix:@"mosky"]))
+    {
+        // Make sure this is immediately visible.
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            MPOpenBundledFile(@"valentine", @"md");
+        }];
+    }
 }
 
 
