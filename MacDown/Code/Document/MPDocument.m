@@ -1447,6 +1447,9 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 
 - (void)scaleWebview
 {
+    if (!self.preferences.previewZoomRelativeToBaseFontSize)
+        return;
+    
     NSNumber *fontSizeNum = self.preferences.editorBaseFontInfo[@"size"];
     CFNumberRef fontSizeNumCF = (__bridge CFNumberRef)(fontSizeNum);
     CGFloat fontSize;

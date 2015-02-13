@@ -98,6 +98,8 @@ static NSString * const kMPDefaultHtmlStyleName = @"GitHub2";
 @dynamic editorScrollsPastEnd;
 @dynamic editorEnsuresNewlineAtEndOfFile;
 
+@dynamic previewZoomRelativeToBaseFontSize;
+
 @dynamic htmlStyleName;
 @dynamic htmlDetectFrontMatter;
 @dynamic htmlTaskList;
@@ -213,6 +215,8 @@ static NSString * const kMPDefaultHtmlStyleName = @"GitHub2";
         self.editorAutoIncrementNumberedLists = YES;
     if (![defaults objectForKey:@"editorInsertPrefixInBlock"])
         self.editorInsertPrefixInBlock = YES;
+    if (![defaults objectForKey:@"previewZoomRelativeToBaseFontSize"])
+        self.previewZoomRelativeToBaseFontSize = NO;
 }
 
 @end
