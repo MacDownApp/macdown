@@ -90,13 +90,14 @@ If the link text itself would make a good id, you can link [like this][] `[like 
 #### Inline
 `![Alt Image Text](path/or/url/to.jpg "Optional Title")`
 #### Reference style
-`![Alt Image Text][image id]`  
+`![Alt Image Text][image-id]`  
 on it's own line elsewhere:  
-`[image id]: path/or/url/to.jpg "Optional Title"`
+`[image-id]: path/or/url/to.jpg "Optional Title"`
 
 
 ### Lists
 
+* Lists must be preceded by a blank line (or block element)
 * Unordered lists start each item with a `*`
 - `-` works too
 	* Indent a level to make a nested list
@@ -108,6 +109,7 @@ on it's own line elsewhere:
 Here is the code:
 
 ```
+* Lists must be preceded by a blank line (or block element)
 * Unordered lists start each item with a `*`
 - `-` works too
 	* Indent a level to make a nested list
@@ -122,13 +124,14 @@ Here is the code:
 ### Block Quote
 
 > Angle brackets `>` are used for block quotes.  
-Technically not every line needs to start with a `>` as long as  
+Technically not every line needs to start with a `>` as long as
 there are no empty lines between paragraphs.  
 > Looks kinda ugly though.
 > > Block quotes can be nested.  
 > > > Multiple Levels
-
+>
 > Most markdown syntaxes work inside block quotes.
+>
 > * Lists
 > * [Links][arbitrary_id]
 > * Etc.
@@ -137,15 +140,16 @@ Here is the code:
 
 ```
 > Angle brackets `>` are used for block quotes.  
-Technically not every line needs to start with a `>` as long as  
+Technically not every line needs to start with a `>` as long as
 there are no empty lines between paragraphs.  
->Looks kinda ugly though.
+> Looks kinda ugly though.
 > > Block quotes can be nested.  
 > > > Multiple Levels
-
-> Most markdown syntax keeps working even inside block quotes.
+>
+> Most markdown syntaxes work inside block quotes.
+>
 > * Lists
-> * [Links][id]
+> * [Links][arbitrary_id]
 > * Etc.
 ```
   
