@@ -1336,6 +1336,11 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
         layer.backgroundColor = backgroundCGColor;
         self.editorContainer.layer = layer;
     }
+    
+    if ([changedKey isEqualToString:@"editorBaseFontInfo"])
+    {
+        [self scaleWebview];
+    }
 
     if (!changedKey || [changedKey isEqualToString:@"editorShowWordCount"])
     {
