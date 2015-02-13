@@ -14,25 +14,21 @@ Let me introduce myself.
 
 **MacDown** is created as a simple-to-use editor for Markdown documents. I render your Markdown contents real-time into HTML, and display them in a preview panel.
 
-![Macdown Screenshot](http://goo.gl/nbaXDi)
+![MacDown Screenshot](http://d.pr/i/10UGP+)
 
-I support all the original Markdown syntaxes. But I can do so much more! Various popular but non-standard syntaxes can be turned on/off from the [**Markdown** preference pane](#markdown pane).
+I support all the original Markdown syntaxes. But I can do so much more! Various popular but non-standard syntaxes can be turned on/off from the [**Markdown** preference pane](#markdown-pane).
 
-You can specify extra HTML rendering options through the [**Rendering** preference pane](#rendering pane).
+You can specify extra HTML rendering options through the [**Rendering** preference pane](#rendering-pane).
 
-You can customize the editor window to you liking in the [**Editor** preferences pane](#editor pane):
+You can customize the editor window to you liking in the [**Editor** preferences pane](#editor-pane):
 
-You can configure various application (that's me!) behaviors in the [**General** preference pane](#general pane).
-
-
-
+You can configure various application (that's me!) behaviors in the [**General** preference pane](#general-pane).
 
 ## The Basics
-Before I tell you about all the extra syntaxes and capabilities I have, I'll introduce you to the basics of standard markdown. If you already know markdown, and want to jump straight to learning about the fancier things I can do, I suggest you skip to the [**Markdown** preference pane](#markdown pane). Lets jump right in.  
+Before I tell you about all the extra syntaxes and capabilities I have, I'll introduce you to the basics of standard markdown. If you already know markdown, and want to jump straight to learning about the fancier things I can do, I suggest you skip to the [**Markdown** preference pane](#markdown-pane). Lets jump right in.  
 
 ### Line Breaks
 To force a line break, put two spaces and a newline (return) at the end of the line.
-
 
 	These lines
 	won't break
@@ -48,7 +44,6 @@ To force a line break, put two spaces and a newline (return) at the end of the l
 
 ### Headers (like this one!)
 
-
 	Header 1
 	========
 
@@ -56,7 +51,6 @@ To force a line break, put two spaces and a newline (return) at the end of the l
 	--------
 
 or
-
 
 	# Header 1
 	## Header 2
@@ -104,7 +98,7 @@ on it's own line elsewhere:
 ### Lists
 
 * Unordered lists start each item with a `*`
-- `-` work too
+- `-` works too
 	* Indent a level to make a nested list
 		1. Ordered lists are supported.
 		2. Start each item (number-period-space) like `1. `
@@ -115,7 +109,7 @@ Here is the code:
 
 ```
 * Unordered lists start each item with a `*`
-- `-` work too
+- `-` works too
 	* Indent a level to make a nested list
 		1. Ordered lists are supported.
 		2. Start each item (number-period-space) like `1. `
@@ -130,11 +124,11 @@ Here is the code:
 > Angle brackets `>` are used for block quotes.  
 Technically not every line needs to start with a `>` as long as  
 there are no empty lines between paragraphs.  
->Looks kinda ugly though.
+> Looks kinda ugly though.
 > > Block quotes can be nested.  
 > > > Multiple Levels
 
-> Most markdown syntax keeps working even inside block quotes.
+> Most markdown syntaxes work inside block quotes.
 > * Lists
 > * [Links][arbitrary_id]
 > * Etc.
@@ -160,8 +154,8 @@ there are no empty lines between paragraphs.
 `Inline code` is indicated by surrounding it with backticks:  
 `` `Inline code` ``
 
-If your ``code has `backticks` `` that need to be displayed you can use double backticks:  
-```` ``Code with `backticks` `` ````  (mind the space preceding the final set of backticks)
+If your ``code has `backticks` `` that need to be displayed, you can use double backticks:  
+```` ``Code with `backticks` `` ````  (mind the spaces preceding the final set of backticks)
 
 
 ### Block Code
@@ -176,13 +170,11 @@ I also know how to do something called [Fenced Code Blocks](#fenced-code-block) 
 
 ### Horizontal Rules
 If you type three asterisks `***` or three dashes `---` on a line, I'll display a horizontal rule:
+
 ***
 
 
-
-
-
-## The Markdown Preference Pane <a name="markdown pane"></a>
+## <a name="markdown-pane"></a>The Markdown Preference Pane
 This is where I keep all preferences related to how I parse markdown into html.  
 ![Markdown preferences pane](http://d.pr/i/RQEi+)
 
@@ -241,8 +233,8 @@ Option name         | Markup           | Result if enabled     |
 --------------------|------------------|-----------------------|
 Intra-word emphasis | So A\*maz\*ing   | So A<em>maz</em>ing   |
 Strikethrough       | \~~Much wow\~~   | <del>Much wow</del>   |
-Underline [^under]| \_So doge\_        | <u>So doge</u>        |
-Quote [^quote]    | \"Such editor\"    | <q>Such editor</q>    |
+Underline [^under]  | \_So doge\_      | <u>So doge</u>        |
+Quote [^quote]      | \"Such editor\"  | <q>Such editor</q>    |
 Highlight           | \==So good\==    | <mark>So good</mark>  |
 Superscript         | hoge\^(fuga)     | hoge<sup>fuga</sup>   |
 Autolink            | http://t.co      | <http://t.co>         |
@@ -253,7 +245,7 @@ Footnotes           | [\^4] and [\^4]: | [^4] and footnote 4   |
 
 
 
-## The Rendering Preference Pane <a name="rendering pane"></a>
+## <a name="rendering-pane"></a>The Rendering Preference Pane
 This is where I keep preferences relating to how I render and style the parsed markdown in the preview window.  
 ![Rendering preferences pane](http://d.pr/i/rT4d+)
 
@@ -304,14 +296,14 @@ Normally I require you to put two spaces and a newline (aka return) at the end o
 
 
 
-## The General Preferences Pane <a name="general pane"></a>
+## <a name="general-pane"></a>The General Preferences Pane
 
 This is where I keep preferences related to application behavior.  
 ![General preferences pane](http://d.pr/i/rvwu+)
 
 The General Preferences Pane allows you to tell me how you want me to behave. For example, do you want me to make sure there is a document open when I launch? You can also tell me if I should constantly update the preview window as you type, or wait for you to hit `command-R` instead. Maybe you prefer your editor window on the right? Or to see the word-count as you type. This is also the place to tell me if you are interested in pre-releases of me, or just want to stick to better-tested official releases.  
 
-## The Editor Preference Pane <a name="editor pane"></a>
+## <a name="editor-pane"></a>The Editor Preference Pane
 This is where I keep preferences related to the behavior and styling of the editing window.  
 ![Editor preferences pane](http://d.pr/i/6OL5+)
 
