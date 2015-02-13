@@ -1455,7 +1455,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     CGFloat fontSize;
     CFNumberGetValue(fontSizeNumCF, kCFNumberCGFloatType, &fontSize);
     
-    const CGFloat defaultSize = 12.0;
+    const CGFloat defaultSize = 14.0;
     CGFloat scale = fontSize / defaultSize;
     
 #if 0
