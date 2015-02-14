@@ -3,8 +3,9 @@ h1, p {
     margin-bottom: 1em;
     text-align: center;
 }
-pre[class=" language-python"] {
-    width: 50%; margin: auto;
+pre {
+    width: 300px;
+    margin: auto !important;
 }
 </style>
 
