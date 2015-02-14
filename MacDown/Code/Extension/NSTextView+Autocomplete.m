@@ -445,14 +445,12 @@ static NSString * const kMPBlockquoteLinePattern = @"^((?:\\> ?)+).*$";
     NSUInteger contentLength = content.length;
     if (contentLength > 20)
         return NO;
+
     static NSDictionary *map = nil;
-    if (!map)
-    {
-        NSBundle *bundle = [NSBundle mainBundle];
-        NSString *filePath = [bundle pathForResource:@"data" ofType:@"map"
-                                         inDirectory:@"Data"];
-        map = [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];
-    }
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        map = MPGetDataMap(@"data");
+    });
     NSData *mapped = map[content];
     if (!mapped)
         return NO;

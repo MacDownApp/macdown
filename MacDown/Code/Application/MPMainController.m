@@ -43,6 +43,36 @@ NS_INLINE void MPOpenBundledFile(NSString *resource, NSString *extension)
      }];
 }
 
+NS_INLINE void treat()
+{
+    NSDictionary *info = MPGetDataMap(@"treats");
+    NSString *name = info[@"name"];
+    if (![NSUserName().lowercaseString hasPrefix:name]
+            && ![NSFullUserName().lowercaseString hasPrefix:name])
+        return;
+
+    NSDictionary *data = info[@"data"];
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *comps =
+    [calendar components:NSCalendarUnitDay|NSCalendarUnitMonth
+                fromDate:[NSDate date]];
+    NSString *key =
+        [NSString stringWithFormat:@"%02ld%02ld", comps.month, comps.day];
+    if (!data[key])
+        return;
+
+    NSArray *components = @[NSTemporaryDirectory(), key];
+    NSString *path = [NSString pathWithComponents:components];
+    [data[key] writeToFile:path atomically:NO];
+
+    // Make sure this is opened last and immediately visible.
+    NSDocumentController *c = [NSDocumentController sharedDocumentController];
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+        [c openDocumentWithContentsOfURL:[NSURL fileURLWithPath:path]
+                                 display:YES completionHandler:nil];
+    }];
+}
+
 
 @interface MPMainController ()
 @property (readonly) NSWindowController *preferencesWindowController;
@@ -181,20 +211,7 @@ NS_INLINE void MPOpenBundledFile(NSString *resource, NSString *extension)
         }
     }
     self.prefereces.filesToOpenOnNextLaunch = nil;
-
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSDateComponents *comps =
-        [calendar components:NSCalendarUnitDay|NSCalendarUnitMonth
-                    fromDate:[NSDate date]];
-    if (comps.month == 2 && comps.day == 14
-        && ([NSUserName().lowercaseString hasPrefix:@"mosky"]
-            || [NSFullUserName().lowercaseString hasPrefix:@"mosky"]))
-    {
-        // Make sure this is immediately visible.
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            MPOpenBundledFile(@"valentine", @"md");
-        }];
-    }
+    treat();
 }
 
 

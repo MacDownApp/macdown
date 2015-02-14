@@ -155,6 +155,14 @@ NSString *MPReadFileOfPath(NSString *path)
     return s;
 }
 
+NSDictionary *MPGetDataMap(NSString *name)
+{
+    NSBundle *bundle = [NSBundle mainBundle];
+    NSString *filePath = [bundle pathForResource:name ofType:@"map"
+                                     inDirectory:@"Data"];
+    return [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];
+}
+
 id MPGetObjectFromJavaScript(NSString *code, NSString *variableName)
 {
     if (!code.length)
