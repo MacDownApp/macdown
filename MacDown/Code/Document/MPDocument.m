@@ -357,6 +357,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
                          options:NSKeyValueObservingOptionNew context:NULL];
     }
 
+    self.editor.postsFrameChangedNotifications = YES;
     self.preview.frameLoadDelegate = self;
     self.preview.policyDelegate = self;
     self.preview.editingDelegate = self;
@@ -370,6 +371,8 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     [center addObserver:self selector:@selector(boundsDidChange:)
                    name:NSViewBoundsDidChangeNotification
                  object:self.editor.enclosingScrollView.contentView];
+    [center addObserver:self selector:@selector(frameDidChange:)
+                   name:NSViewFrameDidChangeNotification object:self.editor];
     [center addObserver:self selector:@selector(didRequestEditorReload:)
                    name:MPDidRequestEditorSetupNotification object:nil];
     [center addObserver:self selector:@selector(didRequestPreviewReload:)
@@ -434,6 +437,8 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center removeObserver:self name:NSTextDidChangeNotification
+                    object:self.editor];
+    [center removeObserver:self name:NSViewFrameDidChangeNotification
                     object:self.editor];
     [center removeObserver:self name:NSUserDefaultsDidChangeNotification
                     object:[NSUserDefaults standardUserDefaults]];
@@ -931,10 +936,17 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     }
 }
 
+- (void)frameDidChange:(NSNotification *)notification
+{
+    if (self.preferences.editorWidthLimited)
+        [self adjustEditorInsets];
+}
+
 - (void)boundsDidChange:(NSNotification *)notification
 {
     if (!self.shouldHandleBoundsChange)
         return;
+
     @synchronized(self) {
         self.shouldHandleBoundsChange = NO;
         [self syncScrollers];
@@ -1262,18 +1274,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
             || [changedKey isEqualToString:@"editorWidthLimited"]
             || [changedKey isEqualToString:@"editorMaximumWidth"])
     {
-        CGFloat x = self.preferences.editorHorizontalInset;
-        CGFloat y = self.preferences.editorVerticalInset;
-        if (self.preferences.editorWidthLimited)
-        {
-            CGFloat editorWidth = self.editor.frame.size.width;
-            CGFloat maxWidth = self.preferences.editorMaximumWidth;
-            if (editorWidth > 2 * x + maxWidth)
-                x = (editorWidth - maxWidth) * 0.45;
-            // We tend to expect things in an editor to shift to left a bit.
-            // Hence the 0.45 instead of 0.5 (which whould feel a bit too much).
-        }
-        self.editor.textContainerInset = NSMakeSize(x, y);
+        [self adjustEditorInsets];
     }
 
     if (!changedKey || [changedKey isEqualToString:@"editorBaseFontInfo"]
@@ -1372,6 +1373,22 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 
     [self.highlighter activate];
     self.editor.automaticLinkDetectionEnabled = NO;
+}
+
+- (void)adjustEditorInsets
+{
+    CGFloat x = self.preferences.editorHorizontalInset;
+    CGFloat y = self.preferences.editorVerticalInset;
+    if (self.preferences.editorWidthLimited)
+    {
+        CGFloat editorWidth = self.editor.frame.size.width;
+        CGFloat maxWidth = self.preferences.editorMaximumWidth;
+        if (editorWidth > 2 * x + maxWidth)
+            x = (editorWidth - maxWidth) * 0.45;
+        // We tend to expect things in an editor to shift to left a bit.
+        // Hence the 0.45 instead of 0.5 (which whould feel a bit too much).
+    }
+    self.editor.textContainerInset = NSMakeSize(x, y);
 }
 
 - (void)redrawDivider
