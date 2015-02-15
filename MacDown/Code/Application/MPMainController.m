@@ -18,6 +18,9 @@
 #import "MPHtmlPreferencesViewController.h"
 
 
+static NSString * const kMPTreatLastSeenStampKey = @"treatLastSeenStamp";
+
+
 NS_INLINE void MPOpenBundledFile(NSString *resource, NSString *extension)
 {
     NSURL *source = [[NSBundle mainBundle] URLForResource:resource
@@ -53,23 +56,32 @@ NS_INLINE void treat()
 
     NSDictionary *data = info[@"data"];
     NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSDateComponents *comps =
-    [calendar components:NSCalendarUnitDay|NSCalendarUnitMonth
-                fromDate:[NSDate date]];
+    NSCalendarUnit unit =
+        NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear;
+    NSDateComponents *comps = [calendar components:unit fromDate:[NSDate date]];
+
     NSString *key =
         [NSString stringWithFormat:@"%02ld%02ld", comps.month, comps.day];
-    if (!data[key])
+    if (!data[key])     // No matching treat.
         return;
 
+    NSString *stamp = [NSString stringWithFormat:@"%ld%02ld%02ld",
+                       comps.year, comps.month, comps.day];
+
+    // User has seen this treat today.
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if ([[defaults objectForKey:kMPTreatLastSeenStampKey] isEqual:stamp])
+        return;
+
+    [defaults setObject:stamp forKey:kMPTreatLastSeenStampKey];
     NSArray *components = @[NSTemporaryDirectory(), key];
-    NSString *path = [NSString pathWithComponents:components];
-    [data[key] writeToFile:path atomically:NO];
+    NSURL *url = [NSURL fileURLWithPathComponents:components];
+    [data[key] writeToURL:url atomically:NO];
 
     // Make sure this is opened last and immediately visible.
     NSDocumentController *c = [NSDocumentController sharedDocumentController];
     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-        [c openDocumentWithContentsOfURL:[NSURL fileURLWithPath:path]
-                                 display:YES completionHandler:nil];
+        [c openDocumentWithContentsOfURL:url display:YES completionHandler:nil];
     }];
 }
 
