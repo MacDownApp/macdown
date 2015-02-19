@@ -119,6 +119,16 @@ NS_INLINE NSColor *MPGetWebViewBackgroundColor(WebView *webview)
 @end
 
 
+@implementation WebView (Shortcut)
+
+- (NSScrollView *)enclosingScrollView
+{
+    return self.mainFrame.frameView.documentView.enclosingScrollView;
+}
+
+@end
+
+
 @implementation MPPreferences (Hoedown)
 - (int)extensionFlags
 {
@@ -193,6 +203,7 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
 @property (nonatomic) BOOL rendersTOC;
 @property (readonly) BOOL previewVisible;
 @property (readonly) BOOL editorVisible;
+@property CGFloat lastPreviewScrollTop;
 @property (nonatomic, readonly) BOOL needsHtml;
 @property (nonatomic) NSUInteger totalWords;
 @property (nonatomic) NSUInteger totalCharacters;
@@ -212,12 +223,23 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 {
     __weak MPDocument *weakObj = doc;
     return ^{
-        NSWindow *window = weakObj.preview.window;
+        WebView *webView = weakObj.preview;
+        NSWindow *window = webView.window;
         @synchronized(window) {
             if (window.isFlushWindowDisabled)
                 [window enableFlushWindow];
         }
-        [weakObj syncScrollers];
+        if (weakObj.preferences.editorSyncScrolling)
+        {
+            [weakObj syncScrollers];
+        }
+        else
+        {
+            NSClipView *contentView = webView.enclosingScrollView.contentView;
+            NSRect bounds = contentView.bounds;
+            bounds.origin.y = weakObj.lastPreviewScrollTop;
+            contentView.bounds = bounds;
+        }
     };
 }
 
@@ -377,6 +399,9 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
                    name:MPDidRequestEditorSetupNotification object:nil];
     [center addObserver:self selector:@selector(didRequestPreviewReload:)
                    name:MPDidRequestPreviewRenderNotification object:nil];
+    [center addObserver:self selector:@selector(previewDidLiveScroll:)
+                   name:NSScrollViewDidEndLiveScrollNotification
+                 object:self.preview.enclosingScrollView];
 
     self.wordsMenuItem = [[NSMenuItem alloc] initWithTitle:@"" action:NULL
                                              keyEquivalent:@""];
@@ -750,7 +775,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     }
 
     self.isPreviewReady = YES;
-    
+
     // Update word count
     if (self.preferences.editorShowWordCount)
         [self updateWordCount];
@@ -935,10 +960,13 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     if (!self.shouldHandleBoundsChange)
         return;
 
-    @synchronized(self) {
-        self.shouldHandleBoundsChange = NO;
-        [self syncScrollers];
-        self.shouldHandleBoundsChange = YES;
+    if (self.preferences.editorSyncScrolling)
+    {
+        @synchronized(self) {
+            self.shouldHandleBoundsChange = NO;
+            [self syncScrollers];
+            self.shouldHandleBoundsChange = YES;
+        }
     }
 }
 
@@ -952,6 +980,12 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 - (void)didRequestPreviewReload:(NSNotification *)notification
 {
     [self render:nil];
+}
+
+- (void)previewDidLiveScroll:(NSNotification *)notification
+{
+    NSClipView *contentView = self.preview.enclosingScrollView.contentView;
+    self.lastPreviewScrollTop = contentView.bounds.origin.y;
 }
 
 
@@ -1407,9 +1441,6 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 
 - (void)syncScrollers
 {
-    if (!self.preferences.editorSyncScrolling)
-        return;
-
     NSRect contentBounds = [self.editor.enclosingScrollView.contentView bounds];
     NSRect realContentRect = self.editor.contentRect;
 
@@ -1420,8 +1451,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
             (realContentRect.size.height - contentBounds.size.height);
     }
 
-    NSScrollView *previewScrollView =
-        self.preview.mainFrame.frameView.documentView.enclosingScrollView;
+    NSScrollView *previewScrollView = self.preview.enclosingScrollView;
     NSClipView *previewContentView = previewScrollView.contentView;
     NSView *previewDocumentView = previewScrollView.documentView;
     NSRect previewContentBounds = previewContentView.bounds;
