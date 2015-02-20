@@ -518,7 +518,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 - (BOOL)prepareSavePanel:(NSSavePanel *)savePanel
 {
     NSString *fileName = self.presumedFileName;
-    if (fileName)
+    if (fileName && ![fileName hasExtension:@"md"])
     {
         fileName = [fileName stringByAppendingPathExtension:@"md"];
         savePanel.nameFieldStringValue = fileName;

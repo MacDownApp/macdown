@@ -109,4 +109,9 @@
     return nil;
 }
 
+- (BOOL)hasExtension:(NSString *)extension
+{
+    return [self.pathExtension isEqualToString:extension];
+}
+
 @end

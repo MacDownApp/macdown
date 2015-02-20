@@ -19,4 +19,6 @@
 - (id)frontMatter:(NSUInteger *)contentOffset;
 - (NSString *)titleString;
 
+- (BOOL)hasExtension:(NSString *)extension;
+
 @end

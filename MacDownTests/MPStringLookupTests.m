@@ -177,4 +177,11 @@
     XCTAssertNil(title, @"Incorrect title.");
 }
 
+- (void)testHasExtension
+{
+    XCTAssertTrue([@"foo.css" hasExtension:@"css"], @"Wrong extension.");
+    XCTAssertTrue([@"foo.min.css" hasExtension:@"css"], @"Wrong extension.");
+    XCTAssertFalse([@"foo.csss" hasExtension:@"css"], @"Wrong extension.");
+}
+
 @end

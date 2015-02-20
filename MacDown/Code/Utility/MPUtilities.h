@@ -21,7 +21,7 @@ NSArray *MPListEntriesForDirectory(
 );
 
 // Block factory for MPListEntriesForDirectory
-NSString *(^MPFileNameHasSuffixProcessor(NSString *suffix))(NSString *path);
+NSString *(^MPFileNameHasExtensionProcessor(NSString *ext))(NSString *path);
 
 BOOL MPCharacterIsWhitespace(unichar character);
 BOOL MPCharacterIsNewline(unichar character);

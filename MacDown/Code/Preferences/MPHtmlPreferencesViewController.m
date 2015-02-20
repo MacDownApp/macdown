@@ -110,7 +110,7 @@ static NSString *MPPrismDefaultThemeName()
 
     NSArray *itemTitles = MPListEntriesForDirectory(
         kMPStylesDirectoryName,
-        MPFileNameHasSuffixProcessor(kMPStyleFileExtension)
+        MPFileNameHasExtensionProcessor(kMPStyleFileExtension)
     );
 
     [self.stylesheetSelect addItemWithTitle:@""];
