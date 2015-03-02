@@ -390,6 +390,7 @@ Inline  = Str
         | Endline
         | UlOrStarLine
         | Space
+        | Math
         | Strong
         | Emph
         | Image
@@ -621,7 +622,7 @@ Nonspacechar =  !Spacechar !Newline .
 Newline =       '\n' | '\r' '\n'?
 Sp =            Spacechar*
 Spnl =          Sp (Newline Sp)?
-SpecialChar =   '*' | '_' | '`' | '&' | '[' | ']' | '(' | ')' | '<' | '!' | '#' | '\\' | '\'' | '"' | '~' | ExtendedSpecialChar
+SpecialChar =   '$' | '*' | '_' | '`' | '&' | '[' | ']' | '(' | ')' | '<' | '!' | '#' | '\\' | '\'' | '"' | '~' | ExtendedSpecialChar
 NormalChar =    !( SpecialChar | Spacechar | Newline ) .
 # Not used anywhere in grammar:
 #NonAlphanumeric = [\000-\057\072-\100\133-\140\173-\177]
@@ -674,6 +675,15 @@ InlineNote =    &{ EXT(pmh_EXT_NOTES) }
 
 RawNoteBlock =  ( !BlankLine OptionallyIndentedLine )+
                 ( BlankLine* )
+
+
+# Addon for math
+# either do nothing with math (pmh_NO_TYPE) or highlight it as code (pmh_CODE)
+# so that there is no wrong highlighing within MATH
+Math = Dollar1Math | Dollar2Math
+
+Dollar1Math = < "$" ( !'$' . )+ "$" > { ADD(elem(pmh_CODE)); }
+Dollar2Math = < "$$" (!'$' .)+ "$$" > { ADD(elem(pmh_CODE)); }
 
 %%
 
