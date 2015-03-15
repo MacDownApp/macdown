@@ -11,6 +11,7 @@
 #import <hoedown/html.h>
 #import <hoedown/document.h>
 #import "hoedown_html_patch.h"
+#import "NSJSONSerialization+File.h"
 #import "NSObject+HTMLTabularize.h"
 #import "NSString+Lookup.h"
 #import "MPUtilities.h"
@@ -189,27 +190,16 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
     static NSDictionary *languageMap = nil;
     static dispatch_once_t token;
     dispatch_once(&token, ^{
-        aliasMap = @{
-            @"c++": @"cpp",
-            @"coffee": @"coffeescript",
-            @"coffee-script": @"coffeescript",
-            @"cs": @"csharp",
-            @"html": @"markup",
-            @"jl": @"julia",
-            @"js": @"javascript",
-            @"json": @"javascript",
-            @"objective-c": @"objectivec",
-            @"obj-c": @"objectivec",
-            @"objc": @"objectivec",
-            @"py": @"python",
-            @"rb": @"ruby",
-            @"sh": @"bash",
-            @"xml": @"markup",
-        };
-
         NSBundle *bundle = [NSBundle mainBundle];
-        NSURL *url = [bundle URLForResource:@"components" withExtension:@"js"
-                               subdirectory:@"Prism"];
+        NSURL *url = [bundle URLForResource:@"syntax_highlighting"
+                              withExtension:@"json"];
+        NSDictionary *info =
+            [NSJSONSerialization JSONObjectFileAtURL:url options:0 error:NULL];
+
+        aliasMap = info[@"aliases"];
+
+        url = [bundle URLForResource:@"components" withExtension:@"js"
+                        subdirectory:@"Prism"];
         NSString *code = [NSString stringWithContentsOfURL:url
                                                   encoding:NSUTF8StringEncoding
                                                      error:NULL];

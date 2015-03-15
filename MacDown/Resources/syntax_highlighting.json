@@ -1,0 +1,19 @@
+{
+    "aliases": {
+        "c++": "cpp",
+        "coffee": "coffeescript",
+        "coffee-script": "coffeescript",
+        "cs": "csharp",
+        "html": "markup",
+        "jl": "julia",
+        "js": "javascript",
+        "json": "javascript",
+        "objective-c": "objectivec",
+        "obj-c": "objectivec",
+        "objc": "objectivec",
+        "py": "python",
+        "rb": "ruby",
+        "sh": "bash",
+        "xml": "markup"
+    }
+}
