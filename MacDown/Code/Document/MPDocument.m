@@ -399,9 +399,12 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
                    name:MPDidRequestEditorSetupNotification object:nil];
     [center addObserver:self selector:@selector(didRequestPreviewReload:)
                    name:MPDidRequestPreviewRenderNotification object:nil];
-    [center addObserver:self selector:@selector(previewDidLiveScroll:)
-                   name:NSScrollViewDidEndLiveScrollNotification
-                 object:self.preview.enclosingScrollView];
+    if (kCFCoreFoundationVersionNumber >= kCFCoreFoundationVersionNumber10_9)
+    {
+        [center addObserver:self selector:@selector(previewDidLiveScroll:)
+                       name:NSScrollViewDidEndLiveScrollNotification
+                     object:self.preview.enclosingScrollView];
+    }
 
     self.wordsMenuItem = [[NSMenuItem alloc] initWithTitle:@"" action:NULL
                                              keyEquivalent:@""];
