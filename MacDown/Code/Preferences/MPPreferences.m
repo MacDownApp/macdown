@@ -215,8 +215,6 @@ static NSString * const kMPDefaultHtmlStyleName = @"GitHub2";
         self.editorAutoIncrementNumberedLists = YES;
     if (![defaults objectForKey:@"editorInsertPrefixInBlock"])
         self.editorInsertPrefixInBlock = YES;
-    if (![defaults objectForKey:@"previewZoomRelativeToBaseFontSize"])
-        self.previewZoomRelativeToBaseFontSize = NO;
 }
 
 @end
