@@ -77,6 +77,12 @@
 		1FFF301D1948A5320009AF24 /* MPStringLookupTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FFF301C1948A5320009AF24 /* MPStringLookupTests.m */; };
 		5318159056384894AA42DB4F /* libPods-MacDownTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AEAF42BBDCEC4012B5092BB3 /* libPods-MacDownTests.a */; };
 		5807564D5F35BA9758A64530 /* libPods-macdown-cmd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AFCF7AEBCE081BD528ABC3D /* libPods-macdown-cmd.a */; };
+		60CF9DAC1AD1E22700254BD4 /* MPOpenQuicklyWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60CF9DAB1AD1E22700254BD4 /* MPOpenQuicklyWindowController.xib */; };
+		60CF9DB21AD1E28300254BD4 /* XCRoundCornerWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CF9DAE1AD1E28300254BD4 /* XCRoundCornerWindow.m */; };
+		60CF9DB31AD1E28300254BD4 /* XCSearchResultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60CF9DAF1AD1E28300254BD4 /* XCSearchResultCell.xib */; };
+		60CF9DB41AD1E28300254BD4 /* XCSearchResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CF9DB11AD1E28300254BD4 /* XCSearchResultCell.m */; };
+		60CF9DB81AD1E2DE00254BD4 /* MPOpenQuicklyWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CF9DB71AD1E2DE00254BD4 /* MPOpenQuicklyWindowController.m */; };
+		60CF9DBB1AD1E9ED00254BD4 /* MPOpenQuicklyDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CF9DBA1AD1E9ED00254BD4 /* MPOpenQuicklyDataSource.m */; };
 		905EF1A9196164CA00FC3CE9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 905EF1A8196164CA00FC3CE9 /* Foundation.framework */; };
 		905EF1B7196164F300FC3CE9 /* macdown in Copy Command Line Utility */ = {isa = PBXBuildFile; fileRef = 905EF1A7196164CA00FC3CE9 /* macdown */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		B49728377A904875B2963C38 /* libPods-MacDown.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C5C1FBBB3ED456285901D31 /* libPods-MacDown.a */; };
@@ -251,6 +257,16 @@
 		1FFF301C1948A5320009AF24 /* MPStringLookupTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPStringLookupTests.m; sourceTree = "<group>"; };
 		481332E4A369446F177A8DF0 /* Pods-MacDown.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacDown.release.xcconfig"; path = "Pods/Target Support Files/Pods-MacDown/Pods-MacDown.release.xcconfig"; sourceTree = "<group>"; };
 		4AFCF7AEBCE081BD528ABC3D /* libPods-macdown-cmd.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-macdown-cmd.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		60CF9DAB1AD1E22700254BD4 /* MPOpenQuicklyWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MPOpenQuicklyWindowController.xib; sourceTree = "<group>"; };
+		60CF9DAD1AD1E28300254BD4 /* XCRoundCornerWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCRoundCornerWindow.h; sourceTree = "<group>"; };
+		60CF9DAE1AD1E28300254BD4 /* XCRoundCornerWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCRoundCornerWindow.m; sourceTree = "<group>"; };
+		60CF9DAF1AD1E28300254BD4 /* XCSearchResultCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XCSearchResultCell.xib; sourceTree = "<group>"; };
+		60CF9DB01AD1E28300254BD4 /* XCSearchResultCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCSearchResultCell.h; sourceTree = "<group>"; };
+		60CF9DB11AD1E28300254BD4 /* XCSearchResultCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCSearchResultCell.m; sourceTree = "<group>"; };
+		60CF9DB61AD1E2DE00254BD4 /* MPOpenQuicklyWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPOpenQuicklyWindowController.h; sourceTree = "<group>"; };
+		60CF9DB71AD1E2DE00254BD4 /* MPOpenQuicklyWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPOpenQuicklyWindowController.m; sourceTree = "<group>"; };
+		60CF9DB91AD1E9ED00254BD4 /* MPOpenQuicklyDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPOpenQuicklyDataSource.h; sourceTree = "<group>"; };
+		60CF9DBA1AD1E9ED00254BD4 /* MPOpenQuicklyDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPOpenQuicklyDataSource.m; sourceTree = "<group>"; };
 		632F686FDE66C78EBA2ABB7B /* Pods-macdown-cmd.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-macdown-cmd.debug.xcconfig"; path = "Pods/Target Support Files/Pods-macdown-cmd/Pods-macdown-cmd.debug.xcconfig"; sourceTree = "<group>"; };
 		7C5C1FBBB3ED456285901D31 /* libPods-MacDown.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MacDown.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		905EF1A7196164CA00FC3CE9 /* macdown */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = macdown; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -529,6 +545,7 @@
 		1FCDC9EB1944F89B00B1F966 /* MacDown */ = {
 			isa = PBXGroup;
 			children = (
+				60CF9DAA1AD1E20300254BD4 /* Open Quickly */,
 				1F0D9D62194AC7CF008E1856 /* Utility */,
 				1F0D9D5D194AC7CF008E1856 /* Extension */,
 				1F396E6319B0EA17000D3EFC /* View */,
@@ -588,6 +605,32 @@
 			name = "YAML-framework";
 			path = "Dependency/YAML-framework";
 			sourceTree = SOURCE_ROOT;
+		};
+		60CF9DAA1AD1E20300254BD4 /* Open Quickly */ = {
+			isa = PBXGroup;
+			children = (
+				60CF9DB51AD1E29700254BD4 /* Vendor */,
+				60CF9DAB1AD1E22700254BD4 /* MPOpenQuicklyWindowController.xib */,
+				60CF9DB61AD1E2DE00254BD4 /* MPOpenQuicklyWindowController.h */,
+				60CF9DB71AD1E2DE00254BD4 /* MPOpenQuicklyWindowController.m */,
+				60CF9DB91AD1E9ED00254BD4 /* MPOpenQuicklyDataSource.h */,
+				60CF9DBA1AD1E9ED00254BD4 /* MPOpenQuicklyDataSource.m */,
+			);
+			name = "Open Quickly";
+			path = "Code/Open Quickly";
+			sourceTree = "<group>";
+		};
+		60CF9DB51AD1E29700254BD4 /* Vendor */ = {
+			isa = PBXGroup;
+			children = (
+				60CF9DAD1AD1E28300254BD4 /* XCRoundCornerWindow.h */,
+				60CF9DAE1AD1E28300254BD4 /* XCRoundCornerWindow.m */,
+				60CF9DAF1AD1E28300254BD4 /* XCSearchResultCell.xib */,
+				60CF9DB01AD1E28300254BD4 /* XCSearchResultCell.h */,
+				60CF9DB11AD1E28300254BD4 /* XCSearchResultCell.m */,
+			);
+			name = Vendor;
+			sourceTree = "<group>";
 		};
 		905EF1AA196164CA00FC3CE9 /* macdown-cmd */ = {
 			isa = PBXGroup;
@@ -741,6 +784,8 @@
 				1F9A14F4194EF6A600D1C6A9 /* Themes in Resources */,
 				1F0D9DB2194AC9EE008E1856 /* MPHtmlPreferencesViewController.xib in Resources */,
 				1F0D9DB3194AC9EE008E1856 /* MPMarkdownPreferencesViewController.xib in Resources */,
+				60CF9DAC1AD1E22700254BD4 /* MPOpenQuicklyWindowController.xib in Resources */,
+				60CF9DB31AD1E28300254BD4 /* XCSearchResultCell.xib in Resources */,
 				1F3A47521953E84700293259 /* help.md in Resources */,
 				1F0D9DB4194AC9EE008E1856 /* MainMenu.xib in Resources */,
 				1FBDFE9C196170FE00BEEA70 /* Extensions in Resources */,
@@ -902,10 +947,13 @@
 				1F396E6619B0EA17000D3EFC /* MPEditorView.m in Sources */,
 				1F0D9D7A194AC7F7008E1856 /* MPMarkdownPreferencesViewController.m in Sources */,
 				1F0D9D7D194AC7F7008E1856 /* MPPreferencesViewController.m in Sources */,
+				60CF9DB41AD1E28300254BD4 /* XCSearchResultCell.m in Sources */,
 				1F33F2A41A3B56D20001C849 /* NSColor+HTML.m in Sources */,
 				1F0D9D65194AC7CF008E1856 /* NSString+Lookup.m in Sources */,
 				1F8A835E1953454F00B6BF69 /* HGMarkdownHighlightingStyle.m in Sources */,
+				60CF9DB81AD1E2DE00254BD4 /* MPOpenQuicklyWindowController.m in Sources */,
 				1F33F2A11A3B4B660001C849 /* MPDocumentSplitView.m in Sources */,
+				60CF9DBB1AD1E9ED00254BD4 /* MPOpenQuicklyDataSource.m in Sources */,
 				1F23A92119928E650052DB78 /* MPMathJaxListener.m in Sources */,
 				1F2649B01A7406DB00EF6AF3 /* NSDocumentController+Document.m in Sources */,
 				1F0D9D67194AC7CF008E1856 /* MPUtilities.m in Sources */,
@@ -913,6 +961,7 @@
 				1F0D9D7C194AC7F7008E1856 /* MPPreferences.m in Sources */,
 				1F0D9DAF194AC905008E1856 /* main.m in Sources */,
 				1F0D9D66194AC7CF008E1856 /* NSTextView+Autocomplete.m in Sources */,
+				60CF9DB21AD1E28300254BD4 /* XCRoundCornerWindow.m in Sources */,
 				1F59491E1AB57D87007394CB /* NSJSONSerialization+File.m in Sources */,
 				1FFEB32B19737D6E00B2254F /* YAMLSerialization.m in Sources */,
 				1F64CCC9195F5AB900CE619A /* MPAsset.m in Sources */,

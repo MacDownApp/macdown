@@ -16,7 +16,7 @@
 #import "MPMarkdownPreferencesViewController.h"
 #import "MPEditorPreferencesViewController.h"
 #import "MPHtmlPreferencesViewController.h"
-
+#import "MPOpenQuicklyWindowController.h"
 
 static NSString * const kMPTreatLastSeenStampKey = @"treatLastSeenStamp";
 
@@ -88,12 +88,15 @@ NS_INLINE void treat()
 
 @interface MPMainController ()
 @property (readonly) NSWindowController *preferencesWindowController;
+@property (nonatomic, readonly) MPOpenQuicklyWindowController *openQuicklyWindowController;
+
 @end
 
 
 @implementation MPMainController
 
 @synthesize preferencesWindowController = _preferencesWindowController;
+@synthesize openQuicklyWindowController = _openQuicklyWindowController;
 
 - (MPPreferences *)prefereces
 {
@@ -120,6 +123,15 @@ NS_INLINE void treat()
     return _preferencesWindowController;
 }
 
+- (MPOpenQuicklyWindowController *)openQuicklyWindowController
+{
+    if (!_openQuicklyWindowController)
+    {
+        _openQuicklyWindowController = [[MPOpenQuicklyWindowController alloc] initWithWindowNibName:@"MPOpenQuicklyWindowController"];
+    }
+    return _openQuicklyWindowController;
+}
+
 - (IBAction)showPreferencesWindow:(id)sender
 {
     [self.preferencesWindowController showWindow:nil];
@@ -130,6 +142,13 @@ NS_INLINE void treat()
     MPOpenBundledFile(@"help", @"md");
 }
 
+- (IBAction)showOpenQuickly:(id)sender
+{
+    NSDocumentController *documentController = [NSDocumentController sharedDocumentController];
+
+    self.openQuicklyWindowController.pathForSearching = [documentController currentDirectory];
+    [self.openQuicklyWindowController showWindow:nil];
+}
 
 #pragma mark - Override
 
