@@ -21,14 +21,14 @@ DEPENDENCIES:
   - Sparkle (< 1.8)
 
 SPEC CHECKSUMS:
-  GBCli: 304718a0ff52cb39ea7ae1bcb3c4cb40c5a48c8d
-  handlebars-objc: ced98b23adddc7b3fbf7473fb40225255e53f591
-  hoedown: d7b4579420f036df11884b55017bd38a67bcabb6
-  JJPluralForm: 14142b5f85ac6abdc3a2cf45f1af61fe6559ea60
-  LibYAML: d447960375d9114187bfddba6e6c24d69bff11f8
-  M13OrderedDictionary: 17dd456dd096dc1de8f810b93d70ae964063e0ff
-  MASPreferences: 48debf3a161039bb979e617b7416bc07bd879f75
-  PAPreferences: 3916ab2f4f332f0a9ed7d45c63dd628ea814a11c
-  Sparkle: fde5ffeb7bf01db28925499ce2a75977763af58a
+  GBCli: e5f988fadb68e1e3c01919f134009fed9796fde0
+  handlebars-objc: df4f98f81cd380b1e6b19a9f7dacddac6b4c3bd8
+  hoedown: 1a615272aa9b278b8497cda9e0b569d6b7580958
+  JJPluralForm: 9a6235813990a33a63fb3eff457eb2c633af6acd
+  LibYAML: 3af2c5adf3a40dff936d087aa6a77edc10036bc5
+  M13OrderedDictionary: f16e52c6eaaff5c6042f91fa2dc959350246133f
+  MASPreferences: 32d8a2c5ef1d60b63240f5676b011ff72e194cb1
+  PAPreferences: ba3f8d236c4c398b82bb0110cddd8546cd619770
+  Sparkle: f107eed24a7d41bcd510be49ebb640d176f06bb9
 
 COCOAPODS: 0.34.4
