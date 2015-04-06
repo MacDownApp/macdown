@@ -44,7 +44,7 @@ You may also need to install Xcode’s command line tools with the following com
 
     xcode-select --install
 
-> Note: Due to an [upstream bug](https://github.com/CocoaPods/CocoaPods/issues/2559), Xcode will fail to build certain dependencies if you use the latest version of CocoaPods (0.35 at the time of writing). To avoid the problem and build the project correctly, you need to install an older version of CocoaPods (0.34.4 is recommended), and use that to build the dependencies instead. See [comment in issue #220](https://github.com/uranusjr/macdown/issues/220#issuecomment-65014799) for detailed instructions.
+> Note: Due to an [upstream bug](https://github.com/CocoaPods/CocoaPods/issues/2559), Xcode will fail to build certain dependencies if you use the latest version of CocoaPods (0.36+ at the time of writing). To avoid the problem we use a Gemfile to specify the version, and thus you should add `bundle exec` before running a CocoaPods command.
 
 An appropriate SDK should be bundled with Xcode 5 or later versions.
 
@@ -54,14 +54,15 @@ After cloning the repository, run the following commands inside the repository r
 
     git submodule init
     git submodule update
-    pod install
+    bundle install
+    bundle exec pod install
 
 and open `MacDown.xcworkspace` in Xcode. The first command initialises the dependency submodule(s) used in MacDown; the second one installs dependencies managed by CocoaPods.
 
 Refer to the official guides of Git and CocoaPods if you need more instructions. If you run into build issues later on, try running the following commands to update dependencies:
 
     git submodule update
-    pod install
+    bundle exec pod install
 
 ## Discussion
 
