@@ -1,6 +1,5 @@
 language: objective-c
 install:
-  - "gem install bundle"
   - "bundle install"
   - "bundle exec pod install"
 xcode_workspace: MacDown.xcworkspace
