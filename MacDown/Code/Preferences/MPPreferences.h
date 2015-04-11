@@ -54,6 +54,8 @@ extern NSString * const MPDidDetectFreshInstallationNotification;
 @property (assign) BOOL editorScrollsPastEnd;
 @property (assign) BOOL editorEnsuresNewlineAtEndOfFile;
 
+@property (assign) BOOL previewZoomRelativeToBaseFontSize;
+
 @property (assign) NSString *htmlStyleName;
 @property (assign) BOOL htmlDetectFrontMatter;
 @property (assign) BOOL htmlTaskList;

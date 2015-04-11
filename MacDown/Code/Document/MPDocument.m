@@ -27,6 +27,7 @@
 #import "MPEditorPreferencesViewController.h"
 #import "MPExportPanelAccessoryViewController.h"
 #import "MPMathJaxListener.h"
+#import "WebView+WebViewPrivateHeaders.h"
 
 
 static NSString * const kMPRendersTOCPropertyKey = @"Renders TOC";
@@ -215,6 +216,7 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
 // Store file content in initializer until nib is loaded.
 @property (copy) NSString *loadedString;
 
+- (void)scaleWebview;
 - (void)syncScrollers;
 
 @end
@@ -231,6 +233,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
         }
         if (weakObj.preferences.editorSyncScrolling)
         {
+            [weakObj scaleWebview];
             [weakObj syncScrollers];
         }
         else
@@ -1333,6 +1336,11 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
         layer.backgroundColor = backgroundCGColor;
         self.editorContainer.layer = layer;
     }
+    
+    if ([changedKey isEqualToString:@"editorBaseFontInfo"])
+    {
+        [self scaleWebview];
+    }
 
     if (!changedKey || [changedKey isEqualToString:@"editorShowWordCount"])
     {
@@ -1440,6 +1448,33 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
         // similar to both the editor and preview and being obscured.
         self.splitView.dividerColor = nil;
     }
+}
+
+- (void)scaleWebview
+{
+    if (!self.preferences.previewZoomRelativeToBaseFontSize)
+        return;
+    
+    NSNumber *fontSizeNum = self.preferences.editorBaseFontInfo[@"size"];
+    CFNumberRef fontSizeNumCF = (__bridge CFNumberRef)(fontSizeNum);
+    CGFloat fontSize;
+    CFNumberGetValue(fontSizeNumCF, kCFNumberCGFloatType, &fontSize);
+    
+    const CGFloat defaultSize = 14.0;
+    CGFloat scale = fontSize / defaultSize;
+    
+#if 0
+    // Sadly, this doesn’t work correctly.
+    // It looks fine, but selections are offset relative to the mouse cursor.
+    NSScrollView *previewScrollView =
+    self.preview.mainFrame.frameView.documentView.enclosingScrollView;
+    NSClipView *previewContentView = previewScrollView.contentView;
+    [previewContentView scaleUnitSquareToSize:NSMakeSize(scale, scale)];
+    [previewContentView setNeedsDisplay:YES];
+#else
+    // Warning: this is private webkit API and NOT App Store-safe!
+    [self.preview setPageSizeMultiplier:scale];
+#endif
 }
 
 - (void)syncScrollers
