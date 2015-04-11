@@ -38,7 +38,7 @@ If you wish to build MacDown yourself, you will need the following components/to
 
 * OS X SDK (10.8 or later)
 * Git
-* [CocoaPods](http://cocoapods.org)
+* [Bundler](http://bundler.io)
 
 You may also need to install Xcode’s command line tools with the following command:
 
