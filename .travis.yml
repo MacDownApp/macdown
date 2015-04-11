@@ -1,5 +1,5 @@
 language: objective-c
-before_install:
+install:
   - "gem install bundle"
   - "bundle install"
   - "bundle exec pod install"
