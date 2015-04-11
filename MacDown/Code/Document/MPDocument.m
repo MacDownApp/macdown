@@ -231,9 +231,9 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
             if (window.isFlushWindowDisabled)
                 [window enableFlushWindow];
         }
+        [weakObj scaleWebview];
         if (weakObj.preferences.editorSyncScrolling)
         {
-            [weakObj scaleWebview];
             [weakObj syncScrollers];
         }
         else
