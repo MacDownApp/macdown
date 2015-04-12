@@ -297,9 +297,12 @@ static void MPFreeHTMLRenderer(hoedown_renderer *htmlRenderer)
     if (self.rendererFlags & HOEDOWN_HTML_BLOCKCODE_LINE_NUMBERS)
     {
         NSBundle *bundle = [NSBundle mainBundle];
-        NSURL *url = [bundle URLForResource:@"line-numbers/prism-line-numbers"
+        NSString *kLineNumbersDirectory = [NSString stringWithFormat:@"%@/%@",
+                                           kMPPrismPluginDirectory,
+                                           @"line-numbers"];
+        NSURL *url = [bundle URLForResource:@"prism-line-numbers"
                               withExtension:@"css"
-                               subdirectory:kMPPrismPluginDirectory];
+                               subdirectory:kLineNumbersDirectory];
         [stylesheets addObject:[MPStyleSheet CSSWithURL:url]];
     }
 
@@ -321,9 +324,12 @@ static void MPFreeHTMLRenderer(hoedown_renderer *htmlRenderer)
 
     if (self.rendererFlags & HOEDOWN_HTML_BLOCKCODE_LINE_NUMBERS)
     {
+        NSString *kLineNumbersDirectory = [NSString stringWithFormat:@"%@/%@",
+                                           kMPPrismPluginDirectory,
+                                           @"line-numbers"];
         NSURL *url =
-            [bundle URLForResource:@"line-numbers/prism-line-numbers.min"
-                     withExtension:@"js" subdirectory:kMPPrismPluginDirectory];
+            [bundle URLForResource:@"prism-line-numbers.min"
+                     withExtension:@"js" subdirectory:kLineNumbersDirectory];
         [scripts addObject:[MPScript javaScriptWithURL:url]];
     }
     return scripts;
