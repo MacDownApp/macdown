@@ -13,6 +13,7 @@
         "objc": "objectivec",
         "py": "python",
         "rb": "ruby",
+        "sass": "scss",
         "sh": "bash",
         "xml": "markup"
     }
