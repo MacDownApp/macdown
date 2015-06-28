@@ -12,7 +12,7 @@ target "MacDown" do
   pod 'M13OrderedDictionary', '~> 1.0'
   pod 'MASPreferences', '~> 1.1'    # Preference window.
   pod 'PAPreferences', '~> 0.4'     # Preference singleton.
-  pod 'Sparkle', '~> 1'             # Updater.
+  pod 'Sparkle', '< 1.8'            # Updater. (Freeze under 1.8 until we can upgrade Cocoapods)
 end
 
 target "MacDownTests" do

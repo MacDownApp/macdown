@@ -9,7 +9,7 @@ PODS:
   - M13OrderedDictionary (1.0.6)
   - MASPreferences (1.1.2)
   - PAPreferences (0.4)
-  - Sparkle (1.10.0)
+  - Sparkle (1.7.1)
 
 DEPENDENCIES:
   - GBCli (~> 1.1)
@@ -20,7 +20,7 @@ DEPENDENCIES:
   - M13OrderedDictionary (~> 1.0)
   - MASPreferences (~> 1.1)
   - PAPreferences (~> 0.4)
-  - Sparkle (~> 1)
+  - Sparkle (< 1.8)
 
 SPEC CHECKSUMS:
   GBCli: e5f988fadb68e1e3c01919f134009fed9796fde0
@@ -31,6 +31,6 @@ SPEC CHECKSUMS:
   M13OrderedDictionary: ca1bb2d743fd64500ffabee811d4bf2d0a65c908
   MASPreferences: 32d8a2c5ef1d60b63240f5676b011ff72e194cb1
   PAPreferences: ba3f8d236c4c398b82bb0110cddd8546cd619770
-  Sparkle: c859bf5283b9f12aa45bceccf8e25ebb4c008eb2
+  Sparkle: f107eed24a7d41bcd510be49ebb640d176f06bb9
 
 COCOAPODS: 0.34.4
