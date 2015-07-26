@@ -339,15 +339,18 @@ static NSString * const kMPBlockquoteLinePattern = @"^((?:\\> ?)+).*$";
     [lines enumerateObjectsUsingBlock:^(id obj, NSUInteger index, BOOL *stop) {
         NSString *line = obj;
         if (line.length)
-        {
             totalShift += prefixLength;
-            if (!isMarked)
-                line = [prefix stringByAppendingString:line];
-            else
-                line = [line substringFromIndex:prefixLength];
-        }
+        if (!isMarked)
+            line = [prefix stringByAppendingString:line];
+        else
+            line = [line substringFromIndex:prefixLength];
         [modLines addObject:line];
     }];
+    if ([modLines.lastObject isEqualToString:prefix])
+    {
+        [modLines removeLastObject];
+        [modLines addObject:@""];
+    }
     NSString *processed = [modLines componentsJoinedByString:@"\n"];
     [self insertText:processed replacementRange:lineRange];
 
