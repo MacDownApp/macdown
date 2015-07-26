@@ -384,17 +384,15 @@ static NSString * const kMPBlockquoteLinePattern = @"^((?:\\> ?)+).*$";
     [lines enumerateObjectsUsingBlock:^(id obj, NSUInteger index, BOOL *stop) {
         NSString *line = obj;
         if (line.length)
-        {
             totalShift += paddingLength;
-            line = [padding stringByAppendingString:line];
-        }
-        [modLines addObject:line];
+        [modLines addObject:[padding stringByAppendingString:line]];
     }];
     NSString *processed = [modLines componentsJoinedByString:@"\n"];
     [self insertText:processed replacementRange:lineRange];
 
     selectedRange.location += paddingLength;
-    selectedRange.length += totalShift - paddingLength;
+    selectedRange.length +=
+        (totalShift > paddingLength) ? totalShift - paddingLength : 0;
     self.selectedRange = selectedRange;
 }
 
