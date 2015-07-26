@@ -387,6 +387,11 @@ static NSString * const kMPBlockquoteLinePattern = @"^((?:\\> ?)+).*$";
             totalShift += paddingLength;
         [modLines addObject:[padding stringByAppendingString:line]];
     }];
+    if ([modLines.lastObject isEqualToString:padding])
+    {
+        [modLines removeLastObject];
+        [modLines addObject:@""];
+    }
     NSString *processed = [modLines componentsJoinedByString:@"\n"];
     [self insertText:processed replacementRange:lineRange];
 
