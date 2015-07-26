@@ -804,12 +804,20 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     switch ([information[WebActionNavigationTypeKey] integerValue])
     {
         case WebNavigationTypeLinkClicked:
-            if (![self isCurrentBaseUrl:request.URL])
+            // If the target is exactly as the current one, ignore.
+            if ([self.currentBaseUrl isEqual:request.URL])
+            {
+                [listener ignore];
+                return;
+            }
+            // If this is a different page, intercept and handle ourselves.
+            else if (![self isCurrentBaseUrl:request.URL])
             {
                 [listener ignore];
                 [self openOrCreateFileForUrl:request.URL];
                 return;
             }
+            // Otherwise this is somewhere else on the same page. Jump there.
             break;
         default:
             break;
