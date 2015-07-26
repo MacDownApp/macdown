@@ -23,34 +23,30 @@ void hoedown_patch_render_blockcode(
 {
 	if (ob->size) hoedown_buffer_putc(ob, '\n');
 
-	if (lang)
+    hoedown_html_renderer_state *state = data->opaque;
+    hoedown_html_renderer_state_extra *extra = state->opaque;
+
+    hoedown_buffer *mapped = NULL;
+    if (lang && extra->language_addition)
+        mapped = extra->language_addition(lang, extra->owner);
+
+    HOEDOWN_BUFPUTSL(ob, "<pre");
+    if (state->flags & HOEDOWN_HTML_BLOCKCODE_LINE_NUMBERS)
+        HOEDOWN_BUFPUTSL(ob, " class=\"line-numbers\"");
+    HOEDOWN_BUFPUTSL(ob, "><code class=\"language-");
+    if (mapped)
     {
-        hoedown_html_renderer_state *state = data->opaque;
-        hoedown_html_renderer_state_extra *extra = state->opaque;
-
-        hoedown_buffer *mapped = NULL;
-        if (extra->language_addition)
-            mapped = extra->language_addition(lang, extra->owner);
-
-        HOEDOWN_BUFPUTSL(ob, "<pre");
-        if (state->flags & HOEDOWN_HTML_BLOCKCODE_LINE_NUMBERS)
-            HOEDOWN_BUFPUTSL(ob, " class=\"line-numbers\"");
-        HOEDOWN_BUFPUTSL(ob, "><code class=\"language-");
-        if (mapped)
-        {
-            hoedown_escape_html(ob, mapped->data, mapped->size, 0);
-            hoedown_buffer_free(mapped);
-        }
-        else
-        {
-            hoedown_escape_html(ob, lang->data, lang->size, 0);
-        }
-		HOEDOWN_BUFPUTSL(ob, "\">");
-	}
+        hoedown_escape_html(ob, mapped->data, mapped->size, 0);
+        hoedown_buffer_free(mapped);
+    }
     else
     {
-		HOEDOWN_BUFPUTSL(ob, "<pre><code>");
-	}
+        if (lang)
+            hoedown_escape_html(ob, lang->data, lang->size, 0);
+        else
+            HOEDOWN_BUFPUTSL(ob, "none");
+    }
+    HOEDOWN_BUFPUTSL(ob, "\">");
 
 	if (text)
     {
