@@ -116,3 +116,43 @@ void hoedown_patch_render_listitem(
 	}
 	HOEDOWN_BUFPUTSL(ob, "</li>\n");
 }
+
+// Adds a "toc" class to the outmost UL element to support TOC styling.
+void hoedown_patch_render_toc_header(
+    hoedown_buffer *ob, const hoedown_buffer *content, int level,
+    const hoedown_renderer_data *data)
+{
+    hoedown_html_renderer_state *state = data->opaque;
+
+    if (level <= state->toc_data.nesting_level) {
+        /* set the level offset if this is the first header
+         * we're parsing for the document */
+        if (state->toc_data.current_level == 0)
+            state->toc_data.level_offset = level - 1;
+
+        level -= state->toc_data.level_offset;
+
+        if (level > state->toc_data.current_level) {
+            while (level > state->toc_data.current_level) {
+                if (state->toc_data.current_level == 0)
+                    HOEDOWN_BUFPUTSL(ob, "<ul class=\"toc\">\n<li>\n");
+                else
+                    HOEDOWN_BUFPUTSL(ob, "<ul>\n<li>\n");
+                state->toc_data.current_level++;
+            }
+        } else if (level < state->toc_data.current_level) {
+            HOEDOWN_BUFPUTSL(ob, "</li>\n");
+            while (level < state->toc_data.current_level) {
+                HOEDOWN_BUFPUTSL(ob, "</ul>\n</li>\n");
+                state->toc_data.current_level--;
+            }
+            HOEDOWN_BUFPUTSL(ob,"<li>\n");
+        } else {
+            HOEDOWN_BUFPUTSL(ob,"</li>\n<li>\n");
+        }
+
+        hoedown_buffer_printf(ob, "<a href=\"#toc_%d\">", state->toc_data.header_count++);
+        if (content) hoedown_buffer_put(ob, content->data, content->size);
+        HOEDOWN_BUFPUTSL(ob, "</a>\n");
+    }
+}

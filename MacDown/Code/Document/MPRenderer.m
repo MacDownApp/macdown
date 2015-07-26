@@ -248,6 +248,14 @@ static hoedown_renderer *MPCreateHTMLRenderer(MPRenderer *renderer)
     return htmlRenderer;
 }
 
+static hoedown_renderer *MPCreateHTMLTOCRenderer()
+{
+    hoedown_renderer *tocRenderer =
+        hoedown_html_toc_renderer_new(kMPRendererTOCLevel);
+    tocRenderer->header = hoedown_patch_render_toc_header;
+    return tocRenderer;
+}
+
 static void MPFreeHTMLRenderer(hoedown_renderer *htmlRenderer)
 {
     hoedown_html_renderer_state_extra *extra =
@@ -435,7 +443,7 @@ static void MPFreeHTMLRenderer(hoedown_renderer *htmlRenderer)
     hoedown_renderer *htmlRenderer = MPCreateHTMLRenderer(self);
     hoedown_renderer *tocRenderer = NULL;
     if (hasTOC)
-        tocRenderer = hoedown_html_toc_renderer_new(kMPRendererTOCLevel);
+        tocRenderer = MPCreateHTMLTOCRenderer();
     self.currentHtml = MPHTMLFromMarkdown(
         markdown, extensions, smartypants, [frontMatter HTMLTable],
         htmlRenderer, tocRenderer);
