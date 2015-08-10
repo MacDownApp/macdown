@@ -622,6 +622,34 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
         NSInteger state = self.rendersTOC ? NSOnState : NSOffState;
         ((NSMenuItem *)item).state = state;
     }
+    else if (action == @selector(togglePreviewDetached:))
+    {
+        NSMenuItem *it = (NSMenuItem*)item;
+        if (self.splitView.isDetached) {
+            it.title = NSLocalizedString(@"Reattach Preview", @"Reattach Preview menu item");
+        } else {
+            it.title = NSLocalizedString(@"Detach Preview", @"Detach Preview menu item");
+        }
+    }
+    return result;
+}
+
+- (BOOL)validateMenuItem:(NSMenuItem *)menuItem
+{
+    BOOL result = [super validateMenuItem:menuItem];
+    SEL action = menuItem.action;
+    
+    // actions which doesn't make sense when the preview is detached
+    if (action == @selector(toggleEditorPane:) ||
+        action == @selector(togglePreivewPane:) ||
+        action == @selector(setEditorOneQuarter:) ||
+        action == @selector(setEditorThreeQuarters:) ||
+        action == @selector(setEqualSplit:)) {
+        if (self.splitView.isDetached) {
+            result = NO;
+        }
+    }
+    
     return result;
 }
 
@@ -1288,6 +1316,15 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     if ([sender state] == NSOffState)
         nextState = YES;
     self.rendersTOC = nextState;
+}
+
+- (IBAction)togglePreviewDetached:(id)sender
+{
+    if (!self.splitView.isDetached) {
+        [self.splitView detach];
+    } else {
+        [self.splitView reattachClosingWindow:YES];
+    }
 }
 
 

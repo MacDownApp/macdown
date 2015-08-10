@@ -73,13 +73,5 @@
     [self setPosition:leftWidth ofDividerAtIndex:0];
 }
 
-- (void)swapViews
-{
-    NSArray *parts = self.subviews;
-    NSView *left = parts[0];
-    NSView *right = parts[1];
-    self.subviews = @[right, left];
-}
-
 
 @end

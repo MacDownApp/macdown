@@ -7,13 +7,12 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "GRDetachableSplitView.h"
 
-@interface MPDocumentSplitView : NSSplitView
+@interface MPDocumentSplitView : GRDetachableSplitView
 
 @property (assign, nonatomic) CGFloat dividerLocation;
 
 - (void)setDividerColor:(NSColor *)color;
-
-- (void)swapViews;
 
 @end

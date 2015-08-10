@@ -80,6 +80,8 @@
 		905EF1A9196164CA00FC3CE9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 905EF1A8196164CA00FC3CE9 /* Foundation.framework */; };
 		905EF1B7196164F300FC3CE9 /* macdown in Copy Command Line Utility */ = {isa = PBXBuildFile; fileRef = 905EF1A7196164CA00FC3CE9 /* macdown */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		B49728377A904875B2963C38 /* libPods-MacDown.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C5C1FBBB3ED456285901D31 /* libPods-MacDown.a */; };
+		DD7C1ACA1A55A27A004A6029 /* GRDetachableSplitView.m in Sources */ = {isa = PBXBuildFile; fileRef = DD7C1AC91A55A27A004A6029 /* GRDetachableSplitView.m */; };
+		DD7C1ACD1A55A4FD004A6029 /* MPDocumentPreviewWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = DD7C1ACC1A55A4FD004A6029 /* MPDocumentPreviewWindow.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -259,6 +261,10 @@
 		A9105A2DE3384B0DB400BAD1 /* Pods-MacDown.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacDown.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MacDown/Pods-MacDown.debug.xcconfig"; sourceTree = "<group>"; };
 		AEAF42BBDCEC4012B5092BB3 /* libPods-MacDownTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MacDownTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDCDF2E157FE72C2ED7438DD /* Pods-MacDownTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacDownTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MacDownTests/Pods-MacDownTests.release.xcconfig"; sourceTree = "<group>"; };
+		DD7C1AC81A55A27A004A6029 /* GRDetachableSplitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRDetachableSplitView.h; sourceTree = "<group>"; };
+		DD7C1AC91A55A27A004A6029 /* GRDetachableSplitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GRDetachableSplitView.m; sourceTree = "<group>"; };
+		DD7C1ACB1A55A4FD004A6029 /* MPDocumentPreviewWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPDocumentPreviewWindow.h; sourceTree = "<group>"; };
+		DD7C1ACC1A55A4FD004A6029 /* MPDocumentPreviewWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPDocumentPreviewWindow.m; sourceTree = "<group>"; };
 		E352E0A2562DCE60302D805E /* Pods-MacDownTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacDownTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MacDownTests/Pods-MacDownTests.debug.xcconfig"; sourceTree = "<group>"; };
 		E87590C145FF88E3F084D54C /* Pods-macdown-cmd.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-macdown-cmd.release.xcconfig"; path = "Pods/Target Support Files/Pods-macdown-cmd/Pods-macdown-cmd.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -377,10 +383,14 @@
 		1F396E6319B0EA17000D3EFC /* View */ = {
 			isa = PBXGroup;
 			children = (
+				DD7C1AC81A55A27A004A6029 /* GRDetachableSplitView.h */,
+				DD7C1AC91A55A27A004A6029 /* GRDetachableSplitView.m */,
 				1F33F29F1A3B4B660001C849 /* MPDocumentSplitView.h */,
 				1F33F2A01A3B4B660001C849 /* MPDocumentSplitView.m */,
 				1F396E6419B0EA17000D3EFC /* MPEditorView.h */,
 				1F396E6519B0EA17000D3EFC /* MPEditorView.m */,
+				DD7C1ACB1A55A4FD004A6029 /* MPDocumentPreviewWindow.h */,
+				DD7C1ACC1A55A4FD004A6029 /* MPDocumentPreviewWindow.m */,
 			);
 			name = View;
 			path = Code/View;
@@ -907,10 +917,12 @@
 				1F33F2A41A3B56D20001C849 /* NSColor+HTML.m in Sources */,
 				1F0D9D65194AC7CF008E1856 /* NSString+Lookup.m in Sources */,
 				1F8A835E1953454F00B6BF69 /* HGMarkdownHighlightingStyle.m in Sources */,
+				DD7C1ACD1A55A4FD004A6029 /* MPDocumentPreviewWindow.m in Sources */,
 				1F33F2A11A3B4B660001C849 /* MPDocumentSplitView.m in Sources */,
 				1F23A92119928E650052DB78 /* MPMathJaxListener.m in Sources */,
 				1F2649B01A7406DB00EF6AF3 /* NSDocumentController+Document.m in Sources */,
 				1F0D9D67194AC7CF008E1856 /* MPUtilities.m in Sources */,
+				DD7C1ACA1A55A27A004A6029 /* GRDetachableSplitView.m in Sources */,
 				1F0D9D78194AC7F7008E1856 /* MPHtmlPreferencesViewController.m in Sources */,
 				1F0D9D7C194AC7F7008E1856 /* MPPreferences.m in Sources */,
 				1F0D9DAF194AC905008E1856 /* main.m in Sources */,
