@@ -41,9 +41,16 @@ NS_INLINE NSURL *MPPrismPluginURL(NSString *name, NSString *extension)
     NSBundle *bundle = [NSBundle mainBundle];
     NSString *dirPath =
         [NSString stringWithFormat:@"%@/%@", kMPPrismPluginDirectory, name];
-    NSString *filename = [NSString stringWithFormat:@"prism-%@", name];
+
+    NSString *filename = [NSString stringWithFormat:@"prism-%@.min", name];
     NSURL *url = [bundle URLForResource:filename withExtension:extension
                            subdirectory:dirPath];
+    if (url)
+        return url;
+
+    filename = [NSString stringWithFormat:@"prism-%@", name];
+    url = [bundle URLForResource:filename withExtension:extension
+                    subdirectory:dirPath];
     return url;
 }
 
