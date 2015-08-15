@@ -30,7 +30,6 @@
 #import "WebView+WebViewPrivateHeaders.h"
 
 
-static NSString * const kMPRendersTOCPropertyKey = @"Renders TOC";
 static NSString * const kMPDefaultAutosaveName = @"Untitled";
 
 
@@ -74,14 +73,6 @@ NS_INLINE NSSet *MPEditorPreferencesToObserve()
         ];
     });
     return keys;
-}
-
-NS_INLINE NSString *MPAutosavePropertyKey(
-    id<MPAutosaving> object, NSString *propertyName)
-{
-    NSString *className = NSStringFromClass([object class]);
-    return [NSString stringWithFormat:@"%@ %@ %@", className, propertyName,
-                                                   object.autosaveName];
 }
 
 NS_INLINE NSString *MPRectStringForAutosaveName(NSString *name)
@@ -201,7 +192,6 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
 @property BOOL shouldHandleBoundsChange;
 @property BOOL isPreviewReady;
 @property (strong) NSURL *currentBaseUrl;
-@property (nonatomic) BOOL rendersTOC;
 @property (readonly) BOOL previewVisible;
 @property (readonly) BOOL editorVisible;
 @property CGFloat lastPreviewScrollTop;
@@ -308,19 +298,6 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 {
     _autosaveName = autosaveName;
     self.splitView.autosaveName = autosaveName;
-}
-
-- (BOOL)rendersTOC
-{
-    NSString *key = MPAutosavePropertyKey(self, kMPRendersTOCPropertyKey);
-    BOOL value = [[NSUserDefaults standardUserDefaults] boolForKey:key];
-    return value;
-}
-
-- (void)setRendersTOC:(BOOL)rendersTOC
-{
-    NSString *key = MPAutosavePropertyKey(self, kMPRendersTOCPropertyKey);
-    [[NSUserDefaults standardUserDefaults] setBool:rendersTOC forKey:key];
 }
 
 
@@ -617,11 +594,6 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
         NSLocalizedString(@"Restore Editor Pane",
                           @"Toggle editor pane menu item");
     }
-    else if (action == @selector(toggleTOCRendering:))
-    {
-        NSInteger state = self.rendersTOC ? NSOnState : NSOffState;
-        ((NSMenuItem *)item).state = state;
-    }
     return result;
 }
 
@@ -890,7 +862,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 
 - (BOOL)rendererRendersTOC:(MPRenderer *)renderer
 {
-    return self.rendersTOC;
+    return self.preferences.htmlRendersTOC;
 }
 
 - (NSString *)rendererStyleName:(MPRenderer *)renderer
@@ -1289,14 +1261,6 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 - (IBAction)render:(id)sender
 {
     [self.renderer parseAndRenderLater];
-}
-
-- (IBAction)toggleTOCRendering:(id)sender
-{
-    BOOL nextState = NO;
-    if ([sender state] == NSOffState)
-        nextState = YES;
-    self.rendersTOC = nextState;
 }
 
 

@@ -66,6 +66,7 @@ extern NSString * const MPDidDetectFreshInstallationNotification;
 @property (assign) NSString *htmlHighlightingThemeName;
 @property (assign) BOOL htmlLineNumbers;
 @property (assign) NSURL *htmlDefaultDirectoryUrl;
+@property (assign) BOOL htmlRendersTOC;
 
 // Calculated values.
 @property (nonatomic, assign) NSFont *editorBaseFont;
