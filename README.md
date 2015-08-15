@@ -47,7 +47,7 @@ You may also need to install Xcode’s command line tools with the following com
 
     xcode-select --install
 
-> Note: Due to an [upstream bug](https://github.com/CocoaPods/CocoaPods/issues/2559), Xcode will fail to build certain dependencies if you use the latest version of CocoaPods (0.36+ at the time of writing). To avoid the problem we use a Gemfile to specify the version, and thus you should add `bundle exec` before running a CocoaPods command.
+> Note: Due to multiple upstream bugs, Xcode will fail to build certain dependencies if you use the CocoaPods 0.36.x ([reason](https://github.com/CocoaPods/CocoaPods/issues/2559)) or 0.37.x ([reason](https://github.com/Bertrand/handlebars-objc/issues/15)). To avoid the problem we use a Gemfile to specify the version, and thus you should add `bundle exec` before running a CocoaPods command.
 
 An appropriate SDK should be bundled with Xcode 5 or later versions.
 
