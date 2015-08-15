@@ -54,7 +54,7 @@ NS_INLINE NSURL *MPPrismPluginURL(NSString *name, NSString *extension)
     return url;
 }
 
-static NSArray *MPPrismScriptURLsForLanguage(NSString *language)
+NS_INLINE NSArray *MPPrismScriptURLsForLanguage(NSString *language)
 {
     NSURL *baseUrl = nil;
     NSURL *extraUrl = nil;
@@ -88,7 +88,7 @@ static NSArray *MPPrismScriptURLsForLanguage(NSString *language)
     return urls;
 }
 
-static NSString *MPHTMLFromMarkdown(
+NS_INLINE NSString *MPHTMLFromMarkdown(
     NSString *text, int flags, BOOL smartypants, NSString *frontMatter,
     hoedown_renderer *htmlRenderer, hoedown_renderer *tocRenderer)
 {
@@ -139,7 +139,7 @@ static NSString *MPHTMLFromMarkdown(
     return result;
 }
 
-static NSString *MPGetHTML(
+NS_INLINE NSString *MPGetHTML(
     NSString *title, NSString *body, NSArray *styles, MPAssetOption styleopt,
     NSArray *scripts, MPAssetOption scriptopt)
 {
@@ -173,7 +173,7 @@ static NSString *MPGetHTML(
     return html;
 }
 
-static inline BOOL MPAreNilableStringsEqual(NSString *s1, NSString *s2)
+NS_INLINE BOOL MPAreNilableStringsEqual(NSString *s1, NSString *s2)
 {
     // The == part takes care of cases where s1 and s2 are both nil.
     return ([s1 isEqualToString:s2] || s1 == s2);
@@ -205,8 +205,8 @@ static inline BOOL MPAreNilableStringsEqual(NSString *s1, NSString *s2)
 @end
 
 
-static hoedown_buffer *language_addition(const hoedown_buffer *language,
-                                         void *owner)
+NS_INLINE hoedown_buffer *language_addition(
+    const hoedown_buffer *language, void *owner)
 {
     MPRenderer *renderer = (__bridge MPRenderer *)owner;
     NSString *lang = [[NSString alloc] initWithBytes:language->data
@@ -258,7 +258,7 @@ static hoedown_buffer *language_addition(const hoedown_buffer *language,
     return mapped;
 }
 
-static hoedown_renderer *MPCreateHTMLRenderer(MPRenderer *renderer)
+NS_INLINE hoedown_renderer *MPCreateHTMLRenderer(MPRenderer *renderer)
 {
     int flags = renderer.rendererFlags;
     hoedown_renderer *htmlRenderer = hoedown_html_renderer_new(
@@ -275,7 +275,7 @@ static hoedown_renderer *MPCreateHTMLRenderer(MPRenderer *renderer)
     return htmlRenderer;
 }
 
-static hoedown_renderer *MPCreateHTMLTOCRenderer()
+NS_INLINE hoedown_renderer *MPCreateHTMLTOCRenderer()
 {
     hoedown_renderer *tocRenderer =
         hoedown_html_toc_renderer_new(kMPRendererTOCLevel);
@@ -283,7 +283,7 @@ static hoedown_renderer *MPCreateHTMLTOCRenderer()
     return tocRenderer;
 }
 
-static void MPFreeHTMLRenderer(hoedown_renderer *htmlRenderer)
+NS_INLINE void MPFreeHTMLRenderer(hoedown_renderer *htmlRenderer)
 {
     hoedown_html_renderer_state_extra *extra =
         ((hoedown_html_renderer_state *)htmlRenderer->opaque)->opaque;

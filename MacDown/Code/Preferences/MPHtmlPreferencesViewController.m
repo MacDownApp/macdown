@@ -11,7 +11,7 @@
 #import "MPPreferences.h"
 
 
-static NSString *MPPrismDefaultThemeName()
+NS_INLINE NSString *MPPrismDefaultThemeName()
 {
     return NSLocalizedString(@"(Default)", @"Prism theme title");
 }
