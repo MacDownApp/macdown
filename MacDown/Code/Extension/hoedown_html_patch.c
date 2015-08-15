@@ -13,6 +13,8 @@
 #include "hoedown_html_patch.h"
 
 #define USE_XHTML(opt) (opt->flags & HOEDOWN_HTML_USE_XHTML)
+#define USE_BLOCKCODE_INFORMATION(opt) \
+    (opt->flags & HOEDOWN_HTML_BLOCKCODE_INFORMATION)
 #define USE_TASK_LIST(opt) (opt->flags & HOEDOWN_HTML_USE_TASK_LIST)
 
 // rndr_blockcode from HEAD. The "language-" prefix in class in needed to make
@@ -26,26 +28,47 @@ void hoedown_patch_render_blockcode(
     hoedown_html_renderer_state *state = data->opaque;
     hoedown_html_renderer_state_extra *extra = state->opaque;
 
+    hoedown_buffer *front = NULL;
+    hoedown_buffer *back = NULL;
+    if (lang && USE_BLOCKCODE_INFORMATION(state))
+    {
+        front = hoedown_buffer_new(lang->size);
+        back = hoedown_buffer_new(lang->size);
+
+        hoedown_buffer *current = front;
+        for (size_t i = 0; i < lang->size; i++)
+        {
+            uint8_t c = lang->data[i];
+            if (current == front && c == ':')
+                current = back;
+            else
+                hoedown_buffer_putc(current, c);
+        }
+        lang = front;
+    }
+
     hoedown_buffer *mapped = NULL;
     if (lang && extra->language_addition)
+    {
         mapped = extra->language_addition(lang, extra->owner);
+        if (mapped)
+            lang = mapped;
+    }
 
     HOEDOWN_BUFPUTSL(ob, "<pre");
     if (state->flags & HOEDOWN_HTML_BLOCKCODE_LINE_NUMBERS)
         HOEDOWN_BUFPUTSL(ob, " class=\"line-numbers\"");
+    if (back && back->size)
+    {
+        HOEDOWN_BUFPUTSL(ob, " data-information=\"");
+        hoedown_buffer_put(ob, back->data, back->size);
+        HOEDOWN_BUFPUTSL(ob, "\"");
+    }
     HOEDOWN_BUFPUTSL(ob, "><code class=\"language-");
-    if (mapped)
-    {
-        hoedown_escape_html(ob, mapped->data, mapped->size, 0);
-        hoedown_buffer_free(mapped);
-    }
+    if (lang && lang->size)
+        hoedown_escape_html(ob, lang->data, lang->size, 0);
     else
-    {
-        if (lang)
-            hoedown_escape_html(ob, lang->data, lang->size, 0);
-        else
-            HOEDOWN_BUFPUTSL(ob, "none");
-    }
+        HOEDOWN_BUFPUTSL(ob, "none");
     HOEDOWN_BUFPUTSL(ob, "\">");
 
 	if (text)
@@ -59,6 +82,10 @@ void hoedown_patch_render_blockcode(
     }
 
 	HOEDOWN_BUFPUTSL(ob, "</code></pre>\n");
+
+    hoedown_buffer_free(mapped);
+    hoedown_buffer_free(front);
+    hoedown_buffer_free(back);
 }
 
 // Supports task list syntax if HOEDOWN_HTML_USE_TASK_LIST is on.

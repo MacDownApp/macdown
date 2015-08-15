@@ -161,6 +161,8 @@ NS_INLINE NSColor *MPGetWebViewBackgroundColor(WebView *webview)
         flags |= HOEDOWN_HTML_BLOCKCODE_LINE_NUMBERS;
     if (self.htmlHardWrap)
         flags |= HOEDOWN_HTML_HARD_WRAP;
+    if (self.htmlCodeBlockAccessory == MPCodeBlockAccessoryCustom)
+        flags |= HOEDOWN_HTML_BLOCKCODE_INFORMATION;
     return flags;
 }
 @end
@@ -878,6 +880,11 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 - (BOOL)rendererHasSyntaxHighlighting:(MPRenderer *)renderer
 {
     return self.preferences.htmlSyntaxHighlighting;
+}
+
+- (MPCodeBlockAccessoryType)rendererCodeBlockAccesory:(MPRenderer *)renderer
+{
+    return self.preferences.htmlCodeBlockAccessory;
 }
 
 - (BOOL)rendererHasMathJax:(MPRenderer *)renderer

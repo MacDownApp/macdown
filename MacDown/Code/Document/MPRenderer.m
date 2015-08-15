@@ -28,6 +28,25 @@ static size_t kMPRendererNestingLevel = SIZE_MAX;
 static int kMPRendererTOCLevel = 6;  // h1 to h6.
 
 
+NS_INLINE NSURL *MPExtensionURL(NSString *name, NSString *extension)
+{
+    NSBundle *bundle = [NSBundle mainBundle];
+    NSURL *url = [bundle URLForResource:name withExtension:extension
+                           subdirectory:@"Extensions"];
+    return url;
+}
+
+NS_INLINE NSURL *MPPrismPluginURL(NSString *name, NSString *extension)
+{
+    NSBundle *bundle = [NSBundle mainBundle];
+    NSString *dirPath =
+        [NSString stringWithFormat:@"%@/%@", kMPPrismPluginDirectory, name];
+    NSString *filename = [NSString stringWithFormat:@"prism-%@", name];
+    NSURL *url = [bundle URLForResource:filename withExtension:extension
+                           subdirectory:dirPath];
+    return url;
+}
+
 static NSArray *MPPrismScriptURLsForLanguage(NSString *language)
 {
     NSURL *baseUrl = nil;
@@ -171,6 +190,7 @@ static inline BOOL MPAreNilableStringsEqual(NSString *s1, NSString *s2)
 @property (copy) NSString *styleName;
 @property BOOL frontMatter;
 @property BOOL syntaxHighlighting;
+@property MPCodeBlockAccessoryType codeBlockAccesory;
 @property BOOL lineNumbers;
 @property BOOL manualRender;
 @property (copy) NSString *highlightingThemeName;
@@ -304,10 +324,13 @@ static void MPFreeHTMLRenderer(hoedown_renderer *htmlRenderer)
 
     if (self.rendererFlags & HOEDOWN_HTML_BLOCKCODE_LINE_NUMBERS)
     {
-        NSBundle *bundle = [NSBundle mainBundle];
-        NSURL *url = [bundle URLForResource:@"line-numbers/prism-line-numbers"
-                              withExtension:@"css"
-                               subdirectory:kMPPrismPluginDirectory];
+        NSURL *url = MPPrismPluginURL(@"line-numbers", @"css");
+        [stylesheets addObject:[MPStyleSheet CSSWithURL:url]];
+    }
+    if ([self.delegate rendererCodeBlockAccesory:self]
+        == MPCodeBlockAccessoryLanguageName)
+    {
+        NSURL *url = MPPrismPluginURL(@"show-language", @"css");
         [stylesheets addObject:[MPStyleSheet CSSWithURL:url]];
     }
 
@@ -329,9 +352,13 @@ static void MPFreeHTMLRenderer(hoedown_renderer *htmlRenderer)
 
     if (self.rendererFlags & HOEDOWN_HTML_BLOCKCODE_LINE_NUMBERS)
     {
-        NSURL *url =
-            [bundle URLForResource:@"line-numbers/prism-line-numbers.min"
-                     withExtension:@"js" subdirectory:kMPPrismPluginDirectory];
+        NSURL *url = MPPrismPluginURL(@"line-numbers", @"js");
+        [scripts addObject:[MPScript javaScriptWithURL:url]];
+    }
+    if ([self.delegate rendererCodeBlockAccesory:self]
+        == MPCodeBlockAccessoryLanguageName)
+    {
+        NSURL *url = MPPrismPluginURL(@"show-language", @"js");
         [scripts addObject:[MPScript javaScriptWithURL:url]];
     }
     return scripts;
@@ -342,8 +369,7 @@ static void MPFreeHTMLRenderer(hoedown_renderer *htmlRenderer)
     NSMutableArray *scripts = [NSMutableArray array];
     NSURL *url = [NSURL URLWithString:kMPMathJaxCDN];
     NSBundle *bundle = [NSBundle mainBundle];
-    MPEmbeddedScript *script = nil;
-    script =
+    MPEmbeddedScript *script =
         [MPEmbeddedScript assetWithURL:[bundle URLForResource:@"callback"
                                                 withExtension:@"js"
                                                  subdirectory:@"MathJax"]
@@ -355,9 +381,17 @@ static void MPFreeHTMLRenderer(hoedown_renderer *htmlRenderer)
 
 - (NSArray *)stylesheets
 {
+    id<MPRendererDelegate> delegate = self.delegate;
+
     NSMutableArray *stylesheets = [self.baseStylesheets mutableCopy];
-    if ([self.delegate rendererHasSyntaxHighlighting:self])
+    if ([delegate rendererHasSyntaxHighlighting:self])
         [stylesheets addObjectsFromArray:self.prismStylesheets];
+
+    if ([delegate rendererCodeBlockAccesory:self] == MPCodeBlockAccessoryCustom)
+    {
+        NSURL *url = MPExtensionURL(@"show-information", @"css");
+        [stylesheets addObject:[MPStyleSheet CSSWithURL:url]];
+    }
     return stylesheets;
 }
 
@@ -367,9 +401,7 @@ static void MPFreeHTMLRenderer(hoedown_renderer *htmlRenderer)
     NSMutableArray *scripts = [NSMutableArray array];
     if (self.rendererFlags & HOEDOWN_HTML_USE_TASK_LIST)
     {
-        NSBundle *bundle = [NSBundle mainBundle];
-        NSURL *url = [bundle URLForResource:@"tasklist" withExtension:@"js"
-                               subdirectory:@"Extensions"];
+        NSURL *url = MPExtensionURL(@"tasklist", @"js");
         [scripts addObject:[MPScript javaScriptWithURL:url]];
     }
     if ([d rendererHasSyntaxHighlighting:self])
@@ -472,6 +504,8 @@ static void MPFreeHTMLRenderer(hoedown_renderer *htmlRenderer)
     else if (!MPAreNilableStringsEqual(
             [d rendererStyleName:self], self.styleName))
         changed = YES;
+    else if ([d rendererCodeBlockAccesory:self] != self.codeBlockAccesory)
+        changed = YES;
 
     if (changed)
         [self render];
@@ -490,6 +524,7 @@ static void MPFreeHTMLRenderer(hoedown_renderer *htmlRenderer)
     self.styleName = [delegate rendererStyleName:self];
     self.syntaxHighlighting = [delegate rendererHasSyntaxHighlighting:self];
     self.highlightingThemeName = [delegate rendererHighlightingThemeName:self];
+    self.codeBlockAccesory = [delegate rendererCodeBlockAccesory:self];
 }
 
 - (NSString *)HTMLForExportWithStyles:(BOOL)withStyles

@@ -11,6 +11,7 @@
 
 extern NSString * const MPDidDetectFreshInstallationNotification;
 
+
 @interface MPPreferences : PAPreferences
 
 @property (assign) NSString *firstVersionInstalled;
@@ -65,6 +66,7 @@ extern NSString * const MPDidDetectFreshInstallationNotification;
 @property (assign) BOOL htmlSyntaxHighlighting;
 @property (assign) NSString *htmlHighlightingThemeName;
 @property (assign) BOOL htmlLineNumbers;
+@property (assign) NSInteger htmlCodeBlockAccessory;
 @property (assign) NSURL *htmlDefaultDirectoryUrl;
 @property (assign) BOOL htmlRendersTOC;
 

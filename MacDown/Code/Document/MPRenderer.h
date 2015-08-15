@@ -11,6 +11,14 @@
 @protocol MPRendererDelegate;
 
 
+typedef NS_ENUM(NSUInteger, MPCodeBlockAccessoryType)
+{
+    MPCodeBlockAccessoryNone = 0,
+    MPCodeBlockAccessoryLanguageName,
+    MPCodeBlockAccessoryCustom,
+};
+
+
 @interface MPRenderer : NSObject
 
 @property (nonatomic) int rendererFlags;
@@ -48,6 +56,7 @@
 - (NSString *)rendererStyleName:(MPRenderer *)renderer;
 - (BOOL)rendererDetectsFrontMatter:(MPRenderer *)renderer;
 - (BOOL)rendererHasSyntaxHighlighting:(MPRenderer *)renderer;
+- (MPCodeBlockAccessoryType)rendererCodeBlockAccesory:(MPRenderer *)renderer;
 - (BOOL)rendererHasMathJax:(MPRenderer *)renderer;
 - (NSString *)rendererHighlightingThemeName:(MPRenderer *)renderer;
 - (void)renderer:(MPRenderer *)renderer didProduceHTMLOutput:(NSString *)html;
