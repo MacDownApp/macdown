@@ -640,6 +640,8 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 {
     if (commandSelector == @selector(insertTab:))
         return ![self textViewShouldInsertTab:textView];
+    else if (commandSelector == @selector(insertBacktab:))
+        return ![self textViewShouldInsertBacktab:textView];
     else if (commandSelector == @selector(insertNewline:))
         return ![self textViewShouldInsertNewline:textView];
     else if (commandSelector == @selector(deleteBackward:))
@@ -685,6 +687,12 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     return YES;
 }
 
+- (BOOL)textViewShouldInsertBacktab:(NSTextView *)textView
+{
+    [self unindent:nil];
+    return NO;
+}
+
 - (BOOL)textViewShouldInsertNewline:(NSTextView *)textView
 {
     if ([textView insertMappedContent])
@@ -703,15 +711,16 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 
 - (BOOL)textViewShouldDeleteBackward:(NSTextView *)textView
 {
+    NSRange selectedRange = textView.selectedRange;
     if (self.preferences.editorCompleteMatchingCharacters)
     {
-        NSUInteger location = self.editor.selectedRange.location;
+        NSUInteger location = selectedRange.location;
         if ([textView deleteMatchingCharactersAround:location])
             return NO;
     }
-    if (self.preferences.editorConvertTabs)
+    if (self.preferences.editorConvertTabs && !selectedRange.length)
     {
-        NSUInteger location = self.editor.selectedRange.location;
+        NSUInteger location = selectedRange.location;
         if ([textView unindentForSpacesBefore:location])
             return NO;
     }
