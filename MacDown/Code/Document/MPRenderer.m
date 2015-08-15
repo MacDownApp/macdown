@@ -221,7 +221,8 @@ NS_INLINE hoedown_buffer *language_addition(
         NSURL *url = [bundle URLForResource:@"syntax_highlighting"
                               withExtension:@"json"];
         NSDictionary *info =
-            [NSJSONSerialization JSONObjectFileAtURL:url options:0 error:NULL];
+            [NSJSONSerialization JSONObjectWithFileAtURL:url options:0
+                                                   error:NULL];
 
         aliasMap = info[@"aliases"];
 
