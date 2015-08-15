@@ -314,17 +314,21 @@ static NSString * const kMPBlockquoteLinePattern = @"^((?:\\> ?)+).*$";
     NSRange lineRange = [content lineRangeForRange:selectedRange];
 
     NSString *toProcess = [content substringWithRange:lineRange];
+    BOOL hasTrailingNewline = NO;
+    if ([toProcess hasSuffix:@"\n"])
+    {
+        toProcess = [content substringToIndex:(toProcess.length - 1)];
+        hasTrailingNewline = YES;
+    }
+
     NSArray *lines = [toProcess componentsSeparatedByString:@"\n"];
 
     BOOL isMarked = YES;
     for (NSString *line in lines)
     {
-        NSUInteger lineLength = line.length;
-        if (!lineLength)
-            continue;
         NSRange matchRange =
             [regex rangeOfFirstMatchInString:line options:0
-                                       range:NSMakeRange(0, lineLength)];
+                                       range:NSMakeRange(0, line.length)];
         if (matchRange.location == NSNotFound)
         {
             isMarked = NO;
@@ -346,12 +350,10 @@ static NSString * const kMPBlockquoteLinePattern = @"^((?:\\> ?)+).*$";
             line = [line substringFromIndex:prefixLength];
         [modLines addObject:line];
     }];
-    if ([modLines.lastObject isEqualToString:prefix])
-    {
-        [modLines removeLastObject];
-        [modLines addObject:@""];
-    }
+
     NSString *processed = [modLines componentsJoinedByString:@"\n"];
+    if (hasTrailingNewline)
+        processed = [NSString stringWithFormat:@"%@\n", processed];
     [self insertText:processed replacementRange:lineRange];
 
     if (!isMarked)
