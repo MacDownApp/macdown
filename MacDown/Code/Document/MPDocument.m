@@ -1567,7 +1567,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 - (void)document:(NSDocument *)doc didPrint:(BOOL)ok context:(void *)context
 {
     if ([doc respondsToSelector:@selector(setPrinting:)])
-        [(id)doc setPrinting:NO];
+        ((MPDocument *)doc).printing = NO;
     if (context)
     {
         NSInvocation *invocation = (__bridge NSInvocation *)context;
