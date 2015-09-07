@@ -10,7 +10,13 @@
 
 @interface MPOpenQuicklyDataSource : NSObject
 
-- (instancetype)initWithDirectoryPath:(NSString *)directory;
-- (void)searchForQuery:(NSString *)query :(void (^)(NSArray *results, NSError *error))completion;
+/// In the background will get all the markdown files in the same directory
+/// as the directory, then send the completion block when finished.
+- (instancetype)initWithDirectoryPath:(NSString *)directory initialCompletion:(void (^)(NSArray *results))initialCompletion;
+
+/// Uses Quicksilver's string completion on all the known markdown files in
+/// the search cache.
+
+- (void)searchForQuery:(NSString *)query :(void (^)(NSArray *results))completion;
 
 @end

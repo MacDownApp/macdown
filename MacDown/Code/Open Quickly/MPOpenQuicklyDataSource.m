@@ -7,6 +7,7 @@
 //
 
 #import "MPOpenQuicklyDataSource.h"
+#import "QSStringRanker.h"
 
 @interface MPOpenQuicklyDataSource()
 @property (nonatomic) NSArray *allMarkdownFileURLs;
@@ -14,13 +15,18 @@
 
 @implementation MPOpenQuicklyDataSource
 
-- (instancetype)initWithDirectoryPath:(NSString *)directory
+- (instancetype)initWithDirectoryPath:(NSString *)directory initialCompletion:(void (^)(NSArray *results))initialCompletion;
 {
+    NSParameterAssert(initialCompletion);
+
     self = [super init];
     if (!self) return nil;
 
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [self generateResultsForDirectoryPath:directory];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            initialCompletion(self.allMarkdownFileURLs);
+        });
     });
 
     return self;
@@ -29,29 +35,47 @@
 - (void)generateResultsForDirectoryPath:(NSString *)directoryPath
 {
     NSFileManager *fm = [NSFileManager defaultManager];
-    NSArray *dirContents = [fm contentsOfDirectoryAtPath:directoryPath error:nil];
-    NSPredicate *fltr = [NSPredicate predicateWithFormat:@"self ENDSWITH '.md'"];
-    _allMarkdownFileURLs = [dirContents filteredArrayUsingPredicate:fltr];
+    NSArray *directoryContent = [fm contentsOfDirectoryAtURL:[NSURL fileURLWithPath:directoryPath]
+                                  includingPropertiesForKeys:@[NSURLContentModificationDateKey]
+                                                     options:NSDirectoryEnumerationSkipsHiddenFiles
+                                                       error:nil];
+
+    NSArray *sortedContent = [directoryContent sortedArrayUsingComparator: ^(NSURL *file1, NSURL *file2) {
+      NSDate *file1Date;
+      [file1 getResourceValue:&file1Date forKey:NSURLContentModificationDateKey error:nil];
+
+      NSDate *file2Date;
+      [file2 getResourceValue:&file2Date forKey:NSURLContentModificationDateKey error:nil];
+
+      return [file1Date compare: file2Date];
+    }];
+
+    NSPredicate *mdFltr = [NSPredicate predicateWithFormat:@"self.absoluteString ENDSWITH '.md' OR self.absoluteString ENDSWITH '.markdown'"];
+    _allMarkdownFileURLs = [sortedContent filteredArrayUsingPredicate:mdFltr];
 }
 
-- (void)searchForQuery:(NSString *)query :(void (^)(NSArray *results, NSError *error))completion;
+- (void)searchForQuery:(NSString *)query :(void (^)(NSArray *results))completion;
 {
     NSParameterAssert(completion);
+
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSMutableArray *mutableFileURLs = [NSMutableArray array];
-        for (NSString *fileURL in self.allMarkdownFileURLs) {
-            NSString *filename = [fileURL lastPathComponent];
-            if ( [filename.lowercaseString rangeOfString:query.lowercaseString].location != NSNotFound ) {
-                [mutableFileURLs addObject:fileURL];
-            }
-        }
+
+        NSArray *orderedURLs = [self.allMarkdownFileURLs sortedArrayWithOptions:NSSortConcurrent usingComparator:^NSComparisonResult(NSURL *obj1, NSURL *obj2) {
+            QSDefaultStringRanker *ranker1 = [[QSDefaultStringRanker alloc] initWithString:obj1.lastPathComponent];
+            QSDefaultStringRanker *ranker2 = [[QSDefaultStringRanker alloc] initWithString:obj2.lastPathComponent];
+
+            CGFloat value1 = [ranker1 scoreForAbbreviation: query];
+            CGFloat value2 = [ranker2 scoreForAbbreviation: query];
+
+            if (value1 == value2) { return NSOrderedSame; }
+            if (value1 > value2) { return NSOrderedAscending; }
+            return NSOrderedDescending;
+        }];
 
         dispatch_async(dispatch_get_main_queue(), ^{
-            completion([NSArray arrayWithArray:mutableFileURLs], nil);
+            completion(orderedURLs);
         });
     });
 }
-
-
 
 @end
