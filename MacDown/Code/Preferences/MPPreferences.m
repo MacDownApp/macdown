@@ -98,6 +98,8 @@ static NSString * const kMPDefaultHtmlStyleName = @"GitHub2";
 @dynamic editorScrollsPastEnd;
 @dynamic editorEnsuresNewlineAtEndOfFile;
 
+@dynamic previewZoomRelativeToBaseFontSize;
+
 @dynamic htmlStyleName;
 @dynamic htmlDetectFrontMatter;
 @dynamic htmlTaskList;
@@ -108,6 +110,8 @@ static NSString * const kMPDefaultHtmlStyleName = @"GitHub2";
 @dynamic htmlDefaultDirectoryUrl;
 @dynamic htmlHighlightingThemeName;
 @dynamic htmlLineNumbers;
+@dynamic htmlCodeBlockAccessory;
+@dynamic htmlRendersTOC;
 
 // Private preference.
 @dynamic editorBaseFontInfo;

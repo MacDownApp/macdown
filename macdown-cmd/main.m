@@ -12,6 +12,36 @@
 #import "MPGlobals.h"
 #import "MPArgumentProcessor.h"
 
+
+NSRunningApplication *MPRunningMacDownInstance()
+{
+    NSArray *runningInstances = [NSRunningApplication
+        runningApplicationsWithBundleIdentifier:kMPApplicationSuiteName];
+    return runningInstances.firstObject;
+}
+
+
+void MPCollectForRunningMacDown(NSSet *urls)
+{
+    NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
+    for (NSString *url in urls)
+    {
+        NSString *path = [NSURL URLWithString:url].path;
+        [workspace openFile:path withApplication:kMPApplicationName];
+    }
+}
+
+
+void MPCollectForUnlaunchedMacDown(NSSet *urls)
+{
+    NSUserDefaults *defaults =
+        [[NSUserDefaults alloc] initWithSuiteNamed:kMPApplicationSuiteName];
+    [defaults setObject:urls.allObjects forKey:@"filesToOpenOnNextLaunch"
+           inSuiteNamed:kMPApplicationSuiteName];
+    [defaults synchronize];
+}
+
+
 int main(int argc, const char * argv[])
 {
     @autoreleasepool
@@ -34,11 +64,15 @@ int main(int argc, const char * argv[])
             NSURL *url = [NSURL URLWithString:argument relativeToURL:pwdUrl];
             [urls addObject:url.absoluteString];
         }
-        NSUserDefaults *defaults =
-            [[NSUserDefaults alloc] initWithSuiteNamed:kMPApplicationSuiteName];
-        [defaults setObject:urls.allObjects forKey:@"filesToOpenOnNextLaunch"
-               inSuiteNamed:kMPApplicationSuiteName];
-        [defaults synchronize];
+
+        // If the application is running, open all files with the first running
+        // instance. Otherwise save the file URLs, and start the app (saved URLs
+        // will be opened when the app launches).
+        NSRunningApplication *instance = MPRunningMacDownInstance();
+        if (instance)
+            MPCollectForRunningMacDown(urls);
+        else
+            MPCollectForUnlaunchedMacDown(urls);
 
         // Launch MacDown.
         [[NSWorkspace sharedWorkspace] launchApplication:@"MacDown"];

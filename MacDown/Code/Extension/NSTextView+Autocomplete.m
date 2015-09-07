@@ -314,17 +314,21 @@ static NSString * const kMPBlockquoteLinePattern = @"^((?:\\> ?)+).*$";
     NSRange lineRange = [content lineRangeForRange:selectedRange];
 
     NSString *toProcess = [content substringWithRange:lineRange];
+    BOOL hasTrailingNewline = NO;
+    if ([toProcess hasSuffix:@"\n"])
+    {
+        toProcess = [content substringToIndex:(toProcess.length - 1)];
+        hasTrailingNewline = YES;
+    }
+
     NSArray *lines = [toProcess componentsSeparatedByString:@"\n"];
 
     BOOL isMarked = YES;
     for (NSString *line in lines)
     {
-        NSUInteger lineLength = line.length;
-        if (!lineLength)
-            continue;
         NSRange matchRange =
             [regex rangeOfFirstMatchInString:line options:0
-                                       range:NSMakeRange(0, lineLength)];
+                                       range:NSMakeRange(0, line.length)];
         if (matchRange.location == NSNotFound)
         {
             isMarked = NO;
@@ -339,16 +343,17 @@ static NSString * const kMPBlockquoteLinePattern = @"^((?:\\> ?)+).*$";
     [lines enumerateObjectsUsingBlock:^(id obj, NSUInteger index, BOOL *stop) {
         NSString *line = obj;
         if (line.length)
-        {
             totalShift += prefixLength;
-            if (!isMarked)
-                line = [prefix stringByAppendingString:line];
-            else
-                line = [line substringFromIndex:prefixLength];
-        }
+        if (!isMarked)
+            line = [prefix stringByAppendingString:line];
+        else
+            line = [line substringFromIndex:prefixLength];
         [modLines addObject:line];
     }];
+
     NSString *processed = [modLines componentsJoinedByString:@"\n"];
+    if (hasTrailingNewline)
+        processed = [NSString stringWithFormat:@"%@\n", processed];
     [self insertText:processed replacementRange:lineRange];
 
     if (!isMarked)
@@ -384,17 +389,20 @@ static NSString * const kMPBlockquoteLinePattern = @"^((?:\\> ?)+).*$";
     [lines enumerateObjectsUsingBlock:^(id obj, NSUInteger index, BOOL *stop) {
         NSString *line = obj;
         if (line.length)
-        {
             totalShift += paddingLength;
-            line = [padding stringByAppendingString:line];
-        }
-        [modLines addObject:line];
+        [modLines addObject:[padding stringByAppendingString:line]];
     }];
+    if ([modLines.lastObject isEqualToString:padding])
+    {
+        [modLines removeLastObject];
+        [modLines addObject:@""];
+    }
     NSString *processed = [modLines componentsJoinedByString:@"\n"];
     [self insertText:processed replacementRange:lineRange];
 
     selectedRange.location += paddingLength;
-    selectedRange.length += totalShift - paddingLength;
+    selectedRange.length +=
+        (totalShift > paddingLength) ? totalShift - paddingLength : 0;
     self.selectedRange = selectedRange;
 }
 
@@ -404,17 +412,22 @@ static NSString * const kMPBlockquoteLinePattern = @"^((?:\\> ?)+).*$";
     NSRange selectedRange = self.selectedRange;
     NSRange lineRange = [content lineRangeForRange:selectedRange];
 
+    // Get the lines to unindent.
     NSString *toProcess = [content substringWithRange:lineRange];
     NSArray *lines = [toProcess componentsSeparatedByString:@"\n"];
+
+    // This will hold the modified lines.
     NSMutableArray *modLines = [NSMutableArray arrayWithCapacity:lines.count];
 
-    __block NSUInteger firstShift = 0;
-    __block NSUInteger totalShift = 0;
+    // Unindent the lines one by one, and put them in the new array.
+    __block NSUInteger firstShift = 0;      // Indentation of the first line.
+    __block NSUInteger totalShift = 0;      // Indents removed in total.
     [lines enumerateObjectsUsingBlock:^(id obj, NSUInteger index, BOOL *stop) {
         NSString *line = obj;
         NSUInteger lineLength = line.length;
         NSUInteger shift = 0;
-        for (shift = 0; shift <= 4; shift++)
+
+        for (shift = 0; shift < 4; shift++)
         {
             if (shift >= lineLength)
                 break;
@@ -431,9 +444,13 @@ static NSString * const kMPBlockquoteLinePattern = @"^((?:\\> ?)+).*$";
             line = [line substringFromIndex:shift];
         [modLines addObject:line];
     }];
+
+    // Join the processed lines, and replace the original with them.
     NSString *processed = [modLines componentsJoinedByString:@"\n"];
     [self insertText:processed replacementRange:lineRange];
 
+    // Modify the selection range so that the same text (minus removed spaces)
+    // are selected.
     selectedRange.location -= firstShift;
     selectedRange.length -= totalShift - firstShift;
     self.selectedRange = selectedRange;

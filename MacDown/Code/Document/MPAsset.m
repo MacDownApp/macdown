@@ -11,6 +11,7 @@
 #import "MPUtilities.h"
 
 
+NSString * const kMPPlainType = @"text/plain";
 NSString * const kMPCSSType = @"text/css";
 NSString * const kMPJavaScriptType = @"text/javascript";
 NSString * const kMPMathJaxConfigType = @"text/x-mathjax-config";
@@ -18,11 +19,23 @@ NSString * const kMPMathJaxConfigType = @"text/x-mathjax-config";
 
 @interface MPAsset ()
 @property (strong) NSURL *url;
-@property (copy) NSString *typeName;
+@property (copy, nonatomic) NSString *typeName;
+@property (readonly) NSString *defaultTypeName;
 @end
 
 
 @implementation MPAsset
+
+- (NSString *)typeName
+{
+    return _typeName ? _typeName : self.defaultTypeName;
+}
+
+- (NSString *)defaultTypeName
+{
+    return kMPPlainType;
+}
+
 
 + (instancetype)assetWithURL:(NSURL *)url andType:(NSString *)typeName
 {
@@ -41,7 +54,7 @@ NSString * const kMPMathJaxConfigType = @"text/x-mathjax-config";
 
 - (instancetype)init
 {
-    return [self initWithURL:nil andType:@"text/plain"];
+    return [self initWithURL:nil andType:nil];
 }
 
 - (NSString *)templateForOption:(MPAssetOption)option
@@ -92,6 +105,11 @@ NSString * const kMPMathJaxConfigType = @"text/x-mathjax-config";
 
 @implementation MPStyleSheet
 
+- (NSString *)defaultTypeName
+{
+    return kMPCSSType;
+}
+
 + (instancetype)CSSWithURL:(NSURL *)url
 {
     return [super assetWithURL:url andType:kMPCSSType];
@@ -124,6 +142,11 @@ NSString * const kMPMathJaxConfigType = @"text/x-mathjax-config";
 
 
 @implementation MPScript
+
+- (NSString *)defaultTypeName
+{
+    return kMPJavaScriptType;
+}
 
 + (instancetype)javaScriptWithURL:(NSURL *)url
 {

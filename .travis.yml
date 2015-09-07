@@ -1,5 +1,6 @@
 language: objective-c
-before_install:
-  - "gem install cocoapods --no-rdoc --no-ri --version 0.34.4"
+install:
+  - "bundle install"
+  - "bundle exec pod install"
 xcode_workspace: MacDown.xcworkspace
 xcode_scheme: MacDown

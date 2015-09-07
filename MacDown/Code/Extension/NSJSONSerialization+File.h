@@ -10,7 +10,7 @@
 
 @interface NSJSONSerialization (File)
 
-+ (id)JSONObjectFileAtURL:(NSURL *)url options:(NSJSONReadingOptions)opt
-                    error:(NSError *__autoreleasing *)error;
++ (id)JSONObjectWithFileAtURL:(NSURL *)url options:(NSJSONReadingOptions)opt
+                        error:(NSError *__autoreleasing *)error;
 
 @end

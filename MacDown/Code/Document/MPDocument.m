@@ -27,9 +27,9 @@
 #import "MPEditorPreferencesViewController.h"
 #import "MPExportPanelAccessoryViewController.h"
 #import "MPMathJaxListener.h"
+#import "WebView+WebViewPrivateHeaders.h"
 
 
-static NSString * const kMPRendersTOCPropertyKey = @"Renders TOC";
 static NSString * const kMPDefaultAutosaveName = @"Untitled";
 
 
@@ -73,14 +73,6 @@ NS_INLINE NSSet *MPEditorPreferencesToObserve()
         ];
     });
     return keys;
-}
-
-NS_INLINE NSString *MPAutosavePropertyKey(
-    id<MPAutosaving> object, NSString *propertyName)
-{
-    NSString *className = NSStringFromClass([object class]);
-    return [NSString stringWithFormat:@"%@ %@ %@", className, propertyName,
-                                                   object.autosaveName];
 }
 
 NS_INLINE NSString *MPRectStringForAutosaveName(NSString *name)
@@ -169,6 +161,8 @@ NS_INLINE NSColor *MPGetWebViewBackgroundColor(WebView *webview)
         flags |= HOEDOWN_HTML_BLOCKCODE_LINE_NUMBERS;
     if (self.htmlHardWrap)
         flags |= HOEDOWN_HTML_HARD_WRAP;
+    if (self.htmlCodeBlockAccessory == MPCodeBlockAccessoryCustom)
+        flags |= HOEDOWN_HTML_BLOCKCODE_INFORMATION;
     return flags;
 }
 @end
@@ -200,7 +194,6 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
 @property BOOL shouldHandleBoundsChange;
 @property BOOL isPreviewReady;
 @property (strong) NSURL *currentBaseUrl;
-@property (nonatomic) BOOL rendersTOC;
 @property (readonly) BOOL previewVisible;
 @property (readonly) BOOL editorVisible;
 @property CGFloat lastPreviewScrollTop;
@@ -215,6 +208,7 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
 // Store file content in initializer until nib is loaded.
 @property (copy) NSString *loadedString;
 
+- (void)scaleWebview;
 - (void)syncScrollers;
 
 @end
@@ -229,6 +223,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
             if (window.isFlushWindowDisabled)
                 [window enableFlushWindow];
         }
+        [weakObj scaleWebview];
         if (weakObj.preferences.editorSyncScrolling)
         {
             [weakObj syncScrollers];
@@ -305,19 +300,6 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 {
     _autosaveName = autosaveName;
     self.splitView.autosaveName = autosaveName;
-}
-
-- (BOOL)rendersTOC
-{
-    NSString *key = MPAutosavePropertyKey(self, kMPRendersTOCPropertyKey);
-    BOOL value = [[NSUserDefaults standardUserDefaults] boolForKey:key];
-    return value;
-}
-
-- (void)setRendersTOC:(BOOL)rendersTOC
-{
-    NSString *key = MPAutosavePropertyKey(self, kMPRendersTOCPropertyKey);
-    [[NSUserDefaults standardUserDefaults] setBool:rendersTOC forKey:key];
 }
 
 
@@ -614,11 +596,6 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
         NSLocalizedString(@"Restore Editor Pane",
                           @"Toggle editor pane menu item");
     }
-    else if (action == @selector(toggleTOCRendering:))
-    {
-        NSInteger state = self.rendersTOC ? NSOnState : NSOffState;
-        ((NSMenuItem *)item).state = state;
-    }
     return result;
 }
 
@@ -637,6 +614,8 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 {
     if (commandSelector == @selector(insertTab:))
         return ![self textViewShouldInsertTab:textView];
+    else if (commandSelector == @selector(insertBacktab:))
+        return ![self textViewShouldInsertBacktab:textView];
     else if (commandSelector == @selector(insertNewline:))
         return ![self textViewShouldInsertNewline:textView];
     else if (commandSelector == @selector(deleteBackward:))
@@ -682,6 +661,12 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     return YES;
 }
 
+- (BOOL)textViewShouldInsertBacktab:(NSTextView *)textView
+{
+    [self unindent:nil];
+    return NO;
+}
+
 - (BOOL)textViewShouldInsertNewline:(NSTextView *)textView
 {
     if ([textView insertMappedContent])
@@ -700,15 +685,16 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 
 - (BOOL)textViewShouldDeleteBackward:(NSTextView *)textView
 {
+    NSRange selectedRange = textView.selectedRange;
     if (self.preferences.editorCompleteMatchingCharacters)
     {
-        NSUInteger location = self.editor.selectedRange.location;
+        NSUInteger location = selectedRange.location;
         if ([textView deleteMatchingCharactersAround:location])
             return NO;
     }
-    if (self.preferences.editorConvertTabs)
+    if (self.preferences.editorConvertTabs && !selectedRange.length)
     {
-        NSUInteger location = self.editor.selectedRange.location;
+        NSUInteger location = selectedRange.location;
         if ([textView unindentForSpacesBefore:location])
             return NO;
     }
@@ -801,12 +787,20 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     switch ([information[WebActionNavigationTypeKey] integerValue])
     {
         case WebNavigationTypeLinkClicked:
-            if (![self isCurrentBaseUrl:request.URL])
+            // If the target is exactly as the current one, ignore.
+            if ([self.currentBaseUrl isEqual:request.URL])
+            {
+                [listener ignore];
+                return;
+            }
+            // If this is a different page, intercept and handle ourselves.
+            else if (![self isCurrentBaseUrl:request.URL])
             {
                 [listener ignore];
                 [self openOrCreateFileForUrl:request.URL];
                 return;
             }
+            // Otherwise this is somewhere else on the same page. Jump there.
             break;
         default:
             break;
@@ -870,7 +864,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 
 - (BOOL)rendererRendersTOC:(MPRenderer *)renderer
 {
-    return self.rendersTOC;
+    return self.preferences.htmlRendersTOC;
 }
 
 - (NSString *)rendererStyleName:(MPRenderer *)renderer
@@ -886,6 +880,11 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 - (BOOL)rendererHasSyntaxHighlighting:(MPRenderer *)renderer
 {
     return self.preferences.htmlSyntaxHighlighting;
+}
+
+- (MPCodeBlockAccessoryType)rendererCodeBlockAccesory:(MPRenderer *)renderer
+{
+    return self.preferences.htmlCodeBlockAccessory;
 }
 
 - (BOOL)rendererHasMathJax:(MPRenderer *)renderer
@@ -1271,14 +1270,6 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     [self.renderer parseAndRenderLater];
 }
 
-- (IBAction)toggleTOCRendering:(id)sender
-{
-    BOOL nextState = NO;
-    if ([sender state] == NSOffState)
-        nextState = YES;
-    self.rendersTOC = nextState;
-}
-
 
 #pragma mark - Private
 
@@ -1332,6 +1323,11 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
         CALayer *layer = [CALayer layer];
         layer.backgroundColor = backgroundCGColor;
         self.editorContainer.layer = layer;
+    }
+    
+    if ([changedKey isEqualToString:@"editorBaseFontInfo"])
+    {
+        [self scaleWebview];
     }
 
     if (!changedKey || [changedKey isEqualToString:@"editorShowWordCount"])
@@ -1442,6 +1438,33 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     }
 }
 
+- (void)scaleWebview
+{
+    if (!self.preferences.previewZoomRelativeToBaseFontSize)
+        return;
+    
+    NSNumber *fontSizeNum = self.preferences.editorBaseFontInfo[@"size"];
+    CFNumberRef fontSizeNumCF = (__bridge CFNumberRef)(fontSizeNum);
+    CGFloat fontSize;
+    CFNumberGetValue(fontSizeNumCF, kCFNumberCGFloatType, &fontSize);
+    
+    const CGFloat defaultSize = 14.0;
+    CGFloat scale = fontSize / defaultSize;
+    
+#if 0
+    // Sadly, this doesn’t work correctly.
+    // It looks fine, but selections are offset relative to the mouse cursor.
+    NSScrollView *previewScrollView =
+    self.preview.mainFrame.frameView.documentView.enclosingScrollView;
+    NSClipView *previewContentView = previewScrollView.contentView;
+    [previewContentView scaleUnitSquareToSize:NSMakeSize(scale, scale)];
+    [previewContentView setNeedsDisplay:YES];
+#else
+    // Warning: this is private webkit API and NOT App Store-safe!
+    [self.preview setPageSizeMultiplier:scale];
+#endif
+}
+
 - (void)syncScrollers
 {
     NSRect contentBounds = [self.editor.enclosingScrollView.contentView bounds];
@@ -1544,7 +1567,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 - (void)document:(NSDocument *)doc didPrint:(BOOL)ok context:(void *)context
 {
     if ([doc respondsToSelector:@selector(setPrinting:)])
-        [(id)doc setPrinting:NO];
+        ((MPDocument *)doc).printing = NO;
     if (context)
     {
         NSInvocation *invocation = (__bridge NSInvocation *)context;

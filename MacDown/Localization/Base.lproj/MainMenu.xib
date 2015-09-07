@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6751" systemVersion="14D130a" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6751"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -81,17 +81,6 @@
                             <menuItem title="Open…" keyEquivalent="o" id="IAo-SY-fd9">
                                 <connections>
                                     <action selector="openDocument:" target="-1" id="bVn-NM-KNZ"/>
-                                    <binding destination="LEY-zf-22t" name="enabled" keyPath="self.currentDocument" id="gd3-fy-6HD"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Open Quickly" keyEquivalent="t" id="TEs-7x-y9Q">
-                                <connections>
-                                    <action selector="showOpenQuickly:" target="eq0-c4-vgQ" id="qeg-ZB-FAn"/>
-                                    <binding destination="LEY-zf-22t" name="enabled" keyPath="self.currentDirectory" id="ps8-Jb-tfu">
-                                        <dictionary key="options">
-                                            <string key="NSValueTransformerName">NSIsNotNil</string>
-                                        </dictionary>
-                                    </binding>
                                 </connections>
                             </menuItem>
                             <menuItem title="Open Recent" id="tXI-mr-wws">
@@ -379,12 +368,6 @@
                                 <connections>
                                     <action selector="render:" target="-1" id="rvl-Jx-Hji"/>
                                     <binding destination="LEY-zf-22t" name="enabled" keyPath="self.currentDocument.previewVisible" id="5e7-rJ-oX2"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Renders TOC" id="v6B-Cb-FlX">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="toggleTOCRendering:" target="-1" id="CfY-Zz-Yyy"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="onf-Mq-Pah"/>

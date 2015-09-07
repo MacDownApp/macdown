@@ -9,6 +9,12 @@
 #import <XCTest/XCTest.h>
 #import "MPAsset.h"
 
+
+@interface MPAsset ()
+@property (readonly, nonatomic) NSString *typeName;
+@end
+
+
 @interface MPAssetTests : XCTestCase
 @property (strong) NSBundle *bundle;
 @end
@@ -20,6 +26,18 @@
 {
     [super setUp];
     self.bundle = [NSBundle bundleForClass:[self class]];
+}
+
+- (void)testDefaultAssetType
+{
+    MPAsset *asset = [[MPAsset alloc] init];
+    XCTAssertEqualObjects(asset.typeName, @"text/plain");
+
+    MPStyleSheet *css = [[MPStyleSheet alloc] init];
+    XCTAssertEqualObjects(css.typeName, @"text/css");
+
+    MPScript *script = [[MPScript alloc] init];
+    XCTAssertEqualObjects(script.typeName, @"text/javascript");
 }
 
 - (void)testAssetNone

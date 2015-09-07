@@ -10,8 +10,8 @@
 
 @implementation NSJSONSerialization (File)
 
-+ (id)JSONObjectFileAtURL:(NSURL *)url options:(NSJSONReadingOptions)opt
-                    error:(NSError *__autoreleasing *)error
++ (id)JSONObjectWithFileAtURL:(NSURL *)url options:(NSJSONReadingOptions)opt
+                        error:(NSError *__autoreleasing *)error
 {
     NSInputStream *stream = [NSInputStream inputStreamWithURL:url];
     [stream open];
