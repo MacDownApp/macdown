@@ -123,6 +123,7 @@ NS_INLINE void treat()
     return _preferencesWindowController;
 }
 
+// Via bindings this can only be ran if there is a currentDocument.fileURL
 - (MPOpenQuicklyWindowController *)openQuicklyWindowController
 {
     if (!_openQuicklyWindowController)
