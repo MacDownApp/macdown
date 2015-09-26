@@ -77,10 +77,10 @@
 		1FFF301D1948A5320009AF24 /* MPStringLookupTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FFF301C1948A5320009AF24 /* MPStringLookupTests.m */; };
 		5318159056384894AA42DB4F /* libPods-MacDownTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AEAF42BBDCEC4012B5092BB3 /* libPods-MacDownTests.a */; };
 		5807564D5F35BA9758A64530 /* libPods-macdown-cmd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AFCF7AEBCE081BD528ABC3D /* libPods-macdown-cmd.a */; };
-		6003718D1B9DFB8E0061B6AD /* MPOpenQuicklyTableCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003718C1B9DFB8E0061B6AD /* MPOpenQuicklyTableCellView.m */; settings = {ASSET_TAGS = (); }; };
-		600371991B9E1B360061B6AD /* QSStringRanker.m in Sources */ = {isa = PBXBuildFile; fileRef = 600371981B9E1B360061B6AD /* QSStringRanker.m */; settings = {ASSET_TAGS = (); }; };
-		6003719C1B9E1B490061B6AD /* QSense.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003719B1B9E1B490061B6AD /* QSense.m */; settings = {ASSET_TAGS = (); }; };
-		6003719F1B9E1B6F0061B6AD /* NSString_Purification.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003719E1B9E1B6F0061B6AD /* NSString_Purification.m */; settings = {ASSET_TAGS = (); }; };
+		6003718D1B9DFB8E0061B6AD /* MPOpenQuicklyTableCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003718C1B9DFB8E0061B6AD /* MPOpenQuicklyTableCellView.m */; };
+		600371991B9E1B360061B6AD /* QSStringRanker.m in Sources */ = {isa = PBXBuildFile; fileRef = 600371981B9E1B360061B6AD /* QSStringRanker.m */; };
+		6003719C1B9E1B490061B6AD /* QSense.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003719B1B9E1B490061B6AD /* QSense.m */; };
+		6003719F1B9E1B6F0061B6AD /* NSString_Purification.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003719E1B9E1B6F0061B6AD /* NSString_Purification.m */; };
 		60CF9DAC1AD1E22700254BD4 /* MPOpenQuicklyWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60CF9DAB1AD1E22700254BD4 /* MPOpenQuicklyWindowController.xib */; };
 		60CF9DB81AD1E2DE00254BD4 /* MPOpenQuicklyWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CF9DB71AD1E2DE00254BD4 /* MPOpenQuicklyWindowController.m */; };
 		60CF9DBB1AD1E9ED00254BD4 /* MPOpenQuicklyDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CF9DBA1AD1E9ED00254BD4 /* MPOpenQuicklyDataSource.m */; };

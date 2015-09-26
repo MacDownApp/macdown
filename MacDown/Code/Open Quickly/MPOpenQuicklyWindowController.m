@@ -130,6 +130,24 @@ NSString *MPMinimalStringForAbsoluteFilePathString(NSString *path) {
     }];
 }
 
+- (BOOL)control:(NSControl *)control textView:(NSTextView *)textView doCommandBySelector:(SEL)commandSelector
+{
+    if (commandSelector == @selector(moveUp:)) {
+        [self.searchResultsTable keyDown:[NSApp currentEvent]];
+        return YES;
+
+    } else if(commandSelector == @selector(moveDown:)){
+        [self.searchResultsTable keyDown:[NSApp currentEvent]];
+        return YES;
+
+    } else if(commandSelector == @selector(insertNewline:)){
+        [self openCurrentlySelectedRow];
+        return YES;
+    }
+
+    return NO;
+}
+
 #pragma mark - NSTableViewDataSource
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView;
@@ -157,10 +175,15 @@ NSString *MPMinimalStringForAbsoluteFilePathString(NSString *path) {
 
 - (void)processDoubleClickOnSearchResult:(NSTableView *)tableView
 {
-    NSUInteger index = [[tableView selectedRowIndexes] firstIndex];
+    [self openCurrentlySelectedRow];
+}
+
+- (void)openCurrentlySelectedRow
+{
+    NSUInteger index = self.searchResultsTable.selectedRowIndexes.firstIndex;
     NSURL *url = self.searchResults[index];
     [[NSDocumentController sharedDocumentController] openDocumentWithContentsOfURL:url display:YES completionHandler:^(NSDocument * _Nullable document, BOOL documentWasAlreadyOpen, NSError * _Nullable error) {
-        
+
     }];
 }
 
