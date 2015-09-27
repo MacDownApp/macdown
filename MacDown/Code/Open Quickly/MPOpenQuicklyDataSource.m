@@ -51,7 +51,7 @@
       NSDate *file2Date;
       [file2 getResourceValue:&file2Date forKey:NSURLContentModificationDateKey error:nil];
 
-      return [file1Date compare:file2Date];
+      return [file2Date compare:file1Date];
     }];
 
     NSPredicate *mdFltr = [NSPredicate predicateWithFormat:@"self.absoluteString ENDSWITH '.md' OR self.absoluteString ENDSWITH '.markdown'"];
