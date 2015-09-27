@@ -54,7 +54,6 @@ NSString *MPMinimalStringForAbsoluteFilePathString(NSString *path) {
     self.searchResultsTable.target       = self;
     self.searchResultsTable.doubleAction = @selector(processDoubleClickOnSearchResult:);
 
-    [self updateSearchResults:@[@"one", @"two", @"three"]];
     [self updateOverviewForRecentFiles];
 
     [self centerWindow];
@@ -165,23 +164,9 @@ NSString *MPMinimalStringForAbsoluteFilePathString(NSString *path) {
 {
     MPOpenQuicklyTableCellView *cell = [tableView makeViewWithIdentifier:NSStringFromClass([MPOpenQuicklyTableCellView class]) owner:self];
 
-    NSString *action = self.searchResults[row];
-    cell.textField.allowsEditingTextAttributes = YES;
-
-    cell.textField.stringValue = action.lastPathComponent;
+    MPOpenQuicklyEntry *entry = self.searchResults[row];
+    [cell highlightTitle:entry.title indexes:entry.indexesOfResults];
     return cell;
-}
-
-- (void)tableViewSelectionDidChange:(NSNotification *)notification;
-{
-    NSTableView *tableView = notification.object;
-    MPOpenQuicklyTableCellView *cell = [tableView viewAtColumn:0 row:tableView.selectedRow makeIfNecessary:NO];
-    if (cell) {
-        NSURL *selectedURL = self.searchResults[tableView.selectedRow];
-        NSIndexSet *indexes = [self.dataSource queryResultsIndexesOnQuery:self.searchField.stringValue fileURL:selectedURL];
-        [cell highlightTitleWithIndexes:indexes];
-
-    }
 }
 
 - (void)processDoubleClickOnSearchResult:(NSTableView *)tableView

@@ -8,6 +8,10 @@
 
 #import "MPOpenQuicklyDataSource.h"
 #import "QSStringRanker.h"
+#import "NSArray+Map.h"
+
+@implementation MPOpenQuicklyEntry
+@end
 
 @interface MPOpenQuicklyDataSource()
 @property (nonatomic) NSArray *allMarkdownFileURLs;
@@ -25,7 +29,7 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [self generateResultsForDirectoryPath:directory];
         dispatch_async(dispatch_get_main_queue(), ^{
-            initialCompletion(self.allMarkdownFileURLs);
+            initialCompletion([self recentDocumentEntries]);
         });
     });
 
@@ -54,6 +58,18 @@
     _allMarkdownFileURLs = [sortedContent filteredArrayUsingPredicate:mdFltr];
 }
 
+- (NSArray *)recentDocumentEntries
+{
+    return [self.allMarkdownFileURLs map:^id(NSURL *url) {
+        MPOpenQuicklyEntry *entry = [[MPOpenQuicklyEntry alloc] init];
+        entry.title = url.lastPathComponent;
+        entry.url = url;
+        entry.scoreForQuery = 1;
+        entry.indexesOfResults = [NSIndexSet indexSet];
+        return entry;
+    }];
+}
+
 - (void)searchForQuery:(NSString *)query :(void (^)(NSArray *results))completion;
 {
     NSParameterAssert(completion);
@@ -69,20 +85,29 @@
 
 - (NSArray *)orderedURLsWithQuery:(NSString *)query
 {
-    return [self.allMarkdownFileURLs sortedArrayWithOptions:NSSortConcurrent usingComparator:^NSComparisonResult(NSURL *obj1, NSURL *obj2) {
-        NSString *fileName1 = [self representedFilenameForURL:obj1];
-        NSString *fileName2 = [self representedFilenameForURL:obj2];
+    QSDefaultStringRanker *ranker = [[QSDefaultStringRanker alloc] initWithString:@""];
+    NSMutableArray *entriesAccordingToQuery = (id) [self.allMarkdownFileURLs map:^id(NSURL *url) {
+        MPOpenQuicklyEntry *entry = [[MPOpenQuicklyEntry alloc] init];
+        NSString *filename = [self representedFilenameForURL:url];
+        ranker.rankedString = filename;
 
-        QSDefaultStringRanker *ranker1 = [[QSDefaultStringRanker alloc] initWithString:fileName1];
-        QSDefaultStringRanker *ranker2 = [[QSDefaultStringRanker alloc] initWithString:fileName2];
-
-        CGFloat value1 = [ranker1 scoreForAbbreviation:query];
-        CGFloat value2 = [ranker2 scoreForAbbreviation:query];
-
-        if (value1 == value2) { return NSOrderedSame; }
-        if (value1 > value2) { return NSOrderedAscending; }
-        return NSOrderedDescending;
+        entry.title = url.lastPathComponent;
+        entry.url = url;
+        entry.scoreForQuery = [ranker scoreForAbbreviation:query];
+        entry.indexesOfResults = [self queryResultsIndexesOnQuery:query fileURL:url ranker:ranker];
+        return entry;
     }];
+
+    NSPredicate *baseLineScore = [NSPredicate predicateWithFormat:@"scoreForQuery > 0.2"];
+    [entriesAccordingToQuery filterUsingPredicate:baseLineScore];
+
+    [entriesAccordingToQuery sortUsingComparator:^NSComparisonResult(id  obj1, id  _Nonnull obj2) {
+                if ([obj1 scoreForQuery] == [obj2 scoreForQuery]) { return NSOrderedSame; }
+                if ([obj1 scoreForQuery] > [obj2 scoreForQuery]) { return NSOrderedAscending; }
+                return NSOrderedDescending;
+    }];
+
+    return entriesAccordingToQuery;
 }
 
 // Take out "2011-01-05" from "2011-01-05-My-Post.md"
@@ -107,11 +132,9 @@
     return filename;
 }
 
-- (NSIndexSet *)queryResultsIndexesOnQuery:(NSString *)query fileURL:(NSURL *)fileURL
+- (NSIndexSet *)queryResultsIndexesOnQuery:(NSString *)query fileURL:(NSURL *)fileURL ranker:(QSDefaultStringRanker *)ranker
 {
-    NSString *filename = [self representedFilenameForURL:fileURL];
-    QSDefaultStringRanker *ranker = [[QSDefaultStringRanker alloc] initWithString:filename];
-    NSIndexSet *indexes = (id)[ranker maskForAbbreviation:query];
+    NSIndexSet *indexes = [ranker maskForAbbreviation:query];
 
     if (![self filenameHasJekyllPrefix:fileURL.lastPathComponent]) return indexes;
 

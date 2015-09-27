@@ -85,6 +85,7 @@
 		60CF9DB81AD1E2DE00254BD4 /* MPOpenQuicklyWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CF9DB71AD1E2DE00254BD4 /* MPOpenQuicklyWindowController.m */; };
 		60CF9DBB1AD1E9ED00254BD4 /* MPOpenQuicklyDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CF9DBA1AD1E9ED00254BD4 /* MPOpenQuicklyDataSource.m */; };
 		60F341071BB7DB8E00DD84DE /* MPOpenQuicklyDataSourceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 60F341061BB7DB8E00DD84DE /* MPOpenQuicklyDataSourceTests.m */; };
+		60F3410A1BB7E9A700DD84DE /* NSArray+Map.m in Sources */ = {isa = PBXBuildFile; fileRef = 60F341091BB7E9A700DD84DE /* NSArray+Map.m */; };
 		905EF1A9196164CA00FC3CE9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 905EF1A8196164CA00FC3CE9 /* Foundation.framework */; };
 		905EF1B7196164F300FC3CE9 /* macdown in Copy Command Line Utility */ = {isa = PBXBuildFile; fileRef = 905EF1A7196164CA00FC3CE9 /* macdown */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		B49728377A904875B2963C38 /* libPods-MacDown.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C5C1FBBB3ED456285901D31 /* libPods-MacDown.a */; };
@@ -275,6 +276,8 @@
 		60CF9DB91AD1E9ED00254BD4 /* MPOpenQuicklyDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPOpenQuicklyDataSource.h; sourceTree = "<group>"; };
 		60CF9DBA1AD1E9ED00254BD4 /* MPOpenQuicklyDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPOpenQuicklyDataSource.m; sourceTree = "<group>"; };
 		60F341061BB7DB8E00DD84DE /* MPOpenQuicklyDataSourceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPOpenQuicklyDataSourceTests.m; sourceTree = "<group>"; };
+		60F341081BB7E9A700DD84DE /* NSArray+Map.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Map.h"; sourceTree = "<group>"; };
+		60F341091BB7E9A700DD84DE /* NSArray+Map.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Map.m"; sourceTree = "<group>"; };
 		632F686FDE66C78EBA2ABB7B /* Pods-macdown-cmd.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-macdown-cmd.debug.xcconfig"; path = "Pods/Target Support Files/Pods-macdown-cmd/Pods-macdown-cmd.debug.xcconfig"; sourceTree = "<group>"; };
 		7C5C1FBBB3ED456285901D31 /* libPods-MacDown.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MacDown.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		905EF1A7196164CA00FC3CE9 /* macdown */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = macdown; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -340,6 +343,8 @@
 				3D175F0F1974282400A5EFE8 /* WebView+WebViewPrivateHeaders.h */,
 				1FBBD4C9194CA35900BB3C88 /* hoedown_html_patch.h */,
 				1FBBD4CA194CA36500BB3C88 /* hoedown_html_patch.c */,
+				60F341081BB7E9A700DD84DE /* NSArray+Map.h */,
+				60F341091BB7E9A700DD84DE /* NSArray+Map.m */,
 			);
 			name = Extension;
 			path = Code/Extension;
@@ -974,6 +979,7 @@
 				60CF9DB81AD1E2DE00254BD4 /* MPOpenQuicklyWindowController.m in Sources */,
 				1F33F2A11A3B4B660001C849 /* MPDocumentSplitView.m in Sources */,
 				60CF9DBB1AD1E9ED00254BD4 /* MPOpenQuicklyDataSource.m in Sources */,
+				60F3410A1BB7E9A700DD84DE /* NSArray+Map.m in Sources */,
 				1F23A92119928E650052DB78 /* MPMathJaxListener.m in Sources */,
 				1F2649B01A7406DB00EF6AF3 /* NSDocumentController+Document.m in Sources */,
 				6003718D1B9DFB8E0061B6AD /* MPOpenQuicklyTableCellView.m in Sources */,

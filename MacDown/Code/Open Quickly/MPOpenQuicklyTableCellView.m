@@ -10,10 +10,9 @@
 
 @implementation MPOpenQuicklyTableCellView
 
-- (void)highlightTitleWithIndexes:(NSIndexSet *)indexes
+- (void)highlightTitle:(NSString *)string indexes:(NSIndexSet *)indexes
 {
-    NSString *title = self.textField.stringValue;
-    self.textField.attributedStringValue = [self underlinedAttributedStringWithString:title  withIndexSet:indexes];
+    self.textField.attributedStringValue = [self underlinedAttributedStringWithString:string  withIndexSet:indexes];
 }
 
 - (NSAttributedString *)underlinedAttributedStringWithString:(NSString*)inString withIndexSet:(NSIndexSet *)indexes
