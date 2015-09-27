@@ -19,4 +19,8 @@
 
 - (void)searchForQuery:(NSString *)query :(void (^)(NSArray *results))completion;
 
+/// Returns the NSIndexSet that shows the characters the query used to
+/// decide why this it's relevant.
+- (NSIndexSet *)queryResultsIndexesOnQuery:(NSString *)query fileURL:(NSURL *)fileURL;
+
 @end

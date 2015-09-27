@@ -10,4 +10,7 @@
 
 @interface MPOpenQuicklyTableCellView : NSTableCellView
 
+/// Underlines the title
+- (void)highlightTitleWithIndexes:(NSIndexSet *)indexes;
+
 @end

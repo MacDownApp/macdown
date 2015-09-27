@@ -117,7 +117,6 @@ NSString *MPMinimalStringForAbsoluteFilePathString(NSString *path) {
 
     if (textField.stringValue.length == 0) {
         [self updateOverviewForRecentFiles];
-        // Show recent files
         return;
     }
 
@@ -171,6 +170,18 @@ NSString *MPMinimalStringForAbsoluteFilePathString(NSString *path) {
 
     cell.textField.stringValue = action.lastPathComponent;
     return cell;
+}
+
+- (void)tableViewSelectionDidChange:(NSNotification *)notification;
+{
+    NSTableView *tableView = notification.object;
+    MPOpenQuicklyTableCellView *cell = [tableView viewAtColumn:0 row:tableView.selectedRow makeIfNecessary:NO];
+    if (cell) {
+        NSURL *selectedURL = self.searchResults[tableView.selectedRow];
+        NSIndexSet *indexes = [self.dataSource queryResultsIndexesOnQuery:self.searchField.stringValue fileURL:selectedURL];
+        [cell highlightTitleWithIndexes:indexes];
+
+    }
 }
 
 - (void)processDoubleClickOnSearchResult:(NSTableView *)tableView
