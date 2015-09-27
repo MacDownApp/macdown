@@ -61,11 +61,14 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 
         NSArray *orderedURLs = [self.allMarkdownFileURLs sortedArrayWithOptions:NSSortConcurrent usingComparator:^NSComparisonResult(NSURL *obj1, NSURL *obj2) {
-            QSDefaultStringRanker *ranker1 = [[QSDefaultStringRanker alloc] initWithString:obj1.lastPathComponent];
-            QSDefaultStringRanker *ranker2 = [[QSDefaultStringRanker alloc] initWithString:obj2.lastPathComponent];
+            NSString *fileName1 = [self representedFileNameForURL:obj1];
+            NSString *fileName2 = [self representedFileNameForURL:obj2];
 
-            CGFloat value1 = [ranker1 scoreForAbbreviation: query];
-            CGFloat value2 = [ranker2 scoreForAbbreviation: query];
+            QSDefaultStringRanker *ranker1 = [[QSDefaultStringRanker alloc] initWithString:fileName1];
+            QSDefaultStringRanker *ranker2 = [[QSDefaultStringRanker alloc] initWithString:fileName2];
+
+            CGFloat value1 = [ranker1 scoreForAbbreviation:query];
+            CGFloat value2 = [ranker2 scoreForAbbreviation:query];
 
             if (value1 == value2) { return NSOrderedSame; }
             if (value1 > value2) { return NSOrderedAscending; }
@@ -76,6 +79,29 @@
             completion(orderedURLs);
         });
     });
+}
+
+- (NSString *)representedFileNameForURL:(NSURL *)url
+{
+    // Take out "2011-01-05" from "2011-01-05-My-Post.md"
+    NSString *filename = url.lastPathComponent;
+    if ([filename containsString:@"-"] && filename.length > 11) {
+        NSString *prefix = [filename substringToIndex:10];
+        NSCharacterSet *alphaSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789-"];
+        BOOL removePrefix = [[prefix stringByTrimmingCharactersInSet:alphaSet] isEqualToString:@""];
+        if (removePrefix) {
+            filename = [filename substringFromIndex:11];
+        }
+    }
+
+    return filename;
+}
+
+- (NSIndexSet *)queryResultsIndexesOnQuery:(NSString *)query fileURL:(NSURL *)fileURL
+{
+    NSString *fileName = [self representedFileNameForURL:fileURL];
+    QSDefaultStringRanker *ranker = [[QSDefaultStringRanker alloc] initWithString:fileName];
+    return [ranker maskForAbbreviation:fileName];
 }
 
 @end
