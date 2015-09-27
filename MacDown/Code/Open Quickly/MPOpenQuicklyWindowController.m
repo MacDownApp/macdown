@@ -176,11 +176,19 @@ NSString *MPMinimalStringForAbsoluteFilePathString(NSString *path) {
 
 - (void)openCurrentlySelectedRow
 {
-    NSUInteger index = self.searchResultsTable.selectedRowIndexes.firstIndex;
-    NSURL *url = self.searchResults[index];
-    [[NSDocumentController sharedDocumentController] openDocumentWithContentsOfURL:url display:YES completionHandler:^(NSDocument * _Nullable document, BOOL documentWasAlreadyOpen, NSError * _Nullable error) {
+    MPOpenQuicklyEntry *entry = [self currentEntry];
+    [[NSDocumentController sharedDocumentController] openDocumentWithContentsOfURL:entry.url display:YES completionHandler:^(NSDocument * _Nullable document, BOOL documentWasAlreadyOpen, NSError * _Nullable error) {
 
     }];
+}
+
+- (MPOpenQuicklyEntry *)currentEntry
+{
+    NSUInteger index = self.searchResultsTable.selectedRowIndexes.firstIndex;
+    if (index != NSNotFound) {
+        return self.searchResults[index];
+    }
+    return nil;
 }
 
 #pragma mark - Public Methods
