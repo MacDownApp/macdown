@@ -1444,10 +1444,8 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
         return;
     
     NSNumber *fontSizeNum = self.preferences.editorBaseFontInfo[@"size"];
-    CFNumberRef fontSizeNumCF = (__bridge CFNumberRef)(fontSizeNum);
-    CGFloat fontSize;
-    CFNumberGetValue(fontSizeNumCF, kCFNumberCGFloatType, &fontSize);
-    
+    CGFloat fontSize = fontSizeNum.doubleValue;
+
     const CGFloat defaultSize = 14.0;
     CGFloat scale = fontSize / defaultSize;
     
