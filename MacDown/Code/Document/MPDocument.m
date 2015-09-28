@@ -170,8 +170,10 @@ NS_INLINE NSColor *MPGetWebViewBackgroundColor(WebView *webview)
 
 @interface MPDocument ()
     <NSSplitViewDelegate, NSTextViewDelegate,
-     MPAutosaving, MPRendererDataSource, MPRendererDelegate,
-     WebFrameLoadDelegate, WebPolicyDelegate>
+#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101100
+     WebFrameLoadDelegate, WebPolicyDelegate,
+#endif
+     MPAutosaving, MPRendererDataSource, MPRendererDelegate>
 
 typedef NS_ENUM(NSUInteger, MPWordCountType) {
     MPWordCountTypeWord,
