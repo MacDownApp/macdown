@@ -1,0 +1,37 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "D29B2AF65723D6330588EAE1AA18C06828F4C6B0",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "9635D08B964B59C48EA8E6805E0CB50B3BAF24BE" : 0,
+    "2F1767954F6E41A8A969AD0C1FD6055664A8E4E6" : 0,
+    "D29B2AF65723D6330588EAE1AA18C06828F4C6B0" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "24769B53-F963-4503-96C3-3E34905014BD",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "9635D08B964B59C48EA8E6805E0CB50B3BAF24BE" : "c\/hoedown\/hoedown",
+    "2F1767954F6E41A8A969AD0C1FD6055664A8E4E6" : "macdown\/Dependency\/prism",
+    "D29B2AF65723D6330588EAE1AA18C06828F4C6B0" : "macdown"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "MacDown",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "MacDown.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/LeaVerou\/prism.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "2F1767954F6E41A8A969AD0C1FD6055664A8E4E6"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/hoedown\/hoedown.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "9635D08B964B59C48EA8E6805E0CB50B3BAF24BE"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "ssh:\/\/github.com\/uranusjr\/macdown.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "D29B2AF65723D6330588EAE1AA18C06828F4C6B0"
+    }
+  ]
+}

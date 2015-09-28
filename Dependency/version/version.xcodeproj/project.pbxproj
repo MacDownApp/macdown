@@ -40,7 +40,7 @@
 		1FCD71091A20BA3A00C028B5 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = uranusjr;
 				TargetAttributes = {
 					1FCD710D1A20BA3A00C028B5 = {
@@ -68,6 +68,7 @@
 		1FCD710E1A20BA3A00C028B5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ENABLE_TESTABILITY = YES;
 				ONLY_ACTIVE_ARCH = YES;
 			};
 			name = Debug;
@@ -118,6 +119,7 @@
 				1FCD71121A20BA3A00C028B5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -50,7 +50,7 @@
 		1F8A8367195348C500B6BF69 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0700;
 			};
 			buildConfigurationList = 1F8A836A195348C500B6BF69 /* Build configuration list for PBXProject "peg-markdown-highlight" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -72,6 +72,7 @@
 		1F8A8368195348C500B6BF69 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ENABLE_TESTABILITY = YES;
 				ONLY_ACTIVE_ARCH = YES;
 			};
 			name = Debug;
