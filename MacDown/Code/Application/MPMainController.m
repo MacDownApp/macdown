@@ -81,7 +81,8 @@ NS_INLINE void treat()
     // Make sure this is opened last and immediately visible.
     NSDocumentController *c = [NSDocumentController sharedDocumentController];
     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-        [c openDocumentWithContentsOfURL:url display:YES completionHandler:nil];
+        [c openDocumentWithContentsOfURL:url display:YES
+                       completionHandler:MPDocumentOpenCompletionEmpty];
     }];
 }
 
@@ -215,7 +216,7 @@ NS_INLINE void treat()
         if ([url checkResourceIsReachableAndReturnError:NULL])
         {
             [c openDocumentWithContentsOfURL:url display:YES
-                           completionHandler:NULL];
+                           completionHandler:MPDocumentOpenCompletionEmpty];
         }
         else
         {

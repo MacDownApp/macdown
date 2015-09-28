@@ -170,7 +170,8 @@ NS_INLINE NSColor *MPGetWebViewBackgroundColor(WebView *webview)
 
 @interface MPDocument ()
     <NSSplitViewDelegate, NSTextViewDelegate,
-     MPAutosaving, MPRendererDataSource, MPRendererDelegate>
+     MPAutosaving, MPRendererDataSource, MPRendererDelegate,
+     WebFrameLoadDelegate, WebPolicyDelegate>
 
 typedef NS_ENUM(NSUInteger, MPWordCountType) {
     MPWordCountTypeWord,
@@ -1302,7 +1303,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
         self.editor.defaultParagraphStyle = [style copy];
         self.editor.font = [self.preferences.editorBaseFont copy];
         self.editor.textColor = nil;
-        self.editor.backgroundColor = nil;
+        self.editor.backgroundColor = [NSColor clearColor];
         self.highlighter.styles = nil;
         [self.highlighter readClearTextStylesFromTextView];
 
