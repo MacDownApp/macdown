@@ -114,13 +114,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		905EF1A5196164CA00FC3CE9 /* CopyFiles */ = {
+		905EF1A5196164CA00FC3CE9 /* Copy Files */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = /usr/share/man/man1/;
 			dstSubfolderSpec = 0;
 			files = (
 			);
+			name = "Copy Files";
 			runOnlyForDeploymentPostprocessing = 1;
 		};
 		905EF1B6196164E300FC3CE9 /* Copy Command Line Utility */ = {
@@ -673,8 +674,7 @@
 				8354BB1F574EFC071D91C89B /* Check Pods Manifest.lock */,
 				905EF1A3196164CA00FC3CE9 /* Sources */,
 				905EF1A4196164CA00FC3CE9 /* Frameworks */,
-				905EF1A5196164CA00FC3CE9 /* CopyFiles */,
-				38BEB4F8BD690E8970217D44 /* Copy Pods Resources */,
+				905EF1A5196164CA00FC3CE9 /* Copy Files */,
 			);
 			buildRules = (
 			);
@@ -802,21 +802,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "SOURCE=$PWD/Dependency/prism\nTARGET=$PWD/MacDown/Resources/Prism\ncp -r $SOURCE/components $TARGET\ncp -r $SOURCE/themes $TARGET\ncp -r $SOURCE/plugins $TARGET\ncp -r $SOURCE/components.js $TARGET";
-			showEnvVarsInLog = 0;
-		};
-		38BEB4F8BD690E8970217D44 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-macdown-cmd/Pods-macdown-cmd-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		46C28C219A3C4CCD94797747 /* Copy Pods Resources */ = {
