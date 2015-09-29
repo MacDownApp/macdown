@@ -135,8 +135,10 @@ static NSString * const kMPDefaultHtmlStyleName = @"GitHub2";
 
 - (void)setEditorBaseFont:(NSFont *)font
 {
-    NSDictionary *info =
-        @{@"name": font.fontName, @"size": @(font.pointSize)};
+    NSDictionary *info = @{
+        kMPDefaultEditorFontNameKey: font.fontName,
+        kMPDefaultEditorFontPointSizeKey: @(font.pointSize)
+    };
     self.editorBaseFontInfo = info;
 }
 
