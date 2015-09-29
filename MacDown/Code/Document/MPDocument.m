@@ -1446,6 +1446,10 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     if (!self.preferences.previewZoomRelativeToBaseFontSize)
         return;
 
+    // editorBaseFontInfo can be NSString or NSNumber. Fortunately both should
+    // work with -doubleValue. If it is something else, at least don't crash
+    // now. CGFloat is not double, but this should be close enough the users
+    // probably won't notice the difference.
     id fontSizeObj = self.preferences.editorBaseFontInfo[@"size"];
     if (![fontSizeObj respondsToSelector:@selector(doubleValue)])
         return;
