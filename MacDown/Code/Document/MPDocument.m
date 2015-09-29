@@ -1445,12 +1445,13 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 {
     if (!self.preferences.previewZoomRelativeToBaseFontSize)
         return;
-    
-    NSNumber *fontSizeNum = self.preferences.editorBaseFontInfo[@"size"];
-    CGFloat fontSize = fontSizeNum.doubleValue;
 
-    const CGFloat defaultSize = 14.0;
-    CGFloat scale = fontSize / defaultSize;
+    id fontSizeObj = self.preferences.editorBaseFontInfo[@"size"];
+    if (![fontSizeObj respondsToSelector:@selector(doubleValue)])
+        return;
+
+    static const CGFloat defaultSize = 14.0;
+    CGFloat scale = [fontSizeObj doubleValue] / defaultSize;
     
 #if 0
     // Sadly, this doesn’t work correctly.
