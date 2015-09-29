@@ -71,6 +71,8 @@ extern NSString * const MPDidDetectFreshInstallationNotification;
 @property (assign) BOOL htmlRendersTOC;
 
 // Calculated values.
+@property (readonly) NSString *editorBaseFontName;
+@property (readonly) CGFloat editorBaseFontSize;
 @property (nonatomic, assign) NSFont *editorBaseFont;
 
 - (instancetype)init;
