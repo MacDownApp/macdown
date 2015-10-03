@@ -276,6 +276,7 @@ table {
 	width: 100%;
 	overflow: auto;
 	word-break: keep-all;
+	border-collapse: collapse;
 }
 
 table th {
