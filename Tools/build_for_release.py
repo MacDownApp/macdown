@@ -20,7 +20,8 @@ OPENSSL = '/usr/bin/openssl'
 XCODEBUILD = '/usr/bin/xcodebuild'
 OSASCRIPT = '/usr/bin/osascript'
 
-BUILD_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'Build')
+ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BUILD_DIR = os.path.join(ROOT_DIR, 'Build')
 APP_NAME = 'MacDown.app'
 ZIP_NAME = 'MacDown.app.zip'
 
@@ -85,9 +86,13 @@ def main(argv):
         XCODEBUILD, 'clean', '-workspace', 'MacDown.xcworkspace',
         '-scheme', 'MacDown',
     )
-    os.chdir(BUILD_DIR)
+
+    print('Running external scripts...')
+    os.chdir(os.path.join(ROOT_DIR, 'Dependency', 'peg-markdown-highlight'))
+    execute('make')
 
     print('Building application archive...')
+    os.chdir(BUILD_DIR)
     output = execute(
         XCODEBUILD, 'archive', '-workspace', '../MacDown.xcworkspace',
         '-scheme', 'MacDown',
