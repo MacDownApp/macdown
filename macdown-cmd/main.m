@@ -21,7 +21,7 @@ NSRunningApplication *MPRunningMacDownInstance()
 }
 
 
-void MPCollectForRunningMacDown(NSSet *urls)
+void MPCollectForRunningMacDown(NSOrderedSet *urls)
 {
     NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
     for (NSString *url in urls)
@@ -32,11 +32,11 @@ void MPCollectForRunningMacDown(NSSet *urls)
 }
 
 
-void MPCollectForUnlaunchedMacDown(NSSet *urls)
+void MPCollectForUnlaunchedMacDown(NSOrderedSet *urls)
 {
     NSUserDefaults *defaults =
         [[NSUserDefaults alloc] initWithSuiteNamed:kMPApplicationSuiteName];
-    [defaults setObject:urls.allObjects forKey:@"filesToOpenOnNextLaunch"
+    [defaults setObject:urls.array forKey:@"filesToOpenOnNextLaunch"
            inSuiteNamed:kMPApplicationSuiteName];
     [defaults synchronize];
 }
@@ -58,7 +58,7 @@ int main(int argc, const char * argv[])
         // be opened later.
         NSString *pwd = [NSFileManager defaultManager].currentDirectoryPath;
         NSURL *pwdUrl = [NSURL fileURLWithPath:pwd isDirectory:YES];
-        NSMutableSet *urls = [NSMutableSet set];
+        NSMutableOrderedSet *urls = [NSMutableOrderedSet orderedSet];
         for (NSString *argument in argproc.arguments)
         {
             NSURL *url = [NSURL URLWithString:argument relativeToURL:pwdUrl];
