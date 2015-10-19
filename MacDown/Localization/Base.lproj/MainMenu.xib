@@ -391,7 +391,7 @@
                             </menuItem>
                             <menuItem title="Hide Preview Pane" keyEquivalent="H" id="T74-vt-YUA">
                                 <connections>
-                                    <action selector="togglePreivewPane:" target="-1" id="03s-kD-O7K"/>
+                                    <action selector="togglePreviewPane:" target="-1" id="03s-kD-O7K"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="Hide Editor Pane" keyEquivalent="E" id="wHk-AQ-iOQ">

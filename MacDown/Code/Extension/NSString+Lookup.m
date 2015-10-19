@@ -56,7 +56,7 @@
 {
     NSRegularExpressionOptions op = NSRegularExpressionDotMatchesLineSeparators;
     NSRegularExpression *regex =
-        [NSRegularExpression regularExpressionWithPattern:@"^---\n(.*?\n)---"
+        [NSRegularExpression regularExpressionWithPattern:@"^---\n(.*?\n)((---)|(\.\.\.))"
                                                   options:op error:NULL];
     NSTextCheckingResult *result =
         [regex firstMatchInString:self options:0
