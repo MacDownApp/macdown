@@ -579,7 +579,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 {
     BOOL result = [super validateUserInterfaceItem:item];
     SEL action = item.action;
-    if (action == @selector(togglePreivewPane:))
+    if (action == @selector(togglePreviewPane:))
     {
         NSMenuItem *it = ((NSMenuItem *)item);
         it.hidden = (!self.previewVisible && self.previousSplitRatio < 0.0);
@@ -1236,7 +1236,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     [self setSplitViewDividerLocation:0.5];
 }
 
-- (IBAction)togglePreivewPane:(id)sender
+- (IBAction)togglePreviewPane:(id)sender
 {
     if (self.previewVisible)
     {
