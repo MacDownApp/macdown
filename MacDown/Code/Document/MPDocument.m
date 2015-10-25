@@ -917,6 +917,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     NSURL *baseUrl = self.fileURL;
     if (!baseUrl)   // Unsaved doument; just use the default URL.
         baseUrl = self.preferences.htmlDefaultDirectoryUrl;
+    htmlString = html;
     [self.preview.mainFrame loadHTMLString:html baseURL:baseUrl];
     self.manualRender = self.preferences.markdownManualRender;
     self.currentBaseUrl = baseUrl;
@@ -1087,6 +1088,53 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
         };
         [self printDocumentWithSettings:settings showPrintPanel:NO delegate:nil
                        didPrintSelector:NULL contextInfo:NULL];
+    }];
+}
+
+- (IBAction)exportPNG:(id)sender {
+    NSSavePanel *panel = [NSSavePanel savePanel];
+    panel.allowedFileTypes = @[@"png"];
+    if (self.presumedFileName) {
+        panel.nameFieldStringValue = self.presumedFileName;
+    }
+    
+    NSWindow *w = nil;
+    NSArray *windowControllers = self.windowControllers;
+    if (windowControllers.count > 0) {
+        w = [windowControllers[0] window];
+    }
+    [panel beginSheetModalForWindow:w completionHandler:^(NSInteger result) {
+        if (result != NSFileHandlingPanelOKButton) {
+            return;
+        }
+        CGSize contentSize = CGSizeMake(
+                                        [[_preview stringByEvaluatingJavaScriptFromString:@"document.body.scrollWidth;"] floatValue],
+                                        [[_preview stringByEvaluatingJavaScriptFromString:@"document.body.scrollHeight;"] floatValue]
+                                        );
+        NSWindow *hiddenWindow = [[NSWindow alloc] initWithContentRect: NSMakeRect( -1000,-1000, contentSize.width, contentSize.height  )
+                                                             styleMask: NSTitledWindowMask | NSClosableWindowMask backing:NSBackingStoreNonretained defer:NO];
+        NSView *viewport = [[[_preview mainFrame] frameView] documentView]; // width/height of html page
+        NSRect viewportBounds = [viewport bounds];
+        NSRect frame = NSMakeRect(0.0, 0.0, contentSize.width, contentSize.height);
+        WebView *hiddenWebView = [[WebView alloc] initWithFrame:frame frameName:@"Hidden.Frame" groupName:nil];
+        [hiddenWindow setContentView:hiddenWebView];
+        [[hiddenWebView mainFrame] loadHTMLString:htmlString baseURL:self.fileURL];
+        [hiddenWebView lockFocus];
+        while ([hiddenWebView isLoading]) {
+            [hiddenWebView setNeedsDisplay:NO];
+            [NSApp nextEventMatchingMask:NSAnyEventMask untilDate:[NSDate dateWithTimeIntervalSinceNow:1.0] inMode:NSDefaultRunLoopMode dequeue:YES];
+        }
+        [hiddenWebView setNeedsDisplay:YES];
+        NSBitmapImageRep *bitmap;
+        bitmap = [[NSBitmapImageRep alloc] initWithFocusedViewRect:viewportBounds];
+        [hiddenWebView unlockFocus];
+    
+        NSImage *dispImage = [[NSImage alloc] initWithData:[bitmap TIFFRepresentation]];
+        CGImageRef cgRef = [dispImage CGImageForProposedRect:NULL context:nil hints:nil];
+        NSBitmapImageRep *rep = [[NSBitmapImageRep alloc] initWithCGImage:cgRef];
+        NSData *png = [rep representationUsingType:NSPNGFileType properties:@{}];
+        [png writeToFile:[panel.URL path] atomically:YES];
+        [hiddenWebView setNeedsDisplay:NO];
     }];
 }
 
