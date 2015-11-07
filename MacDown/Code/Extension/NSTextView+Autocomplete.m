@@ -317,7 +317,7 @@ static NSString * const kMPBlockquoteLinePattern = @"^((?:\\> ?)+).*$";
     BOOL hasTrailingNewline = NO;
     if ([toProcess hasSuffix:@"\n"])
     {
-        toProcess = [content substringToIndex:(toProcess.length - 1)];
+        toProcess = [toProcess substringToIndex:(toProcess.length - 1)];
         hasTrailingNewline = YES;
     }
 
