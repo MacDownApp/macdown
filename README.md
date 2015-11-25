@@ -77,6 +77,12 @@ Visit the [project site](http://macdown.uranusjr.com/) for more information, or 
 MacDown is released under the terms of MIT License. You may find the content of the license [here](http://opensource.org/licenses/MIT), or inside the `LICENSE` directory.
 
 You may find full text of licenses about third-party components in the `LICENSE` directory, or the **About MacDown** panel in the application.
+macdown是OS X的一个开放源码的markdown编辑器，MIT许可下发布。
+作者从陈罗偷走的想法...
+更多信息请访问项目网站，或下载最新版本macdown.app.zip直接从网页。
+####许可证
+macdown是麻省理工学院授权条款下发布。你可以在这里找到许可证的内容，或者在许可证目录里面。
+你会发现在许可目录的第三方组件许可全文，或在macdown面板中的应用
 
 The following editor themes and CSS files are extracted from [Mou](http://mouapp.com), courtesy of Chen Luo:
 
