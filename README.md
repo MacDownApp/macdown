@@ -4,7 +4,9 @@ Mou 和 MacDown 是我在 Mac 下用过的两款优秀的 Markdown 编辑器。�
 背后的故事
 很有兴趣关注了这两款软件的作者及背后的故事，发现很有趣，在评测两款软件之前我们先八一八故事吧。
 
-Mou 的作者罗晨，个人主页：http://chenluois.com/，现居住天津，自由职业者。MacDown 的作者Tzu-ping Chung，个人主页：https://uranusjr.com/，现居住台北市，应该是台湾同胞吧。
+>Mou 的作者罗晨，个人主页：http://chenluois.com/，现居住天津，自由职业者。
+
+>MacDown 的作者Tzu-ping Chung，个人主页：https://uranusjr.com/，现居住台北市，应该是台湾同胞吧。
 
 根据 MacDown 作者的介绍，他曾经一度是 Markdown 的重度用户，而使用的编辑器基本是 Mou，但 Mou 可以处理fenced code blocks，却对代码高亮不支持，同时在渲染 Markdown 时也有 bug，这让他很苦恼。Mou 的作者当时正准备转手该软件，一直没有更新，所以，他就开始从头开始模仿 Mou 写一个，因为是 Markdown editor for Macs，所以取名为 MacDown。
 
@@ -30,7 +32,23 @@ Let’s focus on making better software for everyone.
 TeX 数学公式的支持
 支持导出 HTML 和 PDF 两种格式
 便捷的快捷键操作
-... （作者海风林影  [编辑器 Mou/MacDown 大 PK](http://www.jianshu.com/p/6c157af09e84)）
+... 
+###MacDown 特色
+####代码高亮
+Mou 和 MacDown 都支持 fenced code blocks（前后三个反引号可以表示代码块），但 MacDown 支持加语言标识符实现代码高亮，这对程序员来说简直是福音啊，非常棒的功能。
+
+MacDown 支持代码高亮
+MacDown 支持代码高亮
+####GFM Task List 支持
+MacDown 支持 Task list，有了这个功能，你可以将你的 MD 编辑器立马变成 TODO list，是不是很赞？
+
+MacDown 对 Task list 的支持
+MacDown 对 Task list 的支持
+####Jekyll Front-matter 支持
+很多人使用 Jekyll 作为博客引擎，这时 Jekyll 的前面那段该怎么去渲染呢？MacDown 和 github 一样可以支持。
+
+MacDown 对 Jekyll front-matter 的支持
+MacDown 对 Jekyll front-matter 的支持（作者海风林影  [编辑器 Mou/MacDown 大 PK](http://www.jianshu.com/p/6c157af09e84)）
 
 ###自动链接
 <https://github.com/Mingriweiji-github?tab=repositories>
