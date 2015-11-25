@@ -1,18 +1,16 @@
 # MacDown
-[我的github][1]
-
-![Github cat][2]
-
-[1]:https://github.com/Mingriweiji-github?tab=repositories
-[2]:http://github.global.ssl.fastly.net/images/modules/logos_page/Octocat.png
 
 ###自动链接
 <https://github.com/Mingriweiji-github?tab=repositories>
 
-[Markdown之写作篇](http://www.jianshu.com/p/PpDNMG)
+1. [Markdown 中文版语法说明](http://wowubuntu.com/markdown/#list)
+2. [Markdown之表格的处理](http://www.ituring.com.cn/article/3452)
+3. [表格宽度调整 点我](http://www.ituring.com.cn/article/details/8367)
+4. [Markdown之写作篇](http://www.jianshu.com/p/PpDNMG)
 
-[如何高效利用GitHub
-](http://www.yangzhiping.com/tech/github.html)
+- [markdown简明语法](http://ibruce.info/2013/11/26/markdown/)
+- [作者@Mingriweiji Github](https://github.com/Mingriweiji-github?tab=repositories)
+- [创始人 John Gruber 的 Markdown 语法说明](http://daringfireball.net/projects/markdown/syntax)
 
 
 [![](https://img.shields.io/github/release/uranusjr/macdown.svg)](http://macdown.uranusjr.com/download/latest/)
