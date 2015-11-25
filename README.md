@@ -1,4 +1,19 @@
 # MacDown
+[我的github][1]
+
+![Github cat][2]
+
+[1]:https://github.com/Mingriweiji-github?tab=repositories
+[2]:http://github.global.ssl.fastly.net/images/modules/logos_page/Octocat.png
+
+###自动链接
+<https://github.com/Mingriweiji-github?tab=repositories>
+
+[Markdown之写作篇](http://www.jianshu.com/p/PpDNMG)
+
+[如何高效利用GitHub
+](http://www.yangzhiping.com/tech/github.html)
+
 
 [![](https://img.shields.io/github/release/uranusjr/macdown.svg)](http://macdown.uranusjr.com/download/latest/)
 ![Total downloads](https://img.shields.io/github/downloads/uranusjr/macdown/latest/total.svg)
