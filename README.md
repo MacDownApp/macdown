@@ -11,8 +11,18 @@
 
 [Markdown之写作篇](http://www.jianshu.com/p/PpDNMG)
 
-[如何高效利用GitHub
-](http://www.yangzhiping.com/tech/github.html)
+###资料收集
+
+Markdown之写作篇
+怎样使用Markdown
+
+- 创始人 John Gruber 的 Markdown 语法说明
+- Markdown 中文版语法说明
+
+- Markdown之表格的处理
+-  表格宽度调整 点我
+
+@Mingriweiji Github
 
 
 [![](https://img.shields.io/github/release/uranusjr/macdown.svg)](http://macdown.uranusjr.com/download/latest/)
