@@ -72,7 +72,7 @@ MacDown is an open source Markdown editor for OS X, released under the MIT Licen
 >Macdown是OS X的一个开放源码的markdown编辑器，MIT(一种开源许可协议，名字来自麻省理工学院，又称“X条款”（X License）或“X11条款”（X11 License）)许可下发布。
 作者从陈罗偷走的想法...
 Visit the [project site](http://macdown.uranusjr.com/) for more information, or download [MacDown.app.zip](http://macdown.uranusjr.com/download/latest/) directly from the [latest releases](https://github.com/uranusjr/macdown/releases/latest) page.
->更多信息请访问项目网站，或下载最新版本macdown.app.zip直接从网页。
+>更多信息请访问项目网站，或直接从网页下载最新版本macdown.app.zip即可安装到你的mac电脑上。
 
 ## License
 
