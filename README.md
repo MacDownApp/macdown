@@ -69,7 +69,7 @@ MacDown 对 Jekyll front-matter 的支持（作者海风林影  [编辑器 Mou/M
 
 
 MacDown is an open source Markdown editor for OS X, released under the MIT License. The author stole the idea from [Chen Luo](https://twitter.com/chenluois)’s [Mou](http://mouapp.com) so that people can [make crappy clones](https://twitter.com/remaerd/status/484914820408279040).
->Macdown是OS X的一个开放源码的markdown编辑器，MIT(麻省理工学院)许可下发布。
+>Macdown是OS X的一个开放源码的markdown编辑器，MIT(一种开源许可协议，名字来自麻省理工学院，又称“X条款”（X License）或“X11条款”（X11 License）)许可下发布。
 作者从陈罗偷走的想法...
 Visit the [project site](http://macdown.uranusjr.com/) for more information, or download [MacDown.app.zip](http://macdown.uranusjr.com/download/latest/) directly from the [latest releases](https://github.com/uranusjr/macdown/releases/latest) page.
 >更多信息请访问项目网站，或下载最新版本macdown.app.zip直接从网页。
@@ -78,7 +78,7 @@ Visit the [project site](http://macdown.uranusjr.com/) for more information, or 
 
 MacDown is released under the terms of MIT License. You may find the content of the license [here](http://opensource.org/licenses/MIT), or inside the `LICENSE` directory.
 ###许可证
->macdown是麻省理工学院授权条款下发布。你可以在这里找到许可证的内容，或者在许可证目录里面。
+>macdown是在MIT授权条款下发布。你可以在这里找到许可证的内容，或者在许可证目录里面。
 You may find full text of licenses about third-party components in the `LICENSE` directory, or the **About MacDown** panel in the application.
 >你会发现在许可目录的第三方组件许可全文，或在macdown面板中的应用
 
