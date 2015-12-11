@@ -446,13 +446,12 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     [self close];
 }
 
-- (void)close{
-
-    if (self.needsToUnregister) {
-
+- (void)close
+{
+    if (self.needsToUnregister) 
+    {
         // close can be called multiple times
         // http://www.cocoabuilder.com/archive/cocoa/240166-nsdocument-close-method-calls-itself.html
-
         self.needsToUnregister = NO;
 
         // Need to cleanup these so that callbacks won't crash the app.
@@ -471,8 +470,6 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
             [defaults removeObserver:self forKeyPath:key];
         for (NSString *key in MPEditorKeysToObserve())
             [self.editor removeObserver:self forKeyPath:key];
-
-
     }
 
     [super close];
