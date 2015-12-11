@@ -32,11 +32,11 @@ Exception: If a URL in a comment is too long, it can go over the limit. This hap
 #### Stetements Inside `if`, `while`, etc.
 
 * Prefer implicit boolean conversion when it makes sense.
-    * `if (str.length)` is better than `if (str.length != 0)` if you wants to know whether a string is empty. 
+    * `if (str.length)` is better than `if (str.length != 0)` if you want to know whether a string is empty. 
     * The same applies when checking for object `nil`-ness.
     * If what you want to compare against is *zero as a number*, not emptiness, such as for `NSRange` position, `NSPoint` coordinates, etc., *do* use the `== 0`/`!= 0` expression.
 
-* If statements need to span multiple lines, prefer putting logical operators in the *beginning* of the line.
+* If statements need to span multiple lines, prefer putting logical operators at the *beginning* of the line.
 
     Yes:
     ```c
