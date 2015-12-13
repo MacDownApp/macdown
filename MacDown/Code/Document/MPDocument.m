@@ -207,6 +207,7 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
 @property (strong) NSMenuItem *wordsMenuItem;
 @property (strong) NSMenuItem *charMenuItem;
 @property (strong) NSMenuItem *charNoSpacesMenuItem;
+@property (nonatomic) BOOL needsToUnregister;
 
 // Store file content in initializer until nib is loaded.
 @property (copy) NSString *loadedString;
@@ -391,6 +392,8 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
                      object:self.preview.enclosingScrollView];
     }
 
+    self.needsToUnregister = YES;
+
     self.wordsMenuItem = [[NSMenuItem alloc] initWithTitle:@"" action:NULL
                                              keyEquivalent:@""];
     self.charMenuItem = [[NSMenuItem alloc] initWithTitle:@"" action:NULL
@@ -440,22 +443,36 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     if (!shouldClose)
         return;
 
-    // Need to cleanup these so that callbacks won't crash the app.
-    [self.highlighter deactivate];
-    self.highlighter.targetTextView = nil;
-    self.highlighter = nil;
-    self.renderer = nil;
-    self.preview.frameLoadDelegate = nil;
-    self.preview.policyDelegate = nil;
-
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    for (NSString *key in MPEditorPreferencesToObserve())
-        [defaults removeObserver:self forKeyPath:key];
-    for (NSString *key in MPEditorKeysToObserve())
-        [self.editor removeObserver:self forKeyPath:key];
-
     [self close];
+}
+
+- (void)close
+{
+    if (self.needsToUnregister) 
+    {
+        // close can be called multiple times
+        // http://www.cocoabuilder.com/archive/cocoa/240166-nsdocument-close-method-calls-itself.html
+        self.needsToUnregister = NO;
+
+        // Need to cleanup these so that callbacks won't crash the app.
+        [self.highlighter deactivate];
+        self.highlighter.targetTextView = nil;
+        self.highlighter = nil;
+        self.renderer = nil;
+        self.preview.frameLoadDelegate = nil;
+        self.preview.policyDelegate = nil;
+
+        [[NSNotificationCenter defaultCenter] removeObserver:self];
+
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+
+        for (NSString *key in MPEditorPreferencesToObserve())
+            [defaults removeObserver:self forKeyPath:key];
+        for (NSString *key in MPEditorKeysToObserve())
+            [self.editor removeObserver:self forKeyPath:key];
+    }
+
+    [super close];
 }
 
 + (BOOL)autosavesInPlace
