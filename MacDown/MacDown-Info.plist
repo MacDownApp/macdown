@@ -108,7 +108,7 @@
 		</dict>
 	</dict>
 	<key>NSHumanReadableCopyright</key>
-	<string>Copyright © 2014 Tzu-ping Chung.</string>
+	<string>Copyright © 2014–2016 Tzu-ping Chung.</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
