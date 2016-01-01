@@ -55,7 +55,7 @@ void hoedown_patch_render_blockcode(
             lang = mapped;
     }
 
-    HOEDOWN_BUFPUTSL(ob, "<pre");
+    HOEDOWN_BUFPUTSL(ob, "<div><pre");
     if (state->flags & HOEDOWN_HTML_BLOCKCODE_LINE_NUMBERS)
         HOEDOWN_BUFPUTSL(ob, " class=\"line-numbers\"");
     if (back && back->size)
@@ -81,7 +81,7 @@ void hoedown_patch_render_blockcode(
         hoedown_escape_html(ob, text->data, size, 0);
     }
 
-	HOEDOWN_BUFPUTSL(ob, "</code></pre>\n");
+	HOEDOWN_BUFPUTSL(ob, "</code></pre></div>\n");
 
     hoedown_buffer_free(mapped);
     hoedown_buffer_free(front);
