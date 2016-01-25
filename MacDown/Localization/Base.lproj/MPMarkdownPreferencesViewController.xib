@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6254"/>
+        <development version="6300" identifier="xcode"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9531"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="MPMarkdownPreferencesViewController">
@@ -16,13 +17,13 @@
             <rect key="frame" x="0.0" y="0.0" width="400" height="230"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <box autoresizesSubviews="NO" title="Block formatting" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="TXy-fD-S4Y">
+                <box autoresizesSubviews="NO" misplaced="YES" title="Block formatting" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="TXy-fD-S4Y">
                     <rect key="frame" x="17" y="78" width="181" height="74"/>
                     <view key="contentView">
                         <rect key="frame" x="1" y="1" width="179" height="58"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button translatesAutoresizingMaskIntoConstraints="NO" id="J8u-0k-Z3s">
+                            <button misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="J8u-0k-Z3s">
                                 <rect key="frame" x="16" y="32" width="147" height="18"/>
                                 <buttonCell key="cell" type="check" title="Table" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="z8g-3M-hbc">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -32,7 +33,7 @@
                                     <binding destination="-2" name="value" keyPath="self.preferences.extensionTables" id="b0l-i3-TQN"/>
                                 </connections>
                             </button>
-                            <button translatesAutoresizingMaskIntoConstraints="NO" id="fhk-gr-iF0">
+                            <button misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fhk-gr-iF0">
                                 <rect key="frame" x="16" y="12" width="147" height="18"/>
                                 <buttonCell key="cell" type="check" title="Fenced code block" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="ELg-sx-vIf">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -58,13 +59,13 @@
                     <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                     <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </box>
-                <box autoresizesSubviews="NO" title="Inline formatting" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="Ycc-Px-jbu">
+                <box autoresizesSubviews="NO" misplaced="YES" title="Inline formatting" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="Ycc-Px-jbu">
                     <rect key="frame" x="200" y="16" width="183" height="194"/>
                     <view key="contentView">
                         <rect key="frame" x="1" y="1" width="181" height="178"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button translatesAutoresizingMaskIntoConstraints="NO" id="iwB-ah-rER">
+                            <button misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iwB-ah-rER">
                                 <rect key="frame" x="16" y="132" width="149" height="18"/>
                                 <buttonCell key="cell" type="check" title="Strikethrough" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="RjP-zE-c6b">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -74,7 +75,7 @@
                                     <binding destination="-2" name="value" keyPath="self.preferences.extensionStrikethough" id="tWe-ZX-b8J"/>
                                 </connections>
                             </button>
-                            <button translatesAutoresizingMaskIntoConstraints="NO" id="CCI-wC-lHw">
+                            <button misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CCI-wC-lHw">
                                 <rect key="frame" x="16" y="112" width="149" height="18"/>
                                 <buttonCell key="cell" type="check" title="Underline" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Gdr-Ro-ZnW">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -84,7 +85,7 @@
                                     <binding destination="-2" name="value" keyPath="self.preferences.extensionUnderline" id="hZM-bR-fRh"/>
                                 </connections>
                             </button>
-                            <button translatesAutoresizingMaskIntoConstraints="NO" id="gtf-xR-sKM">
+                            <button misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gtf-xR-sKM">
                                 <rect key="frame" x="16" y="92" width="149" height="18"/>
                                 <buttonCell key="cell" type="check" title="Quote" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="2lB-hq-5eX">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -94,7 +95,7 @@
                                     <binding destination="-2" name="value" keyPath="self.preferences.extensionQuote" id="whB-Ub-bc4"/>
                                 </connections>
                             </button>
-                            <button translatesAutoresizingMaskIntoConstraints="NO" id="tqY-25-uOh">
+                            <button misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tqY-25-uOh">
                                 <rect key="frame" x="16" y="152" width="149" height="18"/>
                                 <buttonCell key="cell" type="check" title="Intra-word emphasis" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="D7l-nP-P0y">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -104,7 +105,7 @@
                                     <binding destination="-2" name="value" keyPath="self.preferences.extensionIntraEmphasis" id="7LU-84-OdM"/>
                                 </connections>
                             </button>
-                            <button translatesAutoresizingMaskIntoConstraints="NO" id="lYF-J6-3YU">
+                            <button misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lYF-J6-3YU">
                                 <rect key="frame" x="16" y="52" width="149" height="18"/>
                                 <buttonCell key="cell" type="check" title="Superscript" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="k2n-VN-cKT">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -114,7 +115,7 @@
                                     <binding destination="-2" name="value" keyPath="self.preferences.extensionSuperscript" id="Tmn-Ka-4yY"/>
                                 </connections>
                             </button>
-                            <button translatesAutoresizingMaskIntoConstraints="NO" id="QMR-TV-GNi">
+                            <button misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QMR-TV-GNi">
                                 <rect key="frame" x="16" y="72" width="149" height="18"/>
                                 <buttonCell key="cell" type="check" title="Highlight" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="8kI-gm-5Lo">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -124,7 +125,7 @@
                                     <binding destination="-2" name="value" keyPath="self.preferences.extensionHighlight" id="Yo5-uZ-gty"/>
                                 </connections>
                             </button>
-                            <button translatesAutoresizingMaskIntoConstraints="NO" id="T31-Sx-beD">
+                            <button misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="T31-Sx-beD">
                                 <rect key="frame" x="16" y="32" width="149" height="18"/>
                                 <buttonCell key="cell" type="check" title="Autolink" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Roe-rh-8f9">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -134,7 +135,7 @@
                                     <binding destination="-2" name="value" keyPath="self.preferences.extensionAutolink" id="kTk-XT-2U3"/>
                                 </connections>
                             </button>
-                            <button translatesAutoresizingMaskIntoConstraints="NO" id="Y8p-KQ-Vis">
+                            <button misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Y8p-KQ-Vis">
                                 <rect key="frame" x="16" y="12" width="149" height="18"/>
                                 <buttonCell key="cell" type="check" title="Footnote" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="0yU-vT-72e">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -176,13 +177,13 @@
                     <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                     <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </box>
-                <box autoresizesSubviews="NO" horizontalHuggingPriority="1" title="Document formatting" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="x36-52-U0p">
+                <box autoresizesSubviews="NO" horizontalHuggingPriority="1" misplaced="YES" title="Document formatting" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="x36-52-U0p">
                     <rect key="frame" x="17" y="156" width="181" height="54"/>
                     <view key="contentView">
                         <rect key="frame" x="1" y="1" width="179" height="38"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button translatesAutoresizingMaskIntoConstraints="NO" id="rDS-Bm-rxW">
+                            <button misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rDS-Bm-rxW">
                                 <rect key="frame" x="16" y="12" width="101" height="18"/>
                                 <buttonCell key="cell" type="check" title="Smartypants" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="aSK-nR-xMr">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
