@@ -9,9 +9,9 @@ target "MacDown" do
   pod 'hoedown', '~> 3.0'
   pod 'JJPluralForm', '~> 2.1'      # Plural form localization.
   pod 'LibYAML', '~> 0.1', :inhibit_warnings => true
-  pod 'M13OrderedDictionary', '~> 1.0'
+  pod 'M13OrderedDictionary', '~> 1.1'
   pod 'MASPreferences', '~> 1.1'    # Preference window.
-  pod 'PAPreferences', '~> 0.4'     # Preference singleton.
+  pod 'PAPreferences', '~> 0.4'     # Preference singleton (Locked until we drop 10.8 support).
   pod 'Sparkle', '~> 1.13'          # Updater.
 end
 

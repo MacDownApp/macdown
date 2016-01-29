@@ -6,7 +6,7 @@ PODS:
   - hoedown/standard (3.0.3)
   - JJPluralForm (2.1)
   - LibYAML (0.1.4)
-  - M13OrderedDictionary (1.0.6)
+  - M13OrderedDictionary (1.1.0)
   - MASPreferences (1.1.2)
   - PAPreferences (0.4)
   - Sparkle (1.13.0)
@@ -17,7 +17,7 @@ DEPENDENCIES:
   - hoedown (~> 3.0)
   - JJPluralForm (~> 2.1)
   - LibYAML (~> 0.1)
-  - M13OrderedDictionary (~> 1.0)
+  - M13OrderedDictionary (~> 1.1)
   - MASPreferences (~> 1.1)
   - PAPreferences (~> 0.4)
   - Sparkle (~> 1.13)
@@ -28,7 +28,7 @@ SPEC CHECKSUMS:
   hoedown: c1327bbbc96d269595ed86bf97f1d09867ec7529
   JJPluralForm: 9a6235813990a33a63fb3eff457eb2c633af6acd
   LibYAML: 3af2c5adf3a40dff936d087aa6a77edc10036bc5
-  M13OrderedDictionary: ca1bb2d743fd64500ffabee811d4bf2d0a65c908
+  M13OrderedDictionary: 6e157fe9c82aa6b3cd7198f5c5c30c7a6834c4a6
   MASPreferences: 32d8a2c5ef1d60b63240f5676b011ff72e194cb1
   PAPreferences: ba3f8d236c4c398b82bb0110cddd8546cd619770
   Sparkle: d04d17a32eaddab19471d0c3d9db15164afdbc6e
