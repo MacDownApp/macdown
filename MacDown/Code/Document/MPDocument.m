@@ -1320,7 +1320,9 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
         NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
         style.lineSpacing = self.preferences.editorLineSpacing;
         self.editor.defaultParagraphStyle = [style copy];
-        self.editor.font = [self.preferences.editorBaseFont copy];
+        NSFont *font = [self.preferences.editorBaseFont copy];
+        if (font)
+            self.editor.font = font;
         self.editor.textColor = nil;
         self.editor.backgroundColor = [NSColor clearColor];
         self.highlighter.styles = nil;
