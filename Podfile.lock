@@ -8,8 +8,8 @@ PODS:
   - LibYAML (0.1.4)
   - M13OrderedDictionary (1.1.0)
   - MASPreferences (1.1.2)
-  - PAPreferences (0.4)
-  - Sparkle (1.13.0)
+  - PAPreferences (0.5)
+  - Sparkle (1.13.1)
 
 DEPENDENCIES:
   - GBCli (~> 1.1)
@@ -30,7 +30,7 @@ SPEC CHECKSUMS:
   LibYAML: 3af2c5adf3a40dff936d087aa6a77edc10036bc5
   M13OrderedDictionary: 6e157fe9c82aa6b3cd7198f5c5c30c7a6834c4a6
   MASPreferences: 32d8a2c5ef1d60b63240f5676b011ff72e194cb1
-  PAPreferences: ba3f8d236c4c398b82bb0110cddd8546cd619770
-  Sparkle: d04d17a32eaddab19471d0c3d9db15164afdbc6e
+  PAPreferences: 9f0ffb1e67174a0df001af9d3320166ceb9ee6f5
+  Sparkle: 2fbd47b869621d1e679c7554e3e19dda02104818
 
 COCOAPODS: 0.39.0
