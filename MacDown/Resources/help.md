@@ -212,7 +212,7 @@ The left- and right-most pipes (`|`) are only aesthetic, and can be omitted. The
 This is a fenced code block:
 
 ```
-print ('Hello world!)'
+print ('Hello world!')
 ```
 
 You can also use waves (`~`) instead of back ticks (`` ` ``):
