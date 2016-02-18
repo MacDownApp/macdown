@@ -527,6 +527,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 
 - (BOOL)prepareSavePanel:(NSSavePanel *)savePanel
 {
+    savePanel.extensionHidden = NO;
     NSString *fileName = self.presumedFileName;
     if (fileName && ![fileName hasExtension:@"md"])
     {
@@ -1542,7 +1543,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 
     title = string.titleString;
     if (!title)
-        return nil;
+        return NSLocalizedString(@"untitled", @"default filename if no title can be determined");
 
     static NSRegularExpression *regex = nil;
     static dispatch_once_t onceToken;
