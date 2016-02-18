@@ -1189,12 +1189,32 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 
 - (IBAction)toggleImage:(id)sender
 {
-    if ([self.editor toggleForMarkupPrefix:@"![" suffix:@"]()"])
+    BOOL inserted = [self.editor toggleForMarkupPrefix:@"![](" suffix:@")"];
+    
+    if (inserted)
     {
         NSRange selectedRange = self.editor.selectedRange;
-        NSUInteger location = selectedRange.location + selectedRange.length + 2;
+        NSUInteger location = selectedRange.location + selectedRange.length;
         self.editor.selectedRange = NSMakeRange(location, 0);
+        
+        NSString *URLString = [self stringIfClipboardContainsURL];
+        
+        if (URLString) {
+            [self.editor insertText:URLString];
+            self.editor.selectedRange = NSMakeRange(location, URLString.length);
+        }
     }
+}
+
+- (NSString *) stringIfClipboardContainsURL {
+    NSString *pasteboardString = [[NSPasteboard generalPasteboard] stringForType:NSPasteboardTypeString];
+    NSURL *url;
+    
+    if ([pasteboardString.lowercaseString hasPrefix:@"http"] || [pasteboardString.lowercaseString hasPrefix:@"https"] || [pasteboardString.lowercaseString hasPrefix:@"file"]) {
+        url = [NSURL URLWithString:pasteboardString];
+    }
+    
+    return url ? pasteboardString : nil;
 }
 
 - (IBAction)toggleUnorderedList:(id)sender
