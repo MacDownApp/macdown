@@ -61,7 +61,9 @@ int main(int argc, const char * argv[])
         NSMutableOrderedSet *urls = [NSMutableOrderedSet orderedSet];
         for (NSString *argument in argproc.arguments)
         {
-            NSURL *url = [NSURL URLWithString:argument relativeToURL:pwdUrl];
+            NSString *escapedArgument =
+                [argument stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            NSURL *url = [NSURL URLWithString:escapedArgument relativeToURL:pwdUrl];
             [urls addObject:url.absoluteString];
         }
 
