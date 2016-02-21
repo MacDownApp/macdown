@@ -418,15 +418,19 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
         [self setupEditor:nil];
         [self redrawDivider];
-
-        if (self.loadedString)
-        {
-            self.editor.string = self.loadedString;
-            self.loadedString = nil;
-            [self.renderer parseAndRenderNow];
-            [self.highlighter parseAndHighlightNow];
-        }
+        [self reloadFromLoadedString];
     }];
+}
+
+- (void)reloadFromLoadedString
+{
+    if (self.loadedString && self.editor && self.renderer && self.highlighter)
+    {
+        self.editor.string = self.loadedString;
+        self.loadedString = nil;
+        [self.renderer parseAndRenderNow];
+        [self.highlighter parseAndHighlightNow];
+    }
 }
 
 - (void)canCloseDocumentWithDelegate:(id)delegate
@@ -517,6 +521,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
         return NO;
 
     self.loadedString = content;
+    [self reloadFromLoadedString];
     return YES;
 }
 
