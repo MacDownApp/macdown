@@ -1202,6 +1202,11 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     }
 }
 
+- (IBAction)toggleOrderedList:(id)sender
+{
+    [self.editor toggleBlockWithPattern:@"^[0-9]+ \\S" prefix:@"1. "];
+}
+
 - (IBAction)toggleUnorderedList:(id)sender
 {
     [self.editor toggleBlockWithPattern:@"^[\\*\\+-] \\S" prefix:@"* "];
