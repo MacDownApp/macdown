@@ -418,11 +418,12 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
         [self setupEditor:nil];
         [self redrawDivider];
-        [self reloadString];
+        [self reloadFromLoadedString];
     }];
 }
 
-- (void)reloadString {
+- (void)reloadFromLoadedString
+{
     if (self.loadedString && self.editor && self.renderer && self.highlighter)
     {
         self.editor.string = self.loadedString;
@@ -520,7 +521,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
         return NO;
 
     self.loadedString = content;
-    [self reloadString];
+    [self reloadFromLoadedString];
     return YES;
 }
 
