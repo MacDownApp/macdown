@@ -514,6 +514,11 @@
                                 </menu>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="tY3-Ap-TRo"/>
+                            <menuItem title="Ordered List" keyEquivalent="O" id="jn0-Kb-yH7">
+                                <connections>
+                                    <action selector="toggleOrderedList:" target="-1" id="K5g-7x-qoW"/>
+                                </connections>
+                            </menuItem>
                             <menuItem title="Unordered List" keyEquivalent="U" id="jn0-Kb-yH6">
                                 <connections>
                                     <action selector="toggleUnorderedList:" target="-1" id="K5g-7x-qoV"/>
