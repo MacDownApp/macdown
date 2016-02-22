@@ -1543,7 +1543,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 
     title = string.titleString;
     if (!title)
-        return NSLocalizedString(@"untitled", @"default filename if no title can be determined");
+        return NSLocalizedString(@"Untitled", @"default filename if no title can be determined");
 
     static NSRegularExpression *regex = nil;
     static dispatch_once_t onceToken;
