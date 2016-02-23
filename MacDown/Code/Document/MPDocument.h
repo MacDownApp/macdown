@@ -10,7 +10,9 @@
 @class MPPreferences;
 
 
-@interface MPDocument : NSDocument
+@interface MPDocument : NSDocument {
+    NSString *htmlString;
+}
 
 @property (nonatomic, readonly) MPPreferences *preferences;
 
