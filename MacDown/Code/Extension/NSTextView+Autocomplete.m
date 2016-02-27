@@ -359,12 +359,22 @@ static NSString * const kMPBlockquoteLinePattern = @"^((?:\\> ?)+).*$";
     if (!isMarked)
     {
         selectedRange.location += prefixLength;
-        selectedRange.length += totalShift - prefixLength;
+        if (selectedRange.length + totalShift >= prefixLength)
+            selectedRange.length += totalShift - prefixLength;
+        else    // Underflow.
+            selectedRange.length = 0;
     }
     else
     {
-        selectedRange.location -= prefixLength;
-        selectedRange.length -= totalShift - prefixLength;
+        if (prefixLength <= selectedRange.location)
+            selectedRange.location -= prefixLength;
+        else    // Underflow.
+            selectedRange.location = 0;
+        if (totalShift - prefixLength <= selectedRange.length)
+            selectedRange.length -= totalShift - prefixLength;
+        else    // Underflow.
+            selectedRange.length = 0;
+
         if (selectedRange.location < lineRange.location)
         {
             selectedRange.length -= lineRange.location - selectedRange.location;
