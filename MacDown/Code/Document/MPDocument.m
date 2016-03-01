@@ -1190,22 +1190,22 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 
 - (IBAction)toggleImage:(id)sender
 {
-    BOOL inserted = [self.editor toggleForMarkupPrefix:@"![](" suffix:@")"];
-    
-    if (inserted)
-    {
-        NSRange selectedRange = self.editor.selectedRange;
-        NSUInteger location = selectedRange.location + selectedRange.length;
-        self.editor.selectedRange = NSMakeRange(location, 0);
+    BOOL inserted = [self.editor toggleForMarkupPrefix:@"![" suffix:@"]()"];
+    if (!inserted)
+        return;
 
-        NSPasteboard *pb = [NSPasteboard generalPasteboard];
-        NSString *url = [pb URLForType:NSPasteboardTypeString].absoluteString;
-        if (url)
-        {
-            [self.editor insertText:url];
-            self.editor.selectedRange = NSMakeRange(location, url.length);
-        }
+    NSRange selectedRange = self.editor.selectedRange;
+    NSUInteger location = selectedRange.location + selectedRange.length + 2;
+    selectedRange = NSMakeRange(location, 0);
+
+    NSPasteboard *pb = [NSPasteboard generalPasteboard];
+    NSString *url = [pb URLForType:NSPasteboardTypeString].absoluteString;
+    if (url)
+    {
+        [self.editor insertText:url replacementRange:selectedRange];
+        selectedRange.length = url.length;
     }
+    self.editor.selectedRange = selectedRange;
 }
 
 - (IBAction)toggleUnorderedList:(id)sender
