@@ -252,6 +252,21 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     return [MPPreferences sharedInstance];
 }
 
+- (NSString *)markdown
+{
+    return self.editor.string;
+}
+
+- (void)setMarkdown:(NSString *)markdown
+{
+    self.editor.string = markdown;
+}
+
+- (NSString *)html
+{
+    return self.renderer.currentHtml;
+}
+
 - (BOOL)previewVisible
 {
     return (self.preview.frame.size.width != 0.0);

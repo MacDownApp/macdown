@@ -14,4 +14,7 @@
 
 @property (nonatomic, readonly) MPPreferences *preferences;
 
+@property (nonatomic, readwrite) NSString *markdown;
+@property (nonatomic, readonly) NSString *html;
+
 @end
