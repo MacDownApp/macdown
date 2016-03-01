@@ -16,6 +16,7 @@
 #import "MPAutosaving.h"
 #import "NSColor+HTML.h"
 #import "NSDocumentController+Document.h"
+#import "NSPasteboard+Types.h"
 #import "NSString+Lookup.h"
 #import "NSTextView+Autocomplete.h"
 #import "DOMNode+Text.h"
@@ -1196,25 +1197,15 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
         NSRange selectedRange = self.editor.selectedRange;
         NSUInteger location = selectedRange.location + selectedRange.length;
         self.editor.selectedRange = NSMakeRange(location, 0);
-        
-        NSString *URLString = [self stringIfClipboardContainsURL];
-        
-        if (URLString) {
-            [self.editor insertText:URLString];
-            self.editor.selectedRange = NSMakeRange(location, URLString.length);
+
+        NSPasteboard *pb = [NSPasteboard generalPasteboard];
+        NSString *url = [pb URLForType:NSPasteboardTypeString].absoluteString;
+        if (url)
+        {
+            [self.editor insertText:url];
+            self.editor.selectedRange = NSMakeRange(location, url.length);
         }
     }
-}
-
-- (NSString *) stringIfClipboardContainsURL {
-    NSString *pasteboardString = [[NSPasteboard generalPasteboard] stringForType:NSPasteboardTypeString];
-    NSURL *url;
-    
-    if ([pasteboardString.lowercaseString hasPrefix:@"http"] || [pasteboardString.lowercaseString hasPrefix:@"https"] || [pasteboardString.lowercaseString hasPrefix:@"file"]) {
-        url = [NSURL URLWithString:pasteboardString];
-    }
-    
-    return url ? pasteboardString : nil;
 }
 
 - (IBAction)toggleUnorderedList:(id)sender
