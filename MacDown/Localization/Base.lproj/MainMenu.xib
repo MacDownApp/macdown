@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9532"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -562,6 +562,14 @@ DQ
                         </items>
                     </menu>
                 </menuItem>
+                <menuItem title="Plug-ins" id="bMu-UN-Yfx">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="Plug-ins" id="Ppl-BS-KtG">
+                        <connections>
+                            <outlet property="delegate" destination="N0l-eA-KkD" id="2b6-Ap-EdW"/>
+                        </connections>
+                    </menu>
+                </menuItem>
                 <menuItem title="Window" id="aUF-d1-5bR">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Window" systemMenu="window" id="Td7-aD-5lo">
@@ -609,6 +617,11 @@ DQ
             </connections>
         </customObject>
         <customObject id="LEY-zf-22t" customClass="NSDocumentController"/>
+        <customObject id="N0l-eA-KkD" customClass="MPPlugInController">
+            <connections>
+                <outlet property="documentController" destination="LEY-zf-22t" id="9rV-l0-Wfs"/>
+            </connections>
+        </customObject>
         <userDefaultsController representsSharedInstance="YES" id="ow1-Qr-nTV"/>
     </objects>
 </document>
