@@ -27,6 +27,8 @@ NS_INLINE BOOL MPAreRectsEqual(NSRect r1, NSRect r2)
 
 @implementation MPEditorView
 
+#pragma mark - Accessors
+
 @synthesize contentRect = _contentRect;
 @synthesize scrollsPastEnd = _scrollsPastEnd;
 
@@ -106,6 +108,9 @@ NS_INLINE BOOL MPAreRectsEqual(NSRect r1, NSRect r2)
     }
 }
 
+
+#pragma mark - Overrides
+
 /** Overriden to perform extra operation on text change.
  *
  * Updates content height, and invoke the resizing method to apply it.
@@ -118,6 +123,9 @@ NS_INLINE BOOL MPAreRectsEqual(NSRect r1, NSRect r2)
     if (self.scrollsPastEnd)
         [self updateContentGeometry];
 }
+
+
+#pragma mark - Private
 
 - (void)updateContentGeometry
 {
