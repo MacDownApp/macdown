@@ -13,6 +13,9 @@
 #import "MPArgumentProcessor.h"
 
 
+const NSUInteger kMPPathEncoding = NSUTF8StringEncoding;
+
+
 NSRunningApplication *MPRunningMacDownInstance()
 {
     NSArray *runningInstances = [NSRunningApplication
@@ -21,22 +24,23 @@ NSRunningApplication *MPRunningMacDownInstance()
 }
 
 
-void MPCollectForRunningMacDown(NSOrderedSet *urls)
+void MPCollectForRunningMacDown(NSOrderedSet<NSURL *> *urls)
 {
     NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
-    for (NSString *url in urls)
-    {
-        NSString *path = [NSURL URLWithString:url].path;
-        [workspace openFile:path withApplication:kMPApplicationName];
-    }
+    for (NSURL *url in urls)
+        [workspace openFile:url.path withApplication:kMPApplicationName];
 }
 
 
-void MPCollectForUnlaunchedMacDown(NSOrderedSet *urls)
+void MPCollectForUnlaunchedMacDown(NSOrderedSet<NSURL *> *urls)
 {
     NSUserDefaults *defaults =
         [[NSUserDefaults alloc] initWithSuiteNamed:kMPApplicationSuiteName];
-    [defaults setObject:urls.array forKey:@"filesToOpenOnNextLaunch"
+    NSMutableArray<NSString *> *urlStrings =
+        [[NSMutableArray alloc] initWithCapacity:urls.count];
+    for (NSURL *url in urls)
+        [urlStrings addObject:url.path];
+    [defaults setObject:urlStrings forKey:@"filesToOpenOnNextLaunch"
            inSuiteNamed:kMPApplicationSuiteName];
     [defaults synchronize];
 }
@@ -58,13 +62,13 @@ int main(int argc, const char * argv[])
         // be opened later.
         NSString *pwd = [NSFileManager defaultManager].currentDirectoryPath;
         NSURL *pwdUrl = [NSURL fileURLWithPath:pwd isDirectory:YES];
-        NSMutableOrderedSet *urls = [NSMutableOrderedSet orderedSet];
-        for (NSString *argument in argproc.arguments)
+        NSMutableOrderedSet<NSURL *> *urls = [NSMutableOrderedSet orderedSet];
+        for (NSString *arg in argproc.arguments)
         {
-            NSString *escapedArgument =
-                [argument stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-            NSURL *url = [NSURL URLWithString:escapedArgument relativeToURL:pwdUrl];
-            [urls addObject:url.absoluteString];
+            NSString *escaped =
+                [arg stringByAddingPercentEscapesUsingEncoding:kMPPathEncoding];
+            NSURL *url = [NSURL URLWithString:escaped relativeToURL:pwdUrl];
+            [urls addObject:url];
         }
 
         // If the application is running, open all files with the first running
@@ -77,7 +81,7 @@ int main(int argc, const char * argv[])
             MPCollectForUnlaunchedMacDown(urls);
 
         // Launch MacDown.
-        [[NSWorkspace sharedWorkspace] launchApplication:@"MacDown"];
+        [[NSWorkspace sharedWorkspace] launchApplication:kMPApplicationName];
     }
     return EXIT_SUCCESS;
 }
