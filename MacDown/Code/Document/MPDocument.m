@@ -646,6 +646,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 - (void)splitViewDidResizeSubviews:(NSNotification *)notification
 {
     [self redrawDivider];
+    self.editor.editable = self.editorVisible;
 }
 
 
