@@ -78,6 +78,15 @@
 		1FFF301D1948A5320009AF24 /* MPStringLookupTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FFF301C1948A5320009AF24 /* MPStringLookupTests.m */; };
 		5318159056384894AA42DB4F /* libPods-MacDownTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AEAF42BBDCEC4012B5092BB3 /* libPods-MacDownTests.a */; };
 		5807564D5F35BA9758A64530 /* libPods-macdown-cmd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AFCF7AEBCE081BD528ABC3D /* libPods-macdown-cmd.a */; };
+		6003718D1B9DFB8E0061B6AD /* MPOpenQuicklyTableCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003718C1B9DFB8E0061B6AD /* MPOpenQuicklyTableCellView.m */; };
+		600371991B9E1B360061B6AD /* QSStringRanker.m in Sources */ = {isa = PBXBuildFile; fileRef = 600371981B9E1B360061B6AD /* QSStringRanker.m */; };
+		6003719C1B9E1B490061B6AD /* QSense.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003719B1B9E1B490061B6AD /* QSense.m */; };
+		6003719F1B9E1B6F0061B6AD /* NSString_Purification.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003719E1B9E1B6F0061B6AD /* NSString_Purification.m */; };
+		60CF9DAC1AD1E22700254BD4 /* MPOpenQuicklyWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60CF9DAB1AD1E22700254BD4 /* MPOpenQuicklyWindowController.xib */; };
+		60CF9DB81AD1E2DE00254BD4 /* MPOpenQuicklyWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CF9DB71AD1E2DE00254BD4 /* MPOpenQuicklyWindowController.m */; };
+		60CF9DBB1AD1E9ED00254BD4 /* MPOpenQuicklyDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CF9DBA1AD1E9ED00254BD4 /* MPOpenQuicklyDataSource.m */; };
+		60F341071BB7DB8E00DD84DE /* MPOpenQuicklyDataSourceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 60F341061BB7DB8E00DD84DE /* MPOpenQuicklyDataSourceTests.m */; };
+		60F3410A1BB7E9A700DD84DE /* NSArray+Map.m in Sources */ = {isa = PBXBuildFile; fileRef = 60F341091BB7E9A700DD84DE /* NSArray+Map.m */; };
 		905EF1A9196164CA00FC3CE9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 905EF1A8196164CA00FC3CE9 /* Foundation.framework */; };
 		905EF1B7196164F300FC3CE9 /* macdown in Copy Command Line Utility */ = {isa = PBXBuildFile; fileRef = 905EF1A7196164CA00FC3CE9 /* macdown */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		B49728377A904875B2963C38 /* libPods-MacDown.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C5C1FBBB3ED456285901D31 /* libPods-MacDown.a */; };
@@ -255,6 +264,23 @@
 		3D175F0F1974282400A5EFE8 /* WebView+WebViewPrivateHeaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WebView+WebViewPrivateHeaders.h"; sourceTree = "<group>"; };
 		481332E4A369446F177A8DF0 /* Pods-MacDown.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacDown.release.xcconfig"; path = "Pods/Target Support Files/Pods-MacDown/Pods-MacDown.release.xcconfig"; sourceTree = "<group>"; };
 		4AFCF7AEBCE081BD528ABC3D /* libPods-macdown-cmd.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-macdown-cmd.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6003718B1B9DFB8E0061B6AD /* MPOpenQuicklyTableCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPOpenQuicklyTableCellView.h; sourceTree = "<group>"; };
+		6003718C1B9DFB8E0061B6AD /* MPOpenQuicklyTableCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPOpenQuicklyTableCellView.m; sourceTree = "<group>"; };
+		600371971B9E1B360061B6AD /* QSStringRanker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSStringRanker.h; sourceTree = "<group>"; };
+		600371981B9E1B360061B6AD /* QSStringRanker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSStringRanker.m; sourceTree = "<group>"; };
+		6003719A1B9E1B490061B6AD /* QSense.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSense.h; sourceTree = "<group>"; };
+		6003719B1B9E1B490061B6AD /* QSense.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSense.m; sourceTree = "<group>"; };
+		6003719D1B9E1B6F0061B6AD /* NSString_Purification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSString_Purification.h; sourceTree = "<group>"; };
+		6003719E1B9E1B6F0061B6AD /* NSString_Purification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSString_Purification.m; sourceTree = "<group>"; };
+		600371A01B9E270B0061B6AD /* NOTE */ = {isa = PBXFileReference; lastKnownFileType = text; path = NOTE; sourceTree = "<group>"; };
+		60CF9DAB1AD1E22700254BD4 /* MPOpenQuicklyWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MPOpenQuicklyWindowController.xib; sourceTree = "<group>"; };
+		60CF9DB61AD1E2DE00254BD4 /* MPOpenQuicklyWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPOpenQuicklyWindowController.h; sourceTree = "<group>"; };
+		60CF9DB71AD1E2DE00254BD4 /* MPOpenQuicklyWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPOpenQuicklyWindowController.m; sourceTree = "<group>"; };
+		60CF9DB91AD1E9ED00254BD4 /* MPOpenQuicklyDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPOpenQuicklyDataSource.h; sourceTree = "<group>"; };
+		60CF9DBA1AD1E9ED00254BD4 /* MPOpenQuicklyDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPOpenQuicklyDataSource.m; sourceTree = "<group>"; };
+		60F341061BB7DB8E00DD84DE /* MPOpenQuicklyDataSourceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPOpenQuicklyDataSourceTests.m; sourceTree = "<group>"; };
+		60F341081BB7E9A700DD84DE /* NSArray+Map.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Map.h"; sourceTree = "<group>"; };
+		60F341091BB7E9A700DD84DE /* NSArray+Map.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Map.m"; sourceTree = "<group>"; };
 		632F686FDE66C78EBA2ABB7B /* Pods-macdown-cmd.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-macdown-cmd.debug.xcconfig"; path = "Pods/Target Support Files/Pods-macdown-cmd/Pods-macdown-cmd.debug.xcconfig"; sourceTree = "<group>"; };
 		7C5C1FBBB3ED456285901D31 /* libPods-MacDown.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MacDown.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		905EF1A7196164CA00FC3CE9 /* macdown */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = macdown; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -320,6 +346,8 @@
 				3D175F0F1974282400A5EFE8 /* WebView+WebViewPrivateHeaders.h */,
 				1FBBD4C9194CA35900BB3C88 /* hoedown_html_patch.h */,
 				1FBBD4CA194CA36500BB3C88 /* hoedown_html_patch.c */,
+				60F341081BB7E9A700DD84DE /* NSArray+Map.h */,
+				60F341091BB7E9A700DD84DE /* NSArray+Map.m */,
 			);
 			name = Extension;
 			path = Code/Extension;
@@ -535,6 +563,7 @@
 		1FCDC9EB1944F89B00B1F966 /* MacDown */ = {
 			isa = PBXGroup;
 			children = (
+				60CF9DAA1AD1E20300254BD4 /* Open Quickly */,
 				1F0D9D62194AC7CF008E1856 /* Utility */,
 				1F0D9D5D194AC7CF008E1856 /* Extension */,
 				1F396E6319B0EA17000D3EFC /* View */,
@@ -562,6 +591,7 @@
 		1FCDCA2F1944F96E00B1F966 /* MacDownTests */ = {
 			isa = PBXGroup;
 			children = (
+				60F341051BB7DB6E00DD84DE /* Open Quickly */,
 				1FF1420319A8A24800CF8A6A /* MPUtilityTests.m */,
 				1F25E1C21A50F4F10029371D /* MPColorTests.m */,
 				1FCDCA311944F96E00B1F966 /* MPPreferencesTests.m */,
@@ -594,6 +624,44 @@
 			name = "YAML-framework";
 			path = "Dependency/YAML-framework";
 			sourceTree = SOURCE_ROOT;
+		};
+		600371961B9E1B180061B6AD /* Vendor */ = {
+			isa = PBXGroup;
+			children = (
+				600371A01B9E270B0061B6AD /* NOTE */,
+				6003719D1B9E1B6F0061B6AD /* NSString_Purification.h */,
+				6003719E1B9E1B6F0061B6AD /* NSString_Purification.m */,
+				6003719A1B9E1B490061B6AD /* QSense.h */,
+				6003719B1B9E1B490061B6AD /* QSense.m */,
+				600371971B9E1B360061B6AD /* QSStringRanker.h */,
+				600371981B9E1B360061B6AD /* QSStringRanker.m */,
+			);
+			name = Vendor;
+			sourceTree = "<group>";
+		};
+		60CF9DAA1AD1E20300254BD4 /* Open Quickly */ = {
+			isa = PBXGroup;
+			children = (
+				600371961B9E1B180061B6AD /* Vendor */,
+				60CF9DAB1AD1E22700254BD4 /* MPOpenQuicklyWindowController.xib */,
+				60CF9DB61AD1E2DE00254BD4 /* MPOpenQuicklyWindowController.h */,
+				60CF9DB71AD1E2DE00254BD4 /* MPOpenQuicklyWindowController.m */,
+				60CF9DB91AD1E9ED00254BD4 /* MPOpenQuicklyDataSource.h */,
+				60CF9DBA1AD1E9ED00254BD4 /* MPOpenQuicklyDataSource.m */,
+				6003718B1B9DFB8E0061B6AD /* MPOpenQuicklyTableCellView.h */,
+				6003718C1B9DFB8E0061B6AD /* MPOpenQuicklyTableCellView.m */,
+			);
+			name = "Open Quickly";
+			path = "Code/Open Quickly";
+			sourceTree = "<group>";
+		};
+		60F341051BB7DB6E00DD84DE /* Open Quickly */ = {
+			isa = PBXGroup;
+			children = (
+				60F341061BB7DB8E00DD84DE /* MPOpenQuicklyDataSourceTests.m */,
+			);
+			name = "Open Quickly";
+			sourceTree = "<group>";
 		};
 		905EF1AA196164CA00FC3CE9 /* macdown-cmd */ = {
 			isa = PBXGroup;
@@ -748,6 +816,7 @@
 				1F9A14F4194EF6A600D1C6A9 /* Themes in Resources */,
 				1F0D9DB2194AC9EE008E1856 /* MPHtmlPreferencesViewController.xib in Resources */,
 				1F0D9DB3194AC9EE008E1856 /* MPMarkdownPreferencesViewController.xib in Resources */,
+				60CF9DAC1AD1E22700254BD4 /* MPOpenQuicklyWindowController.xib in Resources */,
 				1F3A47521953E84700293259 /* help.md in Resources */,
 				1F0D9DB4194AC9EE008E1856 /* MainMenu.xib in Resources */,
 				1FBDFE9C196170FE00BEEA70 /* Extensions in Resources */,
@@ -928,11 +997,16 @@
 				1F33F2A41A3B56D20001C849 /* NSColor+HTML.m in Sources */,
 				1F0D9D65194AC7CF008E1856 /* NSString+Lookup.m in Sources */,
 				1F8A835E1953454F00B6BF69 /* HGMarkdownHighlightingStyle.m in Sources */,
+				60CF9DB81AD1E2DE00254BD4 /* MPOpenQuicklyWindowController.m in Sources */,
 				1F33F2A11A3B4B660001C849 /* MPDocumentSplitView.m in Sources */,
+				60CF9DBB1AD1E9ED00254BD4 /* MPOpenQuicklyDataSource.m in Sources */,
+				60F3410A1BB7E9A700DD84DE /* NSArray+Map.m in Sources */,
 				1F23A92119928E650052DB78 /* MPMathJaxListener.m in Sources */,
 				1F2649B01A7406DB00EF6AF3 /* NSDocumentController+Document.m in Sources */,
+				6003718D1B9DFB8E0061B6AD /* MPOpenQuicklyTableCellView.m in Sources */,
 				1F0D9D67194AC7CF008E1856 /* MPUtilities.m in Sources */,
 				1F0D9D78194AC7F7008E1856 /* MPHtmlPreferencesViewController.m in Sources */,
+				6003719C1B9E1B490061B6AD /* QSense.m in Sources */,
 				1F0D9D7C194AC7F7008E1856 /* MPPreferences.m in Sources */,
 				1F0D9DAF194AC905008E1856 /* main.m in Sources */,
 				1F0D9D66194AC7CF008E1856 /* NSTextView+Autocomplete.m in Sources */,
@@ -944,6 +1018,7 @@
 				1FBDFEA11962A25A00BEEA70 /* MPGeneralPreferencesViewController.m in Sources */,
 				1F9A14ED194EEE9900D1C6A9 /* MPMainController.m in Sources */,
 				1F002A23195B3DAE008B8D93 /* MPRenderer.m in Sources */,
+				6003719F1B9E1B6F0061B6AD /* NSString_Purification.m in Sources */,
 				1FBBD4CB194CA36500BB3C88 /* hoedown_html_patch.c in Sources */,
 				1F8A8364195346B200B6BF69 /* pmh_styleparser.c in Sources */,
 				1F0D9D93194AC852008E1856 /* MPDocument.m in Sources */,
@@ -951,6 +1026,7 @@
 				1F8A83621953461800B6BF69 /* pmh_parser.c in Sources */,
 				1F8A835D1953454F00B6BF69 /* HGMarkdownHighlighter.m in Sources */,
 				1F3386E61A6B999600FC88C4 /* DOMNode+Text.m in Sources */,
+				600371991B9E1B360061B6AD /* QSStringRanker.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -964,6 +1040,7 @@
 				1FFEB3271972DAB400B2254F /* MPHTMLTabularizeTests.m in Sources */,
 				1F25E1C31A50F4F10029371D /* MPColorTests.m in Sources */,
 				1FFF301D1948A5320009AF24 /* MPStringLookupTests.m in Sources */,
+				60F341071BB7DB8E00DD84DE /* MPOpenQuicklyDataSourceTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

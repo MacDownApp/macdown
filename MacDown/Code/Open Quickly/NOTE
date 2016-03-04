@@ -1,0 +1,8 @@
+The following files all come from the Quicksilver source, they
+are licensed as Apache 2.0 and are fine for using within MacDown
+
+* NSString_Purification.[h,m]
+* QSense.[h,n]
+* QSStringRanker.[h,m]
+
+More details on the project can be found at https://github.com/quicksilver/quicksilver
