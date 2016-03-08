@@ -11,9 +11,10 @@
 
 @interface MPPlugIn : NSObject
 
-@property (readonly) NSString *name;
+@property (nonatomic, readonly) NSString *name;
 
 - (instancetype)initWithBundle:(NSBundle *)bundle;
+- (void)pluginsDidInitialize;
 - (BOOL)run:(id)sender;
 
 @end

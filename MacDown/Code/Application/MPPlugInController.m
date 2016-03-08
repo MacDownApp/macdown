@@ -14,22 +14,28 @@
 
 @implementation MPPlugInController
 
+- (instancetype)init
+{
+    self = [super init];
+    if (!self)
+        return nil;
+
+    id q = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0);
+    dispatch_async(q, ^{
+        for (MPPlugIn *plugin in [self buildPlugIns])
+            [plugin pluginsDidInitialize];
+    });
+    return self;
+}
+
+
 #pragma mark - NSMenuDelegate
 
 - (void)menuNeedsUpdate:(NSMenu *)menu
 {
-    NSArray *paths = MPListEntriesForDirectory(
-        kMPPlugInsDirectoryName, nil);
-
     [menu removeAllItems];
-    for (NSString *path in paths)
+    for (MPPlugIn *plugin in [self buildPlugIns])
     {
-        if (![path hasExtension:kMPPlugInFileExtension])
-            continue;
-        NSBundle *bundle = [NSBundle bundleWithPath:path];
-        MPPlugIn *plugin = [[MPPlugIn alloc] initWithBundle:bundle];
-        if (!plugin)
-            continue;
         NSMenuItem *item = [menu addItemWithTitle:plugin.name
                                            action:@selector(invokePlugIn:)
                                     keyEquivalent:@""];
@@ -38,11 +44,31 @@
     }
 }
 
-- (IBAction)invokePlugIn:(NSMenuItem *)item
+
+#pragma mark - Private
+
+- (void)invokePlugIn:(NSMenuItem *)item
 {
     MPPlugIn *plugin = item.representedObject;
     if (![plugin run:item])
         NSLog(@"Failed to run plugin %@", plugin.name);
+}
+
+- (NSArray<MPPlugIn *> *)buildPlugIns
+{
+    NSArray *paths = MPListEntriesForDirectory(kMPPlugInsDirectoryName, nil);
+    NSMutableArray *plugins = [NSMutableArray arrayWithCapacity:paths.count];
+    for (NSString *path in paths)
+    {
+        if (![path hasExtension:kMPPlugInFileExtension])
+            continue;
+        NSBundle *bundle = [NSBundle bundleWithPath:path];
+        MPPlugIn *plugin = [[MPPlugIn alloc] initWithBundle:bundle];
+        if (!plugin)
+            continue;
+        [plugins addObject:plugin];
+    }
+    return [plugins copy];
 }
 
 @end

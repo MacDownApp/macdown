@@ -50,6 +50,12 @@
     return self;
 }
 
+- (void)pluginsDidInitialize
+{
+    if ([self.content respondsToSelector:@selector(pluginsDidInitialize)])
+        [self.content pluginsDidInitialize];
+}
+
 - (BOOL)run:(id)sender
 {
     if ([self.content respondsToSelector:@selector(run:)])
