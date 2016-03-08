@@ -17,6 +17,7 @@
 #import "NSString+Lookup.h"
 #import "MPUtilities.h"
 #import "MPAsset.h"
+#import "MPPreferences.h"
 
 
 static NSString * const kMPMathJaxCDN =
@@ -159,11 +160,13 @@ NS_INLINE NSString *MPGetHTML(
             [scriptTags addObject:s];
     }
 
+    MPPreferences *preferences = [MPPreferences sharedInstance];
+
     static NSString *f = nil;
     static dispatch_once_t token;
     dispatch_once(&token, ^{
         NSBundle *bundle = [NSBundle mainBundle];
-        NSURL *url = [bundle URLForResource:@"Default"
+        NSURL *url = [bundle URLForResource:preferences.htmlTemplateName
                               withExtension:@".handlebars"
                                subdirectory:@"Templates"];
         f = [NSString stringWithContentsOfURL:url

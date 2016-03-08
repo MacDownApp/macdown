@@ -100,6 +100,7 @@ static NSString * const kMPDefaultHtmlStyleName = @"GitHub2";
 
 @dynamic previewZoomRelativeToBaseFontSize;
 
+@dynamic htmlTemplateName;
 @dynamic htmlStyleName;
 @dynamic htmlDetectFrontMatter;
 @dynamic htmlTaskList;
@@ -228,6 +229,8 @@ static NSString * const kMPDefaultHtmlStyleName = @"GitHub2";
         self.editorAutoIncrementNumberedLists = YES;
     if (![defaults objectForKey:@"editorInsertPrefixInBlock"])
         self.editorInsertPrefixInBlock = YES;
+    if (![defaults objectForKey:@"htmlTemplateName"])
+        self.htmlTemplateName = @"Default";
 }
 
 @end
