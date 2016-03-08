@@ -38,6 +38,7 @@
 		1F396E6619B0EA17000D3EFC /* MPEditorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F396E6519B0EA17000D3EFC /* MPEditorView.m */; };
 		1F3A47521953E84700293259 /* help.md in Resources */ = {isa = PBXBuildFile; fileRef = 1F3A47511953E84700293259 /* help.md */; };
 		1F3FC8AA1C85AE9F000965E1 /* MacDown.sdef in Resources */ = {isa = PBXBuildFile; fileRef = 1F3FC8A91C85AE9F000965E1 /* MacDown.sdef */; };
+		1F41FF7B1C8EEE9200FD9886 /* Templates in Resources */ = {isa = PBXBuildFile; fileRef = 1F41FF7A1C8EEE9200FD9886 /* Templates */; };
 		1F4C8E9A194AE0B9004BF82E /* MarkdownDocument.icns in Resources */ = {isa = PBXBuildFile; fileRef = 1F4C8E99194AE0B9004BF82E /* MarkdownDocument.icns */; };
 		1F51C9A5194565050015A96F /* MPPreferencesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDCA311944F96E00B1F966 /* MPPreferencesTests.m */; };
 		1F59491B1AB57C78007394CB /* syntax_highlighting.json in Resources */ = {isa = PBXBuildFile; fileRef = 1F59491A1AB57C78007394CB /* syntax_highlighting.json */; };
@@ -189,6 +190,7 @@
 		1F396E6519B0EA17000D3EFC /* MPEditorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPEditorView.m; sourceTree = "<group>"; };
 		1F3A47511953E84700293259 /* help.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = help.md; path = Resources/help.md; sourceTree = "<group>"; };
 		1F3FC8A91C85AE9F000965E1 /* MacDown.sdef */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = MacDown.sdef; path = Resources/MacDown.sdef; sourceTree = "<group>"; };
+		1F41FF7A1C8EEE9200FD9886 /* Templates */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Templates; path = Resources/Templates; sourceTree = "<group>"; };
 		1F4C8E99194AE0B9004BF82E /* MarkdownDocument.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = MarkdownDocument.icns; path = Resources/MarkdownDocument.icns; sourceTree = "<group>"; };
 		1F51C9A1194564670015A96F /* libPods-MacDown-PAPreferences.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-MacDown-PAPreferences.a"; path = "../../../../Library/Developer/Xcode/DerivedData/MacDown-ggdtxvuybojeqbhjydkhilziizrv/Build/Products/Debug/libPods-MacDown-PAPreferences.a"; sourceTree = "<group>"; };
 		1F59491A1AB57C78007394CB /* syntax_highlighting.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = syntax_highlighting.json; path = Resources/syntax_highlighting.json; sourceTree = "<group>"; };
@@ -395,6 +397,7 @@
 				1FCE066319633D6B00DC83B4 /* Data */,
 				1F9A14EE194EEEDD00D1C6A9 /* Styles */,
 				1F9A14F3194EF6A600D1C6A9 /* Themes */,
+				1F41FF7A1C8EEE9200FD9886 /* Templates */,
 				1FBDFE9B196170FE00BEEA70 /* Extensions */,
 				1F0F3BFB195F75F200FC0B3B /* MathJax */,
 				1F8A82D819533E9300B6BF69 /* Prism */,
@@ -751,6 +754,7 @@
 				1F3A47521953E84700293259 /* help.md in Resources */,
 				1F0D9DB4194AC9EE008E1856 /* MainMenu.xib in Resources */,
 				1FBDFE9C196170FE00BEEA70 /* Extensions in Resources */,
+				1F41FF7B1C8EEE9200FD9886 /* Templates in Resources */,
 				1FBBD4BE194C952300BB3C88 /* MPExportPanelAccessoryViewController.xib in Resources */,
 				1FA6CDB91952D2CD008D5CA0 /* dsa_pub.pem in Resources */,
 				1F27896B1973BEB100EE696A /* Localizable.strings in Resources */,
