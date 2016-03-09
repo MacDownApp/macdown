@@ -23,7 +23,7 @@
     id q = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0);
     dispatch_async(q, ^{
         for (MPPlugIn *plugin in [self buildPlugIns])
-            [plugin pluginsDidInitialize];
+            [plugin plugInDidInitialize];
     });
     return self;
 }

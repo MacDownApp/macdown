@@ -14,7 +14,8 @@
 @property (nonatomic, readonly) NSString *name;
 
 - (instancetype)initWithBundle:(NSBundle *)bundle;
-- (void)pluginsDidInitialize;
 - (BOOL)run:(id)sender;
+
+- (void)plugInDidInitialize;
 
 @end

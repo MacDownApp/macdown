@@ -50,10 +50,10 @@
     return self;
 }
 
-- (void)pluginsDidInitialize
+- (void)plugInDidInitialize
 {
-    if ([self.content respondsToSelector:@selector(pluginsDidInitialize)])
-        [self.content pluginsDidInitialize];
+    if ([self.content respondsToSelector:@selector(plugInDidInitialize)])
+        [self.content plugInDidInitialize];
 }
 
 - (BOOL)run:(id)sender
