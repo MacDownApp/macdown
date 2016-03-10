@@ -10,12 +10,14 @@
 #import <limits.h>
 #import <hoedown/html.h>
 #import <hoedown/document.h>
+#import <HBHandlebars/HBHandlebars.h>
 #import "hoedown_html_patch.h"
 #import "NSJSONSerialization+File.h"
 #import "NSObject+HTMLTabularize.h"
 #import "NSString+Lookup.h"
 #import "MPUtilities.h"
 #import "MPAsset.h"
+#import "MPPreferences.h"
 
 
 static NSString * const kMPMathJaxCDN =
@@ -157,19 +159,34 @@ NS_INLINE NSString *MPGetHTML(
         if (s)
             [scriptTags addObject:s];
     }
-    NSString *style = [styleTags componentsJoinedByString:@"\n"];
-    NSString *script = [scriptTags componentsJoinedByString:@"\n"];
 
-    static NSString *f =
-        (@"<!DOCTYPE html><html>\n\n"
-         @"<head>\n<meta charset=\"utf-8\">\n%@%@\n</head>\n"
-         @"<body>\n%@\n%@\n</body>\n\n</html>\n");
+    MPPreferences *preferences = [MPPreferences sharedInstance];
 
+    static NSString *f = nil;
+    static dispatch_once_t token;
+    dispatch_once(&token, ^{
+        NSBundle *bundle = [NSBundle mainBundle];
+        NSURL *url = [bundle URLForResource:preferences.htmlTemplateName
+                              withExtension:@".handlebars"
+                               subdirectory:@"Templates"];
+        f = [NSString stringWithContentsOfURL:url
+                                     encoding:NSUTF8StringEncoding error:NULL];
+    });
+    NSCAssert(f.length, @"Could not read template");
+
+    NSString *titleTag = @"";
     if (title.length)
-        title = [NSString stringWithFormat:@"<title>%@</title>\n", title];
-    else
-        title = @"";
-    NSString *html = [NSString stringWithFormat:f, title, style, body, script];
+        titleTag = [NSString stringWithFormat:@"<title>%@</title>", title];
+
+    NSDictionary *context = @{
+        @"title": title,
+        @"titleTag": titleTag,
+        @"styleTags": styleTags,
+        @"body": body,
+        @"scriptTags": scriptTags,
+    };
+    NSString *html = [HBHandlebars renderTemplateString:f withContext:context
+                                                  error:NULL];
     return html;
 }
 

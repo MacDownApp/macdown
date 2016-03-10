@@ -57,6 +57,7 @@ extern NSString * const MPDidDetectFreshInstallationNotification;
 
 @property (assign) BOOL previewZoomRelativeToBaseFontSize;
 
+@property (assign) NSString *htmlTemplateName;
 @property (assign) NSString *htmlStyleName;
 @property (assign) BOOL htmlDetectFrontMatter;
 @property (assign) BOOL htmlTaskList;

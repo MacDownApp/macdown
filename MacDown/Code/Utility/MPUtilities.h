@@ -12,6 +12,8 @@ extern NSString * const kMPStylesDirectoryName;
 extern NSString * const kMPStyleFileExtension;
 extern NSString * const kMPThemesDirectoryName;
 extern NSString * const kMPThemeFileExtension;
+extern NSString * const kMPPlugInsDirectoryName;
+extern NSString * const kMPPlugInFileExtension;
 
 NSString *MPDataDirectory(NSString *relativePath);
 NSString *MPPathToDataFile(NSString *name, NSString *dirPath);

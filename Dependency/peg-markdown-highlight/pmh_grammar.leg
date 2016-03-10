@@ -432,39 +432,37 @@ UlLine   =      "____" '_'* | Spacechar '_'+ &Spacechar
 
 Emph =      EmphStar | EmphUl
 
-OneStarOpen  =  !StarLine < '*' > !Spacechar !Newline { $$ = elem(pmh_NO_TYPE); }
-OneStarClose =  !Spacechar !Newline Inline !StrongStar < '*' > { $$ = elem(pmh_NO_TYPE); }
+Whitespace = Spacechar | Newline
 
-EmphStar =  s:OneStarOpen
-            ( !OneStarClose Inline )*
-            OneStarClose
+EmphStar =  < s:LocMarker
+            '*' !Whitespace
+            ( !'*' Inline
+            | StrongStar
+            )+
+            '*' >
             { ADD(elem_s(pmh_EMPH)); }
 
-OneUlOpen  =  !UlLine < '_' > !Spacechar !Newline { $$ = elem(pmh_NO_TYPE); }
-OneUlClose =  !Spacechar !Newline Inline !StrongUl < '_' > !Alphanumeric { $$ = elem(pmh_NO_TYPE); }
-
-EmphUl =    s:OneUlOpen
-            ( !OneUlClose Inline )*
-            OneUlClose
+EmphUl =    < s:LocMarker
+            '_' !Whitespace
+            ( !'_' Inline
+            | StrongUl
+            )+
+            '_' >
             { ADD(elem_s(pmh_EMPH)); }
 
 Strong = StrongStar | StrongUl
 
-TwoStarOpen =   !StarLine < "**" > !Spacechar !Newline { $$ = elem(pmh_NO_TYPE); }
-TwoStarClose =  !Spacechar !Newline Inline < "**" > { $$ = elem(pmh_NO_TYPE); }
-
-StrongStar =    s:TwoStarOpen
-                ( !TwoStarClose Inline )*
-                TwoStarClose
+StrongStar =    < s:LocMarker
+                "**" !Whitespace
+                ( !"**" Inline )+
+                "**" >
                 { ADD(elem_s(pmh_STRONG)); }
 
-TwoUlOpen =     !UlLine < "__" > !Spacechar !Newline { $$ = elem(pmh_NO_TYPE); }
-TwoUlClose =    !Spacechar !Newline Inline < "__" > !Alphanumeric { $$ = elem(pmh_NO_TYPE); }
-
-StrongUl =  s:TwoUlOpen
-            ( !TwoUlClose Inline )*
-            TwoUlClose
-            { ADD(elem_s(pmh_STRONG)); }
+StrongUl   =    < s:LocMarker
+                "__" !Whitespace
+                ( !"__" Inline )+
+                "__" >
+                { ADD(elem_s(pmh_STRONG)); }
 
 Image = '!' ( ExplicitLink | ReferenceLink )
         {

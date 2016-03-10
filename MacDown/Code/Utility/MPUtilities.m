@@ -14,6 +14,8 @@ NSString * const kMPStylesDirectoryName = @"Styles";
 NSString * const kMPStyleFileExtension = @"css";
 NSString * const kMPThemesDirectoryName = @"Themes";
 NSString * const kMPThemeFileExtension = @"style";
+NSString * const kMPPlugInsDirectoryName = @"PlugIns";
+NSString * const kMPPlugInFileExtension = @"plugin";
 
 static NSString *MPDataRootDirectory()
 {
