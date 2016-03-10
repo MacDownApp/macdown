@@ -113,6 +113,8 @@ static NSString * const kMPDefaultHtmlStyleName = @"GitHub2";
 @dynamic htmlCodeBlockAccessory;
 @dynamic htmlRendersTOC;
 
+@dynamic alwaysHidePreview;
+
 // Private preference.
 @dynamic editorBaseFontInfo;
 
@@ -206,6 +208,7 @@ static NSString * const kMPDefaultHtmlStyleName = @"GitHub2";
     self.htmlStyleName = kMPDefaultHtmlStyleName;
     self.htmlDefaultDirectoryUrl = [NSURL fileURLWithPath:NSHomeDirectory()
                                               isDirectory:YES];
+    self.alwaysHidePreview = NO;
 }
 
 /** Load default preferences when the app launches.

@@ -70,6 +70,8 @@ extern NSString * const MPDidDetectFreshInstallationNotification;
 @property (assign) NSURL *htmlDefaultDirectoryUrl;
 @property (assign) BOOL htmlRendersTOC;
 
+@property (assign) BOOL alwaysHidePreview;
+
 // Calculated values.
 @property (readonly) NSString *editorBaseFontName;
 @property (readonly) CGFloat editorBaseFontSize;

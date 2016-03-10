@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="8191"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9532"/>
         <capability name="box content view" minToolsVersion="7.0"/>
     </dependencies>
     <objects>
@@ -15,7 +15,7 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="Hz6-mo-xeY">
-            <rect key="frame" x="0.0" y="0.0" width="353" height="249"/>
+            <rect key="frame" x="0.0" y="0.0" width="353" height="277"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <box autoresizesSubviews="NO" title="Update" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="eLn-fW-Agu">
@@ -49,13 +49,13 @@
                     <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </box>
                 <box autoresizesSubviews="NO" title="Behavior" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="Nma-PL-ZvX">
-                    <rect key="frame" x="17" y="74" width="319" height="155"/>
+                    <rect key="frame" x="17" y="79" width="319" height="178"/>
                     <view key="contentView" id="onQ-1i-oQ0">
-                        <rect key="frame" x="1" y="1" width="317" height="139"/>
+                        <rect key="frame" x="1" y="1" width="317" height="162"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="6Nz-Ft-FbR">
-                                <rect key="frame" x="16" y="93" width="285" height="18"/>
+                                <rect key="frame" x="16" y="116" width="285" height="18"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="14" id="HtO-jU-tMN"/>
                                 </constraints>
@@ -73,7 +73,7 @@
                                 </connections>
                             </button>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="Vab-4T-IU5">
-                                <rect key="frame" x="16" y="73" width="285" height="18"/>
+                                <rect key="frame" x="16" y="96" width="285" height="18"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="14" id="X3J-8y-4eQ"/>
                                 </constraints>
@@ -86,7 +86,7 @@
                                 </connections>
                             </button>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="fjb-tU-1Kw">
-                                <rect key="frame" x="16" y="53" width="285" height="18"/>
+                                <rect key="frame" x="16" y="76" width="285" height="18"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="14" id="gLz-Pu-BCz"/>
                                 </constraints>
@@ -99,7 +99,7 @@
                                 </connections>
                             </button>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="WVd-hz-Dcr">
-                                <rect key="frame" x="16" y="33" width="285" height="18"/>
+                                <rect key="frame" x="16" y="56" width="285" height="18"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="14" id="8H5-jQ-GoX"/>
                                 </constraints>
@@ -117,7 +117,7 @@
                                 </connections>
                             </button>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="hqr-gd-6gi">
-                                <rect key="frame" x="16" y="113" width="285" height="18"/>
+                                <rect key="frame" x="16" y="136" width="285" height="18"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="14" id="mpk-Ws-hqc"/>
                                 </constraints>
@@ -135,13 +135,23 @@
                                 </connections>
                             </button>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="UZT-HE-EaK">
-                                <rect key="frame" x="16" y="12" width="285" height="18"/>
+                                <rect key="frame" x="16" y="35" width="285" height="18"/>
                                 <buttonCell key="cell" type="check" title="Automatically create files for link targets" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="hpF-zP-3cM">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
                                     <binding destination="-2" name="value" keyPath="self.preferences.createFileForLinkTarget" id="MLt-T7-Cm3"/>
+                                </connections>
+                            </button>
+                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MXJ-97-76T">
+                                <rect key="frame" x="16" y="14" width="178" height="18"/>
+                                <buttonCell key="cell" type="check" title="Always hide preview pane" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="mbi-ut-QRs">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <binding destination="-2" name="value" keyPath="self.preferences.alwaysHidePreview" id="tCx-Za-uzp"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -153,7 +163,7 @@
                         <constraint firstItem="hqr-gd-6gi" firstAttribute="top" secondItem="Nma-PL-ZvX" secondAttribute="top" constant="25" id="1wH-Rt-vj6"/>
                         <constraint firstAttribute="trailing" secondItem="UZT-HE-EaK" secondAttribute="trailing" constant="16" id="72H-A1-Jxe"/>
                         <constraint firstItem="WVd-hz-Dcr" firstAttribute="leading" secondItem="Nma-PL-ZvX" secondAttribute="leading" constant="16" id="CHN-Yp-0Ff"/>
-                        <constraint firstAttribute="bottom" secondItem="UZT-HE-EaK" secondAttribute="bottom" constant="11" id="Jkz-15-VH9"/>
+                        <constraint firstAttribute="bottom" secondItem="UZT-HE-EaK" secondAttribute="bottom" constant="34" id="Jkz-15-VH9"/>
                         <constraint firstItem="6Nz-Ft-FbR" firstAttribute="leading" secondItem="Nma-PL-ZvX" secondAttribute="leading" constant="16" id="Orz-1j-PcM"/>
                         <constraint firstAttribute="trailing" secondItem="Vab-4T-IU5" secondAttribute="trailing" constant="16" id="SSy-nb-3Jk"/>
                         <constraint firstItem="hqr-gd-6gi" firstAttribute="leading" secondItem="Nma-PL-ZvX" secondAttribute="leading" constant="16" id="al2-wQ-QB5"/>
@@ -171,7 +181,7 @@
                 </box>
             </subviews>
             <constraints>
-                <constraint firstItem="eLn-fW-Agu" firstAttribute="top" secondItem="Nma-PL-ZvX" secondAttribute="bottom" constant="8" id="7vO-LB-boi"/>
+                <constraint firstItem="eLn-fW-Agu" firstAttribute="top" secondItem="Nma-PL-ZvX" secondAttribute="bottom" constant="13" id="7vO-LB-boi"/>
                 <constraint firstItem="eLn-fW-Agu" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="20" id="JVD-9m-cDN"/>
                 <constraint firstItem="Nma-PL-ZvX" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="20" id="Xks-uM-jKA"/>
                 <constraint firstAttribute="trailing" secondItem="eLn-fW-Agu" secondAttribute="trailing" constant="20" id="g57-m5-Sn8"/>
@@ -179,7 +189,7 @@
                 <constraint firstAttribute="trailing" secondItem="Nma-PL-ZvX" secondAttribute="trailing" constant="20" id="vgl-l0-6gP"/>
                 <constraint firstAttribute="bottom" secondItem="eLn-fW-Agu" secondAttribute="bottom" constant="20" id="vuS-pt-xOq"/>
             </constraints>
-            <point key="canvasLocation" x="324.5" y="402.5"/>
+            <point key="canvasLocation" x="324.5" y="416.5"/>
         </customView>
         <userDefaultsController representsSharedInstance="YES" id="gqb-sS-PAs"/>
     </objects>

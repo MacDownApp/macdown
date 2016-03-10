@@ -426,7 +426,17 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     wordCountWidget.alphaValue = 0.9;
     wordCountWidget.hidden = !self.preferences.editorShowWordCount;
     wordCountWidget.enabled = NO;
-
+    
+    // Resolves issue #378: https://github.com/uranusjr/macdown/issues/378
+    // Checks if Always Hide Preview Pane preference is on or off
+    // Toggles only if the file is "new" (does not affect current file-based persistence)
+    if (!self.fileURL) {
+        if (self.preferences.alwaysHidePreview && self.previewVisible)
+            [self togglePreviewPane:nil];
+        if (!self.preferences.alwaysHidePreview && !self.previewVisible)
+            [self togglePreviewPane:nil];
+    }
+    
     // These needs to be queued until after the window is shown, so that editor
     // can have the correct dimention for size-limiting and stuff. See
     // https://github.com/uranusjr/macdown/issues/236
@@ -435,6 +445,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
         [self redrawDivider];
         [self reloadFromLoadedString];
     }];
+    
 }
 
 - (void)reloadFromLoadedString
@@ -620,7 +631,6 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     if (action == @selector(togglePreviewPane:))
     {
         NSMenuItem *it = ((NSMenuItem *)item);
-        it.hidden = (!self.previewVisible && self.previousSplitRatio < 0.0);
         it.title = self.previewVisible ?
             NSLocalizedString(@"Hide Preview Pane",
                               @"Toggle preview pane menu item") :
@@ -1290,8 +1300,11 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     }
     else
     {
-        if (self.previousSplitRatio >= 0.0)
+        if (self.previousSplitRatio >= 0.0) {
             [self setSplitViewDividerLocation:self.previousSplitRatio];
+        } else {
+            [self setSplitViewDividerLocation:0.5];
+        }
     }
 }
 
@@ -1540,7 +1553,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     BOOL wasVisible = self.previewVisible;
     [self.splitView setDividerLocation:ratio];
     if (!wasVisible && self.previewVisible
-            && !self.preferences.markdownManualRender)
+        && !self.preferences.markdownManualRender)
         [self.renderer parseAndRenderNow];
     [self setupEditor:NSStringFromSelector(@selector(editorHorizontalInset))];
 }
