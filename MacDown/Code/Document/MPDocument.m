@@ -826,7 +826,6 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
         request:(NSURLRequest *)request frame:(WebFrame *)frame
                 decisionListener:(id<WebPolicyDecisionListener>)listener
 {
-//    NSURL *url = information[WebActionOriginalURLKey];
     switch ([information[WebActionNavigationTypeKey] integerValue])
     {
         case WebNavigationTypeLinkClicked:
