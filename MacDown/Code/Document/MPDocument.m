@@ -826,6 +826,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
         request:(NSURLRequest *)request frame:(WebFrame *)frame
                 decisionListener:(id<WebPolicyDecisionListener>)listener
 {
+//    NSURL *url = information[WebActionOriginalURLKey];
     switch ([information[WebActionNavigationTypeKey] integerValue])
     {
         case WebNavigationTypeLinkClicked:
@@ -1595,14 +1596,29 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 
 - (void)openOrCreateFileForUrl:(NSURL *)url
 {
-    // TODO: Make this togglable in preferences.
-    // If this is a file URL and the target does not exist, create and open it.
-    if (self.preferences.createFileForLinkTarget && url.isFileURL
-        && ![[NSFileManager defaultManager] fileExistsAtPath:url.path])
+    // If the URL points to a nonexistent file, create automatically if
+    // requested, or provide better error message.
+    if (url.isFileURL && ![url checkResourceIsReachableAndReturnError:NULL])
     {
-        NSDocumentController *controller =
-            [NSDocumentController sharedDocumentController];
-        [controller openUntitledDocumentForURL:url display:YES error:NULL];
+        if (self.preferences.createFileForLinkTarget)
+        {
+            NSDocumentController *controller =
+                [NSDocumentController sharedDocumentController];
+            [controller openUntitledDocumentForURL:url display:YES error:NULL];
+            return;
+        }
+
+        NSAlert *alert = [[NSAlert alloc] init];
+        NSString *template = NSLocalizedString(
+            @"File not found at path:\n%@",
+            @"preview navigation error message");
+        alert.messageText = [NSString stringWithFormat:template, url.path];
+        alert.informativeText = NSLocalizedString(
+            @"Please check the path of your link is correct. Turn on "
+            @"“Automatically create link targets” If you want MacDown to "
+            @"create nonexistent link targets for you",
+            @"preview navigation error information");
+        [alert runModal];
         return;
     }
 
