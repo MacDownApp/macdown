@@ -1615,7 +1615,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
         alert.informativeText = NSLocalizedString(
             @"Please check the path of your link is correct. Turn on "
             @"“Automatically create link targets” If you want MacDown to "
-            @"create nonexistent link targets for you",
+            @"create nonexistent link targets for you.",
             @"preview navigation error information");
         [alert runModal];
         return;
