@@ -395,7 +395,7 @@ NS_INLINE void MPFreeHTMLRenderer(hoedown_renderer *htmlRenderer)
     NSURL *url = [NSURL URLWithString:kMPMathJaxCDN];
     NSBundle *bundle = [NSBundle mainBundle];
     MPEmbeddedScript *script =
-        [MPEmbeddedScript assetWithURL:[bundle URLForResource:@"callback"
+        [MPEmbeddedScript assetWithURL:[bundle URLForResource:@"init"
                                                 withExtension:@"js"
                                                  subdirectory:@"MathJax"]
                                andType:kMPMathJaxConfigType];
