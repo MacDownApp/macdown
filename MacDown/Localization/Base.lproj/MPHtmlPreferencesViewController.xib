@@ -114,6 +114,28 @@
                         <binding destination="-2" name="enabled" keyPath="self.preferences.htmlSyntaxHighlighting" id="zSJ-H9-kjZ"/>
                     </connections>
                 </button>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qe1-sK-Yxe">
+                    <rect key="frame" x="247" y="221" width="69" height="18"/>
+                    <buttonCell key="cell" type="check" title="Graphviz" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="Lnj-HG-QHi">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="smallSystem"/>
+                    </buttonCell>
+                    <connections>
+                        <binding destination="-2" name="enabled" keyPath="self.preferences.htmlSyntaxHighlighting" id="9S7-QA-gUw"/>
+                        <binding destination="-2" name="value" keyPath="self.preferences.htmlGraphviz" id="28T-6A-JOn"/>
+                    </connections>
+                </button>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bWg-uC-6W8">
+                    <rect key="frame" x="318" y="221" width="68" height="18"/>
+                    <buttonCell key="cell" type="check" title="Mermaid" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="bda-Ft-ecb">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="smallSystem"/>
+                    </buttonCell>
+                    <connections>
+                        <binding destination="-2" name="enabled" keyPath="self.preferences.htmlSyntaxHighlighting" id="EPx-Wd-dqb"/>
+                        <binding destination="-2" name="value" keyPath="self.preferences.htmlMermaid" id="0Vt-zm-bOO"/>
+                    </connections>
+                </button>
                 <button translatesAutoresizingMaskIntoConstraints="NO" id="5mI-gS-xH9">
                     <rect key="frame" x="106" y="197" width="281" height="18"/>
                     <buttonCell key="cell" type="check" title="TeX-like math syntax" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="6vg-3f-KWk">
