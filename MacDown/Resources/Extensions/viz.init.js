@@ -1,6 +1,11 @@
 // graphviz init
 (function () {
-  var graphviz_engines = ["dot"];
+ var graphviz_engines = ["circo",
+                         "dot",
+                         "fdp",
+                         "neato",
+                         "osage",
+                         "twopi"];
  
   function doGraphviz(engine) {
     var domAllDot = document.querySelectorAll(".language-" + engine);
@@ -13,7 +18,7 @@
       if (dom.tagName === "PRE") {
         dom = dom.parentElement;
       }
-      dom.innerHTML = Viz(graphSource);
+      dom.innerHTML = Viz(graphSource, { engine: engine});
     }
   }
  
