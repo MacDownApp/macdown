@@ -10,6 +10,7 @@
 			<key>CFBundleTypeExtensions</key>
 			<array>
 				<string>md</string>
+				<string>markdown</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
 			<string>MarkdownDocument</string>
