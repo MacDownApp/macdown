@@ -22,7 +22,14 @@
     }
   }
  
-  for (var i = 0; i < graphviz_engines.length; i++) {
-    doGraphviz(graphviz_engines[i]);
+  var init = function() {
+    for (var i = 0; i < graphviz_engines.length; i++) {
+      doGraphviz(graphviz_engines[i]);
+    }
+  };
+  if (typeof window.addEventListener != "undefined") {
+    window.addEventListener("load", init, false);
+  } else {
+    window.attachEvent("onload", init);
   }
 })();
