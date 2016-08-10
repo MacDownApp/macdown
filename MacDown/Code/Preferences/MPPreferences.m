@@ -9,6 +9,15 @@
 #import "MPPreferences.h"
 
 
+typedef NS_ENUM(NSUInteger, MPUnorderedListMarkerType)
+{
+    MPUnorderedListMarkerAsterisk = 0,
+    MPUnorderedListMarkerPlusSign = 1,
+    MPUnorderedListMarkerMinusSign = 2,
+};
+
+
+
 NSString * const MPDidDetectFreshInstallationNotification =
     @"MPDidDetectFreshInstallationNotificationName";
 
@@ -97,6 +106,7 @@ static NSString * const kMPDefaultHtmlStyleName = @"GitHub2";
 @dynamic editorWordCountType;
 @dynamic editorScrollsPastEnd;
 @dynamic editorEnsuresNewlineAtEndOfFile;
+@dynamic editorUnorderedListMarkerType;
 
 @dynamic previewZoomRelativeToBaseFontSize;
 
@@ -141,6 +151,21 @@ static NSString * const kMPDefaultHtmlStyleName = @"GitHub2";
         kMPDefaultEditorFontPointSizeKey: @(font.pointSize)
     };
     self.editorBaseFontInfo = info;
+}
+
+- (NSString *)editorUnorderedListMarker
+{
+    switch (self.editorUnorderedListMarkerType)
+    {
+        case MPUnorderedListMarkerAsterisk:
+            return @"* ";
+        case MPUnorderedListMarkerPlusSign:
+            return @"+ ";
+        case MPUnorderedListMarkerMinusSign:
+            return @"- ";
+        default:
+            return @"* ";
+    }
 }
 
 

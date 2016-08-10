@@ -54,6 +54,7 @@ extern NSString * const MPDidDetectFreshInstallationNotification;
 @property (assign) NSInteger editorWordCountType;
 @property (assign) BOOL editorScrollsPastEnd;
 @property (assign) BOOL editorEnsuresNewlineAtEndOfFile;
+@property (assign) NSInteger editorUnorderedListMarkerType;
 
 @property (assign) BOOL previewZoomRelativeToBaseFontSize;
 
@@ -75,6 +76,7 @@ extern NSString * const MPDidDetectFreshInstallationNotification;
 @property (readonly) NSString *editorBaseFontName;
 @property (readonly) CGFloat editorBaseFontSize;
 @property (nonatomic, assign) NSFont *editorBaseFont;
+@property (readonly) NSString *editorUnorderedListMarker;
 
 - (instancetype)init;
 

@@ -1226,7 +1226,8 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 
 - (IBAction)toggleUnorderedList:(id)sender
 {
-    [self.editor toggleBlockWithPattern:@"^[\\*\\+-] \\S" prefix:@"* "];
+    NSString *marker = self.preferences.editorUnorderedListMarker;
+    [self.editor toggleBlockWithPattern:@"^[\\*\\+-] \\S" prefix:marker];
 }
 
 - (IBAction)toggleBlockquote:(id)sender
