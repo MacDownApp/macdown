@@ -21,12 +21,12 @@ table {
 	margin: 10px 0 15px 0;
 	border-collapse: collapse;
 }
-td,th {	
+td,th {
 	border: 1px solid #ddd;
 	padding: 3px 10px;
 }
 th {
-	padding: 5px 10px;	
+	padding: 5px 10px;
 }
 
 a {
@@ -127,6 +127,19 @@ sup {
     font-size: 0.83em;
     vertical-align: super;
     line-height: 0;
+}
+kbd {
+  display: inline-block;
+  padding: 3px 5px;
+  font-size: 11px;
+  line-height: 10px;
+  color: #555;
+  vertical-align: middle;
+  background-color: #fcfcfc;
+  border: solid 1px #ccc;
+  border-bottom-color: #bbb;
+  border-radius: 3px;
+  box-shadow: inset 0 -1px 0 #bbb;
 }
 * {
 	-webkit-print-color-adjust: exact;
