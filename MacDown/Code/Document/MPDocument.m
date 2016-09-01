@@ -641,6 +641,37 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 }
 
 
+#pragma mark - NSFilePresenter
+
+- (void)presentedItemDidChange
+{
+    NSFileManager *mngr = [NSFileManager defaultManager];
+    NSDictionary *attrs = [mngr attributesOfItemAtPath:self.fileURL.path
+                                                 error:NULL];
+    NSDate *lastModification = attrs[NSFileModificationDate];
+    NSTimeInterval modificationDiff =
+        [lastModification timeIntervalSinceDate:self.fileModificationDate];
+
+    // If we are not modified, but the file's actual modification time does
+    // not match, then this file must have been modified by somebody else.
+    // (Note that we play safe and do not reload if lastModification is nil
+    // because we failed to read attributes from the file.)
+    // TODO: Provide some fallback mechanism if the file are being edited
+    // concurrently.
+    if (!self.isDocumentEdited && modificationDiff > 0)
+    {
+        // TODO: This will return NO if reverting fails. Present some UI with
+        // the out error.
+        [self revertToContentsOfURL:self.fileURL
+                             ofType:self.fileType error:NULL];
+        // Wait until reverting finished to setup the font.
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            [self setupEditor:@"editorBaseFontInfo"];
+        }];
+    }
+}
+
+
 #pragma mark - NSSplitViewDelegate
 
 - (void)splitViewDidResizeSubviews:(NSNotification *)notification
