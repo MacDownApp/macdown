@@ -25,6 +25,8 @@ BUILD_DIR = os.path.join(ROOT_DIR, 'Build')
 APP_NAME = 'MacDown.app'
 ZIP_NAME = 'MacDown.app.zip'
 
+TERM_ENCODING = 'utf-8'
+
 
 class CommandError(Exception):
     pass
@@ -97,7 +99,11 @@ def main(argv):
         XCODEBUILD, 'archive', '-workspace', '../MacDown.xcworkspace',
         '-scheme', 'MacDown',
     )
-    match = re.search(r'^\s*ARCHIVE_PATH: (.+)$', output, re.MULTILINE)
+    match = re.search(
+        r'^\s*ARCHIVE_PATH: (.+)$',
+        output.decode(TERM_ENCODING),
+        re.MULTILINE,
+    )
     archive_path = match.group(1)
     print('Exporting application bundle...')
     execute(
