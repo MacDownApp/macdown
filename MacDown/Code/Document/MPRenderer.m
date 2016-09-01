@@ -222,6 +222,34 @@ NS_INLINE BOOL MPAreNilableStringsEqual(NSString *s1, NSString *s2)
 @end
 
 
+NS_INLINE void add_to_languages(
+    NSString *lang, NSMutableArray *languages, NSDictionary *languageMap)
+{
+    // Move language to root of dependencies.
+    NSUInteger index = [languages indexOfObject:lang];
+    if (index != NSNotFound)
+        [languages removeObjectAtIndex:index];
+    [languages insertObject:lang atIndex:0];
+
+    // Add dependencies of this language.
+    id require = languageMap[lang][@"require"];
+    if ([require isKindOfClass:[NSString class]])
+    {
+        add_to_languages(require, languages, languageMap);
+    }
+    else if ([require isKindOfClass:[NSArray class]])
+    {
+        for (NSString *lang in require)
+            add_to_languages(lang, languages, languageMap);
+    }
+    else if (require)
+    {
+        NSLog(@"Unknown Prism langauge requirement "
+              @"%@ dropped for unknown format", require);
+    }
+}
+
+
 NS_INLINE hoedown_buffer *language_addition(
     const hoedown_buffer *language, void *owner)
 {
@@ -263,15 +291,7 @@ NS_INLINE hoedown_buffer *language_addition(
     }
 
     // Walk dependencies to include all required scripts.
-    NSMutableArray *languages = renderer.currentLanguages;
-    while (lang)
-    {
-        NSUInteger index = [languages indexOfObject:lang];
-        if (index != NSNotFound)
-            [languages removeObjectAtIndex:index];
-        [languages insertObject:lang atIndex:0];
-        lang = languageMap[lang][@"require"];
-    }
+    add_to_languages(lang, renderer.currentLanguages, languageMap);
     
     return mapped;
 }
