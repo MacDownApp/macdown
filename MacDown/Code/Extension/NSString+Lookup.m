@@ -54,7 +54,8 @@
 
 - (id)frontMatter:(NSUInteger *)contentOffset
 {
-    static NSString *pattern = @"^-{3}\n(.*?\n)((?:-{3})|(?:\\.{3}))";
+    static NSString *pattern =
+        @"^-{3}[\r\n]+(.*?[\r\n]+)((?:-{3})|(?:\\.{3}))";
     NSRegularExpressionOptions op = NSRegularExpressionDotMatchesLineSeparators;
     NSRegularExpression *regex =
         [NSRegularExpression regularExpressionWithPattern:pattern
