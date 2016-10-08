@@ -31,7 +31,8 @@
 #define strdup _strdup
 #endif
 
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunreachable-code"
 
 // Internal language element occurrence structure, containing
 // both public and private members:
