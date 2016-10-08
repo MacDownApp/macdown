@@ -212,7 +212,7 @@ NS_INLINE void treat()
     NSDocumentController *c = [NSDocumentController sharedDocumentController];
     for (NSString *path in self.prefereces.filesToOpenOnNextLaunch)
     {
-        NSURL *url = [NSURL URLWithString:path];
+        NSURL *url = [NSURL fileURLWithPath:path];
         if ([url checkResourceIsReachableAndReturnError:NULL])
         {
             [c openDocumentWithContentsOfURL:url display:YES
