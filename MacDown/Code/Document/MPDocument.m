@@ -1368,10 +1368,10 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
                 }];
         }
 
-        CGColorRef backgroundCGColor = self.editor.backgroundColor.CGColor;
-
         CALayer *layer = [CALayer layer];
-        layer.backgroundColor = backgroundCGColor;
+        CGColorRef backgroundCGColor = self.editor.backgroundColor.CGColor;
+        if (backgroundCGColor)
+            layer.backgroundColor = backgroundCGColor;
         self.editorContainer.layer = layer;
     }
     
