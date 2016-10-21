@@ -448,28 +448,11 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     }
 }
 
-- (void)canCloseDocumentWithDelegate:(id)delegate
-                 shouldCloseSelector:(SEL)selector contextInfo:(void *)context
-{
-    selector = @selector(document:shouldClose:contextInfo:);
-    [super canCloseDocumentWithDelegate:delegate shouldCloseSelector:selector
-                            contextInfo:context];
-}
-
-- (void)document:(NSDocument *)doc shouldClose:(BOOL)shouldClose
-     contextInfo:(void *)contextInfo
-{
-    if (!shouldClose)
-        return;
-
-    [self close];
-}
-
 - (void)close
 {
     if (self.needsToUnregister) 
     {
-        // close can be called multiple times
+        // Close can be called multiple times, but this can only be done once.
         // http://www.cocoabuilder.com/archive/cocoa/240166-nsdocument-close-method-calls-itself.html
         self.needsToUnregister = NO;
 
