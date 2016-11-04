@@ -179,11 +179,11 @@ NS_INLINE NSString *MPGetHTML(
         titleTag = [NSString stringWithFormat:@"<title>%@</title>", title];
 
     NSDictionary *context = @{
-        @"title": title,
-        @"titleTag": titleTag,
-        @"styleTags": styleTags,
-        @"body": body,
-        @"scriptTags": scriptTags,
+        @"title": title ? title : @"",
+        @"titleTag": titleTag ? titleTag : @"",
+        @"styleTags": styleTags ? styleTags : @[],
+        @"body": body ? body : @"",
+        @"scriptTags": scriptTags ? scriptTags : @[],
     };
     NSString *html = [HBHandlebars renderTemplateString:f withContext:context
                                                   error:NULL];
