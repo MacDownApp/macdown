@@ -9,8 +9,10 @@
 #import "MPMainController.h"
 #import <MASPreferences/MASPreferencesWindowController.h>
 #import <Sparkle/SUUpdater.h>
+#import "MPGlobals.h"
 #import "MPUtilities.h"
 #import "NSDocumentController+Document.h"
+#import "NSUserDefaults+Suite.h"
 #import "MPPreferences.h"
 #import "MPGeneralPreferencesViewController.h"
 #import "MPMarkdownPreferencesViewController.h"
@@ -210,7 +212,12 @@ NS_INLINE void treat()
 - (void)openPendingFiles
 {
     NSDocumentController *c = [NSDocumentController sharedDocumentController];
-    for (NSString *path in self.prefereces.filesToOpenOnNextLaunch)
+
+    NSUserDefaults *defaults = [[NSUserDefaults alloc] init];
+    NSArray *paths = [defaults objectForKey:@"filesToOpenOnNextLaunch"
+                               inSuiteNamed:kMPApplicationSuiteName];
+
+    for (NSString *path in paths)
     {
         NSURL *url = [NSURL fileURLWithPath:path];
         if ([url checkResourceIsReachableAndReturnError:NULL])
@@ -223,7 +230,10 @@ NS_INLINE void treat()
             [c openUntitledDocumentForURL:url display:YES error:NULL];
         }
     }
-    self.prefereces.filesToOpenOnNextLaunch = nil;
+
+    [defaults setObject:@[] forKey:@"filesToOpenOnNextLaunch"
+           inSuiteNamed:kMPApplicationSuiteName];
+    [defaults synchronize];
     treat();
 }
 

@@ -11,6 +11,7 @@
 @interface NSUserDefaults (Suite)
 
 - (instancetype)initWithSuiteNamed:(NSString *)suiteName;
+- (id)objectForKey:(NSString *)key inSuiteNamed:(NSString *)suiteName;
 - (void)setObject:(id)value forKey:(NSString *)key
      inSuiteNamed:(NSString *)suiteName;
 

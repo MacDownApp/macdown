@@ -31,7 +31,6 @@
 		1F25E1C31A50F4F10029371D /* MPColorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F25E1C21A50F4F10029371D /* MPColorTests.m */; };
 		1F2649B01A7406DB00EF6AF3 /* NSDocumentController+Document.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F2649AF1A7406DB00EF6AF3 /* NSDocumentController+Document.m */; };
 		1F27896B1973BEB100EE696A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1F2789691973BEB100EE696A /* Localizable.strings */; };
-		1F2A17281A1BB3E30055A107 /* NSUserDefaults+Suite.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F2A17271A1BB3E30055A107 /* NSUserDefaults+Suite.m */; };
 		1F3386E61A6B999600FC88C4 /* DOMNode+Text.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F3386E51A6B999600FC88C4 /* DOMNode+Text.m */; };
 		1F33F2A11A3B4B660001C849 /* MPDocumentSplitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F33F2A01A3B4B660001C849 /* MPDocumentSplitView.m */; };
 		1F33F2A41A3B56D20001C849 /* NSColor+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F33F2A31A3B56D20001C849 /* NSColor+HTML.m */; };
@@ -46,6 +45,7 @@
 		1F5A37101C868EC0006E63E7 /* MPPlugIn.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F5A370F1C868EC0006E63E7 /* MPPlugIn.m */; };
 		1F5A37141C869C81006E63E7 /* MPPlugInController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F5A37131C869C81006E63E7 /* MPPlugInController.m */; };
 		1F64CCC9195F5AB900CE619A /* MPAsset.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F64CCC8195F5AB900CE619A /* MPAsset.m */; };
+		1F847BC61DCC9DB600A47385 /* NSUserDefaults+Suite.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F847BC51DCC9DB600A47385 /* NSUserDefaults+Suite.m */; };
 		1F8858BC1A2D8D82008DC543 /* MPArgumentProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F8858BB1A2D8D82008DC543 /* MPArgumentProcessor.m */; };
 		1F8A82D919533E9300B6BF69 /* Prism in Resources */ = {isa = PBXBuildFile; fileRef = 1F8A82D819533E9300B6BF69 /* Prism */; };
 		1F8A835D1953454F00B6BF69 /* HGMarkdownHighlighter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F8A83581953454F00B6BF69 /* HGMarkdownHighlighter.m */; };
@@ -180,8 +180,6 @@
 		1F2649AE1A7406DB00EF6AF3 /* NSDocumentController+Document.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDocumentController+Document.h"; sourceTree = "<group>"; };
 		1F2649AF1A7406DB00EF6AF3 /* NSDocumentController+Document.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDocumentController+Document.m"; sourceTree = "<group>"; };
 		1F27896A1973BEB100EE696A /* Base */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = Base; path = Localization/Base.lproj/Localizable.strings; sourceTree = "<group>"; };
-		1F2A17261A1BB3E30055A107 /* NSUserDefaults+Suite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSUserDefaults+Suite.h"; path = "macdown-cmd/NSUserDefaults+Suite.h"; sourceTree = SOURCE_ROOT; };
-		1F2A17271A1BB3E30055A107 /* NSUserDefaults+Suite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSUserDefaults+Suite.m"; path = "macdown-cmd/NSUserDefaults+Suite.m"; sourceTree = SOURCE_ROOT; };
 		1F3386E41A6B999600FC88C4 /* DOMNode+Text.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DOMNode+Text.h"; sourceTree = "<group>"; };
 		1F3386E51A6B999600FC88C4 /* DOMNode+Text.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DOMNode+Text.m"; sourceTree = "<group>"; };
 		1F33F29F1A3B4B660001C849 /* MPDocumentSplitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPDocumentSplitView.h; sourceTree = "<group>"; };
@@ -205,9 +203,11 @@
 		1F64CCC7195F5AB900CE619A /* MPAsset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPAsset.h; sourceTree = "<group>"; };
 		1F64CCC8195F5AB900CE619A /* MPAsset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPAsset.m; sourceTree = "<group>"; };
 		1F70CCD81978F03E00703429 /* MPAutosaving.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MPAutosaving.h; sourceTree = "<group>"; };
+		1F847BC31DCC9DA800A47385 /* MPGlobals.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MPGlobals.h; sourceTree = "<group>"; };
+		1F847BC41DCC9DB600A47385 /* NSUserDefaults+Suite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSUserDefaults+Suite.h"; sourceTree = "<group>"; };
+		1F847BC51DCC9DB600A47385 /* NSUserDefaults+Suite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSUserDefaults+Suite.m"; sourceTree = "<group>"; };
 		1F8858BA1A2D8D82008DC543 /* MPArgumentProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MPArgumentProcessor.h; path = "macdown-cmd/MPArgumentProcessor.h"; sourceTree = SOURCE_ROOT; };
 		1F8858BB1A2D8D82008DC543 /* MPArgumentProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MPArgumentProcessor.m; path = "macdown-cmd/MPArgumentProcessor.m"; sourceTree = SOURCE_ROOT; };
-		1F8858BD1A2D8ED4008DC543 /* MPGlobals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MPGlobals.h; path = "macdown-cmd/MPGlobals.h"; sourceTree = SOURCE_ROOT; };
 		1F8A82D819533E9300B6BF69 /* Prism */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Prism; path = Resources/Prism; sourceTree = "<group>"; };
 		1F8A83571953454F00B6BF69 /* HGMarkdownHighlighter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HGMarkdownHighlighter.h; path = "Dependency/peg-markdown-highlight/HGMarkdownHighlighter.h"; sourceTree = SOURCE_ROOT; };
 		1F8A83581953454F00B6BF69 /* HGMarkdownHighlighter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HGMarkdownHighlighter.m; path = "Dependency/peg-markdown-highlight/HGMarkdownHighlighter.m"; sourceTree = SOURCE_ROOT; };
@@ -325,6 +325,8 @@
 				1F0D9D5F194AC7CF008E1856 /* NSString+Lookup.m */,
 				1F0D9D60194AC7CF008E1856 /* NSTextView+Autocomplete.h */,
 				1F0D9D61194AC7CF008E1856 /* NSTextView+Autocomplete.m */,
+				1F847BC41DCC9DB600A47385 /* NSUserDefaults+Suite.h */,
+				1F847BC51DCC9DB600A47385 /* NSUserDefaults+Suite.m */,
 				3D175F0F1974282400A5EFE8 /* WebView+WebViewPrivateHeaders.h */,
 				1FBBD4C9194CA35900BB3C88 /* hoedown_html_patch.h */,
 				1FBBD4CA194CA36500BB3C88 /* hoedown_html_patch.c */,
@@ -336,6 +338,7 @@
 		1F0D9D62194AC7CF008E1856 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				1F847BC31DCC9DA800A47385 /* MPGlobals.h */,
 				1F23A91F19928E650052DB78 /* MPMathJaxListener.h */,
 				1F23A92019928E650052DB78 /* MPMathJaxListener.m */,
 				1F5A370E1C868EC0006E63E7 /* MPPlugIn.h */,
@@ -611,10 +614,7 @@
 		905EF1AA196164CA00FC3CE9 /* macdown-cmd */ = {
 			isa = PBXGroup;
 			children = (
-				1F2A17261A1BB3E30055A107 /* NSUserDefaults+Suite.h */,
-				1F2A17271A1BB3E30055A107 /* NSUserDefaults+Suite.m */,
 				1FCD711A1A20BE2F00C028B5 /* version.h */,
-				1F8858BD1A2D8ED4008DC543 /* MPGlobals.h */,
 				1F8858BA1A2D8D82008DC543 /* MPArgumentProcessor.h */,
 				1F8858BB1A2D8D82008DC543 /* MPArgumentProcessor.m */,
 				1FBE8E0E1A11DB1E003E1EF4 /* main.m */,
@@ -966,6 +966,7 @@
 				1F0D9D76194AC7F7008E1856 /* MPEditorPreferencesViewController.m in Sources */,
 				1F8A83621953461800B6BF69 /* pmh_parser.c in Sources */,
 				1F8A835D1953454F00B6BF69 /* HGMarkdownHighlighter.m in Sources */,
+				1F847BC61DCC9DB600A47385 /* NSUserDefaults+Suite.m in Sources */,
 				1F3386E61A6B999600FC88C4 /* DOMNode+Text.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -988,8 +989,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				1F8858BC1A2D8D82008DC543 /* MPArgumentProcessor.m in Sources */,
+				1F847BC71DCC9DB600A47385 /* NSUserDefaults+Suite.m in Sources */,
 				1FBE8E0F1A11DB1E003E1EF4 /* main.m in Sources */,
-				1F2A17281A1BB3E30055A107 /* NSUserDefaults+Suite.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
