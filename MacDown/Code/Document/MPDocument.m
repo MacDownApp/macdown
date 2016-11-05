@@ -487,6 +487,16 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     return @[@"net.daringfireball.markdown"];
 }
 
+- (BOOL)isDocumentEdited
+{
+    // Prevent save dialog on an unnamed, empty document. The file will still
+    // show as modified (because it is), but no save dialog will be presented
+    // when the user closes it.
+    if (!self.presentedItemURL && !self.editor.string.length)
+        return NO;
+    return [super isDocumentEdited];
+}
+
 - (BOOL)writeToURL:(NSURL *)url ofType:(NSString *)typeName
              error:(NSError *__autoreleasing *)outError
 {
