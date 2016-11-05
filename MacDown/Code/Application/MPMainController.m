@@ -147,7 +147,6 @@ NS_INLINE void treat()
                    name:MPDidDetectFreshInstallationNotification
                  object:self.prefereces];
     [self copyFiles];
-    [self openPendingFiles];
     return self;
 }
 
@@ -157,6 +156,11 @@ NS_INLINE void treat()
 - (BOOL)applicationShouldOpenUntitledFile:(NSApplication *)sender
 {
     return !self.prefereces.supressesUntitledDocumentOnLaunch;
+}
+
+- (void)applicationDidBecomeActive:(NSNotification *)notification
+{
+    [self openPendingFiles];
 }
 
 
@@ -214,7 +218,7 @@ NS_INLINE void treat()
     NSDocumentController *c = [NSDocumentController sharedDocumentController];
 
     NSUserDefaults *defaults = [[NSUserDefaults alloc] init];
-    NSArray *paths = [defaults objectForKey:@"filesToOpenOnNextLaunch"
+    NSArray *paths = [defaults objectForKey:kMPFilesToOpenKey
                                inSuiteNamed:kMPApplicationSuiteName];
 
     for (NSString *path in paths)
@@ -231,7 +235,7 @@ NS_INLINE void treat()
         }
     }
 
-    [defaults setObject:@[] forKey:@"filesToOpenOnNextLaunch"
+    [defaults setObject:@[] forKey:kMPFilesToOpenKey
            inSuiteNamed:kMPApplicationSuiteName];
     [defaults synchronize];
     treat();

@@ -23,16 +23,7 @@ NSRunningApplication *MPRunningMacDownInstance()
     return runningInstances.firstObject;
 }
 
-
-void MPCollectForRunningMacDown(NSOrderedSet<NSURL *> *urls)
-{
-    NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
-    for (NSURL *url in urls)
-        [workspace openFile:url.path withApplication:kMPApplicationName];
-}
-
-
-void MPCollectForUnlaunchedMacDown(NSOrderedSet<NSURL *> *urls)
+void MPCollectForMacDown(NSOrderedSet<NSURL *> *urls)
 {
     NSUserDefaults *defaults =
         [[NSUserDefaults alloc] initWithSuiteNamed:kMPApplicationSuiteName];
@@ -40,7 +31,7 @@ void MPCollectForUnlaunchedMacDown(NSOrderedSet<NSURL *> *urls)
         [[NSMutableArray alloc] initWithCapacity:urls.count];
     for (NSURL *url in urls)
         [urlStrings addObject:url.path];
-    [defaults setObject:urlStrings forKey:@"filesToOpenOnNextLaunch"
+    [defaults setObject:urlStrings forKey:kMPFilesToOpenKey
            inSuiteNamed:kMPApplicationSuiteName];
     [defaults synchronize];
 }
@@ -70,15 +61,7 @@ int main(int argc, const char * argv[])
             NSURL *url = [NSURL URLWithString:escaped relativeToURL:pwdUrl];
             [urls addObject:url];
         }
-
-        // If the application is running, open all files with the first running
-        // instance. Otherwise save the file URLs, and start the app (saved URLs
-        // will be opened when the app launches).
-        NSRunningApplication *instance = MPRunningMacDownInstance();
-        if (instance)
-            MPCollectForRunningMacDown(urls);
-        else
-            MPCollectForUnlaunchedMacDown(urls);
+        MPCollectForMacDown(urls);
 
         // Launch MacDown.
         [[NSWorkspace sharedWorkspace] launchApplication:kMPApplicationName];
