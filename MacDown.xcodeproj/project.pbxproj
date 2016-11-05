@@ -68,6 +68,7 @@
 		1FC29F5C1944FC2600D616C7 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FC29F5B1944FC2600D616C7 /* XCTest.framework */; };
 		1FC29F5E1944FC4F00D616C7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1FCDCA321944F96E00B1F966 /* InfoPlist.strings */; };
 		1FCE066419633D6C00DC83B4 /* Data in Resources */ = {isa = PBXBuildFile; fileRef = 1FCE066319633D6B00DC83B4 /* Data */; };
+		1FEAFEA21DCE762C008C4E8C /* NSUserDefaults+Suite.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F847BC51DCC9DB600A47385 /* NSUserDefaults+Suite.m */; };
 		1FF1420219A8987500CF8A6A /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FF1420119A8987500CF8A6A /* JavaScriptCore.framework */; };
 		1FF1420419A8A24800CF8A6A /* MPUtilityTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1420319A8A24800CF8A6A /* MPUtilityTests.m */; };
 		1FF207631941CF22005B5654 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FF207621941CF22005B5654 /* WebKit.framework */; };
@@ -988,9 +989,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1F8858BC1A2D8D82008DC543 /* MPArgumentProcessor.m in Sources */,
-				1F847BC71DCC9DB600A47385 /* NSUserDefaults+Suite.m in Sources */,
 				1FBE8E0F1A11DB1E003E1EF4 /* main.m in Sources */,
+				1F8858BC1A2D8D82008DC543 /* MPArgumentProcessor.m in Sources */,
+				1FEAFEA21DCE762C008C4E8C /* NSUserDefaults+Suite.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
