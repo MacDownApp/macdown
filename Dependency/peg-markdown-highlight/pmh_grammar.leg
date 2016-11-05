@@ -483,8 +483,8 @@ ReferenceLinkDouble =  < s:Label Spnl !"[]" l:Label >
                         	pmh_realelement *reference = GET_REF(l->label);
                             if (reference) {
                                 $$ = elem_s(pmh_LINK);
-                                $$->label = strdup(l->label);
-                                $$->address = strdup(reference->address);
+                                $$->label = strdup_or_null(l->label);
+                                $$->address = strdup_or_null(reference->address);
                             } else
                                 $$ = NULL;
                             FREE_LABEL(s);
@@ -496,8 +496,8 @@ ReferenceLinkSingle =  < s:Label (Spnl "[]")? >
                         	pmh_realelement *reference = GET_REF(s->label);
                             if (reference) {
                                 $$ = elem_s(pmh_LINK);
-                                $$->label = strdup(s->label);
-                                $$->address = strdup(reference->address);
+                                $$->label = strdup_or_null(s->label);
+                                $$->address = strdup_or_null(reference->address);
                             } else
                                 $$ = NULL;
                             FREE_LABEL(s);
@@ -507,7 +507,7 @@ ExplicitLink =  < s:Label Spnl '(' Sp l:Source Spnl Title Sp ')' >
                 {
                     $$ = elem_s(pmh_LINK);
                     if (l->address != NULL)
-                        $$->address = strdup(l->address);
+                        $$->address = strdup_or_null(l->address);
                     FREE_LABEL(s);
                     FREE_ADDRESS(l);
                 }
@@ -550,8 +550,8 @@ Reference = < s:LocMarker
               NonindentSpace !"[]" l:Label ':' Spnl r:RefSrc RefTitle > BlankLine+
               {
                 pmh_realelement *el = elem_s(pmh_REFERENCE);
-                el->label = strdup(l->label);
-                el->address = strdup(r->address);
+                el->label = strdup_or_null(l->label);
+                el->address = strdup_or_null(r->address);
                 ADD(el);
                 FREE_LABEL(l);
                 FREE_ADDRESS(r);
