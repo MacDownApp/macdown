@@ -952,6 +952,15 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 
     self.manualRender = self.preferences.markdownManualRender;
 
+#if 0
+    // Unfortunately this DOM-replacing causes a lot of problems...
+    // 1. MathJax needs to be triggered.
+    // 2. Prism rendering is lost.
+    // 3. Potentially more.
+    // Essentially all JavaScript needs to be run again after we replace
+    // the DOM. I have no idea how many more problems there are, so we'll have
+    // to back off from the path for now... :(
+
     // If we're working on the same document, try not to reload.
     if (self.isPreviewReady && [self.currentBaseUrl isEqualTo:baseUrl])
     {
@@ -979,9 +988,11 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
             // Replace everything in the old <html> tag.
             DOMElement *htmlNode = (DOMElement *)[htmlNodes item:0];
             htmlNode.innerHTML = html;
+
             return;
         }
     }
+#endif
 
     // Reload the page if there's not valid tree to work with.
     [self.preview.mainFrame loadHTMLString:html baseURL:baseUrl];
