@@ -536,12 +536,6 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 - (BOOL)prepareSavePanel:(NSSavePanel *)savePanel
 {
     savePanel.extensionHidden = NO;
-    NSString *fileName = self.presumedFileName;
-    if (fileName && ![fileName hasExtension:@"md"])
-    {
-        fileName = [fileName stringByAppendingPathExtension:@"md"];
-        savePanel.nameFieldStringValue = fileName;
-    }
     if (self.fileURL && self.fileURL.isFileURL)
     {
         NSString *path = self.fileURL.path;
@@ -554,6 +548,16 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
             path = [path stringByDeletingLastPathComponent];
 
         savePanel.directoryURL = [NSURL fileURLWithPath:path];
+    }
+    else
+    {
+        // Suggest a file name for new documents.
+        NSString *fileName = self.presumedFileName;
+        if (fileName && ![fileName hasExtension:@"md"])
+        {
+            fileName = [fileName stringByAppendingPathExtension:@"md"];
+            savePanel.nameFieldStringValue = fileName;
+        }
     }
     savePanel.allowedFileTypes = nil;   // Allow all extensions.
     return [super prepareSavePanel:savePanel];
