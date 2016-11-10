@@ -155,6 +155,8 @@ NS_INLINE void treat()
 
 - (BOOL)applicationShouldOpenUntitledFile:(NSApplication *)sender
 {
+    if (self.prefereces.filesToOpen.count)
+        return NO;
     return !self.prefereces.supressesUntitledDocumentOnLaunch;
 }
 
