@@ -217,11 +217,7 @@ NS_INLINE void treat()
 {
     NSDocumentController *c = [NSDocumentController sharedDocumentController];
 
-    NSUserDefaults *defaults = [[NSUserDefaults alloc] init];
-    NSArray *paths = [defaults objectForKey:kMPFilesToOpenKey
-                               inSuiteNamed:kMPApplicationSuiteName];
-
-    for (NSString *path in paths)
+    for (NSString *path in self.prefereces.filesToOpen)
     {
         NSURL *url = [NSURL fileURLWithPath:path];
         if ([url checkResourceIsReachableAndReturnError:NULL])
@@ -235,9 +231,8 @@ NS_INLINE void treat()
         }
     }
 
-    [defaults setObject:@[] forKey:kMPFilesToOpenKey
-           inSuiteNamed:kMPApplicationSuiteName];
-    [defaults synchronize];
+    self.prefereces.filesToOpen = nil;
+    [self.prefereces synchronize];
     treat();
 }
 

@@ -7,6 +7,8 @@
 //
 
 #import "MPPreferences.h"
+#import "NSUserDefaults+Suite.h"
+#import "MPGlobals.h"
 
 
 typedef NS_ENUM(NSUInteger, MPUnorderedListMarkerType)
@@ -31,6 +33,9 @@ static CGFloat    const kMPDefaultEditorLineSpacing = 3.0;
 static BOOL       const kMPDefaultEditorSyncScrolling = YES;
 static NSString * const kMPDefaultEditorThemeName = @"Tomorrow+";
 static NSString * const kMPDefaultHtmlStyleName = @"GitHub2";
+
+static NSString * const kMPApplicationSuiteName = @"com.uranusjr.macdown";
+static NSString * const kMPFilesToOpenKey = @"filesToOpenOnNextLaunch";
 
 
 @implementation MPPreferences
@@ -165,6 +170,19 @@ static NSString * const kMPDefaultHtmlStyleName = @"GitHub2";
         default:
             return @"* ";
     }
+}
+
+- (NSArray *)filesToOpen
+{
+    return [self.userDefaults objectForKey:kMPFilesToOpenKey
+                              inSuiteNamed:kMPApplicationSuiteName];
+}
+
+- (void)setFilesToOpen:(NSArray *)filesToOpen
+{
+    [self.userDefaults setObject:filesToOpen
+                          forKey:kMPFilesToOpenKey
+                    inSuiteNamed:kMPApplicationSuiteName];
 }
 
 
