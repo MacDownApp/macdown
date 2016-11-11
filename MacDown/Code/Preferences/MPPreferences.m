@@ -34,9 +34,6 @@ static BOOL       const kMPDefaultEditorSyncScrolling = YES;
 static NSString * const kMPDefaultEditorThemeName = @"Tomorrow+";
 static NSString * const kMPDefaultHtmlStyleName = @"GitHub2";
 
-static NSString * const kMPApplicationSuiteName = @"com.uranusjr.macdown";
-static NSString * const kMPFilesToOpenKey = @"filesToOpenOnNextLaunch";
-
 
 @implementation MPPreferences
 
