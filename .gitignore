@@ -170,6 +170,7 @@ xcuserdata
 
 # This needs to be included explicitly because we excluded *.lock previously.
 !Podfile.lock
+!Gemfile.lock
 
 Build/
 Pods/
