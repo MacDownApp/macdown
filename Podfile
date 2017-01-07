@@ -2,7 +2,7 @@
 # platform :ios, "6.0"
 
 source 'https://github.com/CocoaPods/Specs.git'
-xcodeproj 'MacDown.xcodeproj'
+project 'MacDown.xcodeproj'
 
 target "MacDown" do
   pod 'handlebars-objc', '~> 1.4'
