@@ -6,5 +6,7 @@ cache:
 install:
   - "bundle install"
   - "travis_wait bundle exec pod install"
-xcode_workspace: MacDown.xcworkspace
-xcode_scheme: MacDown
+before_script:
+  - set -o pipefail
+script:
+  - xcodebuild -workspace MacDown.xcworkspace -scheme MacDown test | xcpretty
