@@ -10,6 +10,9 @@
 
 @interface MPEditorView : NSTextView
 
+extern const NSTouchBarItemIdentifier MPTouchBarItemStrongIdentifier;
+extern const NSTouchBarItemIdentifier MPTouchBarItemEmphasisIdentifier;
+
 @property BOOL scrollsPastEnd;
 - (NSRect)contentRect;
 

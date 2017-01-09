@@ -9,7 +9,8 @@
 #import <Foundation/Foundation.h>
 @class MPPreferences;
 
-@interface MPMainController : NSObject <NSApplicationDelegate>
+@interface MPMainController : NSObject <NSApplicationDelegate,
+                                        NSTouchBarDelegate>
 
 @property (nonatomic, readonly) MPPreferences *prefereces;
 

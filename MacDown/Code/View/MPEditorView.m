@@ -8,6 +8,10 @@
 
 #import "MPEditorView.h"
 
+const NSTouchBarItemIdentifier MPTouchBarItemStrongIdentifier =
+    @"com.uranusjr.macdown.touchbar.editorview.strong";
+const NSTouchBarItemIdentifier MPTouchBarItemEmphasisIdentifier =
+    @"com.uranusjr.macdown.touchbar.editorview.emphasis";
 
 NS_INLINE BOOL MPAreRectsEqual(NSRect r1, NSRect r2)
 {
@@ -108,6 +112,27 @@ NS_INLINE BOOL MPAreRectsEqual(NSRect r1, NSRect r2)
     }
 }
 
+#pragma mark - Touch Bar
+
+- (NSTouchBar *)makeTouchBar
+{
+    NSTouchBar *touchBar = [[NSTouchBar alloc] init];
+
+    [touchBar setDefaultItemIdentifiers:@[
+        MPTouchBarItemStrongIdentifier,
+        MPTouchBarItemEmphasisIdentifier,
+        NSTouchBarItemIdentifierOtherItemsProxy
+    ]];
+
+    id delegate = [[NSApplication sharedApplication] delegate];
+
+    if ([delegate conformsToProtocol:@protocol(NSTouchBarDelegate)])
+    {
+        [touchBar setDelegate:delegate];
+    }
+
+    return touchBar;
+}
 
 #pragma mark - Overrides
 

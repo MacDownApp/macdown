@@ -1360,6 +1360,28 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     [self.renderer parseAndRenderLater];
 }
 
+#pragma mark - Touch Bar Proxy
+
+- (void)performTouchBarAction:(id)sender
+{
+    if (![sender respondsToSelector:@selector(identifier)])
+    {
+        // Don't know what to do!
+        NSLog(@"MPDocument: Bad sender provided for TouchBar action");
+        return;
+    }
+
+    id identifier = [sender identifier];
+
+    if ([identifier isEqualToString:MPTouchBarItemStrongIdentifier])
+    {
+        [self toggleStrong:sender];
+    }
+    else if ([identifier isEqualToString:MPTouchBarItemEmphasisIdentifier])
+    {
+        [self toggleEmphasis:sender];
+    }
+}
 
 #pragma mark - Private
 

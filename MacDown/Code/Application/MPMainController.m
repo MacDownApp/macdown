@@ -18,7 +18,9 @@
 #import "MPMarkdownPreferencesViewController.h"
 #import "MPEditorPreferencesViewController.h"
 #import "MPHtmlPreferencesViewController.h"
-
+#import "MPEditorView.h"
+#import "NSTouchBarItem+QuickConstructor.h"
+#import "MPDocument.h"
 
 static NSString * const kMPTreatLastSeenStampKey = @"treatLastSeenStamp";
 
@@ -153,6 +155,19 @@ NS_INLINE void treat()
 
 #pragma mark - NSApplicationDelegate
 
+- (void)applicationDidFinishLaunching:(NSNotification *)notification
+{
+    NSApplication *application = [NSApplication sharedApplication];
+
+    // Enables automatic installation of the "Customize TouchBar…" menu item,
+    // by Apple's recomendation
+    if ([application respondsToSelector:
+         @selector(setAutomaticCustomizeTouchBarMenuItemEnabled:)])
+    {
+        [application setAutomaticCustomizeTouchBarMenuItemEnabled:YES];
+    }
+}
+
 - (BOOL)applicationShouldOpenUntitledFile:(NSApplication *)sender
 {
     if (self.prefereces.filesToOpen.count)
@@ -246,5 +261,67 @@ NS_INLINE void treat()
     [self showHelp:nil];
 }
 
+@end
+
+@implementation MPMainController (TouchBarDelegate)
+
+- (NSTouchBarItem *)customItem:(NSTouchBarItemIdentifier)identifier
+                      withView:(NSView*)view
+                      andLabel:(NSString*)label
+{
+    NSCustomTouchBarItem *item = [NSTouchBarItem customWith:identifier];
+    [item setView:view];
+    [item setCustomizationLabel:label];
+    [view setIdentifier:identifier];
+
+    return item;
+}
+
+- (NSTouchBarItem *)touchBar:(NSTouchBar *)touchBar
+       makeItemForIdentifier:(NSTouchBarItemIdentifier)identifier
+{
+    SEL selector = @selector(sendProxyTouchBarActionToCurrentDocument:);
+
+    if ([identifier isEqualToString:MPTouchBarItemStrongIdentifier])
+    {
+        NSImage *image = [NSImage imageNamed:
+                          NSImageNameTouchBarTextBoldTemplate];
+        NSButton *button = [NSButton buttonWithImage:image
+                                              target:self
+                                              action:selector];
+
+        return [self customItem:identifier
+                       withView:button
+                       andLabel:NSLocalizedString(@"Strong",
+                                                  @"TouchBar button label")];
+    }
+    else if ([identifier isEqualToString:MPTouchBarItemEmphasisIdentifier])
+    {
+        NSImage *image = [NSImage imageNamed:
+                          NSImageNameTouchBarTextItalicTemplate];
+        NSButton *button = [NSButton buttonWithImage:image
+                                              target:self
+                                              action:selector];
+
+        return [self customItem:identifier
+                       withView:button
+                       andLabel:NSLocalizedString(@"Emphasis",
+                                                  @"TouchBar button label")];
+    }
+
+    return nil;
+}
+
+- (void)sendProxyTouchBarActionToCurrentDocument:(id)sender
+{
+    NSDocumentController *c = [NSDocumentController sharedDocumentController];
+    NSDocument *currentDocument = [c currentDocument];
+
+    if ([currentDocument respondsToSelector:@selector(performTouchBarAction:)])
+    {
+        [currentDocument performSelector:@selector(performTouchBarAction:)
+                              withObject:sender];
+    }
+}
 
 @end
