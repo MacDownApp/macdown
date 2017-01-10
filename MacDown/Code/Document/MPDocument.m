@@ -1362,24 +1362,47 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 
 #pragma mark - Touch Bar Proxy
 
-- (void)performTouchBarAction:(id)sender
+- (void)performTouchBarAction:(NSTouchBarItemIdentifier)identifier
 {
-    if (![sender respondsToSelector:@selector(identifier)])
-    {
-        // Don't know what to do!
-        NSLog(@"MPDocument: Bad sender provided for TouchBar action");
-        return;
-    }
-
-    id identifier = [sender identifier];
-
     if ([identifier isEqualToString:MPTouchBarItemStrongIdentifier])
     {
-        [self toggleStrong:sender];
+        [self toggleStrong:nil];
     }
     else if ([identifier isEqualToString:MPTouchBarItemEmphasisIdentifier])
     {
-        [self toggleEmphasis:sender];
+        [self toggleEmphasis:nil];
+    }
+    else if ([identifier isEqualToString:MPTouchBarItemUnderlineIdentifier])
+    {
+        [self toggleUnderline:nil];
+    }
+    else if ([identifier isEqualToString:MPTouchBarItemH1Identifier])
+    {
+        [self convertToH1:nil];
+    }
+    else if ([identifier isEqualToString:MPTouchBarItemH2Identifier])
+    {
+        [self convertToH2:nil];
+    }
+    else if ([identifier isEqualToString:MPTouchBarItemH3Identifier])
+    {
+        [self convertToH3:nil];
+    }
+    else if ([identifier isEqualToString:MPTouchBarItemH4Identifier])
+    {
+        [self convertToH4:nil];
+    }
+    else if ([identifier isEqualToString:MPTouchBarItemH5Identifier])
+    {
+        [self convertToH5:nil];
+    }
+    else if ([identifier isEqualToString:MPTouchBarItemH6Identifier])
+    {
+        [self convertToH6:nil];
+    }
+    else if ([identifier isEqualToString:MPTouchBarItemH0Identifier])
+    {
+        [self convertToParagraph:nil];
     }
 }
 

@@ -8,10 +8,34 @@
 
 #import "MPEditorView.h"
 
+const NSTouchBarCustomizationIdentifier MPTouchBarEditorViewIdentifier =
+    @"com.uranusjr.macdown.touchbar.editorview";
+
+const NSTouchBarItemIdentifier MPTouchBarItemFormattingIdentifier =
+    @"com.uranusjr.macdown.touchbar.editorview.formatting";
 const NSTouchBarItemIdentifier MPTouchBarItemStrongIdentifier =
     @"com.uranusjr.macdown.touchbar.editorview.strong";
 const NSTouchBarItemIdentifier MPTouchBarItemEmphasisIdentifier =
     @"com.uranusjr.macdown.touchbar.editorview.emphasis";
+const NSTouchBarItemIdentifier MPTouchBarItemUnderlineIdentifier =
+    @"com.uranusjr.macdown.touchbar.editorview.underline";
+
+const NSTouchBarItemIdentifier MPTouchBarItemHeadingPopIdentifier =
+    @"com.uranusjr.macdown.touchbar.editorview.headingPopover";
+const NSTouchBarItemIdentifier MPTouchBarItemH1Identifier =
+	@"com.uranusjr.macdown.touchbar.editorview.h1";
+const NSTouchBarItemIdentifier MPTouchBarItemH2Identifier =
+	@"com.uranusjr.macdown.touchbar.editorview.h2";
+const NSTouchBarItemIdentifier MPTouchBarItemH3Identifier =
+	@"com.uranusjr.macdown.touchbar.editorview.h3";
+const NSTouchBarItemIdentifier MPTouchBarItemH4Identifier =
+	@"com.uranusjr.macdown.touchbar.editorview.h4";
+const NSTouchBarItemIdentifier MPTouchBarItemH5Identifier =
+	@"com.uranusjr.macdown.touchbar.editorview.h5";
+const NSTouchBarItemIdentifier MPTouchBarItemH6Identifier =
+	@"com.uranusjr.macdown.touchbar.editorview.h6";
+const NSTouchBarItemIdentifier MPTouchBarItemH0Identifier =
+	@"com.uranusjr.macdown.touchbar.editorview.h0";
 
 NS_INLINE BOOL MPAreRectsEqual(NSRect r1, NSRect r2)
 {
@@ -119,10 +143,17 @@ NS_INLINE BOOL MPAreRectsEqual(NSRect r1, NSRect r2)
     NSTouchBar *touchBar = [[NSTouchBar alloc] init];
 
     [touchBar setDefaultItemIdentifiers:@[
-        MPTouchBarItemStrongIdentifier,
-        MPTouchBarItemEmphasisIdentifier,
+        MPTouchBarItemHeadingPopIdentifier,
+        MPTouchBarItemFormattingIdentifier,
         NSTouchBarItemIdentifierOtherItemsProxy
     ]];
+
+    [touchBar setCustomizationAllowedItemIdentifiers:@[
+        MPTouchBarItemHeadingPopIdentifier,
+        MPTouchBarItemFormattingIdentifier,
+    ]];
+
+    [touchBar setCustomizationIdentifier:MPTouchBarEditorViewIdentifier];
 
     id delegate = [[NSApplication sharedApplication] delegate];
 
