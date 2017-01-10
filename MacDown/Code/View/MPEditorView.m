@@ -19,6 +19,8 @@ const NSTouchBarItemIdentifier MPTouchBarItemEmphasisIdentifier =
     @"com.uranusjr.macdown.touchbar.editorview.emphasis";
 const NSTouchBarItemIdentifier MPTouchBarItemUnderlineIdentifier =
     @"com.uranusjr.macdown.touchbar.editorview.underline";
+const NSTouchBarItemIdentifier MPTouchBarItemCodeIdentifier =
+@"com.uranusjr.macdown.touchbar.editorview.code";
 
 const NSTouchBarItemIdentifier MPTouchBarItemHeadingPopIdentifier =
     @"com.uranusjr.macdown.touchbar.editorview.headingPopover";
@@ -36,6 +38,13 @@ const NSTouchBarItemIdentifier MPTouchBarItemH6Identifier =
 	@"com.uranusjr.macdown.touchbar.editorview.h6";
 const NSTouchBarItemIdentifier MPTouchBarItemH0Identifier =
 	@"com.uranusjr.macdown.touchbar.editorview.h0";
+
+const NSTouchBarItemIdentifier MPTouchBarItemExternalsIdentifier =
+@"com.uranusjr.macdown.touchbar.editorview.externals";
+const NSTouchBarItemIdentifier MPTouchBarItemLinkIdentifier =
+@"com.uranusjr.macdown.touchbar.editorview.link";
+const NSTouchBarItemIdentifier MPTouchBarItemImageIdentifier =
+@"com.uranusjr.macdown.touchbar.editorview.image";
 
 NS_INLINE BOOL MPAreRectsEqual(NSRect r1, NSRect r2)
 {
@@ -145,12 +154,15 @@ NS_INLINE BOOL MPAreRectsEqual(NSRect r1, NSRect r2)
     [touchBar setDefaultItemIdentifiers:@[
         MPTouchBarItemHeadingPopIdentifier,
         MPTouchBarItemFormattingIdentifier,
+        MPTouchBarItemExternalsIdentifier,
         NSTouchBarItemIdentifierOtherItemsProxy
     ]];
 
     [touchBar setCustomizationAllowedItemIdentifiers:@[
         MPTouchBarItemHeadingPopIdentifier,
         MPTouchBarItemFormattingIdentifier,
+        MPTouchBarItemCodeIdentifier,
+        MPTouchBarItemExternalsIdentifier
     ]];
 
     [touchBar setCustomizationIdentifier:MPTouchBarEditorViewIdentifier];

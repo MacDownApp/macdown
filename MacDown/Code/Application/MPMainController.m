@@ -270,6 +270,7 @@ NS_INLINE void treat()
                       andLabel:(NSString *)label
 {
     NSCustomTouchBarItem *item = [NSTouchBarItem customWith:identifier];
+    [view setTranslatesAutoresizingMaskIntoConstraints:YES];
     [item setView:view];
     [item setCustomizationLabel:label];
     [view setIdentifier:identifier];
@@ -307,10 +308,28 @@ NS_INLINE void treat()
                    andLabel:label];
 }
 
+- (NSTouchBarItem *)segmentedItem:(NSTouchBarItemIdentifier)identifier
+                           images:(NSArray<NSImage *> *)images
+                         andLabel:(NSString *)label
+{
+    SEL selector = @selector(sendProxyTouchBarActionToCurrentDocument:);
+    NSSegmentedControl *control = [NSSegmentedControl
+                                   segmentedControlWithImages:images
+                                   trackingMode:NSSegmentSwitchTrackingMomentary
+                                   target:self
+                                   action:selector];
+
+    for (NSInteger i=0, k=[images count]; i<k; i++)
+    {
+        [control setWidth:52. forSegment:i];
+    }
+
+    return [self customItem:identifier withView:control andLabel:label];
+}
+
 - (NSTouchBarItem *)textFormattingGroupTouchBarItem:(NSTouchBar *)touchBar
 {
     id identifier = MPTouchBarItemFormattingIdentifier;
-    SEL selector = @selector(sendProxyTouchBarActionToCurrentDocument:);
 
     NSArray *images = @[
         [NSImage imageNamed:NSImageNameTouchBarTextBoldTemplate],
@@ -318,24 +337,25 @@ NS_INLINE void treat()
         [NSImage imageNamed:NSImageNameTouchBarTextUnderlineTemplate]
     ];
 
-    NSSegmentedControl *control = [NSSegmentedControl
-                                   segmentedControlWithImages:images
-                                   trackingMode:NSSegmentSwitchTrackingMomentary
-                                   target:self
-                                   action:selector];
-
-    [control setWidth:52. forSegment:0];
-    [control setWidth:52. forSegment:1];
-    [control setWidth:52. forSegment:2];
-
     NSString *label = NSLocalizedString(@"Text Formatting",
                                         @"TouchBar button label");
 
-    NSTouchBarItem *item = [self customItem:identifier
-                                   withView:control
-                                   andLabel:label];
+    return [self segmentedItem:identifier images:images andLabel:label];
+}
 
-    return item;
+- (NSTouchBarItem *)externalsGroupTouchBarItem:(NSTouchBar *)touchBar
+{
+    id identifier = MPTouchBarItemExternalsIdentifier;
+
+    NSArray *images = @[
+        [NSImage imageNamed:NSImageNameTouchBarRotateRightTemplate],
+        [NSImage imageNamed:NSImageNameTouchBarCommunicationVideoTemplate]
+    ];
+
+    NSString *label = NSLocalizedString(@"Links ∕ Images",
+                                        @"TouchBar button label");
+    
+    return [self segmentedItem:identifier images:images andLabel:label];
 }
 
 - (NSTouchBarItem *)paragraphPopoverTouchBarItem
@@ -359,13 +379,10 @@ NS_INLINE void treat()
 
     NSImage *image = [NSImage imageNamed:
                       NSImageNameTouchBarTextBoxTemplate];
-    NSButton *button = [NSButton buttonWithImage:image
-                                          target:item
-                                          action:@selector(showPopover:)];
 
     [item setPopoverTouchBar:subTouchBar];
     [item setPressAndHoldTouchBar:subTouchBar];
-    [item setCollapsedRepresentation:button];
+    [item setCollapsedRepresentationImage:image];
     [item setShowsCloseButton:YES];
     [item setCustomizationLabel:NSLocalizedString(@"Paragraph Types",
                                                   @"TouchBar button label")];
@@ -380,19 +397,16 @@ NS_INLINE void treat()
     {
         return [self textFormattingGroupTouchBarItem:touchBar];
     }
-    else if ([identifier isEqualToString:MPTouchBarItemStrongIdentifier])
+    else if ([identifier isEqualToString:MPTouchBarItemExternalsIdentifier])
+    {
+        return [self externalsGroupTouchBarItem:touchBar];
+    }
+    else if ([identifier isEqualToString:MPTouchBarItemCodeIdentifier])
     {
         return [self buttonItem:identifier
-                     imageNamed:NSImageNameTouchBarTextBoldTemplate
-                       andLabel:NSLocalizedString(@"Strong",
+                    buttonTitle:NSLocalizedString(@"<code>", @"TouchBar button")
+                       andLabel:NSLocalizedString(@"Inline Code",
                                                   @"TouchBar button label")];
-    }
-    else if ([identifier isEqualToString:MPTouchBarItemEmphasisIdentifier])
-    {
-         return [self buttonItem:identifier
-                      imageNamed:NSImageNameTouchBarTextItalicTemplate
-                        andLabel:NSLocalizedString(@"Emphasis",
-                                                   @"TouchBar button label")];
     }
     else if ([identifier isEqualToString:MPTouchBarItemH1Identifier])
     {
@@ -471,6 +485,15 @@ NS_INLINE void treat()
                 MPTouchBarItemStrongIdentifier,
                 MPTouchBarItemEmphasisIdentifier,
                 MPTouchBarItemUnderlineIdentifier
+            };
+
+            identifier = identifiers[[sender selectedSegment]];
+        }
+        else if ([identifier isEqualToString:MPTouchBarItemExternalsIdentifier])
+        {
+            NSTouchBarItemIdentifier identifiers[] = {
+                MPTouchBarItemLinkIdentifier,
+                MPTouchBarItemImageIdentifier
             };
 
             identifier = identifiers[[sender selectedSegment]];

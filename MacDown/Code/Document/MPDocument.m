@@ -1376,6 +1376,10 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     {
         [self toggleUnderline:nil];
     }
+    else if ([identifier isEqualToString:MPTouchBarItemCodeIdentifier])
+    {
+        [self toggleInlineCode:nil];
+    }
     else if ([identifier isEqualToString:MPTouchBarItemH1Identifier])
     {
         [self convertToH1:nil];
@@ -1403,6 +1407,14 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     else if ([identifier isEqualToString:MPTouchBarItemH0Identifier])
     {
         [self convertToParagraph:nil];
+    }
+    else if ([identifier isEqualToString:MPTouchBarItemLinkIdentifier])
+    {
+        [self toggleLink:nil];
+    }
+    else if ([identifier isEqualToString:MPTouchBarItemImageIdentifier])
+    {
+        [self toggleImage:nil];
     }
 }
 
