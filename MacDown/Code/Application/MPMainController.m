@@ -324,9 +324,9 @@ NS_INLINE void treat()
                                    target:self
                                    action:selector];
 
-    [control setWidth:48. forSegment:0];
-    [control setWidth:48. forSegment:1];
-    [control setWidth:48. forSegment:2];
+    [control setWidth:52. forSegment:0];
+    [control setWidth:52. forSegment:1];
+    [control setWidth:52. forSegment:2];
 
     NSString *label = NSLocalizedString(@"Text Formatting",
                                         @"TouchBar button label");
