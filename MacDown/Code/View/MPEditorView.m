@@ -64,6 +64,9 @@ const NSTouchBarItemIdentifier MPTouchBarItemShiftRightIdentifier =
 const NSTouchBarItemIdentifier MPTouchBarItemShiftLeftIdentifier =
     @"com.uranusjr.macdown.touchbar.editorview.shift-left";
 
+const NSTouchBarItemIdentifier MPTouchBarItemCopyHTMLIdentifier =
+    @"com.uranusjr.macdown.touchbar.editorview.copyHTML";
+
 NS_INLINE BOOL MPAreRectsEqual(NSRect r1, NSRect r2)
 {
     return (r1.origin.x == r2.origin.x && r1.origin.y == r2.origin.y
@@ -185,7 +188,8 @@ NS_INLINE BOOL MPAreRectsEqual(NSRect r1, NSRect r2)
         MPTouchBarItemCodeIdentifier,
         MPTouchBarItemShiftIdentifier,
         MPTouchBarItemCommentIdentifier,
-        MPTouchBarItemExternalsIdentifier
+        MPTouchBarItemExternalsIdentifier,
+        MPTouchBarItemCopyHTMLIdentifier
     ]];
 
     [touchBar setCustomizationIdentifier:MPTouchBarEditorViewIdentifier];

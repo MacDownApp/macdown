@@ -39,6 +39,8 @@ extern const NSTouchBarItemIdentifier MPTouchBarItemShiftIdentifier;
 extern const NSTouchBarItemIdentifier MPTouchBarItemShiftRightIdentifier;
 extern const NSTouchBarItemIdentifier MPTouchBarItemShiftLeftIdentifier;
 
+extern const NSTouchBarItemIdentifier MPTouchBarItemCopyHTMLIdentifier;
+
 @property BOOL scrollsPastEnd;
 - (NSRect)contentRect;
 

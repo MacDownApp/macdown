@@ -513,6 +513,13 @@ NS_INLINE void treat()
                        andLabel:NSLocalizedString(@"Normal Paragraph",
                                                   @"TouchBar button label")];
     }
+    else if ([identifier isEqualToString:MPTouchBarItemCopyHTMLIdentifier])
+    {
+        return [self buttonItem:identifier
+                     imageNamed:@"exportHTMLTemplate"
+                       andLabel:NSLocalizedString(@"Copy HTML",
+                                                  @"TouchBar button label")];
+    }
 
     return nil;
 }

@@ -1362,6 +1362,8 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 
 #pragma mark - Touch Bar Proxy
 
+// Processes TouchBar actions. Using the toolbar actions in order to make
+// the behavior intrinsically consistent between the touchbar and the toolbar.
 - (void)touchBarAction:(NSTouchBarItemIdentifier)identifier sender:(id)sender
 {
     if ([identifier isEqualToString:MPTouchBarItemStrongIdentifier])
@@ -1439,6 +1441,10 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     else if ([identifier isEqualToString:MPTouchBarItemShiftRightIdentifier])
     {
         [self indent:sender];
+    }
+    else if ([identifier isEqualToString:MPTouchBarItemCopyHTMLIdentifier])
+    {
+        [self copyHtml:sender];
     }
 }
 
