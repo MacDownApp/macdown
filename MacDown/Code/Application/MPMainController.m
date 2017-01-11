@@ -343,6 +343,21 @@ NS_INLINE void treat()
     return [self segmentedItem:identifier images:images andLabel:label];
 }
 
+- (NSTouchBarItem *)listsGroupTouchBarItem:(NSTouchBar *)touchBar
+{
+    id identifier = MPTouchBarItemListsIdentifier;
+
+    NSArray *images = @[
+        [NSImage imageNamed:NSImageNameTouchBarTextListTemplate],
+        [NSImage imageNamed:NSImageNameTouchBarListViewTemplate]
+    ];
+
+    NSString *label = NSLocalizedString(@"Lists",
+                                        @"TouchBar button label");
+
+    return [self segmentedItem:identifier images:images andLabel:label];
+}
+
 - (NSTouchBarItem *)externalsGroupTouchBarItem:(NSTouchBar *)touchBar
 {
     id identifier = MPTouchBarItemExternalsIdentifier;
@@ -355,6 +370,21 @@ NS_INLINE void treat()
     NSString *label = NSLocalizedString(@"Links ∕ Images",
                                         @"TouchBar button label");
     
+    return [self segmentedItem:identifier images:images andLabel:label];
+}
+
+- (NSTouchBarItem *)shiftTextGroupTouchBarItem:(NSTouchBar *)touchBar
+{
+    id identifier = MPTouchBarItemShiftIdentifier;
+
+    NSArray *images = @[
+        [NSImage imageNamed:@"indentDecreaseTemplate"],
+        [NSImage imageNamed:@"indentIncreaseTemplate"]
+    ];
+
+    NSString *label = NSLocalizedString(@"Shift Text",
+                                        @"TouchBar button label");
+
     return [self segmentedItem:identifier images:images andLabel:label];
 }
 
@@ -401,11 +431,37 @@ NS_INLINE void treat()
     {
         return [self externalsGroupTouchBarItem:touchBar];
     }
+    else if ([identifier isEqualToString:MPTouchBarItemListsIdentifier])
+    {
+        return [self listsGroupTouchBarItem:touchBar];
+    }
+    else if ([identifier isEqualToString:MPTouchBarItemHeadingPopIdentifier])
+    {
+        return [self paragraphPopoverTouchBarItem];
+    }
+    else if ([identifier isEqualToString:MPTouchBarItemShiftIdentifier])
+    {
+        return [self shiftTextGroupTouchBarItem:touchBar];
+    }
     else if ([identifier isEqualToString:MPTouchBarItemCodeIdentifier])
     {
         return [self buttonItem:identifier
                     buttonTitle:NSLocalizedString(@"<code>", @"TouchBar button")
                        andLabel:NSLocalizedString(@"Inline Code",
+                                                  @"TouchBar button label")];
+    }
+    else if ([identifier isEqualToString:MPTouchBarItemCommentIdentifier])
+    {
+        return [self buttonItem:identifier
+                    buttonTitle:NSLocalizedString(@"<!--", @"TouchBar button")
+                       andLabel:NSLocalizedString(@"Markdown Comment",
+                                                  @"TouchBar button label")];
+    }
+    else if ([identifier isEqualToString:MPTouchBarItemBlockquoteIdentifier])
+    {
+        return [self buttonItem:identifier
+                    buttonTitle:NSLocalizedString(@"|«»", @"TouchBar button")
+                       andLabel:NSLocalizedString(@"Blockquote",
                                                   @"TouchBar button label")];
     }
     else if ([identifier isEqualToString:MPTouchBarItemH1Identifier])
@@ -457,10 +513,6 @@ NS_INLINE void treat()
                        andLabel:NSLocalizedString(@"Normal Paragraph",
                                                   @"TouchBar button label")];
     }
-    else if ([identifier isEqualToString:MPTouchBarItemHeadingPopIdentifier])
-    {
-        return [self paragraphPopoverTouchBarItem];
-    }
 
     return nil;
 }
@@ -498,13 +550,32 @@ NS_INLINE void treat()
 
             identifier = identifiers[[sender selectedSegment]];
         }
+        else if ([identifier isEqualToString:MPTouchBarItemListsIdentifier])
+        {
+            NSTouchBarItemIdentifier identifiers[] = {
+                MPTouchBarItemSimpleListIdentifier,
+                MPTouchBarItemOrderedListIdentifier
+            };
+
+            identifier = identifiers[[sender selectedSegment]];
+        }
+        else if ([identifier isEqualToString:MPTouchBarItemShiftIdentifier])
+        {
+            NSTouchBarItemIdentifier identifiers[] = {
+                MPTouchBarItemShiftLeftIdentifier,
+                MPTouchBarItemShiftRightIdentifier
+            };
+
+            identifier = identifiers[[sender selectedSegment]];
+        }
     }
 
-    if ([currentDocument respondsToSelector:@selector(performTouchBarAction:)]
+    if ([currentDocument respondsToSelector:@selector(touchBarAction:sender:)]
         && identifier)
     {
-        [currentDocument performSelector:@selector(performTouchBarAction:)
-                              withObject:identifier];
+        [currentDocument performSelector:@selector(touchBarAction:sender:)
+                              withObject:identifier
+                              withObject:sender];
     }
 }
 

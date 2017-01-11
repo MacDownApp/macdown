@@ -1362,59 +1362,83 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 
 #pragma mark - Touch Bar Proxy
 
-- (void)performTouchBarAction:(NSTouchBarItemIdentifier)identifier
+- (void)touchBarAction:(NSTouchBarItemIdentifier)identifier sender:(id)sender
 {
     if ([identifier isEqualToString:MPTouchBarItemStrongIdentifier])
     {
-        [self toggleStrong:nil];
+        [self toggleStrong:sender];
     }
     else if ([identifier isEqualToString:MPTouchBarItemEmphasisIdentifier])
     {
-        [self toggleEmphasis:nil];
+        [self toggleEmphasis:sender];
     }
     else if ([identifier isEqualToString:MPTouchBarItemUnderlineIdentifier])
     {
-        [self toggleUnderline:nil];
+        [self toggleUnderline:sender];
     }
     else if ([identifier isEqualToString:MPTouchBarItemCodeIdentifier])
     {
-        [self toggleInlineCode:nil];
+        [self toggleInlineCode:sender];
+    }
+    else if ([identifier isEqualToString:MPTouchBarItemCommentIdentifier])
+    {
+        [self toggleComment:sender];
     }
     else if ([identifier isEqualToString:MPTouchBarItemH1Identifier])
     {
-        [self convertToH1:nil];
+        [self convertToH1:sender];
     }
     else if ([identifier isEqualToString:MPTouchBarItemH2Identifier])
     {
-        [self convertToH2:nil];
+        [self convertToH2:sender];
     }
     else if ([identifier isEqualToString:MPTouchBarItemH3Identifier])
     {
-        [self convertToH3:nil];
+        [self convertToH3:sender];
     }
     else if ([identifier isEqualToString:MPTouchBarItemH4Identifier])
     {
-        [self convertToH4:nil];
+        [self convertToH4:sender];
     }
     else if ([identifier isEqualToString:MPTouchBarItemH5Identifier])
     {
-        [self convertToH5:nil];
+        [self convertToH5:sender];
     }
     else if ([identifier isEqualToString:MPTouchBarItemH6Identifier])
     {
-        [self convertToH6:nil];
+        [self convertToH6:sender];
     }
     else if ([identifier isEqualToString:MPTouchBarItemH0Identifier])
     {
-        [self convertToParagraph:nil];
+        [self convertToParagraph:sender];
     }
     else if ([identifier isEqualToString:MPTouchBarItemLinkIdentifier])
     {
-        [self toggleLink:nil];
+        [self toggleLink:sender];
     }
     else if ([identifier isEqualToString:MPTouchBarItemImageIdentifier])
     {
-        [self toggleImage:nil];
+        [self toggleImage:sender];
+    }
+    else if ([identifier isEqualToString:MPTouchBarItemSimpleListIdentifier])
+    {
+        [self toggleUnorderedList:sender];
+    }
+    else if ([identifier isEqualToString:MPTouchBarItemOrderedListIdentifier])
+    {
+        [self toggleOrderedList:sender];
+    }
+    else if ([identifier isEqualToString:MPTouchBarItemBlockquoteIdentifier])
+    {
+        [self toggleBlockquote:sender];
+    }
+    else if ([identifier isEqualToString:MPTouchBarItemShiftLeftIdentifier])
+    {
+        [self unindent:sender];
+    }
+    else if ([identifier isEqualToString:MPTouchBarItemShiftRightIdentifier])
+    {
+        [self indent:sender];
     }
 }
 

@@ -17,6 +17,6 @@
 @property (nonatomic, readwrite) NSString *markdown;
 @property (nonatomic, readonly) NSString *html;
 
-- (void)performTouchBarAction:(NSTouchBarItemIdentifier)identifier;
+- (void)touchBarAction:(NSTouchBarItemIdentifier)identifier sender:(id)sender;
 
 @end

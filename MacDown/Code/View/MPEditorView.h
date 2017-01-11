@@ -15,6 +15,8 @@ extern const NSTouchBarItemIdentifier MPTouchBarItemStrongIdentifier;
 extern const NSTouchBarItemIdentifier MPTouchBarItemEmphasisIdentifier;
 extern const NSTouchBarItemIdentifier MPTouchBarItemUnderlineIdentifier;
 extern const NSTouchBarItemIdentifier MPTouchBarItemCodeIdentifier;
+extern const NSTouchBarItemIdentifier MPTouchBarItemCommentIdentifier;
+extern const NSTouchBarItemIdentifier MPTouchBarItemBlockquoteIdentifier;
 
 extern const NSTouchBarItemIdentifier MPTouchBarItemHeadingPopIdentifier;
 extern const NSTouchBarItemIdentifier MPTouchBarItemH1Identifier;
@@ -28,6 +30,14 @@ extern const NSTouchBarItemIdentifier MPTouchBarItemH0Identifier;
 extern const NSTouchBarItemIdentifier MPTouchBarItemExternalsIdentifier;
 extern const NSTouchBarItemIdentifier MPTouchBarItemLinkIdentifier;
 extern const NSTouchBarItemIdentifier MPTouchBarItemImageIdentifier;
+
+extern const NSTouchBarItemIdentifier MPTouchBarItemListsIdentifier;
+extern const NSTouchBarItemIdentifier MPTouchBarItemOrderedListIdentifier;
+extern const NSTouchBarItemIdentifier MPTouchBarItemSimpleListIdentifier;
+
+extern const NSTouchBarItemIdentifier MPTouchBarItemShiftIdentifier;
+extern const NSTouchBarItemIdentifier MPTouchBarItemShiftRightIdentifier;
+extern const NSTouchBarItemIdentifier MPTouchBarItemShiftLeftIdentifier;
 
 @property BOOL scrollsPastEnd;
 - (NSRect)contentRect;

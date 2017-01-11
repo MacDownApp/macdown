@@ -20,7 +20,11 @@ const NSTouchBarItemIdentifier MPTouchBarItemEmphasisIdentifier =
 const NSTouchBarItemIdentifier MPTouchBarItemUnderlineIdentifier =
     @"com.uranusjr.macdown.touchbar.editorview.underline";
 const NSTouchBarItemIdentifier MPTouchBarItemCodeIdentifier =
-@"com.uranusjr.macdown.touchbar.editorview.code";
+    @"com.uranusjr.macdown.touchbar.editorview.code";
+const NSTouchBarItemIdentifier MPTouchBarItemCommentIdentifier =
+    @"com.uranusjr.macdown.touchbar.editorview.comment";
+const NSTouchBarItemIdentifier MPTouchBarItemBlockquoteIdentifier =
+    @"com.uranusjr.macdown.touchbar.editorview.blockquote";
 
 const NSTouchBarItemIdentifier MPTouchBarItemHeadingPopIdentifier =
     @"com.uranusjr.macdown.touchbar.editorview.headingPopover";
@@ -40,11 +44,25 @@ const NSTouchBarItemIdentifier MPTouchBarItemH0Identifier =
 	@"com.uranusjr.macdown.touchbar.editorview.h0";
 
 const NSTouchBarItemIdentifier MPTouchBarItemExternalsIdentifier =
-@"com.uranusjr.macdown.touchbar.editorview.externals";
+    @"com.uranusjr.macdown.touchbar.editorview.externals";
 const NSTouchBarItemIdentifier MPTouchBarItemLinkIdentifier =
-@"com.uranusjr.macdown.touchbar.editorview.link";
+    @"com.uranusjr.macdown.touchbar.editorview.link";
 const NSTouchBarItemIdentifier MPTouchBarItemImageIdentifier =
-@"com.uranusjr.macdown.touchbar.editorview.image";
+    @"com.uranusjr.macdown.touchbar.editorview.image";
+
+const NSTouchBarItemIdentifier MPTouchBarItemListsIdentifier =
+    @"com.uranusjr.macdown.touchbar.editorview.lists";
+const NSTouchBarItemIdentifier MPTouchBarItemOrderedListIdentifier =
+    @"com.uranusjr.macdown.touchbar.editorview.list-ordered";
+const NSTouchBarItemIdentifier MPTouchBarItemSimpleListIdentifier =
+    @"com.uranusjr.macdown.touchbar.editorview.list-simple";
+
+const NSTouchBarItemIdentifier MPTouchBarItemShiftIdentifier =
+    @"com.uranusjr.macdown.touchbar.editorview.shift";
+const NSTouchBarItemIdentifier MPTouchBarItemShiftRightIdentifier =
+    @"com.uranusjr.macdown.touchbar.editorview.shift-right";
+const NSTouchBarItemIdentifier MPTouchBarItemShiftLeftIdentifier =
+    @"com.uranusjr.macdown.touchbar.editorview.shift-left";
 
 NS_INLINE BOOL MPAreRectsEqual(NSRect r1, NSRect r2)
 {
@@ -154,6 +172,7 @@ NS_INLINE BOOL MPAreRectsEqual(NSRect r1, NSRect r2)
     [touchBar setDefaultItemIdentifiers:@[
         MPTouchBarItemHeadingPopIdentifier,
         MPTouchBarItemFormattingIdentifier,
+        MPTouchBarItemListsIdentifier,
         MPTouchBarItemExternalsIdentifier,
         NSTouchBarItemIdentifierOtherItemsProxy
     ]];
@@ -161,7 +180,11 @@ NS_INLINE BOOL MPAreRectsEqual(NSRect r1, NSRect r2)
     [touchBar setCustomizationAllowedItemIdentifiers:@[
         MPTouchBarItemHeadingPopIdentifier,
         MPTouchBarItemFormattingIdentifier,
+        MPTouchBarItemListsIdentifier,
+        MPTouchBarItemBlockquoteIdentifier,
         MPTouchBarItemCodeIdentifier,
+        MPTouchBarItemShiftIdentifier,
+        MPTouchBarItemCommentIdentifier,
         MPTouchBarItemExternalsIdentifier
     ]];
 
