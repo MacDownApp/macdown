@@ -57,8 +57,20 @@ int main(int argc, const char * argv[])
         for (NSString *arg in argproc.arguments)
         {
             NSString *escaped =
-                [arg stringByAddingPercentEscapesUsingEncoding:kMPPathEncoding];
-            NSURL *url = [NSURL URLWithString:escaped relativeToURL:pwdUrl];
+            [arg stringByAddingPercentEscapesUsingEncoding:kMPPathEncoding];
+            NSURL *url;
+            
+            if ([escaped isAbsolutePath]) {
+                if ([escaped hasPrefix:@"~"]) { // Expand tilde if present
+                    escaped = [escaped stringByExpandingTildeInPath];
+                }
+                
+                url = [NSURL fileURLWithPath:escaped];
+            }
+            else {
+                url = [NSURL fileURLWithPath:escaped relativeToURL:pwdUrl];
+            }
+            
             [urls addObject:url];
         }
         MPCollectForMacDown(urls);
@@ -68,4 +80,3 @@ int main(int argc, const char * argv[])
     }
     return EXIT_SUCCESS;
 }
-
