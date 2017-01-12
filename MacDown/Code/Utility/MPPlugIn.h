@@ -12,6 +12,7 @@
 @interface MPPlugIn : NSObject
 
 @property (nonatomic, readonly) NSString *name;
+@property (nonatomic, readonly) NSImage *touchBarImage;
 
 - (instancetype)initWithBundle:(NSBundle *)bundle;
 - (BOOL)run:(id)sender;

@@ -12,4 +12,6 @@
 
 @property (weak) IBOutlet NSDocumentController *documentController;
 
+- (NSDictionary<NSString *, NSTouchBarItem *> *)makeTouchBarItems;
+
 @end

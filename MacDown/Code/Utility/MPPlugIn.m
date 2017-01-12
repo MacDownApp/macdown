@@ -8,9 +8,12 @@
 
 #import "MPPlugIn.h"
 
+static NSString * MPPluginTouchBarTemplateImageName = @"TouchBarImageTemplate";
+static NSString * MPPluginTouchBarNormalImageName = @"TouchBarImage";
 
 @interface MPPlugIn ()
 @property (nonatomic) id content;
+
 @end
 
 
@@ -19,6 +22,11 @@
 - (void)setName:(NSString *)name
 {
     _name = name;
+}
+
+- (void)setTouchBarImage:(NSImage *)touchBarImage
+{
+    _touchBarImage = touchBarImage;
 }
 
 - (instancetype)initWithBundle:(NSBundle *)bundle
@@ -46,6 +54,18 @@
         NSURL *url = bundle.bundleURL;
         self.name = url.lastPathComponent.stringByDeletingPathExtension;
     }
+
+    NSImage *image = nil;
+
+    image = [bundle imageForResource:MPPluginTouchBarTemplateImageName];
+
+    if (!image)
+    {
+        // Try for the non-template version (explained in plugin readme)
+        image = [bundle imageForResource:MPPluginTouchBarNormalImageName];
+    }
+
+    [self setTouchBarImage:image];
 
     return self;
 }

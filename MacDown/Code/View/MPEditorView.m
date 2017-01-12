@@ -7,6 +7,7 @@
 //
 
 #import "MPEditorView.h"
+#import "MPMainController.h"
 
 const NSTouchBarCustomizationIdentifier MPTouchBarEditorViewIdentifier =
     @"com.uranusjr.macdown.touchbar.editorview";
@@ -172,15 +173,17 @@ NS_INLINE BOOL MPAreRectsEqual(NSRect r1, NSRect r2)
 {
     NSTouchBar *touchBar = [[NSTouchBar alloc] init];
 
-    [touchBar setDefaultItemIdentifiers:@[
-        MPTouchBarItemHeadingPopIdentifier,
-        MPTouchBarItemFormattingIdentifier,
-        MPTouchBarItemListsIdentifier,
-        MPTouchBarItemExternalsIdentifier,
-        NSTouchBarItemIdentifierOtherItemsProxy
-    ]];
+    id delegate = [[NSApplication sharedApplication] delegate];
 
-    [touchBar setCustomizationAllowedItemIdentifiers:@[
+    if ([delegate conformsToProtocol:@protocol(NSTouchBarDelegate)])
+    {
+        [touchBar setDelegate:delegate];
+    }
+
+    NSMutableArray<NSTouchBarItemIdentifier> *customItems =
+        [[NSMutableArray alloc] init];
+
+    [customItems addObjectsFromArray:@[
         MPTouchBarItemHeadingPopIdentifier,
         MPTouchBarItemFormattingIdentifier,
         MPTouchBarItemListsIdentifier,
@@ -192,14 +195,27 @@ NS_INLINE BOOL MPAreRectsEqual(NSRect r1, NSRect r2)
         MPTouchBarItemCopyHTMLIdentifier
     ]];
 
-    [touchBar setCustomizationIdentifier:MPTouchBarEditorViewIdentifier];
-
-    id delegate = [[NSApplication sharedApplication] delegate];
-
-    if ([delegate conformsToProtocol:@protocol(NSTouchBarDelegate)])
+    if ([delegate respondsToSelector:@selector(extraEditorTouchBarItems)])
     {
-        [touchBar setDelegate:delegate];
+        id items = [delegate extraEditorTouchBarItems];
+
+        if ([items isKindOfClass:[NSArray<NSTouchBarItemIdentifier> class]])
+        {
+            [customItems addObjectsFromArray:items];
+        }
     }
+
+    [touchBar setDefaultItemIdentifiers:@[
+        MPTouchBarItemHeadingPopIdentifier,
+        MPTouchBarItemFormattingIdentifier,
+        MPTouchBarItemListsIdentifier,
+        MPTouchBarItemExternalsIdentifier,
+        NSTouchBarItemIdentifierOtherItemsProxy
+    ]];
+
+    [touchBar setCustomizationAllowedItemIdentifiers:customItems];
+
+    [touchBar setCustomizationIdentifier:MPTouchBarEditorViewIdentifier];
 
     return touchBar;
 }

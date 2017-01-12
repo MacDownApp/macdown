@@ -21,6 +21,7 @@
 #import "MPEditorView.h"
 #import "NSTouchBarItem+QuickConstructor.h"
 #import "MPDocument.h"
+#import "MPPlugInController.h"
 
 static NSString * const kMPTreatLastSeenStampKey = @"treatLastSeenStamp";
 
@@ -92,7 +93,12 @@ NS_INLINE void treat()
 
 
 @interface MPMainController ()
+
 @property (readonly) NSWindowController *preferencesWindowController;
+@property (weak) IBOutlet MPPlugInController *pluginController;
+@property (strong) NSDictionary<NSString *, NSTouchBarItem *>
+	*pluginTouchBarItems;
+
 @end
 
 
@@ -135,6 +141,11 @@ NS_INLINE void treat()
     MPOpenBundledFile(@"help", @"md");
 }
 
+- (NSArray<NSTouchBarItemIdentifier> *)extraEditorTouchBarItems
+{
+    return [[self pluginTouchBarItems] allKeys];
+}
+
 
 #pragma mark - Override
 
@@ -152,6 +163,12 @@ NS_INLINE void treat()
     return self;
 }
 
+- (void)awakeFromNib
+{
+    [super awakeFromNib];
+
+    [self setPluginTouchBarItems:[[self pluginController] makeTouchBarItems]];
+}
 
 #pragma mark - NSApplicationDelegate
 
@@ -519,6 +536,15 @@ NS_INLINE void treat()
                      imageNamed:@"exportHTMLTemplate"
                        andLabel:NSLocalizedString(@"Copy HTML",
                                                   @"TouchBar button label")];
+    }
+    else
+    {
+        id item = [[self pluginTouchBarItems] objectForKey:identifier];
+
+        if ([item isKindOfClass:[NSTouchBarItem class]])
+        {
+            return [[self pluginTouchBarItems] objectForKey:identifier];
+        }
     }
 
     return nil;

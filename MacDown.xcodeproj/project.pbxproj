@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		15892BA11E2442E60064328A /* NSTouchBarItem+QuickConstructor.m in Sources */ = {isa = PBXBuildFile; fileRef = 15892BA01E2442E60064328A /* NSTouchBarItem+QuickConstructor.m */; };
+		15892BAC1E2700A80064328A /* MPPlugInTouchBarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 15892BAB1E2700A80064328A /* MPPlugInTouchBarButton.m */; };
 		1F002A23195B3DAE008B8D93 /* MPRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F002A22195B3DAE008B8D93 /* MPRenderer.m */; };
 		1F0D9D65194AC7CF008E1856 /* NSString+Lookup.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0D9D5F194AC7CF008E1856 /* NSString+Lookup.m */; };
 		1F0D9D66194AC7CF008E1856 /* NSTextView+Autocomplete.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0D9D61194AC7CF008E1856 /* NSTextView+Autocomplete.m */; };
@@ -147,6 +148,8 @@
 		0D0EC0DE9FEA22F962083921 /* Pods-MacDownTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacDownTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MacDownTests/Pods-MacDownTests.release.xcconfig"; sourceTree = "<group>"; };
 		15892B9F1E2442B50064328A /* NSTouchBarItem+QuickConstructor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTouchBarItem+QuickConstructor.h"; sourceTree = "<group>"; };
 		15892BA01E2442E60064328A /* NSTouchBarItem+QuickConstructor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTouchBarItem+QuickConstructor.m"; sourceTree = "<group>"; };
+		15892BAA1E2700A80064328A /* MPPlugInTouchBarButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPPlugInTouchBarButton.h; sourceTree = "<group>"; };
+		15892BAB1E2700A80064328A /* MPPlugInTouchBarButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPPlugInTouchBarButton.m; sourceTree = "<group>"; };
 		1A198D1BA59D710201DD3BC8 /* Pods-MacDown.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacDown.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MacDown/Pods-MacDown.debug.xcconfig"; sourceTree = "<group>"; };
 		1F002A21195B3DAE008B8D93 /* MPRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPRenderer.h; sourceTree = "<group>"; };
 		1F002A22195B3DAE008B8D93 /* MPRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPRenderer.m; sourceTree = "<group>"; };
@@ -403,6 +406,8 @@
 				1F33F2A01A3B4B660001C849 /* MPDocumentSplitView.m */,
 				1F396E6419B0EA17000D3EFC /* MPEditorView.h */,
 				1F396E6519B0EA17000D3EFC /* MPEditorView.m */,
+				15892BAA1E2700A80064328A /* MPPlugInTouchBarButton.h */,
+				15892BAB1E2700A80064328A /* MPPlugInTouchBarButton.m */,
 			);
 			name = View;
 			path = Code/View;
@@ -963,6 +968,7 @@
 				1F0D9D7A194AC7F7008E1856 /* MPMarkdownPreferencesViewController.m in Sources */,
 				1F0D9D7D194AC7F7008E1856 /* MPPreferencesViewController.m in Sources */,
 				1F33F2A41A3B56D20001C849 /* NSColor+HTML.m in Sources */,
+				15892BAC1E2700A80064328A /* MPPlugInTouchBarButton.m in Sources */,
 				1F5A37141C869C81006E63E7 /* MPPlugInController.m in Sources */,
 				1F0D9D65194AC7CF008E1856 /* NSString+Lookup.m in Sources */,
 				1F8A835E1953454F00B6BF69 /* HGMarkdownHighlightingStyle.m in Sources */,
