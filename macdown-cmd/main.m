@@ -72,6 +72,11 @@ int main(int argc, const char * argv[])
                 url = [NSURL fileURLWithPath:escaped relativeToURL:pwdUrl];
             }
             
+            // Create file if it doesn't exist
+            if (![[NSFileManager defaultManager] fileExistsAtPath:escaped]) {
+                [[NSFileManager defaultManager] createFileAtPath:escaped contents:[NSData new] attributes:nil];
+            }
+            
             [urls addObject:url];
         }
         MPCollectForMacDown(urls);
