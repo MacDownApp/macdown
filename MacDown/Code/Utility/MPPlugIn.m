@@ -56,7 +56,6 @@ static NSString * MPPluginTouchBarNormalImageName = @"TouchBarImage";
     }
 
     NSImage *image = nil;
-
     image = [bundle imageForResource:MPPluginTouchBarTemplateImageName];
 
     if (!image)

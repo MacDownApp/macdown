@@ -9,6 +9,9 @@
 #import "MPEditorView.h"
 #import "MPMainController.h"
 
+// These are the Touch Bar item identifiers for the items used by the
+// touch bar created for the editor view.
+
 const NSTouchBarCustomizationIdentifier MPTouchBarEditorViewIdentifier =
     @"com.uranusjr.macdown.touchbar.editorview";
 
@@ -195,10 +198,10 @@ NS_INLINE BOOL MPAreRectsEqual(NSRect r1, NSRect r2)
         MPTouchBarItemCopyHTMLIdentifier
     ]];
 
+    // Loads the touch bar items for the installed plugins
     if ([delegate respondsToSelector:@selector(extraEditorTouchBarItems)])
     {
         id items = [delegate extraEditorTouchBarItems];
-
         if ([items isKindOfClass:[NSArray<NSTouchBarItemIdentifier> class]])
         {
             [customItems addObjectsFromArray:items];

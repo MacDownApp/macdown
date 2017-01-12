@@ -1,5 +1,5 @@
 //
-//  NSTouchBarItem_NSTouchBarItem_QuickConstructor.h
+//  NSTouchBarItem+QuickConstructor.h
 //  MacDown
 //
 //  Created by Bruno Philipe on 9/1/17.

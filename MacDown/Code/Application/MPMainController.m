@@ -94,8 +94,9 @@ NS_INLINE void treat()
 
 @interface MPMainController ()
 
-@property (readonly) NSWindowController *preferencesWindowController;
 @property (weak) IBOutlet MPPlugInController *pluginController;
+
+@property (readonly) NSWindowController *preferencesWindowController;
 @property (strong) NSDictionary<NSString *, NSTouchBarItem *>
 	*pluginTouchBarItems;
 
@@ -176,7 +177,7 @@ NS_INLINE void treat()
 {
     NSApplication *application = [NSApplication sharedApplication];
 
-    // Enables automatic installation of the "Customize TouchBar…" menu item,
+    // Enables automatic installation of the "Customize Touch Bar…" menu item,
     // by Apple's recomendation
     if ([application respondsToSelector:
          @selector(setAutomaticCustomizeTouchBarMenuItemEnabled:)])
@@ -279,6 +280,7 @@ NS_INLINE void treat()
 }
 
 @end
+
 
 @implementation MPMainController (TouchBarDelegate)
 
@@ -539,6 +541,7 @@ NS_INLINE void treat()
     }
     else
     {
+        // Try from the extra plugin items
         id item = [[self pluginTouchBarItems] objectForKey:identifier];
 
         if ([item isKindOfClass:[NSTouchBarItem class]])
