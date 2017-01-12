@@ -61,7 +61,8 @@ int main(int argc, const char * argv[])
             NSURL *url;
             
             if ([escaped isAbsolutePath]) {
-                if ([escaped hasPrefix:@"~"]) { // Expand tilde if present
+                // Expand tilde if present
+                if ([escaped hasPrefix:@"~"]) {
                     escaped = [escaped stringByExpandingTildeInPath];
                 }
                 
