@@ -251,7 +251,7 @@ NS_INLINE void treat()
         }
         else
         {
-            [c openUntitledDocumentForURL:url display:YES error:NULL];
+            [c createNewEmptyDocumentForURL:url display:YES error:NULL];
         }
     }
 
