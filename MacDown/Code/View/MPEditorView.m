@@ -29,6 +29,10 @@ const NSTouchBarItemIdentifier MPTouchBarItemCommentIdentifier =
     @"com.uranusjr.macdown.touchbar.editorview.comment";
 const NSTouchBarItemIdentifier MPTouchBarItemBlockquoteIdentifier =
     @"com.uranusjr.macdown.touchbar.editorview.blockquote";
+const NSTouchBarItemIdentifier MPTouchBarItemStrikeIdentifier =
+    @"com.uranusjr.macdown.touchbar.editorview.strikethrough";
+const NSTouchBarItemIdentifier MPTouchBarItemHighlightIdentifier =
+    @"com.uranusjr.macdown.touchbar.editorview.highlight";
 
 const NSTouchBarItemIdentifier MPTouchBarItemHeadingPopIdentifier =
     @"com.uranusjr.macdown.touchbar.editorview.headingPopover";
@@ -176,12 +180,7 @@ NS_INLINE BOOL MPAreRectsEqual(NSRect r1, NSRect r2)
 {
     NSTouchBar *touchBar = [[NSTouchBar alloc] init];
 
-    id delegate = [[NSApplication sharedApplication] delegate];
-
-    if ([delegate conformsToProtocol:@protocol(NSTouchBarDelegate)])
-    {
-        [touchBar setDelegate:delegate];
-    }
+    [touchBar setDelegate:self];
 
     NSMutableArray<NSTouchBarItemIdentifier> *customItems =
         [[NSMutableArray alloc] init];
@@ -189,14 +188,21 @@ NS_INLINE BOOL MPAreRectsEqual(NSRect r1, NSRect r2)
     [customItems addObjectsFromArray:@[
         MPTouchBarItemHeadingPopIdentifier,
         MPTouchBarItemFormattingIdentifier,
+        MPTouchBarItemStrikeIdentifier,
+        MPTouchBarItemHighlightIdentifier,
         MPTouchBarItemListsIdentifier,
         MPTouchBarItemBlockquoteIdentifier,
         MPTouchBarItemCodeIdentifier,
         MPTouchBarItemShiftIdentifier,
         MPTouchBarItemCommentIdentifier,
         MPTouchBarItemExternalsIdentifier,
-        MPTouchBarItemCopyHTMLIdentifier
+        MPTouchBarItemCopyHTMLIdentifier,
+        NSTouchBarItemIdentifierCharacterPicker,
+        NSTouchBarItemIdentifierFlexibleSpace,
+        NSTouchBarItemIdentifierCandidateList
     ]];
+
+    id delegate = [[NSApplication sharedApplication] delegate];
 
     // Loads the touch bar items for the installed plugins
     if ([delegate respondsToSelector:@selector(extraEditorTouchBarItems)])
@@ -209,10 +215,13 @@ NS_INLINE BOOL MPAreRectsEqual(NSRect r1, NSRect r2)
     }
 
     [touchBar setDefaultItemIdentifiers:@[
+        NSTouchBarItemIdentifierCharacterPicker,
         MPTouchBarItemHeadingPopIdentifier,
         MPTouchBarItemFormattingIdentifier,
         MPTouchBarItemListsIdentifier,
         MPTouchBarItemExternalsIdentifier,
+        NSTouchBarItemIdentifierFlexibleSpace,
+        NSTouchBarItemIdentifierCandidateList,
         NSTouchBarItemIdentifierOtherItemsProxy
     ]];
 
@@ -221,6 +230,33 @@ NS_INLINE BOOL MPAreRectsEqual(NSRect r1, NSRect r2)
     [touchBar setCustomizationIdentifier:MPTouchBarEditorViewIdentifier];
 
     return touchBar;
+}
+
+#pragma mark - TouchBar Delegate
+
+- (NSTouchBarItem *)touchBar:(NSTouchBar *)touchBar
+       makeItemForIdentifier:(NSTouchBarItemIdentifier)identifier
+{
+    if ([identifier isEqualToString:NSTouchBarItemIdentifierCandidateList])
+    {
+        // This one we request the default implementation via super
+        return [super touchBar:touchBar makeItemForIdentifier:identifier];
+    }
+    else
+    {
+        // Otherwise we request that from the App delegate
+        // (so the implementation is shared between all views)
+
+        id delegate = [[NSApplication sharedApplication] delegate];
+
+        if ([delegate conformsToProtocol:@protocol(NSTouchBarDelegate)])
+        {
+            return [delegate touchBar:touchBar
+                makeItemForIdentifier:identifier];
+        }
+    }
+
+    return nil;
 }
 
 #pragma mark - Overrides

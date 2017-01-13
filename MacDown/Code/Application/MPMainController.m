@@ -367,8 +367,8 @@ NS_INLINE void treat()
     id identifier = MPTouchBarItemListsIdentifier;
 
     NSArray *images = @[
-        [NSImage imageNamed:NSImageNameTouchBarTextListTemplate],
-        [NSImage imageNamed:NSImageNameTouchBarListViewTemplate]
+        [NSImage imageNamed:@"UnorderedList"],
+        [NSImage imageNamed:@"OrderedList"]
     ];
 
     NSString *label = NSLocalizedString(@"Lists",
@@ -382,8 +382,8 @@ NS_INLINE void treat()
     id identifier = MPTouchBarItemExternalsIdentifier;
 
     NSArray *images = @[
-        [NSImage imageNamed:NSImageNameTouchBarRotateRightTemplate],
-        [NSImage imageNamed:NSImageNameTouchBarCommunicationVideoTemplate]
+        [NSImage imageNamed:@"Link"],
+        [NSImage imageNamed:@"Image"]
     ];
 
     NSString *label = NSLocalizedString(@"Links ∕ Images",
@@ -397,8 +397,8 @@ NS_INLINE void treat()
     id identifier = MPTouchBarItemShiftIdentifier;
 
     NSArray *images = @[
-        [NSImage imageNamed:@"indentDecreaseTemplate"],
-        [NSImage imageNamed:@"indentIncreaseTemplate"]
+        [NSImage imageNamed:@"ShiftLeft"],
+        [NSImage imageNamed:@"ShiftRight"]
     ];
 
     NSString *label = NSLocalizedString(@"Shift Text",
@@ -426,12 +426,9 @@ NS_INLINE void treat()
         MPTouchBarItemH0Identifier
     ]];
 
-    NSImage *image = [NSImage imageNamed:
-                      NSImageNameTouchBarTextBoxTemplate];
-
     [item setPopoverTouchBar:subTouchBar];
     [item setPressAndHoldTouchBar:subTouchBar];
-    [item setCollapsedRepresentationImage:image];
+    [item setCollapsedRepresentationImage:[NSImage imageNamed:@"Headings"]];
     [item setShowsCloseButton:YES];
     [item setCustomizationLabel:NSLocalizedString(@"Paragraph Types",
                                                   @"TouchBar button label")];
@@ -465,21 +462,21 @@ NS_INLINE void treat()
     else if ([identifier isEqualToString:MPTouchBarItemCodeIdentifier])
     {
         return [self buttonItem:identifier
-                    buttonTitle:NSLocalizedString(@"<code>", @"TouchBar button")
+                     imageNamed:@"InlineCode"
                        andLabel:NSLocalizedString(@"Inline Code",
                                                   @"TouchBar button label")];
     }
     else if ([identifier isEqualToString:MPTouchBarItemCommentIdentifier])
     {
         return [self buttonItem:identifier
-                    buttonTitle:NSLocalizedString(@"<!--", @"TouchBar button")
+                     imageNamed:@"Comment"
                        andLabel:NSLocalizedString(@"Markdown Comment",
                                                   @"TouchBar button label")];
     }
     else if ([identifier isEqualToString:MPTouchBarItemBlockquoteIdentifier])
     {
         return [self buttonItem:identifier
-                    buttonTitle:NSLocalizedString(@"|«»", @"TouchBar button")
+                     imageNamed:@"Blockquote"
                        andLabel:NSLocalizedString(@"Blockquote",
                                                   @"TouchBar button label")];
     }
@@ -535,8 +532,22 @@ NS_INLINE void treat()
     else if ([identifier isEqualToString:MPTouchBarItemCopyHTMLIdentifier])
     {
         return [self buttonItem:identifier
-                     imageNamed:@"exportHTMLTemplate"
+                     imageNamed:@"CopyHTML"
                        andLabel:NSLocalizedString(@"Copy HTML",
+                                                  @"TouchBar button label")];
+    }
+    else if ([identifier isEqualToString:MPTouchBarItemStrikeIdentifier])
+    {
+        return [self buttonItem:identifier
+                     imageNamed:@"Strikethrough"
+                       andLabel:NSLocalizedString(@"Strikethrough",
+                                                  @"TouchBar button label")];
+    }
+    else if ([identifier isEqualToString:MPTouchBarItemHighlightIdentifier])
+    {
+        return [self buttonItem:identifier
+                     imageNamed:@"Highlight"
+                       andLabel:NSLocalizedString(@"Highlight",
                                                   @"TouchBar button label")];
     }
     else

@@ -1446,6 +1446,14 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     {
         [self copyHtml:sender];
     }
+    else if ([identifier isEqualToString:MPTouchBarItemStrikeIdentifier])
+    {
+        [self toggleStrikethrough:sender];
+    }
+    else if ([identifier isEqualToString:MPTouchBarItemHighlightIdentifier])
+    {
+        [self toggleHighlight:sender];
+    }
 }
 
 #pragma mark - Private

@@ -17,6 +17,8 @@ extern const NSTouchBarItemIdentifier MPTouchBarItemUnderlineIdentifier;
 extern const NSTouchBarItemIdentifier MPTouchBarItemCodeIdentifier;
 extern const NSTouchBarItemIdentifier MPTouchBarItemCommentIdentifier;
 extern const NSTouchBarItemIdentifier MPTouchBarItemBlockquoteIdentifier;
+extern const NSTouchBarItemIdentifier MPTouchBarItemStrikeIdentifier;
+extern const NSTouchBarItemIdentifier MPTouchBarItemHighlightIdentifier;
 
 extern const NSTouchBarItemIdentifier MPTouchBarItemHeadingPopIdentifier;
 extern const NSTouchBarItemIdentifier MPTouchBarItemH1Identifier;
