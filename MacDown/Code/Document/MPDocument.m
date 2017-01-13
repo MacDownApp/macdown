@@ -1644,29 +1644,51 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     {
         if (self.preferences.createFileForLinkTarget)
         {
-            NSDocumentController *controller =
-                [NSDocumentController sharedDocumentController];
-            [controller openUntitledDocumentForURL:url display:YES error:NULL];
-            return;
+            if ([self fileURL])
+            {
+                NSDocumentController *controller =
+                    [NSDocumentController sharedDocumentController];
+                [controller createNewEmptyDocumentForURL:url
+                                                 display:YES
+                                                   error:NULL];
+            }
+            else
+            {
+                NSAlert *alert = [[NSAlert alloc] init];
+                NSString *template = NSLocalizedString(
+                    @"Can't create file:\n%@",
+                    @"preview navigation error message");
+                alert.messageText = [NSString stringWithFormat:template,
+                                     url.lastPathComponent];
+                alert.informativeText = NSLocalizedString(
+                    @"MacDown can't create a file for the clicked link because "
+                    @"the current file is not saved anywhere yet. Save the "
+                    @"current file somewhere to enable this feature.",
+                    @"preview navigation error information");
+                [alert runModal];
+            }
         }
-
-        NSAlert *alert = [[NSAlert alloc] init];
-        NSString *template = NSLocalizedString(
-            @"File not found at path:\n%@",
-            @"preview navigation error message");
-        alert.messageText = [NSString stringWithFormat:template, url.path];
-        alert.informativeText = NSLocalizedString(
-            @"Please check the path of your link is correct. Turn on "
-            @"“Automatically create link targets” If you want MacDown to "
-            @"create nonexistent link targets for you.",
-            @"preview navigation error information");
-        [alert runModal];
-        return;
+        else
+        {
+            NSAlert *alert = [[NSAlert alloc] init];
+            NSString *template = NSLocalizedString(
+                @"File not found at path:\n%@",
+                @"preview navigation error message");
+            alert.messageText = [NSString stringWithFormat:template, url.path];
+            alert.informativeText = NSLocalizedString(
+                @"Please check the path of your link is correct. Turn on "
+                @"“Automatically create link targets” If you want MacDown to "
+                @"create nonexistent link targets for you.",
+                @"preview navigation error information");
+            [alert runModal];
+        }
     }
-
-    // Try to open it.
-    if ([[NSWorkspace sharedWorkspace] openURL:url])
-        return;
+    else
+    {
+        // Try to open it.
+        if ([[NSWorkspace sharedWorkspace] openURL:url])
+            return;
+    }
 }
 
 

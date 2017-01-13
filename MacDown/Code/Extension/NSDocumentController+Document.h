@@ -10,7 +10,7 @@
 
 @interface NSDocumentController (Document)
 
-- (id)openUntitledDocumentForURL:(NSURL *)url display:(BOOL)display
+- (id)createNewEmptyDocumentForURL:(NSURL *)url display:(BOOL)display
                            error:(NSError * __autoreleasing *)error;
 
 @end
