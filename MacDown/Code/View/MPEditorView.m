@@ -74,6 +74,10 @@ const NSTouchBarItemIdentifier MPTouchBarItemShiftLeftIdentifier =
 
 const NSTouchBarItemIdentifier MPTouchBarItemCopyHTMLIdentifier =
     @"com.uranusjr.macdown.touchbar.editorview.copyHTML";
+const NSTouchBarItemIdentifier MPTouchBarItemHideEditorIdentifier =
+    @"com.uranusjr.macdown.touchbar.editorview.hideEditor";
+const NSTouchBarItemIdentifier MPTouchBarItemHidePreviewIdentifier =
+    @"com.uranusjr.macdown.touchbar.editorview.hidePreview";
 
 NS_INLINE BOOL MPAreRectsEqual(NSRect r1, NSRect r2)
 {
@@ -197,6 +201,8 @@ NS_INLINE BOOL MPAreRectsEqual(NSRect r1, NSRect r2)
         MPTouchBarItemCommentIdentifier,
         MPTouchBarItemExternalsIdentifier,
         MPTouchBarItemCopyHTMLIdentifier,
+        MPTouchBarItemHideEditorIdentifier,
+        MPTouchBarItemHidePreviewIdentifier,
         NSTouchBarItemIdentifierCharacterPicker,
         NSTouchBarItemIdentifierFlexibleSpace,
         NSTouchBarItemIdentifierCandidateList

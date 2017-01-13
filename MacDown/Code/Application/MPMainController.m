@@ -550,6 +550,20 @@ NS_INLINE void treat()
                        andLabel:NSLocalizedString(@"Highlight",
                                                   @"TouchBar button label")];
     }
+    else if ([identifier isEqualToString:MPTouchBarItemHideEditorIdentifier])
+    {
+        return [self buttonItem:identifier
+                     imageNamed:@"HidePreview"
+                       andLabel:NSLocalizedString(@"Hide Preview Pane",
+                                                  @"TouchBar button label")];
+    }
+    else if ([identifier isEqualToString:MPTouchBarItemHidePreviewIdentifier])
+    {
+        return [self buttonItem:identifier
+                     imageNamed:@"HideEditor"
+                       andLabel:NSLocalizedString(@"Hide Editor Pane",
+                                                  @"TouchBar button label")];
+    }
     else
     {
         // Try from the extra plugin items

@@ -1454,6 +1454,14 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     {
         [self toggleHighlight:sender];
     }
+    else if ([identifier isEqualToString:MPTouchBarItemHideEditorIdentifier])
+    {
+        [self toggleEditorPane:sender];
+    }
+    else if ([identifier isEqualToString:MPTouchBarItemHidePreviewIdentifier])
+    {
+        [self togglePreviewPane:sender];
+    }
 }
 
 #pragma mark - Private
