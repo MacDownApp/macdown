@@ -2,12 +2,12 @@
   "images" : [
     {
       "idiom" : "mac",
-      "filename" : "PreferencesEditor.png",
+      "filename" : "PreferencesTerminal.png",
       "scale" : "1x"
     },
     {
       "idiom" : "mac",
-      "filename" : "PreferencesEditor@2x.png",
+      "filename" : "PreferencesTerminal@2x.png",
       "scale" : "2x"
     }
   ],
