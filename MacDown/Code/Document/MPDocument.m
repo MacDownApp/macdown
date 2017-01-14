@@ -1344,42 +1344,16 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 
 - (IBAction)togglePreviewPane:(id)sender
 {
-    if (self.previewVisible)
-    {
-        self.previousSplitRatio = self.splitView.dividerLocation;
-        BOOL editorOnRight = self.preferences.editorOnRight;
-        [self setSplitViewDividerLocation:(editorOnRight ? 0.0 : 1.0)];
-    }
-    else
-    {
-        // We have an inconsistency here, let's just go back to 0.5,
-        // otherwise nothing will happen
-        if (self.previousSplitRatio < 0.0)
-            self.previousSplitRatio = 0.5;
-
-        [self setSplitViewDividerLocation:self.previousSplitRatio];
-    }
+    BOOL editorOnRight = self.preferences.editorOnRight;
+    [self toggleSplitterCollapseWithVisibility:self.previewVisible
+                                   targetRatio:(editorOnRight ? 0.0 : 1.0)];
 }
 
 - (IBAction)toggleEditorPane:(id)sender
 {
-    if (self.editorVisible)
-    {
-        self.previousSplitRatio = self.splitView.dividerLocation;
-        if (self.preferences.editorOnRight)
-            [self setSplitViewDividerLocation:1.0];
-        else
-            [self setSplitViewDividerLocation:0.0];
-    }
-    else
-    {
-        // We have an inconsistency here, let's just go back to 0.5,
-        // otherwise nothing will happen
-        if (self.previousSplitRatio < 0.0)
-            self.previousSplitRatio = 0.5;
-
-        [self setSplitViewDividerLocation:self.previousSplitRatio];
-    }
+    BOOL editorOnRight = self.preferences.editorOnRight;
+    [self toggleSplitterCollapseWithVisibility:self.editorVisible
+                                   targetRatio:(editorOnRight ? 1.0 : 0.0)];
 }
 
 - (IBAction)render:(id)sender
@@ -1389,6 +1363,32 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 
 
 #pragma mark - Private
+
+- (void)toggleSplitterCollapseWithVisibility:(BOOL)isVisible
+                                 targetRatio:(CGFloat)targetRatio
+{
+    if (isVisible)
+    {
+        CGFloat oldRatio = self.splitView.dividerLocation;
+        if (oldRatio != 0.0 && oldRatio != 1.0)
+        {
+            // We don't want to save these values, since they are meaningless.
+            // The user should be able to switch between 100% editor and 100%
+            // preview without losing the old ratio.
+            self.previousSplitRatio = oldRatio;
+        }
+        [self setSplitViewDividerLocation:targetRatio];
+    }
+    else
+    {
+        // We have an inconsistency here, let's just go back to 0.5,
+        // otherwise nothing will happen
+        if (self.previousSplitRatio < 0.0)
+            self.previousSplitRatio = 0.5;
+
+        [self setSplitViewDividerLocation:self.previousSplitRatio];
+    }
+}
 
 - (void)setupEditor:(NSString *)changedKey
 {
