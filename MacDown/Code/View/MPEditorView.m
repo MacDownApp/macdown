@@ -8,76 +8,10 @@
 
 #import "MPEditorView.h"
 #import "MPMainController.h"
-
-// These are the Touch Bar item identifiers for the items used by the
-// touch bar created for the editor view.
+#import "MPUtilities.h"
 
 const NSTouchBarCustomizationIdentifier MPTouchBarEditorViewIdentifier =
-    @"com.uranusjr.macdown.touchbar.editorview";
-
-const NSTouchBarItemIdentifier MPTouchBarItemFormattingIdentifier =
-    @"com.uranusjr.macdown.touchbar.editorview.formatting";
-const NSTouchBarItemIdentifier MPTouchBarItemStrongIdentifier =
-    @"com.uranusjr.macdown.touchbar.editorview.strong";
-const NSTouchBarItemIdentifier MPTouchBarItemEmphasisIdentifier =
-    @"com.uranusjr.macdown.touchbar.editorview.emphasis";
-const NSTouchBarItemIdentifier MPTouchBarItemUnderlineIdentifier =
-    @"com.uranusjr.macdown.touchbar.editorview.underline";
-const NSTouchBarItemIdentifier MPTouchBarItemCodeIdentifier =
-    @"com.uranusjr.macdown.touchbar.editorview.code";
-const NSTouchBarItemIdentifier MPTouchBarItemCommentIdentifier =
-    @"com.uranusjr.macdown.touchbar.editorview.comment";
-const NSTouchBarItemIdentifier MPTouchBarItemBlockquoteIdentifier =
-    @"com.uranusjr.macdown.touchbar.editorview.blockquote";
-const NSTouchBarItemIdentifier MPTouchBarItemStrikeIdentifier =
-    @"com.uranusjr.macdown.touchbar.editorview.strikethrough";
-const NSTouchBarItemIdentifier MPTouchBarItemHighlightIdentifier =
-    @"com.uranusjr.macdown.touchbar.editorview.highlight";
-
-const NSTouchBarItemIdentifier MPTouchBarItemHeadingPopIdentifier =
-    @"com.uranusjr.macdown.touchbar.editorview.headingPopover";
-const NSTouchBarItemIdentifier MPTouchBarItemH1Identifier =
-	@"com.uranusjr.macdown.touchbar.editorview.h1";
-const NSTouchBarItemIdentifier MPTouchBarItemH2Identifier =
-	@"com.uranusjr.macdown.touchbar.editorview.h2";
-const NSTouchBarItemIdentifier MPTouchBarItemH3Identifier =
-	@"com.uranusjr.macdown.touchbar.editorview.h3";
-const NSTouchBarItemIdentifier MPTouchBarItemH4Identifier =
-	@"com.uranusjr.macdown.touchbar.editorview.h4";
-const NSTouchBarItemIdentifier MPTouchBarItemH5Identifier =
-	@"com.uranusjr.macdown.touchbar.editorview.h5";
-const NSTouchBarItemIdentifier MPTouchBarItemH6Identifier =
-	@"com.uranusjr.macdown.touchbar.editorview.h6";
-const NSTouchBarItemIdentifier MPTouchBarItemH0Identifier =
-	@"com.uranusjr.macdown.touchbar.editorview.h0";
-
-const NSTouchBarItemIdentifier MPTouchBarItemExternalsIdentifier =
-    @"com.uranusjr.macdown.touchbar.editorview.externals";
-const NSTouchBarItemIdentifier MPTouchBarItemLinkIdentifier =
-    @"com.uranusjr.macdown.touchbar.editorview.link";
-const NSTouchBarItemIdentifier MPTouchBarItemImageIdentifier =
-    @"com.uranusjr.macdown.touchbar.editorview.image";
-
-const NSTouchBarItemIdentifier MPTouchBarItemListsIdentifier =
-    @"com.uranusjr.macdown.touchbar.editorview.lists";
-const NSTouchBarItemIdentifier MPTouchBarItemOrderedListIdentifier =
-    @"com.uranusjr.macdown.touchbar.editorview.list-ordered";
-const NSTouchBarItemIdentifier MPTouchBarItemSimpleListIdentifier =
-    @"com.uranusjr.macdown.touchbar.editorview.list-simple";
-
-const NSTouchBarItemIdentifier MPTouchBarItemShiftIdentifier =
-    @"com.uranusjr.macdown.touchbar.editorview.shift";
-const NSTouchBarItemIdentifier MPTouchBarItemShiftRightIdentifier =
-    @"com.uranusjr.macdown.touchbar.editorview.shift-right";
-const NSTouchBarItemIdentifier MPTouchBarItemShiftLeftIdentifier =
-    @"com.uranusjr.macdown.touchbar.editorview.shift-left";
-
-const NSTouchBarItemIdentifier MPTouchBarItemCopyHTMLIdentifier =
-    @"com.uranusjr.macdown.touchbar.editorview.copyHTML";
-const NSTouchBarItemIdentifier MPTouchBarItemHideEditorIdentifier =
-    @"com.uranusjr.macdown.touchbar.editorview.hideEditor";
-const NSTouchBarItemIdentifier MPTouchBarItemHidePreviewIdentifier =
-    @"com.uranusjr.macdown.touchbar.editorview.hidePreview";
+    @"com.uranusjr.macdown.touchbar.editorView";
 
 NS_INLINE BOOL MPAreRectsEqual(NSRect r1, NSRect r2)
 {

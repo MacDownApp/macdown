@@ -17,6 +17,73 @@ NSString * const kMPThemeFileExtension = @"style";
 NSString * const kMPPlugInsDirectoryName = @"PlugIns";
 NSString * const kMPPlugInFileExtension = @"plugin";
 
+// These are the Touch Bar item identifiers for the
+// editorView and webView touchbars
+
+const NSTouchBarItemIdentifier MPTouchBarItemFormattingIdentifier =
+    @"com.uranusjr.macdown.touchbar.formatting";
+const NSTouchBarItemIdentifier MPTouchBarItemStrongIdentifier =
+    @"com.uranusjr.macdown.touchbar.strong";
+const NSTouchBarItemIdentifier MPTouchBarItemEmphasisIdentifier =
+    @"com.uranusjr.macdown.touchbar.emphasis";
+const NSTouchBarItemIdentifier MPTouchBarItemUnderlineIdentifier =
+    @"com.uranusjr.macdown.touchbar.underline";
+const NSTouchBarItemIdentifier MPTouchBarItemCodeIdentifier =
+    @"com.uranusjr.macdown.touchbar.code";
+const NSTouchBarItemIdentifier MPTouchBarItemCommentIdentifier =
+    @"com.uranusjr.macdown.touchbar.comment";
+const NSTouchBarItemIdentifier MPTouchBarItemBlockquoteIdentifier =
+    @"com.uranusjr.macdown.touchbar.blockquote";
+const NSTouchBarItemIdentifier MPTouchBarItemStrikeIdentifier =
+    @"com.uranusjr.macdown.touchbar.strikethrough";
+const NSTouchBarItemIdentifier MPTouchBarItemHighlightIdentifier =
+    @"com.uranusjr.macdown.touchbar.highlight";
+
+const NSTouchBarItemIdentifier MPTouchBarItemHeadingPopIdentifier =
+    @"com.uranusjr.macdown.touchbar.headingPopover";
+const NSTouchBarItemIdentifier MPTouchBarItemH1Identifier =
+	@"com.uranusjr.macdown.touchbar.h1";
+const NSTouchBarItemIdentifier MPTouchBarItemH2Identifier =
+	@"com.uranusjr.macdown.touchbar.h2";
+const NSTouchBarItemIdentifier MPTouchBarItemH3Identifier =
+	@"com.uranusjr.macdown.touchbar.h3";
+const NSTouchBarItemIdentifier MPTouchBarItemH4Identifier =
+	@"com.uranusjr.macdown.touchbar.h4";
+const NSTouchBarItemIdentifier MPTouchBarItemH5Identifier =
+	@"com.uranusjr.macdown.touchbar.h5";
+const NSTouchBarItemIdentifier MPTouchBarItemH6Identifier =
+	@"com.uranusjr.macdown.touchbar.h6";
+const NSTouchBarItemIdentifier MPTouchBarItemH0Identifier =
+	@"com.uranusjr.macdown.touchbar.h0";
+
+const NSTouchBarItemIdentifier MPTouchBarItemExternalsIdentifier =
+    @"com.uranusjr.macdown.touchbar.externals";
+const NSTouchBarItemIdentifier MPTouchBarItemLinkIdentifier =
+    @"com.uranusjr.macdown.touchbar.link";
+const NSTouchBarItemIdentifier MPTouchBarItemImageIdentifier =
+    @"com.uranusjr.macdown.touchbar.image";
+
+const NSTouchBarItemIdentifier MPTouchBarItemListsIdentifier =
+    @"com.uranusjr.macdown.touchbar.lists";
+const NSTouchBarItemIdentifier MPTouchBarItemOrderedListIdentifier =
+    @"com.uranusjr.macdown.touchbar.list-ordered";
+const NSTouchBarItemIdentifier MPTouchBarItemSimpleListIdentifier =
+    @"com.uranusjr.macdown.touchbar.list-simple";
+
+const NSTouchBarItemIdentifier MPTouchBarItemShiftIdentifier =
+    @"com.uranusjr.macdown.touchbar.shift";
+const NSTouchBarItemIdentifier MPTouchBarItemShiftRightIdentifier =
+    @"com.uranusjr.macdown.touchbar.shift-right";
+const NSTouchBarItemIdentifier MPTouchBarItemShiftLeftIdentifier =
+    @"com.uranusjr.macdown.touchbar.shift-left";
+
+const NSTouchBarItemIdentifier MPTouchBarItemCopyHTMLIdentifier =
+    @"com.uranusjr.macdown.touchbar.copyHTML";
+const NSTouchBarItemIdentifier MPTouchBarItemHideEditorIdentifier =
+    @"com.uranusjr.macdown.touchbar.hideEditor";
+const NSTouchBarItemIdentifier MPTouchBarItemHidePreviewIdentifier =
+    @"com.uranusjr.macdown.touchbar.hidePreview";
+
 static NSString *MPDataRootDirectory()
 {
     static NSString *path = nil;

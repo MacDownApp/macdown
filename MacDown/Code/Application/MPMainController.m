@@ -18,7 +18,6 @@
 #import "MPMarkdownPreferencesViewController.h"
 #import "MPEditorPreferencesViewController.h"
 #import "MPHtmlPreferencesViewController.h"
-#import "MPEditorView.h"
 #import "NSTouchBarItem+QuickConstructor.h"
 #import "MPDocument.h"
 #import "MPPlugInController.h"
@@ -550,14 +549,14 @@ NS_INLINE void treat()
                        andLabel:NSLocalizedString(@"Highlight",
                                                   @"TouchBar button label")];
     }
-    else if ([identifier isEqualToString:MPTouchBarItemHideEditorIdentifier])
+    else if ([identifier isEqualToString:MPTouchBarItemHidePreviewIdentifier])
     {
         return [self buttonItem:identifier
                      imageNamed:@"HidePreview"
                        andLabel:NSLocalizedString(@"Hide Preview Pane",
                                                   @"TouchBar button label")];
     }
-    else if ([identifier isEqualToString:MPTouchBarItemHidePreviewIdentifier])
+    else if ([identifier isEqualToString:MPTouchBarItemHideEditorIdentifier])
     {
         return [self buttonItem:identifier
                      imageNamed:@"HideEditor"
