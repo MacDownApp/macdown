@@ -1352,8 +1352,12 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     }
     else
     {
-        if (self.previousSplitRatio >= 0.0)
-            [self setSplitViewDividerLocation:self.previousSplitRatio];
+        // We have an inconsistency here, let's just go back to 0.5,
+        // otherwise nothing will happen
+        if (self.previousSplitRatio < 0.0)
+            self.previousSplitRatio = 0.5;
+
+        [self setSplitViewDividerLocation:self.previousSplitRatio];
     }
 }
 
@@ -1369,8 +1373,12 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     }
     else
     {
-        if (self.previousSplitRatio >= 0.0)
-            [self setSplitViewDividerLocation:self.previousSplitRatio];
+        // We have an inconsistency here, let's just go back to 0.5,
+        // otherwise nothing will happen
+        if (self.previousSplitRatio < 0.0)
+            self.previousSplitRatio = 0.5;
+
+        [self setSplitViewDividerLocation:self.previousSplitRatio];
     }
 }
 
