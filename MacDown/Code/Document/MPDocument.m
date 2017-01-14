@@ -1336,6 +1336,8 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
         if (self.previousSplitRatio >= 0.0)
             [self setSplitViewDividerLocation:self.previousSplitRatio];
     }
+
+    [self updateFirstResponder];
 }
 
 - (IBAction)toggleEditorPane:(id)sender
@@ -1353,6 +1355,8 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
         if (self.previousSplitRatio >= 0.0)
             [self setSplitViewDividerLocation:self.previousSplitRatio];
     }
+
+    [self updateFirstResponder];
 }
 
 - (IBAction)render:(id)sender
@@ -1465,6 +1469,18 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 }
 
 #pragma mark - Private
+
+- (void)updateFirstResponder
+{
+    if (!self.editorVisible)
+    {
+        [[[self preview] window] makeFirstResponder:[self preview]];
+    }
+    else
+    {
+        [[[self editor] window] makeFirstResponder:[self editor]];
+    }
+}
 
 - (void)setupEditor:(NSString *)changedKey
 {

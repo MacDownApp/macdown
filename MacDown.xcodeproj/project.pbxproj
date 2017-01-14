@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		150CFA8D1E299B87000B69E5 /* MPWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 150CFA8C1E299B87000B69E5 /* MPWebView.m */; };
 		15892BA11E2442E60064328A /* NSTouchBarItem+QuickConstructor.m in Sources */ = {isa = PBXBuildFile; fileRef = 15892BA01E2442E60064328A /* NSTouchBarItem+QuickConstructor.m */; };
 		15892BAC1E2700A80064328A /* MPPlugInTouchBarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 15892BAB1E2700A80064328A /* MPPlugInTouchBarButton.m */; };
 		1F002A23195B3DAE008B8D93 /* MPRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F002A22195B3DAE008B8D93 /* MPRenderer.m */; };
@@ -146,6 +147,8 @@
 
 /* Begin PBXFileReference section */
 		0D0EC0DE9FEA22F962083921 /* Pods-MacDownTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacDownTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MacDownTests/Pods-MacDownTests.release.xcconfig"; sourceTree = "<group>"; };
+		150CFA8B1E299B87000B69E5 /* MPWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPWebView.h; sourceTree = "<group>"; };
+		150CFA8C1E299B87000B69E5 /* MPWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPWebView.m; sourceTree = "<group>"; };
 		15892B9F1E2442B50064328A /* NSTouchBarItem+QuickConstructor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTouchBarItem+QuickConstructor.h"; sourceTree = "<group>"; };
 		15892BA01E2442E60064328A /* NSTouchBarItem+QuickConstructor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTouchBarItem+QuickConstructor.m"; sourceTree = "<group>"; };
 		15892BAA1E2700A80064328A /* MPPlugInTouchBarButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPPlugInTouchBarButton.h; sourceTree = "<group>"; };
@@ -408,6 +411,8 @@
 				1F396E6519B0EA17000D3EFC /* MPEditorView.m */,
 				15892BAA1E2700A80064328A /* MPPlugInTouchBarButton.h */,
 				15892BAB1E2700A80064328A /* MPPlugInTouchBarButton.m */,
+				150CFA8B1E299B87000B69E5 /* MPWebView.h */,
+				150CFA8C1E299B87000B69E5 /* MPWebView.m */,
 			);
 			name = View;
 			path = Code/View;
@@ -975,6 +980,7 @@
 				1F33F2A11A3B4B660001C849 /* MPDocumentSplitView.m in Sources */,
 				1F23A92119928E650052DB78 /* MPMathJaxListener.m in Sources */,
 				1F2649B01A7406DB00EF6AF3 /* NSDocumentController+Document.m in Sources */,
+				150CFA8D1E299B87000B69E5 /* MPWebView.m in Sources */,
 				1F0D9D67194AC7CF008E1856 /* MPUtilities.m in Sources */,
 				1F0D9D78194AC7F7008E1856 /* MPHtmlPreferencesViewController.m in Sources */,
 				1F0D9D7C194AC7F7008E1856 /* MPPreferences.m in Sources */,

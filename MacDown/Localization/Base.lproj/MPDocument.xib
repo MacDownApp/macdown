@@ -98,7 +98,7 @@
                                     <constraint firstAttribute="centerX" secondItem="kfG-Fe-ode" secondAttribute="centerX" id="ynw-y8-yAH"/>
                                 </constraints>
                             </customView>
-                            <webView fixedFrame="YES" id="XJO-AS-uPd">
+                            <webView fixedFrame="YES" id="XJO-AS-uPd" customClass="MPWebView">
                                 <rect key="frame" x="510" y="0.0" width="514" height="578"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <webPreferences key="preferences" defaultFontSize="12" defaultFixedFontSize="12">
