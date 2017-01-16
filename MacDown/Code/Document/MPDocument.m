@@ -1686,8 +1686,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     else
     {
         // Try to open it.
-        if ([[NSWorkspace sharedWorkspace] openURL:url])
-            return;
+        [[NSWorkspace sharedWorkspace] openURL:url];
     }
 }
 
