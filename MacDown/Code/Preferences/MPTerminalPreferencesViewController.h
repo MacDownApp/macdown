@@ -11,5 +11,9 @@
 
 @interface MPTerminalPreferencesViewController : MPPreferencesViewController
     <MASPreferencesViewController>
+@property (weak) IBOutlet NSTextField *supportIndicator;
+@property (weak) IBOutlet NSTextField *supportText;
+@property (weak) IBOutlet NSTextField *location;
+@property (weak) IBOutlet NSButton *installUninstallButton;
 
 @end
