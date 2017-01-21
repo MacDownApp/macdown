@@ -16,10 +16,15 @@
 
 @implementation MPTerminalPreferencesViewController {
     NSPipe *brewPrefixOutputPipe;
+    NSColor *installedColor;
+    NSColor *notInstalledColor;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self->installedColor = [NSColor colorWithDeviceRed:0.357 green:0.659 blue:0.192 alpha:1.000];
+    self->notInstalledColor = [NSColor colorWithDeviceRed:0.897 green:0.231 blue:0.212 alpha:1.000];
 }
 
 - (void)viewWillAppear {
@@ -97,7 +102,7 @@
 }
 
 - (void)indicateTerminalUtilityInstalledAt:(NSURL *)url {
-    self.supportIndicator.textColor = [NSColor greenColor];
+    self.supportIndicator.textColor = self->installedColor;
     [self.supportText setStringValue:@"Shell support installed"];
     [self.location setStringValue:url.path];
     [self.installUninstallButton setTitle:@"Uninstall"];
@@ -106,7 +111,7 @@
 }
 
 - (void)indicateTerminalUtilityNotInstalled {
-    self.supportIndicator.textColor = [NSColor redColor];
+    self.supportIndicator.textColor = self->notInstalledColor;
     [self.supportText setStringValue:@"Shell support not installed"];
     [self.location setStringValue:@"<Not installed>"];
     [self.installUninstallButton setTitle:@"Install"];
