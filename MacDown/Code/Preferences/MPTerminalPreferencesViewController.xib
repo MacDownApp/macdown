@@ -38,20 +38,18 @@
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jXn-KV-WQB">
-                    <rect key="frame" x="20" y="115" width="296" height="85"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" id="W5n-x2-ygz">
+                    <rect key="frame" x="20" y="149" width="324" height="51"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="320" id="4IK-PY-Scf"/>
+                    </constraints>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="By activating shell support you can use the macdown utility to open MacDown and documents from a shell." id="W5n-x2-ygz">
                         <font key="font" metaFont="system"/>
-                        <string key="title">Description of shell support goes here. 
-Lorem ipsum dolor sit amet, consectetur 
-adipiscing elit. Praesent tellus elit, convallis sed 
-augue vitae, sagittis scelerisque libero. Nunc 
-aliquam interdum justo.</string>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jQ4-bt-VFs">
-                    <rect key="frame" x="30" y="84" width="60" height="17"/>
+                    <rect key="frame" x="30" y="118" width="60" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Location:" id="EJe-0p-X4m">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -59,7 +57,7 @@ aliquam interdum justo.</string>
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="oUF-aA-NID">
-                    <rect key="frame" x="91" y="84" width="110" height="17"/>
+                    <rect key="frame" x="91" y="118" width="110" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="&lt;binary location&gt;" id="0H2-qZ-OjP">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -67,7 +65,7 @@ aliquam interdum justo.</string>
                     </textFieldCell>
                 </textField>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XPb-kl-BjV">
-                    <rect key="frame" x="87" y="46" width="76" height="32"/>
+                    <rect key="frame" x="87" y="80" width="76" height="32"/>
                     <buttonCell key="cell" type="push" title="Install" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="XiC-FP-TWZ">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
