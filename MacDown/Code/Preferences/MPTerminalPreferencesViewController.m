@@ -14,11 +14,16 @@
 
 @end
 
-@implementation MPTerminalPreferencesViewController
+@implementation MPTerminalPreferencesViewController {
+    NSPipe *brewPrefixOutputPipe;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do view setup here.
+}
+
+- (void)viewWillAppear {
+    [self lookForTerminalUtility];
 }
 
 #pragma mark - MASPrefernecesViewController
@@ -36,6 +41,77 @@
 - (NSString *)toolbarItemLabel
 {
     return NSLocalizedString(@"Terminal", @"Preference pane title.");
+}
+
+/**
+ * Searches for the the macdown terminal utility and invokes foundTerminalUtilityAtURL: if found.
+ */
+- (void)lookForTerminalUtility {
+    NSTask *brewPrefixTask = [NSTask new];
+    [brewPrefixTask setLaunchPath:@"brew"];
+    [brewPrefixTask setArguments:@[@"--prefix"]];
+    self->brewPrefixOutputPipe = [NSPipe pipe];
+    [brewPrefixTask setStandardOutput:self->brewPrefixOutputPipe];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(brewPrefixReadCompleted:) name:NSFileHandleReadToEndOfFileCompletionNotification object:[self->brewPrefixOutputPipe fileHandleForReading]];
+    [[self->brewPrefixOutputPipe fileHandleForReading] readToEndOfFileInBackgroundAndNotify];
+    
+    @try {
+        [brewPrefixTask launch];
+    }
+    @catch (NSException *exception) { // Homebrew not installed
+        if ([exception.name isEqualToString:NSInvalidArgumentException]) {
+            // If installed through DMG the macdown binary should be here
+            NSString *terminalUtilityDefaultPath = @"/usr/local/bin/macdown";
+            
+            if ([[NSFileManager defaultManager] fileExistsAtPath:terminalUtilityDefaultPath]) {
+                NSURL *terminalUtilityUrl = [NSURL fileURLWithPath:terminalUtilityDefaultPath];
+                [self foundTerminalUtilityAtURL:terminalUtilityUrl];
+            }
+        }
+    }
+}
+
+- (void)brewPrefixReadCompleted:(NSNotification *)notification {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:NSFileHandleReadToEndOfFileCompletionNotification object:[notification object]];
+    
+    if ([notification object]) {
+        NSFileHandle *fileHandle = [notification object];
+        
+        if (fileHandle == self->brewPrefixOutputPipe.fileHandleForReading) {
+            NSString *output = [[NSString alloc] initWithData:[[notification userInfo] objectForKey:NSFileHandleNotificationDataItem] encoding:NSUTF8StringEncoding];
+            output = [output stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+            
+            NSString *terminalUtilityPath = [output stringByAppendingString:@"/bin/macdown"];
+            
+            // If MacDown was installed from the Homebrew cask then the macdown binary should exist at this path
+            if ([[NSFileManager defaultManager] fileExistsAtPath:terminalUtilityPath]) {
+                NSURL *terminalUtilityUrl = [NSURL fileURLWithPath:terminalUtilityPath];
+                [self foundTerminalUtilityAtURL:terminalUtilityUrl];
+            }
+        }
+    }
+}
+
+- (void)foundTerminalUtilityAtURL:(NSURL *)url {
+    [self indicateTerminalUtilityInstalledAt:url];
+}
+
+- (void)indicateTerminalUtilityInstalledAt:(NSURL *)url {
+    self.supportIndicator.textColor = [NSColor greenColor];
+    [self.supportText setStringValue:@"Shell support installed"];
+    [self.location setStringValue:url.path];
+    [self.installUninstallButton setTitle:@"Uninstall"];
+    
+    [[NSFontManager sharedFontManager] convertFont:self.location.font toNotHaveTrait:NSFontItalicTrait];
+}
+
+- (void)indicateTerminalUtilityNotInstalled {
+    self.supportIndicator.textColor = [NSColor redColor];
+    [self.supportText setStringValue:@"Shell support not installed"];
+    [self.location setStringValue:@"<Not installed>"];
+    [self.installUninstallButton setTitle:@"Install"];
+    
+    self.location.font = [[NSFontManager sharedFontManager] convertFont:self.location.font toHaveTrait:NSFontItalicTrait];
 }
 
 @end
