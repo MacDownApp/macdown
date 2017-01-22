@@ -61,7 +61,10 @@
     [brewPrefixTask setArguments:@[@"--prefix"]];
     self->brewPrefixOutputPipe = [NSPipe pipe];
     [brewPrefixTask setStandardOutput:self->brewPrefixOutputPipe];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(brewPrefixReadCompleted:) name:NSFileHandleReadToEndOfFileCompletionNotification object:[self->brewPrefixOutputPipe fileHandleForReading]];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+        selector:@selector(brewPrefixReadCompleted:)
+        name:NSFileHandleReadToEndOfFileCompletionNotification
+        object:[self->brewPrefixOutputPipe fileHandleForReading]];
     [[self->brewPrefixOutputPipe fileHandleForReading] readToEndOfFileInBackgroundAndNotify];
     
     @try {
@@ -81,14 +84,19 @@
 }
 
 - (void)brewPrefixReadCompleted:(NSNotification *)notification {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:NSFileHandleReadToEndOfFileCompletionNotification object:[notification object]];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+        name:NSFileHandleReadToEndOfFileCompletionNotification
+        object:[notification object]];
     
     if ([notification object]) {
         NSFileHandle *fileHandle = [notification object];
         
         if (fileHandle == self->brewPrefixOutputPipe.fileHandleForReading) {
-            NSString *output = [[NSString alloc] initWithData:[[notification userInfo] objectForKey:NSFileHandleNotificationDataItem] encoding:NSUTF8StringEncoding];
-            output = [output stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+            NSString *output = [[NSString alloc] initWithData:
+                                [[notification userInfo] objectForKey:NSFileHandleNotificationDataItem]
+                                encoding:NSUTF8StringEncoding];
+            output = [output stringByTrimmingCharactersInSet:
+                      [NSCharacterSet whitespaceAndNewlineCharacterSet]];
             
             NSString *shellUtilityPath = [output stringByAppendingString:@"/bin/macdown"];
             
@@ -113,7 +121,8 @@
     [self.installUninstallButton setTitle:@"Uninstall"];
     [self.installUninstallButton setAction:@selector(unInstallShellUtility)];
     
-    [[NSFontManager sharedFontManager] convertFont:self.location.font toNotHaveTrait:NSFontItalicTrait];
+    [[NSFontManager sharedFontManager] convertFont:self.location.font
+        toNotHaveTrait:NSFontItalicTrait];
 }
 
 - (void)indicateShellUtilityNotInstalled {
@@ -123,7 +132,8 @@
     [self.installUninstallButton setTitle:@"Install"];
     [self.installUninstallButton setAction:@selector(installShellUtility)];
     
-    self.location.font = [[NSFontManager sharedFontManager] convertFont:self.location.font toHaveTrait:NSFontItalicTrait];
+    self.location.font = [[NSFontManager sharedFontManager] convertFont:self.location.font
+        toHaveTrait:NSFontItalicTrait];
 }
 
 - (void)installShellUtility {
