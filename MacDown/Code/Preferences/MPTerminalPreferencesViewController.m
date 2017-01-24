@@ -41,7 +41,7 @@
     [self lookForShellUtility];
 }
 
-#pragma mark - MASPrefernecesViewController
+#pragma mark - MASPreferencesViewController
 
 - (NSString *)identifier
 {

@@ -25,7 +25,7 @@ NSString * const MPDidRequestEditorSetupNotificationKeyName =
 @implementation MPEditorPreferencesViewController
 
 
-#pragma mark - MASPrefernecesViewController
+#pragma mark - MASPreferencesViewController
 
 - (NSString *)identifier
 {
