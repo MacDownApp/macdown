@@ -122,6 +122,8 @@
     self.supportIndicator.textColor = self->installedColor;
     [self.supportText setStringValue:@"Shell support installed"];
     [self.location setStringValue:url.path];
+    NSFont *installedLocationFont = [NSFont fontWithName:@"Menlo" size:self.location.font.pointSize];
+    [self.location setFont:installedLocationFont];
     [self.installUninstallButton setTitle:@"Uninstall"];
     [self.installUninstallButton setAction:@selector(unInstallShellUtility)];
 }
@@ -130,6 +132,10 @@
     self.supportIndicator.textColor = self->notInstalledColor;
     [self.supportText setStringValue:@"Shell support not installed"];
     [self.location setStringValue:@"<Not installed>"];
+    NSFont *notInstalledFont = [[NSFontManager sharedFontManager] convertFont:
+                                [NSFont systemFontOfSize:self.location.font.pointSize]
+                                toHaveTrait:NSFontItalicTrait];
+    [self.location setFont:notInstalledFont];
     [self.installUninstallButton setTitle:@"Install"];
     [self.installUninstallButton setAction:@selector(installShellUtility)];
 }
