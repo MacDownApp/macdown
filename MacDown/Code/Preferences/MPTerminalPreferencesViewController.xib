@@ -8,6 +8,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="MPTerminalPreferencesViewController">
             <connections>
+                <outlet property="infoTextField" destination="jXn-KV-WQB" id="Eys-dJ-Fac"/>
                 <outlet property="installUninstallButton" destination="XPb-kl-BjV" id="eQ9-92-EZZ"/>
                 <outlet property="location" destination="oUF-aA-NID" id="FyW-H9-BR9"/>
                 <outlet property="supportIndicator" destination="GyN-lb-9B9" id="7m6-is-i6W"/>
@@ -57,9 +58,9 @@
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="oUF-aA-NID">
-                    <rect key="frame" x="91" y="51" width="110" height="17"/>
+                    <rect key="frame" x="91" y="51" width="127" height="18"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="&lt;binary location&gt;" id="0H2-qZ-OjP">
-                        <font key="font" metaFont="system"/>
+                        <font key="font" size="12" name="Menlo-Regular"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
