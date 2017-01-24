@@ -8,11 +8,13 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="MPTerminalPreferencesViewController">
             <connections>
-                <outlet property="infoTextField" destination="jXn-KV-WQB" id="Eys-dJ-Fac"/>
+                <outlet property="infoTextField" destination="jXn-KV-WQB" id="2bQ-bC-usP"/>
                 <outlet property="installUninstallButton" destination="XPb-kl-BjV" id="eQ9-92-EZZ"/>
                 <outlet property="location" destination="oUF-aA-NID" id="FyW-H9-BR9"/>
+                <outlet property="locationTextField" destination="oUF-aA-NID" id="hXp-1d-sck"/>
                 <outlet property="supportIndicator" destination="GyN-lb-9B9" id="7m6-is-i6W"/>
                 <outlet property="supportText" destination="QYt-FS-lHh" id="BxH-WN-ofa"/>
+                <outlet property="supportTextField" destination="QYt-FS-lHh" id="uV1-Ca-5vv"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>

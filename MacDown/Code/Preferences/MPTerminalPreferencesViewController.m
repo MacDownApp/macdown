@@ -11,7 +11,11 @@
 #import "MPPreferences.h"
 
 @interface MPTerminalPreferencesViewController ()
-
+@property (weak) IBOutlet NSTextField *supportIndicator;
+@property (weak) IBOutlet NSTextField *supportTextField;
+@property (weak) IBOutlet NSTextField *infoTextField;
+@property (weak) IBOutlet NSTextField *locationTextField;
+@property (weak) IBOutlet NSButton *installUninstallButton;
 @end
 
 @implementation MPTerminalPreferencesViewController {
@@ -120,22 +124,22 @@
 
 - (void)indicateShellUtilityInstalledAt:(NSURL *)url {
     self.supportIndicator.textColor = self->installedColor;
-    [self.supportText setStringValue:@"Shell support installed"];
-    [self.location setStringValue:url.path];
-    NSFont *installedLocationFont = [NSFont fontWithName:@"Menlo" size:self.location.font.pointSize];
-    [self.location setFont:installedLocationFont];
+    [self.supportTextField setStringValue:@"Shell support installed"];
+    [self.locationTextField setStringValue:url.path];
+    NSFont *installedLocationFont = [NSFont fontWithName:@"Menlo" size:self.locationTextField.font.pointSize];
+    [self.locationTextField setFont:installedLocationFont];
     [self.installUninstallButton setTitle:@"Uninstall"];
     [self.installUninstallButton setAction:@selector(unInstallShellUtility)];
 }
 
 - (void)indicateShellUtilityNotInstalled {
     self.supportIndicator.textColor = self->notInstalledColor;
-    [self.supportText setStringValue:@"Shell support not installed"];
-    [self.location setStringValue:@"<Not installed>"];
+    [self.supportTextField setStringValue:@"Shell support not installed"];
+    [self.locationTextField setStringValue:@"<Not installed>"];
     NSFont *notInstalledFont = [[NSFontManager sharedFontManager] convertFont:
-                                [NSFont systemFontOfSize:self.location.font.pointSize]
+                                [NSFont systemFontOfSize:self.locationTextField.font.pointSize]
                                 toHaveTrait:NSFontItalicTrait];
-    [self.location setFont:notInstalledFont];
+    [self.locationTextField setFont:notInstalledFont];
     [self.installUninstallButton setTitle:@"Install"];
     [self.installUninstallButton setAction:@selector(installShellUtility)];
 }
