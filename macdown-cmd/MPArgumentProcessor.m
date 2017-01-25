@@ -39,7 +39,7 @@
     options.applicationName = ^{ return kMPApplicationName; };
     options.printHelpHeader = ^{
         NSString *fmt =
-            @"usage: %@ version [option] ... file [file ...]\n\nOptions:";
+            @"usage: %@ [file ...]\n\nOptions:";
         return [NSString stringWithFormat:fmt, kMPCommandName];
     };
     [options registerOption:'v' long:kMPVersionKey
