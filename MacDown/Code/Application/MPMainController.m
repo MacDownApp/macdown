@@ -99,7 +99,7 @@ NS_INLINE void treat()
 
 @synthesize preferencesWindowController = _preferencesWindowController;
 
-- (MPPreferences *)prefereces
+- (MPPreferences *)preferences
 {
     return [MPPreferences sharedInstance];
 }
@@ -146,7 +146,7 @@ NS_INLINE void treat()
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self selector:@selector(showFirstLaunchTips)
                    name:MPDidDetectFreshInstallationNotification
-                 object:self.prefereces];
+                 object:self.preferences];
     [self copyFiles];
     return self;
 }
@@ -156,9 +156,9 @@ NS_INLINE void treat()
 
 - (BOOL)applicationShouldOpenUntitledFile:(NSApplication *)sender
 {
-    if (self.prefereces.filesToOpen.count || self.prefereces.pipedContentFileToOpen)
+    if (self.preferences.filesToOpen.count || self.preferences.pipedContentFileToOpen)
         return NO;
-    return !self.prefereces.supressesUntitledDocumentOnLaunch;
+    return !self.preferences.supressesUntitledDocumentOnLaunch;
 }
 
 - (void)applicationDidBecomeActive:(NSNotification *)notification
@@ -173,7 +173,7 @@ NS_INLINE void treat()
 
 - (NSString *)feedURLStringForUpdater:(SUUpdater *)updater
 {
-    if (self.prefereces.updateIncludesPreReleases)
+    if (self.preferences.updateIncludesPreReleases)
         return [NSBundle mainBundle].infoDictionary[@"SUBetaFeedURL"];
     return [NSBundle mainBundle].infoDictionary[@"SUFeedURL"];
 }
@@ -222,7 +222,7 @@ NS_INLINE void treat()
 {
     NSDocumentController *c = [NSDocumentController sharedDocumentController];
 
-    for (NSString *path in self.prefereces.filesToOpen)
+    for (NSString *path in self.preferences.filesToOpen)
     {
         NSURL *url = [NSURL fileURLWithPath:path];
         if ([url checkResourceIsReachableAndReturnError:NULL])
@@ -236,15 +236,15 @@ NS_INLINE void treat()
         }
     }
 
-    self.prefereces.filesToOpen = nil;
-    [self.prefereces synchronize];
+    self.preferences.filesToOpen = nil;
+    [self.preferences synchronize];
 }
 
 - (void)openPendingPipedContent {
     NSDocumentController *c = [NSDocumentController sharedDocumentController];
     
-    if (self.prefereces.pipedContentFileToOpen) {
-        NSURL *pipedContentFileToOpenURL = [NSURL fileURLWithPath:self.prefereces.pipedContentFileToOpen];
+    if (self.preferences.pipedContentFileToOpen) {
+        NSURL *pipedContentFileToOpenURL = [NSURL fileURLWithPath:self.preferences.pipedContentFileToOpen];
         NSError *readPipedContentError;
         NSString *pipedContentString = [NSString stringWithContentsOfURL:pipedContentFileToOpenURL encoding:NSUTF8StringEncoding error:&readPipedContentError];
         
@@ -255,8 +255,8 @@ NS_INLINE void treat()
             document.markdown = pipedContentString;
         }
         
-        self.prefereces.pipedContentFileToOpen = nil;
-        [self.prefereces synchronize];
+        self.preferences.pipedContentFileToOpen = nil;
+        [self.preferences synchronize];
     }
 }
 
