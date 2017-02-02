@@ -49,7 +49,7 @@ void MPCollectForMacDown(NSOrderedSet<NSURL *> *urls)
  * 
  * @return Piped data if any, otherwise nil.
  */
-NSData* pipedData() {
+NSData* MPPipedData() {
     NSFileHandle *stdInFileHandle = [NSFileHandle fileHandleWithStandardInput];
     // Check if stdin file handle have anything to read
     // Modified solution from http://stackoverflow.com/questions/7505777/how-do-i-check-for-nsfilehandle-has-data-available
@@ -82,7 +82,7 @@ int main(int argc, const char * argv[])
         else if (argproc.printsVersion)
             [argproc printVersion:YES];
         
-        NSData *dataFromPipe = pipedData();
+        NSData *dataFromPipe = MPPipedData();
         
         if (dataFromPipe) {
             // Store piped content in a temporary file which will be read by MacDown on launch
