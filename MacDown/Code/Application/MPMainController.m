@@ -18,6 +18,7 @@
 #import "MPMarkdownPreferencesViewController.h"
 #import "MPEditorPreferencesViewController.h"
 #import "MPHtmlPreferencesViewController.h"
+#import "MPDocument.h"
 
 
 static NSString * const kMPTreatLastSeenStampKey = @"treatLastSeenStamp";
@@ -155,14 +156,16 @@ NS_INLINE void treat()
 
 - (BOOL)applicationShouldOpenUntitledFile:(NSApplication *)sender
 {
-    if (self.prefereces.filesToOpen.count)
+    if (self.prefereces.filesToOpen.count || self.prefereces.pipedContentFileToOpen)
         return NO;
     return !self.prefereces.supressesUntitledDocumentOnLaunch;
 }
 
 - (void)applicationDidBecomeActive:(NSNotification *)notification
 {
+    [self openPendingPipedContent];
     [self openPendingFiles];
+    treat();
 }
 
 
@@ -235,7 +238,26 @@ NS_INLINE void treat()
 
     self.prefereces.filesToOpen = nil;
     [self.prefereces synchronize];
-    treat();
+}
+
+- (void)openPendingPipedContent {
+    NSDocumentController *c = [NSDocumentController sharedDocumentController];
+    
+    if (self.prefereces.pipedContentFileToOpen) {
+        NSURL *pipedContentFileToOpenURL = [NSURL fileURLWithPath:self.prefereces.pipedContentFileToOpen];
+        NSError *readPipedContentError;
+        NSString *pipedContentString = [NSString stringWithContentsOfURL:pipedContentFileToOpenURL encoding:NSUTF8StringEncoding error:&readPipedContentError];
+        
+        NSError *openDocumentError;
+        MPDocument *document = (MPDocument *)[c openUntitledDocumentAndDisplay:YES error:&openDocumentError];
+        
+        if (document && openDocumentError == nil && readPipedContentError == nil) {
+            document.markdown = pipedContentString;
+        }
+        
+        self.prefereces.pipedContentFileToOpen = nil;
+        [self.prefereces synchronize];
+    }
 }
 
 
