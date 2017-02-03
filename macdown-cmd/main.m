@@ -92,7 +92,9 @@ int main(int argc, const char * argv[])
             NSError *writeError;
             [dataFromPipe writeToFile:fileURL.path options:0 error:&writeError];
             
-            MPCollectPipedContentURLForMacDown(fileURL);
+            if (writeError == nil) {
+                MPCollectPipedContentURLForMacDown(fileURL);
+            }
         }
 
         // Treat all arguments as file names to open. Convert them to absolute
