@@ -88,7 +88,10 @@ int main(int argc, const char * argv[])
             // Store piped content in a temporary file which will be read by MacDown on launch
             NSString *fileName = [NSString stringWithFormat:@"%@_%@", [[NSProcessInfo processInfo] globallyUniqueString], @"pipedText.txt"];
             NSURL *fileURL = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:fileName]];
-            [[NSFileManager defaultManager] createFileAtPath:fileURL.path contents:dataFromPipe attributes:nil];
+            
+            NSError *writeError;
+            [dataFromPipe writeToFile:fileURL.path options:0 error:&writeError];
+            
             MPCollectPipedContentURLForMacDown(fileURL);
         }
 
