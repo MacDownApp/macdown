@@ -267,6 +267,11 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     return self.renderer.currentHtml;
 }
 
+- (BOOL)toolbarVisible
+{
+    return self.windowForSheet.toolbar.visible;
+}
+
 - (BOOL)previewVisible
 {
     return (self.preview.frame.size.width != 0.0);
@@ -614,7 +619,16 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 {
     BOOL result = [super validateUserInterfaceItem:item];
     SEL action = item.action;
-    if (action == @selector(togglePreviewPane:))
+    if (action == @selector(toggleToolbar:))
+    {
+        NSMenuItem *it = ((NSMenuItem *)item);
+        it.title = self.toolbarVisible ?
+            NSLocalizedString(@"Hide toolbar",
+                              @"Toggle reveal toolbar") :
+            NSLocalizedString(@"Show toolbar",
+                              @"Toggle reveal toolbar");
+    }
+    else if (action == @selector(togglePreviewPane:))
     {
         NSMenuItem *it = ((NSMenuItem *)item);
         it.hidden = (!self.previewVisible && self.previousSplitRatio < 0.0);
@@ -1321,6 +1335,11 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 - (IBAction)setEqualSplit:(id)sender
 {
     [self setSplitViewDividerLocation:0.5];
+}
+
+- (IBAction)toggleToolbar:(id)sender
+{
+    [self.windowForSheet toggleToolbarShown:sender];
 }
 
 - (IBAction)togglePreviewPane:(id)sender
