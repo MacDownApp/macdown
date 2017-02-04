@@ -133,27 +133,51 @@
                     <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="mwe-fC-9du"/>
                     <toolbarItem implicitItemIdentifier="8112D9B1-9AFA-42DD-BD59-F11AF223CDBB" label="Header 1" paletteLabel="Header 1" tag="-1" image="Header1" id="tg2-Hk-Pzl">
                         <nil key="toolTip"/>
+                        <connections>
+                            <action selector="convertToH1:" target="-2" id="6c8-YU-IMD"/>
+                        </connections>
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="11034AEA-D36A-4058-A792-2319705FAE00" label="Header 2" paletteLabel="Header 2" tag="-1" image="Header2" id="moO-am-J0A">
                         <nil key="toolTip"/>
+                        <connections>
+                            <action selector="convertToH2:" target="-2" id="6Db-rs-QQ3"/>
+                        </connections>
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="8A05AB7B-6C44-4291-9530-1FE4AB3A9AB1" label="Header 3" paletteLabel="Header 3" tag="-1" image="Header3" id="lt8-fZ-fQs">
                         <nil key="toolTip"/>
+                        <connections>
+                            <action selector="convertToH3:" target="-2" id="nqJ-ev-8ua"/>
+                        </connections>
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="2655C6ED-8F94-4B19-9FAC-AB9F94E10AE0" label="List" paletteLabel="List" tag="-1" image="UnorderedList" id="Vsm-qV-rv6">
                         <nil key="toolTip"/>
+                        <connections>
+                            <action selector="toggleUnorderedList:" target="-2" id="So1-lh-LVU"/>
+                        </connections>
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="B269016D-E5BD-4EF8-AB5D-443F83710503" label="OrderedList" paletteLabel="OrderedList" tag="-1" image="OrderedList" id="ml8-hD-9wK">
                         <nil key="toolTip"/>
+                        <connections>
+                            <action selector="toggleOrderedList:" target="-2" id="7xc-Ao-oNj"/>
+                        </connections>
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="DFE29616-ADC8-4A41-808D-306A6933ABDA" label="Blockquote" paletteLabel="Blockquote" tag="-1" image="Blockquote" id="V17-1R-AoP">
                         <nil key="toolTip"/>
+                        <connections>
+                            <action selector="toggleBlockquote:" target="-2" id="L2q-Yt-oNa"/>
+                        </connections>
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="33A6CF5C-C922-439A-A414-7A91E96EBA64" label="Link" paletteLabel="Link" tag="-1" image="Link" id="BZ9-w2-fjZ">
                         <nil key="toolTip"/>
+                        <connections>
+                            <action selector="toggleLink:" target="-2" id="57I-C6-ens"/>
+                        </connections>
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="F6CA9ED9-089F-4155-8D61-D86D67EEF6DA" label="Image" paletteLabel="Image" tag="-1" image="Image" id="UgU-rr-wWQ">
                         <nil key="toolTip"/>
+                        <connections>
+                            <action selector="toggleImage:" target="-2" id="WbB-ja-aQd"/>
+                        </connections>
                     </toolbarItem>
                 </allowedToolbarItems>
                 <defaultToolbarItems>
