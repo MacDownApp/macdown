@@ -1,9 +1,10 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11542" systemVersion="16C67" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6254"/>
-        <plugIn identifier="com.apple.WebKitIBPlugin" version="6254"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11542"/>
+        <plugIn identifier="com.apple.WebKitIBPlugin" version="11542"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="MPDocument">
@@ -24,7 +25,7 @@
             <windowCollectionBehavior key="collectionBehavior" fullScreenPrimary="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="0.0" y="0.0" width="1024" height="578"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
             <value key="minSize" type="size" width="94" height="86"/>
             <view key="contentView" id="gIp-Ho-8D9">
                 <rect key="frame" x="0.0" y="0.0" width="1024" height="578"/>
@@ -43,15 +44,13 @@
                                             <rect key="frame" x="0.0" y="0.0" width="509" height="578"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <textView importsGraphics="NO" richText="NO" findStyle="bar" allowsDocumentBackgroundColorChange="YES" allowsUndo="YES" verticallyResizable="YES" dashSubstitution="YES" smartInsertDelete="YES" id="VLv-r5-dZU" customClass="MPEditorView">
+                                                <textView importsGraphics="NO" richText="NO" findStyle="bar" allowsDocumentBackgroundColorChange="YES" allowsUndo="YES" dashSubstitution="YES" smartInsertDelete="YES" id="VLv-r5-dZU" customClass="MPEditorView">
                                                     <rect key="frame" x="0.0" y="0.0" width="509" height="578"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <size key="minSize" width="509" height="578"/>
                                                     <size key="maxSize" width="771" height="10000000"/>
                                                     <color key="insertionPointColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <size key="minSize" width="509" height="578"/>
-                                                    <size key="maxSize" width="771" height="10000000"/>
                                                     <connections>
                                                         <outlet property="delegate" destination="-2" id="TdC-zV-Jhk"/>
                                                     </connections>
@@ -125,10 +124,65 @@
                     <constraint firstItem="0kv-p9-H4b" firstAttribute="top" secondItem="gIp-Ho-8D9" secondAttribute="top" id="yHd-Qc-mhZ"/>
                 </constraints>
             </view>
+            <toolbar key="toolbar" implicitIdentifier="E416A0C4-CA17-4923-8651-5CFF69659C83" autosavesConfiguration="NO" displayMode="iconOnly" sizeMode="regular" id="owf-WR-5UO">
+                <allowedToolbarItems>
+                    <toolbarItem implicitItemIdentifier="NSToolbarShowColorsItem" id="wbr-aT-fL7"/>
+                    <toolbarItem implicitItemIdentifier="NSToolbarShowFontsItem" id="h2U-6e-QQr"/>
+                    <toolbarItem implicitItemIdentifier="NSToolbarPrintItem" id="8EQ-l8-qHz"/>
+                    <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="bzN-vA-6Vq"/>
+                    <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="mwe-fC-9du"/>
+                    <toolbarItem implicitItemIdentifier="8112D9B1-9AFA-42DD-BD59-F11AF223CDBB" label="Header 1" paletteLabel="Header 1" tag="-1" image="Header1" id="tg2-Hk-Pzl">
+                        <nil key="toolTip"/>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="11034AEA-D36A-4058-A792-2319705FAE00" label="Header 2" paletteLabel="Header 2" tag="-1" image="Header2" id="moO-am-J0A">
+                        <nil key="toolTip"/>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="8A05AB7B-6C44-4291-9530-1FE4AB3A9AB1" label="Header 3" paletteLabel="Header 3" tag="-1" image="Header3" id="lt8-fZ-fQs">
+                        <nil key="toolTip"/>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="2655C6ED-8F94-4B19-9FAC-AB9F94E10AE0" label="List" paletteLabel="List" tag="-1" image="UnorderedList" id="Vsm-qV-rv6">
+                        <nil key="toolTip"/>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="B269016D-E5BD-4EF8-AB5D-443F83710503" label="OrderedList" paletteLabel="OrderedList" tag="-1" image="OrderedList" id="ml8-hD-9wK">
+                        <nil key="toolTip"/>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="DFE29616-ADC8-4A41-808D-306A6933ABDA" label="Blockquote" paletteLabel="Blockquote" tag="-1" image="Blockquote" id="V17-1R-AoP">
+                        <nil key="toolTip"/>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="33A6CF5C-C922-439A-A414-7A91E96EBA64" label="Link" paletteLabel="Link" tag="-1" image="Link" id="BZ9-w2-fjZ">
+                        <nil key="toolTip"/>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="F6CA9ED9-089F-4155-8D61-D86D67EEF6DA" label="Image" paletteLabel="Image" tag="-1" image="Image" id="UgU-rr-wWQ">
+                        <nil key="toolTip"/>
+                    </toolbarItem>
+                </allowedToolbarItems>
+                <defaultToolbarItems>
+                    <toolbarItem reference="tg2-Hk-Pzl"/>
+                    <toolbarItem reference="moO-am-J0A"/>
+                    <toolbarItem reference="lt8-fZ-fQs"/>
+                    <toolbarItem reference="bzN-vA-6Vq"/>
+                    <toolbarItem reference="Vsm-qV-rv6"/>
+                    <toolbarItem reference="ml8-hD-9wK"/>
+                    <toolbarItem reference="bzN-vA-6Vq"/>
+                    <toolbarItem reference="V17-1R-AoP"/>
+                    <toolbarItem reference="BZ9-w2-fjZ"/>
+                    <toolbarItem reference="UgU-rr-wWQ"/>
+                </defaultToolbarItems>
+            </toolbar>
             <connections>
                 <outlet property="delegate" destination="-2" id="0bl-1N-x8E"/>
             </connections>
         </window>
         <userDefaultsController representsSharedInstance="YES" id="xWe-NS-iYh"/>
     </objects>
+    <resources>
+        <image name="Blockquote" width="30" height="30"/>
+        <image name="Header1" width="30" height="30"/>
+        <image name="Header2" width="30" height="30"/>
+        <image name="Header3" width="30" height="30"/>
+        <image name="Image" width="30" height="30"/>
+        <image name="Link" width="30" height="30"/>
+        <image name="OrderedList" width="30" height="30"/>
+        <image name="UnorderedList" width="30" height="30"/>
+    </resources>
 </document>
