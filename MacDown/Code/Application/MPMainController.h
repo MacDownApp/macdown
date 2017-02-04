@@ -11,6 +11,6 @@
 
 @interface MPMainController : NSObject <NSApplicationDelegate>
 
-@property (nonatomic, readonly) MPPreferences *prefereces;
+@property (nonatomic, readonly) MPPreferences *preferences;
 
 @end
