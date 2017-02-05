@@ -182,7 +182,6 @@
 		1F25E1C21A50F4F10029371D /* MPColorTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPColorTests.m; sourceTree = "<group>"; };
 		1F2649AE1A7406DB00EF6AF3 /* NSDocumentController+Document.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDocumentController+Document.h"; sourceTree = "<group>"; };
 		1F2649AF1A7406DB00EF6AF3 /* NSDocumentController+Document.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDocumentController+Document.m"; sourceTree = "<group>"; };
-		1F27896A1973BEB100EE696A /* Base */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = Base; path = Localization/Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1F3386E41A6B999600FC88C4 /* DOMNode+Text.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DOMNode+Text.h"; sourceTree = "<group>"; };
 		1F3386E51A6B999600FC88C4 /* DOMNode+Text.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DOMNode+Text.m"; sourceTree = "<group>"; };
 		1F33F29F1A3B4B660001C849 /* MPDocumentSplitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPDocumentSplitView.h; sourceTree = "<group>"; };
@@ -235,6 +234,7 @@
 		1FA6DE281941CC9E000409FB /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		1FA6DE291941CC9E000409FB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1FA6DE451941CC9E000409FB /* MacDownTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MacDownTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1FA9196B1E4723A200850517 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Localization/en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1FBBD4BD194C952300BB3C88 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = MacDown/Localization/Base.lproj/MPExportPanelAccessoryViewController.xib; sourceTree = SOURCE_ROOT; };
 		1FBBD4C9194CA35900BB3C88 /* hoedown_html_patch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = hoedown_html_patch.h; sourceTree = "<group>"; };
 		1FBBD4CA194CA36500BB3C88 /* hoedown_html_patch.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hoedown_html_patch.c; sourceTree = "<group>"; };
@@ -1100,7 +1100,7 @@
 		1F2789691973BEB100EE696A /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				1F27896A1973BEB100EE696A /* Base */,
+				1FA9196B1E4723A200850517 /* en */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
