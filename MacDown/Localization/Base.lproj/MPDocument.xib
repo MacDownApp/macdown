@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1217" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6254"/>
-        <plugIn identifier="com.apple.WebKitIBPlugin" version="6254"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11762"/>
+        <plugIn identifier="com.apple.WebKitIBPlugin" version="11762"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="MPDocument">
@@ -19,7 +20,7 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" visibleAtLaunch="NO" animationBehavior="documentWindow" id="xOd-HO-29H" userLabel="Window">
+        <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" visibleAtLaunch="NO" animationBehavior="documentWindow" id="xOd-HO-29H" userLabel="Window">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenPrimary="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
@@ -43,15 +44,13 @@
                                             <rect key="frame" x="0.0" y="0.0" width="509" height="578"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <textView importsGraphics="NO" richText="NO" findStyle="bar" allowsDocumentBackgroundColorChange="YES" allowsUndo="YES" verticallyResizable="YES" dashSubstitution="YES" smartInsertDelete="YES" id="VLv-r5-dZU" customClass="MPEditorView">
+                                                <textView importsGraphics="NO" richText="NO" findStyle="bar" allowsDocumentBackgroundColorChange="YES" allowsUndo="YES" dashSubstitution="YES" smartInsertDelete="YES" id="VLv-r5-dZU" customClass="MPEditorView">
                                                     <rect key="frame" x="0.0" y="0.0" width="509" height="578"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <size key="minSize" width="509" height="578"/>
                                                     <size key="maxSize" width="771" height="10000000"/>
                                                     <color key="insertionPointColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <size key="minSize" width="509" height="578"/>
-                                                    <size key="maxSize" width="771" height="10000000"/>
                                                     <connections>
                                                         <outlet property="delegate" destination="-2" id="TdC-zV-Jhk"/>
                                                     </connections>
@@ -73,14 +72,14 @@
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="180" id="mHu-Un-sUm"/>
                                             <constraint firstAttribute="height" constant="25" id="oA6-sw-Vyh"/>
                                         </constraints>
-                                        <popUpButtonCell key="cell" type="bevel" title="0 words" bezelStyle="regularSquare" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" autoenablesItems="NO" altersStateOfSelectedItem="NO" selectedItem="nSU-MQ-L9d" id="KoL-wy-QnY">
+                                        <popUpButtonCell key="cell" type="bevel" bezelStyle="regularSquare" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" autoenablesItems="NO" altersStateOfSelectedItem="NO" selectedItem="nSU-MQ-L9d" id="KoL-wy-QnY">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="cellTitle"/>
-                                            <menu key="menu" title="OtherViews" autoenablesItems="NO" id="DDR-wQ-zFz">
+                                            <menu key="menu" autoenablesItems="NO" id="DDR-wQ-zFz">
                                                 <items>
-                                                    <menuItem title="0 words" id="nSU-MQ-L9d"/>
-                                                    <menuItem title="Item 2" id="YPx-ln-xHY"/>
-                                                    <menuItem title="Item 3" id="Ur5-Da-p9e"/>
+                                                    <menuItem id="nSU-MQ-L9d"/>
+                                                    <menuItem id="YPx-ln-xHY"/>
+                                                    <menuItem id="Ur5-Da-p9e"/>
                                                 </items>
                                             </menu>
                                         </popUpButtonCell>
