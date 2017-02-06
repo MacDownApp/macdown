@@ -99,6 +99,25 @@ NS_INLINE void treat()
 
 @synthesize preferencesWindowController = _preferencesWindowController;
 
+- (void)applicationDidFinishLaunching:(NSNotification *)notification
+{
+    // Using private API [WebCache setDisabled:YES] to disable WebView's cache
+    id webCacheClass = (id)NSClassFromString(@"WebCache");
+    if (webCacheClass) {
+// Ignoring "undeclared selector" warning
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+        BOOL setDisabledValue = YES;
+        NSMethodSignature *signature = [webCacheClass methodSignatureForSelector:@selector(setDisabled:)];
+        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
+        invocation.selector = @selector(setDisabled:);
+        invocation.target = [webCacheClass class];
+        [invocation setArgument:&setDisabledValue atIndex:2];
+        [invocation invoke];
+#pragma clang diagnostic pop
+    }
+}
+
 - (MPPreferences *)preferences
 {
     return [MPPreferences sharedInstance];
