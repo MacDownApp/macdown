@@ -166,6 +166,11 @@ NS_INLINE void treat()
     [self openPendingPipedContent];
     [self openPendingFiles];
     treat();
+    
+    // Reload preview
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center postNotificationName:MPDidRequestPreviewRenderNotification
+                          object:self];
 }
 
 
