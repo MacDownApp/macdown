@@ -124,23 +124,23 @@
 
 - (void)indicateShellUtilityInstalledAt:(NSURL *)url {
     self.supportIndicator.textColor = self->installedColor;
-    [self.supportTextField setStringValue:@"Shell support installed"];
+    [self.supportTextField setStringValue:NSLocalizedString(@"Shell utility installed", @"Label stating that shell utility has been installed")];
     [self.locationTextField setStringValue:url.path];
     NSFont *installedLocationFont = [NSFont fontWithName:@"Menlo" size:self.locationTextField.font.pointSize];
     [self.locationTextField setFont:installedLocationFont];
-    [self.installUninstallButton setTitle:@"Uninstall"];
+    [self.installUninstallButton setTitle:NSLocalizedString(@"Uninstall", @"Uninstall shell utility button")];
     [self.installUninstallButton setAction:@selector(unInstallShellUtility)];
 }
 
 - (void)indicateShellUtilityNotInstalled {
     self.supportIndicator.textColor = self->notInstalledColor;
-    [self.supportTextField setStringValue:@"Shell support not installed"];
-    [self.locationTextField setStringValue:@"<Not installed>"];
+    [self.supportTextField setStringValue:NSLocalizedString(@"Shell utility not installed", @"Label stating that shell utility has not been installed")];
+    [self.locationTextField setStringValue:NSLocalizedString(@"<Not installed>", @"Displayed instead of path when shell utility has not been installed")];
     NSFont *notInstalledFont = [[NSFontManager sharedFontManager] convertFont:
                                 [NSFont systemFontOfSize:self.locationTextField.font.pointSize]
                                 toHaveTrait:NSFontItalicTrait];
     [self.locationTextField setFont:notInstalledFont];
-    [self.installUninstallButton setTitle:@"Install"];
+    [self.installUninstallButton setTitle:NSLocalizedString(@"Install", @"Install shell utility button")];
     [self.installUninstallButton setAction:@selector(installShellUtility)];
 }
 
