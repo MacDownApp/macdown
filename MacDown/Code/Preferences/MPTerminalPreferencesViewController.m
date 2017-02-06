@@ -25,7 +25,8 @@
     NSColor *notInstalledColor;
 }
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     
     self->installedColor = [NSColor colorWithDeviceRed:0.357 green:0.659 blue:0.192 alpha:1.000];
@@ -37,7 +38,8 @@
     [self indicateShellUtilityNotInstalled];
 }
 
-- (void)viewWillAppear {
+- (void)viewWillAppear
+{
     [self lookForShellUtility];
 }
 
@@ -63,7 +65,8 @@
 /**
  * Searches for the the macdown shell utility and invokes foundShellUtilityAtURL: if found.
  */
-- (void)lookForShellUtility {
+- (void)lookForShellUtility
+{
     NSTask *brewPrefixTask = [NSTask new];
     [brewPrefixTask setLaunchPath:@"brew"];
     [brewPrefixTask setArguments:@[@"--prefix"]];
@@ -79,11 +82,13 @@
         [brewPrefixTask launch];
     }
     @catch (NSException *exception) { // Homebrew not installed
-        if ([exception.name isEqualToString:NSInvalidArgumentException]) {
+        if ([exception.name isEqualToString:NSInvalidArgumentException])
+        {
             // If installed through DMG the macdown binary should be here
             NSString *shellUtilityDefaultPath = @"/usr/local/bin/macdown";
             
-            if ([[NSFileManager defaultManager] fileExistsAtPath:shellUtilityDefaultPath]) {
+            if ([[NSFileManager defaultManager] fileExistsAtPath:shellUtilityDefaultPath])
+            {
                 NSURL *shellUtilityUrl = [NSURL fileURLWithPath:shellUtilityDefaultPath];
                 [self foundShellUtilityAtURL:shellUtilityUrl];
             }
@@ -91,15 +96,18 @@
     }
 }
 
-- (void)brewPrefixReadCompleted:(NSNotification *)notification {
+- (void)brewPrefixReadCompleted:(NSNotification *)notification
+{
     [[NSNotificationCenter defaultCenter] removeObserver:self
         name:NSFileHandleReadToEndOfFileCompletionNotification
         object:[notification object]];
     
-    if ([notification object]) {
+    if ([notification object])
+    {
         NSFileHandle *fileHandle = [notification object];
         
-        if (fileHandle == self->brewPrefixOutputPipe.fileHandleForReading) {
+        if (fileHandle == self->brewPrefixOutputPipe.fileHandleForReading)
+        {
             NSString *output = [[NSString alloc] initWithData:
                                 [[notification userInfo] objectForKey:NSFileHandleNotificationDataItem]
                                 encoding:NSUTF8StringEncoding];
@@ -109,7 +117,8 @@
             NSString *shellUtilityPath = [output stringByAppendingString:@"/bin/macdown"];
             
             // If MacDown was installed from the Homebrew cask then the macdown binary should exist at this path
-            if ([[NSFileManager defaultManager] fileExistsAtPath:shellUtilityPath]) {
+            if ([[NSFileManager defaultManager] fileExistsAtPath:shellUtilityPath])
+            {
                 NSURL *shellUtilityUrl = [NSURL fileURLWithPath:shellUtilityPath];
                 [self foundShellUtilityAtURL:shellUtilityUrl];
             }
@@ -117,12 +126,14 @@
     }
 }
 
-- (void)foundShellUtilityAtURL:(NSURL *)url {
+- (void)foundShellUtilityAtURL:(NSURL *)url
+{
     self->shellUtilityURL = url;
     [self indicateShellUtilityInstalledAt:url];
 }
 
-- (void)indicateShellUtilityInstalledAt:(NSURL *)url {
+- (void)indicateShellUtilityInstalledAt:(NSURL *)url
+{
     self.supportIndicator.textColor = self->installedColor;
     [self.supportTextField setStringValue:NSLocalizedString(@"Shell utility installed", @"Label stating that shell utility has been installed")];
     [self.locationTextField setStringValue:url.path];
@@ -132,7 +143,8 @@
     [self.installUninstallButton setAction:@selector(unInstallShellUtility)];
 }
 
-- (void)indicateShellUtilityNotInstalled {
+- (void)indicateShellUtilityNotInstalled
+{
     self.supportIndicator.textColor = self->notInstalledColor;
     [self.supportTextField setStringValue:NSLocalizedString(@"Shell utility not installed", @"Label stating that shell utility has not been installed")];
     [self.locationTextField setStringValue:NSLocalizedString(@"<Not installed>", @"Displayed instead of path when shell utility has not been installed")];
@@ -144,29 +156,35 @@
     [self.installUninstallButton setAction:@selector(installShellUtility)];
 }
 
-- (void)installShellUtility {
+- (void)installShellUtility
+{
     // URL for macdown utility in .app bundle
     NSBundle *bundle = [NSBundle mainBundle];
     NSURL *utilityBundleUrl = [[bundle sharedSupportURL] URLByAppendingPathComponent:@"bin/macdown"];
     
-    if ([[NSFileManager defaultManager] fileExistsAtPath:[utilityBundleUrl path]]) {
+    if ([[NSFileManager defaultManager] fileExistsAtPath:[utilityBundleUrl path]])
+    {
         NSString *installPath = @"/usr/local/bin/macdown";
         
         NSError *copyError;
         [[NSFileManager defaultManager] copyItemAtPath:utilityBundleUrl.path toPath:installPath error:&copyError];
         
-        if (copyError == nil) {
+        if (copyError == nil)
+        {
             [self lookForShellUtility];
         }
     }
 }
 
-- (void)unInstallShellUtility {
-    if (self->shellUtilityURL) {
+- (void)unInstallShellUtility
+{
+    if (self->shellUtilityURL)
+    {
         NSError *removeFileError;
         [[NSFileManager defaultManager] removeItemAtURL:self->shellUtilityURL error:&removeFileError];
         
-        if (removeFileError == nil) {
+        if (removeFileError == nil)
+        {
             self->shellUtilityURL = nil;
             [self indicateShellUtilityNotInstalled];
         }
@@ -176,7 +194,8 @@
 /**
  * Highlights all occurences of "macdown" in the info-text
  */
-- (void)highlightMacdownInInfo {
+- (void)highlightMacdownInInfo
+{
     NSString *infoString = self.infoTextField.stringValue;
     NSMutableAttributedString *attributedInfoString = [[NSMutableAttributedString alloc] initWithString:infoString];
     
@@ -184,16 +203,19 @@
     CGFloat infoFontSize = self.infoTextField.font.pointSize;
     NSFont *highlightFont = [NSFont fontWithName:@"Menlo" size:infoFontSize];
     
-    while(searchRange.location < infoString.length) {
+    while (searchRange.location < infoString.length)
+    {
         searchRange.length = infoString.length - searchRange.location;
         NSRange foundRange = [infoString rangeOfString:@"macdown" options:NSLiteralSearch range:searchRange];
         
-        if (foundRange.location != NSNotFound) {
+        if (foundRange.location != NSNotFound)
+        {
             [attributedInfoString addAttribute:NSFontAttributeName value:highlightFont range:foundRange];
             
             searchRange.location = foundRange.location + foundRange.length;
         }
-        else { // Found all occurences
+        else // Found all occurences
+        {
             break;
         }
     }
