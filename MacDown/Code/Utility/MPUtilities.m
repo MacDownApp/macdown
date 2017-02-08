@@ -56,8 +56,6 @@ const NSTouchBarItemIdentifier MPTouchBarItemH6Identifier =
 const NSTouchBarItemIdentifier MPTouchBarItemH0Identifier =
 	@"com.uranusjr.macdown.touchbar.h0";
 
-const NSTouchBarItemIdentifier MPTouchBarItemExternalsIdentifier =
-    @"com.uranusjr.macdown.touchbar.externals";
 const NSTouchBarItemIdentifier MPTouchBarItemLinkIdentifier =
     @"com.uranusjr.macdown.touchbar.link";
 const NSTouchBarItemIdentifier MPTouchBarItemImageIdentifier =

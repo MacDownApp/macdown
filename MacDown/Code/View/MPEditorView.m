@@ -133,7 +133,8 @@ NS_INLINE BOOL MPAreRectsEqual(NSRect r1, NSRect r2)
         MPTouchBarItemCodeIdentifier,
         MPTouchBarItemShiftIdentifier,
         MPTouchBarItemCommentIdentifier,
-        MPTouchBarItemExternalsIdentifier,
+        MPTouchBarItemLinkIdentifier,
+        MPTouchBarItemImageIdentifier,
         MPTouchBarItemCopyHTMLIdentifier,
         MPTouchBarItemHideEditorIdentifier,
         MPTouchBarItemHidePreviewIdentifier,
@@ -159,7 +160,7 @@ NS_INLINE BOOL MPAreRectsEqual(NSRect r1, NSRect r2)
         MPTouchBarItemHeadingPopIdentifier,
         MPTouchBarItemFormattingIdentifier,
         MPTouchBarItemListsIdentifier,
-        MPTouchBarItemExternalsIdentifier,
+        MPTouchBarItemLinkIdentifier,
         NSTouchBarItemIdentifierFlexibleSpace,
         NSTouchBarItemIdentifierCandidateList,
         NSTouchBarItemIdentifierOtherItemsProxy

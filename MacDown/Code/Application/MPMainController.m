@@ -368,12 +368,25 @@ NS_INLINE void treat()
                            images:(NSArray<NSImage *> *)images
                          andLabel:(NSString *)label
 {
+    return [self segmentedItem:identifier
+                        images:images
+                segmentedStyle:NSSegmentStyleAutomatic
+                      andLabel:label];
+}
+
+- (NSTouchBarItem *)segmentedItem:(NSTouchBarItemIdentifier)identifier
+                           images:(NSArray<NSImage *> *)images
+                   segmentedStyle:(NSSegmentStyle)segmentedStyle
+                         andLabel:(NSString *)label
+{
     SEL selector = @selector(sendProxyTouchBarActionToCurrentDocument:);
     NSSegmentedControl *control = [NSSegmentedControl
                                    segmentedControlWithImages:images
                                    trackingMode:NSSegmentSwitchTrackingMomentary
                                    target:self
                                    action:selector];
+
+    [control setSegmentStyle:segmentedStyle];
 
     for (NSInteger i=0, k=[images count]; i<k; i++)
     {
@@ -396,7 +409,10 @@ NS_INLINE void treat()
     NSString *label = NSLocalizedString(@"Text Formatting",
                                         @"TouchBar button label");
 
-    return [self segmentedItem:identifier images:images andLabel:label];
+    return [self segmentedItem:identifier
+                        images:images
+                segmentedStyle:NSSegmentStyleSeparated
+                      andLabel:label];
 }
 
 - (NSTouchBarItem *)listsGroupTouchBarItem:(NSTouchBar *)touchBar
@@ -411,21 +427,6 @@ NS_INLINE void treat()
     NSString *label = NSLocalizedString(@"Lists",
                                         @"TouchBar button label");
 
-    return [self segmentedItem:identifier images:images andLabel:label];
-}
-
-- (NSTouchBarItem *)externalsGroupTouchBarItem:(NSTouchBar *)touchBar
-{
-    id identifier = MPTouchBarItemExternalsIdentifier;
-
-    NSArray *images = @[
-        [NSImage imageNamed:@"Link"],
-        [NSImage imageNamed:@"Image"]
-    ];
-
-    NSString *label = NSLocalizedString(@"Links ∕ Images",
-                                        @"TouchBar button label");
-    
     return [self segmentedItem:identifier images:images andLabel:label];
 }
 
@@ -480,10 +481,6 @@ NS_INLINE void treat()
     {
         return [self textFormattingGroupTouchBarItem:touchBar];
     }
-    else if ([identifier isEqualToString:MPTouchBarItemExternalsIdentifier])
-    {
-        return [self externalsGroupTouchBarItem:touchBar];
-    }
     else if ([identifier isEqualToString:MPTouchBarItemListsIdentifier])
     {
         return [self listsGroupTouchBarItem:touchBar];
@@ -495,6 +492,20 @@ NS_INLINE void treat()
     else if ([identifier isEqualToString:MPTouchBarItemShiftIdentifier])
     {
         return [self shiftTextGroupTouchBarItem:touchBar];
+    }
+    else if ([identifier isEqualToString:MPTouchBarItemLinkIdentifier])
+    {
+        return [self buttonItem:identifier
+                     imageNamed:@"Link"
+                       andLabel:NSLocalizedString(@"Link",
+                                                  @"TouchBar button label")];
+    }
+    else if ([identifier isEqualToString:MPTouchBarItemImageIdentifier])
+    {
+        return [self buttonItem:identifier
+                     imageNamed:@"Image"
+                       andLabel:NSLocalizedString(@"Image",
+                                                  @"TouchBar button label")];
     }
     else if ([identifier isEqualToString:MPTouchBarItemCodeIdentifier])
     {
@@ -635,15 +646,6 @@ NS_INLINE void treat()
                 MPTouchBarItemStrongIdentifier,
                 MPTouchBarItemEmphasisIdentifier,
                 MPTouchBarItemUnderlineIdentifier
-            };
-
-            identifier = identifiers[[sender selectedSegment]];
-        }
-        else if ([identifier isEqualToString:MPTouchBarItemExternalsIdentifier])
-        {
-            NSTouchBarItemIdentifier identifiers[] = {
-                MPTouchBarItemLinkIdentifier,
-                MPTouchBarItemImageIdentifier
             };
 
             identifier = identifiers[[sender selectedSegment]];

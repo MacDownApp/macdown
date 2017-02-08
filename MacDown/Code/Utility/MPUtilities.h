@@ -34,7 +34,6 @@ extern const NSTouchBarItemIdentifier MPTouchBarItemH5Identifier;
 extern const NSTouchBarItemIdentifier MPTouchBarItemH6Identifier;
 extern const NSTouchBarItemIdentifier MPTouchBarItemH0Identifier;
 
-extern const NSTouchBarItemIdentifier MPTouchBarItemExternalsIdentifier;
 extern const NSTouchBarItemIdentifier MPTouchBarItemLinkIdentifier;
 extern const NSTouchBarItemIdentifier MPTouchBarItemImageIdentifier;
 
