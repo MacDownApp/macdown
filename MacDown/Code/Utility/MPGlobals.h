@@ -18,3 +18,4 @@ static NSString * const kMPHelpKey = @"help";
 static NSString * const kMPVersionKey = @"version";
 
 static NSString * const kMPFilesToOpenKey = @"filesToOpenOnNextLaunch";
+static NSString * const kMPPipedContentFileToOpen = @"pipedContentFileToOpenOnNextLaunch";
