@@ -1646,22 +1646,42 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
         {
             if ([self fileURL])
             {
+                NSError *error = nil;
+
                 NSDocumentController *controller =
                     [NSDocumentController sharedDocumentController];
                 [controller createNewEmptyDocumentForURL:url
                                                  display:YES
-                                                   error:NULL];
+                                                   error:&error];
+
+                if (error)
+                {
+                    NSAlert *alert = [[NSAlert alloc] init];
+                    NSString *template = NSLocalizedString(
+                        @"Can’t create file:\n%@",
+                        @"preview navigation error message");
+                    alert.messageText = [NSString stringWithFormat:template,
+                                         url.lastPathComponent];
+                    template = NSLocalizedString(
+                        @"An error occured while creating the file:\n%@",
+                        @"preview navigation error information");
+
+                    alert.informativeText = [NSString stringWithFormat:
+                                             template,
+                                             [error localizedDescription]];
+                    [alert runModal];
+                }
             }
             else
             {
                 NSAlert *alert = [[NSAlert alloc] init];
                 NSString *template = NSLocalizedString(
-                    @"Can't create file:\n%@",
+                    @"Can’t create file:\n%@",
                     @"preview navigation error message");
                 alert.messageText = [NSString stringWithFormat:template,
                                      url.lastPathComponent];
                 alert.informativeText = NSLocalizedString(
-                    @"MacDown can't create a file for the clicked link because "
+                    @"MacDown can’t create a file for the clicked link because "
                     @"the current file is not saved anywhere yet. Save the "
                     @"current file somewhere to enable this feature.",
                     @"preview navigation error information");
