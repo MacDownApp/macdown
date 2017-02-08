@@ -1344,16 +1344,12 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 
 - (IBAction)togglePreviewPane:(id)sender
 {
-    BOOL editorOnRight = self.preferences.editorOnRight;
-    [self toggleSplitterCollapseWithVisibility:self.previewVisible
-                                   targetRatio:(editorOnRight ? 0.0 : 1.0)];
+    [self toggleSplitterCollapsingEditorPane:NO];
 }
 
 - (IBAction)toggleEditorPane:(id)sender
 {
-    BOOL editorOnRight = self.preferences.editorOnRight;
-    [self toggleSplitterCollapseWithVisibility:self.editorVisible
-                                   targetRatio:(editorOnRight ? 1.0 : 0.0)];
+    [self toggleSplitterCollapsingEditorPane:YES];
 }
 
 - (IBAction)render:(id)sender
@@ -1364,9 +1360,13 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 
 #pragma mark - Private
 
-- (void)toggleSplitterCollapseWithVisibility:(BOOL)isVisible
-                                 targetRatio:(CGFloat)targetRatio
+- (void)toggleSplitterCollapsingEditorPane:(BOOL)forEditorPane
 {
+    BOOL isVisible = forEditorPane ? self.editorVisible : self.previewVisible;
+    BOOL editorOnRight = self.preferences.editorOnRight;
+
+    float targetRatio = ((forEditorPane == editorOnRight) ? 1.0 : 0.0);
+
     if (isVisible)
     {
         CGFloat oldRatio = self.splitView.dividerLocation;
