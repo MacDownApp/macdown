@@ -1663,7 +1663,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
                     alert.messageText = [NSString stringWithFormat:template,
                                          url.lastPathComponent];
                     template = NSLocalizedString(
-                        @"An error occured while creating the file:\n%@",
+                        @"An error occurred while creating the file:\n%@",
                         @"preview navigation error information");
 
                     alert.informativeText = [NSString stringWithFormat:
