@@ -1,4 +1,4 @@
-osx_image: xcode8.2
+osx_image: xcode8
 language: objective-c
 cache:
   - bundler
