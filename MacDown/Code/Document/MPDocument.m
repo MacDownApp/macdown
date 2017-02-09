@@ -536,6 +536,8 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 - (BOOL)prepareSavePanel:(NSSavePanel *)savePanel
 {
     savePanel.extensionHidden = NO;
+    [savePanel setCanSelectHiddenExtension:NO];
+    
     if (self.fileURL && self.fileURL.isFileURL)
     {
         NSString *path = self.fileURL.path;
