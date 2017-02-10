@@ -559,8 +559,26 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
             savePanel.nameFieldStringValue = fileName;
         }
     }
-    savePanel.allowedFileTypes = @[@"md", @"markdown"]; // Standard file types.
+    
+    // Get supported extensions from plist
+    static NSMutableArray *supportedExtensions = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        supportedExtensions = [NSMutableArray array];
+        NSDictionary *infoDict = [NSBundle mainBundle].infoDictionary;
+        for (NSDictionary *docType in infoDict[@"CFBundleDocumentTypes"])
+        {
+            NSArray *exts = docType[@"CFBundleTypeExtensions"];
+            if (exts.count)
+            {
+                [supportedExtensions addObjectsFromArray:exts];
+            }
+        }
+    });
+    
+    savePanel.allowedFileTypes = supportedExtensions;
     savePanel.allowsOtherFileTypes = YES; // Allow all extensions.
+    
     return [super prepareSavePanel:savePanel];
 }
 
