@@ -793,17 +793,25 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
                 kMPToolbarDictKeyTitle: @"Copy HTML",
                 kMPToolbarDictKeyAction: [NSValue valueWithPointer:@selector(copyHtml:)],
                 },
-        @"toggle-editor-pane": @{
+        @"toggle-panes-group": @{
                 kMPToolbarDictKeyOrder: @9,
-                kMPToolbarDictKeyIcon: @"ToolbarIconHideEditor",
-                kMPToolbarDictKeyTitle: @"Toggle editor pane",
-                kMPToolbarDictKeyAction: [NSValue valueWithPointer:@selector(toggleEditorPane:)],
-                },
-        @"toggle-preview-pane": @{
-                kMPToolbarDictKeyOrder: @10,
-                kMPToolbarDictKeyIcon: @"ToolbarIconHidePreview",
-                kMPToolbarDictKeyTitle: @"Toggle preview pane",
-                kMPToolbarDictKeyAction: [NSValue valueWithPointer:@selector(togglePreviewPane:)],
+                kMPToolbarDictKeyIcon: NSImageNameHomeTemplate,
+                kMPToolbarDictKeyTitle: @"Toggle panes",
+                kMPToolbarDictKeySegmentStyleSeparated: @NO,
+                kMPToolbarDictKeySubItems: @{
+                        @"toggle-editor-pane": @{
+                                kMPToolbarDictKeyOrder: @0,
+                                kMPToolbarDictKeyIcon: @"ToolbarIconHideEditor",
+                                kMPToolbarDictKeyTitle: @"Toggle editor pane",
+                                kMPToolbarDictKeyAction: [NSValue valueWithPointer:@selector(toggleEditorPane:)],
+                                },
+                        @"toggle-preview-pane": @{
+                                kMPToolbarDictKeyOrder: @1,
+                                kMPToolbarDictKeyIcon: @"ToolbarIconHidePreview",
+                                kMPToolbarDictKeyTitle: @"Toggle preview pane",
+                                kMPToolbarDictKeyAction: [NSValue valueWithPointer:@selector(togglePreviewPane:)],
+                                },
+                        }
                 },
     };
 }
