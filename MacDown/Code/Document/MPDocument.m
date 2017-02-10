@@ -679,13 +679,13 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
                 kMPToolbarDictKeySubItems: @{
                     @"shift-left": @{
                         kMPToolbarDictKeyOrder: @0,
-                        kMPToolbarDictKeyIcon: NSImageNameHomeTemplate,
+                        kMPToolbarDictKeyIcon: @"ToolbarIconShiftLeft",
                         kMPToolbarDictKeyTitle: @"Shift left",
                         kMPToolbarDictKeyAction: [NSValue valueWithPointer:@selector(unindent:)],
                         },
                     @"shift-right": @{
                         kMPToolbarDictKeyOrder: @1,
-                        kMPToolbarDictKeyIcon: NSImageNameHomeTemplate,
+                        kMPToolbarDictKeyIcon: @"ToolbarIconShiftRight",
                         kMPToolbarDictKeyTitle: @"Shift right",
                         kMPToolbarDictKeyAction: [NSValue valueWithPointer:@selector(indent:)],
                         },
@@ -699,46 +699,46 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
                 kMPToolbarDictKeySubItems: @{
                     @"bold": @{
                         kMPToolbarDictKeyOrder: @0,
-                        kMPToolbarDictKeyIcon: NSImageNameHomeTemplate,
+                        kMPToolbarDictKeyIcon: @"ToolbarIconBold",
                         kMPToolbarDictKeyTitle: @"Bold",
                         kMPToolbarDictKeyAction: [NSValue valueWithPointer:@selector(toggleStrong:)],
                         },
                     @"italic": @{
                         kMPToolbarDictKeyOrder: @1,
-                        kMPToolbarDictKeyIcon: NSImageNameHomeTemplate,
+                        kMPToolbarDictKeyIcon: @"ToolbarIconItalic",
                         kMPToolbarDictKeyTitle: @"Italic",
                         kMPToolbarDictKeyAction: [NSValue valueWithPointer:@selector(toggleEmphasis:)],
                         },
                     @"underline": @{
                         kMPToolbarDictKeyOrder: @2,
-                        kMPToolbarDictKeyIcon: NSImageNameHomeTemplate,
+                        kMPToolbarDictKeyIcon: @"ToolbarIconUnderlined",
                         kMPToolbarDictKeyTitle: @"Underline",
                         kMPToolbarDictKeyAction: [NSValue valueWithPointer:@selector(toggleUnderline:)],
                         },
                     }
                 },
-        @"header-group": @{
+        @"heading-group": @{
                 kMPToolbarDictKeyOrder: @2,
                 kMPToolbarDictKeyIcon: NSImageNameHomeTemplate,
                 kMPToolbarDictKeyTitle: @"Header",
                 kMPToolbarDictKeySegmentStyleSeparated: @NO,
                 kMPToolbarDictKeySubItems: @{
-                        @"bold": @{
+                        @"heading1": @{
                                 kMPToolbarDictKeyOrder: @0,
-                                kMPToolbarDictKeyIcon: NSImageNameHomeTemplate,
-                                kMPToolbarDictKeyTitle: @"Header 1",
+                                kMPToolbarDictKeyIcon: @"ToolbarIconHeading1",
+                                kMPToolbarDictKeyTitle: @"Heading 1",
                                 kMPToolbarDictKeyAction: [NSValue valueWithPointer:@selector(convertToH1:)],
                                 },
-                        @"italic": @{
+                        @"heading2": @{
                                 kMPToolbarDictKeyOrder: @1,
-                                kMPToolbarDictKeyIcon: NSImageNameHomeTemplate,
-                                kMPToolbarDictKeyTitle: @"Header 2",
+                                kMPToolbarDictKeyIcon: @"ToolbarIconHeading2",
+                                kMPToolbarDictKeyTitle: @"Heading 2",
                                 kMPToolbarDictKeyAction: [NSValue valueWithPointer:@selector(convertToH2:)],
                                 },
-                        @"underline": @{
+                        @"heading3": @{
                                 kMPToolbarDictKeyOrder: @2,
-                                kMPToolbarDictKeyIcon: NSImageNameHomeTemplate,
-                                kMPToolbarDictKeyTitle: @"Header 3",
+                                kMPToolbarDictKeyIcon: @"ToolbarIconHeading3",
+                                kMPToolbarDictKeyTitle: @"Heading 3",
                                 kMPToolbarDictKeyAction: [NSValue valueWithPointer:@selector(convertToH3:)],
                                 },
                         }
@@ -751,13 +751,13 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
                 kMPToolbarDictKeySubItems: @{
                         @"unordered-list": @{
                                 kMPToolbarDictKeyOrder: @0,
-                                kMPToolbarDictKeyIcon: NSImageNameHomeTemplate,
+                                kMPToolbarDictKeyIcon: @"ToolbarIconUnorderedList",
                                 kMPToolbarDictKeyTitle: @"Unordered list",
                                 kMPToolbarDictKeyAction: [NSValue valueWithPointer:@selector(toggleUnorderedList:)],
                                 },
                         @"ordered-list": @{
                                 kMPToolbarDictKeyOrder: @1,
-                                kMPToolbarDictKeyIcon: NSImageNameHomeTemplate,
+                                kMPToolbarDictKeyIcon: @"ToolbarIconOrderedList",
                                 kMPToolbarDictKeyTitle: @"Ordered list",
                                 kMPToolbarDictKeyAction: [NSValue valueWithPointer:@selector(toggleOrderedList:)],
                                 }
@@ -765,43 +765,43 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
                 },
        @"blockquote": @{
                 kMPToolbarDictKeyOrder: @4,
-                kMPToolbarDictKeyIcon: NSImageNameBluetoothTemplate,
+                kMPToolbarDictKeyIcon: @"ToolbarIconBlockquote",
                 kMPToolbarDictKeyTitle: @"Blockquote",
                 kMPToolbarDictKeyAction: [NSValue valueWithPointer:@selector(toggleBlockquote:)],
                 },
         @"code": @{
                 kMPToolbarDictKeyOrder: @5,
-                kMPToolbarDictKeyIcon: NSImageNameBluetoothTemplate,
+                kMPToolbarDictKeyIcon: @"ToolbarIconInlineCode",
                 kMPToolbarDictKeyTitle: @"Inline code",
                 kMPToolbarDictKeyAction: [NSValue valueWithPointer:@selector(toggleInlineCode:)],
                 },
         @"link": @{
                 kMPToolbarDictKeyOrder: @6,
-                kMPToolbarDictKeyIcon: NSImageNameBluetoothTemplate,
+                kMPToolbarDictKeyIcon: @"ToolbarIconLink",
                 kMPToolbarDictKeyTitle: @"Link",
                 kMPToolbarDictKeyAction: [NSValue valueWithPointer:@selector(toggleLink:)],
                 },
         @"image": @{
                 kMPToolbarDictKeyOrder: @7,
-                kMPToolbarDictKeyIcon: NSImageNameBluetoothTemplate,
+                kMPToolbarDictKeyIcon: @"ToolbarIconImage",
                 kMPToolbarDictKeyTitle: @"Inline code",
                 kMPToolbarDictKeyAction: [NSValue valueWithPointer:@selector(toggleImage:)],
                 },
         @"copy-html": @{
                 kMPToolbarDictKeyOrder: @8,
-                kMPToolbarDictKeyIcon: NSImageNameBluetoothTemplate,
+                kMPToolbarDictKeyIcon: @"ToolbarIconCopyHTML",
                 kMPToolbarDictKeyTitle: @"Copy HTML",
                 kMPToolbarDictKeyAction: [NSValue valueWithPointer:@selector(copyHtml:)],
                 },
         @"toggle-editor-pane": @{
                 kMPToolbarDictKeyOrder: @9,
-                kMPToolbarDictKeyIcon: NSImageNameBluetoothTemplate,
+                kMPToolbarDictKeyIcon: @"ToolbarIconHideEditor",
                 kMPToolbarDictKeyTitle: @"Toggle editor pane",
                 kMPToolbarDictKeyAction: [NSValue valueWithPointer:@selector(toggleEditorPane:)],
                 },
         @"toggle-preview-pane": @{
                 kMPToolbarDictKeyOrder: @10,
-                kMPToolbarDictKeyIcon: NSImageNameBluetoothTemplate,
+                kMPToolbarDictKeyIcon: @"ToolbarIconHidePreview",
                 kMPToolbarDictKeyTitle: @"Toggle preview pane",
                 kMPToolbarDictKeyAction: [NSValue valueWithPointer:@selector(togglePreviewPane:)],
                 },
