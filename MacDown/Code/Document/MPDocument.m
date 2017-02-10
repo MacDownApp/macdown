@@ -559,7 +559,8 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
             savePanel.nameFieldStringValue = fileName;
         }
     }
-    savePanel.allowedFileTypes = nil;   // Allow all extensions.
+    savePanel.allowedFileTypes = @[@"md", @"markdown"]; // Standard file types.
+    savePanel.allowsOtherFileTypes = YES; // Allow all extensions.
     return [super prepareSavePanel:savePanel];
 }
 
