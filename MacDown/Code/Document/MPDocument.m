@@ -32,6 +32,13 @@
 
 static NSString * const kMPDefaultAutosaveName = @"Untitled";
 
+static NSString *const kMPToolbarDictKeyOrder = @"kMPToolbarDictKeyOrder";
+static NSString *const kMPToolbarDictKeyIcon = @"kMPToolbarDictKeyIcon";
+static NSString *const kMPToolbarDictKeyTitle = @"kMPToolbarDictKeyTitle";
+static NSString *const kMPToolbarDictKeySubItems = @"kMPToolbarDictKeySubItems";
+static NSString *const kMPToolbarDictKeySegmentStyleSeparated = @"kMPToolbarDictKeySegmentStyleSeparated";
+static NSString *const kMPToolbarDictKeyAction = @"kMPToolbarDictKeyAction";
+
 
 NS_INLINE NSString *MPEditorPreferenceKeyWithValueKey(NSString *key)
 {
@@ -169,7 +176,7 @@ NS_INLINE NSColor *MPGetWebViewBackgroundColor(WebView *webview)
 
 
 @interface MPDocument ()
-    <NSSplitViewDelegate, NSTextViewDelegate,
+    <NSSplitViewDelegate, NSTextViewDelegate, NSToolbarDelegate,
 #if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101100
      WebEditingDelegate, WebFrameLoadDelegate, WebPolicyDelegate,
 #endif
@@ -244,6 +251,11 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 
 
 @implementation MPDocument
+{
+    NSDictionary *toolbarItems;
+    NSArray *toolbarItemKeysOrder;
+    NSMutableDictionary *toolbarGroupItemsDictionary;
+}
 
 #pragma mark - Accessor
 
@@ -338,6 +350,10 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     self.isPreviewReady = NO;
     self.shouldHandleBoundsChange = YES;
     self.previousSplitRatio = -1.0;
+    
+    [self setupToolbarItems];
+    self->toolbarGroupItemsDictionary = [NSMutableDictionary new];
+    
     return self;
 }
 
@@ -649,6 +665,290 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
                           @"Toggle editor pane menu item");
     }
     return result;
+}
+
+- (void)setupToolbarItems
+{
+    // NSToolbarItem identifier as key
+    self->toolbarItems = @{
+        @"indent-group": @{
+                kMPToolbarDictKeyOrder: @0,
+                kMPToolbarDictKeyIcon: NSImageNameHomeTemplate,
+                kMPToolbarDictKeyTitle: @"Indent",
+                kMPToolbarDictKeySegmentStyleSeparated: @YES,
+                kMPToolbarDictKeySubItems: @{
+                    @"shift-left": @{
+                        kMPToolbarDictKeyOrder: @0,
+                        kMPToolbarDictKeyIcon: NSImageNameHomeTemplate,
+                        kMPToolbarDictKeyTitle: @"Shift left",
+                        kMPToolbarDictKeyAction: [NSValue valueWithPointer:@selector(unindent:)],
+                        },
+                    @"shift-right": @{
+                        kMPToolbarDictKeyOrder: @1,
+                        kMPToolbarDictKeyIcon: NSImageNameHomeTemplate,
+                        kMPToolbarDictKeyTitle: @"Shift right",
+                        kMPToolbarDictKeyAction: [NSValue valueWithPointer:@selector(indent:)],
+                        },
+                    }
+               },
+       @"text-formatting-group": @{
+                kMPToolbarDictKeyOrder: @1,
+                kMPToolbarDictKeyIcon: NSImageNameHomeTemplate,
+                kMPToolbarDictKeyTitle: @"Bold",
+                kMPToolbarDictKeySegmentStyleSeparated: @NO,
+                kMPToolbarDictKeySubItems: @{
+                    @"bold": @{
+                        kMPToolbarDictKeyOrder: @0,
+                        kMPToolbarDictKeyIcon: NSImageNameHomeTemplate,
+                        kMPToolbarDictKeyTitle: @"Bold",
+                        kMPToolbarDictKeyAction: [NSValue valueWithPointer:@selector(toggleStrong:)],
+                        },
+                    @"italic": @{
+                        kMPToolbarDictKeyOrder: @1,
+                        kMPToolbarDictKeyIcon: NSImageNameHomeTemplate,
+                        kMPToolbarDictKeyTitle: @"Italic",
+                        kMPToolbarDictKeyAction: [NSValue valueWithPointer:@selector(toggleEmphasis:)],
+                        },
+                    @"underline": @{
+                        kMPToolbarDictKeyOrder: @2,
+                        kMPToolbarDictKeyIcon: NSImageNameHomeTemplate,
+                        kMPToolbarDictKeyTitle: @"Underline",
+                        kMPToolbarDictKeyAction: [NSValue valueWithPointer:@selector(toggleUnderline:)],
+                        },
+                    }
+                },
+        @"header-group": @{
+                kMPToolbarDictKeyOrder: @2,
+                kMPToolbarDictKeyIcon: NSImageNameHomeTemplate,
+                kMPToolbarDictKeyTitle: @"Header",
+                kMPToolbarDictKeySegmentStyleSeparated: @NO,
+                kMPToolbarDictKeySubItems: @{
+                        @"bold": @{
+                                kMPToolbarDictKeyOrder: @0,
+                                kMPToolbarDictKeyIcon: NSImageNameHomeTemplate,
+                                kMPToolbarDictKeyTitle: @"Header 1",
+                                kMPToolbarDictKeyAction: [NSValue valueWithPointer:@selector(convertToH1:)],
+                                },
+                        @"italic": @{
+                                kMPToolbarDictKeyOrder: @1,
+                                kMPToolbarDictKeyIcon: NSImageNameHomeTemplate,
+                                kMPToolbarDictKeyTitle: @"Header 2",
+                                kMPToolbarDictKeyAction: [NSValue valueWithPointer:@selector(convertToH2:)],
+                                },
+                        @"underline": @{
+                                kMPToolbarDictKeyOrder: @2,
+                                kMPToolbarDictKeyIcon: NSImageNameHomeTemplate,
+                                kMPToolbarDictKeyTitle: @"Header 3",
+                                kMPToolbarDictKeyAction: [NSValue valueWithPointer:@selector(convertToH3:)],
+                                },
+                        }
+                },
+        @"list-group": @{
+                kMPToolbarDictKeyOrder: @3,
+                kMPToolbarDictKeyIcon: NSImageNameHomeTemplate,
+                kMPToolbarDictKeyTitle: @"List",
+                kMPToolbarDictKeySegmentStyleSeparated: @NO,
+                kMPToolbarDictKeySubItems: @{
+                        @"unordered-list": @{
+                                kMPToolbarDictKeyOrder: @0,
+                                kMPToolbarDictKeyIcon: NSImageNameHomeTemplate,
+                                kMPToolbarDictKeyTitle: @"Unordered list",
+                                kMPToolbarDictKeyAction: [NSValue valueWithPointer:@selector(toggleUnorderedList:)],
+                                },
+                        @"ordered-list": @{
+                                kMPToolbarDictKeyOrder: @1,
+                                kMPToolbarDictKeyIcon: NSImageNameHomeTemplate,
+                                kMPToolbarDictKeyTitle: @"Ordered list",
+                                kMPToolbarDictKeyAction: [NSValue valueWithPointer:@selector(toggleOrderedList:)],
+                                }
+                        }
+                },
+       @"blockquote": @{
+                kMPToolbarDictKeyOrder: @4,
+                kMPToolbarDictKeyIcon: NSImageNameBluetoothTemplate,
+                kMPToolbarDictKeyTitle: @"Blockquote",
+                kMPToolbarDictKeyAction: [NSValue valueWithPointer:@selector(toggleBlockquote:)],
+                },
+        @"code": @{
+                kMPToolbarDictKeyOrder: @5,
+                kMPToolbarDictKeyIcon: NSImageNameBluetoothTemplate,
+                kMPToolbarDictKeyTitle: @"Inline code",
+                kMPToolbarDictKeyAction: [NSValue valueWithPointer:@selector(toggleInlineCode:)],
+                },
+        @"link": @{
+                kMPToolbarDictKeyOrder: @6,
+                kMPToolbarDictKeyIcon: NSImageNameBluetoothTemplate,
+                kMPToolbarDictKeyTitle: @"Link",
+                kMPToolbarDictKeyAction: [NSValue valueWithPointer:@selector(toggleLink:)],
+                },
+        @"image": @{
+                kMPToolbarDictKeyOrder: @7,
+                kMPToolbarDictKeyIcon: NSImageNameBluetoothTemplate,
+                kMPToolbarDictKeyTitle: @"Inline code",
+                kMPToolbarDictKeyAction: [NSValue valueWithPointer:@selector(toggleImage:)],
+                },
+        @"copy-html": @{
+                kMPToolbarDictKeyOrder: @8,
+                kMPToolbarDictKeyIcon: NSImageNameBluetoothTemplate,
+                kMPToolbarDictKeyTitle: @"Copy HTML",
+                kMPToolbarDictKeyAction: [NSValue valueWithPointer:@selector(copyHtml:)],
+                },
+        @"toggle-editor-pane": @{
+                kMPToolbarDictKeyOrder: @9,
+                kMPToolbarDictKeyIcon: NSImageNameBluetoothTemplate,
+                kMPToolbarDictKeyTitle: @"Toggle editor pane",
+                kMPToolbarDictKeyAction: [NSValue valueWithPointer:@selector(toggleEditorPane:)],
+                },
+        @"toggle-preview-pane": @{
+                kMPToolbarDictKeyOrder: @10,
+                kMPToolbarDictKeyIcon: NSImageNameBluetoothTemplate,
+                kMPToolbarDictKeyTitle: @"Toggle preview pane",
+                kMPToolbarDictKeyAction: [NSValue valueWithPointer:@selector(togglePreviewPane:)],
+                },
+    };
+}
+
+/**
+ * Creates an array with ordered keys from the passed argument dictionary which should be from the hierarchical dictionary produced by setupToolbarItems.
+ *
+ * @returns Ordered keys(identifiers)
+ */
+- (NSArray *)orderedToolbarItemKeysForDictionary:(NSDictionary *)dictionary
+{
+    NSMutableArray *orderedKeys = [NSMutableArray new];
+    
+    // Fill with required capacity
+    for (int i = 0; i < dictionary.count; i++)
+    {
+        orderedKeys[i] = [NSNull null];
+    }
+    
+    for (NSDictionary *itemKey in dictionary)
+    {
+        NSDictionary *itemDictionary = dictionary[itemKey];
+        NSInteger index = [itemDictionary[kMPToolbarDictKeyOrder] integerValue];
+        orderedKeys[index] = itemKey;
+    }
+    
+    return [orderedKeys copy];
+}
+
+
+#pragma mark - NSToolbarDelegate
+- (NSArray<NSString *> *)toolbarDefaultItemIdentifiers:(NSToolbar *)toolbar
+{
+    NSArray *orderedToolbarItemKeys = [self orderedToolbarItemKeysForDictionary:self->toolbarItems];
+    return orderedToolbarItemKeys;
+}
+
+- (NSArray<NSString *> *)toolbarAllowedItemIdentifiers:(NSToolbar *)toolbar
+{
+    return [self toolbarDefaultItemIdentifiers:toolbar];
+}
+
+- (NSArray<NSString *> *)toolbarSelectableItemIdentifiers:(NSToolbar *)toolbar
+{
+    return [self toolbarDefaultItemIdentifiers:toolbar];
+}
+
+- (NSToolbarItem *)toolbar:(NSToolbar *)toolbar itemForItemIdentifier:(NSString *)itemIdentifier willBeInsertedIntoToolbar:(BOOL)flag
+{
+    static CGFloat itemWidth = 42.5;
+    
+    NSDictionary *itemDict = self->toolbarItems[itemIdentifier];
+    
+    if (itemDict)
+    {
+        NSDictionary *subItemDicts = itemDict[kMPToolbarDictKeySubItems];
+        
+        NSToolbarItem *item = [[NSToolbarItem alloc] initWithItemIdentifier:itemIdentifier];
+        
+        if (subItemDicts == nil) // It's a regular toolbar item
+        {
+            NSString *title = itemDict[kMPToolbarDictKeyTitle];
+            NSString *iconName = itemDict[kMPToolbarDictKeyIcon];
+            SEL itemSelector = [itemDict[kMPToolbarDictKeyAction] pointerValue];
+            
+            item.label = title;
+            
+            NSImage *itemImage = [NSImage imageNamed:iconName];
+            NSButton *itemButton = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, itemWidth, 40)];
+            itemButton.image = itemImage;
+            itemButton.bezelStyle = NSBezelStyleTexturedRounded;
+            itemButton.target = self;
+            itemButton.action = itemSelector;
+            item.view = itemButton;
+        }
+        else // It's a segment control
+        {
+            NSToolbarItemGroup *itemGroup = [[NSToolbarItemGroup alloc] initWithItemIdentifier:itemIdentifier];
+            
+            BOOL segmentStyleSeparated = [itemDict[kMPToolbarDictKeySegmentStyleSeparated] boolValue];
+            
+            NSSegmentedControl *segmentedControl = [[NSSegmentedControl alloc] init];
+            segmentedControl.identifier = itemIdentifier;
+            segmentedControl.target = self;
+            segmentedControl.segmentStyle = segmentStyleSeparated ? NSSegmentStyleSeparated : NSSegmentStyleTexturedRounded;
+            segmentedControl.trackingMode = NSSegmentSwitchTrackingMomentary;
+            segmentedControl.segmentCount = subItemDicts.count;
+            
+            NSMutableArray *itemGroupItems = [NSMutableArray new];
+            
+            int segmentIndex = 0;
+            
+            for (NSString *subItemIdentifier in subItemDicts)
+            {
+                NSDictionary *subItemDict = subItemDicts[subItemIdentifier];
+                NSString *subItemTitle = subItemDict[kMPToolbarDictKeyTitle];
+                NSString *subItemIcon = subItemDict[kMPToolbarDictKeyIcon];
+                SEL subItemSelector = [subItemDicts[kMPToolbarDictKeyAction] pointerValue];
+                
+                NSToolbarItem *subItem = [[NSToolbarItem alloc] initWithItemIdentifier:subItemIdentifier];
+                subItem.label = subItemTitle;
+                subItem.target = self;
+                subItem.action = subItemSelector;
+                
+                [segmentedControl setImage:[NSImage imageNamed:subItemIcon] forSegment:segmentIndex];
+                [segmentedControl setWidth:40.0 forSegment:segmentIndex];
+                
+                
+                [itemGroupItems addObject:subItem];
+                segmentIndex++;
+            }
+            
+            CGFloat itemGroupWidth = itemWidth * itemGroupItems.count;
+            
+            itemGroup.subitems = [itemGroupItems copy];
+            itemGroup.view = segmentedControl;
+            itemGroup.maxSize = NSMakeSize(itemGroupWidth, 25);
+            itemGroup.target = self;
+            itemGroup.action = @selector(selectedToolbarItemGroupItem:);
+            
+            [self->toolbarGroupItemsDictionary setObject:itemGroup forKey:itemIdentifier];
+            
+            return itemGroup;
+        }
+        
+        return item;
+    }
+    
+    return nil;
+}
+
+- (void)selectedToolbarItemGroupItem:(NSSegmentedControl *)sender
+{
+    NSInteger selectedIndex = sender.selectedSegment;
+    
+    NSDictionary *groupDictionary = self->toolbarItems[sender.identifier];
+    NSDictionary *groupSubItemsDictionary = groupDictionary[kMPToolbarDictKeySubItems];
+    NSDictionary *selectedItemDictionary = [groupSubItemsDictionary allValues][selectedIndex];
+    
+    // Invoke the toolbar item's action
+    // Must convert to IMP to let the compiler know about the method definition
+    SEL selectedItemAction = [selectedItemDictionary[kMPToolbarDictKeyAction] pointerValue];
+    IMP imp = [self methodForSelector:selectedItemAction];
+    void (*impFunc)(id) = (void *)imp;
+    impFunc(self);
 }
 
 
