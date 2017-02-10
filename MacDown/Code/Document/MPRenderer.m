@@ -204,6 +204,9 @@ NS_INLINE BOOL MPAreNilableStringsEqual(NSString *s1, NSString *s2)
 @property (readonly) NSArray *prismStylesheets;
 @property (readonly) NSArray *prismScripts;
 @property (readonly) NSArray *mathjaxScripts;
+@property (readonly) NSArray *mermaidStylesheets;
+@property (readonly) NSArray *mermaidScripts;
+@property (readonly) NSArray *graphvizScripts;
 @property (readonly) NSArray *stylesheets;
 @property (readonly) NSArray *scripts;
 @property (copy) NSString *currentHtml;
@@ -214,6 +217,8 @@ NS_INLINE BOOL MPAreNilableStringsEqual(NSString *s1, NSString *s2)
 @property (copy) NSString *styleName;
 @property BOOL frontMatter;
 @property BOOL syntaxHighlighting;
+@property BOOL mermaid;
+@property BOOL graphviz;
 @property MPCodeBlockAccessoryType codeBlockAccesory;
 @property BOOL lineNumbers;
 @property BOOL manualRender;
@@ -424,13 +429,65 @@ NS_INLINE void MPFreeHTMLRenderer(hoedown_renderer *htmlRenderer)
     return scripts;
 }
 
+- (NSArray *)mermaidStylesheets
+{
+    NSMutableArray *stylesheets = [NSMutableArray array];
+    
+    NSURL *url = MPExtensionURL(@"mermaid.forest", @"css");
+    [stylesheets addObject:[MPStyleSheet CSSWithURL:url]];
+    
+    return stylesheets;
+}
+
+- (NSArray *)mermaidScripts
+{
+    // TODO
+    NSMutableArray *scripts = [NSMutableArray array];
+
+    {
+        NSURL *url = MPExtensionURL(@"mermaid.min", @"js");
+        [scripts addObject:[MPScript javaScriptWithURL:url]];
+    }
+    {
+        NSURL *url = MPExtensionURL(@"mermaid.init", @"js");
+        [scripts addObject:[MPScript javaScriptWithURL:url]];
+    }
+    
+    return scripts;
+}
+
+- (NSArray *)graphvizScripts
+{
+    // TODO
+    NSMutableArray *scripts = [NSMutableArray array];
+
+    {
+        NSURL *url = MPExtensionURL(@"viz", @"js");
+        [scripts addObject:[MPScript javaScriptWithURL:url]];
+    }
+    {
+        NSURL *url = MPExtensionURL(@"viz.init", @"js");
+        [scripts addObject:[MPScript javaScriptWithURL:url]];
+    }
+    
+    return scripts;
+}
+
 - (NSArray *)stylesheets
 {
     id<MPRendererDelegate> delegate = self.delegate;
 
     NSMutableArray *stylesheets = [self.baseStylesheets mutableCopy];
     if ([delegate rendererHasSyntaxHighlighting:self])
+    {
         [stylesheets addObjectsFromArray:self.prismStylesheets];
+        // mermaid
+        if ([delegate rendererHasMermaid:self])
+        {
+            [stylesheets addObjectsFromArray:self.mermaidStylesheets];
+        }
+        
+    }
 
     if ([delegate rendererCodeBlockAccesory:self] == MPCodeBlockAccessoryCustom)
     {
@@ -450,7 +507,19 @@ NS_INLINE void MPFreeHTMLRenderer(hoedown_renderer *htmlRenderer)
         [scripts addObject:[MPScript javaScriptWithURL:url]];
     }
     if ([d rendererHasSyntaxHighlighting:self])
+    {
         [scripts addObjectsFromArray:self.prismScripts];
+        // mermaid
+        if ([d rendererHasMermaid:self])
+        {
+            [scripts addObjectsFromArray:self.mermaidScripts];
+        }
+        // graphviz
+        if ([d rendererHasGraphviz:self])
+        {
+            [scripts addObjectsFromArray:self.graphvizScripts];
+        }
+    }
     if ([d rendererHasMathJax:self])
         [scripts addObjectsFromArray:self.mathjaxScripts];
     return scripts;
@@ -543,6 +612,10 @@ NS_INLINE void MPFreeHTMLRenderer(hoedown_renderer *htmlRenderer)
     id<MPRendererDelegate> d = self.delegate;
     if ([d rendererHasSyntaxHighlighting:self] != self.syntaxHighlighting)
         changed = YES;
+    else if ([d rendererHasMermaid:self] != self.mermaid)
+        changed = YES;
+    else if ([d rendererHasGraphviz:self] != self.graphviz)
+        changed = YES;
     else if (!MPAreNilableStringsEqual(
             [d rendererHighlightingThemeName:self], self.highlightingThemeName))
         changed = YES;
@@ -568,6 +641,8 @@ NS_INLINE void MPFreeHTMLRenderer(hoedown_renderer *htmlRenderer)
 
     self.styleName = [delegate rendererStyleName:self];
     self.syntaxHighlighting = [delegate rendererHasSyntaxHighlighting:self];
+    self.mermaid = [delegate rendererHasMermaid:self];
+    self.graphviz = [delegate rendererHasGraphviz:self];
     self.highlightingThemeName = [delegate rendererHighlightingThemeName:self];
     self.codeBlockAccesory = [delegate rendererCodeBlockAccesory:self];
 }
@@ -591,6 +666,16 @@ NS_INLINE void MPFreeHTMLRenderer(hoedown_renderer *htmlRenderer)
         scriptsOption = MPAssetEmbedded;
         [styles addObjectsFromArray:self.prismStylesheets];
         [scripts addObjectsFromArray:self.prismScripts];
+        if ([self.delegate rendererHasMermaid:self])
+        {
+            [styles addObjectsFromArray:self.mermaidStylesheets];
+            [scripts addObjectsFromArray:self.mermaidScripts];
+        }
+        if ([self.delegate rendererHasGraphviz:self])
+        {
+            [scripts addObjectsFromArray:self.graphvizScripts];
+        }
+
     }
     if ([self.delegate rendererHasMathJax:self])
     {
