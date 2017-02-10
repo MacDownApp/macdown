@@ -673,8 +673,6 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     self->toolbarItems = @{
         @"indent-group": @{
                 kMPToolbarDictKeyOrder: @0,
-                kMPToolbarDictKeyIcon: NSImageNameHomeTemplate,
-                kMPToolbarDictKeyTitle: @"Indent",
                 kMPToolbarDictKeySegmentStyleSeparated: @YES,
                 kMPToolbarDictKeySubItems: @{
                     @"shift-left": @{
@@ -693,8 +691,6 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
                },
        @"text-formatting-group": @{
                 kMPToolbarDictKeyOrder: @1,
-                kMPToolbarDictKeyIcon: NSImageNameHomeTemplate,
-                kMPToolbarDictKeyTitle: @"Bold",
                 kMPToolbarDictKeySegmentStyleSeparated: @NO,
                 kMPToolbarDictKeySubItems: @{
                     @"bold": @{
@@ -719,8 +715,6 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
                 },
         @"heading-group": @{
                 kMPToolbarDictKeyOrder: @2,
-                kMPToolbarDictKeyIcon: NSImageNameHomeTemplate,
-                kMPToolbarDictKeyTitle: @"Header",
                 kMPToolbarDictKeySegmentStyleSeparated: @NO,
                 kMPToolbarDictKeySubItems: @{
                         @"heading1": @{
@@ -745,8 +739,6 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
                 },
         @"list-group": @{
                 kMPToolbarDictKeyOrder: @3,
-                kMPToolbarDictKeyIcon: NSImageNameHomeTemplate,
-                kMPToolbarDictKeyTitle: @"List",
                 kMPToolbarDictKeySegmentStyleSeparated: @NO,
                 kMPToolbarDictKeySubItems: @{
                         @"unordered-list": @{
@@ -795,8 +787,6 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
                 },
         @"toggle-panes-group": @{
                 kMPToolbarDictKeyOrder: @9,
-                kMPToolbarDictKeyIcon: NSImageNameHomeTemplate,
-                kMPToolbarDictKeyTitle: @"Toggle panes",
                 kMPToolbarDictKeySegmentStyleSeparated: @NO,
                 kMPToolbarDictKeySubItems: @{
                         @"toggle-editor-pane": @{
