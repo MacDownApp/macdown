@@ -9,6 +9,7 @@
 #import "MPEditorView.h"
 #import "MPMainController.h"
 #import "MPUtilities.h"
+#import "MPPreferences.h"
 
 const NSTouchBarCustomizationIdentifier MPTouchBarEditorViewIdentifier =
     @"com.uranusjr.macdown.touchbar.editorView";
@@ -35,6 +36,43 @@ NS_INLINE BOOL MPAreRectsEqual(NSRect r1, NSRect r2)
 
 @synthesize contentRect = _contentRect;
 @synthesize scrollsPastEnd = _scrollsPastEnd;
+
+- (id)initWithCoder:(NSCoder *)coder
+{
+    self = [super initWithCoder:coder];
+
+    if (self)
+    {
+		// The TouchBar for the editor view has to be updated when the value of
+		// these preferences changes
+		[[MPPreferences sharedInstance] addObserver:self
+										 forKeyPath:@"extensionStrikethough"
+											options:NSKeyValueObservingOptionOld
+											context:nil];
+
+		[[MPPreferences sharedInstance] addObserver:self
+										 forKeyPath:@"extensionUnderline"
+											options:NSKeyValueObservingOptionOld
+											context:nil];
+
+		[[MPPreferences sharedInstance] addObserver:self
+										 forKeyPath:@"extensionHighlight"
+											options:NSKeyValueObservingOptionOld
+											context:nil];
+    }
+
+    return self;
+}
+
+- (void)dealloc
+{
+	[[MPPreferences sharedInstance] removeObserver:self
+										forKeyPath:@"extensionStrikethough"];
+	[[MPPreferences sharedInstance] removeObserver:self
+										forKeyPath:@"extensionUnderline"];
+	[[MPPreferences sharedInstance] removeObserver:self
+										forKeyPath:@"extensionHighlight"];
+}
 
 - (BOOL)scrollsPastEnd
 {
@@ -112,10 +150,22 @@ NS_INLINE BOOL MPAreRectsEqual(NSRect r1, NSRect r2)
     }
 }
 
+- (void)observeValueForKeyPath:(NSString *)keyPath
+					  ofObject:(id)object
+						change:(NSDictionary<NSKeyValueChangeKey,id> *)change
+					   context:(void *)context
+{
+	if (object == [MPPreferences sharedInstance])
+	{
+		[self setTouchBar:[self makeTouchBar]];
+	}
+}
+
 #pragma mark - Touch Bar
 
 - (NSTouchBar *)makeTouchBar
 {
+    id delegate = [[NSApplication sharedApplication] delegate];
     NSTouchBar *touchBar = [[NSTouchBar alloc] init];
 
     [touchBar setDelegate:self];
@@ -126,8 +176,6 @@ NS_INLINE BOOL MPAreRectsEqual(NSRect r1, NSRect r2)
     [customItems addObjectsFromArray:@[
         MPTouchBarItemHeadingPopIdentifier,
         MPTouchBarItemFormattingIdentifier,
-        MPTouchBarItemStrikeIdentifier,
-        MPTouchBarItemHighlightIdentifier,
         MPTouchBarItemListsIdentifier,
         MPTouchBarItemBlockquoteIdentifier,
         MPTouchBarItemCodeIdentifier,
@@ -137,18 +185,27 @@ NS_INLINE BOOL MPAreRectsEqual(NSRect r1, NSRect r2)
         MPTouchBarItemImageIdentifier,
         MPTouchBarItemCopyHTMLIdentifier,
         MPTouchBarItemHideEditorIdentifier,
-        MPTouchBarItemHidePreviewIdentifier,
+        MPTouchBarItemHidePreviewIdentifier
+    ]];
+
+    // Add items that only should be included if the respective extension
+    // is enabled
+    if ([delegate respondsToSelector:@selector(extentionTouchBarIdentifiers)])
+    {
+        [customItems addObjectsFromArray:
+            [delegate extentionTouchBarIdentifiers]];
+    }
+
+    [customItems addObjectsFromArray:@[
         NSTouchBarItemIdentifierCharacterPicker,
         NSTouchBarItemIdentifierFlexibleSpace,
         NSTouchBarItemIdentifierCandidateList
     ]];
 
-    id delegate = [[NSApplication sharedApplication] delegate];
-
     // Loads the touch bar items for the installed plugins
-    if ([delegate respondsToSelector:@selector(extraEditorTouchBarItems)])
+    if ([delegate respondsToSelector:@selector(pluginEditorTouchBarItems)])
     {
-        id items = [delegate extraEditorTouchBarItems];
+        id items = [delegate pluginEditorTouchBarItems];
         if ([items isKindOfClass:[NSArray<NSTouchBarItemIdentifier> class]])
         {
             [customItems addObjectsFromArray:items];

@@ -142,7 +142,7 @@ NS_INLINE void treat()
     MPOpenBundledFile(@"help", @"md");
 }
 
-- (NSArray<NSTouchBarItemIdentifier> *)extraEditorTouchBarItems
+- (NSArray<NSTouchBarItemIdentifier> *)pluginEditorTouchBarItems
 {
     return [[self pluginTouchBarItems] allKeys];
 }
@@ -400,11 +400,16 @@ NS_INLINE void treat()
 {
     id identifier = MPTouchBarItemFormattingIdentifier;
 
-    NSArray *images = @[
+    NSMutableArray *images = [@[
         [NSImage imageNamed:NSImageNameTouchBarTextBoldTemplate],
-        [NSImage imageNamed:NSImageNameTouchBarTextItalicTemplate],
-        [NSImage imageNamed:NSImageNameTouchBarTextUnderlineTemplate]
-    ];
+        [NSImage imageNamed:NSImageNameTouchBarTextItalicTemplate]
+    ] mutableCopy];
+
+    if (self.preferences.extensionUnderline)
+    {
+        [images addObject:
+         [NSImage imageNamed:NSImageNameTouchBarTextUnderlineTemplate]];
+    }
 
     NSString *label = NSLocalizedString(@"Text Formatting",
                                         @"TouchBar button label");
@@ -584,14 +589,16 @@ NS_INLINE void treat()
                        andLabel:NSLocalizedString(@"Copy HTML",
                                                   @"TouchBar button label")];
     }
-    else if ([identifier isEqualToString:MPTouchBarItemStrikeIdentifier])
+    else if ([identifier isEqualToString:MPTouchBarItemStrikeIdentifier]
+             && self.preferences.extensionStrikethough)
     {
         return [self buttonItem:identifier
                      imageNamed:@"Strikethrough"
                        andLabel:NSLocalizedString(@"Strikethrough",
                                                   @"TouchBar button label")];
     }
-    else if ([identifier isEqualToString:MPTouchBarItemHighlightIdentifier])
+    else if ([identifier isEqualToString:MPTouchBarItemHighlightIdentifier]
+             && self.preferences.extensionHighlight)
     {
         return [self buttonItem:identifier
                      imageNamed:@"Highlight"
@@ -624,6 +631,23 @@ NS_INLINE void treat()
     }
 
     return nil;
+}
+
+- (NSArray<NSString *> *)extentionTouchBarIdentifiers
+{
+    NSMutableArray<NSString *> *enabledIdentifiers = [NSMutableArray new];
+
+    if (self.preferences.extensionStrikethough)
+    {
+        [enabledIdentifiers addObject:MPTouchBarItemStrikeIdentifier];
+    }
+
+    if (self.preferences.extensionHighlight)
+    {
+        [enabledIdentifiers addObject:MPTouchBarItemHighlightIdentifier];
+    }
+
+    return enabledIdentifiers;
 }
 
 - (void)sendProxyTouchBarActionToCurrentDocument:(id)sender

@@ -14,9 +14,14 @@
 
 @property (nonatomic, readonly) MPPreferences *preferences;
 
+#pragma mark - Touch Bar Support
+
 // Extra Touch Bar items available to the editor view. These need to be
 // installed by the user from the "View > Customize Touch Bar…" menu.
 @property (nonatomic, readonly) NSArray<NSTouchBarItemIdentifier>
-    *extraEditorTouchBarItems;
+    *pluginEditorTouchBarItems;
+
+@property (nonatomic, readonly) NSArray<NSString *>
+    *extentionTouchBarIdentifiers;
 
 @end
