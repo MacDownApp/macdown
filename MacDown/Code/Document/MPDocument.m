@@ -835,8 +835,31 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 #pragma mark - NSToolbarDelegate
 - (NSArray<NSString *> *)toolbarDefaultItemIdentifiers:(NSToolbar *)toolbar
 {
-    NSArray *orderedToolbarItemKeys = [self orderedToolbarItemKeysForDictionary:self->toolbarItems];
-    return orderedToolbarItemKeys;
+    // From toolbar item dictionary(setupToolbarItems)
+    NSArray *orderedToolbarItemIdentifiers = [self orderedToolbarItemKeysForDictionary:self->toolbarItems];
+    
+    // Mixed identifiers from dictionary and spacing at below specified indices
+    NSMutableArray *defaultItemIdentifiers = [NSMutableArray new];
+    
+    // Add spacing after the specified toolbar item indices
+    int spacingAfterIndices[] = {2,3,5,7};
+    int i = 0;
+    int j = 0;
+    
+    for (NSString *itemIdentifier in orderedToolbarItemIdentifiers)
+    {
+        [defaultItemIdentifiers addObject:itemIdentifier];
+        if (i == spacingAfterIndices[j])
+        {
+            [defaultItemIdentifiers addObject:NSToolbarFlexibleSpaceItemIdentifier];
+            
+            j++;
+        }
+        
+        i++;
+    }
+    
+    return [defaultItemIdentifiers copy];
 }
 
 - (NSArray<NSString *> *)toolbarAllowedItemIdentifiers:(NSToolbar *)toolbar
