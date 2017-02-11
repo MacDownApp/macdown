@@ -715,7 +715,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
                 },
         @"heading-group": @{
                 kMPToolbarDictKeyOrder: @2,
-                kMPToolbarDictKeySegmentStyleSeparated: @NO,
+                kMPToolbarDictKeySegmentStyleSeparated: @YES,
                 kMPToolbarDictKeySubItems: @{
                         @"heading1": @{
                                 kMPToolbarDictKeyOrder: @0,
@@ -739,7 +739,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
                 },
         @"list-group": @{
                 kMPToolbarDictKeyOrder: @3,
-                kMPToolbarDictKeySegmentStyleSeparated: @NO,
+                kMPToolbarDictKeySegmentStyleSeparated: @YES,
                 kMPToolbarDictKeySubItems: @{
                         @"unordered-list": @{
                                 kMPToolbarDictKeyOrder: @0,
