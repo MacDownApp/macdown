@@ -915,9 +915,10 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
             
             NSMutableArray *itemGroupItems = [NSMutableArray new];
             
+            NSArray *orderedSubItemIdentifers = [self orderedToolbarItemKeysForDictionary:subItemDicts];
             int segmentIndex = 0;
             
-            for (NSString *subItemIdentifier in subItemDicts)
+            for (NSString *subItemIdentifier in orderedSubItemIdentifers)
             {
                 NSDictionary *subItemDict = subItemDicts[subItemIdentifier];
                 NSString *subItemTitle = subItemDict[kMPToolbarDictKeyTitle];
