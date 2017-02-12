@@ -20,6 +20,7 @@ static NSString *const kMPToolbarDictKeyTitle = @"kMPToolbarDictKeyTitle";
 static NSString *const kMPToolbarDictKeySubItems = @"kMPToolbarDictKeySubItems";
 static NSString *const kMPToolbarDictKeySegmentStyleSeparated = @"kMPToolbarDictKeySegmentStyleSeparated";
 static NSString *const kMPToolbarDictKeyAction = @"kMPToolbarDictKeyAction";
+static NSString *const kMPToolbarDictKeyHighlightable = @"kMPToolbarDictKeyHighlightable";
 
 
 @implementation MPToolbarController
@@ -138,6 +139,7 @@ static NSString *const kMPToolbarDictKeyAction = @"kMPToolbarDictKeyAction";
                                    kMPToolbarDictKeyIsDefaultItem: @YES,
                                    kMPToolbarDictKeyOrder: @0,
                                    kMPToolbarDictKeySegmentStyleSeparated: @YES,
+                                   kMPToolbarDictKeyHighlightable: @NO,
                                    kMPToolbarDictKeySubItems: @{
                                            @"shift-left": @{
                                                    kMPToolbarDictKeyIsDefaultItem: @YES,
@@ -159,6 +161,7 @@ static NSString *const kMPToolbarDictKeyAction = @"kMPToolbarDictKeyAction";
                                    kMPToolbarDictKeyIsDefaultItem: @YES,
                                    kMPToolbarDictKeyOrder: @1,
                                    kMPToolbarDictKeySegmentStyleSeparated: @NO,
+                                   kMPToolbarDictKeyHighlightable: @NO,
                                    kMPToolbarDictKeySubItems: @{
                                            @"bold": @{
                                                    kMPToolbarDictKeyIsDefaultItem: @YES,
@@ -187,6 +190,7 @@ static NSString *const kMPToolbarDictKeyAction = @"kMPToolbarDictKeyAction";
                                    kMPToolbarDictKeyIsDefaultItem: @YES,
                                    kMPToolbarDictKeyOrder: @2,
                                    kMPToolbarDictKeySegmentStyleSeparated: @YES,
+                                   kMPToolbarDictKeyHighlightable: @NO,
                                    kMPToolbarDictKeySubItems: @{
                                            @"heading1": @{
                                                    kMPToolbarDictKeyIsDefaultItem: @YES,
@@ -215,6 +219,7 @@ static NSString *const kMPToolbarDictKeyAction = @"kMPToolbarDictKeyAction";
                                    kMPToolbarDictKeyIsDefaultItem: @YES,
                                    kMPToolbarDictKeyOrder: @3,
                                    kMPToolbarDictKeySegmentStyleSeparated: @YES,
+                                   kMPToolbarDictKeyHighlightable: @NO,
                                    kMPToolbarDictKeySubItems: @{
                                            @"unordered-list": @{
                                                    kMPToolbarDictKeyIsDefaultItem: @YES,
@@ -238,6 +243,7 @@ static NSString *const kMPToolbarDictKeyAction = @"kMPToolbarDictKeyAction";
                                    kMPToolbarDictKeyIcon: @"ToolbarIconBlockquote",
                                    kMPToolbarDictKeyTitle: @"Blockquote",
                                    kMPToolbarDictKeyAction: [NSValue valueWithPointer:@selector(toggleBlockquote:)],
+                                   kMPToolbarDictKeyHighlightable: @NO,
                                    },
                            @"code": @{
                                    kMPToolbarDictKeyIsDefaultItem: @YES,
@@ -245,6 +251,7 @@ static NSString *const kMPToolbarDictKeyAction = @"kMPToolbarDictKeyAction";
                                    kMPToolbarDictKeyIcon: @"ToolbarIconInlineCode",
                                    kMPToolbarDictKeyTitle: @"Inline code",
                                    kMPToolbarDictKeyAction: [NSValue valueWithPointer:@selector(toggleInlineCode:)],
+                                   kMPToolbarDictKeyHighlightable: @NO,
                                    },
                            @"link": @{
                                    kMPToolbarDictKeyIsDefaultItem: @YES,
@@ -252,6 +259,7 @@ static NSString *const kMPToolbarDictKeyAction = @"kMPToolbarDictKeyAction";
                                    kMPToolbarDictKeyIcon: @"ToolbarIconLink",
                                    kMPToolbarDictKeyTitle: @"Link",
                                    kMPToolbarDictKeyAction: [NSValue valueWithPointer:@selector(toggleLink:)],
+                                   kMPToolbarDictKeyHighlightable: @NO,
                                    },
                            @"image": @{
                                    kMPToolbarDictKeyIsDefaultItem: @YES,
@@ -259,6 +267,7 @@ static NSString *const kMPToolbarDictKeyAction = @"kMPToolbarDictKeyAction";
                                    kMPToolbarDictKeyIcon: @"ToolbarIconImage",
                                    kMPToolbarDictKeyTitle: @"Inline code",
                                    kMPToolbarDictKeyAction: [NSValue valueWithPointer:@selector(toggleImage:)],
+                                   kMPToolbarDictKeyHighlightable: @NO,
                                    },
                            @"copy-html": @{
                                    kMPToolbarDictKeyIsDefaultItem: @YES,
@@ -266,11 +275,13 @@ static NSString *const kMPToolbarDictKeyAction = @"kMPToolbarDictKeyAction";
                                    kMPToolbarDictKeyIcon: @"ToolbarIconCopyHTML",
                                    kMPToolbarDictKeyTitle: @"Copy HTML",
                                    kMPToolbarDictKeyAction: [NSValue valueWithPointer:@selector(copyHtml:)],
+                                   kMPToolbarDictKeyHighlightable: @NO,
                                    },
                            @"toggle-panes-group": @{
                                    kMPToolbarDictKeyIsDefaultItem: @YES,
                                    kMPToolbarDictKeyOrder: @9,
                                    kMPToolbarDictKeySegmentStyleSeparated: @NO,
+                                   kMPToolbarDictKeyHighlightable: @YES,
                                    kMPToolbarDictKeySubItems: @{
                                            @"toggle-editor-pane": @{
                                                    kMPToolbarDictKeyIsDefaultItem: @YES,
@@ -294,6 +305,7 @@ static NSString *const kMPToolbarDictKeyAction = @"kMPToolbarDictKeyAction";
                                    kMPToolbarDictKeyIcon: @"ToolbarIconComment",
                                    kMPToolbarDictKeyTitle: @"Comment",
                                    kMPToolbarDictKeyAction: [NSValue valueWithPointer:@selector(toggleComment:)],
+                                   kMPToolbarDictKeyHighlightable: @NO,
                                    },
                            @"highlight": @{
                                    kMPToolbarDictKeyIsDefaultItem: @NO,
@@ -301,6 +313,7 @@ static NSString *const kMPToolbarDictKeyAction = @"kMPToolbarDictKeyAction";
                                    kMPToolbarDictKeyIcon: @"ToolbarIconHighlight",
                                    kMPToolbarDictKeyTitle: @"Highlight",
                                    kMPToolbarDictKeyAction: [NSValue valueWithPointer:@selector(toggleHighlight:)],
+                                   kMPToolbarDictKeyHighlightable: @NO,
                                    },
                            @"strikethrough": @{
                                    kMPToolbarDictKeyIsDefaultItem: @NO,
@@ -308,6 +321,7 @@ static NSString *const kMPToolbarDictKeyAction = @"kMPToolbarDictKeyAction";
                                    kMPToolbarDictKeyIcon: @"ToolbarIconStrikethrough",
                                    kMPToolbarDictKeyTitle: @"Strikethrough",
                                    kMPToolbarDictKeyAction: [NSValue valueWithPointer:@selector(toggleStrikethrough:)],
+                                   kMPToolbarDictKeyHighlightable: @NO,
                                    },
                            };
 }
@@ -400,6 +414,8 @@ static NSString *const kMPToolbarDictKeyAction = @"kMPToolbarDictKeyAction";
         
         NSToolbarItem *item = [[NSToolbarItem alloc] initWithItemIdentifier:itemIdentifier];
         
+        BOOL highlightable = [itemDict[kMPToolbarDictKeyHighlightable] boolValue];
+        
         if (subItemDicts == nil) // It's a regular toolbar item
         {
             NSString *title = itemDict[kMPToolbarDictKeyTitle];
@@ -409,7 +425,7 @@ static NSString *const kMPToolbarDictKeyAction = @"kMPToolbarDictKeyAction";
             item.label = title;
             
             NSImage *itemImage = [NSImage imageNamed:iconName];
-            [itemImage setTemplate:YES];
+            [itemImage setTemplate:highlightable];
             NSButton *itemButton = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, itemWidth, 40)];
             [itemButton setButtonType:NSToggleButton];
             itemButton.image = itemImage;
@@ -433,7 +449,6 @@ static NSString *const kMPToolbarDictKeyAction = @"kMPToolbarDictKeyAction";
             
             NSSegmentedControl *segmentedControl = [[NSSegmentedControl alloc] init];
             segmentedControl.identifier = itemIdentifier;
-            segmentedControl.target = self;
             segmentedControl.segmentStyle = segmentStyleSeparated ?
                                             NSSegmentStyleSeparated : NSSegmentStyleTexturedRounded;
             segmentedControl.trackingMode = NSSegmentSwitchTrackingSelectAny;
@@ -449,16 +464,13 @@ static NSString *const kMPToolbarDictKeyAction = @"kMPToolbarDictKeyAction";
                 NSDictionary *subItemDict = subItemDicts[subItemIdentifier];
                 NSString *subItemTitle = subItemDict[kMPToolbarDictKeyTitle];
                 NSString *subItemIcon = subItemDict[kMPToolbarDictKeyIcon];
-                SEL subItemSelector = [subItemDicts[kMPToolbarDictKeyAction] pointerValue];
                 
                 NSToolbarItem *subItem = [[NSToolbarItem alloc] initWithItemIdentifier:subItemIdentifier];
                 
                 subItem.label = subItemTitle;
-                subItem.target = self.document;
-                subItem.action = subItemSelector;
                 
                 NSImage *subItemImage = [NSImage imageNamed:subItemIcon];
-                [subItemImage setTemplate:YES];
+                [subItemImage setTemplate:highlightable];
                 
                 [segmentedControl setImage:subItemImage forSegment:segmentIndex];
                 [segmentedControl setWidth:40.0 forSegment:segmentIndex];
