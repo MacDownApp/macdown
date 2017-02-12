@@ -200,8 +200,6 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
 @property BOOL shouldHandleBoundsChange;
 @property BOOL isPreviewReady;
 @property (strong) NSURL *currentBaseUrl;
-@property (readonly) BOOL previewVisible;
-@property (readonly) BOOL editorVisible;
 @property CGFloat lastPreviewScrollTop;
 @property (nonatomic, readonly) BOOL needsHtml;
 @property (nonatomic) NSUInteger totalWords;
