@@ -368,22 +368,30 @@ static NSString *const kMPToolbarDictKeyHighlightable = @"kMPToolbarDictKeyHighl
     // From toolbar item dictionary(setupToolbarItems)
     NSArray *orderedToolbarItemIdentifiers = [self orderedToolbarDefaultItemKeysForDictionary:self->toolbarItems];
     
-    // Mixed identifiers from dictionary and spacing at below specified indices
+    // Mixed identifiers from dictionary and space at below specified indices
     NSMutableArray *defaultItemIdentifiers = [NSMutableArray new];
     
-    // Add spacing after the specified toolbar item indices
-    int spacingAfterIndices[] = {2,3,5,7};
+    // Add space after the specified toolbar item indices
+    int spaceAfterIndices[] = {0, 1};
+    int flexibleSpaceAfterIndices[] = {2, 3, 5, 7};
     int i = 0;
     int j = 0;
+    int k = 0;
     
     for (NSString *itemIdentifier in orderedToolbarItemIdentifiers)
     {
         [defaultItemIdentifiers addObject:itemIdentifier];
-        if (i == spacingAfterIndices[j])
+        
+        if (i == spaceAfterIndices[j])
+        {
+            [defaultItemIdentifiers addObject:NSToolbarSpaceItemIdentifier];
+            j++;
+        }
+        
+        if (i == flexibleSpaceAfterIndices[k])
         {
             [defaultItemIdentifiers addObject:NSToolbarFlexibleSpaceItemIdentifier];
-            
-            j++;
+            k++;
         }
         
         i++;
