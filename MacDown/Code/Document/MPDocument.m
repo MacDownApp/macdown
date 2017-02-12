@@ -254,6 +254,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 {
     NSDictionary *toolbarItems;
     NSArray *toolbarItemKeysOrder;
+    
     NSMutableDictionary *toolbarGroupItemsDictionary;
 }
 
@@ -893,12 +894,21 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
             item.label = title;
             
             NSImage *itemImage = [NSImage imageNamed:iconName];
+            [itemImage setTemplate:YES];
             NSButton *itemButton = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, itemWidth, 40)];
+            [itemButton setButtonType:NSToggleButton];
             itemButton.image = itemImage;
             itemButton.bezelStyle = NSBezelStyleTexturedRounded;
+            itemButton.focusRingType = NSFocusRingTypeDefault;
             itemButton.target = self;
             itemButton.action = itemSelector;
+            itemButton.state = NSOffState;
+            
             item.view = itemButton;
+            
+            [self->toolbarItemIdentifierObjectDictionary setObject:item forKey:itemIdentifier];
+            
+            return item;
         }
         else // It's a segment control
         {
@@ -910,7 +920,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
             segmentedControl.identifier = itemIdentifier;
             segmentedControl.target = self;
             segmentedControl.segmentStyle = segmentStyleSeparated ? NSSegmentStyleSeparated : NSSegmentStyleTexturedRounded;
-            segmentedControl.trackingMode = NSSegmentSwitchTrackingMomentary;
+            segmentedControl.trackingMode = NSSegmentSwitchTrackingSelectAny;
             segmentedControl.segmentCount = subItemDicts.count;
             
             NSMutableArray *itemGroupItems = [NSMutableArray new];
@@ -926,11 +936,15 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
                 SEL subItemSelector = [subItemDicts[kMPToolbarDictKeyAction] pointerValue];
                 
                 NSToolbarItem *subItem = [[NSToolbarItem alloc] initWithItemIdentifier:subItemIdentifier];
+                
                 subItem.label = subItemTitle;
                 subItem.target = self;
                 subItem.action = subItemSelector;
                 
-                [segmentedControl setImage:[NSImage imageNamed:subItemIcon] forSegment:segmentIndex];
+                NSImage *subItemImage = [NSImage imageNamed:subItemIcon];
+                [subItemImage setTemplate:YES];
+                
+                [segmentedControl setImage:subItemImage forSegment:segmentIndex];
                 [segmentedControl setWidth:40.0 forSegment:segmentIndex];
                 
                 
