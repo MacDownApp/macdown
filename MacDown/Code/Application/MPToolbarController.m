@@ -13,6 +13,7 @@
 #pragma clang diagnostic ignored "-Wundeclared-selector"
 
 
+static NSString *const kMPToolbarDictKeyIsDefaultItem = @"kMPToolbarDictKeyIsDefaultItem";
 static NSString *const kMPToolbarDictKeyOrder = @"kMPToolbarDictKeyOrder";
 static NSString *const kMPToolbarDictKeyIcon = @"kMPToolbarDictKeyIcon";
 static NSString *const kMPToolbarDictKeyTitle = @"kMPToolbarDictKeyTitle";
@@ -134,16 +135,19 @@ static NSString *const kMPToolbarDictKeyAction = @"kMPToolbarDictKeyAction";
     // NSToolbarItem identifier as key
     self->toolbarItems = @{
                            @"indent-group": @{
+                                   kMPToolbarDictKeyIsDefaultItem: @YES,
                                    kMPToolbarDictKeyOrder: @0,
                                    kMPToolbarDictKeySegmentStyleSeparated: @YES,
                                    kMPToolbarDictKeySubItems: @{
                                            @"shift-left": @{
+                                                   kMPToolbarDictKeyIsDefaultItem: @YES,
                                                    kMPToolbarDictKeyOrder: @0,
                                                    kMPToolbarDictKeyIcon: @"ToolbarIconShiftLeft",
                                                    kMPToolbarDictKeyTitle: @"Shift left",
                                                    kMPToolbarDictKeyAction: [NSValue valueWithPointer:@selector(unindent:)],
                                                    },
                                            @"shift-right": @{
+                                                   kMPToolbarDictKeyIsDefaultItem: @YES,
                                                    kMPToolbarDictKeyOrder: @1,
                                                    kMPToolbarDictKeyIcon: @"ToolbarIconShiftRight",
                                                    kMPToolbarDictKeyTitle: @"Shift right",
@@ -152,22 +156,26 @@ static NSString *const kMPToolbarDictKeyAction = @"kMPToolbarDictKeyAction";
                                            }
                                    },
                            @"text-formatting-group": @{
+                                   kMPToolbarDictKeyIsDefaultItem: @YES,
                                    kMPToolbarDictKeyOrder: @1,
                                    kMPToolbarDictKeySegmentStyleSeparated: @NO,
                                    kMPToolbarDictKeySubItems: @{
                                            @"bold": @{
+                                                   kMPToolbarDictKeyIsDefaultItem: @YES,
                                                    kMPToolbarDictKeyOrder: @0,
                                                    kMPToolbarDictKeyIcon: @"ToolbarIconBold",
                                                    kMPToolbarDictKeyTitle: @"Bold",
                                                    kMPToolbarDictKeyAction: [NSValue valueWithPointer:@selector(toggleStrong:)],
                                                    },
                                            @"italic": @{
+                                                   kMPToolbarDictKeyIsDefaultItem: @YES,
                                                    kMPToolbarDictKeyOrder: @1,
                                                    kMPToolbarDictKeyIcon: @"ToolbarIconItalic",
                                                    kMPToolbarDictKeyTitle: @"Italic",
                                                    kMPToolbarDictKeyAction: [NSValue valueWithPointer:@selector(toggleEmphasis:)],
                                                    },
                                            @"underline": @{
+                                                   kMPToolbarDictKeyIsDefaultItem: @YES,
                                                    kMPToolbarDictKeyOrder: @2,
                                                    kMPToolbarDictKeyIcon: @"ToolbarIconUnderlined",
                                                    kMPToolbarDictKeyTitle: @"Underline",
@@ -176,22 +184,26 @@ static NSString *const kMPToolbarDictKeyAction = @"kMPToolbarDictKeyAction";
                                            }
                                    },
                            @"heading-group": @{
+                                   kMPToolbarDictKeyIsDefaultItem: @YES,
                                    kMPToolbarDictKeyOrder: @2,
                                    kMPToolbarDictKeySegmentStyleSeparated: @YES,
                                    kMPToolbarDictKeySubItems: @{
                                            @"heading1": @{
+                                                   kMPToolbarDictKeyIsDefaultItem: @YES,
                                                    kMPToolbarDictKeyOrder: @0,
                                                    kMPToolbarDictKeyIcon: @"ToolbarIconHeading1",
                                                    kMPToolbarDictKeyTitle: @"Heading 1",
                                                    kMPToolbarDictKeyAction: [NSValue valueWithPointer:@selector(convertToH1:)],
                                                    },
                                            @"heading2": @{
+                                                   kMPToolbarDictKeyIsDefaultItem: @YES,
                                                    kMPToolbarDictKeyOrder: @1,
                                                    kMPToolbarDictKeyIcon: @"ToolbarIconHeading2",
                                                    kMPToolbarDictKeyTitle: @"Heading 2",
                                                    kMPToolbarDictKeyAction: [NSValue valueWithPointer:@selector(convertToH2:)],
                                                    },
                                            @"heading3": @{
+                                                   kMPToolbarDictKeyIsDefaultItem: @YES,
                                                    kMPToolbarDictKeyOrder: @2,
                                                    kMPToolbarDictKeyIcon: @"ToolbarIconHeading3",
                                                    kMPToolbarDictKeyTitle: @"Heading 3",
@@ -200,16 +212,19 @@ static NSString *const kMPToolbarDictKeyAction = @"kMPToolbarDictKeyAction";
                                            }
                                    },
                            @"list-group": @{
+                                   kMPToolbarDictKeyIsDefaultItem: @YES,
                                    kMPToolbarDictKeyOrder: @3,
                                    kMPToolbarDictKeySegmentStyleSeparated: @YES,
                                    kMPToolbarDictKeySubItems: @{
                                            @"unordered-list": @{
+                                                   kMPToolbarDictKeyIsDefaultItem: @YES,
                                                    kMPToolbarDictKeyOrder: @0,
                                                    kMPToolbarDictKeyIcon: @"ToolbarIconUnorderedList",
                                                    kMPToolbarDictKeyTitle: @"Unordered list",
                                                    kMPToolbarDictKeyAction: [NSValue valueWithPointer:@selector(toggleUnorderedList:)],
                                                    },
                                            @"ordered-list": @{
+                                                   kMPToolbarDictKeyIsDefaultItem: @YES,
                                                    kMPToolbarDictKeyOrder: @1,
                                                    kMPToolbarDictKeyIcon: @"ToolbarIconOrderedList",
                                                    kMPToolbarDictKeyTitle: @"Ordered list",
@@ -218,46 +233,54 @@ static NSString *const kMPToolbarDictKeyAction = @"kMPToolbarDictKeyAction";
                                            }
                                    },
                            @"blockquote": @{
+                                   kMPToolbarDictKeyIsDefaultItem: @YES,
                                    kMPToolbarDictKeyOrder: @4,
                                    kMPToolbarDictKeyIcon: @"ToolbarIconBlockquote",
                                    kMPToolbarDictKeyTitle: @"Blockquote",
                                    kMPToolbarDictKeyAction: [NSValue valueWithPointer:@selector(toggleBlockquote:)],
                                    },
                            @"code": @{
+                                   kMPToolbarDictKeyIsDefaultItem: @YES,
                                    kMPToolbarDictKeyOrder: @5,
                                    kMPToolbarDictKeyIcon: @"ToolbarIconInlineCode",
                                    kMPToolbarDictKeyTitle: @"Inline code",
                                    kMPToolbarDictKeyAction: [NSValue valueWithPointer:@selector(toggleInlineCode:)],
                                    },
                            @"link": @{
+                                   kMPToolbarDictKeyIsDefaultItem: @YES,
                                    kMPToolbarDictKeyOrder: @6,
                                    kMPToolbarDictKeyIcon: @"ToolbarIconLink",
                                    kMPToolbarDictKeyTitle: @"Link",
                                    kMPToolbarDictKeyAction: [NSValue valueWithPointer:@selector(toggleLink:)],
                                    },
                            @"image": @{
+                                   kMPToolbarDictKeyIsDefaultItem: @YES,
                                    kMPToolbarDictKeyOrder: @7,
                                    kMPToolbarDictKeyIcon: @"ToolbarIconImage",
                                    kMPToolbarDictKeyTitle: @"Inline code",
                                    kMPToolbarDictKeyAction: [NSValue valueWithPointer:@selector(toggleImage:)],
                                    },
                            @"copy-html": @{
+                                   kMPToolbarDictKeyIsDefaultItem: @YES,
                                    kMPToolbarDictKeyOrder: @8,
                                    kMPToolbarDictKeyIcon: @"ToolbarIconCopyHTML",
                                    kMPToolbarDictKeyTitle: @"Copy HTML",
                                    kMPToolbarDictKeyAction: [NSValue valueWithPointer:@selector(copyHtml:)],
                                    },
                            @"toggle-panes-group": @{
+                                   kMPToolbarDictKeyIsDefaultItem: @YES,
                                    kMPToolbarDictKeyOrder: @9,
                                    kMPToolbarDictKeySegmentStyleSeparated: @NO,
                                    kMPToolbarDictKeySubItems: @{
                                            @"toggle-editor-pane": @{
+                                                   kMPToolbarDictKeyIsDefaultItem: @YES,
                                                    kMPToolbarDictKeyOrder: @0,
                                                    kMPToolbarDictKeyIcon: @"ToolbarIconHideEditor",
                                                    kMPToolbarDictKeyTitle: @"Toggle editor pane",
                                                    kMPToolbarDictKeyAction: [NSValue valueWithPointer:@selector(toggleEditorPane:)],
                                                    },
                                            @"toggle-preview-pane": @{
+                                                   kMPToolbarDictKeyIsDefaultItem: @YES,
                                                    kMPToolbarDictKeyOrder: @1,
                                                    kMPToolbarDictKeyIcon: @"ToolbarIconHidePreview",
                                                    kMPToolbarDictKeyTitle: @"Toggle preview pane",
@@ -265,15 +288,36 @@ static NSString *const kMPToolbarDictKeyAction = @"kMPToolbarDictKeyAction";
                                                    },
                                            }
                                    },
+                           @"comment": @{
+                                   kMPToolbarDictKeyIsDefaultItem: @NO,
+                                   kMPToolbarDictKeyOrder: @10,
+                                   kMPToolbarDictKeyIcon: @"ToolbarIconComment",
+                                   kMPToolbarDictKeyTitle: @"Comment",
+                                   kMPToolbarDictKeyAction: [NSValue valueWithPointer:@selector(toggleComment:)],
+                                   },
+                           @"highlight": @{
+                                   kMPToolbarDictKeyIsDefaultItem: @NO,
+                                   kMPToolbarDictKeyOrder: @11,
+                                   kMPToolbarDictKeyIcon: @"ToolbarIconHighlight",
+                                   kMPToolbarDictKeyTitle: @"Highlight",
+                                   kMPToolbarDictKeyAction: [NSValue valueWithPointer:@selector(toggleHighlight:)],
+                                   },
+                           @"strikethrough": @{
+                                   kMPToolbarDictKeyIsDefaultItem: @NO,
+                                   kMPToolbarDictKeyOrder: @12,
+                                   kMPToolbarDictKeyIcon: @"ToolbarIconStrikethrough",
+                                   kMPToolbarDictKeyTitle: @"Strikethrough",
+                                   kMPToolbarDictKeyAction: [NSValue valueWithPointer:@selector(toggleStrikethrough:)],
+                                   },
                            };
 }
 
 /**
- * Creates an array with ordered keys from the passed argument dictionary which should be from the hierarchical dictionary produced by setupToolbarItems.
+ * Creates an array with ordered default item keys from the passed argument dictionary which should be from the hierarchical dictionary produced by setupToolbarItems.
  *
  * @returns Ordered keys(identifiers)
  */
-- (NSArray *)orderedToolbarItemKeysForDictionary:(NSDictionary *)dictionary
+- (NSArray *)orderedToolbarDefaultItemKeysForDictionary:(NSDictionary *)dictionary
 {
     NSMutableArray *orderedKeys = [NSMutableArray new];
     
@@ -283,12 +327,22 @@ static NSString *const kMPToolbarDictKeyAction = @"kMPToolbarDictKeyAction";
         orderedKeys[i] = [NSNull null];
     }
     
+    int defaultItemCount = 0;
+    
     for (NSDictionary *itemKey in dictionary)
     {
         NSDictionary *itemDictionary = dictionary[itemKey];
-        NSInteger index = [itemDictionary[kMPToolbarDictKeyOrder] integerValue];
-        orderedKeys[index] = itemKey;
+        BOOL isDefaultItem = [itemDictionary[kMPToolbarDictKeyIsDefaultItem] boolValue];
+        
+        if (isDefaultItem)
+        {
+            NSInteger index = [itemDictionary[kMPToolbarDictKeyOrder] integerValue];
+            orderedKeys[index] = itemKey;
+            defaultItemCount++;
+        }
     }
+    
+    [orderedKeys removeObjectsInRange:NSMakeRange(defaultItemCount, orderedKeys.count - defaultItemCount)];
     
     return [orderedKeys copy];
 }
@@ -298,7 +352,7 @@ static NSString *const kMPToolbarDictKeyAction = @"kMPToolbarDictKeyAction";
 - (NSArray<NSString *> *)toolbarDefaultItemIdentifiers:(NSToolbar *)toolbar
 {
     // From toolbar item dictionary(setupToolbarItems)
-    NSArray *orderedToolbarItemIdentifiers = [self orderedToolbarItemKeysForDictionary:self->toolbarItems];
+    NSArray *orderedToolbarItemIdentifiers = [self orderedToolbarDefaultItemKeysForDictionary:self->toolbarItems];
     
     // Mixed identifiers from dictionary and spacing at below specified indices
     NSMutableArray *defaultItemIdentifiers = [NSMutableArray new];
@@ -326,12 +380,12 @@ static NSString *const kMPToolbarDictKeyAction = @"kMPToolbarDictKeyAction";
 
 - (NSArray<NSString *> *)toolbarAllowedItemIdentifiers:(NSToolbar *)toolbar
 {
-    return [self toolbarDefaultItemIdentifiers:toolbar];
+    return [self->toolbarItems allKeys];
 }
 
 - (NSArray<NSString *> *)toolbarSelectableItemIdentifiers:(NSToolbar *)toolbar
 {
-    return [self toolbarDefaultItemIdentifiers:toolbar];
+    return [self toolbarAllowedItemIdentifiers:toolbar];
 }
 
 - (NSToolbarItem *)toolbar:(NSToolbar *)toolbar itemForItemIdentifier:(NSString *)itemIdentifier willBeInsertedIntoToolbar:(BOOL)flag
@@ -387,7 +441,7 @@ static NSString *const kMPToolbarDictKeyAction = @"kMPToolbarDictKeyAction";
             
             NSMutableArray *itemGroupItems = [NSMutableArray new];
             
-            NSArray *orderedSubItemIdentifers = [self orderedToolbarItemKeysForDictionary:subItemDicts];
+            NSArray *orderedSubItemIdentifers = [self orderedToolbarDefaultItemKeysForDictionary:subItemDicts];
             int segmentIndex = 0;
             
             for (NSString *subItemIdentifier in orderedSubItemIdentifers)
