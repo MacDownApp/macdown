@@ -26,8 +26,6 @@ static NSString *const kMPToolbarDictKeyAction = @"kMPToolbarDictKeyAction";
     NSDictionary *toolbarItems;
     NSArray *toolbarItemKeysOrder;
     
-    NSMutableDictionary *toolbarGroupItemsDictionary;
-    
     /**
      * Map toolbar item identifier to it's NSToolbarItem or NSToolbarItemGroup object
      */
@@ -47,6 +45,88 @@ static NSString *const kMPToolbarDictKeyAction = @"kMPToolbarDictKeyAction";
     self->toolbarItemIdentifierObjectDictionary = [NSMutableDictionary new];
     
     return self;
+}
+
+- (void)updateHighlightStates
+{
+    self.document.previewVisible ?
+        [self highlightTogglePreviewItem] :
+        [self unhighlightTogglePreviewItem];
+    
+    self.document.editorVisible ?
+        [self highlightToggleEditorItem] :
+        [self unhighlightToggleEditorItem];
+}
+
+- (void)highlightToggleEditorItem
+{
+    [self highlightItemIdentifier:@"toggle-editor-pane" inGroupWithIdentifier:@"toggle-panes-group"];
+}
+
+- (void)unhighlightToggleEditorItem
+{
+    [self unhighlightItemIdentifier:@"toggle-editor-pane" inGroupWithIdentifier:@"toggle-panes-group"];
+}
+
+- (void)highlightTogglePreviewItem
+{
+    [self highlightItemIdentifier:@"toggle-preview-pane" inGroupWithIdentifier:@"toggle-panes-group"];
+}
+
+- (void)unhighlightTogglePreviewItem
+{
+    [self unhighlightItemIdentifier:@"toggle-preview-pane" inGroupWithIdentifier:@"toggle-panes-group"];
+}
+
+
+#pragma mark - Private
+
+- (void)highlightItemIdentifier:(NSString *)itemIdentifier inGroupWithIdentifier:(NSString *)groupIdentifier
+{
+    NSToolbarItemGroup *itemGroup = self->toolbarItemIdentifierObjectDictionary[groupIdentifier];
+    
+    if (!itemGroup)
+    {
+        return;
+    }
+    
+    NSSegmentedControl *segmentedControl = (NSSegmentedControl *)itemGroup.view;
+    
+    int i = 0;
+    
+    for (NSToolbarItem *toolbarItem in itemGroup.subitems)
+    {
+        if ([toolbarItem.itemIdentifier isEqualToString:itemIdentifier])
+        {
+            [segmentedControl setSelected:YES forSegment:i];
+            break;
+        }
+        i++;
+    }
+}
+
+- (void)unhighlightItemIdentifier:(NSString *)itemIdentifier inGroupWithIdentifier:(NSString *)groupIdentifier
+{
+    NSToolbarItemGroup *itemGroup = self->toolbarItemIdentifierObjectDictionary[groupIdentifier];
+    
+    if (!itemGroup)
+    {
+        return;
+    }
+    
+    NSSegmentedControl *segmentedControl = (NSSegmentedControl *)itemGroup.view;
+    
+    int i = 0;
+    
+    for (NSToolbarItem *toolbarItem in itemGroup.subitems)
+    {
+        if ([toolbarItem.itemIdentifier isEqualToString:itemIdentifier])
+        {
+            [segmentedControl setSelected:NO forSegment:i];
+            break;
+        }
+        i++;
+    }
 }
 
 - (void)setupToolbarItems

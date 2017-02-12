@@ -442,6 +442,9 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
         [self redrawDivider];
         [self reloadFromLoadedString];
     }];
+    
+    // Set initial highlight states
+    [self.toolbarController updateHighlightStates];
 }
 
 - (void)reloadFromLoadedString
@@ -1327,16 +1330,19 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 - (IBAction)setEditorOneQuarter:(id)sender
 {
     [self setSplitViewDividerLocation:0.25];
+    [self.toolbarController updateHighlightStates];
 }
 
 - (IBAction)setEditorThreeQuarters:(id)sender
 {
     [self setSplitViewDividerLocation:0.75];
+    [self.toolbarController updateHighlightStates];
 }
 
 - (IBAction)setEqualSplit:(id)sender
 {
     [self setSplitViewDividerLocation:0.5];
+    [self.toolbarController updateHighlightStates];
 }
 
 - (IBAction)toggleToolbar:(id)sender
@@ -1351,11 +1357,14 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
         self.previousSplitRatio = self.splitView.dividerLocation;
         BOOL editorOnRight = self.preferences.editorOnRight;
         [self setSplitViewDividerLocation:(editorOnRight ? 0.0 : 1.0)];
+        [self.toolbarController unhighlightTogglePreviewItem];
     }
     else
     {
         if (self.previousSplitRatio >= 0.0)
             [self setSplitViewDividerLocation:self.previousSplitRatio];
+        
+        [self.toolbarController highlightTogglePreviewItem];
     }
 }
 
@@ -1368,11 +1377,15 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
             [self setSplitViewDividerLocation:1.0];
         else
             [self setSplitViewDividerLocation:0.0];
+        
+        [self.toolbarController unhighlightToggleEditorItem];
     }
     else
     {
         if (self.previousSplitRatio >= 0.0)
             [self setSplitViewDividerLocation:self.previousSplitRatio];
+        
+        [self.toolbarController highlightToggleEditorItem];
     }
 }
 
