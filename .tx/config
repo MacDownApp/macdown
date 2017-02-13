@@ -1,0 +1,9 @@
+[main]
+host = https://www.transifex.com
+
+[macdown.localizable]
+source_file = po/myproj.pot
+source_lang = en
+type = PO
+file_filter = po/<lang>.po
+trans.fi = translations/fi/LC_MESSAGES/django.po
