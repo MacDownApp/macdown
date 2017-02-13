@@ -40,7 +40,7 @@ def main():
         ), file=sys.stderr)
         return
     write_transifex_config()
-    execute(os.path.expanduser('~/.local/bin/tx'), 'push', '-s')
+    execute(os.path.expanduser('~/Library/Python/2.7/bin/tx'), 'push', '-s')
 
 
 if __name__ == '__main__':
