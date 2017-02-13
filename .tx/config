@@ -1,9 +1,8 @@
 [main]
 host = https://www.transifex.com
+lang_map = zh_TW:zh-Hant, zh_CN:zh-Hans
 
-[macdown.localizable]
-source_file = po/myproj.pot
+[macdown.macdownxliff]
+file_filter = Build/Localizations/<lang>.xliff
 source_lang = en
-type = PO
-file_filter = po/<lang>.po
-trans.fi = translations/fi/LC_MESSAGES/django.po
+type = XLIFF
