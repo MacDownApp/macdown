@@ -6,6 +6,8 @@ import io
 import os
 import sys
 
+from macdown_utils import execute
+
 
 def write_transifex_config():
     """Used to setup Travis for Transifex push.
@@ -38,7 +40,7 @@ def main():
         ), file=sys.stderr)
         return
     write_transifex_config()
-    os.system('~/.local/bin/tx push -s')
+    execute(os.path.expanduser('~/.local/bin/tx'), 'push', '-s')
 
 
 if __name__ == '__main__':
