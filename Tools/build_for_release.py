@@ -9,7 +9,7 @@ import zipfile
 
 from xml.etree import ElementTree
 
-from macdown_utils import XCODEBUILD, execute
+from macdown_utils import ROOT_DIR, XCODEBUILD, execute
 
 
 try:
@@ -21,7 +21,6 @@ except NameError:   # Python 3 does not have raw_input.
 OPENSSL = '/usr/bin/openssl'
 OSASCRIPT = '/usr/bin/osascript'
 
-ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BUILD_DIR = os.path.join(ROOT_DIR, 'Build')
 APP_NAME = 'MacDown.app'
 ZIP_NAME = 'MacDown.app.zip'
