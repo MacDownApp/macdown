@@ -1,0 +1,42 @@
+
+/* Class = "NSButtonCell"; title = "Footnote"; ObjectID = "0yU-vT-72e"; */
+"0yU-vT-72e.title" = "Footnote";
+
+/* Class = "NSButtonCell"; title = "Quote"; ObjectID = "2lB-hq-5eX"; */
+"2lB-hq-5eX.title" = "Quote";
+
+/* Class = "NSButtonCell"; title = "Highlight"; ObjectID = "8kI-gm-5Lo"; */
+"8kI-gm-5Lo.title" = "Highlight";
+
+/* Class = "NSButtonCell"; title = "Intra-word emphasis"; ObjectID = "D7l-nP-P0y"; */
+"D7l-nP-P0y.title" = "Intra-word emphasis";
+
+/* Class = "NSButtonCell"; title = "Fenced code block"; ObjectID = "ELg-sx-vIf"; */
+"ELg-sx-vIf.title" = "Fenced code block";
+
+/* Class = "NSButtonCell"; title = "Underline"; ObjectID = "Gdr-Ro-ZnW"; */
+"Gdr-Ro-ZnW.title" = "Underline";
+
+/* Class = "NSButtonCell"; title = "Strikethrough"; ObjectID = "RjP-zE-c6b"; */
+"RjP-zE-c6b.title" = "Strikethrough";
+
+/* Class = "NSButtonCell"; title = "Autolink"; ObjectID = "Roe-rh-8f9"; */
+"Roe-rh-8f9.title" = "Autolink";
+
+/* Class = "NSBox"; title = "Block formatting"; ObjectID = "TXy-fD-S4Y"; */
+"TXy-fD-S4Y.title" = "Block formatting";
+
+/* Class = "NSBox"; title = "Inline formatting"; ObjectID = "Ycc-Px-jbu"; */
+"Ycc-Px-jbu.title" = "Inline formatting";
+
+/* Class = "NSButtonCell"; title = "Smartypants"; ObjectID = "aSK-nR-xMr"; */
+"aSK-nR-xMr.title" = "Smartypants";
+
+/* Class = "NSButtonCell"; title = "Superscript"; ObjectID = "k2n-VN-cKT"; */
+"k2n-VN-cKT.title" = "Superscript";
+
+/* Class = "NSBox"; title = "Document formatting"; ObjectID = "x36-52-U0p"; */
+"x36-52-U0p.title" = "Document formatting";
+
+/* Class = "NSButtonCell"; title = "Table"; ObjectID = "z8g-3M-hbc"; */
+"z8g-3M-hbc.title" = "Table";
