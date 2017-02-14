@@ -106,7 +106,7 @@ PLATFORMS
 
 DEPENDENCIES
   cocoapods (~> 1.1)
-  travis (~> 1.8, >= 1.8.2)
+  travis (~> 1.8, >= 1.8.6)
 
 BUNDLED WITH
    1.13.7
