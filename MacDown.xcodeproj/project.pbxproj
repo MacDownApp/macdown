@@ -62,7 +62,7 @@
 		1FA6CDB91952D2CD008D5CA0 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 1FA6CDB81952D2CD008D5CA0 /* dsa_pub.pem */; };
 		1FA6DE251941CC9E000409FB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FA6DE241941CC9E000409FB /* Cocoa.framework */; };
 		1FA6DE481941CC9E000409FB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FA6DE241941CC9E000409FB /* Cocoa.framework */; };
-		1FBBD4BE194C952300BB3C88 /* MPExportPanelAccessoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FBBD4BC194C952300BB3C88 /* MPExportPanelAccessoryViewController.xib */; };
+		1FB3C0241E5061A2002AEB6A /* MPExportPanelAccessoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FB3C0221E5061A2002AEB6A /* MPExportPanelAccessoryViewController.xib */; };
 		1FBBD4CB194CA36500BB3C88 /* hoedown_html_patch.c in Sources */ = {isa = PBXBuildFile; fileRef = 1FBBD4CA194CA36500BB3C88 /* hoedown_html_patch.c */; };
 		1FBDFE9C196170FE00BEEA70 /* Extensions in Resources */ = {isa = PBXBuildFile; fileRef = 1FBDFE9B196170FE00BEEA70 /* Extensions */; };
 		1FBDFEA11962A25A00BEEA70 /* MPGeneralPreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FBDFE9F1962A25A00BEEA70 /* MPGeneralPreferencesViewController.m */; };
@@ -191,7 +191,6 @@
 		1F25E1C21A50F4F10029371D /* MPColorTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPColorTests.m; sourceTree = "<group>"; };
 		1F2649AE1A7406DB00EF6AF3 /* NSDocumentController+Document.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDocumentController+Document.h"; sourceTree = "<group>"; };
 		1F2649AF1A7406DB00EF6AF3 /* NSDocumentController+Document.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDocumentController+Document.m"; sourceTree = "<group>"; };
-		1F27896A1973BEB100EE696A /* Base */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = Base; path = Localization/Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1F3386E41A6B999600FC88C4 /* DOMNode+Text.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DOMNode+Text.h"; sourceTree = "<group>"; };
 		1F3386E51A6B999600FC88C4 /* DOMNode+Text.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DOMNode+Text.m"; sourceTree = "<group>"; };
 		1F33F29F1A3B4B660001C849 /* MPDocumentSplitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPDocumentSplitView.h; sourceTree = "<group>"; };
@@ -244,7 +243,8 @@
 		1FA6DE281941CC9E000409FB /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		1FA6DE291941CC9E000409FB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1FA6DE451941CC9E000409FB /* MacDownTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MacDownTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		1FBBD4BD194C952300BB3C88 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = MacDown/Localization/Base.lproj/MPExportPanelAccessoryViewController.xib; sourceTree = SOURCE_ROOT; };
+		1FA9196B1E4723A200850517 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = Localization/en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		1FB3C0231E5061A2002AEB6A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Localization/Base.lproj/MPExportPanelAccessoryViewController.xib; sourceTree = "<group>"; };
 		1FBBD4C9194CA35900BB3C88 /* hoedown_html_patch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = hoedown_html_patch.h; sourceTree = "<group>"; };
 		1FBBD4CA194CA36500BB3C88 /* hoedown_html_patch.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hoedown_html_patch.c; sourceTree = "<group>"; };
 		1FBDFE9B196170FE00BEEA70 /* Extensions */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Extensions; path = Resources/Extensions; sourceTree = "<group>"; };
@@ -253,6 +253,39 @@
 		1FBDFEA41962A27300BEEA70 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = MacDown/Localization/Base.lproj/MPGeneralPreferencesViewController.xib; sourceTree = SOURCE_ROOT; };
 		1FBE8E0E1A11DB1E003E1EF4 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "macdown-cmd/main.m"; sourceTree = SOURCE_ROOT; };
 		1FC29F5B1944FC2600D616C7 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		1FCBDF0B1E536C8400C0F56B /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = Localization/sv.lproj/MainMenu.strings; sourceTree = "<group>"; };
+		1FCBDF0C1E536C8400C0F56B /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = Localization/sv.lproj/MPExportPanelAccessoryViewController.strings; sourceTree = "<group>"; };
+		1FCBDF0D1E536C8400C0F56B /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = Localization/sv.lproj/MPGeneralPreferencesViewController.strings; sourceTree = "<group>"; };
+		1FCBDF0E1E536C8400C0F56B /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = Localization/sv.lproj/MPMarkdownPreferencesViewController.strings; sourceTree = "<group>"; };
+		1FCBDF0F1E536C8400C0F56B /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = Localization/sv.lproj/MPEditorPreferencesViewController.strings; sourceTree = "<group>"; };
+		1FCBDF101E536C8500C0F56B /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = Localization/sv.lproj/MPHtmlPreferencesViewController.strings; sourceTree = "<group>"; };
+		1FCBDF111E536C8500C0F56B /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = Localization/sv.lproj/MPDocument.strings; sourceTree = "<group>"; };
+		1FCBDF121E536C8500C0F56B /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = sv; path = Localization/sv.lproj/Credits.rtf; sourceTree = "<group>"; };
+		1FCBDF131E536C8500C0F56B /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = Localization/sv.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1FCBDF141E536C8900C0F56B /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1FCBDF151E536C9F00C0F56B /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = Localization/sv.lproj/Localizable.strings; sourceTree = "<group>"; };
+		1FCBDF161E536CAE00C0F56B /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "Localization/zh-Hant.lproj/MainMenu.strings"; sourceTree = "<group>"; };
+		1FCBDF171E536CAE00C0F56B /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "Localization/zh-Hant.lproj/MPExportPanelAccessoryViewController.strings"; sourceTree = "<group>"; };
+		1FCBDF181E536CAE00C0F56B /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "Localization/zh-Hant.lproj/MPGeneralPreferencesViewController.strings"; sourceTree = "<group>"; };
+		1FCBDF191E536CAE00C0F56B /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "Localization/zh-Hant.lproj/MPMarkdownPreferencesViewController.strings"; sourceTree = "<group>"; };
+		1FCBDF1A1E536CAE00C0F56B /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "Localization/zh-Hant.lproj/MPEditorPreferencesViewController.strings"; sourceTree = "<group>"; };
+		1FCBDF1B1E536CAE00C0F56B /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "Localization/zh-Hant.lproj/MPHtmlPreferencesViewController.strings"; sourceTree = "<group>"; };
+		1FCBDF1C1E536CAE00C0F56B /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "Localization/zh-Hant.lproj/MPDocument.strings"; sourceTree = "<group>"; };
+		1FCBDF1D1E536CAE00C0F56B /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = "zh-Hant"; path = "Localization/zh-Hant.lproj/Credits.rtf"; sourceTree = "<group>"; };
+		1FCBDF1E1E536CAE00C0F56B /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "Localization/zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		1FCBDF1F1E536CAF00C0F56B /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "Localization/zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		1FCBDF201E536CAF00C0F56B /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		1FCBDF211E536CB600C0F56B /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "Localization/zh-Hans.lproj/MainMenu.strings"; sourceTree = "<group>"; };
+		1FCBDF221E536CB600C0F56B /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "Localization/zh-Hans.lproj/MPExportPanelAccessoryViewController.strings"; sourceTree = "<group>"; };
+		1FCBDF231E536CB600C0F56B /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "Localization/zh-Hans.lproj/MPGeneralPreferencesViewController.strings"; sourceTree = "<group>"; };
+		1FCBDF241E536CB600C0F56B /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "Localization/zh-Hans.lproj/MPMarkdownPreferencesViewController.strings"; sourceTree = "<group>"; };
+		1FCBDF251E536CB600C0F56B /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "Localization/zh-Hans.lproj/MPEditorPreferencesViewController.strings"; sourceTree = "<group>"; };
+		1FCBDF261E536CB700C0F56B /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "Localization/zh-Hans.lproj/MPHtmlPreferencesViewController.strings"; sourceTree = "<group>"; };
+		1FCBDF271E536CB700C0F56B /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "Localization/zh-Hans.lproj/MPDocument.strings"; sourceTree = "<group>"; };
+		1FCBDF281E536CB700C0F56B /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = "zh-Hans"; path = "Localization/zh-Hans.lproj/Credits.rtf"; sourceTree = "<group>"; };
+		1FCBDF291E536CB700C0F56B /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "Localization/zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		1FCBDF2A1E536CB700C0F56B /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "Localization/zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		1FCBDF2B1E536CB700C0F56B /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		1FCD71131A20BA3A00C028B5 /* version.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = version.xcodeproj; sourceTree = "<group>"; };
 		1FCD711A1A20BE2F00C028B5 /* version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = version.h; path = Dependency/version/version.h; sourceTree = SOURCE_ROOT; };
 		1FCDCA301944F96E00B1F966 /* MacDownTests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MacDownTests-Info.plist"; sourceTree = "<group>"; };
@@ -490,7 +523,7 @@
 				1F9A14EB194EEE9900D1C6A9 /* MPMainController.m */,
 				1F9A14E8194EEE9900D1C6A9 /* MPExportPanelAccessoryViewController.h */,
 				1F9A14E9194EEE9900D1C6A9 /* MPExportPanelAccessoryViewController.m */,
-				1FBBD4BC194C952300BB3C88 /* MPExportPanelAccessoryViewController.xib */,
+				1FB3C0221E5061A2002AEB6A /* MPExportPanelAccessoryViewController.xib */,
 				1F5A37121C869C81006E63E7 /* MPPlugInController.h */,
 				1F5A37131C869C81006E63E7 /* MPPlugInController.m */,
 			);
@@ -743,6 +776,9 @@
 			knownRegions = (
 				en,
 				Base,
+				sv,
+				"zh-Hant",
+				"zh-Hans",
 			);
 			mainGroup = 1FA6DE181941CC9E000409FB;
 			productRefGroup = 1FA6DE221941CC9E000409FB /* Products */;
@@ -782,7 +818,6 @@
 				1F0D9DB4194AC9EE008E1856 /* MainMenu.xib in Resources */,
 				1FBDFE9C196170FE00BEEA70 /* Extensions in Resources */,
 				1F41FF7B1C8EEE9200FD9886 /* Templates in Resources */,
-				1FBBD4BE194C952300BB3C88 /* MPExportPanelAccessoryViewController.xib in Resources */,
 				1FA6CDB91952D2CD008D5CA0 /* dsa_pub.pem in Resources */,
 				1F27896B1973BEB100EE696A /* Localizable.strings in Resources */,
 				1F0D9DAD194AC8EF008E1856 /* Images.xcassets in Resources */,
@@ -794,6 +829,7 @@
 				1F0D9DAB194AC8CB008E1856 /* InfoPlist.strings in Resources */,
 				1FCE066419633D6C00DC83B4 /* Data in Resources */,
 				1F3FC8AA1C85AE9F000965E1 /* MacDown.sdef in Resources */,
+				1FB3C0241E5061A2002AEB6A /* MPExportPanelAccessoryViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1059,6 +1095,9 @@
 			isa = PBXVariantGroup;
 			children = (
 				1F0D9D82194AC83C008E1856 /* Base */,
+				1FCBDF0B1E536C8400C0F56B /* sv */,
+				1FCBDF161E536CAE00C0F56B /* zh-Hant */,
+				1FCBDF211E536CB600C0F56B /* zh-Hans */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";
@@ -1067,6 +1106,9 @@
 			isa = PBXVariantGroup;
 			children = (
 				1F0D9D84194AC83C008E1856 /* Base */,
+				1FCBDF111E536C8500C0F56B /* sv */,
+				1FCBDF1C1E536CAE00C0F56B /* zh-Hant */,
+				1FCBDF271E536CB700C0F56B /* zh-Hans */,
 			);
 			name = MPDocument.xib;
 			path = ../..;
@@ -1076,6 +1118,9 @@
 			isa = PBXVariantGroup;
 			children = (
 				1F0D9D86194AC83C008E1856 /* Base */,
+				1FCBDF0F1E536C8400C0F56B /* sv */,
+				1FCBDF1A1E536CAE00C0F56B /* zh-Hant */,
+				1FCBDF251E536CB600C0F56B /* zh-Hans */,
 			);
 			name = MPEditorPreferencesViewController.xib;
 			path = ../..;
@@ -1085,6 +1130,9 @@
 			isa = PBXVariantGroup;
 			children = (
 				1F0D9D88194AC83C008E1856 /* Base */,
+				1FCBDF101E536C8500C0F56B /* sv */,
+				1FCBDF1B1E536CAE00C0F56B /* zh-Hant */,
+				1FCBDF261E536CB700C0F56B /* zh-Hans */,
 			);
 			name = MPHtmlPreferencesViewController.xib;
 			path = ../..;
@@ -1094,6 +1142,9 @@
 			isa = PBXVariantGroup;
 			children = (
 				1F0D9D8A194AC83C008E1856 /* Base */,
+				1FCBDF0E1E536C8400C0F56B /* sv */,
+				1FCBDF191E536CAE00C0F56B /* zh-Hant */,
+				1FCBDF241E536CB600C0F56B /* zh-Hans */,
 			);
 			name = MPMarkdownPreferencesViewController.xib;
 			path = ../..;
@@ -1103,6 +1154,9 @@
 			isa = PBXVariantGroup;
 			children = (
 				1F0D9DA7194AC8CB008E1856 /* en */,
+				1FCBDF121E536C8500C0F56B /* sv */,
+				1FCBDF1D1E536CAE00C0F56B /* zh-Hant */,
+				1FCBDF281E536CB700C0F56B /* zh-Hans */,
 			);
 			name = Credits.rtf;
 			sourceTree = "<group>";
@@ -1111,6 +1165,9 @@
 			isa = PBXVariantGroup;
 			children = (
 				1F0D9DA9194AC8CB008E1856 /* en */,
+				1FCBDF131E536C8500C0F56B /* sv */,
+				1FCBDF1E1E536CAE00C0F56B /* zh-Hant */,
+				1FCBDF291E536CB700C0F56B /* zh-Hans */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -1118,32 +1175,44 @@
 		1F2789691973BEB100EE696A /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				1F27896A1973BEB100EE696A /* Base */,
+				1FA9196B1E4723A200850517 /* en */,
+				1FCBDF151E536C9F00C0F56B /* sv */,
+				1FCBDF1F1E536CAF00C0F56B /* zh-Hant */,
+				1FCBDF2A1E536CB700C0F56B /* zh-Hans */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
-		1FBBD4BC194C952300BB3C88 /* MPExportPanelAccessoryViewController.xib */ = {
+		1FB3C0221E5061A2002AEB6A /* MPExportPanelAccessoryViewController.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				1FBBD4BD194C952300BB3C88 /* Base */,
+				1FB3C0231E5061A2002AEB6A /* Base */,
+				1FCBDF0C1E536C8400C0F56B /* sv */,
+				1FCBDF171E536CAE00C0F56B /* zh-Hant */,
+				1FCBDF221E536CB600C0F56B /* zh-Hans */,
 			);
 			name = MPExportPanelAccessoryViewController.xib;
-			path = Code/Document;
 			sourceTree = "<group>";
 		};
 		1FBDFEA31962A27300BEEA70 /* MPGeneralPreferencesViewController.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				1FBDFEA41962A27300BEEA70 /* Base */,
+				1FCBDF0D1E536C8400C0F56B /* sv */,
+				1FCBDF181E536CAE00C0F56B /* zh-Hant */,
+				1FCBDF231E536CB600C0F56B /* zh-Hans */,
 			);
 			name = MPGeneralPreferencesViewController.xib;
+			path = ../..;
 			sourceTree = "<group>";
 		};
 		1FCDCA321944F96E00B1F966 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
 				1FCDCA331944F96E00B1F966 /* en */,
+				1FCBDF141E536C8900C0F56B /* sv */,
+				1FCBDF201E536CAF00C0F56B /* zh-Hant */,
+				1FCBDF2B1E536CB700C0F56B /* zh-Hans */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -1155,6 +1224,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -1199,6 +1269,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;

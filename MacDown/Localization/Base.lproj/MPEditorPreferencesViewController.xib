@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1217" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10117"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11762"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="box content view" minToolsVersion="7.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="MPEditorPreferencesViewController">
@@ -65,16 +66,10 @@
                 </button>
                 <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="JZh-8k-zMC">
                     <rect key="frame" x="107" y="330" width="236" height="26"/>
-                    <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="4C5-3K-7bE" id="Zr8-Em-EhD">
+                    <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="Zr8-Em-EhD">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="menu"/>
-                        <menu key="menu" title="OtherViews" id="Ia1-VG-EWI">
-                            <items>
-                                <menuItem state="on" id="4C5-3K-7bE"/>
-                                <menuItem title="Item 2" id="BmJ-Oh-va6"/>
-                                <menuItem title="Item 3" id="qML-FL-WrV"/>
-                            </items>
-                        </menu>
+                        <menu key="menu" title="OtherViews" id="Ia1-VG-EWI"/>
                     </popUpButtonCell>
                     <connections>
                         <action selector="changeTheme:" target="-2" id="zGE-AI-xkv"/>
@@ -103,7 +98,7 @@
                 </textField>
                 <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uWf-nW-3Ez">
                     <rect key="frame" x="109" y="276" width="88" height="22"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" focusRingType="none" alignment="right" title="0" drawsBackground="YES" id="797-vo-Lg9">
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" focusRingType="none" alignment="right" drawsBackground="YES" id="797-vo-Lg9">
                         <numberFormatter key="formatter" formatterBehavior="custom10_4" numberStyle="decimal" usesGroupingSeparator="NO" minimumIntegerDigits="1" maximumIntegerDigits="2" id="Z1m-eN-5ss">
                             <real key="minimum" value="0.0"/>
                             <real key="maximum" value="35"/>
@@ -124,7 +119,7 @@
                 </textField>
                 <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="77u-zZ-bC0">
                     <rect key="frame" x="237" y="276" width="88" height="22"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" focusRingType="none" alignment="right" title="0" drawsBackground="YES" id="557-oZ-4zf">
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" focusRingType="none" alignment="right" drawsBackground="YES" id="557-oZ-4zf">
                         <numberFormatter key="formatter" formatterBehavior="custom10_4" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="1" maximumIntegerDigits="2" id="E8M-bY-H1G">
                             <real key="minimum" value="0.0"/>
                             <real key="maximum" value="35"/>
@@ -167,7 +162,7 @@
                 </textField>
                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ogi-ll-Yii">
                     <rect key="frame" x="109" y="305" width="216" height="22"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" title="0" drawsBackground="YES" id="Qlw-QZ-XWE">
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" drawsBackground="YES" id="Qlw-QZ-XWE">
                         <numberFormatter key="formatter" formatterBehavior="custom10_4" numberStyle="decimal" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="1" maximumIntegerDigits="309" id="cbO-Ho-XRq">
                             <real key="minimum" value="0.0"/>
                             <real key="maximum" value="100"/>
@@ -199,7 +194,7 @@
                 </button>
                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IAf-0I-hfF">
                     <rect key="frame" x="168" y="243" width="157" height="23"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" title="300" drawsBackground="YES" id="M8w-C7-PC0">
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" drawsBackground="YES" id="M8w-C7-PC0">
                         <numberFormatter key="formatter" formatterBehavior="custom10_4" numberStyle="decimal" usesGroupingSeparator="NO" minimumIntegerDigits="1" maximumIntegerDigits="5" id="MQ9-lM-ZUg">
                             <real key="minimum" value="300"/>
                             <real key="maximum" value="10000"/>
@@ -248,7 +243,7 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <box autoresizesSubviews="NO" title="Behavior" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="6JP-Pc-JFd">
+                <box autoresizesSubviews="NO" borderType="line" title="Behavior" translatesAutoresizingMaskIntoConstraints="NO" id="6JP-Pc-JFd">
                     <rect key="frame" x="17" y="16" width="449" height="179"/>
                     <view key="contentView" id="74B-GJ-2mO">
                         <rect key="frame" x="1" y="1" width="447" height="163"/>
@@ -350,8 +345,6 @@
                             <constraint firstItem="B3N-s7-0vd" firstAttribute="top" secondItem="NV7-zh-ydN" secondAttribute="bottom" constant="6" symbolic="YES" id="z6Q-dF-r1X"/>
                         </constraints>
                     </view>
-                    <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                    <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </box>
             </subviews>
             <constraints>
