@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1217" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11762"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="MPHtmlPreferencesViewController">
@@ -20,7 +21,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0ez-nk-c3q">
-                    <rect key="frame" x="18" y="328" width="84" height="17"/>
+                    <rect key="frame" x="18" y="328" width="83" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="CSS:" id="9I3-I7-HLu">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -28,24 +29,18 @@
                     </textFieldCell>
                 </textField>
                 <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Wgm-Sy-7mr">
-                    <rect key="frame" x="106" y="323" width="158" height="26"/>
-                    <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="DYB-rZ-iFG" id="9Mg-zg-Kvi">
+                    <rect key="frame" x="105" y="323" width="161" height="26"/>
+                    <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="9Mg-zg-Kvi">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="menu"/>
-                        <menu key="menu" title="OtherViews" id="SFn-Sa-gJY">
-                            <items>
-                                <menuItem state="on" id="DYB-rZ-iFG"/>
-                                <menuItem title="Item 2" id="4Za-Lv-VJ2"/>
-                                <menuItem title="Item 3" id="0w2-3w-Gau"/>
-                            </items>
-                        </menu>
+                        <menu key="menu" id="SFn-Sa-gJY"/>
                     </popUpButtonCell>
                     <connections>
                         <action selector="changeStylesheet:" target="-2" id="7Rl-Wk-slw"/>
                     </connections>
                 </popUpButton>
                 <segmentedControl horizontalHuggingPriority="300" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IJe-cc-YKn">
-                    <rect key="frame" x="267" y="324" width="120" height="24"/>
+                    <rect key="frame" x="269" y="324" width="118" height="24"/>
                     <segmentedCell key="cell" borderStyle="border" alignment="left" style="rounded" trackingMode="momentary" id="0rH-I9-Dxr">
                         <font key="font" metaFont="smallSystem"/>
                         <segments>
@@ -58,7 +53,7 @@
                     </connections>
                 </segmentedControl>
                 <pathControl verticalHuggingPriority="750" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bih-Hu-dSj">
-                    <rect key="frame" x="105" y="16" width="283" height="22"/>
+                    <rect key="frame" x="104" y="16" width="284" height="22"/>
                     <pathCell key="cell" controlSize="small" selectable="YES" editable="YES" alignment="left" pathStyle="popUp" id="eXH-Mm-BJH">
                         <font key="font" metaFont="smallSystem"/>
                         <url key="url" string="file:///Applications/"/>
@@ -71,7 +66,7 @@
                     </connections>
                 </pathControl>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="f62-wu-Z6p">
-                    <rect key="frame" x="18" y="20" width="84" height="17"/>
+                    <rect key="frame" x="18" y="20" width="83" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Default path:" id="e1A-Mm-svq">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -93,7 +88,7 @@
                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="dvX-w7-kuE">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="smallSystem"/>
-                        <menu key="menu" title="OtherViews" id="xmA-I0-vRJ"/>
+                        <menu key="menu" id="xmA-I0-vRJ"/>
                     </popUpButtonCell>
                     <connections>
                         <action selector="changeHighlightingTheme:" target="-2" id="1Ky-pw-JCi"/>
@@ -206,7 +201,7 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="M0W-YD-Ouk">
+                <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="M0W-YD-Ouk" userLabel="Highlight Accessory Select">
                     <rect key="frame" x="202" y="241" width="186" height="22"/>
                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="Pkp-Dl-EI9">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
