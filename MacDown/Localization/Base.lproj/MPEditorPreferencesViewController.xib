@@ -66,16 +66,10 @@
                 </button>
                 <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="JZh-8k-zMC">
                     <rect key="frame" x="107" y="330" width="236" height="26"/>
-                    <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="4C5-3K-7bE" id="Zr8-Em-EhD">
+                    <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="Zr8-Em-EhD">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="menu"/>
-                        <menu key="menu" title="OtherViews" id="Ia1-VG-EWI">
-                            <items>
-                                <menuItem state="on" id="4C5-3K-7bE"/>
-                                <menuItem title="Item 2" id="BmJ-Oh-va6"/>
-                                <menuItem title="Item 3" id="qML-FL-WrV"/>
-                            </items>
-                        </menu>
+                        <menu key="menu" title="OtherViews" id="Ia1-VG-EWI"/>
                     </popUpButtonCell>
                     <connections>
                         <action selector="changeTheme:" target="-2" id="zGE-AI-xkv"/>
