@@ -1663,6 +1663,14 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     return mine == theirs || [mine isEqualToString:theirs];
 }
 
+
+#define OPEN_FAIL_ALERT_INFORMATIVE NSLocalizedString(\
+@"Please check the path of your link is correct. Turn on \
+“Automatically create link targets” If you want MacDown to \
+create nonexistent link targets for you.", \
+@"preview navigation error information")
+
+
 - (void)openOrCreateFileForUrl:(NSURL *)url
 {
     // If the URL points to a nonexistent file, create automatically if
@@ -1682,11 +1690,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
             @"File not found at path:\n%@",
             @"preview navigation error message");
         alert.messageText = [NSString stringWithFormat:template, url.path];
-        alert.informativeText = NSLocalizedString(
-            @"Please check the path of your link is correct. Turn on "
-            @"“Automatically create link targets” If you want MacDown to "
-            @"create nonexistent link targets for you.",
-            @"preview navigation error information");
+        alert.informativeText = OPEN_FAIL_ALERT_INFORMATIVE;
         [alert runModal];
         return;
     }
