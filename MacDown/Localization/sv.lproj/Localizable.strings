@@ -1,0 +1,15 @@
+/*
+  Localizable.strings
+  MacDown
+
+  Created by Tzu-ping Chung  on 14/7.
+  Copyright (c) 2014 Tzu-ping Chung . All rights reserved.
+*/
+
+"JJ_PLURAL_FORM_RULE" = "1";
+
+"WORDS_PLURAL_STRING" = "%@ word;%@ words";
+
+"CHARACTERS_PLURAL_STRING" = "%@ character;%@ characters";
+
+"CHARACTERS_NO_SPACES_PLURAL_STRING" = "%@ character (no spaces);%@ characters (no spaces)";

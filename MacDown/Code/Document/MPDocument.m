@@ -559,7 +559,26 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
             savePanel.nameFieldStringValue = fileName;
         }
     }
-    savePanel.allowedFileTypes = nil;   // Allow all extensions.
+    
+    // Get supported extensions from plist
+    static NSMutableArray *supportedExtensions = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        supportedExtensions = [NSMutableArray array];
+        NSDictionary *infoDict = [NSBundle mainBundle].infoDictionary;
+        for (NSDictionary *docType in infoDict[@"CFBundleDocumentTypes"])
+        {
+            NSArray *exts = docType[@"CFBundleTypeExtensions"];
+            if (exts.count)
+            {
+                [supportedExtensions addObjectsFromArray:exts];
+            }
+        }
+    });
+    
+    savePanel.allowedFileTypes = supportedExtensions;
+    savePanel.allowsOtherFileTypes = YES; // Allow all extensions.
+    
     return [super prepareSavePanel:savePanel];
 }
 
@@ -1636,6 +1655,19 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     return mine == theirs || [mine isEqualToString:theirs];
 }
 
+
+#define OPEN_FAIL_ALERT_INFORMATIVE NSLocalizedString(\
+@"Please check the path of your link is correct. Turn on \
+“Automatically create link targets” If you want MacDown to \
+create nonexistent link targets for you.", \
+@"preview navigation error information")
+
+#define OPEN_FAIL_ALERT_INFORMATIVE_NONEXISTENT NSLocalizedString(\
+@"MacDown can’t create a file for the clicked link because "\
+@"the current file is not saved anywhere yet. Save the "\
+@"current file somewhere to enable this feature.",\
+@"preview navigation error information")
+
 - (void)openOrCreateFileForUrl:(NSURL *)url
 {
     // If the URL points to a nonexistent file, create automatically if
@@ -1680,11 +1712,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
                     @"preview navigation error message");
                 alert.messageText = [NSString stringWithFormat:template,
                                      url.lastPathComponent];
-                alert.informativeText = NSLocalizedString(
-                    @"MacDown can’t create a file for the clicked link because "
-                    @"the current file is not saved anywhere yet. Save the "
-                    @"current file somewhere to enable this feature.",
-                    @"preview navigation error information");
+                alert.informativeText = OPEN_FAIL_ALERT_INFORMATIVE_NONEXISTENT;
                 [alert runModal];
             }
         }
@@ -1695,11 +1723,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
                 @"File not found at path:\n%@",
                 @"preview navigation error message");
             alert.messageText = [NSString stringWithFormat:template, url.path];
-            alert.informativeText = NSLocalizedString(
-                @"Please check the path of your link is correct. Turn on "
-                @"“Automatically create link targets” If you want MacDown to "
-                @"create nonexistent link targets for you.",
-                @"preview navigation error information");
+            alert.informativeText = OPEN_FAIL_ALERT_INFORMATIVE;
             [alert runModal];
         }
     }
