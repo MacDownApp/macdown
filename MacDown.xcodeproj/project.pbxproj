@@ -197,7 +197,6 @@
 		1F41FF7A1C8EEE9200FD9886 /* Templates */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Templates; path = Resources/Templates; sourceTree = "<group>"; };
 		1F4C8E99194AE0B9004BF82E /* MarkdownDocument.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = MarkdownDocument.icns; path = Resources/MarkdownDocument.icns; sourceTree = "<group>"; };
 		1F51C9A1194564670015A96F /* libPods-MacDown-PAPreferences.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-MacDown-PAPreferences.a"; path = "../../../../Library/Developer/Xcode/DerivedData/MacDown-ggdtxvuybojeqbhjydkhilziizrv/Build/Products/Debug/libPods-MacDown-PAPreferences.a"; sourceTree = "<group>"; };
-		1F58630F1E507D4200CE0393 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = Localization/sv.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1F59491A1AB57C78007394CB /* syntax_highlighting.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = syntax_highlighting.json; path = Resources/syntax_highlighting.json; sourceTree = "<group>"; };
 		1F59491C1AB57D87007394CB /* NSJSONSerialization+File.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSJSONSerialization+File.h"; sourceTree = "<group>"; };
 		1F59491D1AB57D87007394CB /* NSJSONSerialization+File.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSJSONSerialization+File.m"; sourceTree = "<group>"; };
@@ -237,8 +236,7 @@
 		1FA6DE281941CC9E000409FB /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		1FA6DE291941CC9E000409FB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1FA6DE451941CC9E000409FB /* MacDownTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MacDownTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		1FA9196B1E4723A200850517 /* en */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = en; path = Localization/en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		1FA9196D1E472FD600850517 /* zh-Hant */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "Localization/zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		1FA9196B1E4723A200850517 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = Localization/en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1FB3C0231E5061A2002AEB6A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Localization/Base.lproj/MPExportPanelAccessoryViewController.xib; sourceTree = "<group>"; };
 		1FBBD4C9194CA35900BB3C88 /* hoedown_html_patch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = hoedown_html_patch.h; sourceTree = "<group>"; };
 		1FBBD4CA194CA36500BB3C88 /* hoedown_html_patch.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hoedown_html_patch.c; sourceTree = "<group>"; };
@@ -248,6 +246,39 @@
 		1FBDFEA41962A27300BEEA70 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = MacDown/Localization/Base.lproj/MPGeneralPreferencesViewController.xib; sourceTree = SOURCE_ROOT; };
 		1FBE8E0E1A11DB1E003E1EF4 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "macdown-cmd/main.m"; sourceTree = SOURCE_ROOT; };
 		1FC29F5B1944FC2600D616C7 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		1FCBDF0B1E536C8400C0F56B /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = Localization/sv.lproj/MainMenu.strings; sourceTree = "<group>"; };
+		1FCBDF0C1E536C8400C0F56B /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = Localization/sv.lproj/MPExportPanelAccessoryViewController.strings; sourceTree = "<group>"; };
+		1FCBDF0D1E536C8400C0F56B /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = Localization/sv.lproj/MPGeneralPreferencesViewController.strings; sourceTree = "<group>"; };
+		1FCBDF0E1E536C8400C0F56B /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = Localization/sv.lproj/MPMarkdownPreferencesViewController.strings; sourceTree = "<group>"; };
+		1FCBDF0F1E536C8400C0F56B /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = Localization/sv.lproj/MPEditorPreferencesViewController.strings; sourceTree = "<group>"; };
+		1FCBDF101E536C8500C0F56B /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = Localization/sv.lproj/MPHtmlPreferencesViewController.strings; sourceTree = "<group>"; };
+		1FCBDF111E536C8500C0F56B /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = Localization/sv.lproj/MPDocument.strings; sourceTree = "<group>"; };
+		1FCBDF121E536C8500C0F56B /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = sv; path = Localization/sv.lproj/Credits.rtf; sourceTree = "<group>"; };
+		1FCBDF131E536C8500C0F56B /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = Localization/sv.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1FCBDF141E536C8900C0F56B /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1FCBDF151E536C9F00C0F56B /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = Localization/sv.lproj/Localizable.strings; sourceTree = "<group>"; };
+		1FCBDF161E536CAE00C0F56B /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "Localization/zh-Hant.lproj/MainMenu.strings"; sourceTree = "<group>"; };
+		1FCBDF171E536CAE00C0F56B /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "Localization/zh-Hant.lproj/MPExportPanelAccessoryViewController.strings"; sourceTree = "<group>"; };
+		1FCBDF181E536CAE00C0F56B /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "Localization/zh-Hant.lproj/MPGeneralPreferencesViewController.strings"; sourceTree = "<group>"; };
+		1FCBDF191E536CAE00C0F56B /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "Localization/zh-Hant.lproj/MPMarkdownPreferencesViewController.strings"; sourceTree = "<group>"; };
+		1FCBDF1A1E536CAE00C0F56B /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "Localization/zh-Hant.lproj/MPEditorPreferencesViewController.strings"; sourceTree = "<group>"; };
+		1FCBDF1B1E536CAE00C0F56B /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "Localization/zh-Hant.lproj/MPHtmlPreferencesViewController.strings"; sourceTree = "<group>"; };
+		1FCBDF1C1E536CAE00C0F56B /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "Localization/zh-Hant.lproj/MPDocument.strings"; sourceTree = "<group>"; };
+		1FCBDF1D1E536CAE00C0F56B /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = "zh-Hant"; path = "Localization/zh-Hant.lproj/Credits.rtf"; sourceTree = "<group>"; };
+		1FCBDF1E1E536CAE00C0F56B /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "Localization/zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		1FCBDF1F1E536CAF00C0F56B /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "Localization/zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		1FCBDF201E536CAF00C0F56B /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		1FCBDF211E536CB600C0F56B /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "Localization/zh-Hans.lproj/MainMenu.strings"; sourceTree = "<group>"; };
+		1FCBDF221E536CB600C0F56B /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "Localization/zh-Hans.lproj/MPExportPanelAccessoryViewController.strings"; sourceTree = "<group>"; };
+		1FCBDF231E536CB600C0F56B /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "Localization/zh-Hans.lproj/MPGeneralPreferencesViewController.strings"; sourceTree = "<group>"; };
+		1FCBDF241E536CB600C0F56B /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "Localization/zh-Hans.lproj/MPMarkdownPreferencesViewController.strings"; sourceTree = "<group>"; };
+		1FCBDF251E536CB600C0F56B /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "Localization/zh-Hans.lproj/MPEditorPreferencesViewController.strings"; sourceTree = "<group>"; };
+		1FCBDF261E536CB700C0F56B /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "Localization/zh-Hans.lproj/MPHtmlPreferencesViewController.strings"; sourceTree = "<group>"; };
+		1FCBDF271E536CB700C0F56B /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "Localization/zh-Hans.lproj/MPDocument.strings"; sourceTree = "<group>"; };
+		1FCBDF281E536CB700C0F56B /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = "zh-Hans"; path = "Localization/zh-Hans.lproj/Credits.rtf"; sourceTree = "<group>"; };
+		1FCBDF291E536CB700C0F56B /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "Localization/zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		1FCBDF2A1E536CB700C0F56B /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "Localization/zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		1FCBDF2B1E536CB700C0F56B /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		1FCD71131A20BA3A00C028B5 /* version.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = version.xcodeproj; sourceTree = "<group>"; };
 		1FCD711A1A20BE2F00C028B5 /* version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = version.h; path = Dependency/version/version.h; sourceTree = SOURCE_ROOT; };
 		1FCDCA301944F96E00B1F966 /* MacDownTests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MacDownTests-Info.plist"; sourceTree = "<group>"; };
@@ -738,8 +769,9 @@
 			knownRegions = (
 				en,
 				Base,
-				"zh-Hant",
 				sv,
+				"zh-Hant",
+				"zh-Hans",
 			);
 			mainGroup = 1FA6DE181941CC9E000409FB;
 			productRefGroup = 1FA6DE221941CC9E000409FB /* Products */;
@@ -1055,6 +1087,9 @@
 			isa = PBXVariantGroup;
 			children = (
 				1F0D9D82194AC83C008E1856 /* Base */,
+				1FCBDF0B1E536C8400C0F56B /* sv */,
+				1FCBDF161E536CAE00C0F56B /* zh-Hant */,
+				1FCBDF211E536CB600C0F56B /* zh-Hans */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";
@@ -1063,6 +1098,9 @@
 			isa = PBXVariantGroup;
 			children = (
 				1F0D9D84194AC83C008E1856 /* Base */,
+				1FCBDF111E536C8500C0F56B /* sv */,
+				1FCBDF1C1E536CAE00C0F56B /* zh-Hant */,
+				1FCBDF271E536CB700C0F56B /* zh-Hans */,
 			);
 			name = MPDocument.xib;
 			path = ../..;
@@ -1072,6 +1110,9 @@
 			isa = PBXVariantGroup;
 			children = (
 				1F0D9D86194AC83C008E1856 /* Base */,
+				1FCBDF0F1E536C8400C0F56B /* sv */,
+				1FCBDF1A1E536CAE00C0F56B /* zh-Hant */,
+				1FCBDF251E536CB600C0F56B /* zh-Hans */,
 			);
 			name = MPEditorPreferencesViewController.xib;
 			path = ../..;
@@ -1081,6 +1122,9 @@
 			isa = PBXVariantGroup;
 			children = (
 				1F0D9D88194AC83C008E1856 /* Base */,
+				1FCBDF101E536C8500C0F56B /* sv */,
+				1FCBDF1B1E536CAE00C0F56B /* zh-Hant */,
+				1FCBDF261E536CB700C0F56B /* zh-Hans */,
 			);
 			name = MPHtmlPreferencesViewController.xib;
 			path = ../..;
@@ -1090,6 +1134,9 @@
 			isa = PBXVariantGroup;
 			children = (
 				1F0D9D8A194AC83C008E1856 /* Base */,
+				1FCBDF0E1E536C8400C0F56B /* sv */,
+				1FCBDF191E536CAE00C0F56B /* zh-Hant */,
+				1FCBDF241E536CB600C0F56B /* zh-Hans */,
 			);
 			name = MPMarkdownPreferencesViewController.xib;
 			path = ../..;
@@ -1099,6 +1146,9 @@
 			isa = PBXVariantGroup;
 			children = (
 				1F0D9DA7194AC8CB008E1856 /* en */,
+				1FCBDF121E536C8500C0F56B /* sv */,
+				1FCBDF1D1E536CAE00C0F56B /* zh-Hant */,
+				1FCBDF281E536CB700C0F56B /* zh-Hans */,
 			);
 			name = Credits.rtf;
 			sourceTree = "<group>";
@@ -1107,7 +1157,9 @@
 			isa = PBXVariantGroup;
 			children = (
 				1F0D9DA9194AC8CB008E1856 /* en */,
-				1F58630F1E507D4200CE0393 /* sv */,
+				1FCBDF131E536C8500C0F56B /* sv */,
+				1FCBDF1E1E536CAE00C0F56B /* zh-Hant */,
+				1FCBDF291E536CB700C0F56B /* zh-Hans */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -1116,7 +1168,9 @@
 			isa = PBXVariantGroup;
 			children = (
 				1FA9196B1E4723A200850517 /* en */,
-				1FA9196D1E472FD600850517 /* zh-Hant */,
+				1FCBDF151E536C9F00C0F56B /* sv */,
+				1FCBDF1F1E536CAF00C0F56B /* zh-Hant */,
+				1FCBDF2A1E536CB700C0F56B /* zh-Hans */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -1125,6 +1179,9 @@
 			isa = PBXVariantGroup;
 			children = (
 				1FB3C0231E5061A2002AEB6A /* Base */,
+				1FCBDF0C1E536C8400C0F56B /* sv */,
+				1FCBDF171E536CAE00C0F56B /* zh-Hant */,
+				1FCBDF221E536CB600C0F56B /* zh-Hans */,
 			);
 			name = MPExportPanelAccessoryViewController.xib;
 			sourceTree = "<group>";
@@ -1133,6 +1190,9 @@
 			isa = PBXVariantGroup;
 			children = (
 				1FBDFEA41962A27300BEEA70 /* Base */,
+				1FCBDF0D1E536C8400C0F56B /* sv */,
+				1FCBDF181E536CAE00C0F56B /* zh-Hant */,
+				1FCBDF231E536CB600C0F56B /* zh-Hans */,
 			);
 			name = MPGeneralPreferencesViewController.xib;
 			path = ../..;
@@ -1142,6 +1202,9 @@
 			isa = PBXVariantGroup;
 			children = (
 				1FCDCA331944F96E00B1F966 /* en */,
+				1FCBDF141E536C8900C0F56B /* sv */,
+				1FCBDF201E536CAF00C0F56B /* zh-Hant */,
+				1FCBDF2B1E536CB700C0F56B /* zh-Hans */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
