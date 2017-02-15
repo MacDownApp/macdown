@@ -316,10 +316,7 @@ NS_INLINE void treat()
     [self showHelp:nil];
 }
 
-@end
-
-
-@implementation MPMainController (TouchBarDelegate)
+#pragma mark - Touch Bar Delegate
 
 - (NSTouchBarItem *)customItem:(NSTouchBarItemIdentifier)identifier
                       withView:(NSView *)view
