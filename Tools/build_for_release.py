@@ -4,10 +4,12 @@
 from __future__ import print_function
 import os
 import re
-import subprocess
 import shutil
 import zipfile
+
 from xml.etree import ElementTree
+
+from macdown_utils import ROOT_DIR, XCODEBUILD, execute
 
 
 try:
@@ -17,33 +19,13 @@ except NameError:   # Python 3 does not have raw_input.
 
 
 OPENSSL = '/usr/bin/openssl'
-XCODEBUILD = '/usr/bin/xcodebuild'
 OSASCRIPT = '/usr/bin/osascript'
 
-ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BUILD_DIR = os.path.join(ROOT_DIR, 'Build')
 APP_NAME = 'MacDown.app'
 ZIP_NAME = 'MacDown.app.zip'
 
 TERM_ENCODING = 'utf-8'
-
-
-class CommandError(Exception):
-    pass
-
-
-def execute(*args):
-    proc = subprocess.Popen(
-        args, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-    )
-    stdout, stderr = proc.communicate()
-    if proc.returncode:
-        raise CommandError(
-            '"{cmd}" failed with error {code}.\n {output}'.format(
-                cmd=' '.join(args), code=proc.returncode, output=stderr
-            )
-        )
-    return stdout
 
 
 def print_value(key, value):

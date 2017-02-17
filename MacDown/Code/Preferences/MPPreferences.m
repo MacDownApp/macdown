@@ -182,6 +182,17 @@ static NSString * const kMPDefaultHtmlStyleName = @"GitHub2";
                     inSuiteNamed:kMPApplicationSuiteName];
 }
 
+- (NSString *)pipedContentFileToOpen {
+    return [self.userDefaults objectForKey:kMPPipedContentFileToOpen
+                              inSuiteNamed:kMPApplicationSuiteName];
+}
+
+- (void)setPipedContentFileToOpen:(NSString *)pipedContentFileToOpenPath {
+    [self.userDefaults setObject:pipedContentFileToOpenPath
+                          forKey:kMPPipedContentFileToOpen
+                    inSuiteNamed:kMPApplicationSuiteName];
+}
+
 
 #pragma mark - Private
 

@@ -1,0 +1,8 @@
+[main]
+host = https://www.transifex.com
+lang_map = zh_TW:zh-Hant, zh_CN:zh-Hans
+
+[macdown.macdownxliff]
+file_filter = Build/Localizations/<lang>.xliff
+source_lang = en
+type = XLIFF
