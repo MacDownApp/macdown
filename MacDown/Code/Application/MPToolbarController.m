@@ -372,7 +372,7 @@ static NSString *const kMPToolbarDictKeyHighlightable = @"kMPToolbarDictKeyHighl
     NSMutableArray *defaultItemIdentifiers = [NSMutableArray new];
     
     // Add space after the specified toolbar item indices
-    int spaceAfterIndices[] = {0, 1};
+    int spaceAfterIndices[] = {}; // No space in the default set
     int flexibleSpaceAfterIndices[] = {2, 3, 5, 7};
     int i = 0;
     int j = 0;
