@@ -1415,6 +1415,8 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 
         [self setSplitViewDividerLocation:self.previousSplitRatio];
     }
+    
+    [self.toolbarController updateHighlightStates];
 }
 
 - (void)setupEditor:(NSString *)changedKey
