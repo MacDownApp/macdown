@@ -152,8 +152,8 @@ NS_INLINE NSColor *MPGetInstallationIndicatorColor(BOOL installed)
     NSFileManager *fm = [NSFileManager defaultManager];
     if ([fm fileExistsAtPath:utilityBundlePath])
     {
-        BOOL ok = [fm copyItemAtPath:utilityBundlePath
-                              toPath:MPCommandInstallationPath error:NULL];
+        BOOL ok = [fm createSymbolicLinkAtPath:MPCommandInstallationPath
+                           withDestinationPath:utilityBundlePath error:NULL];
         if (ok)
             [self lookForShellUtility];
         // TODO: Handle removal failure.
