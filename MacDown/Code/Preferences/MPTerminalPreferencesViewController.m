@@ -6,6 +6,7 @@
 //  Copyright © 2017 Tzu-ping Chung . All rights reserved.
 //
 
+#import "MPGlobals.h"
 #import "MPHomebrewSubprocessController.h"
 #import "MPPreferences.h"
 #import "MPTerminalPreferencesViewController.h"
@@ -31,24 +32,68 @@ NS_INLINE NSColor *MPGetInstallationIndicatorColor(BOOL installed)
 
 
 @interface MPTerminalPreferencesViewController ()
+
 @property (weak) IBOutlet NSTextField *supportIndicator;
 @property (weak) IBOutlet NSTextField *supportTextField;
 @property (weak) IBOutlet NSTextField *infoTextField;
 @property (weak) IBOutlet NSTextField *locationTextField;
 @property (weak) IBOutlet NSButton *installUninstallButton;
+
+@property (nonatomic) NSURL *shellUtilityURL;
+
 @end
 
-@implementation MPTerminalPreferencesViewController {
-    NSURL *shellUtilityURL;
+@implementation MPTerminalPreferencesViewController
+
+
+#pragma mark - Accessors.
+
+- (void)setShellUtilityURL:(NSURL *)url
+{
+    _shellUtilityURL = url;
+    if (url)
+    {
+        self.supportIndicator.textColor = MPGetInstallationIndicatorColor(YES);
+        self.supportTextField.stringValue = NSLocalizedString(
+            @"Shell utility installed",
+            @"Label stating that shell utility has been installed");
+        self.locationTextField.stringValue = url.path;
+        self.locationTextField.font =
+            [NSFont fontWithName:@"Menlo"
+                            size:self.locationTextField.font.pointSize];
+        self.installUninstallButton.title = NSLocalizedString(
+            @"Uninstall", @"Uninstall shell utility button");
+        self.installUninstallButton.action = @selector(unInstallShellUtility);
+    }
+    else
+    {
+        self.supportIndicator.textColor = MPGetInstallationIndicatorColor(NO);
+        self.supportTextField.stringValue = NSLocalizedString(
+            @"Shell utility not installed",
+            @"Label stating that shell utility has not been installed");
+        self.locationTextField.stringValue = NSLocalizedString(
+            @"<Not installed>",
+            @"Displayed when shell utility is not installed");
+
+        NSFont *font =
+            [NSFont systemFontOfSize:self.locationTextField.font.pointSize];
+        self.locationTextField.font =
+            [[NSFontManager sharedFontManager] convertFont:font
+                                               toHaveTrait:NSFontItalicTrait];
+        self.installUninstallButton.title = NSLocalizedString(
+            @"Install", @"Install shell utility button");
+        self.installUninstallButton.action = @selector(installShellUtility);
+    }
 }
+
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     [self highlightMacdownInInfo];
     
-    [self.installUninstallButton setTarget:self];
-    [self indicateShellUtilityNotInstalled];
+    self.installUninstallButton.target = self;
+    self.shellUtilityURL = nil;
 }
 
 - (void)viewWillAppear
@@ -82,7 +127,7 @@ NS_INLINE NSColor *MPGetInstallationIndicatorColor(BOOL installed)
 {
     __weak MPTerminalPreferencesViewController *weakSelf = self;
     MPDetectHomebrewPrefixWithCompletionhandler(^(NSString *output) {
-        NSString *macdownPath = @"/usr/local/bin/macdown";
+        NSString *macdownPath = MPCommandInstallationPath;
         if (output)
         {
             NSCharacterSet *padding =
@@ -93,76 +138,37 @@ NS_INLINE NSColor *MPGetInstallationIndicatorColor(BOOL installed)
         }
 
         if ([[NSFileManager defaultManager] fileExistsAtPath:macdownPath])
-        {
-            NSURL *shellUtilityUrl = [NSURL fileURLWithPath:macdownPath];
-            [weakSelf foundShellUtilityAtURL:shellUtilityUrl];
-        }
+            weakSelf.shellUtilityURL = [NSURL fileURLWithPath:macdownPath];
     });
-}
-
-- (void)foundShellUtilityAtURL:(NSURL *)url
-{
-    self->shellUtilityURL = url;
-    [self indicateShellUtilityInstalledAt:url];
-}
-
-- (void)indicateShellUtilityInstalledAt:(NSURL *)url
-{
-    self.supportIndicator.textColor = MPGetInstallationIndicatorColor(YES);
-    [self.supportTextField setStringValue:NSLocalizedString(@"Shell utility installed", @"Label stating that shell utility has been installed")];
-    [self.locationTextField setStringValue:url.path];
-    NSFont *installedLocationFont = [NSFont fontWithName:@"Menlo" size:self.locationTextField.font.pointSize];
-    [self.locationTextField setFont:installedLocationFont];
-    [self.installUninstallButton setTitle:NSLocalizedString(@"Uninstall", @"Uninstall shell utility button")];
-    [self.installUninstallButton setAction:@selector(unInstallShellUtility)];
-}
-
-- (void)indicateShellUtilityNotInstalled
-{
-    self.supportIndicator.textColor = MPGetInstallationIndicatorColor(NO);
-    [self.supportTextField setStringValue:NSLocalizedString(@"Shell utility not installed", @"Label stating that shell utility has not been installed")];
-    [self.locationTextField setStringValue:NSLocalizedString(@"<Not installed>", @"Displayed instead of path when shell utility has not been installed")];
-    NSFont *notInstalledFont = [[NSFontManager sharedFontManager] convertFont:
-                                [NSFont systemFontOfSize:self.locationTextField.font.pointSize]
-                                toHaveTrait:NSFontItalicTrait];
-    [self.locationTextField setFont:notInstalledFont];
-    [self.installUninstallButton setTitle:NSLocalizedString(@"Install", @"Install shell utility button")];
-    [self.installUninstallButton setAction:@selector(installShellUtility)];
 }
 
 - (void)installShellUtility
 {
     // URL for macdown utility in .app bundle
-    NSBundle *bundle = [NSBundle mainBundle];
-    NSURL *utilityBundleUrl = [[bundle sharedSupportURL] URLByAppendingPathComponent:@"bin/macdown"];
-    
-    if ([[NSFileManager defaultManager] fileExistsAtPath:[utilityBundleUrl path]])
+    NSURL *sharedSupportURL = [NSBundle mainBundle].sharedSupportURL;
+    NSString *utilityBundlePath =
+        [sharedSupportURL URLByAppendingPathComponent:@"bin/macdown"].path;
+
+    NSFileManager *fm = [NSFileManager defaultManager];
+    if ([fm fileExistsAtPath:utilityBundlePath])
     {
-        NSString *installPath = @"/usr/local/bin/macdown";
-        
-        NSError *copyError;
-        [[NSFileManager defaultManager] copyItemAtPath:utilityBundleUrl.path toPath:installPath error:&copyError];
-        
-        if (copyError == nil)
-        {
+        BOOL ok = [fm copyItemAtPath:utilityBundlePath
+                              toPath:MPCommandInstallationPath error:NULL];
+        if (ok)
             [self lookForShellUtility];
-        }
+        // TODO: Handle removal failure.
     }
 }
 
 - (void)unInstallShellUtility
 {
-    if (self->shellUtilityURL)
-    {
-        NSError *removeFileError;
-        [[NSFileManager defaultManager] removeItemAtURL:self->shellUtilityURL error:&removeFileError];
-        
-        if (removeFileError == nil)
-        {
-            self->shellUtilityURL = nil;
-            [self indicateShellUtilityNotInstalled];
-        }
-    }
+    NSURL *url = self.shellUtilityURL;
+    if (!url)
+        return;
+    BOOL ok = [[NSFileManager defaultManager] removeItemAtURL:url error:NULL];
+    if (ok)
+        self.shellUtilityURL = nil;
+    // TODO: Handle removal failure.
 }
 
 /**
@@ -171,7 +177,8 @@ NS_INLINE NSColor *MPGetInstallationIndicatorColor(BOOL installed)
 - (void)highlightMacdownInInfo
 {
     NSString *infoString = self.infoTextField.stringValue;
-    NSMutableAttributedString *attributedInfoString = [[NSMutableAttributedString alloc] initWithString:infoString];
+    NSMutableAttributedString *attributedInfoString =
+        [[NSMutableAttributedString alloc] initWithString:infoString];
     
     NSRange searchRange = NSMakeRange(0, infoString.length);
     CGFloat infoFontSize = self.infoTextField.font.pointSize;
@@ -180,7 +187,9 @@ NS_INLINE NSColor *MPGetInstallationIndicatorColor(BOOL installed)
     while (searchRange.location < infoString.length)
     {
         searchRange.length = infoString.length - searchRange.location;
-        NSRange foundRange = [infoString rangeOfString:@"macdown" options:NSLiteralSearch range:searchRange];
+        NSRange foundRange =
+            [infoString rangeOfString:@"macdown"
+                              options:NSLiteralSearch range:searchRange];
         
         if (foundRange.location != NSNotFound)
         {
@@ -193,8 +202,8 @@ NS_INLINE NSColor *MPGetInstallationIndicatorColor(BOOL installed)
             break;
         }
     }
-    
-    [self.infoTextField setAttributedStringValue:attributedInfoString];
+
+    self.infoTextField.attributedStringValue = attributedInfoString;
 }
 
 @end
