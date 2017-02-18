@@ -12,6 +12,7 @@
 static NSString * const kMPApplicationName = @"MacDown";
 static NSString * const kMPApplicationSuiteName = @"com.uranusjr.macdown";
 
+static NSString * const MPCommandInstallationPath = @"/usr/local/bin/macdown";
 static NSString * const kMPCommandName = @"macdown";
 
 static NSString * const kMPHelpKey = @"help";

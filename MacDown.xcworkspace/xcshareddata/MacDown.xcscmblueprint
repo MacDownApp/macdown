@@ -11,8 +11,8 @@
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "24769B53-F963-4503-96C3-3E34905014BD",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
     "9635D08B964B59C48EA8E6805E0CB50B3BAF24BE" : "c\/hoedown\/hoedown",
-    "2F1767954F6E41A8A969AD0C1FD6055664A8E4E6" : "macdown\/Dependency\/prism",
-    "D29B2AF65723D6330588EAE1AA18C06828F4C6B0" : "macdown"
+    "2F1767954F6E41A8A969AD0C1FD6055664A8E4E6" : "macdown\/Dependency\/prism\/",
+    "D29B2AF65723D6330588EAE1AA18C06828F4C6B0" : "macdown\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "MacDown",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
