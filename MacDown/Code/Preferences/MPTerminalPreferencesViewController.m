@@ -11,6 +11,25 @@
 #import "MPTerminalPreferencesViewController.h"
 #import "MPUtilities.h"
 
+
+NS_INLINE NSColor *MPGetInstallationIndicatorColor(BOOL installed)
+{
+    static NSColor *installedColor = nil;
+    static NSColor *uninstalledColor = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        installedColor = [NSColor colorWithDeviceRed:0.357 green:0.659
+                                                blue:0.192 alpha:1.000];
+        uninstalledColor = [NSColor colorWithDeviceRed:0.897 green:0.231
+                                                  blue:0.21 alpha:1.000];
+    });
+    if (installed)
+        return installedColor;
+    else
+        return uninstalledColor;
+}
+
+
 @interface MPTerminalPreferencesViewController ()
 @property (weak) IBOutlet NSTextField *supportIndicator;
 @property (weak) IBOutlet NSTextField *supportTextField;
@@ -21,18 +40,11 @@
 
 @implementation MPTerminalPreferencesViewController {
     NSURL *shellUtilityURL;
-    NSPipe *brewPrefixOutputPipe;
-    NSColor *installedColor;
-    NSColor *notInstalledColor;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    self->installedColor = [NSColor colorWithDeviceRed:0.357 green:0.659 blue:0.192 alpha:1.000];
-    self->notInstalledColor = [NSColor colorWithDeviceRed:0.897 green:0.231 blue:0.212 alpha:1.000];
-    
     [self highlightMacdownInInfo];
     
     [self.installUninstallButton setTarget:self];
@@ -96,7 +108,7 @@
 
 - (void)indicateShellUtilityInstalledAt:(NSURL *)url
 {
-    self.supportIndicator.textColor = self->installedColor;
+    self.supportIndicator.textColor = MPGetInstallationIndicatorColor(YES);
     [self.supportTextField setStringValue:NSLocalizedString(@"Shell utility installed", @"Label stating that shell utility has been installed")];
     [self.locationTextField setStringValue:url.path];
     NSFont *installedLocationFont = [NSFont fontWithName:@"Menlo" size:self.locationTextField.font.pointSize];
@@ -107,7 +119,7 @@
 
 - (void)indicateShellUtilityNotInstalled
 {
-    self.supportIndicator.textColor = self->notInstalledColor;
+    self.supportIndicator.textColor = MPGetInstallationIndicatorColor(NO);
     [self.supportTextField setStringValue:NSLocalizedString(@"Shell utility not installed", @"Label stating that shell utility has not been installed")];
     [self.locationTextField setStringValue:NSLocalizedString(@"<Not installed>", @"Displayed instead of path when shell utility has not been installed")];
     NSFont *notInstalledFont = [[NSFontManager sharedFontManager] convertFont:
