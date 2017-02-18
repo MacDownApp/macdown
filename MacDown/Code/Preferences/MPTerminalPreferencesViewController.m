@@ -63,7 +63,7 @@ NS_INLINE NSColor *MPGetInstallationIndicatorColor(BOOL installed)
                             size:self.locationTextField.font.pointSize];
         self.installUninstallButton.title = NSLocalizedString(
             @"Uninstall", @"Uninstall shell utility button");
-        self.installUninstallButton.action = @selector(unInstallShellUtility);
+        self.installUninstallButton.action = @selector(uninstallShellUtility);
     }
     else
     {
@@ -156,11 +156,11 @@ NS_INLINE NSColor *MPGetInstallationIndicatorColor(BOOL installed)
                            withDestinationPath:utilityBundlePath error:NULL];
         if (ok)
             [self lookForShellUtility];
-        // TODO: Handle removal failure.
+        // TODO: Handle install failure.
     }
 }
 
-- (void)unInstallShellUtility
+- (void)uninstallShellUtility
 {
     NSURL *url = self.shellUtilityURL;
     if (!url)

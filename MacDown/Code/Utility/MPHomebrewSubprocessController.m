@@ -12,7 +12,7 @@
 @interface MPHomebrewSubprocessController ()
 
 @property (readonly) NSTask *task;
-@property (readonly) void(^completionHandler)(NSString *);
+@property (readwrite) void(^completionHandler)(NSString *);
 
 @end
 
@@ -49,13 +49,23 @@
     return [self initWithArguments:nil];
 }
 
+- (void)dealloc
+{
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center removeObserver:self
+                      name:NSFileHandleReadToEndOfFileCompletionNotification
+                    object:nil];
+}
+
 - (void)runWithCompletionHandler:(void(^)(NSString *))handler
 {
-    _completionHandler = handler;
-    @try {
-        [_task launch];
+    self.completionHandler = handler;
+    @try
+    {
+        [self.task launch];
     }
-    @catch (NSException *exception) {   // Homebrew not installed.
+    @catch (NSException *exception)     // Homebrew not installed.
+    {
         if (handler)
             handler(nil);
     }
@@ -63,14 +73,6 @@
 
 - (void)homebrewReadDidComplete:(NSNotification *)notification
 {
-    NSFileHandle *handle = notification.object;
-
-    // We don't need this anymore.
-    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    [center removeObserver:self
-                      name:NSFileHandleReadToEndOfFileCompletionNotification
-                    object:handle];
-
     NSData *outData = notification.userInfo[NSFileHandleNotificationDataItem];
     NSString *output = [[NSString alloc] initWithData:outData
                                              encoding:NSUTF8StringEncoding];
