@@ -6,9 +6,10 @@
 //  Copyright © 2017 Tzu-ping Chung . All rights reserved.
 //
 
+#import "MPHomebrewSubprocessController.h"
+#import "MPPreferences.h"
 #import "MPTerminalPreferencesViewController.h"
 #import "MPUtilities.h"
-#import "MPPreferences.h"
 
 @interface MPTerminalPreferencesViewController ()
 @property (weak) IBOutlet NSTextField *supportIndicator;
@@ -67,63 +68,24 @@
  */
 - (void)lookForShellUtility
 {
-    NSTask *brewPrefixTask = [NSTask new];
-    [brewPrefixTask setLaunchPath:@"brew"];
-    [brewPrefixTask setArguments:@[@"--prefix"]];
-    self->brewPrefixOutputPipe = [NSPipe pipe];
-    [brewPrefixTask setStandardOutput:self->brewPrefixOutputPipe];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-        selector:@selector(brewPrefixReadCompleted:)
-        name:NSFileHandleReadToEndOfFileCompletionNotification
-        object:[self->brewPrefixOutputPipe fileHandleForReading]];
-    [[self->brewPrefixOutputPipe fileHandleForReading] readToEndOfFileInBackgroundAndNotify];
-    
-    @try {
-        [brewPrefixTask launch];
-    }
-    @catch (NSException *exception) { // Homebrew not installed
-        if ([exception.name isEqualToString:NSInvalidArgumentException])
+    __weak MPTerminalPreferencesViewController *weakSelf = self;
+    MPDetectHomebrewPrefixWithCompletionhandler(^(NSString *output) {
+        NSString *macdownPath = @"/usr/local/bin/macdown";
+        if (output)
         {
-            // If installed through DMG the macdown binary should be here
-            NSString *shellUtilityDefaultPath = @"/usr/local/bin/macdown";
-            
-            if ([[NSFileManager defaultManager] fileExistsAtPath:shellUtilityDefaultPath])
-            {
-                NSURL *shellUtilityUrl = [NSURL fileURLWithPath:shellUtilityDefaultPath];
-                [self foundShellUtilityAtURL:shellUtilityUrl];
-            }
+            NSCharacterSet *padding =
+                [NSCharacterSet whitespaceAndNewlineCharacterSet];
+            NSString *prefix = [output stringByTrimmingCharactersInSet:padding];
+            macdownPath =
+                [prefix stringByAppendingPathComponent:@"bin/macdown"];
         }
-    }
-}
 
-- (void)brewPrefixReadCompleted:(NSNotification *)notification
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-        name:NSFileHandleReadToEndOfFileCompletionNotification
-        object:[notification object]];
-    
-    if ([notification object])
-    {
-        NSFileHandle *fileHandle = [notification object];
-        
-        if (fileHandle == self->brewPrefixOutputPipe.fileHandleForReading)
+        if ([[NSFileManager defaultManager] fileExistsAtPath:macdownPath])
         {
-            NSString *output = [[NSString alloc] initWithData:
-                                [[notification userInfo] objectForKey:NSFileHandleNotificationDataItem]
-                                encoding:NSUTF8StringEncoding];
-            output = [output stringByTrimmingCharactersInSet:
-                      [NSCharacterSet whitespaceAndNewlineCharacterSet]];
-            
-            NSString *shellUtilityPath = [output stringByAppendingString:@"/bin/macdown"];
-            
-            // If MacDown was installed from the Homebrew cask then the macdown binary should exist at this path
-            if ([[NSFileManager defaultManager] fileExistsAtPath:shellUtilityPath])
-            {
-                NSURL *shellUtilityUrl = [NSURL fileURLWithPath:shellUtilityPath];
-                [self foundShellUtilityAtURL:shellUtilityUrl];
-            }
+            NSURL *shellUtilityUrl = [NSURL fileURLWithPath:macdownPath];
+            [weakSelf foundShellUtilityAtURL:shellUtilityUrl];
         }
-    }
+    });
 }
 
 - (void)foundShellUtilityAtURL:(NSURL *)url

@@ -52,6 +52,7 @@
 		1F8A835E1953454F00B6BF69 /* HGMarkdownHighlightingStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F8A835A1953454F00B6BF69 /* HGMarkdownHighlightingStyle.m */; };
 		1F8A83621953461800B6BF69 /* pmh_parser.c in Sources */ = {isa = PBXBuildFile; fileRef = 1F8A83611953461800B6BF69 /* pmh_parser.c */; settings = {COMPILER_FLAGS = "-Wno-conversion"; }; };
 		1F8A8364195346B200B6BF69 /* pmh_styleparser.c in Sources */ = {isa = PBXBuildFile; fileRef = 1F8A8363195346B200B6BF69 /* pmh_styleparser.c */; settings = {COMPILER_FLAGS = "-Wno-conversion"; }; };
+		1F96BD801E584A03005E0456 /* MPHomebrewSubprocessController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F96BD7F1E584A03005E0456 /* MPHomebrewSubprocessController.m */; };
 		1F9A14EC194EEE9900D1C6A9 /* MPExportPanelAccessoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F9A14E9194EEE9900D1C6A9 /* MPExportPanelAccessoryViewController.m */; };
 		1F9A14ED194EEE9900D1C6A9 /* MPMainController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F9A14EB194EEE9900D1C6A9 /* MPMainController.m */; };
 		1F9A14EF194EEEDD00D1C6A9 /* Styles in Resources */ = {isa = PBXBuildFile; fileRef = 1F9A14EE194EEEDD00D1C6A9 /* Styles */; };
@@ -223,6 +224,8 @@
 		1F8A8363195346B200B6BF69 /* pmh_styleparser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = pmh_styleparser.c; path = "Dependency/peg-markdown-highlight/pmh_styleparser.c"; sourceTree = SOURCE_ROOT; };
 		1F8A8365195346B600B6BF69 /* pmh_styleparser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = pmh_styleparser.h; path = "Dependency/peg-markdown-highlight/pmh_styleparser.h"; sourceTree = SOURCE_ROOT; };
 		1F8A837E195348C500B6BF69 /* peg-markdown-highlight.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "peg-markdown-highlight.xcodeproj"; path = "Dependency/peg-markdown-highlight/peg-markdown-highlight.xcodeproj"; sourceTree = SOURCE_ROOT; };
+		1F96BD7E1E584A03005E0456 /* MPHomebrewSubprocessController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPHomebrewSubprocessController.h; sourceTree = "<group>"; };
+		1F96BD7F1E584A03005E0456 /* MPHomebrewSubprocessController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPHomebrewSubprocessController.m; sourceTree = "<group>"; };
 		1F9A14E8194EEE9900D1C6A9 /* MPExportPanelAccessoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MPExportPanelAccessoryViewController.h; path = Code/Application/MPExportPanelAccessoryViewController.h; sourceTree = "<group>"; };
 		1F9A14E9194EEE9900D1C6A9 /* MPExportPanelAccessoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MPExportPanelAccessoryViewController.m; path = Code/Application/MPExportPanelAccessoryViewController.m; sourceTree = "<group>"; };
 		1F9A14EA194EEE9900D1C6A9 /* MPMainController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MPMainController.h; path = Code/Application/MPMainController.h; sourceTree = "<group>"; };
@@ -377,14 +380,16 @@
 		1F0D9D62194AC7CF008E1856 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				1F70CCD81978F03E00703429 /* MPAutosaving.h */,
 				1F847BC31DCC9DA800A47385 /* MPGlobals.h */,
+				1F96BD7E1E584A03005E0456 /* MPHomebrewSubprocessController.h */,
+				1F96BD7F1E584A03005E0456 /* MPHomebrewSubprocessController.m */,
 				1F23A91F19928E650052DB78 /* MPMathJaxListener.h */,
 				1F23A92019928E650052DB78 /* MPMathJaxListener.m */,
 				1F5A370E1C868EC0006E63E7 /* MPPlugIn.h */,
 				1F5A370F1C868EC0006E63E7 /* MPPlugIn.m */,
 				1F0D9D63194AC7CF008E1856 /* MPUtilities.h */,
 				1F0D9D64194AC7CF008E1856 /* MPUtilities.m */,
-				1F70CCD81978F03E00703429 /* MPAutosaving.h */,
 			);
 			name = Utility;
 			path = Code/Utility;
@@ -1026,6 +1031,7 @@
 				1FBBD4CB194CA36500BB3C88 /* hoedown_html_patch.c in Sources */,
 				1F8A8364195346B200B6BF69 /* pmh_styleparser.c in Sources */,
 				1F0D9D93194AC852008E1856 /* MPDocument.m in Sources */,
+				1F96BD801E584A03005E0456 /* MPHomebrewSubprocessController.m in Sources */,
 				1F0D9D76194AC7F7008E1856 /* MPEditorPreferencesViewController.m in Sources */,
 				1F8A83621953461800B6BF69 /* pmh_parser.c in Sources */,
 				1F8A835D1953454F00B6BF69 /* HGMarkdownHighlighter.m in Sources */,
