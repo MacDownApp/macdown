@@ -81,9 +81,11 @@ def main(argv):
         XCODEBUILD, 'archive', '-workspace', '../MacDown.xcworkspace',
         '-scheme', 'MacDown',
     )
+    if isinstance(output, bytes):
+        output = output.decode(TERM_ENCODING)
     match = re.search(
         r'^\s*ARCHIVE_PATH: (.+)$',
-        output.decode(TERM_ENCODING),
+        output,
         re.MULTILINE,
     )
     archive_path = match.group(1)
