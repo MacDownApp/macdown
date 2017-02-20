@@ -1679,67 +1679,59 @@ current file somewhere to enable this feature.", \
 
 - (void)openOrCreateFileForUrl:(NSURL *)url
 {
-    // If the URL points to a nonexistent file, create automatically if
-    // requested, or provide better error message.
-    if (url.isFileURL && ![url checkResourceIsReachableAndReturnError:NULL])
+    // Simply open the file if it is not local, or exists already.
+    if (!url.isFileURL || [url checkResourceIsReachableAndReturnError:NULL])
     {
-        if (self.preferences.createFileForLinkTarget)
-        {
-            if ([self fileURL])
-            {
-                NSError *error = nil;
-
-                NSDocumentController *controller =
-                    [NSDocumentController sharedDocumentController];
-                [controller createNewEmptyDocumentForURL:url
-                                                 display:YES
-                                                   error:&error];
-
-                if (error)
-                {
-                    NSAlert *alert = [[NSAlert alloc] init];
-                    NSString *template = NSLocalizedString(
-                        @"Can’t create file:\n%@",
-                        @"preview navigation error message");
-                    alert.messageText = [NSString stringWithFormat:template,
-                                         url.lastPathComponent];
-                    template = NSLocalizedString(
-                        @"An error occurred while creating the file:\n%@",
-                        @"preview navigation error information");
-
-                    alert.informativeText = [NSString stringWithFormat:
-                                             template,
-                                             [error localizedDescription]];
-                    [alert runModal];
-                }
-            }
-            else
-            {
-                NSAlert *alert = [[NSAlert alloc] init];
-                NSString *template = NSLocalizedString(
-                    @"Can’t create file:\n%@",
-                    @"preview navigation error message");
-                alert.messageText = [NSString stringWithFormat:template,
-                                     url.lastPathComponent];
-                alert.informativeText = AUTO_CREATE_FAIL_ALERT_INFORMATIVE;
-                [alert runModal];
-            }
-        }
-        else
-        {
-            NSAlert *alert = [[NSAlert alloc] init];
-            NSString *template = NSLocalizedString(
-                @"File not found at path:\n%@",
-                @"preview navigation error message");
-            alert.messageText = [NSString stringWithFormat:template, url.path];
-            alert.informativeText = OPEN_FAIL_ALERT_INFORMATIVE;
-            [alert runModal];
-        }
-    }
-    else
-    {
-        // Try to open it.
         [[NSWorkspace sharedWorkspace] openURL:url];
+        return;
+    }
+
+    // Show an error if the user doesn't want us to create it automatically.
+    if (!self.preferences.createFileForLinkTarget)
+    {
+        NSAlert *alert = [[NSAlert alloc] init];
+        NSString *template = NSLocalizedString(
+            @"File not found at path:\n%@",
+            @"preview navigation error message");
+        alert.messageText = [NSString stringWithFormat:template, url.path];
+        alert.informativeText = OPEN_FAIL_ALERT_INFORMATIVE;
+        [alert runModal];
+        return;
+    }
+
+    // We can only create a file if the current file is saved. (Why?)
+    if (!self.fileURL)
+    {
+        NSAlert *alert = [[NSAlert alloc] init];
+        NSString *template = NSLocalizedString(
+            @"Can’t create file:\n%@", @"preview navigation error message");
+        alert.messageText = [NSString stringWithFormat:template,
+                             url.lastPathComponent];
+        alert.informativeText = AUTO_CREATE_FAIL_ALERT_INFORMATIVE;
+        [alert runModal];
+    }
+
+    // Try to created the file.
+    NSDocumentController *controller =
+        [NSDocumentController sharedDocumentController];
+
+    NSError *error = nil;
+    id doc = [controller createNewEmptyDocumentForURL:url
+                                              display:YES error:&error];
+    if (!doc)
+    {
+        NSAlert *alert = [[NSAlert alloc] init];
+        NSString *template = NSLocalizedString(
+            @"Can’t create file:\n%@",
+            @"preview navigation error message");
+        alert.messageText =
+            [NSString stringWithFormat:template, url.lastPathComponent];
+        template = NSLocalizedString(
+            @"An error occurred while creating the file:\n%@",
+            @"preview navigation error information");
+        alert.informativeText =
+            [NSString stringWithFormat:template, error.localizedDescription];
+        [alert runModal];
     }
 }
 

@@ -10,8 +10,8 @@
 
 @implementation NSDocumentController (Document)
 
-- (id)createNewEmptyDocumentForURL:(NSURL *)url display:(BOOL)display
-                             error:(NSError * __autoreleasing *)error
+- (__kindof NSDocument *)createNewEmptyDocumentForURL:(NSURL *)url
+        display:(BOOL)display error:(NSError * __autoreleasing *)error
 {
     [[NSFileManager defaultManager] createFileAtPath:[url path]
                                             contents:[NSData data]
