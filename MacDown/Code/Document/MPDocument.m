@@ -1670,6 +1670,11 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 create nonexistent link targets for you.", \
 @"preview navigation error information")
 
+#define OPEN_FAIL_ALERT_INFORMATIVE_NONEXISTENT NSLocalizedString(\
+@"MacDown can’t create a file for the clicked link because "\
+@"the current file is not saved anywhere yet. Save the "\
+@"current file somewhere to enable this feature.",\
+@"preview navigation error information")
 
 - (void)openOrCreateFileForUrl:(NSURL *)url
 {
@@ -1679,25 +1684,62 @@ create nonexistent link targets for you.", \
     {
         if (self.preferences.createFileForLinkTarget)
         {
-            NSDocumentController *controller =
-                [NSDocumentController sharedDocumentController];
-            [controller openUntitledDocumentForURL:url display:YES error:NULL];
-            return;
+            if ([self fileURL])
+            {
+                NSError *error = nil;
+
+                NSDocumentController *controller =
+                    [NSDocumentController sharedDocumentController];
+                [controller createNewEmptyDocumentForURL:url
+                                                 display:YES
+                                                   error:&error];
+
+                if (error)
+                {
+                    NSAlert *alert = [[NSAlert alloc] init];
+                    NSString *template = NSLocalizedString(
+                        @"Can’t create file:\n%@",
+                        @"preview navigation error message");
+                    alert.messageText = [NSString stringWithFormat:template,
+                                         url.lastPathComponent];
+                    template = NSLocalizedString(
+                        @"An error occurred while creating the file:\n%@",
+                        @"preview navigation error information");
+
+                    alert.informativeText = [NSString stringWithFormat:
+                                             template,
+                                             [error localizedDescription]];
+                    [alert runModal];
+                }
+            }
+            else
+            {
+                NSAlert *alert = [[NSAlert alloc] init];
+                NSString *template = NSLocalizedString(
+                    @"Can’t create file:\n%@",
+                    @"preview navigation error message");
+                alert.messageText = [NSString stringWithFormat:template,
+                                     url.lastPathComponent];
+                alert.informativeText = OPEN_FAIL_ALERT_INFORMATIVE_NONEXISTENT;
+                [alert runModal];
+            }
         }
-
-        NSAlert *alert = [[NSAlert alloc] init];
-        NSString *template = NSLocalizedString(
-            @"File not found at path:\n%@",
-            @"preview navigation error message");
-        alert.messageText = [NSString stringWithFormat:template, url.path];
-        alert.informativeText = OPEN_FAIL_ALERT_INFORMATIVE;
-        [alert runModal];
-        return;
+        else
+        {
+            NSAlert *alert = [[NSAlert alloc] init];
+            NSString *template = NSLocalizedString(
+                @"File not found at path:\n%@",
+                @"preview navigation error message");
+            alert.messageText = [NSString stringWithFormat:template, url.path];
+            alert.informativeText = OPEN_FAIL_ALERT_INFORMATIVE;
+            [alert runModal];
+        }
     }
-
-    // Try to open it.
-    if ([[NSWorkspace sharedWorkspace] openURL:url])
-        return;
+    else
+    {
+        // Try to open it.
+        [[NSWorkspace sharedWorkspace] openURL:url];
+    }
 }
 
 
