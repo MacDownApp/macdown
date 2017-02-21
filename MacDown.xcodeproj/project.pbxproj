@@ -233,7 +233,7 @@
 		1F9A14EE194EEEDD00D1C6A9 /* Styles */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Styles; path = Resources/Styles; sourceTree = "<group>"; };
 		1F9A14F3194EF6A600D1C6A9 /* Themes */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Themes; path = Resources/Themes; sourceTree = "<group>"; };
 		1FA6CDB81952D2CD008D5CA0 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = dsa_pub.pem; path = Resources/dsa_pub.pem; sourceTree = "<group>"; };
-		1FA6DE211941CC9E000409FB /* MacDown.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacDown.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1FA6DE211941CC9E000409FB /* MacDown-debug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MacDown-debug.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FA6DE241941CC9E000409FB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		1FA6DE271941CC9E000409FB /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		1FA6DE281941CC9E000409FB /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -545,7 +545,7 @@
 		1FA6DE221941CC9E000409FB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1FA6DE211941CC9E000409FB /* MacDown.app */,
+				1FA6DE211941CC9E000409FB /* MacDown-debug.app */,
 				1FA6DE451941CC9E000409FB /* MacDownTests.xctest */,
 				905EF1A7196164CA00FC3CE9 /* macdown */,
 			);
@@ -708,7 +708,7 @@
 			);
 			name = MacDown;
 			productName = MarkPad;
-			productReference = 1FA6DE211941CC9E000409FB /* MacDown.app */;
+			productReference = 1FA6DE211941CC9E000409FB /* MacDown-debug.app */;
 			productType = "com.apple.product-type.application";
 		};
 		1FA6DE441941CC9E000409FB /* MacDownTests */ = {
@@ -1312,7 +1312,7 @@
 				INFOPLIST_FILE = "MacDown/MacDown-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.uranusjr.${PRODUCT_NAME:rfc1034identifier:lower}";
-				PRODUCT_NAME = MacDown;
+				PRODUCT_NAME = "MacDown-debug";
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = app;
 			};

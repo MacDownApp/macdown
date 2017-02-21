@@ -9,7 +9,12 @@
 #import "version.h"
 
 // These should match the main bundle's values.
+#ifdef DEBUG
+static NSString * const kMPApplicationName = @"MacDown-debug";
+#else
 static NSString * const kMPApplicationName = @"MacDown";
+#endif
+
 static NSString * const kMPApplicationSuiteName = @"com.uranusjr.macdown";
 
 static NSString * const MPCommandInstallationPath = @"/usr/local/bin/macdown";
