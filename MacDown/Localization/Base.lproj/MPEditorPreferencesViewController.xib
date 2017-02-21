@@ -69,7 +69,7 @@
                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="Zr8-Em-EhD">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="menu"/>
-                        <menu key="menu" title="OtherViews" id="Ia1-VG-EWI"/>
+                        <menu key="menu" id="Ia1-VG-EWI"/>
                     </popUpButtonCell>
                     <connections>
                         <action selector="changeTheme:" target="-2" id="zGE-AI-xkv"/>
