@@ -433,15 +433,19 @@ static NSString *const kMPToolbarDictKeyHighlightable = @"kMPToolbarDictKeyHighl
             item.label = title;
             
             NSImage *itemImage = [NSImage imageNamed:iconName];
-            [itemImage setTemplate:highlightable];
+            [itemImage setTemplate:YES];
             NSButton *itemButton = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, itemWidth, 40)];
-            [itemButton setButtonType:NSToggleButton];
             itemButton.image = itemImage;
             itemButton.bezelStyle = NSBezelStyleTexturedRounded;
             itemButton.focusRingType = NSFocusRingTypeDefault;
             itemButton.target = self.document;
             itemButton.action = itemSelector;
             itemButton.state = NSOffState;
+            
+            if (highlightable)
+            {
+                [itemButton setButtonType:NSToggleButton];
+            }
             
             item.view = itemButton;
             
@@ -459,7 +463,16 @@ static NSString *const kMPToolbarDictKeyHighlightable = @"kMPToolbarDictKeyHighl
             segmentedControl.identifier = itemIdentifier;
             segmentedControl.segmentStyle = segmentStyleSeparated ?
                                             NSSegmentStyleSeparated : NSSegmentStyleTexturedRounded;
-            segmentedControl.trackingMode = NSSegmentSwitchTrackingSelectAny;
+            
+            if (highlightable)
+            {
+                segmentedControl.trackingMode = NSSegmentSwitchTrackingSelectAny;
+            }
+            else
+            {
+                segmentedControl.trackingMode = NSSegmentSwitchTrackingMomentary;
+            }
+            
             segmentedControl.segmentCount = subItemDicts.count;
             
             NSMutableArray *itemGroupItems = [NSMutableArray new];
@@ -478,7 +491,7 @@ static NSString *const kMPToolbarDictKeyHighlightable = @"kMPToolbarDictKeyHighl
                 subItem.label = subItemTitle;
                 
                 NSImage *subItemImage = [NSImage imageNamed:subItemIcon];
-                [subItemImage setTemplate:highlightable];
+                [subItemImage setTemplate:YES];
                 
                 [segmentedControl setImage:subItemImage forSegment:segmentIndex];
                 [segmentedControl setWidth:40.0 forSegment:segmentIndex];
