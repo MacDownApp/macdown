@@ -113,7 +113,7 @@ int main(int argc, const char * argv[])
         MPCollectForMacDown(urls);
 
         // Launch MacDown.
-        [[NSWorkspace sharedWorkspace] launchApplication:kMPApplicationName];
+        [[NSWorkspace sharedWorkspace] launchAppWithBundleIdentifier:kMPApplicationBundleIdentifier options:NSWorkspaceLaunchDefault additionalEventParamDescriptor:nil launchIdentifier:nil];
     }
     return EXIT_SUCCESS;
 }
