@@ -64,7 +64,7 @@ GEM
     gh_inspector (1.0.2)
     highline (1.7.8)
     i18n (0.7.0)
-    json (1.8.3)
+    json (1.8.6)
     launchy (2.4.3)
       addressable (~> 2.3)
     minitest (5.10.1)
@@ -106,7 +106,8 @@ PLATFORMS
 
 DEPENDENCIES
   cocoapods (~> 1.1)
+  json (>= 1.8.6)
   travis (~> 1.8, >= 1.8.6)
 
 BUNDLED WITH
-   1.13.7
+   1.14.5
