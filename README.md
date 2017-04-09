@@ -76,7 +76,7 @@ Refer to the official guides of Git and CocoaPods if you need more instructions.
 
 ## Discussion
 
-[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/MacDownApp/macdown)
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/MacDownApp/macdown)
 
 Join our [Gitter channel](https://gitter.im/MacDownApp/macdown) if you have any problems with MacDown. Any suggestions are welcomed, too!
 
