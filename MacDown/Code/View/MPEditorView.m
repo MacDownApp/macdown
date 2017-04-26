@@ -84,6 +84,7 @@ NS_INLINE BOOL MPAreRectsEqual(NSRect r1, NSRect r2)
             // insert into text.
             NSInteger insertionPoint = [[[self selectedRanges] objectAtIndex:0] rangeValue].location;
             [self setString:[NSString stringWithFormat:@"%@![](data:image/jpeg;base64,%@)%@", [[self string] substringToIndex:insertionPoint], dataString, [[self string] substringFromIndex:insertionPoint]]];
+            [self didChangeText];
         } else {
             return NO;
         }
