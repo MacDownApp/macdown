@@ -1,9 +1,9 @@
 PODS:
   - GBCli (1.1)
   - handlebars-objc (1.4.4)
-  - hoedown (3.0.3):
-    - hoedown/standard (= 3.0.3)
-  - hoedown/standard (3.0.3)
+  - hoedown (3.0.7):
+    - hoedown/standard (= 3.0.7)
+  - hoedown/standard (3.0.7)
   - JJPluralForm (2.1)
   - LibYAML (0.1.4)
   - M13OrderedDictionary (1.1.0)
@@ -14,7 +14,7 @@ PODS:
 DEPENDENCIES:
   - GBCli (~> 1.1)
   - handlebars-objc (~> 1.4)
-  - hoedown (~> 3.0)
+  - hoedown (~> 3.0.7)
   - JJPluralForm (~> 2.1)
   - LibYAML (~> 0.1)
   - M13OrderedDictionary (~> 1.1)
@@ -25,7 +25,7 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   GBCli: e5f988fadb68e1e3c01919f134009fed9796fde0
   handlebars-objc: ffad49df7e6dd17630ecccb2ef5e91cbaf12ad70
-  hoedown: c1327bbbc96d269595ed86bf97f1d09867ec7529
+  hoedown: 8141833441f6430686c06bbc5159d7ce615155fb
   JJPluralForm: 9a6235813990a33a63fb3eff457eb2c633af6acd
   LibYAML: 3af2c5adf3a40dff936d087aa6a77edc10036bc5
   M13OrderedDictionary: 6e157fe9c82aa6b3cd7198f5c5c30c7a6834c4a6
@@ -33,6 +33,6 @@ SPEC CHECKSUMS:
   PAPreferences: 9f0ffb1e67174a0df001af9d3320166ceb9ee6f5
   Sparkle: 2fbd47b869621d1e679c7554e3e19dda02104818
 
-PODFILE CHECKSUM: 96c5c597eb1bc6ff129b3ca19cad3a7ca134972d
+PODFILE CHECKSUM: 29335f52cc7271402c3f8219aca835cd28c86a61
 
-COCOAPODS: 1.1.1
+COCOAPODS: 1.2.1

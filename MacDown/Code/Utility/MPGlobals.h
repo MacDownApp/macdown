@@ -10,8 +10,16 @@
 
 // These should match the main bundle's values.
 static NSString * const kMPApplicationName = @"MacDown";
+
+#ifdef DEBUG
+static NSString * const kMPApplicationBundleIdentifier = @"com.uranusjr.macdown-debug";
+#else
+static NSString * const kMPApplicationBundleIdentifier = @"com.uranusjr.macdown";
+#endif
+
 static NSString * const kMPApplicationSuiteName = @"com.uranusjr.macdown";
 
+static NSString * const MPCommandInstallationPath = @"/usr/local/bin/macdown";
 static NSString * const kMPCommandName = @"macdown";
 
 static NSString * const kMPHelpKey = @"help";
