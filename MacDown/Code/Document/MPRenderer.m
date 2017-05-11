@@ -21,7 +21,7 @@
 
 
 static NSString * const kMPMathJaxCDN =
-    @"https://cdn.mathjax.org/mathjax/latest/MathJax.js"
+    @"https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js"
     @"?config=TeX-AMS-MML_HTMLorMML";
 static NSString * const kMPPrismScriptDirectory = @"Prism/components";
 static NSString * const kMPPrismThemeDirectory = @"Prism/themes";

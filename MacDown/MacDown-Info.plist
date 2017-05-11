@@ -92,7 +92,7 @@
 		<true/>
 		<key>NSExceptionDomains</key>
 		<dict>
-			<key>mathjax.org</key>
+			<key>cdnjs.cloudflare.com</key>
 			<dict>
 				<key>NSExceptionRequiresForwardSecrecy</key>
 				<false/>
