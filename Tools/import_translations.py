@@ -3,7 +3,6 @@
 
 import logging
 import os
-import shutil
 
 from xml.etree import ElementTree
 
@@ -22,11 +21,14 @@ ElementTree.register_namespace('', XLIFF_URL)
 
 
 def pull_translations(parser):
-    xliff_dirpath = os.path.dirname(
+    xliff_dirpath = os.path.abspath(os.path.join(
+        __file__, '..', '..',
         parser.get('macdown.macdownxliff', 'file_filter'),
-    )
+        '..',
+    ))
     for fn in os.listdir(xliff_dirpath):
         os.remove(os.path.join(xliff_dirpath, fn))
+    logger.info('Connecting...')
     os.system('tx pull -a')
 
 
