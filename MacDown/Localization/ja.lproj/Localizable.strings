@@ -1,0 +1,92 @@
+/* Prism theme title */
+"(Default)" = "(デフォルト)";
+
+/* Displayed when shell utility is not installed */
+"<Not installed>" = "<未インストール>";
+
+/* preview navigation error information */
+"An error occurred while creating the file:
+%@" = "ファイル作成中にエラーが発生しました：
+%@";
+
+/* No comment provided by engineer. */
+"CHARACTERS_NO_SPACES_PLURAL_STRING" = "%@ 文字 (スペースなし);%@ 文字列 (スペースなし)";
+
+/* No comment provided by engineer. */
+"CHARACTERS_PLURAL_STRING" = "%@ 文字;%@ 文字列";
+
+/* preview navigation error message */
+"Can’t create file:
+%@" = "ファイルを作成できません：
+%@";
+
+/* Preference pane title. */
+"Editor" = "エディタ";
+
+/* preview navigation error message */
+"File not found at path:
+%@" = "ファイルが見つかりません：
+%@";
+
+/* Preference pane title. */
+"General" = "一般";
+
+/* Toggle editor pane menu item */
+"Hide Editor Pane" = "エディタペインを隠す";
+
+/* Toggle preview pane menu item */
+"Hide Preview Pane" = "プレビューペインを隠す";
+
+/* Install shell utility button */
+"Install" = "インストール";
+
+/* (No Commment) */
+"JJ_PLURAL_FORM_RULE" = "1";
+
+/* preview navigation error information */
+"MacDown can’t create a file for the clicked link because 
+the current file is not saved anywhere yet. Save the 
+current file somewhere to enable this feature." = "編集中のファイルが保存されていないため，MacDown は
+クリックされたファイルを作成できません．この機能を
+利用するためには編集中のファイルを保存してください．";
+
+/* Preference pane title. */
+"Markdown" = "マークダウン";
+
+/* preview navigation error information */
+"Please check the path of your link is correct. Turn on 
+“Automatically create link targets” If you want MacDown to 
+create nonexistent link targets for you." = "リンクのパスが正しいか確認してください．存在しない
+リンク先のファイルを MacDown に作成させるためには
+“リンク先のファイルを自動的に作成” をオンにしてください．";
+
+/* Preferences window title. */
+"Preferences" = "環境設定";
+
+/* Preference pane title. */
+"Rendering" = "レンダリング";
+
+/* Toggle editor pane menu item */
+"Restore Editor Pane" = "エディタペインを表示";
+
+/* Toggle preview pane menu item */
+"Restore Preview Pane" = "プレビューペインを表示";
+
+/* Label stating that shell utility has been installed */
+"Shell utility installed" = "コマンドラインツール インストール済み";
+
+/* Label stating that shell utility has not been installed */
+"Shell utility not installed" = "コマンドラインツール 未インストール";
+
+/* Preference pane title. */
+"Terminal" = "ターミナル";
+
+/* Uninstall shell utility button */
+"Uninstall" = "アンインストール";
+
+/* default filename if no title can be determined */
+"Untitled" = "名称未設定";
+
+/* No comment provided by engineer. */
+"WORDS_PLURAL_STRING" = "%@ word;%@ words";
+

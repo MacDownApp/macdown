@@ -1,0 +1,87 @@
+/* Class = "NSMenuItem"; title = "Find"; ObjectID = "4EN-yA-p0u"; */
+"4EN-yA-p0u.title" = "Buscar";
+
+/* Class = "NSMenuItem"; title = "About MacDown"; ObjectID = "5kV-Vb-QxS"; */
+"5kV-Vb-QxS.title" = "Acerca de MacDown";
+
+/* Class = "NSMenuItem"; title = "Export"; ObjectID = "5mp-ev-1el"; */
+"5mp-ev-1el.title" = "Exportar";
+
+/* Class = "NSMenuItem"; title = "Redo"; ObjectID = "6dh-zS-Vam"; */
+"6dh-zS-Vam.title" = "Rehacer";
+
+/* Class = "NSMenuItem"; title = "Substitutions"; ObjectID = "9ic-FL-obx"; */
+"9ic-FL-obx.title" = "Sustituciones";
+
+/* Class = "NSMenuItem"; title = "Preferences…"; ObjectID = "BOF-NM-1cW"; */
+"BOF-NM-1cW.title" = "Preferencias...";
+
+/* Class = "NSMenuItem"; title = "Save As…"; ObjectID = "Bw7-FT-i3A"; */
+"Bw7-FT-i3A.title" = "Guardar Como...";
+
+/* Class = "NSMenuItem"; title = "Close"; ObjectID = "DVo-aG-piG"; */
+"DVo-aG-piG.title" = "Cerrar";
+
+/* Class = "NSMenu"; title = "Convert To"; ObjectID = "I8Y-e8-XDx"; */
+"I8Y-e8-XDx.title" = "Convertir a";
+
+/* Class = "NSMenuItem"; title = "Open…"; ObjectID = "IAo-SY-fd9"; */
+"IAo-SY-fd9.title" = "Abrir...";
+
+/* Class = "NSMenuItem"; title = "Zoom"; ObjectID = "R4o-n2-Eq4"; */
+"R4o-n2-Eq4.title" = "Zoom";
+
+/* Class = "NSMenuItem"; title = "Image"; ObjectID = "VkR-aw-5AU"; */
+"VkR-aw-5AU.title" = "Imagen";
+
+/* Class = "NSMenuItem"; title = "PDF…"; ObjectID = "XFN-MJ-RrW"; */
+"XFN-MJ-RrW.title" = "PDF...";
+
+/* Class = "NSMenuItem"; title = "Find…"; ObjectID = "Xz5-n4-O0W"; */
+"Xz5-n4-O0W.title" = "Buscar...";
+
+/* Class = "NSMenuItem"; title = "Find and Replace…"; ObjectID = "YEy-JH-Tfz"; */
+"YEy-JH-Tfz.title" = "Buscar y Reemplazar...";
+
+/* Class = "NSMenuItem"; title = "Print…"; ObjectID = "aTl-1u-JFS"; */
+"aTl-1u-JFS.title" = "Imprimir...";
+
+/* Class = "NSMenu"; title = "Transformations"; ObjectID = "c8a-y6-VQd"; */
+"c8a-y6-VQd.title" = "Transformaciones";
+
+/* Class = "NSMenuItem"; title = "HTML…"; ObjectID = "dGm-Yl-i3Z"; */
+"dGm-Yl-i3Z.title" = "HTML...";
+
+/* Class = "NSMenuItem"; title = "Undo"; ObjectID = "dRJ-4n-Yzg"; */
+"dRJ-4n-Yzg.title" = "Deshacer";
+
+/* Class = "NSMenuItem"; title = "Convert To"; ObjectID = "e8h-vX-NQb"; */
+"e8h-vX-NQb.title" = "Convertir a";
+
+/* Class = "NSMenuItem"; title = "Paste"; ObjectID = "gVA-U4-sdL"; */
+"gVA-U4-sdL.title" = "Pegar";
+
+/* Class = "NSMenu"; title = "Services"; ObjectID = "hz9-B4-Xy5"; */
+"hz9-B4-Xy5.title" = "Servicios";
+
+/* Class = "NSMenuItem"; title = "Save…"; ObjectID = "pxx-59-PXV"; */
+"pxx-59-PXV.title" = "Guardar...";
+
+/* Class = "NSMenuItem"; title = "Copy HTML"; ObjectID = "ts7-v5-Htm"; */
+"ts7-v5-Htm.title" = "Copiar HTML";
+
+/* Class = "NSMenu"; title = "MacDown"; ObjectID = "uQy-DD-JDr"; */
+"uQy-DD-JDr.title" = "MacDown";
+
+/* Class = "NSMenuItem"; title = "Cut"; ObjectID = "uRl-iY-unG"; */
+"uRl-iY-unG.title" = "Cortar";
+
+/* Class = "NSMenuItem"; title = "Help"; ObjectID = "wpr-3q-Mcd"; */
+"wpr-3q-Mcd.title" = "Ayuda";
+
+/* Class = "NSMenuItem"; title = "Copy"; ObjectID = "x3v-GG-iWU"; */
+"x3v-GG-iWU.title" = "Copiar";
+
+/* Class = "NSMenuItem"; title = "Show Substitutions"; ObjectID = "z6F-FW-3nz"; */
+"z6F-FW-3nz.title" = "Mostrar Sustituciones";
+

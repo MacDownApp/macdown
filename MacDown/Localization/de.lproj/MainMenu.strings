@@ -1,0 +1,99 @@
+/* Class = "NSMenuItem"; title = "Minimize"; ObjectID = "OY7-WF-poV"; */
+"OY7-WF-poV.title" = "Minimieren";
+
+/* Class = "NSMenu"; title = "Plug-ins"; ObjectID = "Ppl-BS-KtG"; */
+"Ppl-BS-KtG.title" = "Plugins";
+
+/* Class = "NSMenu"; title = "Export"; ObjectID = "SJM-Pp-ywb"; */
+"SJM-Pp-ywb.title" = "Exportieren";
+
+/* Class = "NSMenu"; title = "Window"; ObjectID = "Td7-aD-5lo"; */
+"Td7-aD-5lo.title" = "Fenster";
+
+/* Class = "NSMenuItem"; title = "Image"; ObjectID = "VkR-aw-5AU"; */
+"VkR-aw-5AU.title" = "Bild";
+
+/* Class = "NSMenu"; title = "Edit"; ObjectID = "W48-6f-4Dl"; */
+"W48-6f-4Dl.title" = "Bearbeiten";
+
+/* Class = "NSMenuItem"; title = "New"; ObjectID = "Was-JA-tGl"; */
+"Was-JA-tGl.title" = "Neu";
+
+/* Class = "NSMenuItem"; title = "PDF…"; ObjectID = "XFN-MJ-RrW"; */
+"XFN-MJ-RrW.title" = "PDF...";
+
+/* Class = "NSMenuItem"; title = "Find…"; ObjectID = "Xz5-n4-O0W"; */
+"Xz5-n4-O0W.title" = "Finden...";
+
+/* Class = "NSMenuItem"; title = "Print…"; ObjectID = "aTl-1u-JFS"; */
+"aTl-1u-JFS.title" = "Drucken...";
+
+/* Class = "NSMenuItem"; title = "Window"; ObjectID = "aUF-d1-5bR"; */
+"aUF-d1-5bR.title" = "Fenster";
+
+/* Class = "NSMenuItem"; title = "Plug-ins"; ObjectID = "bMu-UN-Yfx"; */
+"bMu-UN-Yfx.title" = "Plugins";
+
+/* Class = "NSMenu"; title = "File"; ObjectID = "bib-Uj-vzu"; */
+"bib-Uj-vzu.title" = "Datei";
+
+/* Class = "NSMenuItem"; title = "HTML…"; ObjectID = "dGm-Yl-i3Z"; */
+"dGm-Yl-i3Z.title" = "HTML...";
+
+/* Class = "NSMenuItem"; title = "File"; ObjectID = "dMs-cI-mzQ"; */
+"dMs-cI-mzQ.title" = "Datei";
+
+/* Class = "NSMenuItem"; title = "Undo"; ObjectID = "dRJ-4n-Yzg"; */
+"dRJ-4n-Yzg.title" = "Rückgängig";
+
+/* Class = "NSMenuItem"; title = "Paste"; ObjectID = "gVA-U4-sdL"; */
+"gVA-U4-sdL.title" = "Einfügen";
+
+/* Class = "NSMenuItem"; title = "Comment"; ObjectID = "i8c-gf-w29"; */
+"i8c-gf-w29.title" = "Kommentar";
+
+/* Class = "NSMenuItem"; title = "Unordered List"; ObjectID = "jn0-Kb-yH6"; */
+"jn0-Kb-yH6.title" = "Ungeordnete Liste";
+
+/* Class = "NSMenuItem"; title = "Ordered List"; ObjectID = "jn0-Kb-yH7"; */
+"jn0-Kb-yH7.title" = "Geordnete Liste";
+
+/* Class = "NSMenuItem"; title = "Format"; ObjectID = "jxT-CU-nIS"; */
+"jxT-CU-nIS.title" = "Formatieren";
+
+/* Class = "NSMenuItem"; title = "Delete"; ObjectID = "pa3-QI-u2k"; */
+"pa3-QI-u2k.title" = "Löschen";
+
+/* Class = "NSMenuItem"; title = "Save…"; ObjectID = "pxx-59-PXV"; */
+"pxx-59-PXV.title" = "Speichern...";
+
+/* Class = "NSMenuItem"; title = "Copy HTML"; ObjectID = "ts7-v5-Htm"; */
+"ts7-v5-Htm.title" = "Kopiere HTML";
+
+/* Class = "NSMenu"; title = "MacDown"; ObjectID = "uQy-DD-JDr"; */
+"uQy-DD-JDr.title" = "MacDown";
+
+/* Class = "NSMenuItem"; title = "Cut"; ObjectID = "uRl-iY-unG"; */
+"uRl-iY-unG.title" = "Ausschneiden";
+
+/* Class = "NSMenuItem"; title = "MacDown Help"; ObjectID = "ugx-EN-xKu"; */
+"ugx-EN-xKu.title" = "MacDown Hilfe";
+
+/* Class = "NSMenuItem"; title = "Clear Menu"; ObjectID = "vNY-rz-j42"; */
+"vNY-rz-j42.title" = "Bereinige Menü";
+
+/* Class = "NSMenuItem"; title = "Make Upper Case"; ObjectID = "vmV-6d-7jI"; */
+"vmV-6d-7jI.title" = "Hochformat anwenden";
+
+/* Class = "NSMenuItem"; title = "Hide Editor Pane"; ObjectID = "wHk-AQ-iOQ"; */
+"wHk-AQ-iOQ.title" = "Verstecke Editor Fenster";
+
+/* Class = "NSMenuItem"; title = "Help"; ObjectID = "wpr-3q-Mcd"; */
+"wpr-3q-Mcd.title" = "Hilfe";
+
+/* Class = "NSMenuItem"; title = "Copy"; ObjectID = "x3v-GG-iWU"; */
+"x3v-GG-iWU.title" = "Kopieren";
+
+/* Class = "NSMenuItem"; title = "View"; ObjectID = "xSb-2f-W1r"; */
+"xSb-2f-W1r.title" = "Ansicht";
+

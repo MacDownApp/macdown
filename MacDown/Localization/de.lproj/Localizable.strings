@@ -1,0 +1,36 @@
+/* Prism theme title */
+"(Default)" = "(Standard)";
+
+/* Preference pane title. */
+"Editor" = "Editor";
+
+/* Preference pane title. */
+"General" = "Generell";
+
+/* Toggle editor pane menu item */
+"Hide Editor Pane" = "Verstecke Editor Fenster";
+
+/* Toggle preview pane menu item */
+"Hide Preview Pane" = "Verstecke Vorschau Fenster";
+
+/* Install shell utility button */
+"Install" = "Installieren";
+
+/* (No Commment) */
+"JJ_PLURAL_FORM_RULE" = "1";
+
+/* Preference pane title. */
+"Markdown" = "Markdown";
+
+/* Preferences window title. */
+"Preferences" = "Einstellungen";
+
+/* Preference pane title. */
+"Terminal" = "Konsole";
+
+/* Uninstall shell utility button */
+"Uninstall" = "Deinstallieren";
+
+/* default filename if no title can be determined */
+"Untitled" = "Ohne Titel";
+

@@ -1,0 +1,24 @@
+/* Displayed when shell utility is not installed */
+"<Not installed>" = "<No instalado>";
+
+/* Preference pane title. */
+"General" = "General";
+
+/* Install shell utility button */
+"Install" = "Instalar";
+
+/* (No Commment) */
+"JJ_PLURAL_FORM_RULE" = "1";
+
+/* Preference pane title. */
+"Markdown" = "Markdown";
+
+/* Preferences window title. */
+"Preferences" = "Preferencias";
+
+/* Uninstall shell utility button */
+"Uninstall" = "Desinstalar";
+
+/* default filename if no title can be determined */
+"Untitled" = "Sin Título";
+
