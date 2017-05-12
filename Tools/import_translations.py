@@ -7,11 +7,10 @@ import os
 from xml.etree import ElementTree
 
 from compat import ConfigParser
-from macdown_utils import ROOT_DIR, XCODEBUILD, execute
+from macdown_utils import ROOT_DIR, XCODEBUILD, XLIFF_URL, execute
 
 
 TX_CONFIG_FILE = os.path.join(ROOT_DIR, '.tx', 'config')
-XLIFF_URL = 'urn:oasis:names:tc:xliff:document:1.2'
 
 
 logger = logging.getLogger()

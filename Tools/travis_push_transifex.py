@@ -6,7 +6,24 @@ import io
 import os
 import sys
 
-from macdown_utils import execute
+from xml.etree import ElementTree
+
+from macdown_utils import XLIFF_URL, execute
+
+
+# Translations of these keys will be dropped.
+NO_TRANSLATE_KEYS = {
+    'MacDown/MacDown-Info.plist': [
+        'CFBundleName',
+        'CFBundleShortVersionString',
+    ],
+    'MacDownTests/MacDownTests-Info.plist': [
+        'CFBundleShortVersionString',
+    ],
+}
+
+
+ElementTree.register_namespace('', XLIFF_URL)
 
 
 def write_transifex_config():
@@ -27,6 +44,34 @@ def write_transifex_config():
         ).format(password=os.environ['TRANSIFEX_PASSWORD']))
 
 
+PREFIX_MAP = {'xliff': XLIFF_URL}
+
+
+def clean_xliff():
+    xliff_dirpath = os.getenv('LOCALIZATION_OUT')
+    assert xliff_dirpath
+    for fn in os.listdir(xliff_dirpath):
+        if os.path.splitext(fn)[-1] != '.xliff':
+            continue
+        xliff_filepath = os.path.join(xliff_dirpath, fn)
+        tree = ElementTree.parse(xliff_filepath)
+
+        # Remove keys that should not be translated.
+        for source, keys in NO_TRANSLATE_KEYS.items():
+            bodyxpath = 'xliff:file[@original="{}"]/xliff:body'.format(source)
+            bodynode = tree.find(bodyxpath, PREFIX_MAP)
+            for key in keys:
+                nodexpath = '*[@id="{}"]'.format(key)
+                node = bodynode.find(nodexpath, PREFIX_MAP)
+                if node:
+                    bodynode.remove(node)
+
+        tree.write(
+            xliff_filepath,
+            encoding='UTF-8', xml_declaration=True, method='xml',
+        )
+
+
 def main():
     if os.getenv('TRAVIS_PULL_REQUEST') != 'false':
         print('Build triggered by a pull request. Transifex push skipped.',
@@ -39,6 +84,7 @@ def main():
             cur=current_branch, target=target_branch,
         ), file=sys.stderr)
         return
+    clean_xliff()
     write_transifex_config()
     execute(os.path.expanduser('~/Library/Python/2.7/bin/tx'), 'push', '-s')
 
