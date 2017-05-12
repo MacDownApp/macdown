@@ -12,14 +12,9 @@ from macdown_utils import XLIFF_URL, execute
 
 
 # Translations of these keys will be dropped.
-NO_TRANSLATE_KEYS = {
-    'MacDown/MacDown-Info.plist': [
-        'CFBundleName',
-        'CFBundleShortVersionString',
-    ],
-    'MacDownTests/MacDownTests-Info.plist': [
-        'CFBundleShortVersionString',
-    ],
+NO_TRANSLATE_FILES = {
+    'MacDown/MacDown-Info.plist',
+    'MacDownTests/MacDownTests-Info.plist',
 }
 
 
@@ -49,22 +44,20 @@ PREFIX_MAP = {'xliff': XLIFF_URL}
 
 def clean_xliff():
     xliff_dirpath = os.getenv('LOCALIZATION_OUT')
-    assert xliff_dirpath
+    assert xliff_dirpath, 'LOCALIZATION_OUT not set'
     for fn in os.listdir(xliff_dirpath):
         if os.path.splitext(fn)[-1] != '.xliff':
             continue
         xliff_filepath = os.path.join(xliff_dirpath, fn)
         tree = ElementTree.parse(xliff_filepath)
+        root = tree.getroot()
 
-        # Remove keys that should not be translated.
-        for source, keys in NO_TRANSLATE_KEYS.items():
-            bodyxpath = 'xliff:file[@original="{}"]/xliff:body'.format(source)
-            bodynode = tree.find(bodyxpath, PREFIX_MAP)
-            for key in keys:
-                nodexpath = '*[@id="{}"]'.format(key)
-                node = bodynode.find(nodexpath, PREFIX_MAP)
-                if node:
-                    bodynode.remove(node)
+        # Remove files that should not be translated.
+        for source in NO_TRANSLATE_FILES:
+            source_xpath = 'xliff:file[@original="{}"]'.format(source)
+            source_node = tree.find(source_xpath, PREFIX_MAP)
+            if source_node:
+                root.remove(source_node)
 
         tree.write(
             xliff_filepath,
