@@ -25,8 +25,9 @@ def pull_translations(parser):
         parser.get('macdown.macdownxliff', 'file_filter'),
         '..',
     ))
-    for fn in os.listdir(xliff_dirpath):
-        os.remove(os.path.join(xliff_dirpath, fn))
+    if os.path.exists(xliff_dirpath):
+        for fn in os.listdir(xliff_dirpath):
+            os.remove(os.path.join(xliff_dirpath, fn))
     logger.info('Connecting...')
     os.system('tx pull -a')
 
