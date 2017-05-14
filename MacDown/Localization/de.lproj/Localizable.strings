@@ -1,23 +1,43 @@
 /* Prism theme title */
 "(Default)" = "(Standard)";
 
+/* Displayed when shell utility is not installed */
+"<Not installed>" = "<Nicht installiert>";
+
+/* preview navigation error information */
+"An error occurred while creating the file:
+%@" = "Bei der Erstellung des Dokumentes ist ein Fehler aufgetreten: %@";
+
+/* preview navigation error message */
+"Can’t create file:
+%@" = "Dokument konnte nicht erstellt werden: %@";
+
 /* Preference pane title. */
 "Editor" = "Editor";
 
+/* preview navigation error message */
+"File not found at path:
+%@" = "Das Dokument konnte unter folgendem Pfad nicht gefunden werden: %@";
+
 /* Preference pane title. */
-"General" = "Generell";
+"General" = "Allgemein";
 
 /* Toggle editor pane menu item */
-"Hide Editor Pane" = "Verstecke Editor Fenster";
+"Hide Editor Pane" = "Editor ausblenden";
 
 /* Toggle preview pane menu item */
-"Hide Preview Pane" = "Verstecke Vorschau Fenster";
+"Hide Preview Pane" = "Vorschau ausblenden";
 
 /* Install shell utility button */
 "Install" = "Installieren";
 
 /* (No Commment) */
 "JJ_PLURAL_FORM_RULE" = "1";
+
+/* preview navigation error information */
+"MacDown can’t create a file for the clicked link because 
+the current file is not saved anywhere yet. Save the 
+current file somewhere to enable this feature." = "MacDown kann für den geklickten Link kein neues Dokument erstellen, da das jetzige Dokument noch nicht gespeichert wurde. Speichere das jetzige  Dokument um diese Funktion zu aktivieren.";
 
 /* Preference pane title. */
 "Markdown" = "Markdown";
@@ -26,7 +46,22 @@
 "Preferences" = "Einstellungen";
 
 /* Preference pane title. */
-"Terminal" = "Konsole";
+"Rendering" = "Vorschau";
+
+/* Toggle editor pane menu item */
+"Restore Editor Pane" = "Editor einblenden";
+
+/* Toggle preview pane menu item */
+"Restore Preview Pane" = "Vorschau einblenden";
+
+/* Label stating that shell utility has been installed */
+"Shell utility installed" = "Shell Erweiterung installiert";
+
+/* Label stating that shell utility has not been installed */
+"Shell utility not installed" = "Shell Erweiterung nicht installiert";
+
+/* Preference pane title. */
+"Terminal" = "Terminal";
 
 /* Uninstall shell utility button */
 "Uninstall" = "Deinstallieren";
