@@ -1,1 +1,6 @@
-/* No Localized Strings */
+/* Uninstall shell utility button */
+"Uninstall" = "解除安裝";
+
+/* default filename if no title can be determined */
+"Untitled" = "未命名";
+

@@ -1,1 +1,6 @@
-/* No Localized Strings */
+/* Class = "NSButtonCell"; title = "Underline"; ObjectID = "Gdr-Ro-ZnW"; */
+"Gdr-Ro-ZnW.title" = "底線";
+
+/* Class = "NSButtonCell"; title = "Superscript"; ObjectID = "k2n-VN-cKT"; */
+"k2n-VN-cKT.title" = "上標";
+
