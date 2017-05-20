@@ -1,4 +1,29 @@
 # MacDown
+[我的github][1]
+
+![Github cat][2]
+
+[1]:https://github.com/Mingriweiji-github?tab=repositories
+[2]:http://github.global.ssl.fastly.net/images/modules/logos_page/Octocat.png
+
+###自动链接
+<https://github.com/Mingriweiji-github?tab=repositories>
+
+[Markdown之写作篇](http://www.jianshu.com/p/PpDNMG)
+
+###资料收集
+
+Markdown之写作篇
+怎样使用Markdown
+
+- 创始人 John Gruber 的 Markdown 语法说明
+- Markdown 中文版语法说明
+
+- Markdown之表格的处理
+-  表格宽度调整 点我
+
+@Mingriweiji Github
+
 
 [![](https://img.shields.io/github/release/MacDownApp/macdown.svg)](http://macdown.uranusjr.com/download/latest/)
 ![Total downloads](https://img.shields.io/github/downloads/MacDownApp/macdown/latest/total.svg)
