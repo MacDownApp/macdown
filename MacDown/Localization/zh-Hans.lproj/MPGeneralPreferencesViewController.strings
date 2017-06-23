@@ -1,11 +1,26 @@
 /* Class = "NSButtonCell"; title = "Sync preview scrollbar when editor scrolls"; ObjectID = "2Uj-Sx-FjV"; */
 "2Uj-Sx-FjV.title" = "预览窗口同步滚动";
 
+/* Class = "NSBox"; title = "Behavior"; ObjectID = "Nma-PL-ZvX"; */
+"Nma-PL-ZvX.title" = "行为";
+
 /* Class = "NSButtonCell"; title = "Put editor on the right"; ObjectID = "bUn-PQ-5Ez"; */
 "bUn-PQ-5Ez.title" = "编辑窗口置于右侧";
 
 /* Class = "NSBox"; title = "Update"; ObjectID = "eLn-fW-Agu"; */
 "eLn-fW-Agu.title" = "更新";
+
+/* Class = "NSButtonCell"; title = "Automatically create files for link targets"; ObjectID = "hpF-zP-3cM"; */
+"hpF-zP-3cM.title" = "自动在链接目标创建文档";
+
+/* Class = "NSButtonCell"; title = "Ensure open document on launch"; ObjectID = "l9N-wk-WRY"; */
+"l9N-wk-WRY.title" = "启动时永远打开文件";
+
+/* Class = "NSButtonCell"; title = "Update preview automatically as you type"; ObjectID = "npz-xj-plX"; */
+"npz-xj-plX.title" = "输入时自动更新预览";
+
+/* Class = "NSButtonCell"; title = "Show word count"; ObjectID = "oeW-bF-ybW"; */
+"oeW-bF-ybW.title" = "显示自数统计";
 
 /* Class = "NSButtonCell"; title = "Include pre-releases"; ObjectID = "vbz-fv-8BX"; */
 "vbz-fv-8BX.title" = "包括预发行版本";
