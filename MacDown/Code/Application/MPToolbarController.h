@@ -13,14 +13,4 @@
 
 @property (weak) IBOutlet MPDocument *document;
 
-/**
- * Update the highlight states of toolbar items that can be highlighted.
- */
-- (void)updateHighlightStates;
-
-- (void)highlightToggleEditorItem;
-- (void)unhighlightToggleEditorItem;
-- (void)highlightTogglePreviewItem;
-- (void)unhighlightTogglePreviewItem;
-
 @end

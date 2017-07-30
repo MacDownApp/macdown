@@ -442,9 +442,6 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
         [self redrawDivider];
         [self reloadFromLoadedString];
     }];
-    
-    // Set initial highlight states
-    [self.toolbarController updateHighlightStates];
 }
 
 - (void)reloadFromLoadedString
@@ -1349,19 +1346,16 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 - (IBAction)setEditorOneQuarter:(id)sender
 {
     [self setSplitViewDividerLocation:0.25];
-    [self.toolbarController updateHighlightStates];
 }
 
 - (IBAction)setEditorThreeQuarters:(id)sender
 {
     [self setSplitViewDividerLocation:0.75];
-    [self.toolbarController updateHighlightStates];
 }
 
 - (IBAction)setEqualSplit:(id)sender
 {
     [self setSplitViewDividerLocation:0.5];
-    [self.toolbarController updateHighlightStates];
 }
 
 - (IBAction)toggleToolbar:(id)sender
@@ -1415,8 +1409,6 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 
         [self setSplitViewDividerLocation:self.previousSplitRatio];
     }
-    
-    [self.toolbarController updateHighlightStates];
 }
 
 - (void)setupEditor:(NSString *)changedKey
