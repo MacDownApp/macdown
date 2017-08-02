@@ -119,11 +119,14 @@ typedef void(^HGStyleParsingErrorCallback)(NSArray *errorMessages);
 - (void) applyStylesFromStylesheet:(NSString *)stylesheet
                   withErrorHandler:(HGStyleParsingErrorCallback)errorHandler;
 
-/** \brief Manually invoke parsing and highlighting of the NSTextView contents. */
+/** \brief Manually invoke parsing and highlighting of the visible NSTextView contents. */
 - (void) parseAndHighlightNow;
 
-/** \brief Manually invoke highlighting (without parsing) of the NSTextView contents. */
+/** \brief Manually invoke highlighting (without parsing) of the visible NSTextView contents. */
 - (void) highlightNow;
+
+/** \brief Manually invoke parsing and highlighting of the entire NSTextView contents, for example to pre-load highlights. */
+- (void) parseAndHighlightWholeDocumentNow;
 
 /** \brief Clear highlighting from the NSTextView.
  * 

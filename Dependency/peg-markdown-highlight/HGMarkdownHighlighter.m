@@ -172,19 +172,24 @@ void styleparsing_error_callback(char *error_message, int line_number, void *con
 }
 
 
-- (void) threadParseAndHighlight
+- (void) threadParseAndHighlight:(NSNumber *)highlightWholeDocument
 {
-	@autoreleasepool {
-	
-		pmh_element **result = [self parse];
-    [self convertOffsets:result];
-		
-		[self
-		 performSelectorOnMainThread:@selector(parserDidParse:)
-		 withObject:[NSValue valueWithPointer:result]
-		 waitUntilDone:YES];
-	
-	}
+    @autoreleasepool {
+
+        pmh_element **result = [self parse];
+        [self convertOffsets:result];
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (_workerThreadResultsInvalid)
+            return;
+            [self cacheElementList:result];
+            if (highlightWholeDocument) {
+                [self applyWholeDocumentHighlighting];
+            } else {
+                [self applyVisibleRangeHighlighting];
+            }
+        });
+    }
 }
 
 - (void) threadDidExit:(NSNotification *)notification
@@ -202,28 +207,34 @@ void styleparsing_error_callback(char *error_message, int line_number, void *con
 		 waitUntilDone:NO];
 }
 
+
 - (void) requestParsing
 {
-	if (self.workerThread != nil) {
-		_workerThreadResultsInvalid = YES;
-		return;
-	}
-	
-	self.workerThread = [[NSThread alloc]
-						 initWithTarget:self
-						 selector:@selector(threadParseAndHighlight)
-						 object:nil];
-	
-	[[NSNotificationCenter defaultCenter]
-	 addObserver:self
-	 selector:@selector(threadDidExit:)
-	 name:NSThreadWillExitNotification
-	 object:self.workerThread];
-	
+    [self requestParsingForWholeDocument:NO];
+}
+
+- (void) requestParsingForWholeDocument:(BOOL)wholeDocument
+{
+    if (self.workerThread != nil) {
+        _workerThreadResultsInvalid = YES;
+        return;
+    }
+
+    self.workerThread = [[NSThread alloc]
+                         initWithTarget:self
+                         selector:@selector(threadParseAndHighlight:)
+                         object:[NSNumber numberWithBool:wholeDocument]];
+
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self
+     selector:@selector(threadDidExit:)
+     name:NSThreadWillExitNotification
+     object:self.workerThread];
+
     _currentHighlightText = [[self.targetTextView string] copy];
-	
-	_workerThreadResultsInvalid = NO;
-	[self.workerThread start];
+    
+    _workerThreadResultsInvalid = NO;
+    [self.workerThread start];
 }
 
 
@@ -396,25 +407,42 @@ void styleparsing_error_callback(char *error_message, int line_number, void *con
 	[[self.targetTextView textStorage] endEditing];
 }
 
+- (void) applyWholeDocumentHighlighting
+{
+    if (_cachedElements == NULL) {
+        return;
+    }
+
+    NSRange wholeRange = NSMakeRange(0, self.targetTextView.textStorage.length);
+
+    [self applyHighlightingInRange:wholeRange];
+}
+
 - (void) applyVisibleRangeHighlighting
 {
+    if (_cachedElements == NULL)
+        return;
+
 	NSRect visibleRect = [[[self.targetTextView enclosingScrollView] contentView] documentVisibleRect];
     NSLayoutManager *layoutManager = [self.targetTextView layoutManager];
 	NSRange visibleGlyphRange = [layoutManager glyphRangeForBoundingRect:visibleRect inTextContainer:[self.targetTextView textContainer]];
 	NSRange visibleCharRange = [layoutManager characterRangeForGlyphRange:visibleGlyphRange actualGlyphRange:NULL];
     
-	if (_cachedElements == NULL)
-		return;
-    
+    [self applyHighlightingInRange:visibleCharRange];
+}
+
+- (void) applyHighlightingInRange:(NSRange)range
+{
     @try {
-        [self applyHighlighting:_cachedElements withRange:visibleCharRange];
+        [self applyHighlighting:_cachedElements withRange:range];
     }
     @catch (NSException *exception) {
         NSLog(@"Exception in -applyHighlighting:withRange: %@", exception);
     }
-    
-    if (self.resetTypingAttributes)
+
+    if (self.resetTypingAttributes) {
         [self.targetTextView setTypingAttributes:self.defaultTypingAttributes];
+    }
 }
 
 - (void) clearHighlighting
@@ -436,17 +464,6 @@ void styleparsing_error_callback(char *error_message, int line_number, void *con
 {
 	[self cacheElementList:NULL];
 }
-
-
-
-- (void) parserDidParse:(NSValue *)resultPointer
-{
-	if (_workerThreadResultsInvalid)
-		return;
-	[self cacheElementList:(pmh_element **)[resultPointer pointerValue]];
-	[self applyVisibleRangeHighlighting];
-}
-
 
 - (void) textViewUpdateTimerFire:(NSTimer*)timer
 {
@@ -695,6 +712,10 @@ void styleparsing_error_callback(char *error_message, int line_number, void *con
 		[self readClearTextStylesFromTextView];
 }
 
+- (void) parseAndHighlightWholeDocumentNow
+{
+    [self requestParsingForWholeDocument:YES];
+}
 
 - (void) parseAndHighlightNow
 {
