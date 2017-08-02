@@ -181,8 +181,10 @@ void styleparsing_error_callback(char *error_message, int line_number, void *con
 
         dispatch_async(dispatch_get_main_queue(), ^{
             if (_workerThreadResultsInvalid)
-            return;
+                return;
+
             [self cacheElementList:result];
+            
             if ([highlightWholeDocument boolValue]) {
                 [self applyWholeDocumentHighlighting];
             } else {
