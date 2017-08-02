@@ -31,8 +31,7 @@ void styleparsing_error_callback(char *error_message, int line_number, void *con
 {
 	NSFontTraitMask _clearFontTraitMask;
 	pmh_element **_cachedElements;
-	NSString *_currentHighlightText;
-	BOOL _workerThreadResultsInvalid;
+	dispatch_block_t _currentParsingBlock;
 	BOOL _styleDependenciesPending;
 	NSMutableArray *_styleParsingErrors;
     CGFloat _defaultTextSize;
@@ -42,8 +41,8 @@ void styleparsing_error_callback(char *error_message, int line_number, void *con
 @property(strong) NSTimer *updateTimer;
 @property(strong) NSTimer *highlightTimer;
 @property(copy) NSColor *defaultTextColor;
-@property(strong) NSThread *workerThread;
 @property(strong) NSDictionary *defaultTypingAttributes;
+@property(nonatomic, strong) dispatch_queue_t parsingQueue;
 
 - (NSFontTraitMask) getClearFontTraitMask:(NSFontTraitMask)currentFontTraitMask;
 
@@ -58,7 +57,6 @@ void styleparsing_error_callback(char *error_message, int line_number, void *con
 		return nil;
 	
 	_cachedElements = NULL;
-	_currentHighlightText = NULL;
 	_styleDependenciesPending = NO;
 	_styleParsingErrors = [NSMutableArray array];
 	
@@ -101,15 +99,18 @@ void styleparsing_error_callback(char *error_message, int line_number, void *con
 
 #pragma mark -
 
+- (dispatch_queue_t)parsingQueue
+{
+    if (_parsingQueue == nil)
+    _parsingQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    return _parsingQueue;
+}
 
-- (pmh_element **) parse
+- (pmh_element **) parse:(NSString *)text
 {
 	pmh_element **result = NULL;
-    if (_currentHighlightText)
-    {
-        pmh_markdown_to_elements((char *)[_currentHighlightText UTF8String], self.extensions, &result);
-        pmh_sort_elements_by_pos(result);
-    }
+    pmh_markdown_to_elements((char *)[text UTF8String], self.extensions, &result);
+    pmh_sort_elements_by_pos(result);
 	return result;
 }
 
@@ -118,17 +119,17 @@ void styleparsing_error_callback(char *error_message, int line_number, void *con
 // NSString character offsets (NSString uses UTF-16 units as characters, so
 // sometimes two characters (a "surrogate pair") are needed to represent one
 // code point):
-- (void) convertOffsets:(pmh_element **)elements
+- (void) convertOffsets:(pmh_element **)elements basedOn:(NSString *)text
 {
     // Walk through the whole string only once, and gather all surrogate pair indexes
     // (technically, the indexes of the high characters (which come before the low
     // characters) in each pair):
-    NSMutableArray *surrogatePairIndexes = [NSMutableArray arrayWithCapacity:(_currentHighlightText.length / 4)];
-    NSUInteger strLen = _currentHighlightText.length;
+    NSMutableArray *surrogatePairIndexes = [NSMutableArray arrayWithCapacity:(text.length / 4)];
+    NSUInteger strLen = text.length;
     NSUInteger i = 0;
     while (i < strLen)
     {
-        if (CFStringIsSurrogateHighCharacter([_currentHighlightText characterAtIndex:i]))
+        if (CFStringIsSurrogateHighCharacter([text characterAtIndex:i]))
             [surrogatePairIndexes addObject:@(i)];
         i++;
     }
@@ -171,45 +172,6 @@ void styleparsing_error_callback(char *error_message, int line_number, void *con
     }
 }
 
-
-- (void) threadParseAndHighlight:(NSNumber *)highlightWholeDocument
-{
-    @autoreleasepool {
-
-        pmh_element **result = [self parse];
-        [self convertOffsets:result];
-
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (_workerThreadResultsInvalid)
-                return;
-
-            [self cacheElementList:result];
-            
-            if ([highlightWholeDocument boolValue]) {
-                [self applyWholeDocumentHighlighting];
-            } else {
-                [self applyVisibleRangeHighlighting];
-            }
-        });
-    }
-}
-
-- (void) threadDidExit:(NSNotification *)notification
-{
-	[[NSNotificationCenter defaultCenter]
-	 removeObserver:self
-	 name:NSThreadWillExitNotification
-	 object:self.workerThread];
-	_currentHighlightText = nil;
-	self.workerThread = nil;
-	if (_workerThreadResultsInvalid)
-		[self
-		 performSelectorOnMainThread:@selector(requestParsing)
-		 withObject:nil
-		 waitUntilDone:NO];
-}
-
-
 - (void) requestParsing
 {
     [self requestParsingForWholeDocument:NO];
@@ -217,32 +179,34 @@ void styleparsing_error_callback(char *error_message, int line_number, void *con
 
 - (void) requestParsingForWholeDocument:(BOOL)wholeDocument
 {
-    if (self.workerThread != nil) {
-        _workerThreadResultsInvalid = YES;
-        return;
-    }
+    if (_currentParsingBlock != nil)
+        dispatch_block_cancel(_currentParsingBlock);
 
-    self.workerThread = [[NSThread alloc]
-                         initWithTarget:self
-                         selector:@selector(threadParseAndHighlight:)
-                         object:[NSNumber numberWithBool:wholeDocument]];
+    NSString *highlightText = [[self.targetTextView string] copy];
+    _currentParsingBlock = dispatch_block_create(0, ^{
+        @autoreleasepool {
+            pmh_element **result = [self parse:highlightText];
+            [self convertOffsets:result basedOn:highlightText];
 
-    [[NSNotificationCenter defaultCenter]
-     addObserver:self
-     selector:@selector(threadDidExit:)
-     name:NSThreadWillExitNotification
-     object:self.workerThread];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self cacheElementList:result];
 
-    _currentHighlightText = [[self.targetTextView string] copy];
-    
-    _workerThreadResultsInvalid = NO;
-    [self.workerThread start];
+                if (wholeDocument)
+                {
+                    [self applyWholeDocumentHighlighting];
+                }
+                else
+                {
+                    [self applyVisibleRangeHighlighting];
+                }
+            });
+        }
+    });
+    dispatch_async(self.parsingQueue, _currentParsingBlock);
 }
 
 
 #pragma mark -
-
-
 
 - (NSFontTraitMask) getClearFontTraitMask:(NSFontTraitMask)currentFontTraitMask
 {
