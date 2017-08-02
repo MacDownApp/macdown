@@ -183,7 +183,7 @@ void styleparsing_error_callback(char *error_message, int line_number, void *con
             if (_workerThreadResultsInvalid)
             return;
             [self cacheElementList:result];
-            if (highlightWholeDocument) {
+            if ([highlightWholeDocument boolValue]) {
                 [self applyWholeDocumentHighlighting];
             } else {
                 [self applyVisibleRangeHighlighting];
