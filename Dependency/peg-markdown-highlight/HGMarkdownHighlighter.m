@@ -188,17 +188,17 @@ void styleparsing_error_callback(char *error_message, int line_number, void *con
             pmh_element **result = [self parse:highlightText];
             [self convertOffsets:result basedOn:highlightText];
 
-            dispatch_async(dispatch_get_main_queue(), ^{
+            dispatch_group_t group = dispatch_group_create();
+            dispatch_group_enter(group);
+            dispatch_group_async(group, dispatch_get_main_queue(), ^{
                 [self cacheElementList:result];
-
-                if (wholeDocument)
-                {
-                    [self applyWholeDocumentHighlighting];
-                }
-                else
-                {
-                    [self applyVisibleRangeHighlighting];
-                }
+                [self applyVisibleRangeHighlighting];
+                dispatch_group_leave(group);
+            });
+            dispatch_group_notify(group, dispatch_get_main_queue(), ^{
+                if (!wholeDocument)
+                    return;
+                [self applyWholeDocumentHighlighting];
             });
         }
     });
