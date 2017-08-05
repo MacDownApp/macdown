@@ -715,7 +715,7 @@ void styleparsing_error_callback(
 	if (_styleDependenciesPending)
 		[self applyStyleDependenciesToTargetTextView];
 	
-	[self requestParsing];
+	[self requestParsingForWholeDocument:YES];
 	
 	if (self.parseAndHighlightAutomatically)
 		[[NSNotificationCenter defaultCenter]

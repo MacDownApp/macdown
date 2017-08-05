@@ -1512,7 +1512,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     }
 
     [self.highlighter activate];
-    [self.highlighter parseAndHighlightWholeDocumentNow];
+
     self.editor.automaticLinkDetectionEnabled = NO;
 }
 
