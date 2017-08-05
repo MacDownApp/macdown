@@ -260,7 +260,7 @@ void styleparsing_error_callback(char *error_message, int line_number, void *con
 	[textStorage removeAttribute:NSLinkAttributeName range:range];
     if (self.targetTextView.typingAttributes
         && self.resetTypingAttributes
-        && self.defaultTypingAttributes[NSParagraphStyleAttributeName] != NULL)
+        && self.defaultTypingAttributes[NSParagraphStyleAttributeName])
     {
         [textStorage addAttribute:NSParagraphStyleAttributeName
                             value:self.defaultTypingAttributes[NSParagraphStyleAttributeName]
