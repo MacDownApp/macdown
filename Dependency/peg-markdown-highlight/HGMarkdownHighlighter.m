@@ -12,9 +12,10 @@
 #define kStyleParsingErrorInfoKey_ErrorMessage @"message"
 #define kStyleParsingErrorInfoKey_LineNumber @"lineNumber"
 
-const char *kMacdownHighlighterQueueName = "macdown-highlighter-parse";
+static const char *kMacdownHighlighterQueueName = "macdown-highlighter-parse";
 
-void styleparsing_error_callback(char *error_message, int line_number, void *context_data)
+void styleparsing_error_callback(
+    char *error_message, int line_number, void *context_data)
 {
 	NSString *errMsg = @(error_message);
 	if (errMsg == nil)
@@ -106,8 +107,10 @@ void styleparsing_error_callback(char *error_message, int line_number, void *con
 - (dispatch_queue_t)parsingQueue
 {
     if (_parsingQueue == nil)
-        _parsingQueue = dispatch_queue_create(kMacdownHighlighterQueueName,
-                                              DISPATCH_QUEUE_SERIAL);
+    {
+        _parsingQueue = dispatch_queue_create(
+            kMacdownHighlighterQueueName, DISPATCH_QUEUE_SERIAL);
+    }
     return _parsingQueue;
 }
 

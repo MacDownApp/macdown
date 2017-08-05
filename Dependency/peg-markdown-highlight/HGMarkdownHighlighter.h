@@ -9,7 +9,6 @@
 #import "pmh_definitions.h"
 #import "HGMarkdownHighlightingStyle.h"
 
-extern const char *kMacdownHighlighterQueueName;
 
 typedef void(^HGStyleParsingErrorCallback)(NSArray *errorMessages);
 
