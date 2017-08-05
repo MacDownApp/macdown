@@ -45,6 +45,7 @@ void styleparsing_error_callback(char *error_message, int line_number, void *con
 @property(copy) NSColor *defaultTextColor;
 @property(strong) NSDictionary *defaultTypingAttributes;
 @property(nonatomic, strong) dispatch_queue_t parsingQueue;
+@property(assign) BOOL isPerformingDocumentHighlighting;
 
 - (NSFontTraitMask) getClearFontTraitMask:(NSFontTraitMask)currentFontTraitMask;
 
@@ -63,6 +64,7 @@ void styleparsing_error_callback(char *error_message, int line_number, void *con
 	_styleParsingErrors = [NSMutableArray array];
 	
 	_resetTypingAttributes = YES;
+    _isPerformingDocumentHighlighting = NO;
 	_parseAndHighlightAutomatically = YES;
 	_waitInterval = 0.5;
 	_extensions = pmh_EXT_NONE;
@@ -201,7 +203,9 @@ void styleparsing_error_callback(char *error_message, int line_number, void *con
             dispatch_group_notify(group, dispatch_get_main_queue(), ^{
                 if (!wholeDocument)
                     return;
+                self.isPerformingDocumentHighlighting = YES;
                 [self applyWholeDocumentHighlighting];
+                self.isPerformingDocumentHighlighting = NO;
             });
         }
     });
@@ -409,7 +413,10 @@ void styleparsing_error_callback(char *error_message, int line_number, void *con
         NSLog(@"Exception in -applyHighlighting:withRange: %@", exception);
     }
 
-    if (self.resetTypingAttributes) {
+    if (self.resetTypingAttributes
+        // Whole document highlighting is a 2-step process,
+        // so no need to reset in between.
+        && !self.isPerformingDocumentHighlighting) {
         [self.targetTextView setTypingAttributes:self.defaultTypingAttributes];
     }
 }
