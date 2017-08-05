@@ -46,7 +46,6 @@ void styleparsing_error_callback(
 @property(copy) NSColor *defaultTextColor;
 @property(strong) NSDictionary *defaultTypingAttributes;
 @property(nonatomic, strong) dispatch_queue_t parsingQueue;
-@property(assign) BOOL isPerformingDocumentHighlighting;
 
 - (NSFontTraitMask) getClearFontTraitMask:(NSFontTraitMask)currentFontTraitMask;
 
@@ -65,7 +64,6 @@ void styleparsing_error_callback(
 	_styleParsingErrors = [NSMutableArray array];
 	
 	_resetTypingAttributes = YES;
-    _isPerformingDocumentHighlighting = NO;
 	_parseAndHighlightAutomatically = YES;
 	_waitInterval = 0.5;
 	_extensions = pmh_EXT_NONE;
@@ -190,9 +188,10 @@ void styleparsing_error_callback(
     if (_currentParsingBlock != nil)
         dispatch_block_cancel(_currentParsingBlock);
 
-    NSString *highlightText = [[self.targetTextView string] copy];
     _currentParsingBlock = dispatch_block_create(0, ^{
         @autoreleasepool {
+            NSString *highlightText = [[self.targetTextView string] copy];
+
             pmh_element **result = [self parse:highlightText];
             [self convertOffsets:result basedOn:highlightText];
 
@@ -200,15 +199,23 @@ void styleparsing_error_callback(
             dispatch_group_enter(group);
             dispatch_group_async(group, dispatch_get_main_queue(), ^{
                 [self cacheElementList:result];
+
                 [self applyVisibleRangeHighlighting];
+
                 dispatch_group_leave(group);
             });
+            // Executed after the last dipatch_group_leave finishes
             dispatch_group_notify(group, dispatch_get_main_queue(), ^{
                 if (!wholeDocument)
                     return;
-                self.isPerformingDocumentHighlighting = YES;
-                [self applyWholeDocumentHighlighting];
-                self.isPerformingDocumentHighlighting = NO;
+
+                NSRange wholeRange = NSMakeRange(0, self.targetTextView.textStorage.length);
+                NSRange visibleCharRange = [self visibleCharacterRange];
+                NSRange remainingRange = NSMakeRange(
+                    wholeRange.location + visibleCharRange.length,
+                    wholeRange.length - visibleCharRange.length);
+
+                [self applyHighlightingInRange:remainingRange];
             });
         }
     });
@@ -397,16 +404,21 @@ void styleparsing_error_callback(
     [self applyHighlightingInRange:wholeRange];
 }
 
+- (NSRange) visibleCharacterRange
+{
+    NSRect visibleRect = [[[self.targetTextView enclosingScrollView] contentView] documentVisibleRect];
+    NSLayoutManager *layoutManager = [self.targetTextView layoutManager];
+    NSRange visibleGlyphRange = [layoutManager glyphRangeForBoundingRect:visibleRect inTextContainer:[self.targetTextView textContainer]];
+    NSRange visibleCharRange = [layoutManager characterRangeForGlyphRange:visibleGlyphRange actualGlyphRange:NULL];
+    return visibleCharRange;
+}
+
 - (void) applyVisibleRangeHighlighting
 {
     if (_cachedElements == NULL)
         return;
 
-	NSRect visibleRect = [[[self.targetTextView enclosingScrollView] contentView] documentVisibleRect];
-    NSLayoutManager *layoutManager = [self.targetTextView layoutManager];
-	NSRange visibleGlyphRange = [layoutManager glyphRangeForBoundingRect:visibleRect inTextContainer:[self.targetTextView textContainer]];
-	NSRange visibleCharRange = [layoutManager characterRangeForGlyphRange:visibleGlyphRange actualGlyphRange:NULL];
-    
+    NSRange visibleCharRange = [self visibleCharacterRange];
     [self applyHighlightingInRange:visibleCharRange];
 }
 
@@ -419,10 +431,7 @@ void styleparsing_error_callback(
         NSLog(@"Exception in -applyHighlighting:withRange: %@", exception);
     }
 
-    if (self.resetTypingAttributes
-        // Whole document highlighting is a 2-step process,
-        // so no need to reset in between.
-        && !self.isPerformingDocumentHighlighting) {
+    if (self.resetTypingAttributes) {
         [self.targetTextView setTypingAttributes:self.defaultTypingAttributes];
     }
 }
