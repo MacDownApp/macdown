@@ -294,6 +294,9 @@ void styleparsing_error_callback(
 
 - (void) applyHighlighting:(pmh_element **)elements withRange:(NSRange)range
 {
+    if (range.location == 0 && range.length == 0)
+        return;
+
 	NSUInteger rangeEnd = NSMaxRange(range);
 	[[self.targetTextView textStorage] beginEditing];
 	[self clearHighlightingForRange:range];
