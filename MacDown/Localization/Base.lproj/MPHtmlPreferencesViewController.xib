@@ -104,7 +104,7 @@
                     </textFieldCell>
                 </textField>
                 <button translatesAutoresizingMaskIntoConstraints="NO" id="ysT-Br-eSf">
-                    <rect key="frame" x="123" y="221" width="264" height="18"/>
+                    <rect key="frame" x="127" y="221" width="260" height="18"/>
                     <buttonCell key="cell" type="check" title="Show line numbers" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="WZa-V6-vvf">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="smallSystem"/>
@@ -241,7 +241,7 @@
                 <constraint firstItem="HzY-ws-XRq" firstAttribute="top" secondItem="u5h-MS-cR3" secondAttribute="bottom" constant="8" id="HPL-dT-fDu"/>
                 <constraint firstItem="M0W-YD-Ouk" firstAttribute="top" secondItem="2I4-c8-jan" secondAttribute="bottom" constant="9" id="I3l-Fb-wX6"/>
                 <constraint firstItem="RCL-iK-kgx" firstAttribute="top" secondItem="lxX-Pm-dhn" secondAttribute="bottom" constant="6" id="IMk-Bn-BvA"/>
-                <constraint firstItem="ysT-Br-eSf" firstAttribute="leading" secondItem="Zna-RM-nBO" secondAttribute="leading" constant="18" id="IRH-Nz-63Z"/>
+                <constraint firstItem="ysT-Br-eSf" firstAttribute="leading" secondItem="Zna-RM-nBO" secondAttribute="leading" constant="22" id="IRH-Nz-63Z"/>
                 <constraint firstItem="2I4-c8-jan" firstAttribute="leading" secondItem="Zna-RM-nBO" secondAttribute="leading" constant="97" id="KkK-vj-D89"/>
                 <constraint firstItem="Zna-RM-nBO" firstAttribute="leading" secondItem="Dd4-T9-cLi" secondAttribute="leading" id="LYa-bl-lUy"/>
                 <constraint firstItem="u5h-MS-cR3" firstAttribute="top" secondItem="5mI-gS-xH9" secondAttribute="bottom" constant="8" id="LsX-ay-wID"/>
