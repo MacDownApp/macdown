@@ -1,1 +1,42 @@
-/* No Localized Strings */
+/* Class = "NSButtonCell"; title = "Footnote"; ObjectID = "0yU-vT-72e"; */
+"0yU-vT-72e.title" = "Nota al pie";
+
+/* Class = "NSButtonCell"; title = "Quote"; ObjectID = "2lB-hq-5eX"; */
+"2lB-hq-5eX.title" = "Cita";
+
+/* Class = "NSButtonCell"; title = "Highlight"; ObjectID = "8kI-gm-5Lo"; */
+"8kI-gm-5Lo.title" = "Destacar";
+
+/* Class = "NSButtonCell"; title = "Intra-word emphasis"; ObjectID = "D7l-nP-P0y"; */
+"D7l-nP-P0y.title" = "Énfasis intra-palabra";
+
+/* Class = "NSButtonCell"; title = "Fenced code block"; ObjectID = "ELg-sx-vIf"; */
+"ELg-sx-vIf.title" = "Bloque de código cercado";
+
+/* Class = "NSButtonCell"; title = "Underline"; ObjectID = "Gdr-Ro-ZnW"; */
+"Gdr-Ro-ZnW.title" = "Subrayado";
+
+/* Class = "NSButtonCell"; title = "Strikethrough"; ObjectID = "RjP-zE-c6b"; */
+"RjP-zE-c6b.title" = "Tachado";
+
+/* Class = "NSButtonCell"; title = "Autolink"; ObjectID = "Roe-rh-8f9"; */
+"Roe-rh-8f9.title" = "Autoenlace";
+
+/* Class = "NSBox"; title = "Block formatting"; ObjectID = "TXy-fD-S4Y"; */
+"TXy-fD-S4Y.title" = "Formato de bloque";
+
+/* Class = "NSBox"; title = "Inline formatting"; ObjectID = "Ycc-Px-jbu"; */
+"Ycc-Px-jbu.title" = "Formato en línea";
+
+/* Class = "NSButtonCell"; title = "Smartypants"; ObjectID = "aSK-nR-xMr"; */
+"aSK-nR-xMr.title" = "Smartypants";
+
+/* Class = "NSButtonCell"; title = "Superscript"; ObjectID = "k2n-VN-cKT"; */
+"k2n-VN-cKT.title" = "Superíndice";
+
+/* Class = "NSBox"; title = "Document formatting"; ObjectID = "x36-52-U0p"; */
+"x36-52-U0p.title" = "Formato del documento";
+
+/* Class = "NSButtonCell"; title = "Table"; ObjectID = "z8g-3M-hbc"; */
+"z8g-3M-hbc.title" = "Tabla";
+

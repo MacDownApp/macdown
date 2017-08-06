@@ -10,6 +10,9 @@
 /* Class = "NSMenuItem"; title = "Enter Full Screen"; ObjectID = "1gz-YB-DZE"; */
 "1gz-YB-DZE.title" = "Vollbildmodus";
 
+/* Class = "NSMenuItem"; title = "Highlight"; ObjectID = "2Os-ij-Aup"; */
+"2Os-ij-Aup.title" = "Markiert";
+
 /* Class = "NSMenuItem"; title = "Transformations"; ObjectID = "2oI-Rn-ZJC"; */
 "2oI-Rn-ZJC.title" = "Transformationen";
 
@@ -41,7 +44,7 @@
 "6dh-zS-Vam.title" = "Wiederholen";
 
 /* Class = "NSMenuItem"; title = "Check for Updates…"; ObjectID = "8xL-1V-VPX"; */
-"8xL-1V-VPX.title" = "Auf Aktualisierungen prüfen…";
+"8xL-1V-VPX.title" = "Auf Aktualisierungen prüfen …";
 
 /* Class = "NSMenuItem"; title = "Strikethrough"; ObjectID = "9CN-Qi-Fln"; */
 "9CN-Qi-Fln.title" = "Durchgestrichen";
@@ -65,10 +68,10 @@
 "B98-b8-che.title" = "Überschrift 4";
 
 /* Class = "NSMenuItem"; title = "Preferences…"; ObjectID = "BOF-NM-1cW"; */
-"BOF-NM-1cW.title" = "Einstellungen…";
+"BOF-NM-1cW.title" = "Einstellungen …";
 
 /* Class = "NSMenuItem"; title = "Save As…"; ObjectID = "Bw7-FT-i3A"; */
-"Bw7-FT-i3A.title" = "Sichern als…";
+"Bw7-FT-i3A.title" = "Sichern als …";
 
 /* Class = "NSMenuItem"; title = "Header 6"; ObjectID = "D4C-PE-qJi"; */
 "D4C-PE-qJi.title" = "Überschrift 6";
@@ -101,10 +104,13 @@
 "I8Y-e8-XDx.title" = "Ändern in";
 
 /* Class = "NSMenuItem"; title = "Open…"; ObjectID = "IAo-SY-fd9"; */
-"IAo-SY-fd9.title" = "Öffnen… ";
+"IAo-SY-fd9.title" = "Öffnen … ";
 
 /* Class = "NSMenuItem"; title = "Shift Left"; ObjectID = "Jzs-tR-jkL"; */
 "Jzs-tR-jkL.title" = "Nach links verschieben";
+
+/* Class = "NSMenuItem"; title = "Revert to Saved"; ObjectID = "KaW-ft-85H"; */
+"KaW-ft-85H.title" = "Zurück zur letzten Version";
 
 /* Class = "NSMenuItem"; title = "Show All"; ObjectID = "Kd2-mp-pUS"; */
 "Kd2-mp-pUS.title" = "Alle einblenden";
@@ -137,7 +143,7 @@
 "Oyz-dy-DGm.title" = "Sprachausgabe stoppen";
 
 /* Class = "NSMenu"; title = "Plug-ins"; ObjectID = "Ppl-BS-KtG"; */
-"Ppl-BS-KtG.title" = "Plug-Ins";
+"Ppl-BS-KtG.title" = "Plug-ins";
 
 /* Class = "NSMenuItem"; title = "Zoom"; ObjectID = "R4o-n2-Eq4"; */
 "R4o-n2-Eq4.title" = "Zoomen";
@@ -154,11 +160,14 @@
 /* Class = "NSMenu"; title = "Export"; ObjectID = "SJM-Pp-ywb"; */
 "SJM-Pp-ywb.title" = "Exportieren";
 
+/* Class = "NSMenuItem"; title = "Hide Preview Pane"; ObjectID = "T74-vt-YUA"; */
+"T74-vt-YUA.title" = "Vorschau ausblenden";
+
 /* Class = "NSMenu"; title = "Window"; ObjectID = "Td7-aD-5lo"; */
 "Td7-aD-5lo.title" = "Fenster";
 
 /* Class = "NSMenuItem"; title = "Capitalize"; ObjectID = "UEZ-Bs-lqG"; */
-"UEZ-Bs-lqG.title" = "Großbuchstaben";
+"UEZ-Bs-lqG.title" = "Großschreiben";
 
 /* Class = "NSMenuItem"; title = "Left 1:3 Right"; ObjectID = "VW7-VH-9yl"; */
 "VW7-VH-9yl.title" = "Links 1:3 Rechts";
@@ -179,7 +188,7 @@
 "Was-JA-tGl.title" = "Neu";
 
 /* Class = "NSMenuItem"; title = "PDF…"; ObjectID = "XFN-MJ-RrW"; */
-"XFN-MJ-RrW.title" = "PDF...";
+"XFN-MJ-RrW.title" = "PDF …";
 
 /* Class = "NSMenuItem"; title = "Find…"; ObjectID = "Xz5-n4-O0W"; */
 "Xz5-n4-O0W.title" = "Suchen … ";
@@ -191,13 +200,13 @@
 "Ynk-f8-cLZ.title" = "Sprachausgabe starten";
 
 /* Class = "NSMenuItem"; title = "Print…"; ObjectID = "aTl-1u-JFS"; */
-"aTl-1u-JFS.title" = "Drucken...";
+"aTl-1u-JFS.title" = "Drucken …";
 
 /* Class = "NSMenuItem"; title = "Window"; ObjectID = "aUF-d1-5bR"; */
 "aUF-d1-5bR.title" = "Fenster";
 
 /* Class = "NSMenuItem"; title = "Plug-ins"; ObjectID = "bMu-UN-Yfx"; */
-"bMu-UN-Yfx.title" = "Plug-Ins";
+"bMu-UN-Yfx.title" = "Plug-ins";
 
 /* Class = "NSMenu"; title = "File"; ObjectID = "bib-Uj-vzu"; */
 "bib-Uj-vzu.title" = "Ablage";
@@ -212,7 +221,7 @@
 "d9M-CD-aMd.title" = "Kleinbuchstaben";
 
 /* Class = "NSMenuItem"; title = "HTML…"; ObjectID = "dGm-Yl-i3Z"; */
-"dGm-Yl-i3Z.title" = "HTML...";
+"dGm-Yl-i3Z.title" = "HTML …";
 
 /* Class = "NSMenuItem"; title = "File"; ObjectID = "dMs-cI-mzQ"; */
 "dMs-cI-mzQ.title" = "Ablage";
@@ -245,7 +254,7 @@
 "i8c-gf-w29.title" = "Kommentar";
 
 /* Class = "NSMenuItem"; title = "Inline Code"; ObjectID = "iRQ-Q6-N4K"; */
-"iRQ-Q6-N4K.title" = "Inline Code";
+"iRQ-Q6-N4K.title" = "Inline-Code";
 
 /* Class = "NSMenuItem"; title = "Unordered List"; ObjectID = "jn0-Kb-yH6"; */
 "jn0-Kb-yH6.title" = "Ungeordnete Liste";
@@ -269,7 +278,7 @@
 "pa3-QI-u2k.title" = "Löschen";
 
 /* Class = "NSMenuItem"; title = "Save…"; ObjectID = "pxx-59-PXV"; */
-"pxx-59-PXV.title" = "Sichern…";
+"pxx-59-PXV.title" = "Sichern …";
 
 /* Class = "NSMenuItem"; title = "Find Next"; ObjectID = "q09-fT-Sye"; */
 "q09-fT-Sye.title" = "Weitersuchen (vorwärts)";
@@ -292,6 +301,9 @@
 /* Class = "NSMenuItem"; title = "Copy HTML"; ObjectID = "ts7-v5-Htm"; */
 "ts7-v5-Htm.title" = "HTML kopieren";
 
+/* Class = "NSMenuItem"; title = "Blockquote"; ObjectID = "twd-Mb-qNx"; */
+"twd-Mb-qNx.title" = "Block-Zitat";
+
 /* Class = "NSMenu"; title = "MacDown"; ObjectID = "uQy-DD-JDr"; */
 "uQy-DD-JDr.title" = "MacDown";
 
@@ -299,7 +311,7 @@
 "uRl-iY-unG.title" = "Ausschneiden";
 
 /* Class = "NSMenuItem"; title = "MacDown Help"; ObjectID = "ugx-EN-xKu"; */
-"ugx-EN-xKu.title" = "MacDown Hilfe";
+"ugx-EN-xKu.title" = "MacDown-Hilfe";
 
 /* Class = "NSMenuItem"; title = "Clear Menu"; ObjectID = "vNY-rz-j42"; */
 "vNY-rz-j42.title" = "Bereinige Menü";

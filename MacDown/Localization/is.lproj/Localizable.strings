@@ -1,0 +1,48 @@
+/* Prism theme title */
+"(Default)" = "(Sjálfgefið)";
+
+/* Displayed when shell utility is not installed */
+"<Not installed>" = "<Not installed>";
+
+/* preview navigation error information */
+"An error occurred while creating the file:
+%@" = "Villa kom upp við að búa til skrána:
+%@";
+
+/* preview navigation error message */
+"Can’t create file:
+%@" = "Gat ekki búið til skrá:
+%@";
+
+/* Preference pane title. */
+"Editor" = "Ritill";
+
+/* preview navigation error message */
+"File not found at path:
+%@" = "Skráin fannst ekki:
+%@";
+
+/* Preference pane title. */
+"General" = "Almennt";
+
+/* Install shell utility button */
+"Install" = "Setja upp";
+
+/* (No Commment) */
+"JJ_PLURAL_FORM_RULE" = "1";
+
+/* Preference pane title. */
+"Markdown" = "Markdown";
+
+/* Preferences window title. */
+"Preferences" = "Stillingar";
+
+/* Uninstall shell utility button */
+"Uninstall" = "Fjarlægja";
+
+/* default filename if no title can be determined */
+"Untitled" = "Ónefnt";
+
+/* No comment provided by engineer. */
+"WORDS_PLURAL_STRING" = "%@ orð;%@ orð";
+

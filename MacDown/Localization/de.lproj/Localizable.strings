@@ -6,7 +6,14 @@
 
 /* preview navigation error information */
 "An error occurred while creating the file:
-%@" = "Bei der Erstellung des Dokumentes ist ein Fehler aufgetreten: %@";
+%@" = "Bei der Erstellung des Dokuments ist ein Fehler aufgetreten:
+ %@";
+
+/* No comment provided by engineer. */
+"CHARACTERS_NO_SPACES_PLURAL_STRING" = "%@ Zeichen (ohne Leerzeichen);%@ Zeichen (ohne Leerzeichen)";
+
+/* No comment provided by engineer. */
+"CHARACTERS_PLURAL_STRING" = "%@ Zeichen;%@ Zeichen";
 
 /* preview navigation error message */
 "Can’t create file:
@@ -37,10 +44,15 @@
 /* preview navigation error information */
 "MacDown can’t create a file for the clicked link because 
 the current file is not saved anywhere yet. Save the 
-current file somewhere to enable this feature." = "MacDown kann für den geklickten Link kein neues Dokument erstellen, da das jetzige Dokument noch nicht gespeichert wurde. Speichere das jetzige  Dokument um diese Funktion zu aktivieren.";
+current file somewhere to enable this feature." = "MacDown kann für den ausgewählten Link kein neues Dokument erstellen, da das jetzige Dokument noch nicht gespeichert wurde. Speichere das jetzige Dokument, um diese Funktion zu aktivieren.";
 
 /* Preference pane title. */
 "Markdown" = "Markdown";
+
+/* preview navigation error information */
+"Please check the path of your link is correct. Turn on 
+“Automatically create link targets” If you want MacDown to 
+create nonexistent link targets for you." = "Bitte prüfe den angegebenen Link. Aktiviere „Automatisch Dateien für Links erzeugen“, wenn MacDown Link-Ziele automatisch erstellen soll.";
 
 /* Preferences window title. */
 "Preferences" = "Einstellungen";
@@ -55,10 +67,10 @@ current file somewhere to enable this feature." = "MacDown kann für den geklick
 "Restore Preview Pane" = "Vorschau einblenden";
 
 /* Label stating that shell utility has been installed */
-"Shell utility installed" = "Shell Erweiterung installiert";
+"Shell utility installed" = "Shell-Erweiterung installiert";
 
 /* Label stating that shell utility has not been installed */
-"Shell utility not installed" = "Shell Erweiterung nicht installiert";
+"Shell utility not installed" = "Shell-Erweiterung nicht installiert";
 
 /* Preference pane title. */
 "Terminal" = "Terminal";
@@ -68,4 +80,7 @@ current file somewhere to enable this feature." = "MacDown kann für den geklick
 
 /* default filename if no title can be determined */
 "Untitled" = "Ohne Titel";
+
+/* No comment provided by engineer. */
+"WORDS_PLURAL_STRING" = "%@ Wort;%@ Wörter";
 

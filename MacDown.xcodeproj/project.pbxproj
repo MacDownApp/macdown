@@ -150,6 +150,42 @@
 		1A198D1BA59D710201DD3BC8 /* Pods-MacDown.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacDown.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MacDown/Pods-MacDown.debug.xcconfig"; sourceTree = "<group>"; };
 		1F002A21195B3DAE008B8D93 /* MPRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPRenderer.h; sourceTree = "<group>"; };
 		1F002A22195B3DAE008B8D93 /* MPRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPRenderer.m; sourceTree = "<group>"; };
+		1F05E8AB1F36E53B00E4D06C /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = Localization/fr.lproj/MainMenu.strings; sourceTree = "<group>"; };
+		1F05E8AC1F36E53C00E4D06C /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = Localization/fr.lproj/MPExportPanelAccessoryViewController.strings; sourceTree = "<group>"; };
+		1F05E8AD1F36E53C00E4D06C /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = Localization/fr.lproj/MPGeneralPreferencesViewController.strings; sourceTree = "<group>"; };
+		1F05E8AE1F36E53C00E4D06C /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = Localization/fr.lproj/MPMarkdownPreferencesViewController.strings; sourceTree = "<group>"; };
+		1F05E8AF1F36E53C00E4D06C /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = Localization/fr.lproj/MPEditorPreferencesViewController.strings; sourceTree = "<group>"; };
+		1F05E8B01F36E53C00E4D06C /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = Localization/fr.lproj/MPHtmlPreferencesViewController.strings; sourceTree = "<group>"; };
+		1F05E8B11F36E53C00E4D06C /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/MPTerminalPreferencesViewController.strings; sourceTree = "<group>"; };
+		1F05E8B21F36E53C00E4D06C /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = Localization/fr.lproj/MPDocument.strings; sourceTree = "<group>"; };
+		1F05E8B31F36E53C00E4D06C /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = fr; path = Localization/fr.lproj/Credits.rtf; sourceTree = "<group>"; };
+		1F05E8B41F36E56200E4D06C /* is */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = is; path = Localization/is.lproj/MainMenu.strings; sourceTree = "<group>"; };
+		1F05E8B51F36E56200E4D06C /* is */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = is; path = Localization/is.lproj/MPExportPanelAccessoryViewController.strings; sourceTree = "<group>"; };
+		1F05E8B61F36E56200E4D06C /* is */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = is; path = Localization/is.lproj/MPGeneralPreferencesViewController.strings; sourceTree = "<group>"; };
+		1F05E8B71F36E56200E4D06C /* is */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = is; path = Localization/is.lproj/MPMarkdownPreferencesViewController.strings; sourceTree = "<group>"; };
+		1F05E8B81F36E56300E4D06C /* is */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = is; path = Localization/is.lproj/MPEditorPreferencesViewController.strings; sourceTree = "<group>"; };
+		1F05E8B91F36E56300E4D06C /* is */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = is; path = Localization/is.lproj/MPHtmlPreferencesViewController.strings; sourceTree = "<group>"; };
+		1F05E8BA1F36E56300E4D06C /* is */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = is; path = is.lproj/MPTerminalPreferencesViewController.strings; sourceTree = "<group>"; };
+		1F05E8BB1F36E56300E4D06C /* is */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = is; path = Localization/is.lproj/MPDocument.strings; sourceTree = "<group>"; };
+		1F05E8BC1F36E56300E4D06C /* is */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = is; path = Localization/is.lproj/Credits.rtf; sourceTree = "<group>"; };
+		1F05E8BD1F36E58700E4D06C /* ko-KR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ko-KR"; path = "Localization/ko-KR.lproj/MainMenu.strings"; sourceTree = "<group>"; };
+		1F05E8BE1F36E58700E4D06C /* ko-KR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ko-KR"; path = "Localization/ko-KR.lproj/MPExportPanelAccessoryViewController.strings"; sourceTree = "<group>"; };
+		1F05E8BF1F36E58700E4D06C /* ko-KR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ko-KR"; path = "Localization/ko-KR.lproj/MPGeneralPreferencesViewController.strings"; sourceTree = "<group>"; };
+		1F05E8C01F36E58700E4D06C /* ko-KR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ko-KR"; path = "Localization/ko-KR.lproj/MPMarkdownPreferencesViewController.strings"; sourceTree = "<group>"; };
+		1F05E8C11F36E58800E4D06C /* ko-KR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ko-KR"; path = "Localization/ko-KR.lproj/MPEditorPreferencesViewController.strings"; sourceTree = "<group>"; };
+		1F05E8C21F36E58800E4D06C /* ko-KR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ko-KR"; path = "Localization/ko-KR.lproj/MPHtmlPreferencesViewController.strings"; sourceTree = "<group>"; };
+		1F05E8C31F36E58800E4D06C /* ko-KR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ko-KR"; path = "ko-KR.lproj/MPTerminalPreferencesViewController.strings"; sourceTree = "<group>"; };
+		1F05E8C41F36E58800E4D06C /* ko-KR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ko-KR"; path = "Localization/ko-KR.lproj/MPDocument.strings"; sourceTree = "<group>"; };
+		1F05E8C51F36E58800E4D06C /* ko-KR */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = "ko-KR"; path = "Localization/ko-KR.lproj/Credits.rtf"; sourceTree = "<group>"; };
+		1F05E8C61F36E5A900E4D06C /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "Localization/pt-BR.lproj/MainMenu.strings"; sourceTree = "<group>"; };
+		1F05E8C71F36E5A900E4D06C /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "Localization/pt-BR.lproj/MPExportPanelAccessoryViewController.strings"; sourceTree = "<group>"; };
+		1F05E8C81F36E5AA00E4D06C /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "Localization/pt-BR.lproj/MPGeneralPreferencesViewController.strings"; sourceTree = "<group>"; };
+		1F05E8C91F36E5AA00E4D06C /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "Localization/pt-BR.lproj/MPMarkdownPreferencesViewController.strings"; sourceTree = "<group>"; };
+		1F05E8CA1F36E5AA00E4D06C /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "Localization/pt-BR.lproj/MPEditorPreferencesViewController.strings"; sourceTree = "<group>"; };
+		1F05E8CB1F36E5AA00E4D06C /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "Localization/pt-BR.lproj/MPHtmlPreferencesViewController.strings"; sourceTree = "<group>"; };
+		1F05E8CC1F36E5AA00E4D06C /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/MPTerminalPreferencesViewController.strings"; sourceTree = "<group>"; };
+		1F05E8CD1F36E5AA00E4D06C /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "Localization/pt-BR.lproj/MPDocument.strings"; sourceTree = "<group>"; };
+		1F05E8CE1F36E5AA00E4D06C /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = "pt-BR"; path = "Localization/pt-BR.lproj/Credits.rtf"; sourceTree = "<group>"; };
 		1F0D9D5E194AC7CF008E1856 /* NSString+Lookup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Lookup.h"; sourceTree = "<group>"; };
 		1F0D9D5F194AC7CF008E1856 /* NSString+Lookup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Lookup.m"; sourceTree = "<group>"; };
 		1F0D9D60194AC7CF008E1856 /* NSTextView+Autocomplete.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTextView+Autocomplete.h"; sourceTree = "<group>"; };
@@ -858,6 +894,10 @@
 				ja,
 				sk,
 				ar,
+				fr,
+				is,
+				"ko-KR",
+				"pt-BR",
 			);
 			mainGroup = 1FA6DE181941CC9E000409FB;
 			productRefGroup = 1FA6DE221941CC9E000409FB /* Products */;
@@ -1183,6 +1223,10 @@
 				1F90342E1EC556EC00D97F9C /* ja */,
 				1F9034391EC556F300D97F9C /* sk */,
 				1F9034441EC5576E00D97F9C /* ar */,
+				1F05E8AB1F36E53B00E4D06C /* fr */,
+				1F05E8B41F36E56200E4D06C /* is */,
+				1F05E8BD1F36E58700E4D06C /* ko-KR */,
+				1F05E8C61F36E5A900E4D06C /* pt-BR */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";
@@ -1200,6 +1244,10 @@
 				1F9034341EC556EC00D97F9C /* ja */,
 				1F90343F1EC556F300D97F9C /* sk */,
 				1F90344A1EC5576E00D97F9C /* ar */,
+				1F05E8B21F36E53C00E4D06C /* fr */,
+				1F05E8BB1F36E56300E4D06C /* is */,
+				1F05E8C41F36E58800E4D06C /* ko-KR */,
+				1F05E8CD1F36E5AA00E4D06C /* pt-BR */,
 			);
 			name = MPDocument.xib;
 			path = ../..;
@@ -1218,6 +1266,10 @@
 				1F9034321EC556EC00D97F9C /* ja */,
 				1F90343D1EC556F300D97F9C /* sk */,
 				1F9034481EC5576E00D97F9C /* ar */,
+				1F05E8AF1F36E53C00E4D06C /* fr */,
+				1F05E8B81F36E56300E4D06C /* is */,
+				1F05E8C11F36E58800E4D06C /* ko-KR */,
+				1F05E8CA1F36E5AA00E4D06C /* pt-BR */,
 			);
 			name = MPEditorPreferencesViewController.xib;
 			path = ../..;
@@ -1236,6 +1288,10 @@
 				1F9034331EC556EC00D97F9C /* ja */,
 				1F90343E1EC556F300D97F9C /* sk */,
 				1F9034491EC5576E00D97F9C /* ar */,
+				1F05E8B01F36E53C00E4D06C /* fr */,
+				1F05E8B91F36E56300E4D06C /* is */,
+				1F05E8C21F36E58800E4D06C /* ko-KR */,
+				1F05E8CB1F36E5AA00E4D06C /* pt-BR */,
 			);
 			name = MPHtmlPreferencesViewController.xib;
 			path = ../..;
@@ -1254,6 +1310,10 @@
 				1F9034311EC556EC00D97F9C /* ja */,
 				1F90343C1EC556F300D97F9C /* sk */,
 				1F9034471EC5576E00D97F9C /* ar */,
+				1F05E8AE1F36E53C00E4D06C /* fr */,
+				1F05E8B71F36E56200E4D06C /* is */,
+				1F05E8C01F36E58700E4D06C /* ko-KR */,
+				1F05E8C91F36E5AA00E4D06C /* pt-BR */,
 			);
 			name = MPMarkdownPreferencesViewController.xib;
 			path = ../..;
@@ -1272,6 +1332,10 @@
 				1F9034351EC556EC00D97F9C /* ja */,
 				1F9034401EC556F300D97F9C /* sk */,
 				1F90344B1EC5576E00D97F9C /* ar */,
+				1F05E8B31F36E53C00E4D06C /* fr */,
+				1F05E8BC1F36E56300E4D06C /* is */,
+				1F05E8C51F36E58800E4D06C /* ko-KR */,
+				1F05E8CE1F36E5AA00E4D06C /* pt-BR */,
 			);
 			name = Credits.rtf;
 			sourceTree = "<group>";
@@ -1323,6 +1387,10 @@
 				1F3619F61F36DA1C00EDA15A /* ja */,
 				1F3619F81F36DA1D00EDA15A /* sk */,
 				1F3619FA1F36DA1F00EDA15A /* ar */,
+				1F05E8B11F36E53C00E4D06C /* fr */,
+				1F05E8BA1F36E56300E4D06C /* is */,
+				1F05E8C31F36E58800E4D06C /* ko-KR */,
+				1F05E8CC1F36E5AA00E4D06C /* pt-BR */,
 			);
 			name = MPTerminalPreferencesViewController.xib;
 			path = ../../Localization;
@@ -1341,6 +1409,10 @@
 				1F90342F1EC556EC00D97F9C /* ja */,
 				1F90343A1EC556F300D97F9C /* sk */,
 				1F9034451EC5576E00D97F9C /* ar */,
+				1F05E8AC1F36E53C00E4D06C /* fr */,
+				1F05E8B51F36E56200E4D06C /* is */,
+				1F05E8BE1F36E58700E4D06C /* ko-KR */,
+				1F05E8C71F36E5A900E4D06C /* pt-BR */,
 			);
 			name = MPExportPanelAccessoryViewController.xib;
 			sourceTree = "<group>";
@@ -1358,6 +1430,10 @@
 				1F9034301EC556EC00D97F9C /* ja */,
 				1F90343B1EC556F300D97F9C /* sk */,
 				1F9034461EC5576E00D97F9C /* ar */,
+				1F05E8AD1F36E53C00E4D06C /* fr */,
+				1F05E8B61F36E56200E4D06C /* is */,
+				1F05E8BF1F36E58700E4D06C /* ko-KR */,
+				1F05E8C81F36E5AA00E4D06C /* pt-BR */,
 			);
 			name = MPGeneralPreferencesViewController.xib;
 			path = ../..;

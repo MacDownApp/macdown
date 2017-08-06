@@ -1,0 +1,63 @@
+
+/* Class = "NSTextFieldCell"; title = "List marker:"; ObjectID = "0Bc-iD-VCh"; */
+"0Bc-iD-VCh.title" = "List marker:";
+
+/* Class = "NSButtonCell"; title = "⌘← jumps to first non-whitespace character in line"; ObjectID = "2Yf-FT-MDH"; */
+"2Yf-FT-MDH.title" = "⌘← jumps to first non-whitespace character in line";
+
+/* Class = "NSMenuItem"; title = "- (Minus sign)"; ObjectID = "2yJ-j5-PLm"; */
+"2yJ-j5-PLm.title" = "- (Minus sign)";
+
+/* Class = "NSBox"; title = "Behavior"; ObjectID = "6JP-Pc-JFd"; */
+"6JP-Pc-JFd.title" = "Behavior";
+
+/* Class = "NSButtonCell"; title = "Change…"; ObjectID = "8bz-cc-gLF"; */
+"8bz-cc-gLF.title" = "Change…";
+
+/* Class = "NSButtonCell"; title = "Ensure newline at end of file on save"; ObjectID = "9Wp-5V-GeQ"; */
+"9Wp-5V-GeQ.title" = "Ensure newline at end of file on save";
+
+/* Class = "NSTextFieldCell"; title = "Text insets:"; ObjectID = "Ee6-Cj-SWW"; */
+"Ee6-Cj-SWW.title" = "Text insets:";
+
+/* Class = "NSSegmentedCell"; GHX-3h-1HI.ibShadowedLabels[0] = "Reveal"; ObjectID = "GHX-3h-1HI"; */
+"GHX-3h-1HI.ibShadowedLabels[0]" = "Reveal";
+
+/* Class = "NSSegmentedCell"; GHX-3h-1HI.ibShadowedLabels[1] = "Reload"; ObjectID = "GHX-3h-1HI"; */
+"GHX-3h-1HI.ibShadowedLabels[1]" = "Reload";
+
+/* Class = "NSTextFieldCell"; title = "Line spacing:"; ObjectID = "InD-Fc-CTS"; */
+"InD-Fc-CTS.title" = "Line spacing:";
+
+/* Class = "NSButtonCell"; title = "Auto-increment numbering in ordered lists"; ObjectID = "UPm-G1-Bc6"; */
+"UPm-G1-Bc6.title" = "Auto-increment numbering in ordered lists";
+
+/* Class = "NSButtonCell"; title = "Insert spaces instead of tabs"; ObjectID = "XSN-mi-gbk"; */
+"XSN-mi-gbk.title" = "Insert spaces instead of tabs";
+
+/* Class = "NSButtonCell"; title = "Limit editor width to"; ObjectID = "bhL-NA-9No"; */
+"bhL-NA-9No.title" = "Limit editor width to";
+
+/* Class = "NSMenuItem"; title = "* (Asterisk)"; ObjectID = "bnJ-BQ-mHV"; */
+"bnJ-BQ-mHV.title" = "* (Asterisk)";
+
+/* Class = "NSTextFieldCell"; title = "Base font:"; ObjectID = "eXF-SL-hBq"; */
+"eXF-SL-hBq.title" = "Base font:";
+
+/* Class = "NSTextFieldCell"; title = "×"; ObjectID = "g5w-Qw-Khw"; */
+"g5w-Qw-Khw.title" = "×";
+
+/* Class = "NSButtonCell"; title = "Scroll past end"; ObjectID = "nBR-LK-G9a"; */
+"nBR-LK-G9a.title" = "Scroll past end";
+
+/* Class = "NSButtonCell"; title = "Auto-complete matching characters"; ObjectID = "o4K-iG-sGA"; */
+"o4K-iG-sGA.title" = "Auto-complete matching characters";
+
+/* Class = "NSTextFieldCell"; title = "Theme:"; ObjectID = "vA9-IT-8Z7"; */
+"vA9-IT-8Z7.title" = "Theme:";
+
+/* Class = "NSButtonCell"; title = "Automatically insert line prefix for the current block"; ObjectID = "zGb-kg-2CJ"; */
+"zGb-kg-2CJ.title" = "Automatically insert line prefix for the current block";
+
+/* Class = "NSMenuItem"; title = "+ (Plus sign)"; ObjectID = "zX4-JY-wTT"; */
+"zX4-JY-wTT.title" = "+ (Plus sign)";
