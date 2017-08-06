@@ -1325,6 +1325,7 @@
 				1F3619FA1F36DA1F00EDA15A /* ar */,
 			);
 			name = MPTerminalPreferencesViewController.xib;
+			path = ../../Localization;
 			sourceTree = "<group>";
 		};
 		1FB3C0221E5061A2002AEB6A /* MPExportPanelAccessoryViewController.xib */ = {
