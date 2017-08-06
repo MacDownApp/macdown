@@ -34,6 +34,7 @@
 		1F3386E61A6B999600FC88C4 /* DOMNode+Text.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F3386E51A6B999600FC88C4 /* DOMNode+Text.m */; };
 		1F33F2A11A3B4B660001C849 /* MPDocumentSplitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F33F2A01A3B4B660001C849 /* MPDocumentSplitView.m */; };
 		1F33F2A41A3B56D20001C849 /* NSColor+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F33F2A31A3B56D20001C849 /* NSColor+HTML.m */; };
+		1F3619E61F36DA0F00EDA15A /* MPTerminalPreferencesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F3619E81F36DA0F00EDA15A /* MPTerminalPreferencesViewController.xib */; };
 		1F396E6619B0EA17000D3EFC /* MPEditorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F396E6519B0EA17000D3EFC /* MPEditorView.m */; };
 		1F3A47521953E84700293259 /* help.md in Resources */ = {isa = PBXBuildFile; fileRef = 1F3A47511953E84700293259 /* help.md */; };
 		1F3FC8AA1C85AE9F000965E1 /* MacDown.sdef in Resources */ = {isa = PBXBuildFile; fileRef = 1F3FC8A91C85AE9F000965E1 /* MacDown.sdef */; };
@@ -83,7 +84,6 @@
 		1FFF301D1948A5320009AF24 /* MPStringLookupTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FFF301C1948A5320009AF24 /* MPStringLookupTests.m */; };
 		770BB49E962A302D0715A6A5 /* libPods-MacDown.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 42F926DD38559C7CEDB6E42F /* libPods-MacDown.a */; };
 		852D523C1E260A6400BA7162 /* MPTerminalPreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 852D523A1E260A6400BA7162 /* MPTerminalPreferencesViewController.m */; };
-		852D523D1E260A6400BA7162 /* MPTerminalPreferencesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 852D523B1E260A6400BA7162 /* MPTerminalPreferencesViewController.xib */; };
 		905EF1A9196164CA00FC3CE9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 905EF1A8196164CA00FC3CE9 /* Foundation.framework */; };
 		905EF1B7196164F300FC3CE9 /* macdown in Copy Command Line Utility */ = {isa = PBXBuildFile; fileRef = 905EF1A7196164CA00FC3CE9 /* macdown */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		B5C5C1666A506FEA86435D25 /* libPods-macdown-cmd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 263367245B2D78A42C2F19D7 /* libPods-macdown-cmd.a */; };
@@ -191,6 +191,16 @@
 		1F33F2A01A3B4B660001C849 /* MPDocumentSplitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPDocumentSplitView.m; sourceTree = "<group>"; };
 		1F33F2A21A3B56D20001C849 /* NSColor+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSColor+HTML.h"; sourceTree = "<group>"; };
 		1F33F2A31A3B56D20001C849 /* NSColor+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSColor+HTML.m"; sourceTree = "<group>"; };
+		1F3619E71F36DA0F00EDA15A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MPTerminalPreferencesViewController.xib; sourceTree = "<group>"; };
+		1F3619EA1F36DA1300EDA15A /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/MPTerminalPreferencesViewController.strings; sourceTree = "<group>"; };
+		1F3619EC1F36DA1400EDA15A /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/MPTerminalPreferencesViewController.strings"; sourceTree = "<group>"; };
+		1F3619EE1F36DA1600EDA15A /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/MPTerminalPreferencesViewController.strings"; sourceTree = "<group>"; };
+		1F3619F01F36DA1700EDA15A /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/MPTerminalPreferencesViewController.strings; sourceTree = "<group>"; };
+		1F3619F21F36DA1800EDA15A /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/MPTerminalPreferencesViewController.strings; sourceTree = "<group>"; };
+		1F3619F41F36DA1A00EDA15A /* it-IT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "it-IT"; path = "it-IT.lproj/MPTerminalPreferencesViewController.strings"; sourceTree = "<group>"; };
+		1F3619F61F36DA1C00EDA15A /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/MPTerminalPreferencesViewController.strings; sourceTree = "<group>"; };
+		1F3619F81F36DA1D00EDA15A /* sk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sk; path = sk.lproj/MPTerminalPreferencesViewController.strings; sourceTree = "<group>"; };
+		1F3619FA1F36DA1F00EDA15A /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/MPTerminalPreferencesViewController.strings; sourceTree = "<group>"; };
 		1F396E6419B0EA17000D3EFC /* MPEditorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPEditorView.h; sourceTree = "<group>"; };
 		1F396E6519B0EA17000D3EFC /* MPEditorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPEditorView.m; sourceTree = "<group>"; };
 		1F3A47511953E84700293259 /* help.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = help.md; path = Resources/help.md; sourceTree = "<group>"; };
@@ -376,7 +386,6 @@
 		7A8EA75FA95818275755F0B6 /* Pods-macdown-cmd.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-macdown-cmd.release.xcconfig"; path = "Pods/Target Support Files/Pods-macdown-cmd/Pods-macdown-cmd.release.xcconfig"; sourceTree = "<group>"; };
 		852D52391E260A6400BA7162 /* MPTerminalPreferencesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPTerminalPreferencesViewController.h; sourceTree = "<group>"; };
 		852D523A1E260A6400BA7162 /* MPTerminalPreferencesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPTerminalPreferencesViewController.m; sourceTree = "<group>"; };
-		852D523B1E260A6400BA7162 /* MPTerminalPreferencesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MPTerminalPreferencesViewController.xib; sourceTree = "<group>"; };
 		8CDC5EA0050D2F722FB1AADD /* Pods-MacDownTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacDownTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MacDownTests/Pods-MacDownTests.debug.xcconfig"; sourceTree = "<group>"; };
 		905EF1A7196164CA00FC3CE9 /* macdown */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = macdown; sourceTree = BUILT_PRODUCTS_DIR; };
 		905EF1A8196164CA00FC3CE9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -480,7 +489,7 @@
 				1F0D9D87194AC83C008E1856 /* MPHtmlPreferencesViewController.xib */,
 				852D52391E260A6400BA7162 /* MPTerminalPreferencesViewController.h */,
 				852D523A1E260A6400BA7162 /* MPTerminalPreferencesViewController.m */,
-				852D523B1E260A6400BA7162 /* MPTerminalPreferencesViewController.xib */,
+				1F3619E81F36DA0F00EDA15A /* MPTerminalPreferencesViewController.xib */,
 				1F0D9D72194AC7F7008E1856 /* MPPreferences.h */,
 				1F0D9D73194AC7F7008E1856 /* MPPreferences.m */,
 			);
@@ -894,7 +903,7 @@
 				1F0D9DAA194AC8CB008E1856 /* Credits.rtf in Resources */,
 				1FBDFEA51962A27300BEEA70 /* MPGeneralPreferencesViewController.xib in Resources */,
 				1F0F3BFC195F75F200FC0B3B /* MathJax in Resources */,
-				852D523D1E260A6400BA7162 /* MPTerminalPreferencesViewController.xib in Resources */,
+				1F3619E61F36DA0F00EDA15A /* MPTerminalPreferencesViewController.xib in Resources */,
 				1F4C8E9A194AE0B9004BF82E /* MarkdownDocument.icns in Resources */,
 				1F59491B1AB57C78007394CB /* syntax_highlighting.json in Resources */,
 				1F0D9DAB194AC8CB008E1856 /* InfoPlist.strings in Resources */,
@@ -1299,6 +1308,23 @@
 				1F90344D1EC5576E00D97F9C /* ar */,
 			);
 			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		1F3619E81F36DA0F00EDA15A /* MPTerminalPreferencesViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1F3619E71F36DA0F00EDA15A /* Base */,
+				1F3619EA1F36DA1300EDA15A /* sv */,
+				1F3619EC1F36DA1400EDA15A /* zh-Hant */,
+				1F3619EE1F36DA1600EDA15A /* zh-Hans */,
+				1F3619F01F36DA1700EDA15A /* de */,
+				1F3619F21F36DA1800EDA15A /* es */,
+				1F3619F41F36DA1A00EDA15A /* it-IT */,
+				1F3619F61F36DA1C00EDA15A /* ja */,
+				1F3619F81F36DA1D00EDA15A /* sk */,
+				1F3619FA1F36DA1F00EDA15A /* ar */,
+			);
+			name = MPTerminalPreferencesViewController.xib;
 			sourceTree = "<group>";
 		};
 		1FB3C0221E5061A2002AEB6A /* MPExportPanelAccessoryViewController.xib */ = {
