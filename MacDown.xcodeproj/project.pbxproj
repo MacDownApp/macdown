@@ -221,6 +221,18 @@
 		1F25E1C21A50F4F10029371D /* MPColorTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPColorTests.m; sourceTree = "<group>"; };
 		1F2649AE1A7406DB00EF6AF3 /* NSDocumentController+Document.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDocumentController+Document.h"; sourceTree = "<group>"; };
 		1F2649AF1A7406DB00EF6AF3 /* NSDocumentController+Document.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDocumentController+Document.m"; sourceTree = "<group>"; };
+		1F2ABCFC1F381089005FB620 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "Localization/pt-BR.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		1F2ABCFD1F38108C005FB620 /* ko-KR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ko-KR"; path = "Localization/ko-KR.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		1F2ABCFE1F38108E005FB620 /* is */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = is; path = Localization/is.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1F2ABCFF1F381090005FB620 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = Localization/fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1F2ABD001F381094005FB620 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = Localization/fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		1F2ABD011F381096005FB620 /* is */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = is; path = Localization/is.lproj/Localizable.strings; sourceTree = "<group>"; };
+		1F2ABD021F381099005FB620 /* ko-KR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ko-KR"; path = "Localization/ko-KR.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		1F2ABD031F38109A005FB620 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "Localization/pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		1F2ABD041F38113B005FB620 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1F2ABD051F38113C005FB620 /* is */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = is; path = is.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1F2ABD061F38113E005FB620 /* ko-KR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ko-KR"; path = "ko-KR.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		1F2ABD071F381140005FB620 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		1F3386E41A6B999600FC88C4 /* DOMNode+Text.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DOMNode+Text.h"; sourceTree = "<group>"; };
 		1F3386E51A6B999600FC88C4 /* DOMNode+Text.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DOMNode+Text.m"; sourceTree = "<group>"; };
 		1F33F29F1A3B4B660001C849 /* MPDocumentSplitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPDocumentSplitView.h; sourceTree = "<group>"; };
@@ -1353,6 +1365,10 @@
 				1F9034361EC556EC00D97F9C /* ja */,
 				1F9034411EC556F300D97F9C /* sk */,
 				1F90344C1EC5576E00D97F9C /* ar */,
+				1F2ABCFC1F381089005FB620 /* pt-BR */,
+				1F2ABCFD1F38108C005FB620 /* ko-KR */,
+				1F2ABCFE1F38108E005FB620 /* is */,
+				1F2ABCFF1F381090005FB620 /* fr */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -1370,6 +1386,10 @@
 				1F9034371EC556EC00D97F9C /* ja */,
 				1F9034421EC556F300D97F9C /* sk */,
 				1F90344D1EC5576E00D97F9C /* ar */,
+				1F2ABD001F381094005FB620 /* fr */,
+				1F2ABD011F381096005FB620 /* is */,
+				1F2ABD021F381099005FB620 /* ko-KR */,
+				1F2ABD031F38109A005FB620 /* pt-BR */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -1452,6 +1472,10 @@
 				1F9034381EC556EC00D97F9C /* ja */,
 				1F9034431EC556F300D97F9C /* sk */,
 				1F90344E1EC5576E00D97F9C /* ar */,
+				1F2ABD041F38113B005FB620 /* fr */,
+				1F2ABD051F38113C005FB620 /* is */,
+				1F2ABD061F38113E005FB620 /* ko-KR */,
+				1F2ABD071F381140005FB620 /* pt-BR */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
