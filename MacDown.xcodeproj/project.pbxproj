@@ -85,7 +85,6 @@
 		770BB49E962A302D0715A6A5 /* libPods-MacDown.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 42F926DD38559C7CEDB6E42F /* libPods-MacDown.a */; };
 		85E24E5C1E5019C00056E696 /* MPToolbarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85E24E5B1E5019C00056E696 /* MPToolbarController.m */; };
 		852D523C1E260A6400BA7162 /* MPTerminalPreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 852D523A1E260A6400BA7162 /* MPTerminalPreferencesViewController.m */; };
->>>>>>> master-upstream
 		905EF1A9196164CA00FC3CE9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 905EF1A8196164CA00FC3CE9 /* Foundation.framework */; };
 		905EF1B7196164F300FC3CE9 /* macdown in Copy Command Line Utility */ = {isa = PBXBuildFile; fileRef = 905EF1A7196164CA00FC3CE9 /* macdown */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		B5C5C1666A506FEA86435D25 /* libPods-macdown-cmd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 263367245B2D78A42C2F19D7 /* libPods-macdown-cmd.a */; };
