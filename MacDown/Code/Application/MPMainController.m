@@ -18,6 +18,7 @@
 #import "MPMarkdownPreferencesViewController.h"
 #import "MPEditorPreferencesViewController.h"
 #import "MPHtmlPreferencesViewController.h"
+#import "MPTerminalPreferencesViewController.h"
 #import "MPDocument.h"
 
 
@@ -132,6 +133,7 @@ NS_INLINE void treat()
             [[MPMarkdownPreferencesViewController alloc] init],
             [[MPEditorPreferencesViewController alloc] init],
             [[MPHtmlPreferencesViewController alloc] init],
+            [[MPTerminalPreferencesViewController alloc] init],
         ];
         NSString *title = NSLocalizedString(@"Preferences",
                                             @"Preferences window title.");
@@ -251,7 +253,7 @@ NS_INLINE void treat()
         }
         else
         {
-            [c openUntitledDocumentForURL:url display:YES error:NULL];
+            [c createNewEmptyDocumentForURL:url display:YES error:NULL];
         }
     }
 

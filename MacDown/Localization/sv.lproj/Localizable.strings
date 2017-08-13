@@ -1,15 +1,44 @@
-/*
-  Localizable.strings
-  MacDown
+/* No comment provided by engineer. */
+"CHARACTERS_NO_SPACES_PLURAL_STRING" = "%@ character (inga mellanslag);%@ tecken (inga mellanslag)";
 
-  Created by Tzu-ping Chung  on 14/7.
-  Copyright (c) 2014 Tzu-ping Chung . All rights reserved.
-*/
+/* No comment provided by engineer. */
+"CHARACTERS_PLURAL_STRING" = "%@ tecken;%@ tecken";
 
-"JJ_PLURAL_FORM_RULE" = "1";
+/* Preference pane title. */
+"Editor" = "Redigering";
 
-"WORDS_PLURAL_STRING" = "%@ word;%@ words";
+/* preview navigation error message */
+"File not found at path:
+%@" = "Fil kunde inte hittas på sökväg:
+%@";
 
-"CHARACTERS_PLURAL_STRING" = "%@ character;%@ characters";
+/* Preference pane title. */
+"General" = "Allmänt";
 
-"CHARACTERS_NO_SPACES_PLURAL_STRING" = "%@ character (no spaces);%@ characters (no spaces)";
+/* Toggle editor pane menu item */
+"Hide Editor Pane" = "Dölj redigerings-vy";
+
+/* Toggle preview pane menu item */
+"Hide Preview Pane" = "Dölj förhandsvisnings-vy";
+
+/* Preference pane title. */
+"Markdown" = "Markdown";
+
+/* Preferences window title. */
+"Preferences" = "Inställningar";
+
+/* Preference pane title. */
+"Rendering" = "Rendering";
+
+/* Toggle editor pane menu item */
+"Restore Editor Pane" = "Återställ redigerings-vy";
+
+/* Toggle preview pane menu item */
+"Restore Preview Pane" = "Återställ förhandsvisnings-vy";
+
+/* default filename if no title can be determined */
+"Untitled" = "Namnlöst";
+
+/* No comment provided by engineer. */
+"WORDS_PLURAL_STRING" = "%@ ord;%@ ord";
+

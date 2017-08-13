@@ -81,17 +81,20 @@ def main(argv):
         XCODEBUILD, 'archive', '-workspace', '../MacDown.xcworkspace',
         '-scheme', 'MacDown',
     )
+    if isinstance(output, bytes):
+        output = output.decode(TERM_ENCODING)
     match = re.search(
         r'^\s*ARCHIVE_PATH: (.+)$',
-        output.decode(TERM_ENCODING),
+        output,
         re.MULTILINE,
     )
     archive_path = match.group(1)
+
     print('Exporting application bundle...')
-    execute(
-        XCODEBUILD, '-exportArchive', '-exportFormat', 'app',
-        '-archivePath', archive_path, '-exportPath', APP_NAME,
+    source_app_path = os.path.join(
+        archive_path, 'Products', 'Applications', APP_NAME,
     )
+    shutil.copytree(source_app_path, APP_NAME)
 
     # Zip.
     with zipfile.ZipFile(ZIP_NAME, 'w') as f:

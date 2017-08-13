@@ -1,0 +1,21 @@
+/* Preference pane title. */
+"Editor" = "편집기";
+
+/* Install shell utility button */
+"Install" = "설치";
+
+/* (No Commment) */
+"JJ_PLURAL_FORM_RULE" = "1";
+
+/* Preference pane title. */
+"Markdown" = "마크다운";
+
+/* Preferences window title. */
+"Preferences" = "환경설정";
+
+/* Preference pane title. */
+"Terminal" = "터미널";
+
+/* default filename if no title can be determined */
+"Untitled" = "제목없음";
+
