@@ -47,6 +47,11 @@ static CGFloat itemWidth = 42.5;
 
 - (void)setupToolbarItems
 {
+    // Set up layout drop down alternatives. title will be set in validateUserInterfaceItem:
+    NSMenuItem *toggleEditorMenuItem = [[NSMenuItem alloc] initWithTitle:@"" action:@selector(toggleEditorPane:) keyEquivalent:@"e"];
+    NSMenuItem *togglePreviewMenuItem = [[NSMenuItem alloc] initWithTitle:@"" action:@selector(togglePreviewPane:) keyEquivalent:@"p"];
+    
+    // Set up all available toolbar items
     self->toolbarItems = @[
         [self toolbarItemGroupWithIdentifier:@"indent-group" separated:YES items:@[
             [self toolbarItemWithIdentifier:@"shift-left" label:@"Shift left" icon:@"ToolbarIconShiftLeft" action:@selector(unindent:)],
@@ -77,7 +82,12 @@ static CGFloat itemWidth = 42.5;
         [self toolbarItemWithIdentifier:@"copy-html" label:@"Copy HTML" icon:@"ToolbarIconCopyHTML" action:@selector(copyHTML:)],
         [self toolbarItemWithIdentifier:@"comment" label:@"Comment" icon:@"ToolbarIconComment" action:@selector(toggleComment:)],
         [self toolbarItemWithIdentifier:@"highlight" label:@"Highlight" icon:@"ToolbarIconHighlight" action:@selector(toggleHighlight:)],
-        [self toolbarItemWithIdentifier:@"strikethrough" label:@"Strikethrough" icon:@"ToolbarIconStrikethrough" action:@selector(toggleStrikethrough:)]
+        [self toolbarItemWithIdentifier:@"strikethrough" label:@"Strikethrough" icon:@"ToolbarIconStrikethrough" action:@selector(toggleStrikethrough:)],
+        [self toolbarItemDropDownWithIdentifier:@"layout" label:@"Layout" icon:@"ToolbarIconHidePreview" menuItems:
+            @[
+              toggleEditorMenuItem, togglePreviewMenuItem
+            ]
+        ]
     ];
     
     self->toolbarItemIdentifiers = [self toolbarItemIdentifiersFromItemsArray:self->toolbarItems];
@@ -124,7 +134,7 @@ static CGFloat itemWidth = 42.5;
     
     // Add space after the specified toolbar item indices
     int spaceAfterIndices[] = {}; // No space in the default set
-    int flexibleSpaceAfterIndices[] = {2, 3, 5, 7};
+    int flexibleSpaceAfterIndices[] = {2, 3, 5, 7, 11};
     int i = 0;
     int j = 0;
     int k = 0;
@@ -230,6 +240,37 @@ static CGFloat itemWidth = 42.5;
     itemButton.action = action;
     
     toolbarItem.view = itemButton;
+    
+    [self->toolbarItemIdentifierObjectDictionary setObject:toolbarItem forKey:itemIdentifier];
+    
+    return toolbarItem;
+}
+
+/**
+ * Factory method for creating and configuring a NSToolbarItem object with a NSPopupButton holding menu options as passed in the menuItems parameter.
+ */
+- (NSToolbarItem *)toolbarItemDropDownWithIdentifier:(NSString *)itemIdentifier label:(NSString *)label icon:(NSString *)iconImageName menuItems:(NSArray <NSMenuItem *>*)menuItems {
+    NSToolbarItem *toolbarItem = [[NSToolbarItem alloc] initWithItemIdentifier:itemIdentifier];
+    toolbarItem.label = label;
+    
+    NSImage *itemImage = [NSImage imageNamed:iconImageName];
+    [itemImage setTemplate:YES];
+    
+    NSPopUpButton *popupButton = [[NSPopUpButton alloc] initWithFrame:NSMakeRect(0, 0, itemWidth, 40) pullsDown:YES];
+    popupButton.bezelStyle = NSBezelStyleTexturedRounded;
+    popupButton.focusRingType = NSFocusRingTypeDefault;
+    
+    // First item's image is displayed as button image, therefor we need a dummy with the icon
+    [popupButton addItemWithTitle:@""];
+    [[popupButton lastItem] setImage:itemImage];
+    
+    for (NSMenuItem *menuItem in menuItems) {
+        [popupButton addItemWithTitle:menuItem.title];
+        [[popupButton lastItem] setTarget:self.document];
+        [[popupButton lastItem] setAction:menuItem.action];
+    }
+    
+    toolbarItem.view = popupButton;
     
     [self->toolbarItemIdentifierObjectDictionary setObject:toolbarItem forKey:itemIdentifier];
     
