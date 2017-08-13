@@ -54,36 +54,36 @@ static CGFloat itemWidth = 42.5;
     // Set up all available toolbar items
     self->toolbarItems = @[
         [self toolbarItemGroupWithIdentifier:@"indent-group" separated:YES items:@[
-            [self toolbarItemWithIdentifier:@"shift-left" label:@"Shift left" icon:@"ToolbarIconShiftLeft" action:@selector(unindent:)],
-            [self toolbarItemWithIdentifier:@"shift-right" label:@"Shift right" icon:@"ToolbarIconShiftRight" action:@selector(indent:)]
+            [self toolbarItemWithIdentifier:@"shift-left" label:NSLocalizedString(@"Shift left", @"Shift text to the left toolbar button") icon:@"ToolbarIconShiftLeft" action:@selector(unindent:)],
+            [self toolbarItemWithIdentifier:@"shift-right" label:NSLocalizedString(@"Shift right", @"Shift text to the right toolbar button") icon:@"ToolbarIconShiftRight" action:@selector(indent:)]
             ]
         ],
         [self toolbarItemGroupWithIdentifier:@"text-formatting-group" separated:NO items:@[
-            [self toolbarItemWithIdentifier:@"bold" label:@"Strong" icon:@"ToolbarIconBold" action:@selector(toggleStrong:)],
-            [self toolbarItemWithIdentifier:@"italic" label:@"Emphasize" icon:@"ToolbarIconItalic" action:@selector(toggleEmphasis:)],
-            [self toolbarItemWithIdentifier:@"underline" label:@"Underline" icon:@"ToolbarIconUnderlined" action:@selector(toggleUnderline:)]
+            [self toolbarItemWithIdentifier:@"bold" label:NSLocalizedString(@"Strong", @"Strong toolbar button") icon:@"ToolbarIconBold" action:@selector(toggleStrong:)],
+            [self toolbarItemWithIdentifier:@"italic" label:NSLocalizedString(@"Emphasize", @"Emphasize toolbar button") icon:@"ToolbarIconItalic" action:@selector(toggleEmphasis:)],
+            [self toolbarItemWithIdentifier:@"underline" label:NSLocalizedString(@"Underline", @"Underline toolbar button") icon:@"ToolbarIconUnderlined" action:@selector(toggleUnderline:)]
             ]
          ],
         [self toolbarItemGroupWithIdentifier:@"heading-group" separated:NO items:@[
-            [self toolbarItemWithIdentifier:@"heading1" label:@"Heading 1" icon:@"ToolbarIconHeading1" action:@selector(convertToH1:)],
-            [self toolbarItemWithIdentifier:@"heading2" label:@"Heading 2" icon:@"ToolbarIconHeading2" action:@selector(convertToH2:)],
-            [self toolbarItemWithIdentifier:@"heading3" label:@"Heading 3" icon:@"ToolbarIconHeading3" action:@selector(convertToH3:)]
+            [self toolbarItemWithIdentifier:@"heading1" label:NSLocalizedString(@"Heading 1", @"Heading 1 toolbar button") icon:@"ToolbarIconHeading1" action:@selector(convertToH1:)],
+            [self toolbarItemWithIdentifier:@"heading2" label:NSLocalizedString(@"Heading 2", @"Heading 2 toolbar button") icon:@"ToolbarIconHeading2" action:@selector(convertToH2:)],
+            [self toolbarItemWithIdentifier:@"heading3" label:NSLocalizedString(@"Heading 3", @"Heading 3 toolbar button") icon:@"ToolbarIconHeading3" action:@selector(convertToH3:)]
             ]
          ],
         [self toolbarItemGroupWithIdentifier:@"list-group" separated:YES items:@[
-            [self toolbarItemWithIdentifier:@"unordered-list" label:@"Unordered list" icon:@"ToolbarIconUnorderedList" action:@selector(toggleUnorderedList:)],
-            [self toolbarItemWithIdentifier:@"ordered-list" label:@"Ordered list" icon:@"ToolbarIconOrderedList" action:@selector(toggleOrderedList:)]
+            [self toolbarItemWithIdentifier:@"unordered-list" label:NSLocalizedString(@"Unordered list", @"Unordered list toolbar button") icon:@"ToolbarIconUnorderedList" action:@selector(toggleUnorderedList:)],
+            [self toolbarItemWithIdentifier:@"ordered-list" label:NSLocalizedString(@"Ordered list", @"Ordered list toolbar button") icon:@"ToolbarIconOrderedList" action:@selector(toggleOrderedList:)]
             ]
          ],
-        [self toolbarItemWithIdentifier:@"blockquote" label:@"Blockquote" icon:@"ToolbarIconBlockquote" action:@selector(toggleBlockquote:)],
-        [self toolbarItemWithIdentifier:@"code" label:@"Inline code" icon:@"ToolbarIconInlineCode" action:@selector(toggleInlineCode:)],
-        [self toolbarItemWithIdentifier:@"link" label:@"Link" icon:@"ToolbarIconLink" action:@selector(toggleLink:)],
-        [self toolbarItemWithIdentifier:@"image" label:@"Image" icon:@"ToolbarIconImage" action:@selector(toggleImage:)],
-        [self toolbarItemWithIdentifier:@"copy-html" label:@"Copy HTML" icon:@"ToolbarIconCopyHTML" action:@selector(copyHTML:)],
-        [self toolbarItemWithIdentifier:@"comment" label:@"Comment" icon:@"ToolbarIconComment" action:@selector(toggleComment:)],
-        [self toolbarItemWithIdentifier:@"highlight" label:@"Highlight" icon:@"ToolbarIconHighlight" action:@selector(toggleHighlight:)],
-        [self toolbarItemWithIdentifier:@"strikethrough" label:@"Strikethrough" icon:@"ToolbarIconStrikethrough" action:@selector(toggleStrikethrough:)],
-        [self toolbarItemDropDownWithIdentifier:@"layout" label:@"Layout" icon:@"ToolbarIconHidePreview" menuItems:
+        [self toolbarItemWithIdentifier:@"blockquote" label:NSLocalizedString(@"Blockquote", @"Blockquote toolbar button") icon:@"ToolbarIconBlockquote" action:@selector(toggleBlockquote:)],
+        [self toolbarItemWithIdentifier:@"code" label:NSLocalizedString(@"Inline code", @"Inline code toolbar button") icon:@"ToolbarIconInlineCode" action:@selector(toggleInlineCode:)],
+        [self toolbarItemWithIdentifier:@"link" label:NSLocalizedString(@"Link", @"Link toolbar button") icon:@"ToolbarIconLink" action:@selector(toggleLink:)],
+        [self toolbarItemWithIdentifier:@"image" label:NSLocalizedString(@"Image", @"Image toolbar button") icon:@"ToolbarIconImage" action:@selector(toggleImage:)],
+        [self toolbarItemWithIdentifier:@"copy-html" label:NSLocalizedString(@"Copy HTML", @"Copy HTML toolbar button") icon:@"ToolbarIconCopyHTML" action:@selector(copyHTML:)],
+        [self toolbarItemWithIdentifier:@"comment" label:NSLocalizedString(@"Comment", @"Comment toolbar button") icon:@"ToolbarIconComment" action:@selector(toggleComment:)],
+        [self toolbarItemWithIdentifier:@"highlight" label:NSLocalizedString(@"Highlight", @"Highlight toolbar button") icon:@"ToolbarIconHighlight" action:@selector(toggleHighlight:)],
+        [self toolbarItemWithIdentifier:@"strikethrough" label:NSLocalizedString(@"Strikethrough", @"Strikethrough toolbar button") icon:@"ToolbarIconStrikethrough" action:@selector(toggleStrikethrough:)],
+        [self toolbarItemDropDownWithIdentifier:@"layout" label:NSLocalizedString(@"Layout", @"Layout toolbar button") icon:@"ToolbarIconHidePreview" menuItems:
             @[
               toggleEditorMenuItem, togglePreviewMenuItem
             ]
