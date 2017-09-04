@@ -13,6 +13,8 @@
 @interface MPDocument : NSDocument
 
 @property (nonatomic, readonly) MPPreferences *preferences;
+@property (readonly) BOOL previewVisible;
+@property (readonly) BOOL editorVisible;
 
 @property (nonatomic, readwrite) NSString *markdown;
 @property (nonatomic, readonly) NSString *html;
