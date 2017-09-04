@@ -10,6 +10,12 @@
 /* Class = "NSButtonCell"; title = "Strikethrough"; ObjectID = "RjP-zE-c6b"; */
 "RjP-zE-c6b.title" = "Yfirstrikað";
 
+/* Class = "NSButtonCell"; title = "Superscript"; ObjectID = "k2n-VN-cKT"; */
+"k2n-VN-cKT.title" = "Neðanmálsgrein";
+
+/* Class = "NSBox"; title = "Document formatting"; ObjectID = "x36-52-U0p"; */
+"x36-52-U0p.title" = "Snið skjals";
+
 /* Class = "NSButtonCell"; title = "Table"; ObjectID = "z8g-3M-hbc"; */
 "z8g-3M-hbc.title" = "Tafla";
 

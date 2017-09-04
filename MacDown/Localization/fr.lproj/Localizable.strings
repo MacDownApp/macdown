@@ -53,6 +53,13 @@ d’abord ce fichier quelque part pour activer cette fonction.";
 /* Preference pane title. */
 "Markdown" = "Markdown";
 
+/* preview navigation error information */
+"Please check the path of your link is correct. Turn on 
+“Automatically create link targets” If you want MacDown to 
+create nonexistent link targets for you." = "Veuillez vérifier que le chemin de votre lien est correct. Activez 
+“Créer automatiquement les fichiers des cibles de lien” si vous souhaitez que MacDown 
+créé automatiquement les cibles de lien inexistantes pour vous.";
+
 /* Preferences window title. */
 "Preferences" = "Préférences";
 
@@ -66,10 +73,10 @@ d’abord ce fichier quelque part pour activer cette fonction.";
 "Restore Preview Pane" = "Restaurer la prévisualisation";
 
 /* Label stating that shell utility has been installed */
-"Shell utility installed" = "Utilitaire Terminal installé";
+"Shell utility installed" = "Utilitaire terminal installé";
 
 /* Label stating that shell utility has not been installed */
-"Shell utility not installed" = "Utilitaire Terminal non installé";
+"Shell utility not installed" = "Utilitaire terminal non installé";
 
 /* Preference pane title. */
 "Terminal" = "Terminal";
