@@ -8,19 +8,22 @@
 "5Ch-dG-juL.title" = "Vorschau benötigt Internetverbindung";
 
 /* Class = "NSButtonCell"; title = "TeX-like math syntax"; ObjectID = "6vg-3f-KWk"; */
-"6vg-3f-KWk.title" = "TeX-ähnliche Mathe Syntax";
+"6vg-3f-KWk.title" = "TeX-ähnliche Mathematik-Syntax";
 
 /* Class = "NSTextFieldCell"; title = "CSS:"; ObjectID = "9I3-I7-HLu"; */
 "9I3-I7-HLu.title" = "CSS:";
 
 /* Class = "NSButtonCell"; title = "Syntax highlighted code block"; ObjectID = "BuQ-02-oQB"; */
-"BuQ-02-oQB.title" = "Syntax Highlighting für Code Blöcke";
+"BuQ-02-oQB.title" = "Syntax-Hervorhebung für Code-Blöcke";
 
 /* Class = "NSButtonCell"; title = "Use dollar sign ($) as inline delimiter"; ObjectID = "GF9-Dm-IoB"; */
-"GF9-Dm-IoB.title" = "Dollar Zeichen ($) als Trennzeichen innerhalb einer Zeile";
+"GF9-Dm-IoB.title" = "Dollar-Zeichen ($) als Inline-Trennzeichen";
 
 /* Class = "NSMenuItem"; title = "Custom"; ObjectID = "Jmq-wq-Dux"; */
 "Jmq-wq-Dux.title" = "Benutzerdefiniert";
+
+/* Class = "NSButtonCell"; title = "Render newline literally"; ObjectID = "Sty-qG-J6K"; */
+"Sty-qG-J6K.title" = "Zeilenumbrüche beibehalten";
 
 /* Class = "NSButtonCell"; title = "Show line numbers"; ObjectID = "WZa-V6-vvf"; */
 "WZa-V6-vvf.title" = "Zeilennummer anzeigen";
@@ -32,14 +35,23 @@
 "aWw-Wb-pBl.title" = "Schriftgröße der Vorschau an Editor anpassen";
 
 /* Class = "NSTextFieldCell"; title = "Default path:"; ObjectID = "e1A-Mm-svq"; */
-"e1A-Mm-svq.title" = "Standartpfad:";
+"e1A-Mm-svq.title" = "Standardpfad:";
+
+/* Class = "NSButtonCell"; title = "Detect Jekyll front-matter"; ObjectID = "iXi-Pv-mFl"; */
+"iXi-Pv-mFl.title" = "Jekyll Front Matter erkennen";
+
+/* Class = "NSButtonCell"; title = "Task list syntax"; ObjectID = "kBf-iW-HlH"; */
+"kBf-iW-HlH.title" = "Aufgabenlisten-Syntax";
 
 /* Class = "NSButtonCell"; title = "Detect table of contents token"; ObjectID = "nvS-dZ-eHT"; */
-"nvS-dZ-eHT.title" = "Token für Inhaltsverzeichniss erkennen";
+"nvS-dZ-eHT.title" = "Token für Inhaltsverzeichnis erkennen";
 
 /* Class = "NSMenuItem"; title = "None"; ObjectID = "pWW-vM-8JK"; */
 "pWW-vM-8JK.title" = "Keine";
 
 /* Class = "NSMenuItem"; title = "Language name"; ObjectID = "qFd-cs-OtZ"; */
 "qFd-cs-OtZ.title" = "Sprachenname";
+
+/* Class = "NSTextFieldCell"; title = "Accessory:"; ObjectID = "wNy-ka-IZm"; */
+"wNy-ka-IZm.title" = "Zusatz:";
 

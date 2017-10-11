@@ -25,6 +25,12 @@
 /* Class = "NSTextFieldCell"; title = "Theme:"; ObjectID = "a6o-qD-AIp"; */
 "a6o-qD-AIp.title" = "主題：";
 
+/* Class = "NSTextFieldCell"; title = "Default path:"; ObjectID = "e1A-Mm-svq"; */
+"e1A-Mm-svq.title" = "預設路徑：";
+
 /* Class = "NSMenuItem"; title = "None"; ObjectID = "pWW-vM-8JK"; */
 "pWW-vM-8JK.title" = "無";
+
+/* Class = "NSMenuItem"; title = "Language name"; ObjectID = "qFd-cs-OtZ"; */
+"qFd-cs-OtZ.title" = "語言名稱";
 

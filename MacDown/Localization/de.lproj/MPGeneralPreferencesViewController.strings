@@ -10,6 +10,12 @@
 /* Class = "NSBox"; title = "Update"; ObjectID = "eLn-fW-Agu"; */
 "eLn-fW-Agu.title" = "Aktualisierungen";
 
+/* Class = "NSButtonCell"; title = "Automatically create files for link targets"; ObjectID = "hpF-zP-3cM"; */
+"hpF-zP-3cM.title" = "Automatisch Dateien für Links erzeugen";
+
+/* Class = "NSButtonCell"; title = "Ensure open document on launch"; ObjectID = "l9N-wk-WRY"; */
+"l9N-wk-WRY.title" = "Bei Programmstart neues Dokument erstellen";
+
 /* Class = "NSButtonCell"; title = "Update preview automatically as you type"; ObjectID = "npz-xj-plX"; */
 "npz-xj-plX.title" = "Vorschau während des Tippens aktualisieren";
 

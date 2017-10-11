@@ -1,14 +1,17 @@
 /* Class = "NSTextFieldCell"; title = "List marker:"; ObjectID = "0Bc-iD-VCh"; */
 "0Bc-iD-VCh.title" = "Zeichen für Listen:";
 
+/* Class = "NSButtonCell"; title = "⌘← jumps to first non-whitespace character in line"; ObjectID = "2Yf-FT-MDH"; */
+"2Yf-FT-MDH.title" = "⌘← springt zu erstem Nicht-Whitespace-Zeichen in der Zeile";
+
 /* Class = "NSMenuItem"; title = "- (Minus sign)"; ObjectID = "2yJ-j5-PLm"; */
-"2yJ-j5-PLm.title" = "- (Minus Zeichen)";
+"2yJ-j5-PLm.title" = "- (Minus-Zeichen)";
 
 /* Class = "NSBox"; title = "Behavior"; ObjectID = "6JP-Pc-JFd"; */
 "6JP-Pc-JFd.title" = "Verhalten";
 
 /* Class = "NSButtonCell"; title = "Change…"; ObjectID = "8bz-cc-gLF"; */
-"8bz-cc-gLF.title" = "Ändern… ";
+"8bz-cc-gLF.title" = "Ändern … ";
 
 /* Class = "NSButtonCell"; title = "Ensure newline at end of file on save"; ObjectID = "9Wp-5V-GeQ"; */
 "9Wp-5V-GeQ.title" = "Beim Speichern Zeilenumbruch am Ende hinzufügen";
@@ -38,7 +41,7 @@
 "bnJ-BQ-mHV.title" = "* (Sternchen)";
 
 /* Class = "NSTextFieldCell"; title = "Base font:"; ObjectID = "eXF-SL-hBq"; */
-"eXF-SL-hBq.title" = "Basis Schriftart:";
+"eXF-SL-hBq.title" = "Basis-Schriftart:";
 
 /* Class = "NSTextFieldCell"; title = "×"; ObjectID = "g5w-Qw-Khw"; */
 "g5w-Qw-Khw.title" = "×";
@@ -46,9 +49,15 @@
 /* Class = "NSButtonCell"; title = "Scroll past end"; ObjectID = "nBR-LK-G9a"; */
 "nBR-LK-G9a.title" = "Über letzte Zeile hinaus scrollen";
 
+/* Class = "NSButtonCell"; title = "Auto-complete matching characters"; ObjectID = "o4K-iG-sGA"; */
+"o4K-iG-sGA.title" = "Umschließende Zeichen automatisch ergänzen";
+
 /* Class = "NSTextFieldCell"; title = "Theme:"; ObjectID = "vA9-IT-8Z7"; */
 "vA9-IT-8Z7.title" = "Design:";
 
+/* Class = "NSButtonCell"; title = "Automatically insert line prefix for the current block"; ObjectID = "zGb-kg-2CJ"; */
+"zGb-kg-2CJ.title" = "Für aktuellen Block Zeilen-Präfix automatisch einfügen";
+
 /* Class = "NSMenuItem"; title = "+ (Plus sign)"; ObjectID = "zX4-JY-wTT"; */
-"zX4-JY-wTT.title" = "+ (Plus Zeichen)";
+"zX4-JY-wTT.title" = "+ (Plus-Zeichen)";
 
