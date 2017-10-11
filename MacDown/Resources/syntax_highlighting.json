@@ -14,6 +14,9 @@
         "py": "python",
         "rb": "ruby",
         "sh": "bash",
-        "xml": "markup"
+        "xml": "markup",
+        
+        "graphviz": "dot",
+        "gv": "dot"
     }
 }
