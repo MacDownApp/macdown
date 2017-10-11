@@ -1,3 +1,6 @@
+/* Class = "NSTextFieldCell"; title = "List marker:"; ObjectID = "0Bc-iD-VCh"; */
+"0Bc-iD-VCh.title" = "Puce de liste :";
+
 /* Class = "NSButtonCell"; title = "⌘← jumps to first non-whitespace character in line"; ObjectID = "2Yf-FT-MDH"; */
 "2Yf-FT-MDH.title" = "⌘← va vers le premier caractère de la ligne qui n’est pas un espace";
 
@@ -9,6 +12,12 @@
 
 /* Class = "NSButtonCell"; title = "Change…"; ObjectID = "8bz-cc-gLF"; */
 "8bz-cc-gLF.title" = "Modifier…";
+
+/* Class = "NSButtonCell"; title = "Ensure newline at end of file on save"; ObjectID = "9Wp-5V-GeQ"; */
+"9Wp-5V-GeQ.title" = "Forcer l'insertion d'une nouvelle ligne en fin de fichier à la sauvegarde";
+
+/* Class = "NSTextFieldCell"; title = "Text insets:"; ObjectID = "Ee6-Cj-SWW"; */
+"Ee6-Cj-SWW.title" = "Marges :";
 
 /* Class = "NSSegmentedCell"; GHX-3h-1HI.ibShadowedLabels[0] = "Reveal"; ObjectID = "GHX-3h-1HI"; */
 "GHX-3h-1HI.ibShadowedLabels[0]" = "Révéler";
@@ -37,8 +46,17 @@
 /* Class = "NSTextFieldCell"; title = "×"; ObjectID = "g5w-Qw-Khw"; */
 "g5w-Qw-Khw.title" = "×";
 
+/* Class = "NSButtonCell"; title = "Scroll past end"; ObjectID = "nBR-LK-G9a"; */
+"nBR-LK-G9a.title" = "Défilement au-delà de la fin";
+
+/* Class = "NSButtonCell"; title = "Auto-complete matching characters"; ObjectID = "o4K-iG-sGA"; */
+"o4K-iG-sGA.title" = "Compléter automatiquement les caractères correspondants";
+
 /* Class = "NSTextFieldCell"; title = "Theme:"; ObjectID = "vA9-IT-8Z7"; */
 "vA9-IT-8Z7.title" = "Thème :";
+
+/* Class = "NSButtonCell"; title = "Automatically insert line prefix for the current block"; ObjectID = "zGb-kg-2CJ"; */
+"zGb-kg-2CJ.title" = "Insérer automatiquement le préfixe de ligne pour le bloc courant";
 
 /* Class = "NSMenuItem"; title = "+ (Plus sign)"; ObjectID = "zX4-JY-wTT"; */
 "zX4-JY-wTT.title" = "+ (SIgne plus)";

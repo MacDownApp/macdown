@@ -1,3 +1,6 @@
+/* Class = "NSButtonCell"; title = "Sync preview scrollbar when editor scrolls"; ObjectID = "2Uj-Sx-FjV"; */
+"2Uj-Sx-FjV.title" = "Synchroniser le défilement de la prévisualisation quand l'éditeur défile";
+
 /* Class = "NSBox"; title = "Behavior"; ObjectID = "Nma-PL-ZvX"; */
 "Nma-PL-ZvX.title" = "Comportement";
 

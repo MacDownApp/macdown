@@ -7,14 +7,23 @@
 /* Class = "NSTextFieldCell"; title = "Math support requires Internet connection."; ObjectID = "5Ch-dG-juL"; */
 "5Ch-dG-juL.title" = "Le support Mathématique requiert une connexion internet.";
 
+/* Class = "NSButtonCell"; title = "TeX-like math syntax"; ObjectID = "6vg-3f-KWk"; */
+"6vg-3f-KWk.title" = "Syntaxe mathématique TeX-like";
+
 /* Class = "NSTextFieldCell"; title = "CSS:"; ObjectID = "9I3-I7-HLu"; */
 "9I3-I7-HLu.title" = "CSS :";
 
 /* Class = "NSButtonCell"; title = "Syntax highlighted code block"; ObjectID = "BuQ-02-oQB"; */
 "BuQ-02-oQB.title" = "Bloc de code avec coloration syntaxique";
 
+/* Class = "NSButtonCell"; title = "Use dollar sign ($) as inline delimiter"; ObjectID = "GF9-Dm-IoB"; */
+"GF9-Dm-IoB.title" = "Utiliser le signe dollar ($) en tant que délimiteur en ligne";
+
 /* Class = "NSMenuItem"; title = "Custom"; ObjectID = "Jmq-wq-Dux"; */
 "Jmq-wq-Dux.title" = "Personnalisé";
+
+/* Class = "NSButtonCell"; title = "Render newline literally"; ObjectID = "Sty-qG-J6K"; */
+"Sty-qG-J6K.title" = "Prendre en compte les sauts de ligne dans l'éditeur";
 
 /* Class = "NSButtonCell"; title = "Show line numbers"; ObjectID = "WZa-V6-vvf"; */
 "WZa-V6-vvf.title" = "Afficher les numéros de ligne";
@@ -22,11 +31,20 @@
 /* Class = "NSTextFieldCell"; title = "Theme:"; ObjectID = "a6o-qD-AIp"; */
 "a6o-qD-AIp.title" = "Thème :";
 
+/* Class = "NSButtonCell"; title = "Scale preview based on editor font size"; ObjectID = "aWw-Wb-pBl"; */
+"aWw-Wb-pBl.title" = "Ajuster la prévisualisation en fonction de la taille de texte de l'éditeur";
+
 /* Class = "NSTextFieldCell"; title = "Default path:"; ObjectID = "e1A-Mm-svq"; */
 "e1A-Mm-svq.title" = "Chemin par défaut :";
 
+/* Class = "NSButtonCell"; title = "Detect Jekyll front-matter"; ObjectID = "iXi-Pv-mFl"; */
+"iXi-Pv-mFl.title" = "Détecter le front-matter de Jekyll";
+
 /* Class = "NSButtonCell"; title = "Task list syntax"; ObjectID = "kBf-iW-HlH"; */
 "kBf-iW-HlH.title" = "Syntaxe de liste de tâches";
+
+/* Class = "NSButtonCell"; title = "Detect table of contents token"; ObjectID = "nvS-dZ-eHT"; */
+"nvS-dZ-eHT.title" = "Détecter le token de table des matières";
 
 /* Class = "NSMenuItem"; title = "None"; ObjectID = "pWW-vM-8JK"; */
 "pWW-vM-8JK.title" = "Aucun";

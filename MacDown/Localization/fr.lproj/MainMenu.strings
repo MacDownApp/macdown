@@ -10,6 +10,12 @@
 /* Class = "NSMenuItem"; title = "Enter Full Screen"; ObjectID = "1gz-YB-DZE"; */
 "1gz-YB-DZE.title" = "Activer Plein Écran";
 
+/* Class = "NSMenuItem"; title = "Highlight"; ObjectID = "2Os-ij-Aup"; */
+"2Os-ij-Aup.title" = "Surligner";
+
+/* Class = "NSMenuItem"; title = "Transformations"; ObjectID = "2oI-Rn-ZJC"; */
+"2oI-Rn-ZJC.title" = "Transformations";
+
 /* Class = "NSMenu"; title = "Spelling"; ObjectID = "3IN-sU-3Bg"; */
 "3IN-sU-3Bg.title" = "Orthographe";
 
@@ -102,6 +108,9 @@
 
 /* Class = "NSMenuItem"; title = "Shift Left"; ObjectID = "Jzs-tR-jkL"; */
 "Jzs-tR-jkL.title" = "Ferrer à gauche";
+
+/* Class = "NSMenuItem"; title = "Revert to Saved"; ObjectID = "KaW-ft-85H"; */
+"KaW-ft-85H.title" = "Revenir à la version sauvegardée";
 
 /* Class = "NSMenuItem"; title = "Show All"; ObjectID = "Kd2-mp-pUS"; */
 "Kd2-mp-pUS.title" = "Tout Afficher";
@@ -244,6 +253,9 @@
 /* Class = "NSMenuItem"; title = "Comment"; ObjectID = "i8c-gf-w29"; */
 "i8c-gf-w29.title" = "Commentaire";
 
+/* Class = "NSMenuItem"; title = "Inline Code"; ObjectID = "iRQ-Q6-N4K"; */
+"iRQ-Q6-N4K.title" = "Code en ligne";
+
 /* Class = "NSMenuItem"; title = "Unordered List"; ObjectID = "jn0-Kb-yH6"; */
 "jn0-Kb-yH6.title" = "Liste non-ordonnée";
 
@@ -277,6 +289,12 @@
 /* Class = "NSMenuItem"; title = "Check Spelling While Typing"; ObjectID = "rbD-Rh-wIN"; */
 "rbD-Rh-wIN.title" = "Vérifier l’orthographe à la saisie";
 
+/* Class = "NSMenuItem"; title = "Smart Dashes"; ObjectID = "rgM-f4-ycn"; */
+"rgM-f4-ycn.title" = "Tirets intelligents";
+
+/* Class = "NSMenuItem"; title = "Data Detectors"; ObjectID = "tRr-pd-1PS"; */
+"tRr-pd-1PS.title" = "Détecteurs de données";
+
 /* Class = "NSMenuItem"; title = "Open Recent"; ObjectID = "tXI-mr-wws"; */
 "tXI-mr-wws.title" = "Dociments récents";
 
@@ -294,6 +312,9 @@
 
 /* Class = "NSMenuItem"; title = "MacDown Help"; ObjectID = "ugx-EN-xKu"; */
 "ugx-EN-xKu.title" = "Aider MacDown";
+
+/* Class = "NSMenuItem"; title = "Clear Menu"; ObjectID = "vNY-rz-j42"; */
+"vNY-rz-j42.title" = "Effacer les fichiers récents";
 
 /* Class = "NSMenuItem"; title = "Make Upper Case"; ObjectID = "vmV-6d-7jI"; */
 "vmV-6d-7jI.title" = "Mettre en majuscule";

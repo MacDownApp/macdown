@@ -4,6 +4,15 @@
 /* Class = "NSButtonCell"; title = "Quote"; ObjectID = "2lB-hq-5eX"; */
 "2lB-hq-5eX.title" = "Citation";
 
+/* Class = "NSButtonCell"; title = "Highlight"; ObjectID = "8kI-gm-5Lo"; */
+"8kI-gm-5Lo.title" = "Surligner";
+
+/* Class = "NSButtonCell"; title = "Intra-word emphasis"; ObjectID = "D7l-nP-P0y"; */
+"D7l-nP-P0y.title" = "Italique au sein d'un mot";
+
+/* Class = "NSButtonCell"; title = "Fenced code block"; ObjectID = "ELg-sx-vIf"; */
+"ELg-sx-vIf.title" = "Bloc de code";
+
 /* Class = "NSButtonCell"; title = "Underline"; ObjectID = "Gdr-Ro-ZnW"; */
 "Gdr-Ro-ZnW.title" = "Souligné";
 
@@ -12,6 +21,15 @@
 
 /* Class = "NSButtonCell"; title = "Autolink"; ObjectID = "Roe-rh-8f9"; */
 "Roe-rh-8f9.title" = "Lien automatique";
+
+/* Class = "NSBox"; title = "Block formatting"; ObjectID = "TXy-fD-S4Y"; */
+"TXy-fD-S4Y.title" = "Formattage en bloc";
+
+/* Class = "NSBox"; title = "Inline formatting"; ObjectID = "Ycc-Px-jbu"; */
+"Ycc-Px-jbu.title" = "Formattage en ligne";
+
+/* Class = "NSButtonCell"; title = "Smartypants"; ObjectID = "aSK-nR-xMr"; */
+"aSK-nR-xMr.title" = "Smartypants";
 
 /* Class = "NSButtonCell"; title = "Superscript"; ObjectID = "k2n-VN-cKT"; */
 "k2n-VN-cKT.title" = "Superscript";

@@ -9,6 +9,12 @@
 %@" = "Villa kom upp við að búa til skrána:
 %@";
 
+/* No comment provided by engineer. */
+"CHARACTERS_NO_SPACES_PLURAL_STRING" = "%@ stafur (án bila);%@ stafir (án bila)";
+
+/* No comment provided by engineer. */
+"CHARACTERS_PLURAL_STRING" = "%@ stafur;%@ stafir";
+
 /* preview navigation error message */
 "Can’t create file:
 %@" = "Gat ekki búið til skrá:
@@ -25,6 +31,12 @@
 /* Preference pane title. */
 "General" = "Almennt";
 
+/* Toggle editor pane menu item */
+"Hide Editor Pane" = "Fela ritilsspjald";
+
+/* Toggle preview pane menu item */
+"Hide Preview Pane" = "Fela forskoðunarspjald";
+
 /* Install shell utility button */
 "Install" = "Setja upp";
 
@@ -36,6 +48,21 @@
 
 /* Preferences window title. */
 "Preferences" = "Stillingar";
+
+/* Toggle editor pane menu item */
+"Restore Editor Pane" = "Endurheimta ritilsspjald";
+
+/* Toggle preview pane menu item */
+"Restore Preview Pane" = "Endurheimta forskoðunarspjald";
+
+/* Label stating that shell utility has been installed */
+"Shell utility installed" = "Tól fyrir skel uppsett";
+
+/* Label stating that shell utility has not been installed */
+"Shell utility not installed" = "Tól fyrir skel ekki uppsett";
+
+/* Preference pane title. */
+"Terminal" = "Skel";
 
 /* Uninstall shell utility button */
 "Uninstall" = "Fjarlægja";

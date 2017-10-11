@@ -14,6 +14,8 @@
                 <outlet property="editorPaddingBottom" destination="iWt-0N-ePd" id="wxP-ap-5qc"/>
                 <outlet property="preview" destination="XJO-AS-uPd" id="0ZO-ec-vWJ"/>
                 <outlet property="splitView" destination="0kv-p9-H4b" id="1EO-mS-VKN"/>
+                <outlet property="toolbar" destination="owf-WR-5UO" id="UvE-4c-Uho"/>
+                <outlet property="toolbarController" destination="3i0-CY-DlB" id="HXv-vH-M0h"/>
                 <outlet property="window" destination="xOd-HO-29H" id="JIz-fz-R2o"/>
                 <outlet property="wordCountWidget" destination="kfG-Fe-ode" id="I5T-mG-zWc"/>
             </connections>
@@ -25,7 +27,7 @@
             <windowCollectionBehavior key="collectionBehavior" fullScreenPrimary="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="0.0" y="0.0" width="1024" height="578"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
             <value key="minSize" type="size" width="94" height="86"/>
             <view key="contentView" id="gIp-Ho-8D9">
                 <rect key="frame" x="0.0" y="0.0" width="1024" height="578"/>
@@ -124,10 +126,28 @@
                     <constraint firstItem="0kv-p9-H4b" firstAttribute="top" secondItem="gIp-Ho-8D9" secondAttribute="top" id="yHd-Qc-mhZ"/>
                 </constraints>
             </view>
+            <toolbar key="toolbar" implicitIdentifier="E416A0C4-CA17-4923-8651-5CFF69659C83" displayMode="iconOnly" sizeMode="regular" id="owf-WR-5UO">
+                <allowedToolbarItems>
+                    <toolbarItem implicitItemIdentifier="NSToolbarShowColorsItem" id="wbr-aT-fL7"/>
+                    <toolbarItem implicitItemIdentifier="NSToolbarShowFontsItem" id="h2U-6e-QQr"/>
+                    <toolbarItem implicitItemIdentifier="NSToolbarPrintItem" id="8EQ-l8-qHz"/>
+                    <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="bzN-vA-6Vq"/>
+                    <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="mwe-fC-9du"/>
+                </allowedToolbarItems>
+                <defaultToolbarItems/>
+                <connections>
+                    <outlet property="delegate" destination="3i0-CY-DlB" id="4m3-HV-5dD"/>
+                </connections>
+            </toolbar>
             <connections>
                 <outlet property="delegate" destination="-2" id="0bl-1N-x8E"/>
             </connections>
         </window>
         <userDefaultsController representsSharedInstance="YES" id="xWe-NS-iYh"/>
+        <customObject id="3i0-CY-DlB" customClass="MPToolbarController">
+            <connections>
+                <outlet property="document" destination="-2" id="Hnx-Gp-eCs"/>
+            </connections>
+        </customObject>
     </objects>
 </document>

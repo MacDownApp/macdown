@@ -10,8 +10,23 @@
 /* Class = "NSMenuItem"; title = "Enter Full Screen"; ObjectID = "1gz-YB-DZE"; */
 "1gz-YB-DZE.title" = "Fylla skjáinn";
 
+/* Class = "NSMenuItem"; title = "Highlight"; ObjectID = "2Os-ij-Aup"; */
+"2Os-ij-Aup.title" = "Merkja";
+
+/* Class = "NSMenuItem"; title = "Transformations"; ObjectID = "2oI-Rn-ZJC"; */
+"2oI-Rn-ZJC.title" = "Umbreytingar";
+
+/* Class = "NSMenu"; title = "Spelling"; ObjectID = "3IN-sU-3Bg"; */
+"3IN-sU-3Bg.title" = "Stafsetning";
+
+/* Class = "NSMenu"; title = "Speech"; ObjectID = "3rS-ZA-NoH"; */
+"3rS-ZA-NoH.title" = "Tal";
+
 /* Class = "NSMenuItem"; title = "Find"; ObjectID = "4EN-yA-p0u"; */
 "4EN-yA-p0u.title" = "Finna";
+
+/* Class = "NSMenuItem"; title = "Emphasize"; ObjectID = "4UH-k2-fgy"; */
+"4UH-k2-fgy.title" = "Áhersla";
 
 /* Class = "NSMenuItem"; title = "Quit MacDown"; ObjectID = "4sb-4s-VLi"; */
 "4sb-4s-VLi.title" = "Loka MacDown";
@@ -82,6 +97,9 @@
 /* Class = "NSMenuItem"; title = "Revert to Saved"; ObjectID = "KaW-ft-85H"; */
 "KaW-ft-85H.title" = "Snúa aftur í vistað";
 
+/* Class = "NSMenuItem"; title = "Show All"; ObjectID = "Kd2-mp-pUS"; */
+"Kd2-mp-pUS.title" = "Sýna allt";
+
 /* Class = "NSMenu"; title = "Format"; ObjectID = "N43-55-MPb"; */
 "N43-55-MPb.title" = "Snið";
 
@@ -118,6 +136,9 @@
 /* Class = "NSMenu"; title = "Export"; ObjectID = "SJM-Pp-ywb"; */
 "SJM-Pp-ywb.title" = "Flytja út";
 
+/* Class = "NSMenuItem"; title = "Hide Preview Pane"; ObjectID = "T74-vt-YUA"; */
+"T74-vt-YUA.title" = "Fela forskoðunarspjald";
+
 /* Class = "NSMenu"; title = "Window"; ObjectID = "Td7-aD-5lo"; */
 "Td7-aD-5lo.title" = "Gluggi";
 
@@ -126,6 +147,9 @@
 
 /* Class = "NSMenuItem"; title = "Hide Others"; ObjectID = "Vdr-fp-XzO"; */
 "Vdr-fp-XzO.title" = "Fela aðra";
+
+/* Class = "NSMenuItem"; title = "Render Markdown"; ObjectID = "Vh1-jg-bbV"; */
+"Vh1-jg-bbV.title" = "Útbúa Markdown";
 
 /* Class = "NSMenuItem"; title = "Image"; ObjectID = "VkR-aw-5AU"; */
 "VkR-aw-5AU.title" = "Mynd";
@@ -181,6 +205,9 @@
 /* Class = "NSMenuItem"; title = "Left 1:1 Right"; ObjectID = "hOV-YQ-vzy"; */
 "hOV-YQ-vzy.title" = "Vinstri 1:1 Hægri";
 
+/* Class = "NSMenuItem"; title = "Smart Quotes"; ObjectID = "hQb-2v-fYv"; */
+"hQb-2v-fYv.title" = "Snjallar tilvitnanir";
+
 /* Class = "NSMenu"; title = "Services"; ObjectID = "hz9-B4-Xy5"; */
 "hz9-B4-Xy5.title" = "Þjónustur";
 
@@ -199,6 +226,9 @@
 /* Class = "NSMenuItem"; title = "Header 3"; ObjectID = "kSO-QG-dHa"; */
 "kSO-QG-dHa.title" = "Fyrirsögn 3";
 
+/* Class = "NSMenuItem"; title = "Check Grammar With Spelling"; ObjectID = "mK6-2p-4JG"; */
+"mK6-2p-4JG.title" = "Fara yfir málfræði með stafsetningu";
+
 /* Class = "NSMenu"; title = "Open Recent"; ObjectID = "oas-Oc-fiZ"; */
 "oas-Oc-fiZ.title" = "Opna nýlegt";
 
@@ -208,8 +238,32 @@
 /* Class = "NSMenuItem"; title = "Save…"; ObjectID = "pxx-59-PXV"; */
 "pxx-59-PXV.title" = "Vista...";
 
+/* Class = "NSMenuItem"; title = "Find Next"; ObjectID = "q09-fT-Sye"; */
+"q09-fT-Sye.title" = "Finna næsta";
+
+/* Class = "NSMenuItem"; title = "Page Setup…"; ObjectID = "qIS-W8-SiK"; */
+"qIS-W8-SiK.title" = "Uppsetning blaðsíðu...";
+
+/* Class = "NSMenuItem"; title = "Check Spelling While Typing"; ObjectID = "rbD-Rh-wIN"; */
+"rbD-Rh-wIN.title" = "Fara yfir stafsetningu á meðan skrifað er";
+
+/* Class = "NSMenuItem"; title = "Smart Dashes"; ObjectID = "rgM-f4-ycn"; */
+"rgM-f4-ycn.title" = "Snjöll bandstrik";
+
+/* Class = "NSMenuItem"; title = "Data Detectors"; ObjectID = "tRr-pd-1PS"; */
+"tRr-pd-1PS.title" = "Gagnaskynjarar";
+
+/* Class = "NSMenuItem"; title = "Open Recent"; ObjectID = "tXI-mr-wws"; */
+"tXI-mr-wws.title" = "Opna nýlegt";
+
 /* Class = "NSMenuItem"; title = "Copy HTML"; ObjectID = "ts7-v5-Htm"; */
 "ts7-v5-Htm.title" = "Afrita HTML";
+
+/* Class = "NSMenuItem"; title = "Blockquote"; ObjectID = "twd-Mb-qNx"; */
+"twd-Mb-qNx.title" = "Tilvitnun";
+
+/* Class = "NSMenu"; title = "MacDown"; ObjectID = "uQy-DD-JDr"; */
+"uQy-DD-JDr.title" = "MacDown";
 
 /* Class = "NSMenuItem"; title = "Cut"; ObjectID = "uRl-iY-unG"; */
 "uRl-iY-unG.title" = "Klippa";
@@ -220,17 +274,32 @@
 /* Class = "NSMenuItem"; title = "Clear Menu"; ObjectID = "vNY-rz-j42"; */
 "vNY-rz-j42.title" = "Hreinsa valmynd";
 
+/* Class = "NSMenuItem"; title = "Make Upper Case"; ObjectID = "vmV-6d-7jI"; */
+"vmV-6d-7jI.title" = "Breyta í hástafi";
+
+/* Class = "NSMenuItem"; title = "Hide Editor Pane"; ObjectID = "wHk-AQ-iOQ"; */
+"wHk-AQ-iOQ.title" = "Fela ritilsspjald";
+
 /* Class = "NSMenuItem"; title = "Header 5"; ObjectID = "wlq-BA-PKH"; */
 "wlq-BA-PKH.title" = "Fyrirsögn 5";
 
+/* Class = "NSMenuItem"; title = "Help"; ObjectID = "wpr-3q-Mcd"; */
+"wpr-3q-Mcd.title" = "Hjálp";
+
 /* Class = "NSMenuItem"; title = "Copy"; ObjectID = "x3v-GG-iWU"; */
 "x3v-GG-iWU.title" = "Afrita";
+
+/* Class = "NSMenuItem"; title = "Paragraph"; ObjectID = "xN5-GU-ASF"; */
+"xN5-GU-ASF.title" = "Málsgrein";
 
 /* Class = "NSMenuItem"; title = "View"; ObjectID = "xSb-2f-W1r"; */
 "xSb-2f-W1r.title" = "Skoða";
 
 /* Class = "NSMenuItem"; title = "Speech"; ObjectID = "xrE-MZ-jX0"; */
 "xrE-MZ-jX0.title" = "Tal";
+
+/* Class = "NSMenuItem"; title = "Show Substitutions"; ObjectID = "z6F-FW-3nz"; */
+"z6F-FW-3nz.title" = "Sýna útskiptingar";
 
 /* Class = "NSMenuItem"; title = "New Paragraph"; ObjectID = "zHE-JL-8eu"; */
 "zHE-JL-8eu.title" = "Ný málsgrein";

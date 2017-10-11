@@ -1,1 +1,15 @@
-/* No Localized Strings */
+/* Class = "NSTextFieldCell"; title = "<binary location>"; ObjectID = "0H2-qZ-OjP"; */
+"0H2-qZ-OjP.title" = "<binary location>";
+
+/* Class = "NSTextFieldCell"; title = "Location:"; ObjectID = "EJe-0p-X4m"; */
+"EJe-0p-X4m.title" = "Staðsetning:";
+
+/* Class = "NSTextFieldCell"; title = "●"; ObjectID = "Me9-q2-eWj"; */
+"Me9-q2-eWj.title" = "●";
+
+/* Class = "NSButtonCell"; title = "Install"; ObjectID = "XiC-FP-TWZ"; */
+"XiC-FP-TWZ.title" = "Setja upp";
+
+/* Class = "NSTextFieldCell"; title = "Shell support not installed"; ObjectID = "g7m-Fr-pUo"; */
+"g7m-Fr-pUo.title" = "Stuðningur fyrir skel er ekki uppsett";
+
