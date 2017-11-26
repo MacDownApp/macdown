@@ -28,3 +28,10 @@
 /* default filename if no title can be determined */
 "Untitled" = "未命名";
 
+"JJ_PLURAL_FORM_RULE" = "1";
+
+"WORDS_PLURAL_STRING" = "%@ 个词;%@ 个词";
+
+"CHARACTERS_PLURAL_STRING" = "%@ 个字符;%@ 个字符";
+
+"CHARACTERS_NO_SPACES_PLURAL_STRING" = "%@ 个字符（不含空白）;%@ 个字符（不含空白）";
