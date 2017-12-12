@@ -13,7 +13,7 @@
 #pragma clang diagnostic ignored "-Wundeclared-selector"
 
 
-static CGFloat itemWidth = 42.5;
+static CGFloat itemWidth = 37;
 
 
 @implementation MPToolbarController
@@ -217,7 +217,7 @@ static CGFloat itemWidth = 42.5;
     for (NSToolbarItem *subItem in items)
     {
         [segmentedControl setImage:subItem.image forSegment:segmentIndex];
-        [segmentedControl setWidth:40.0 forSegment:segmentIndex];
+        [segmentedControl setWidth:itemWidth-4 forSegment:segmentIndex];
         
         segmentIndex++;
     }
@@ -241,7 +241,7 @@ static CGFloat itemWidth = 42.5;
     
     NSImage *itemImage = [NSImage imageNamed:iconImageName];
     [itemImage setTemplate:YES];
-    NSButton *itemButton = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, itemWidth, 40)];
+    NSButton *itemButton = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, itemWidth, 27)];
     itemButton.image = itemImage;
     itemButton.bezelStyle = NSBezelStyleTexturedRounded;
     itemButton.focusRingType = NSFocusRingTypeDefault;
@@ -267,7 +267,7 @@ static CGFloat itemWidth = 42.5;
     NSImage *itemImage = [NSImage imageNamed:iconImageName];
     [itemImage setTemplate:YES];
     
-    NSPopUpButton *popupButton = [[NSPopUpButton alloc] initWithFrame:NSMakeRect(0, 0, itemWidth, 40) pullsDown:YES];
+    NSPopUpButton *popupButton = [[NSPopUpButton alloc] initWithFrame:NSMakeRect(0, 0, 42, 27) pullsDown:YES];
     popupButton.bezelStyle = NSBezelStyleTexturedRounded;
     popupButton.focusRingType = NSFocusRingTypeDefault;
     
