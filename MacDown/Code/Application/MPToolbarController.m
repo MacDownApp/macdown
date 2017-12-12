@@ -141,7 +141,12 @@ static CGFloat itemWidth = 42.5;
     
     for (NSString *itemIdentifier in orderedToolbarItemIdentifiers)
     {
-        [defaultItemIdentifiers addObject:itemIdentifier];
+        // exclude some toolbar items from the default toolbar
+        if ([itemIdentifier  isEqual: @"comment"] || [itemIdentifier  isEqual: @"highlight"] || [itemIdentifier  isEqual: @"strikethrough"]) {
+            // do nothing here
+        }else {
+            [defaultItemIdentifiers addObject:itemIdentifier];
+        }
         
         if (i == spaceAfterIndices[j])
         {
