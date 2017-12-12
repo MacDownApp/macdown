@@ -14,7 +14,11 @@
 - (NSUInteger)locationOfFirstNewlineAfter:(NSUInteger)location;
 - (NSUInteger)locationOfFirstNonWhitespaceCharacterInLineBefore:(NSUInteger)loc;
 
+- (NSArray *)matchesForPattern:(NSString *)pattern;
+
 - (id)frontMatter:(NSUInteger *)contentOffset;
 - (NSString *)titleString;
+
+- (BOOL)hasExtension:(NSString *)extension;
 
 @end

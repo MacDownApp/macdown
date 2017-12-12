@@ -1,0 +1,57 @@
+/* Class = "NSTextFieldCell"; title = "List marker:"; ObjectID = "0Bc-iD-VCh"; */
+"0Bc-iD-VCh.title" = "列表標記：";
+
+/* Class = "NSButtonCell"; title = "⌘← jumps to first non-whitespace character in line"; ObjectID = "2Yf-FT-MDH"; */
+"2Yf-FT-MDH.title" = "⌘← 跳至行內第一個非空白字元";
+
+/* Class = "NSMenuItem"; title = "- (Minus sign)"; ObjectID = "2yJ-j5-PLm"; */
+"2yJ-j5-PLm.title" = "- (減號)";
+
+/* Class = "NSBox"; title = "Behavior"; ObjectID = "6JP-Pc-JFd"; */
+"6JP-Pc-JFd.title" = "行為";
+
+/* Class = "NSButtonCell"; title = "Change…"; ObjectID = "8bz-cc-gLF"; */
+"8bz-cc-gLF.title" = "更改⋯";
+
+/* Class = "NSButtonCell"; title = "Ensure newline at end of file on save"; ObjectID = "9Wp-5V-GeQ"; */
+"9Wp-5V-GeQ.title" = "儲存時確認檔案末尾包含空行";
+
+/* Class = "NSSegmentedCell"; GHX-3h-1HI.ibShadowedLabels[0] = "Reveal"; ObjectID = "GHX-3h-1HI"; */
+"GHX-3h-1HI.ibShadowedLabels[0]" = "顯示";
+
+/* Class = "NSTextFieldCell"; title = "Line spacing:"; ObjectID = "InD-Fc-CTS"; */
+"InD-Fc-CTS.title" = "行距：";
+
+/* Class = "NSButtonCell"; title = "Auto-increment numbering in ordered lists"; ObjectID = "UPm-G1-Bc6"; */
+"UPm-G1-Bc6.title" = "自動遞增列表數字";
+
+/* Class = "NSButtonCell"; title = "Insert spaces instead of tabs"; ObjectID = "XSN-mi-gbk"; */
+"XSN-mi-gbk.title" = "Tab 鍵插入空白";
+
+/* Class = "NSButtonCell"; title = "Limit editor width to"; ObjectID = "bhL-NA-9No"; */
+"bhL-NA-9No.title" = "限制編輯器寬度";
+
+/* Class = "NSMenuItem"; title = "* (Asterisk)"; ObjectID = "bnJ-BQ-mHV"; */
+"bnJ-BQ-mHV.title" = "* (星號)";
+
+/* Class = "NSTextFieldCell"; title = "Base font:"; ObjectID = "eXF-SL-hBq"; */
+"eXF-SL-hBq.title" = "基礎字型：";
+
+/* Class = "NSTextFieldCell"; title = "×"; ObjectID = "g5w-Qw-Khw"; */
+"g5w-Qw-Khw.title" = "×";
+
+/* Class = "NSButtonCell"; title = "Scroll past end"; ObjectID = "nBR-LK-G9a"; */
+"nBR-LK-G9a.title" = "捲動超過檔案末端";
+
+/* Class = "NSButtonCell"; title = "Auto-complete matching characters"; ObjectID = "o4K-iG-sGA"; */
+"o4K-iG-sGA.title" = "自動補完成對字元";
+
+/* Class = "NSTextFieldCell"; title = "Theme:"; ObjectID = "vA9-IT-8Z7"; */
+"vA9-IT-8Z7.title" = "主題：";
+
+/* Class = "NSButtonCell"; title = "Automatically insert line prefix for the current block"; ObjectID = "zGb-kg-2CJ"; */
+"zGb-kg-2CJ.title" = "根據當下區塊自動插入行前綴";
+
+/* Class = "NSMenuItem"; title = "+ (Plus sign)"; ObjectID = "zX4-JY-wTT"; */
+"zX4-JY-wTT.title" = "+ (加號)";
+

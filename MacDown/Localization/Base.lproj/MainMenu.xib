@@ -1,13 +1,17 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11542" systemVersion="16C67" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment defaultVersion="1080" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="5056"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11542"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="NSApplication"/>
+        <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
+            <connections>
+                <outlet property="delegate" destination="eq0-c4-vgQ" id="g9e-et-EYz"/>
+            </connections>
+        </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
         <menu title="Main Menu" systemMenu="main" id="AYu-sK-qS6">
             <items>
@@ -366,12 +370,6 @@
                                     <binding destination="LEY-zf-22t" name="enabled" keyPath="self.currentDocument.previewVisible" id="5e7-rJ-oX2"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Renders TOC" id="v6B-Cb-FlX">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="toggleTOCRendering:" target="-1" id="CfY-Zz-Yyy"/>
-                                </connections>
-                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="onf-Mq-Pah"/>
                             <menuItem title="Left 1:3 Right" id="VW7-VH-9yl">
                                 <modifierMask key="keyEquivalentModifierMask"/>
@@ -391,9 +389,15 @@
                                     <action selector="setEditorThreeQuarters:" target="-1" id="IEv-Wg-wJA"/>
                                 </connections>
                             </menuItem>
+                            <menuItem title="Show toolbar" keyEquivalent="t" id="fKI-yk-0lv">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                <connections>
+                                    <action selector="toggleToolbar:" target="-1" id="Crk-Yu-una"/>
+                                </connections>
+                            </menuItem>
                             <menuItem title="Hide Preview Pane" keyEquivalent="H" id="T74-vt-YUA">
                                 <connections>
-                                    <action selector="togglePreivewPane:" target="-1" id="03s-kD-O7K"/>
+                                    <action selector="togglePreviewPane:" target="-1" id="03s-kD-O7K"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="Hide Editor Pane" keyEquivalent="E" id="wHk-AQ-iOQ">
@@ -435,7 +439,7 @@
                             <menuItem title="Underline" keyEquivalent="u" id="98U-cK-P7J">
                                 <connections>
                                     <action selector="toggleUnderline:" target="-1" id="Jvi-30-6Gz"/>
-                                    <binding destination="eq0-c4-vgQ" name="hidden" keyPath="self.prefereces.extensionUnderline" id="HNG-eA-odB">
+                                    <binding destination="eq0-c4-vgQ" name="hidden" keyPath="self.preferences.extensionUnderline" id="HNG-eA-odB">
                                         <dictionary key="options">
                                             <string key="NSValueTransformerName">NSNegateBoolean</string>
                                         </dictionary>
@@ -445,7 +449,7 @@
                             <menuItem title="Strikethrough" keyEquivalent="-" id="9CN-Qi-Fln">
                                 <connections>
                                     <action selector="toggleStrikethrough:" target="-1" id="rUc-gb-x5q"/>
-                                    <binding destination="eq0-c4-vgQ" name="hidden" keyPath="self.prefereces.extensionStrikethough" id="kQ0-Wi-BPs">
+                                    <binding destination="eq0-c4-vgQ" name="hidden" keyPath="self.preferences.extensionStrikethough" id="kQ0-Wi-BPs">
                                         <dictionary key="options">
                                             <string key="NSValueTransformerName">NSNegateBoolean</string>
                                         </dictionary>
@@ -455,7 +459,7 @@
                             <menuItem title="Highlight" keyEquivalent="=" id="2Os-ij-Aup">
                                 <connections>
                                     <action selector="toggleHighlight:" target="-1" id="Uda-cB-xYx"/>
-                                    <binding destination="eq0-c4-vgQ" name="hidden" keyPath="self.prefereces.extensionHighlight" id="9y2-h2-XrX">
+                                    <binding destination="eq0-c4-vgQ" name="hidden" keyPath="self.preferences.extensionHighlight" id="9y2-h2-XrX">
                                         <dictionary key="options">
                                             <string key="NSValueTransformerName">NSNegateBoolean</string>
                                         </dictionary>
@@ -516,6 +520,11 @@
                                 </menu>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="tY3-Ap-TRo"/>
+                            <menuItem title="Ordered List" keyEquivalent="O" id="jn0-Kb-yH7">
+                                <connections>
+                                    <action selector="toggleOrderedList:" target="-1" id="K5g-7x-qoW"/>
+                                </connections>
+                            </menuItem>
                             <menuItem title="Unordered List" keyEquivalent="U" id="jn0-Kb-yH6">
                                 <connections>
                                     <action selector="toggleUnorderedList:" target="-1" id="K5g-7x-qoV"/>
@@ -559,6 +568,14 @@ DQ
                         </items>
                     </menu>
                 </menuItem>
+                <menuItem title="Plug-ins" id="bMu-UN-Yfx">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="Plug-ins" id="Ppl-BS-KtG">
+                        <connections>
+                            <outlet property="delegate" destination="N0l-eA-KkD" id="2b6-Ap-EdW"/>
+                        </connections>
+                    </menu>
+                </menuItem>
                 <menuItem title="Window" id="aUF-d1-5bR">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Window" systemMenu="window" id="Td7-aD-5lo">
@@ -568,8 +585,8 @@ DQ
                                     <action selector="performMiniaturize:" target="-1" id="VwT-WD-YPe"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Zoom" id="R4o-n2-Eq4">
-                                <modifierMask key="keyEquivalentModifierMask"/>
+                            <menuItem title="Zoom" keyEquivalent="m" id="R4o-n2-Eq4">
+                                <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
                                 <connections>
                                     <action selector="performZoom:" target="-1" id="DIl-cC-cCs"/>
                                 </connections>
@@ -606,6 +623,11 @@ DQ
             </connections>
         </customObject>
         <customObject id="LEY-zf-22t" customClass="NSDocumentController"/>
+        <customObject id="N0l-eA-KkD" customClass="MPPlugInController">
+            <connections>
+                <outlet property="documentController" destination="LEY-zf-22t" id="9rV-l0-Wfs"/>
+            </connections>
+        </customObject>
         <userDefaultsController representsSharedInstance="YES" id="ow1-Qr-nTV"/>
     </objects>
 </document>

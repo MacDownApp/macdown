@@ -1,0 +1,249 @@
+/* Class = "NSMenuItem"; title = "Header 2"; ObjectID = "0WP-T5-QxP"; */
+"0WP-T5-QxP.title" = "Rubrik 2";
+
+/* Class = "NSMenuItem"; title = "MacDown"; ObjectID = "1Xt-HY-uBw"; */
+"1Xt-HY-uBw.title" = "MacDown";
+
+/* Class = "NSMenu"; title = "Find"; ObjectID = "1b7-l0-nxx"; */
+"1b7-l0-nxx.title" = "Sök";
+
+/* Class = "NSMenuItem"; title = "Enter Full Screen"; ObjectID = "1gz-YB-DZE"; */
+"1gz-YB-DZE.title" = "Helskärmsläge";
+
+/* Class = "NSMenu"; title = "Spelling"; ObjectID = "3IN-sU-3Bg"; */
+"3IN-sU-3Bg.title" = "Stavning";
+
+/* Class = "NSMenu"; title = "Speech"; ObjectID = "3rS-ZA-NoH"; */
+"3rS-ZA-NoH.title" = "Tal";
+
+/* Class = "NSMenuItem"; title = "Find"; ObjectID = "4EN-yA-p0u"; */
+"4EN-yA-p0u.title" = "Sök";
+
+/* Class = "NSMenuItem"; title = "Quit MacDown"; ObjectID = "4sb-4s-VLi"; */
+"4sb-4s-VLi.title" = "Avsluta MacDown";
+
+/* Class = "NSMenuItem"; title = "Edit"; ObjectID = "5QF-Oa-p0T"; */
+"5QF-Oa-p0T.title" = "Redigera";
+
+/* Class = "NSMenuItem"; title = "About MacDown"; ObjectID = "5kV-Vb-QxS"; */
+"5kV-Vb-QxS.title" = "Om MacDown";
+
+/* Class = "NSMenuItem"; title = "Export"; ObjectID = "5mp-ev-1el"; */
+"5mp-ev-1el.title" = "Exportera";
+
+/* Class = "NSMenuItem"; title = "Redo"; ObjectID = "6dh-zS-Vam"; */
+"6dh-zS-Vam.title" = "Gör om";
+
+/* Class = "NSMenuItem"; title = "Check for Updates…"; ObjectID = "8xL-1V-VPX"; */
+"8xL-1V-VPX.title" = "Kolla efter uppdateringar...";
+
+/* Class = "NSMenuItem"; title = "Strikethrough"; ObjectID = "9CN-Qi-Fln"; */
+"9CN-Qi-Fln.title" = "Genomstrykt";
+
+/* Class = "NSMenuItem"; title = "Correct Spelling Automatically"; ObjectID = "78Y-hA-62v"; */
+"78Y-hA-62v.title" = "Rätta stavning automatiskt";
+
+/* Class = "NSMenuItem"; title = "Underline"; ObjectID = "98U-cK-P7J"; */
+"98U-cK-P7J.title" = "Understrykt";
+
+/* Class = "NSMenu"; title = "Main Menu"; ObjectID = "AYu-sK-qS6"; */
+"AYu-sK-qS6.title" = "Huvudmeny";
+
+/* Class = "NSMenuItem"; title = "Header 4"; ObjectID = "B98-b8-che"; */
+"B98-b8-che.title" = "Rubrik 4";
+
+/* Class = "NSMenuItem"; title = "Preferences…"; ObjectID = "BOF-NM-1cW"; */
+"BOF-NM-1cW.title" = "Inställningar...";
+
+/* Class = "NSMenuItem"; title = "Save As…"; ObjectID = "Bw7-FT-i3A"; */
+"Bw7-FT-i3A.title" = "Spara som";
+
+/* Class = "NSMenuItem"; title = "Header 6"; ObjectID = "D4C-PE-qJi"; */
+"D4C-PE-qJi.title" = "Rubrik 6";
+
+/* Class = "NSMenuItem"; title = "Close"; ObjectID = "DVo-aG-piG"; */
+"DVo-aG-piG.title" = "Stäng";
+
+/* Class = "NSMenuItem"; title = "Spelling and Grammar"; ObjectID = "Dv1-io-Yv7"; */
+"Dv1-io-Yv7.title" = "Stavning och grammatik";
+
+/* Class = "NSMenu"; title = "Help"; ObjectID = "F2S-fz-NVQ"; */
+"F2S-fz-NVQ.title" = "Hjälp";
+
+/* Class = "NSMenuItem"; title = "Link"; ObjectID = "GIg-Wo-P8m"; */
+"GIg-Wo-P8m.title" = "Länk";
+
+/* Class = "NSMenuItem"; title = "Show Spelling and Grammar"; ObjectID = "HFo-cy-zxI"; */
+"HFo-cy-zxI.title" = "Visa stavning och grammatik";
+
+/* Class = "NSMenu"; title = "Convert To"; ObjectID = "I8Y-e8-XDx"; */
+"I8Y-e8-XDx.title" = "Konvertera till";
+
+/* Class = "NSMenuItem"; title = "Open…"; ObjectID = "IAo-SY-fd9"; */
+"IAo-SY-fd9.title" = "Öppna…";
+
+/* Class = "NSMenuItem"; title = "Bring All to Front"; ObjectID = "LE2-aR-0XJ"; */
+"LE2-aR-0XJ.title" = "Lägg alla överst";
+
+/* Class = "NSMenu"; title = "Format"; ObjectID = "N43-55-MPb"; */
+"N43-55-MPb.title" = "Formattera";
+
+/* Class = "NSMenuItem"; title = "Header 1"; ObjectID = "NLm-rz-EyT"; */
+"NLm-rz-EyT.title" = "Rubrik 1";
+
+/* Class = "NSMenuItem"; title = "Left 3:1 Right"; ObjectID = "NZX-Ev-sWt"; */
+"NZX-Ev-sWt.title" = "Vänster 3:1 höger";
+
+/* Class = "NSMenuItem"; title = "Minimize"; ObjectID = "OY7-WF-poV"; */
+"OY7-WF-poV.title" = "Minimera";
+
+/* Class = "NSMenuItem"; title = "Hide MacDown"; ObjectID = "Olw-nP-bQN"; */
+"Olw-nP-bQN.title" = "Göm MacDown";
+
+/* Class = "NSMenuItem"; title = "Find Previous"; ObjectID = "OwM-mh-QMV"; */
+"OwM-mh-QMV.title" = "Sök föregående";
+
+/* Class = "NSMenuItem"; title = "Zoom"; ObjectID = "R4o-n2-Eq4"; */
+"R4o-n2-Eq4.title" = "Zooma";
+
+/* Class = "NSMenu"; title = "Export"; ObjectID = "SJM-Pp-ywb"; */
+"SJM-Pp-ywb.title" = "Exportera";
+
+/* Class = "NSMenu"; title = "Window"; ObjectID = "Td7-aD-5lo"; */
+"Td7-aD-5lo.title" = "Fönster";
+
+/* Class = "NSMenuItem"; title = "Capitalize"; ObjectID = "UEZ-Bs-lqG"; */
+"UEZ-Bs-lqG.title" = "Börja med stor bokstav";
+
+/* Class = "NSMenuItem"; title = "Left 1:3 Right"; ObjectID = "VW7-VH-9yl"; */
+"VW7-VH-9yl.title" = "Vänster 1:3 höger";
+
+/* Class = "NSMenuItem"; title = "Hide Others"; ObjectID = "Vdr-fp-XzO"; */
+"Vdr-fp-XzO.title" = "Dölj andra";
+
+/* Class = "NSMenuItem"; title = "Render Markdown"; ObjectID = "Vh1-jg-bbV"; */
+"Vh1-jg-bbV.title" = "Rendera Markdown";
+
+/* Class = "NSMenuItem"; title = "Image"; ObjectID = "VkR-aw-5AU"; */
+"VkR-aw-5AU.title" = "Bild";
+
+/* Class = "NSMenu"; title = "Edit"; ObjectID = "W48-6f-4Dl"; */
+"W48-6f-4Dl.title" = "Redigera";
+
+/* Class = "NSMenuItem"; title = "New"; ObjectID = "Was-JA-tGl"; */
+"Was-JA-tGl.title" = "Ny";
+
+/* Class = "NSMenuItem"; title = "PDF…"; ObjectID = "XFN-MJ-RrW"; */
+"XFN-MJ-RrW.title" = "PDF...";
+
+/* Class = "NSMenuItem"; title = "Find…"; ObjectID = "Xz5-n4-O0W"; */
+"Xz5-n4-O0W.title" = "Sök…";
+
+/* Class = "NSMenuItem"; title = "Find and Replace…"; ObjectID = "YEy-JH-Tfz"; */
+"YEy-JH-Tfz.title" = "Sök och ersätt…";
+
+/* Class = "NSMenuItem"; title = "Print…"; ObjectID = "aTl-1u-JFS"; */
+"aTl-1u-JFS.title" = "Skriv ut…";
+
+/* Class = "NSMenuItem"; title = "Window"; ObjectID = "aUF-d1-5bR"; */
+"aUF-d1-5bR.title" = "Fönster";
+
+/* Class = "NSMenuItem"; title = "Plug-ins"; ObjectID = "bMu-UN-Yfx"; */
+"bMu-UN-Yfx.title" = "Plugins";
+
+/* Class = "NSMenu"; title = "File"; ObjectID = "bib-Uj-vzu"; */
+"bib-Uj-vzu.title" = "Arkiv";
+
+/* Class = "NSMenuItem"; title = "Use Selection for Find"; ObjectID = "buJ-ug-pKt"; */
+"buJ-ug-pKt.title" = "Använd markering för sökning";
+
+/* Class = "NSMenuItem"; title = "Make Lower Case"; ObjectID = "d9M-CD-aMd"; */
+"d9M-CD-aMd.title" = "Små bokstäver";
+
+/* Class = "NSMenuItem"; title = "HTML…"; ObjectID = "dGm-Yl-i3Z"; */
+"dGm-Yl-i3Z.title" = "HTML…";
+
+/* Class = "NSMenuItem"; title = "File"; ObjectID = "dMs-cI-mzQ"; */
+"dMs-cI-mzQ.title" = "Arkiv";
+
+/* Class = "NSMenuItem"; title = "Undo"; ObjectID = "dRJ-4n-Yzg"; */
+"dRJ-4n-Yzg.title" = "Ångra";
+
+/* Class = "NSMenuItem"; title = "Paste"; ObjectID = "gVA-U4-sdL"; */
+"gVA-U4-sdL.title" = "Klistra in";
+
+/* Class = "NSMenuItem"; title = "Left 1:1 Right"; ObjectID = "hOV-YQ-vzy"; */
+"hOV-YQ-vzy.title" = "Vänster 1:1 höger";
+
+/* Class = "NSMenu"; title = "Services"; ObjectID = "hz9-B4-Xy5"; */
+"hz9-B4-Xy5.title" = "Tjänster";
+
+/* Class = "NSMenuItem"; title = "Comment"; ObjectID = "i8c-gf-w29"; */
+"i8c-gf-w29.title" = "Kommentar";
+
+/* Class = "NSMenuItem"; title = "Unordered List"; ObjectID = "jn0-Kb-yH6"; */
+"jn0-Kb-yH6.title" = "Onumrerad lista";
+
+/* Class = "NSMenuItem"; title = "Ordered List"; ObjectID = "jn0-Kb-yH7"; */
+"jn0-Kb-yH7.title" = "Numrerad lista";
+
+/* Class = "NSMenuItem"; title = "Header 3"; ObjectID = "kSO-QG-dHa"; */
+"kSO-QG-dHa.title" = "Rubrik 3";
+
+/* Class = "NSMenuItem"; title = "Check Grammar With Spelling"; ObjectID = "mK6-2p-4JG"; */
+"mK6-2p-4JG.title" = "Kontrollera grammatik tillsammans med stavning";
+
+/* Class = "NSMenu"; title = "Open Recent"; ObjectID = "oas-Oc-fiZ"; */
+"oas-Oc-fiZ.title" = "Öppna senaste";
+
+/* Class = "NSMenuItem"; title = "Delete"; ObjectID = "pa3-QI-u2k"; */
+"pa3-QI-u2k.title" = "Ta bort";
+
+/* Class = "NSMenuItem"; title = "Save…"; ObjectID = "pxx-59-PXV"; */
+"pxx-59-PXV.title" = "Spara…";
+
+/* Class = "NSMenuItem"; title = "Find Next"; ObjectID = "q09-fT-Sye"; */
+"q09-fT-Sye.title" = "Sök nästa";
+
+/* Class = "NSMenuItem"; title = "Check Spelling While Typing"; ObjectID = "rbD-Rh-wIN"; */
+"rbD-Rh-wIN.title" = "Kontrollera stavning medan jag skriver";
+
+/* Class = "NSMenuItem"; title = "Open Recent"; ObjectID = "tXI-mr-wws"; */
+"tXI-mr-wws.title" = "Öppna senaste";
+
+/* Class = "NSMenuItem"; title = "Copy HTML"; ObjectID = "ts7-v5-Htm"; */
+"ts7-v5-Htm.title" = "Kopiera HTML";
+
+/* Class = "NSMenu"; title = "MacDown"; ObjectID = "uQy-DD-JDr"; */
+"uQy-DD-JDr.title" = "MacDown";
+
+/* Class = "NSMenuItem"; title = "Cut"; ObjectID = "uRl-iY-unG"; */
+"uRl-iY-unG.title" = "Klipp ut";
+
+/* Class = "NSMenuItem"; title = "MacDown Help"; ObjectID = "ugx-EN-xKu"; */
+"ugx-EN-xKu.title" = "MacDown hjälp";
+
+/* Class = "NSMenuItem"; title = "Make Upper Case"; ObjectID = "vmV-6d-7jI"; */
+"vmV-6d-7jI.title" = "Stora bokstäver";
+
+/* Class = "NSMenuItem"; title = "Hide Editor Pane"; ObjectID = "wHk-AQ-iOQ"; */
+"wHk-AQ-iOQ.title" = "Dölj redigerings-vy";
+
+/* Class = "NSMenuItem"; title = "Header 5"; ObjectID = "wlq-BA-PKH"; */
+"wlq-BA-PKH.title" = "Rubrik 5";
+
+/* Class = "NSMenuItem"; title = "Help"; ObjectID = "wpr-3q-Mcd"; */
+"wpr-3q-Mcd.title" = "Hjälp";
+
+/* Class = "NSMenuItem"; title = "Copy"; ObjectID = "x3v-GG-iWU"; */
+"x3v-GG-iWU.title" = "Kopiera";
+
+/* Class = "NSMenuItem"; title = "Paragraph"; ObjectID = "xN5-GU-ASF"; */
+"xN5-GU-ASF.title" = "Paragraf";
+
+/* Class = "NSMenuItem"; title = "View"; ObjectID = "xSb-2f-W1r"; */
+"xSb-2f-W1r.title" = "Innehåll";
+
+/* Class = "NSMenuItem"; title = "New Paragraph"; ObjectID = "zHE-JL-8eu"; */
+"zHE-JL-8eu.title" = "Ny paragraf";
+

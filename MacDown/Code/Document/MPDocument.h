@@ -13,7 +13,10 @@
 @interface MPDocument : NSDocument
 
 @property (nonatomic, readonly) MPPreferences *preferences;
+@property (readonly) BOOL previewVisible;
+@property (readonly) BOOL editorVisible;
 
-- (IBAction)toggleTOCRendering:(id)sender;
+@property (nonatomic, readwrite) NSString *markdown;
+@property (nonatomic, readonly) NSString *html;
 
 @end

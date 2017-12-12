@@ -7,6 +7,17 @@
 //
 
 #import "MPPreferences.h"
+#import "NSUserDefaults+Suite.h"
+#import "MPGlobals.h"
+
+
+typedef NS_ENUM(NSUInteger, MPUnorderedListMarkerType)
+{
+    MPUnorderedListMarkerAsterisk = 0,
+    MPUnorderedListMarkerPlusSign = 1,
+    MPUnorderedListMarkerMinusSign = 2,
+};
+
 
 
 NSString * const MPDidDetectFreshInstallationNotification =
@@ -62,6 +73,8 @@ static NSString * const kMPDefaultHtmlStyleName = @"GitHub2";
 @dynamic firstVersionInstalled;
 @dynamic latestVersionInstalled;
 @dynamic updateIncludesPreReleases;
+@dynamic supressesUntitledDocumentOnLaunch;
+@dynamic createFileForLinkTarget;
 
 @dynamic extensionIntraEmphasis;
 @dynamic extensionTables;
@@ -79,6 +92,7 @@ static NSString * const kMPDefaultHtmlStyleName = @"GitHub2";
 
 @dynamic editorAutoIncrementNumberedLists;
 @dynamic editorConvertTabs;
+@dynamic editorInsertPrefixInBlock;
 @dynamic editorCompleteMatchingCharacters;
 @dynamic editorSyncScrolling;
 @dynamic editorSmartHome;
@@ -93,7 +107,11 @@ static NSString * const kMPDefaultHtmlStyleName = @"GitHub2";
 @dynamic editorWordCountType;
 @dynamic editorScrollsPastEnd;
 @dynamic editorEnsuresNewlineAtEndOfFile;
+@dynamic editorUnorderedListMarkerType;
 
+@dynamic previewZoomRelativeToBaseFontSize;
+
+@dynamic htmlTemplateName;
 @dynamic htmlStyleName;
 @dynamic htmlDetectFrontMatter;
 @dynamic htmlTaskList;
@@ -103,23 +121,78 @@ static NSString * const kMPDefaultHtmlStyleName = @"GitHub2";
 @dynamic htmlSyntaxHighlighting;
 @dynamic htmlDefaultDirectoryUrl;
 @dynamic htmlHighlightingThemeName;
+@dynamic htmlLineNumbers;
+@dynamic htmlGraphviz;
+@dynamic htmlMermaid;
+@dynamic htmlCodeBlockAccessory;
+@dynamic htmlRendersTOC;
 
 // Private preference.
 @dynamic editorBaseFontInfo;
 
+- (NSString *)editorBaseFontName
+{
+    return [self.editorBaseFontInfo[kMPDefaultEditorFontNameKey] copy];
+}
+
+- (CGFloat)editorBaseFontSize
+{
+    NSDictionary *info = self.editorBaseFontInfo;
+    return [info[kMPDefaultEditorFontPointSizeKey] doubleValue];
+}
+
 - (NSFont *)editorBaseFont
 {
-    NSDictionary *info = [self.editorBaseFontInfo copy];
-    NSFont *font = [NSFont fontWithName:info[@"name"]
-                                   size:[info[@"size"] doubleValue]];
-    return font;
+    return [NSFont fontWithName:self.editorBaseFontName
+                           size:self.editorBaseFontSize];
 }
 
 - (void)setEditorBaseFont:(NSFont *)font
 {
-    NSDictionary *info =
-        @{@"name": font.fontName, @"size": @(font.pointSize)};
+    NSDictionary *info = @{
+        kMPDefaultEditorFontNameKey: font.fontName,
+        kMPDefaultEditorFontPointSizeKey: @(font.pointSize)
+    };
     self.editorBaseFontInfo = info;
+}
+
+- (NSString *)editorUnorderedListMarker
+{
+    switch (self.editorUnorderedListMarkerType)
+    {
+        case MPUnorderedListMarkerAsterisk:
+            return @"* ";
+        case MPUnorderedListMarkerPlusSign:
+            return @"+ ";
+        case MPUnorderedListMarkerMinusSign:
+            return @"- ";
+        default:
+            return @"* ";
+    }
+}
+
+- (NSArray *)filesToOpen
+{
+    return [self.userDefaults objectForKey:kMPFilesToOpenKey
+                              inSuiteNamed:kMPApplicationSuiteName];
+}
+
+- (void)setFilesToOpen:(NSArray *)filesToOpen
+{
+    [self.userDefaults setObject:filesToOpen
+                          forKey:kMPFilesToOpenKey
+                    inSuiteNamed:kMPApplicationSuiteName];
+}
+
+- (NSString *)pipedContentFileToOpen {
+    return [self.userDefaults objectForKey:kMPPipedContentFileToOpen
+                              inSuiteNamed:kMPApplicationSuiteName];
+}
+
+- (void)setPipedContentFileToOpen:(NSString *)pipedContentFileToOpenPath {
+    [self.userDefaults setObject:pipedContentFileToOpenPath
+                          forKey:kMPPipedContentFileToOpen
+                    inSuiteNamed:kMPApplicationSuiteName];
 }
 
 
@@ -150,29 +223,55 @@ static NSString * const kMPDefaultHtmlStyleName = @"GitHub2";
         [defaults removeObjectForKey:key];
 }
 
+/** Load app-default preferences on first launch.
+ *
+ * Preferences that need to be initialized manually are put here, and will be
+ * applied when the user launches MacDown the first time.
+ *
+ * Avoid putting preferences that doe not need initialization here. E.g. a
+ * boolean preference defaults to `NO` implicitly (because `nil.booleanValue` is
+ * `NO` in Objective-C), thus does not need initialization.
+ *
+ * Note that since this is called only when the user launches the app the first
+ * time, new preferences that breaks backward compatibility should NOT be put
+ * here. An example would be adding a boolean config to turn OFF an existing
+ * functionality. If you add the defualt-loading code here, existing users
+ * upgrading from an old version will not have this method invoked, thus
+ * effecting app behavior.
+ *
+ * @see -loadDefaultUserDefaults
+ */
 - (void)loadDefaultPreferences
 {
     self.extensionIntraEmphasis = YES;
     self.extensionTables = YES;
     self.extensionFencedCode = YES;
     self.extensionFootnotes = YES;
-    self.editorBaseFontInfo = [NSDictionary dictionaryWithObjectsAndKeys:
-        kMPDefaultEditorFontName, kMPDefaultEditorFontNameKey,
-        @(kMPDefaultEditorFontPointSize), kMPDefaultEditorFontPointSizeKey,
-    nil];
+    self.editorBaseFontInfo = @{
+        kMPDefaultEditorFontNameKey: kMPDefaultEditorFontName,
+        kMPDefaultEditorFontPointSizeKey: @(kMPDefaultEditorFontPointSize),
+    };
     self.editorStyleName = kMPDefaultEditorThemeName;
     self.editorHorizontalInset = kMPDefaultEditorHorizontalInset;
     self.editorVerticalInset = kMPDefaultEditorVerticalInset;
     self.editorLineSpacing = kMPDefaultEditorLineSpacing;
     self.editorSyncScrolling = kMPDefaultEditorSyncScrolling;
-    self.editorOnRight = NO;
-    self.editorShowWordCount = NO;
-    self.editorWordCountType = 0;
     self.htmlStyleName = kMPDefaultHtmlStyleName;
     self.htmlDefaultDirectoryUrl = [NSURL fileURLWithPath:NSHomeDirectory()
                                               isDirectory:YES];
 }
 
+/** Load default preferences when the app launches.
+ *
+ * Preferences that need to be initialized manually are put here, and will be
+ * applied when the user launches MacDown.
+ *
+ * This differs from -loadDefaultPreferences in that it is invoked *every time*
+ * MacDown is launched, making it suitable to perform backward-compatibility
+ * checks.
+ *
+ * @see -loadDefaultPreferences
+ */
 - (void)loadDefaultUserDefaults
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -180,6 +279,10 @@ static NSString * const kMPDefaultHtmlStyleName = @"GitHub2";
         self.editorMaximumWidth = 1000.0;
     if (![defaults objectForKey:@"editorAutoIncrementNumberedLists"])
         self.editorAutoIncrementNumberedLists = YES;
+    if (![defaults objectForKey:@"editorInsertPrefixInBlock"])
+        self.editorInsertPrefixInBlock = YES;
+    if (![defaults objectForKey:@"htmlTemplateName"])
+        self.htmlTemplateName = @"Default";
 }
 
 @end

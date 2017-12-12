@@ -11,7 +11,7 @@
 #import "MPPreferences.h"
 
 
-static NSString *MPPrismDefaultThemeName()
+NS_INLINE NSString *MPPrismDefaultThemeName()
 {
     return NSLocalizedString(@"(Default)", @"Prism theme title");
 }
@@ -26,7 +26,7 @@ static NSString *MPPrismDefaultThemeName()
 
 @implementation MPHtmlPreferencesViewController
 
-#pragma mark - MASPrefernecesViewController
+#pragma mark - MASPreferencesViewController
 
 - (NSString *)identifier
 {
@@ -110,7 +110,7 @@ static NSString *MPPrismDefaultThemeName()
 
     NSArray *itemTitles = MPListEntriesForDirectory(
         kMPStylesDirectoryName,
-        MPFileNameHasSuffixProcessor(kMPStyleFileExtension)
+        MPFileNameHasExtensionProcessor(kMPStyleFileExtension)
     );
 
     [self.stylesheetSelect addItemWithTitle:@""];

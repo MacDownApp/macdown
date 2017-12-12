@@ -9,50 +9,31 @@
 #ifndef MacDown_hoedown_html_patch_h
 #define MacDown_hoedown_html_patch_h
 
-static unsigned int HOEDOWN_HTML_USE_TASK_LIST = (1 << 11);
+static unsigned int HOEDOWN_HTML_USE_TASK_LIST = (1 << 4);
+static unsigned int HOEDOWN_HTML_BLOCKCODE_LINE_NUMBERS = (1 << 5);
+static unsigned int HOEDOWN_HTML_BLOCKCODE_INFORMATION = (1 << 6);
 
 typedef struct hoedown_buffer hoedown_buffer;
 
-typedef struct rndr_state {
-	struct {
-		int header_count;
-		int current_level;
-		int level_offset;
-		int nesting_level;
-	} toc_data;
-
-	unsigned int flags;
-
-	/* extra callbacks */
-	void (*link_attributes)(hoedown_buffer *ob, const hoedown_buffer *url, void *self);
-} rndr_state;
-
-typedef struct rndr_state_ex {
-	struct {
-		int header_count;
-		int current_level;
-		int level_offset;
-		int nesting_level;
-	} toc_data;
-
-	unsigned int flags;
-
-	/* extra callbacks */
-	void (*link_attributes)(
-        hoedown_buffer *ob, const hoedown_buffer *url, void *self);
+typedef struct hoedown_html_renderer_state_extra {
 
     /* More extra callbacks */
     hoedown_buffer *(*language_addition)(const hoedown_buffer *language,
                                          void *owner);
     void *owner;
 
-} rndr_state_ex;
+} hoedown_html_renderer_state_extra;
 
 void hoedown_patch_render_blockcode(
     hoedown_buffer *ob, const hoedown_buffer *text, const hoedown_buffer *lang,
-    void *opaque);
+    const hoedown_renderer_data *data);
 
 void hoedown_patch_render_listitem(
-    hoedown_buffer *ob, const hoedown_buffer *text, int flags, void *opaque);
+    hoedown_buffer *ob, const hoedown_buffer *text, hoedown_list_flags flags,
+    const hoedown_renderer_data *data);
+
+void hoedown_patch_render_toc_header(
+     hoedown_buffer *ob, const hoedown_buffer *content, int level,
+     const hoedown_renderer_data *data);
 
 #endif

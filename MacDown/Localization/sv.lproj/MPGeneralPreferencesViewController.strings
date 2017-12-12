@@ -1,0 +1,21 @@
+/* Class = "NSButtonCell"; title = "Sync preview scrollbar when editor scrolls"; ObjectID = "2Uj-Sx-FjV"; */
+"2Uj-Sx-FjV.title" = "Synkronisera förhandsvisnings-scrollning med regierings-vyn's scrollning";
+
+/* Class = "NSButtonCell"; title = "Put editor on the right"; ObjectID = "bUn-PQ-5Ez"; */
+"bUn-PQ-5Ez.title" = "Redigerings-vy till höger";
+
+/* Class = "NSBox"; title = "Update"; ObjectID = "eLn-fW-Agu"; */
+"eLn-fW-Agu.title" = "Uppdatera";
+
+/* Class = "NSButtonCell"; title = "Ensure open document on launch"; ObjectID = "l9N-wk-WRY"; */
+"l9N-wk-WRY.title" = "Öppna dokument vid start";
+
+/* Class = "NSButtonCell"; title = "Update preview automatically as you type"; ObjectID = "npz-xj-plX"; */
+"npz-xj-plX.title" = "Uppdatera förhandsvisning automatiskt när du skriver";
+
+/* Class = "NSButtonCell"; title = "Show word count"; ObjectID = "oeW-bF-ybW"; */
+"oeW-bF-ybW.title" = "Visa antal ord";
+
+/* Class = "NSButtonCell"; title = "Include pre-releases"; ObjectID = "vbz-fv-8BX"; */
+"vbz-fv-8BX.title" = "Inkludera förhands-versioner";
+

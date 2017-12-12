@@ -4,37 +4,28 @@
 from __future__ import print_function
 import os
 import re
-import subprocess
 import shutil
 import zipfile
+
 from xml.etree import ElementTree
 
-
-OPENSSL = '/usr/bin/openssl'
-XCODEBUILD = '/usr/bin/xcodebuild'
-OSASCRIPT = '/usr/bin/osascript'
-
-BUILD_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'Build')
-APP_NAME = 'MacDown.app'
-ZIP_NAME = 'MacDown.app.zip'
+from macdown_utils import ROOT_DIR, XCODEBUILD, execute
 
 
-class CommandError(Exception):
+try:
+    input = raw_input
+except NameError:   # Python 3 does not have raw_input.
     pass
 
 
-def execute(*args):
-    proc = subprocess.Popen(
-        args, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-    )
-    stdout, stderr = proc.communicate()
-    if proc.returncode:
-        raise CommandError(
-            '"{cmd}" failed with error {code}.\n {output}'.format(
-                cmd=' '.join(args), code=proc.returncode, output=stderr
-            )
-        )
-    return stdout
+OPENSSL = '/usr/bin/openssl'
+OSASCRIPT = '/usr/bin/osascript'
+
+BUILD_DIR = os.path.join(ROOT_DIR, 'Build')
+APP_NAME = 'MacDown.app'
+ZIP_NAME = 'MacDown.app.zip'
+
+TERM_ENCODING = 'utf-8'
 
 
 def print_value(key, value):
@@ -79,26 +70,37 @@ def main(argv):
         XCODEBUILD, 'clean', '-workspace', 'MacDown.xcworkspace',
         '-scheme', 'MacDown',
     )
-    os.chdir(BUILD_DIR)
+
+    print('Running external scripts...')
+    os.chdir(os.path.join(ROOT_DIR, 'Dependency', 'peg-markdown-highlight'))
+    execute('make')
 
     print('Building application archive...')
+    os.chdir(BUILD_DIR)
     output = execute(
         XCODEBUILD, 'archive', '-workspace', '../MacDown.xcworkspace',
         '-scheme', 'MacDown',
     )
-    match = re.search(r'^\s*ARCHIVE_PATH: (.+)$', output, re.MULTILINE)
-    archive_path = match.group(1)
-    print('Exporting application bundle...')
-    execute(
-        XCODEBUILD, '-exportArchive', '-exportFormat', 'app',
-        '-archivePath', archive_path, '-exportPath', APP_NAME,
+    if isinstance(output, bytes):
+        output = output.decode(TERM_ENCODING)
+    match = re.search(
+        r'^\s*ARCHIVE_PATH: (.+)$',
+        output,
+        re.MULTILINE,
     )
+    archive_path = match.group(1)
+
+    print('Exporting application bundle...')
+    source_app_path = os.path.join(
+        archive_path, 'Products', 'Applications', APP_NAME,
+    )
+    shutil.copytree(source_app_path, APP_NAME)
 
     # Zip.
     with zipfile.ZipFile(ZIP_NAME, 'w') as f:
         archive_dir(f, APP_NAME)
 
-    raw_input(
+    input(
         'Build finished. Press Return to display bundle information and '
         'reveal ZIP archive.'
     )

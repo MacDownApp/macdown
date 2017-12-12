@@ -1,0 +1,45 @@
+/* preview navigation error information */
+"An error occurred while creating the file:
+%@" = "建立檔案時發生錯誤：
+%@";
+
+/* No comment provided by engineer. */
+"CHARACTERS_PLURAL_STRING" = "%@ 個字元;%@ 個字元";
+
+/* preview navigation error message */
+"Can’t create file:
+%@" = "無法建立檔案：
+%@";
+
+/* preview navigation error message */
+"File not found at path:
+%@" = "該路徑找不到檔案：
+%@";
+
+/* Toggle editor pane menu item */
+"Hide Editor Pane" = "隱藏編輯區";
+
+/* Toggle preview pane menu item */
+"Hide Preview Pane" = "隱藏預覽區";
+
+/* (No Commment) */
+"JJ_PLURAL_FORM_RULE" = "1";
+
+/* Preferences window title. */
+"Preferences" = "偏好設定...";
+
+/* Toggle editor pane menu item */
+"Restore Editor Pane" = "顯示編輯區";
+
+/* Toggle preview pane menu item */
+"Restore Preview Pane" = "顯示預覽區";
+
+/* Uninstall shell utility button */
+"Uninstall" = "解除安裝";
+
+/* default filename if no title can be determined */
+"Untitled" = "未命名";
+
+/* No comment provided by engineer. */
+"WORDS_PLURAL_STRING" = "%@ 個字;%@ 個字";
+

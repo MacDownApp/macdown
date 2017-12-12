@@ -12,6 +12,8 @@ extern NSString * const kMPStylesDirectoryName;
 extern NSString * const kMPStyleFileExtension;
 extern NSString * const kMPThemesDirectoryName;
 extern NSString * const kMPThemeFileExtension;
+extern NSString * const kMPPlugInsDirectoryName;
+extern NSString * const kMPPlugInFileExtension;
 
 NSString *MPDataDirectory(NSString *relativePath);
 NSString *MPPathToDataFile(NSString *name, NSString *dirPath);
@@ -21,7 +23,7 @@ NSArray *MPListEntriesForDirectory(
 );
 
 // Block factory for MPListEntriesForDirectory
-NSString *(^MPFileNameHasSuffixProcessor(NSString *suffix))(NSString *path);
+NSString *(^MPFileNameHasExtensionProcessor(NSString *ext))(NSString *path);
 
 BOOL MPCharacterIsWhitespace(unichar character);
 BOOL MPCharacterIsNewline(unichar character);
@@ -32,4 +34,13 @@ NSString *MPThemePathForName(NSString *name);
 NSURL *MPHighlightingThemeURLForName(NSString *name);
 NSString *MPReadFileOfPath(NSString *path);
 
+NSDictionary *MPGetDataMap(NSString *name);
+
 id MPGetObjectFromJavaScript(NSString *code, NSString *variableName);
+
+
+static void (^MPDocumentOpenCompletionEmpty)(
+        NSDocument *doc, BOOL wasOpen, NSError *error) = ^(
+        NSDocument *doc, BOOL wasOpen, NSError *error) {
+
+};

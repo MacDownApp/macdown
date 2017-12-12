@@ -1,0 +1,36 @@
+/* Class = "NSSegmentedCell"; 0rH-I9-Dxr.ibShadowedLabels[0] = "Reveal"; ObjectID = "0rH-I9-Dxr"; */
+"0rH-I9-Dxr.ibShadowedLabels[0]" = "顯示";
+
+/* Class = "NSSegmentedCell"; 0rH-I9-Dxr.ibShadowedLabels[1] = "Reload"; ObjectID = "0rH-I9-Dxr"; */
+"0rH-I9-Dxr.ibShadowedLabels[1]" = "重讀";
+
+/* Class = "NSTextFieldCell"; title = "Math support requires Internet connection."; ObjectID = "5Ch-dG-juL"; */
+"5Ch-dG-juL.title" = "數學式支援需要網路連線。";
+
+/* Class = "NSButtonCell"; title = "TeX-like math syntax"; ObjectID = "6vg-3f-KWk"; */
+"6vg-3f-KWk.title" = "類 TeX 數學語法";
+
+/* Class = "NSTextFieldCell"; title = "CSS:"; ObjectID = "9I3-I7-HLu"; */
+"9I3-I7-HLu.title" = "CSS：";
+
+/* Class = "NSButtonCell"; title = "Syntax highlighted code block"; ObjectID = "BuQ-02-oQB"; */
+"BuQ-02-oQB.title" = "程式碼區塊語法高亮";
+
+/* Class = "NSMenuItem"; title = "Custom"; ObjectID = "Jmq-wq-Dux"; */
+"Jmq-wq-Dux.title" = "自訂";
+
+/* Class = "NSButtonCell"; title = "Show line numbers"; ObjectID = "WZa-V6-vvf"; */
+"WZa-V6-vvf.title" = "顯示行數";
+
+/* Class = "NSTextFieldCell"; title = "Theme:"; ObjectID = "a6o-qD-AIp"; */
+"a6o-qD-AIp.title" = "主題：";
+
+/* Class = "NSTextFieldCell"; title = "Default path:"; ObjectID = "e1A-Mm-svq"; */
+"e1A-Mm-svq.title" = "預設路徑：";
+
+/* Class = "NSMenuItem"; title = "None"; ObjectID = "pWW-vM-8JK"; */
+"pWW-vM-8JK.title" = "無";
+
+/* Class = "NSMenuItem"; title = "Language name"; ObjectID = "qFd-cs-OtZ"; */
+"qFd-cs-OtZ.title" = "語言名稱";
+

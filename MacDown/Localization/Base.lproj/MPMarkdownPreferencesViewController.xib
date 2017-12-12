@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment defaultVersion="1080" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="5056"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6254"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="MPMarkdownPreferencesViewController">
@@ -11,22 +11,20 @@
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="Hz6-mo-xeY">
             <rect key="frame" x="0.0" y="0.0" width="400" height="230"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <box autoresizesSubviews="NO" title="Block formatting" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="TXy-fD-S4Y">
-                    <rect key="frame" x="17" y="78" width="177" height="74"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <rect key="frame" x="17" y="78" width="181" height="74"/>
                     <view key="contentView">
-                        <rect key="frame" x="1" y="1" width="175" height="58"/>
+                        <rect key="frame" x="1" y="1" width="179" height="58"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="J8u-0k-Z3s">
-                                <rect key="frame" x="16" y="32" width="143" height="18"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="check" title="Tables" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="z8g-3M-hbc">
+                                <rect key="frame" x="16" y="32" width="147" height="18"/>
+                                <buttonCell key="cell" type="check" title="Table" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="z8g-3M-hbc">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
@@ -35,8 +33,7 @@
                                 </connections>
                             </button>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="fhk-gr-iF0">
-                                <rect key="frame" x="16" y="12" width="143" height="18"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <rect key="frame" x="16" y="12" width="147" height="18"/>
                                 <buttonCell key="cell" type="check" title="Fenced code block" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="ELg-sx-vIf">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -62,15 +59,13 @@
                     <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </box>
                 <box autoresizesSubviews="NO" title="Inline formatting" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="Ycc-Px-jbu">
-                    <rect key="frame" x="196" y="16" width="187" height="194"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <rect key="frame" x="200" y="16" width="183" height="194"/>
                     <view key="contentView">
-                        <rect key="frame" x="1" y="1" width="185" height="178"/>
+                        <rect key="frame" x="1" y="1" width="181" height="178"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="iwB-ah-rER">
-                                <rect key="frame" x="16" y="132" width="153" height="18"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <rect key="frame" x="16" y="132" width="149" height="18"/>
                                 <buttonCell key="cell" type="check" title="Strikethrough" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="RjP-zE-c6b">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -80,8 +75,7 @@
                                 </connections>
                             </button>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="CCI-wC-lHw">
-                                <rect key="frame" x="16" y="112" width="153" height="18"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <rect key="frame" x="16" y="112" width="149" height="18"/>
                                 <buttonCell key="cell" type="check" title="Underline" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Gdr-Ro-ZnW">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -91,8 +85,7 @@
                                 </connections>
                             </button>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="gtf-xR-sKM">
-                                <rect key="frame" x="16" y="92" width="153" height="18"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <rect key="frame" x="16" y="92" width="149" height="18"/>
                                 <buttonCell key="cell" type="check" title="Quote" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="2lB-hq-5eX">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -102,8 +95,7 @@
                                 </connections>
                             </button>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="tqY-25-uOh">
-                                <rect key="frame" x="16" y="152" width="153" height="18"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <rect key="frame" x="16" y="152" width="149" height="18"/>
                                 <buttonCell key="cell" type="check" title="Intra-word emphasis" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="D7l-nP-P0y">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -113,8 +105,7 @@
                                 </connections>
                             </button>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="lYF-J6-3YU">
-                                <rect key="frame" x="16" y="52" width="153" height="18"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <rect key="frame" x="16" y="52" width="149" height="18"/>
                                 <buttonCell key="cell" type="check" title="Superscript" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="k2n-VN-cKT">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -124,8 +115,7 @@
                                 </connections>
                             </button>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="QMR-TV-GNi">
-                                <rect key="frame" x="16" y="72" width="153" height="18"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <rect key="frame" x="16" y="72" width="149" height="18"/>
                                 <buttonCell key="cell" type="check" title="Highlight" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="8kI-gm-5Lo">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -135,8 +125,7 @@
                                 </connections>
                             </button>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="T31-Sx-beD">
-                                <rect key="frame" x="16" y="32" width="153" height="18"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <rect key="frame" x="16" y="32" width="149" height="18"/>
                                 <buttonCell key="cell" type="check" title="Autolink" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Roe-rh-8f9">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -146,9 +135,8 @@
                                 </connections>
                             </button>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="Y8p-KQ-Vis">
-                                <rect key="frame" x="16" y="12" width="153" height="18"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="check" title="Footnotes" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="0yU-vT-72e">
+                                <rect key="frame" x="16" y="12" width="149" height="18"/>
+                                <buttonCell key="cell" type="check" title="Footnote" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="0yU-vT-72e">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
@@ -189,15 +177,13 @@
                     <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </box>
                 <box autoresizesSubviews="NO" horizontalHuggingPriority="1" title="Document formatting" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="x36-52-U0p">
-                    <rect key="frame" x="17" y="156" width="177" height="54"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <rect key="frame" x="17" y="156" width="181" height="54"/>
                     <view key="contentView">
-                        <rect key="frame" x="1" y="1" width="175" height="38"/>
+                        <rect key="frame" x="1" y="1" width="179" height="38"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="rDS-Bm-rxW">
-                                <rect key="frame" x="16" y="12" width="100" height="18"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <rect key="frame" x="16" y="12" width="101" height="18"/>
                                 <buttonCell key="cell" type="check" title="Smartypants" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="aSK-nR-xMr">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>

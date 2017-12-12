@@ -15,24 +15,23 @@
 
 - (NSInteger)locationOfFirstNewlineBefore:(NSUInteger)location
 {
-    NSUInteger length = self.length;
-    if (location > length)
-        location = length;
-    NSInteger p = location - 1;
-    while (p >= 0 && !MPCharacterIsNewline([self characterAtIndex:p]))
-        p--;
-    return p;
+    if (location > self.length)
+        location = self.length;
+    NSUInteger start;
+    [self getLineStart:&start end:NULL contentsEnd:NULL
+              forRange:NSMakeRange(location, 0)];
+    return start - 1;
 }
 
 - (NSUInteger)locationOfFirstNewlineAfter:(NSUInteger)location
 {
-    NSUInteger length = self.length;
-    if (location >= length)
-        return length;
-    NSInteger p = location + 1;
-    while (p < length && !MPCharacterIsNewline([self characterAtIndex:p]))
-        p++;
-    return p;
+    location++;
+    if (location > self.length)
+        location = self.length;
+    NSUInteger end;
+    [self getLineStart:NULL end:NULL contentsEnd:&end
+              forRange:NSMakeRange(location, 0)];
+    return end;
 }
 
 - (NSUInteger)locationOfFirstNonWhitespaceCharacterInLineBefore:(NSUInteger)loc
@@ -46,11 +45,20 @@
     return p;
 }
 
+- (NSArray *)matchesForPattern:(NSString *)p
+{
+    NSRegularExpression *e =
+        [[NSRegularExpression alloc] initWithPattern:p options:0 error:NULL];
+    return [e matchesInString:self options:0 range:NSMakeRange(0, self.length)];
+}
+
 - (id)frontMatter:(NSUInteger *)contentOffset
 {
+    static NSString *pattern =
+        @"^-{3}[\r\n]+(.*?[\r\n]+)((?:-{3})|(?:\\.{3}))";
     NSRegularExpressionOptions op = NSRegularExpressionDotMatchesLineSeparators;
     NSRegularExpression *regex =
-        [NSRegularExpression regularExpressionWithPattern:@"^---\n(.*?\n)---"
+        [NSRegularExpression regularExpressionWithPattern:pattern
                                                   options:op error:NULL];
     NSTextCheckingResult *result =
         [regex firstMatchInString:self options:0
@@ -101,6 +109,11 @@
         }
     }
     return nil;
+}
+
+- (BOOL)hasExtension:(NSString *)extension
+{
+    return [self.pathExtension isEqualToString:extension];
 }
 
 @end

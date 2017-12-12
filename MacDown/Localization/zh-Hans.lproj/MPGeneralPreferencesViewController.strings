@@ -1,0 +1,12 @@
+/* Class = "NSButtonCell"; title = "Sync preview scrollbar when editor scrolls"; ObjectID = "2Uj-Sx-FjV"; */
+"2Uj-Sx-FjV.title" = "预览窗口同步滚动";
+
+/* Class = "NSButtonCell"; title = "Put editor on the right"; ObjectID = "bUn-PQ-5Ez"; */
+"bUn-PQ-5Ez.title" = "编辑窗口置于右侧";
+
+/* Class = "NSBox"; title = "Update"; ObjectID = "eLn-fW-Agu"; */
+"eLn-fW-Agu.title" = "更新";
+
+/* Class = "NSButtonCell"; title = "Include pre-releases"; ObjectID = "vbz-fv-8BX"; */
+"vbz-fv-8BX.title" = "包括预发行版本";
+

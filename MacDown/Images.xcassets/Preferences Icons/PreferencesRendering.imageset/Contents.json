@@ -1,14 +1,14 @@
 {
   "images" : [
     {
-      "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "PreferencesRendering.png"
+      "idiom" : "mac",
+      "filename" : "PreferencesRendering.png",
+      "scale" : "1x"
     },
     {
-      "idiom" : "universal",
-      "scale" : "2x",
-      "filename" : "PreferencesRendering@2x.png"
+      "idiom" : "mac",
+      "filename" : "PreferencesRendering@2x.png",
+      "scale" : "2x"
     }
   ],
   "info" : {

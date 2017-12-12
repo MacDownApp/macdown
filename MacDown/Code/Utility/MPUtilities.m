@@ -7,12 +7,15 @@
 //
 
 #import "MPUtilities.h"
+#import "NSString+Lookup.h"
 #import <JavaScriptCore/JavaScriptCore.h>
 
 NSString * const kMPStylesDirectoryName = @"Styles";
-NSString * const kMPStyleFileExtension = @".css";
+NSString * const kMPStyleFileExtension = @"css";
 NSString * const kMPThemesDirectoryName = @"Themes";
-NSString * const kMPThemeFileExtension = @".style";
+NSString * const kMPThemeFileExtension = @"style";
+NSString * const kMPPlugInsDirectoryName = @"PlugIns";
+NSString * const kMPPlugInFileExtension = @"plugin";
 
 static NSString *MPDataRootDirectory()
 {
@@ -68,17 +71,14 @@ NSArray *MPListEntriesForDirectory(
     return [items copy];
 }
 
-NSString *(^MPFileNameHasSuffixProcessor(NSString *suffix))(NSString *path)
+NSString *(^MPFileNameHasExtensionProcessor(NSString *ext))(NSString *path)
 {
     id block = ^(NSString *absPath) {
         NSFileManager *manager = [NSFileManager defaultManager];
         NSString *name = absPath.lastPathComponent;
         NSString *processed = nil;
-        if ([name hasSuffix:suffix] && [manager fileExistsAtPath:absPath])
-        {
-            NSUInteger end = name.length - suffix.length;
-            processed = [name substringToIndex:end];
-        }
+        if ([name hasExtension:ext] && [manager fileExistsAtPath:absPath])
+            processed = name.stringByDeletingPathExtension;
         return processed;
     };
     return block;
@@ -111,16 +111,16 @@ NSString *MPStylePathForName(NSString *name)
 {
     if (!name)
         return nil;
-    if (![name hasSuffix:kMPStyleFileExtension])
-        name = [NSString stringWithFormat:@"%@%@", name, kMPStyleFileExtension];
+    if (![name hasExtension:kMPStyleFileExtension])
+        name = [name stringByAppendingPathExtension:kMPStyleFileExtension];
     NSString *path = MPPathToDataFile(name, kMPStylesDirectoryName);
     return path;
 }
 
 NSString *MPThemePathForName(NSString *name)
 {
-    if (![name hasSuffix:kMPThemeFileExtension])
-        name = [NSString stringWithFormat:@"%@%@", name, kMPThemeFileExtension];
+    if (![name hasExtension:kMPThemeFileExtension])
+        name = [name stringByAppendingPathExtension:kMPThemeFileExtension];
     NSString *path = MPPathToDataFile(name, kMPThemesDirectoryName);
     return path;
 }
@@ -128,8 +128,8 @@ NSString *MPThemePathForName(NSString *name)
 NSURL *MPHighlightingThemeURLForName(NSString *name)
 {
     name = [NSString stringWithFormat:@"prism-%@", [name lowercaseString]];
-    if ([name hasSuffix:@".css"])
-        name = [name substringToIndex:name.length - 4];
+    if ([name hasExtension:@"css"])
+        name = name.stringByDeletingPathExtension;
 
     NSBundle *bundle = [NSBundle mainBundle];
     NSURL *url = [bundle URLForResource:name withExtension:@"css"
@@ -153,6 +153,14 @@ NSString *MPReadFileOfPath(NSString *path)
     if (error)
         return @"";
     return s;
+}
+
+NSDictionary *MPGetDataMap(NSString *name)
+{
+    NSBundle *bundle = [NSBundle mainBundle];
+    NSString *filePath = [bundle pathForResource:name ofType:@"map"
+                                     inDirectory:@"Data"];
+    return [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];
 }
 
 id MPGetObjectFromJavaScript(NSString *code, NSString *variableName)

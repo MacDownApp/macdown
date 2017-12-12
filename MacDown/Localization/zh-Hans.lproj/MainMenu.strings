@@ -1,0 +1,213 @@
+/* Class = "NSMenuItem"; title = "Header 2"; ObjectID = "0WP-T5-QxP"; */
+"0WP-T5-QxP.title" = "二级标题";
+
+/* Class = "NSMenuItem"; title = "MacDown"; ObjectID = "1Xt-HY-uBw"; */
+"1Xt-HY-uBw.title" = "MacDown";
+
+/* Class = "NSMenu"; title = "Find"; ObjectID = "1b7-l0-nxx"; */
+"1b7-l0-nxx.title" = "查找";
+
+/* Class = "NSMenuItem"; title = "Highlight"; ObjectID = "2Os-ij-Aup"; */
+"2Os-ij-Aup.title" = "高亮";
+
+/* Class = "NSMenuItem"; title = "Find"; ObjectID = "4EN-yA-p0u"; */
+"4EN-yA-p0u.title" = "查找";
+
+/* Class = "NSMenuItem"; title = "Quit MacDown"; ObjectID = "4sb-4s-VLi"; */
+"4sb-4s-VLi.title" = "退出 MacDown";
+
+/* Class = "NSMenuItem"; title = "Edit"; ObjectID = "5QF-Oa-p0T"; */
+"5QF-Oa-p0T.title" = "编辑";
+
+/* Class = "NSMenuItem"; title = "About MacDown"; ObjectID = "5kV-Vb-QxS"; */
+"5kV-Vb-QxS.title" = "关于 MacDown";
+
+/* Class = "NSMenuItem"; title = "Export"; ObjectID = "5mp-ev-1el"; */
+"5mp-ev-1el.title" = "导出到";
+
+/* Class = "NSMenuItem"; title = "Redo"; ObjectID = "6dh-zS-Vam"; */
+"6dh-zS-Vam.title" = "重做";
+
+/* Class = "NSMenuItem"; title = "Check for Updates…"; ObjectID = "8xL-1V-VPX"; */
+"8xL-1V-VPX.title" = "检查更新…";
+
+/* Class = "NSMenuItem"; title = "Strikethrough"; ObjectID = "9CN-Qi-Fln"; */
+"9CN-Qi-Fln.title" = "删除线";
+
+/* Class = "NSMenuItem"; title = "Correct Spelling Automatically"; ObjectID = "78Y-hA-62v"; */
+"78Y-hA-62v.title" = "自动纠正拼写";
+
+/* Class = "NSMenuItem"; title = "Header 4"; ObjectID = "B98-b8-che"; */
+"B98-b8-che.title" = "四级标题";
+
+/* Class = "NSMenuItem"; title = "Preferences…"; ObjectID = "BOF-NM-1cW"; */
+"BOF-NM-1cW.title" = "偏好设置…";
+
+/* Class = "NSMenuItem"; title = "Header 6"; ObjectID = "D4C-PE-qJi"; */
+"D4C-PE-qJi.title" = "六级标题";
+
+/* Class = "NSMenuItem"; title = "Close"; ObjectID = "DVo-aG-piG"; */
+"DVo-aG-piG.title" = "关闭";
+
+/* Class = "NSMenuItem"; title = "Spelling and Grammar"; ObjectID = "Dv1-io-Yv7"; */
+"Dv1-io-Yv7.title" = "拼写和语法";
+
+/* Class = "NSMenu"; title = "Help"; ObjectID = "F2S-fz-NVQ"; */
+"F2S-fz-NVQ.title" = "帮助";
+
+/* Class = "NSMenu"; title = "Convert To"; ObjectID = "I8Y-e8-XDx"; */
+"I8Y-e8-XDx.title" = "转换为";
+
+/* Class = "NSMenuItem"; title = "Open…"; ObjectID = "IAo-SY-fd9"; */
+"IAo-SY-fd9.title" = "打开...";
+
+/* Class = "NSMenuItem"; title = "Bring All to Front"; ObjectID = "LE2-aR-0XJ"; */
+"LE2-aR-0XJ.title" = "前置全部窗口";
+
+/* Class = "NSMenu"; title = "Format"; ObjectID = "N43-55-MPb"; */
+"N43-55-MPb.title" = "格式";
+
+/* Class = "NSMenuItem"; title = "Header 1"; ObjectID = "NLm-rz-EyT"; */
+"NLm-rz-EyT.title" = "一级标题";
+
+/* Class = "NSMenuItem"; title = "Services"; ObjectID = "NMo-om-nkz"; */
+"NMo-om-nkz.title" = "服务";
+
+/* Class = "NSMenuItem"; title = "Minimize"; ObjectID = "OY7-WF-poV"; */
+"OY7-WF-poV.title" = "最小化";
+
+/* Class = "NSMenuItem"; title = "Hide MacDown"; ObjectID = "Olw-nP-bQN"; */
+"Olw-nP-bQN.title" = "隐藏 MacDown";
+
+/* Class = "NSMenuItem"; title = "Find Previous"; ObjectID = "OwM-mh-QMV"; */
+"OwM-mh-QMV.title" = "查找上一个";
+
+/* Class = "NSMenuItem"; title = "Stop Speaking"; ObjectID = "Oyz-dy-DGm"; */
+"Oyz-dy-DGm.title" = "停止朗读";
+
+/* Class = "NSMenu"; title = "Plug-ins"; ObjectID = "Ppl-BS-KtG"; */
+"Ppl-BS-KtG.title" = "插件";
+
+/* Class = "NSMenuItem"; title = "Zoom"; ObjectID = "R4o-n2-Eq4"; */
+"R4o-n2-Eq4.title" = "缩放";
+
+/* Class = "NSMenuItem"; title = "Strong"; ObjectID = "Rb9-MG-IjX"; */
+"Rb9-MG-IjX.title" = "加粗";
+
+/* Class = "NSMenuItem"; title = "Select All"; ObjectID = "Ruw-6m-B2m"; */
+"Ruw-6m-B2m.title" = "全选";
+
+/* Class = "NSMenu"; title = "Export"; ObjectID = "SJM-Pp-ywb"; */
+"SJM-Pp-ywb.title" = "导出";
+
+/* Class = "NSMenu"; title = "Window"; ObjectID = "Td7-aD-5lo"; */
+"Td7-aD-5lo.title" = "窗口";
+
+/* Class = "NSMenuItem"; title = "Image"; ObjectID = "VkR-aw-5AU"; */
+"VkR-aw-5AU.title" = "图片";
+
+/* Class = "NSMenu"; title = "Edit"; ObjectID = "W48-6f-4Dl"; */
+"W48-6f-4Dl.title" = "编辑";
+
+/* Class = "NSMenuItem"; title = "New"; ObjectID = "Was-JA-tGl"; */
+"Was-JA-tGl.title" = "新建";
+
+/* Class = "NSMenuItem"; title = "PDF…"; ObjectID = "XFN-MJ-RrW"; */
+"XFN-MJ-RrW.title" = "PDF…";
+
+/* Class = "NSMenuItem"; title = "Find…"; ObjectID = "Xz5-n4-O0W"; */
+"Xz5-n4-O0W.title" = "查找...";
+
+/* Class = "NSMenuItem"; title = "Find and Replace…"; ObjectID = "YEy-JH-Tfz"; */
+"YEy-JH-Tfz.title" = "查找和替换";
+
+/* Class = "NSMenuItem"; title = "Start Speaking"; ObjectID = "Ynk-f8-cLZ"; */
+"Ynk-f8-cLZ.title" = "开始朗读";
+
+/* Class = "NSMenuItem"; title = "Print…"; ObjectID = "aTl-1u-JFS"; */
+"aTl-1u-JFS.title" = "打印...";
+
+/* Class = "NSMenuItem"; title = "Window"; ObjectID = "aUF-d1-5bR"; */
+"aUF-d1-5bR.title" = "窗口";
+
+/* Class = "NSMenuItem"; title = "Plug-ins"; ObjectID = "bMu-UN-Yfx"; */
+"bMu-UN-Yfx.title" = "插件";
+
+/* Class = "NSMenu"; title = "File"; ObjectID = "bib-Uj-vzu"; */
+"bib-Uj-vzu.title" = "文件";
+
+/* Class = "NSMenuItem"; title = "HTML…"; ObjectID = "dGm-Yl-i3Z"; */
+"dGm-Yl-i3Z.title" = "HTML…";
+
+/* Class = "NSMenuItem"; title = "File"; ObjectID = "dMs-cI-mzQ"; */
+"dMs-cI-mzQ.title" = "文件";
+
+/* Class = "NSMenuItem"; title = "Undo"; ObjectID = "dRJ-4n-Yzg"; */
+"dRJ-4n-Yzg.title" = "撤消";
+
+/* Class = "NSMenuItem"; title = "Convert To"; ObjectID = "e8h-vX-NQb"; */
+"e8h-vX-NQb.title" = "转换为";
+
+/* Class = "NSMenuItem"; title = "Paste"; ObjectID = "gVA-U4-sdL"; */
+"gVA-U4-sdL.title" = "粘贴";
+
+/* Class = "NSMenu"; title = "Services"; ObjectID = "hz9-B4-Xy5"; */
+"hz9-B4-Xy5.title" = "服务";
+
+/* Class = "NSMenuItem"; title = "Format"; ObjectID = "jxT-CU-nIS"; */
+"jxT-CU-nIS.title" = "格式";
+
+/* Class = "NSMenuItem"; title = "Header 3"; ObjectID = "kSO-QG-dHa"; */
+"kSO-QG-dHa.title" = "三级标题";
+
+/* Class = "NSMenuItem"; title = "Check Grammar With Spelling"; ObjectID = "mK6-2p-4JG"; */
+"mK6-2p-4JG.title" = "检查拼写和语法";
+
+/* Class = "NSMenu"; title = "Open Recent"; ObjectID = "oas-Oc-fiZ"; */
+"oas-Oc-fiZ.title" = "打开最近使用";
+
+/* Class = "NSMenuItem"; title = "Delete"; ObjectID = "pa3-QI-u2k"; */
+"pa3-QI-u2k.title" = "删除";
+
+/* Class = "NSMenuItem"; title = "Save…"; ObjectID = "pxx-59-PXV"; */
+"pxx-59-PXV.title" = "保存…";
+
+/* Class = "NSMenuItem"; title = "Find Next"; ObjectID = "q09-fT-Sye"; */
+"q09-fT-Sye.title" = "查找下一个";
+
+/* Class = "NSMenuItem"; title = "Page Setup…"; ObjectID = "qIS-W8-SiK"; */
+"qIS-W8-SiK.title" = "页面设置…";
+
+/* Class = "NSMenuItem"; title = "Open Recent"; ObjectID = "tXI-mr-wws"; */
+"tXI-mr-wws.title" = "打开最近使用";
+
+/* Class = "NSMenuItem"; title = "Copy HTML"; ObjectID = "ts7-v5-Htm"; */
+"ts7-v5-Htm.title" = "拷贝 HTML 代码";
+
+/* Class = "NSMenu"; title = "MacDown"; ObjectID = "uQy-DD-JDr"; */
+"uQy-DD-JDr.title" = "MacDown";
+
+/* Class = "NSMenuItem"; title = "Cut"; ObjectID = "uRl-iY-unG"; */
+"uRl-iY-unG.title" = "剪切";
+
+/* Class = "NSMenuItem"; title = "MacDown Help"; ObjectID = "ugx-EN-xKu"; */
+"ugx-EN-xKu.title" = "MacDown 帮助";
+
+/* Class = "NSMenuItem"; title = "Hide Editor Pane"; ObjectID = "wHk-AQ-iOQ"; */
+"wHk-AQ-iOQ.title" = "隐藏编辑窗口";
+
+/* Class = "NSMenuItem"; title = "Header 5"; ObjectID = "wlq-BA-PKH"; */
+"wlq-BA-PKH.title" = "五级标题";
+
+/* Class = "NSMenuItem"; title = "Help"; ObjectID = "wpr-3q-Mcd"; */
+"wpr-3q-Mcd.title" = "帮助";
+
+/* Class = "NSMenuItem"; title = "Copy"; ObjectID = "x3v-GG-iWU"; */
+"x3v-GG-iWU.title" = "拷贝";
+
+/* Class = "NSMenuItem"; title = "Paragraph"; ObjectID = "xN5-GU-ASF"; */
+"xN5-GU-ASF.title" = "段落";
+
+/* Class = "NSMenuItem"; title = "New Paragraph"; ObjectID = "zHE-JL-8eu"; */
+"zHE-JL-8eu.title" = "新段落";
+

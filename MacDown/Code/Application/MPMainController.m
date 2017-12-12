@@ -9,12 +9,86 @@
 #import "MPMainController.h"
 #import <MASPreferences/MASPreferencesWindowController.h>
 #import <Sparkle/SUUpdater.h>
+#import "MPGlobals.h"
 #import "MPUtilities.h"
+#import "NSDocumentController+Document.h"
+#import "NSUserDefaults+Suite.h"
 #import "MPPreferences.h"
 #import "MPGeneralPreferencesViewController.h"
 #import "MPMarkdownPreferencesViewController.h"
 #import "MPEditorPreferencesViewController.h"
 #import "MPHtmlPreferencesViewController.h"
+#import "MPTerminalPreferencesViewController.h"
+#import "MPDocument.h"
+
+
+static NSString * const kMPTreatLastSeenStampKey = @"treatLastSeenStamp";
+
+
+NS_INLINE void MPOpenBundledFile(NSString *resource, NSString *extension)
+{
+    NSURL *source = [[NSBundle mainBundle] URLForResource:resource
+                                            withExtension:extension];
+    NSString *filename = source.absoluteString.lastPathComponent;
+    NSURL *target = [NSURL fileURLWithPathComponents:@[NSTemporaryDirectory(),
+                                                       filename]];
+    BOOL ok = NO;
+    NSFileManager *manager = [NSFileManager defaultManager];
+    [manager removeItemAtURL:target error:NULL];
+    ok = [manager copyItemAtURL:source toURL:target error:NULL];
+
+    if (!ok)
+        return;
+    NSDocumentController *c = [NSDocumentController sharedDocumentController];
+    [c openDocumentWithContentsOfURL:target display:YES completionHandler:
+     ^(NSDocument *document, BOOL wasOpen, NSError *error) {
+         if (!document || wasOpen || error)
+             return;
+         NSRect frame = [NSScreen mainScreen].visibleFrame;
+         for (NSWindowController *wc in document.windowControllers)
+             [wc.window setFrame:frame display:YES];
+     }];
+}
+
+NS_INLINE void treat()
+{
+    NSDictionary *info = MPGetDataMap(@"treats");
+    NSString *name = info[@"name"];
+    if (![NSUserName().lowercaseString hasPrefix:name]
+            && ![NSFullUserName().lowercaseString hasPrefix:name])
+        return;
+
+    NSDictionary *data = info[@"data"];
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSCalendarUnit unit =
+        NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear;
+    NSDateComponents *comps = [calendar components:unit fromDate:[NSDate date]];
+
+    NSString *key =
+        [NSString stringWithFormat:@"%02ld%02ld", comps.month, comps.day];
+    if (!data[key])     // No matching treat.
+        return;
+
+    NSString *stamp = [NSString stringWithFormat:@"%ld%02ld%02ld",
+                       comps.year, comps.month, comps.day];
+
+    // User has seen this treat today.
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if ([[defaults objectForKey:kMPTreatLastSeenStampKey] isEqual:stamp])
+        return;
+
+    [defaults setObject:stamp forKey:kMPTreatLastSeenStampKey];
+    NSArray *components = @[NSTemporaryDirectory(), key];
+    NSURL *url = [NSURL fileURLWithPathComponents:components];
+    [data[key] writeToURL:url atomically:NO];
+
+    // Make sure this is opened last and immediately visible.
+    NSDocumentController *c = [NSDocumentController sharedDocumentController];
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+        [c openDocumentWithContentsOfURL:url display:YES
+                       completionHandler:MPDocumentOpenCompletionEmpty];
+    }];
+}
 
 
 @interface MPMainController ()
@@ -26,7 +100,26 @@
 
 @synthesize preferencesWindowController = _preferencesWindowController;
 
-- (MPPreferences *)prefereces
+- (void)applicationDidFinishLaunching:(NSNotification *)notification
+{
+    // Using private API [WebCache setDisabled:YES] to disable WebView's cache
+    id webCacheClass = (id)NSClassFromString(@"WebCache");
+    if (webCacheClass) {
+// Ignoring "undeclared selector" warning
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+        BOOL setDisabledValue = YES;
+        NSMethodSignature *signature = [webCacheClass methodSignatureForSelector:@selector(setDisabled:)];
+        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
+        invocation.selector = @selector(setDisabled:);
+        invocation.target = [webCacheClass class];
+        [invocation setArgument:&setDisabledValue atIndex:2];
+        [invocation invoke];
+#pragma clang diagnostic pop
+    }
+}
+
+- (MPPreferences *)preferences
 {
     return [MPPreferences sharedInstance];
 }
@@ -40,6 +133,7 @@
             [[MPMarkdownPreferencesViewController alloc] init],
             [[MPEditorPreferencesViewController alloc] init],
             [[MPHtmlPreferencesViewController alloc] init],
+            [[MPTerminalPreferencesViewController alloc] init],
         ];
         NSString *title = NSLocalizedString(@"Preferences",
                                             @"Preferences window title.");
@@ -58,27 +152,7 @@
 
 - (IBAction)showHelp:(id)sender
 {
-    NSDocumentController *c =
-        [NSDocumentController sharedDocumentController];
-    NSURL *source = [[NSBundle mainBundle] URLForResource:@"help"
-                                            withExtension:@"md"];
-    NSURL *target = [NSURL fileURLWithPathComponents:@[NSTemporaryDirectory(),
-                                                       @"help.md"]];
-    BOOL ok = NO;
-    NSFileManager *manager = [NSFileManager defaultManager];
-    [manager removeItemAtURL:target error:NULL];
-    ok = [manager copyItemAtURL:source toURL:target error:NULL];
-    if (ok)
-    {
-        [c openDocumentWithContentsOfURL:target display:YES completionHandler:
-            ^(NSDocument *document, BOOL wasOpen, NSError *error) {
-                if (!document || wasOpen || error)
-                    return;
-                NSRect frame = [NSScreen mainScreen].visibleFrame;
-                for (NSWindowController *wc in document.windowControllers)
-                    [wc.window setFrame:frame display:YES];
-            }];
-    }
+    MPOpenBundledFile(@"help", @"md");
 }
 
 
@@ -93,9 +167,26 @@
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self selector:@selector(showFirstLaunchTips)
                    name:MPDidDetectFreshInstallationNotification
-                 object:self.prefereces];
+                 object:self.preferences];
     [self copyFiles];
     return self;
+}
+
+
+#pragma mark - NSApplicationDelegate
+
+- (BOOL)applicationShouldOpenUntitledFile:(NSApplication *)sender
+{
+    if (self.preferences.filesToOpen.count || self.preferences.pipedContentFileToOpen)
+        return NO;
+    return !self.preferences.supressesUntitledDocumentOnLaunch;
+}
+
+- (void)applicationDidBecomeActive:(NSNotification *)notification
+{
+    [self openPendingPipedContent];
+    [self openPendingFiles];
+    treat();
 }
 
 
@@ -103,7 +194,7 @@
 
 - (NSString *)feedURLStringForUpdater:(SUUpdater *)updater
 {
-    if (self.prefereces.updateIncludesPreReleases)
+    if (self.preferences.updateIncludesPreReleases)
         return [NSBundle mainBundle].infoDictionary[@"SUBetaFeedURL"];
     return [NSBundle mainBundle].infoDictionary[@"SUFeedURL"];
 }
@@ -148,7 +239,47 @@
     }
 }
 
+- (void)openPendingFiles
+{
+    NSDocumentController *c = [NSDocumentController sharedDocumentController];
 
+    for (NSString *path in self.preferences.filesToOpen)
+    {
+        NSURL *url = [NSURL fileURLWithPath:path];
+        if ([url checkResourceIsReachableAndReturnError:NULL])
+        {
+            [c openDocumentWithContentsOfURL:url display:YES
+                           completionHandler:MPDocumentOpenCompletionEmpty];
+        }
+        else
+        {
+            [c createNewEmptyDocumentForURL:url display:YES error:NULL];
+        }
+    }
+
+    self.preferences.filesToOpen = nil;
+    [self.preferences synchronize];
+}
+
+- (void)openPendingPipedContent {
+    NSDocumentController *c = [NSDocumentController sharedDocumentController];
+    
+    if (self.preferences.pipedContentFileToOpen) {
+        NSURL *pipedContentFileToOpenURL = [NSURL fileURLWithPath:self.preferences.pipedContentFileToOpen];
+        NSError *readPipedContentError;
+        NSString *pipedContentString = [NSString stringWithContentsOfURL:pipedContentFileToOpenURL encoding:NSUTF8StringEncoding error:&readPipedContentError];
+        
+        NSError *openDocumentError;
+        MPDocument *document = (MPDocument *)[c openUntitledDocumentAndDisplay:YES error:&openDocumentError];
+        
+        if (document && openDocumentError == nil && readPipedContentError == nil) {
+            document.markdown = pipedContentString;
+        }
+        
+        self.preferences.pipedContentFileToOpen = nil;
+        [self.preferences synchronize];
+    }
+}
 
 
 #pragma mark - Notification handler

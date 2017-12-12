@@ -25,7 +25,7 @@ NSString * const MPDidRequestEditorSetupNotificationKeyName =
 @implementation MPEditorPreferencesViewController
 
 
-#pragma mark - MASPrefernecesViewController
+#pragma mark - MASPreferencesViewController
 
 - (NSString *)identifier
 {
@@ -69,7 +69,7 @@ NSString * const MPDidRequestEditorSetupNotificationKeyName =
 
     NSArray *itemTitles = MPListEntriesForDirectory(
         kMPThemesDirectoryName,
-        MPFileNameHasSuffixProcessor(kMPThemeFileExtension)
+        MPFileNameHasExtensionProcessor(kMPThemeFileExtension)
     );
 
     [self.themeSelect addItemWithTitle:@""];

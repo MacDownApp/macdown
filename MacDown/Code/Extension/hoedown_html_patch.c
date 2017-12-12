@@ -8,55 +8,95 @@
 
 #include <string.h>
 #include <hoedown/escape.h>
-#include <hoedown/markdown.h>
+#include <hoedown/document.h>
 #include <hoedown/html.h>
 #include "hoedown_html_patch.h"
 
 #define USE_XHTML(opt) (opt->flags & HOEDOWN_HTML_USE_XHTML)
+#define USE_BLOCKCODE_INFORMATION(opt) \
+    (opt->flags & HOEDOWN_HTML_BLOCKCODE_INFORMATION)
 #define USE_TASK_LIST(opt) (opt->flags & HOEDOWN_HTML_USE_TASK_LIST)
 
 // rndr_blockcode from HEAD. The "language-" prefix in class in needed to make
 // the HTML compatible with Prism.
 void hoedown_patch_render_blockcode(
     hoedown_buffer *ob, const hoedown_buffer *text, const hoedown_buffer *lang,
-    void *opaque)
+    const hoedown_renderer_data *data)
 {
 	if (ob->size) hoedown_buffer_putc(ob, '\n');
 
-	if (lang) {
-        rndr_state_ex *state = opaque;
-        hoedown_buffer *mapped = NULL;
-        if (state->language_addition)
-            mapped = state->language_addition(lang, state->owner);
-		HOEDOWN_BUFPUTSL(ob, "<pre><code class=\"language-");
+    hoedown_html_renderer_state *state = data->opaque;
+    hoedown_html_renderer_state_extra *extra = state->opaque;
+
+    hoedown_buffer *front = NULL;
+    hoedown_buffer *back = NULL;
+    if (lang && USE_BLOCKCODE_INFORMATION(state))
+    {
+        front = hoedown_buffer_new(lang->size);
+        back = hoedown_buffer_new(lang->size);
+
+        hoedown_buffer *current = front;
+        for (size_t i = 0; i < lang->size; i++)
+        {
+            uint8_t c = lang->data[i];
+            if (current == front && c == ':')
+                current = back;
+            else
+                hoedown_buffer_putc(current, c);
+        }
+        lang = front;
+    }
+
+    hoedown_buffer *mapped = NULL;
+    if (lang && extra->language_addition)
+    {
+        mapped = extra->language_addition(lang, extra->owner);
         if (mapped)
-        {
-            hoedown_escape_html(ob, mapped->data, mapped->size, 0);
-            hoedown_buffer_free(mapped);
-        }
-        else
-        {
-            hoedown_escape_html(ob, lang->data, lang->size, 0);
-        }
-		HOEDOWN_BUFPUTSL(ob, "\">");
-	} else {
-		HOEDOWN_BUFPUTSL(ob, "<pre><code>");
-	}
+            lang = mapped;
+    }
+
+    HOEDOWN_BUFPUTSL(ob, "<div><pre");
+    if (state->flags & HOEDOWN_HTML_BLOCKCODE_LINE_NUMBERS)
+        HOEDOWN_BUFPUTSL(ob, " class=\"line-numbers\"");
+    if (back && back->size)
+    {
+        HOEDOWN_BUFPUTSL(ob, " data-information=\"");
+        hoedown_buffer_put(ob, back->data, back->size);
+        HOEDOWN_BUFPUTSL(ob, "\"");
+    }
+    HOEDOWN_BUFPUTSL(ob, "><code class=\"language-");
+    if (lang && lang->size)
+        hoedown_escape_html(ob, lang->data, lang->size, 0);
+    else
+        HOEDOWN_BUFPUTSL(ob, "none");
+    HOEDOWN_BUFPUTSL(ob, "\">");
 
 	if (text)
-		hoedown_escape_html(ob, text->data, text->size, 0);
+    {
+        // Remove last newline to prevent prism from adding a blank line at the
+        // end of code blocks.
+        size_t size = text->size;
+        if (size > 0 && text->data[size - 1] == '\n')
+            size--;
+        hoedown_escape_html(ob, text->data, size, 0);
+    }
 
-	HOEDOWN_BUFPUTSL(ob, "</code></pre>\n");
+	HOEDOWN_BUFPUTSL(ob, "</code></pre></div>\n");
+
+    hoedown_buffer_free(mapped);
+    hoedown_buffer_free(front);
+    hoedown_buffer_free(back);
 }
 
 // Supports task list syntax if HOEDOWN_HTML_USE_TASK_LIST is on.
 // Implementation based on hoextdown.
 void hoedown_patch_render_listitem(
-    hoedown_buffer *ob, const hoedown_buffer *text, int flags, void *opaque)
+    hoedown_buffer *ob, const hoedown_buffer *text, hoedown_list_flags flags,
+    const hoedown_renderer_data *data)
 {
 	if (text)
     {
-        rndr_state_ex *state = opaque;
+        hoedown_html_renderer_state *state = data->opaque;
         size_t offset = 0;
         if (flags & HOEDOWN_LI_BLOCK)
             offset = 3;
@@ -102,4 +142,44 @@ void hoedown_patch_render_listitem(
 		hoedown_buffer_put(ob, text->data + offset, size - offset);
 	}
 	HOEDOWN_BUFPUTSL(ob, "</li>\n");
+}
+
+// Adds a "toc" class to the outmost UL element to support TOC styling.
+void hoedown_patch_render_toc_header(
+    hoedown_buffer *ob, const hoedown_buffer *content, int level,
+    const hoedown_renderer_data *data)
+{
+    hoedown_html_renderer_state *state = data->opaque;
+
+    if (level <= state->toc_data.nesting_level) {
+        /* set the level offset if this is the first header
+         * we're parsing for the document */
+        if (state->toc_data.current_level == 0)
+            state->toc_data.level_offset = level - 1;
+
+        level -= state->toc_data.level_offset;
+
+        if (level > state->toc_data.current_level) {
+            while (level > state->toc_data.current_level) {
+                if (state->toc_data.current_level == 0)
+                    HOEDOWN_BUFPUTSL(ob, "<ul class=\"toc\">\n<li>\n");
+                else
+                    HOEDOWN_BUFPUTSL(ob, "<ul>\n<li>\n");
+                state->toc_data.current_level++;
+            }
+        } else if (level < state->toc_data.current_level) {
+            HOEDOWN_BUFPUTSL(ob, "</li>\n");
+            while (level < state->toc_data.current_level) {
+                HOEDOWN_BUFPUTSL(ob, "</ul>\n</li>\n");
+                state->toc_data.current_level--;
+            }
+            HOEDOWN_BUFPUTSL(ob,"<li>\n");
+        } else {
+            HOEDOWN_BUFPUTSL(ob,"</li>\n<li>\n");
+        }
+
+        hoedown_buffer_printf(ob, "<a href=\"#toc_%d\">", state->toc_data.header_count++);
+        if (content) hoedown_buffer_put(ob, content->data, content->size);
+        HOEDOWN_BUFPUTSL(ob, "</a>\n");
+    }
 }

@@ -1,0 +1,30 @@
+/* Toggle editor pane menu item */
+"Hide Editor Pane" = "隐藏编辑窗口";
+
+/* Toggle preview pane menu item */
+"Hide Preview Pane" = "隐藏预览窗口";
+
+/* Install shell utility button */
+"Install" = "安装";
+
+/* Preference pane title. */
+"Markdown" = "Markdown";
+
+/* Preferences window title. */
+"Preferences" = "偏好设置";
+
+/* Label stating that shell utility has been installed */
+"Shell utility installed" = "Shell 工具已安装";
+
+/* Label stating that shell utility has not been installed */
+"Shell utility not installed" = "Shell 工具未安装";
+
+/* Preference pane title. */
+"Terminal" = "终端";
+
+/* Uninstall shell utility button */
+"Uninstall" = "卸载";
+
+/* default filename if no title can be determined */
+"Untitled" = "未命名";
+

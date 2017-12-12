@@ -40,3 +40,4 @@ static void parse_references(parser_data *p_data)
     p_data->head_elems[pmh_REFERENCE] = NULL;
 }
 
+#pragma clang diagnostic pop
