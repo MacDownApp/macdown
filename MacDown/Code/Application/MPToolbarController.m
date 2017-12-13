@@ -219,6 +219,9 @@ static CGFloat itemWidth = 37;
         [segmentedControl setImage:subItem.image forSegment:segmentIndex];
         [segmentedControl setImageScaling:NSImageScaleProportionallyDown forSegment:segmentIndex];
         [segmentedControl setWidth:itemWidth-4 forSegment:segmentIndex];
+        if (@available(macOS 10.13, *)) {
+            [segmentedControl setToolTip:subItem.label forSegment:segmentIndex];
+        }
         
         segmentIndex++;
     }
