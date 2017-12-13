@@ -217,6 +217,7 @@ static CGFloat itemWidth = 37;
     for (NSToolbarItem *subItem in items)
     {
         [segmentedControl setImage:subItem.image forSegment:segmentIndex];
+        [segmentedControl setImageScaling:NSImageScaleProportionallyDown forSegment:segmentIndex];
         [segmentedControl setWidth:itemWidth-4 forSegment:segmentIndex];
         
         segmentIndex++;
@@ -241,8 +242,10 @@ static CGFloat itemWidth = 37;
     
     NSImage *itemImage = [NSImage imageNamed:iconImageName];
     [itemImage setTemplate:YES];
+    [itemImage setSize:CGSizeMake(19, 19)];
     NSButton *itemButton = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, itemWidth, 27)];
     itemButton.image = itemImage;
+    itemButton.imageScaling = NSImageScaleProportionallyDown;
     itemButton.bezelStyle = NSBezelStyleTexturedRounded;
     itemButton.focusRingType = NSFocusRingTypeDefault;
     itemButton.target = self.document;
@@ -266,10 +269,12 @@ static CGFloat itemWidth = 37;
     
     NSImage *itemImage = [NSImage imageNamed:iconImageName];
     [itemImage setTemplate:YES];
+    [itemImage setSize:CGSizeMake(19, 19)];
     
     NSPopUpButton *popupButton = [[NSPopUpButton alloc] initWithFrame:NSMakeRect(0, 0, 42, 27) pullsDown:YES];
     popupButton.bezelStyle = NSBezelStyleTexturedRounded;
     popupButton.focusRingType = NSFocusRingTypeDefault;
+    //popupButton.imageScaling = NSImageScaleProportionallyDown;
     
     // First item's image is displayed as button image, therefor we need a dummy with the icon
     [popupButton addItemWithTitle:@""];
