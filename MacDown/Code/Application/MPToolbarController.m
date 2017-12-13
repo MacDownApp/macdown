@@ -53,7 +53,7 @@ static CGFloat itemWidth = 37;
     
     // Set up all available toolbar items
     self->toolbarItems = @[
-                           [self toolbarItemGroupWithIdentifier:@"indent-group" separated:YES label:NSLocalizedString(@"Shift Left/Right", @"") items:@[
+        [self toolbarItemGroupWithIdentifier:@"indent-group" separated:YES label:NSLocalizedString(@"Shift Left/Right", @"") items:@[
             [self toolbarItemWithIdentifier:@"shift-left" label:NSLocalizedString(@"Shift Left", @"Shift text to the left toolbar button") icon:@"ToolbarIconShiftLeft" action:@selector(unindent:)],
             [self toolbarItemWithIdentifier:@"shift-right" label:NSLocalizedString(@"Shift Right", @"Shift text to the right toolbar button") icon:@"ToolbarIconShiftRight" action:@selector(indent:)]
             ]
@@ -142,7 +142,9 @@ static CGFloat itemWidth = 37;
     for (NSString *itemIdentifier in orderedToolbarItemIdentifiers)
     {
         // exclude some toolbar items from the default toolbar
-        if ([itemIdentifier  isEqual: @"comment"] || [itemIdentifier  isEqual: @"highlight"] || [itemIdentifier  isEqual: @"strikethrough"]) {
+        if ([itemIdentifier  isEqual: @"comment"]
+            || [itemIdentifier  isEqual: @"highlight"]
+            || [itemIdentifier  isEqual: @"strikethrough"]) {
             // do nothing here
         }else {
             [defaultItemIdentifiers addObject:itemIdentifier];
