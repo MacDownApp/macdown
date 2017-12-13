@@ -644,9 +644,9 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     {
         NSMenuItem *it = ((NSMenuItem *)item);
         it.title = self.toolbarVisible ?
-            NSLocalizedString(@"Hide toolbar",
+            NSLocalizedString(@"Hide Toolbar",
                               @"Toggle reveal toolbar") :
-            NSLocalizedString(@"Show toolbar",
+            NSLocalizedString(@"Show Toolbar",
                               @"Toggle reveal toolbar");
     }
     else if (action == @selector(togglePreviewPane:))

@@ -13,3 +13,32 @@
 "CHARACTERS_PLURAL_STRING" = "%@ character;%@ characters";
 
 "CHARACTERS_NO_SPACES_PLURAL_STRING" = "%@ character (no spaces);%@ characters (no spaces)";
+
+/* menu item for window toolbar */
+"Hide Toolbar" = "Hide Toolbar";
+"Show Toolbar" = "Show Toolbar";
+
+/* button labels/tooltips for window toolbar */
+"Shift Left/Right" = "Shift Left/Right";
+"Shift Left" = "Shift Left";
+"Shift Right" = "Shift Right";
+"Text Styles" = "Text Styles";
+"Strong" = "Strong";
+"Emphasize" = "Emphasize";
+"Underline" = "Underline";
+"Headings" = "Headings";
+"Heading 1" = "Heading 1";
+"Heading 2" = "Heading 2";
+"Heading 3" = "Heading 3";
+"Ordered/Unordered List" = "Ordered/Unordered List";
+"Unordered List" = "Unordered List";
+"Ordered List" = "Ordered List";
+"Blockquote" = "Blockquote";
+"Inline Code" = "Inline Code";
+"Link" = "Link";
+"Image" = "Image";
+"Copy HTML" = "Copy HTML";
+"Comment" = "Comment";
+"Highlight" = "Highlight";
+"Strikethrough" = "Strikethrough";
+"Layout" = "Layout";

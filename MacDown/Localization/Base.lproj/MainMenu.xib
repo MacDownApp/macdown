@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11542" systemVersion="16C67" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11542"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -389,12 +389,6 @@
                                     <action selector="setEditorThreeQuarters:" target="-1" id="IEv-Wg-wJA"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Show toolbar" keyEquivalent="t" id="fKI-yk-0lv">
-                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
-                                <connections>
-                                    <action selector="toggleToolbar:" target="-1" id="Crk-Yu-una"/>
-                                </connections>
-                            </menuItem>
                             <menuItem title="Hide Preview Pane" keyEquivalent="H" id="T74-vt-YUA">
                                 <connections>
                                     <action selector="togglePreviewPane:" target="-1" id="03s-kD-O7K"/>
@@ -406,6 +400,13 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="Cux-kV-g5Z"/>
+                            <menuItem title="Show Toolbar" keyEquivalent="t" id="fKI-yk-0lv">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                <connections>
+                                    <action selector="toggleToolbar:" target="-1" id="Crk-Yu-una"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="QMZ-Ld-Nza"/>
                             <menuItem title="Enter Full Screen" keyEquivalent="f" id="1gz-YB-DZE">
                                 <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
                                 <connections>
