@@ -296,7 +296,7 @@
 "tRr-pd-1PS.title" = "Détecteurs de données";
 
 /* Class = "NSMenuItem"; title = "Open Recent"; ObjectID = "tXI-mr-wws"; */
-"tXI-mr-wws.title" = "Dociments récents";
+"tXI-mr-wws.title" = "Documents récents";
 
 /* Class = "NSMenuItem"; title = "Copy HTML"; ObjectID = "ts7-v5-Htm"; */
 "ts7-v5-Htm.title" = "Copier le HTML";
