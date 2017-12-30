@@ -371,7 +371,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 
     self.highlighter =
         [[HGMarkdownHighlighter alloc] initWithTextView:self.editor
-                                           waitInterval:0.1];
+                                           waitInterval:0.0];
     self.renderer = [[MPRenderer alloc] init];
     self.renderer.dataSource = self;
     self.renderer.delegate = self;
@@ -714,9 +714,19 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
                                           strikethroughEnabled:strikethrough])
             return NO;
     }
+    
+	// For every change, set the typing attributes
+	if (range.location > 0) {
+		NSRange prevRange = range;
+		prevRange.location -= 1;
+		prevRange.length = 1;
+
+		NSDictionary *attr = [[textView attributedString] fontAttributesInRange:prevRange];
+		[textView setTypingAttributes:attr];
+	}
+
     return YES;
 }
-
 
 #pragma mark - Fake NSTextViewDelegate
 
@@ -912,6 +922,10 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 
 #pragma mark - MPRendererDataSource
 
+- (BOOL)rendererLoading {
+	return self.preview.loading;
+}
+    
 - (NSString *)rendererMarkdown:(MPRenderer *)renderer
 {
     return self.editor.string;
@@ -1072,10 +1086,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     }
     else
     {
-        [renderer parseNowWithCommand:@selector(parseIfPreferencesChanged)
-                      completionHandler:^{
-                          [renderer render];
-                      }];
+        [renderer parseIfPreferencesChanged];
         [renderer renderIfPreferencesChanged];
     }
 }
