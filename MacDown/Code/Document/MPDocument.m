@@ -451,7 +451,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
         self.editor.string = self.loadedString;
         self.loadedString = nil;
         [self.renderer parseAndRenderNow];
-        [self.highlighter parseAndHighlightNow];
+        [self.highlighter parseAndHighlightWholeDocumentNow];
     }
 }
 
@@ -1543,6 +1543,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     }
 
     [self.highlighter activate];
+
     self.editor.automaticLinkDetectionEnabled = NO;
 }
 
