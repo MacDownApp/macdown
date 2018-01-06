@@ -83,32 +83,3 @@ create nonexistent link targets for you." = "Bitte prüfe den angegebenen Link. 
 
 /* No comment provided by engineer. */
 "WORDS_PLURAL_STRING" = "%@ Wort;%@ Wörter";
-
-/* menu item for window toolbar */
-"Hide Toolbar" = "Symbolleiste ausblenden";
-"Show Toolbar" = "Symbolleiste einblenden";
-
-/* button labels/tooltips for window toolbar */
-"Shift Left/Right" = "Aus-/Einrücken";
-"Shift Left" = "Nach links verschieben";
-"Shift Right" = "Nach rechts verschieben";
-"Text Styles" = "Text Formate";
-"Strong" = "Fett";
-"Emphasize" = "Kursiv";
-"Underline" = "Unterstrichen";
-"Headings" = "Überschriften";
-"Heading 1" = "Überschrift 1";
-"Heading 2" = "Überschrift 2";
-"Heading 3" = "Überschrift 3";
-"Ordered/Unordered List" = "Un-/Geordnete Liste";
-"Unordered List" = "Ungeordnete Liste";
-"Ordered List" = "Geordnete Liste";
-"Blockquote" = "Block-Zitat";
-"Inline Code" = "Inline-Code";
-"Link" = "Link";
-"Image" = "Bild";
-"Copy HTML" = "HTML kopieren";
-"Comment" = "Kommentar";
-"Highlight" = "Markiert";
-"Strikethrough" = "Durchgestrichen";
-"Layout" = "Darstellung";
