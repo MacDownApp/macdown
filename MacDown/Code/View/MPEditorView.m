@@ -39,6 +39,60 @@ NS_INLINE BOOL MPAreRectsEqual(NSRect r1, NSRect r2)
     }
 }
 
+- (void)awakeFromNib {
+    [self registerForDraggedTypes:[NSArray arrayWithObjects: NSDragPboard, nil]];
+    [super awakeFromNib];
+}
+
+- (NSDragOperation)draggingEntered:(id <NSDraggingInfo>)sender {
+    NSPasteboard *pboard;
+    NSDragOperation sourceDragMask;
+    
+    sourceDragMask = [sender draggingSourceOperationMask];
+    pboard = [sender draggingPasteboard];
+    
+    if ([pboard canReadItemWithDataConformingToTypes:[NSArray arrayWithObjects:@"public.jpeg", nil]]) {
+        if (sourceDragMask & NSDragOperationLink) {
+            return NSDragOperationLink;
+        } else if (sourceDragMask & NSDragOperationCopy) {
+            return NSDragOperationCopy;
+        }
+    }
+    
+    return NSDragOperationNone;
+}
+
+- (BOOL)performDragOperation:(id <NSDraggingInfo>)sender {
+    NSPasteboard *pboard;
+    NSDragOperation sourceDragMask;
+    
+    sourceDragMask = [sender draggingSourceOperationMask];
+    pboard = [sender draggingPasteboard];
+    
+    if ( [[pboard types] containsObject:NSFilenamesPboardType] ) {
+        NSArray *files = [pboard propertyListForType:NSFilenamesPboardType];
+        
+        /* Load data of file. */
+        NSError *error;
+        NSData *fileData = [NSData dataWithContentsOfFile: files[0]
+                                                  options: NSMappedRead
+                                                    error: &error];
+        if (!error) {
+            // convert to base64 representation
+            NSString *dataString = [fileData base64Encoding];
+            
+            // insert into text.
+            NSInteger insertionPoint = [[[self selectedRanges] objectAtIndex:0] rangeValue].location;
+            [self setString:[NSString stringWithFormat:@"%@![](data:image/jpeg;base64,%@)%@", [[self string] substringToIndex:insertionPoint], dataString, [[self string] substringFromIndex:insertionPoint]]];
+            [self didChangeText];
+        } else {
+            return NO;
+        }
+    }
+    return YES;
+}
+
+
 - (void)setScrollsPastEnd:(BOOL)scrollsPastEnd
 {
     @synchronized(self) {
