@@ -210,7 +210,7 @@ NS_INLINE BOOL MPAreNilableStringsEqual(NSString *s1, NSString *s2)
 @property (readonly) NSArray *stylesheets;
 @property (readonly) NSArray *scripts;
 @property (copy) NSString *currentHtml;
-@property (strong) NSTimer *parseDelayTimer;
+@property (strong) NSOperationQueue *parseQueue;
 @property int extensions;
 @property BOOL smartypants;
 @property BOOL TOC;
@@ -346,6 +346,8 @@ NS_INLINE void MPFreeHTMLRenderer(hoedown_renderer *htmlRenderer)
 
     self.currentHtml = @"";
     self.currentLanguages = [NSMutableArray array];
+    self.parseQueue = [[NSOperationQueue alloc] init];
+    self.parseQueue.maxConcurrentOperationCount = 1; // Serial queue
 
     return self;
 }
@@ -526,29 +528,44 @@ NS_INLINE void MPFreeHTMLRenderer(hoedown_renderer *htmlRenderer)
 }
 
 #pragma mark - Public
+    
+- (void)parseAndRenderWithMaxDelay:(NSTimeInterval)maxDelay {
+    [self.parseQueue cancelAllOperations];
+    [self.parseQueue addOperationWithBlock:^{
+        // Fetch the markdown (from the main thread)
+        __block NSString *markdown;
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            markdown = [[self.dataSource rendererMarkdown:self] copy];
+        });
+
+        // Parse in backgound
+        [self parseMarkdown:markdown];
+        
+        // Wait untils is renderer has finished loading OR until the maxDelay has passed
+        // This should result in overall faster update times
+        NSDate *start = [NSDate date];
+        __block BOOL rendererIsLoading = true;
+        while (rendererIsLoading || [start timeIntervalSinceNow] >= maxDelay) {
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                rendererIsLoading = [self.dataSource rendererLoading];
+            });
+        }
+        
+        // Render on main thread
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self render];
+        });
+    }];
+}
 
 - (void)parseAndRenderNow
 {
-    [self parseNowWithCommand:@selector(parse) completionHandler:^{
-        [self render];
-    }];
+    [self parseAndRenderWithMaxDelay:0];
 }
 
 - (void)parseAndRenderLater
 {
-    [self parseLaterWithCommand:@selector(parse) completionHandler:^{
-        [self render];
-    }];
-}
-
-- (void)parseNowWithCommand:(SEL)action completionHandler:(void(^)())handler
-{
-    [self parseLater:0.0 withCommand:action completionHandler:handler];
-}
-
-- (void)parseLaterWithCommand:(SEL)action completionHandler:(void(^)())handler
-{
-    [self parseLater:0.5 withCommand:action completionHandler:handler];
+    [self parseAndRenderWithMaxDelay:0.5];
 }
 
 - (void)parseIfPreferencesChanged
@@ -558,28 +575,21 @@ NS_INLINE void MPFreeHTMLRenderer(hoedown_renderer *htmlRenderer)
             || [delegate rendererHasSmartyPants:self] != self.smartypants
             || [delegate rendererRendersTOC:self] != self.TOC
             || [delegate rendererDetectsFrontMatter:self] != self.frontMatter)
-        [self parse];
+    {
+        [self parseMarkdown:[self.dataSource rendererMarkdown:self]];
+    }
 }
 
-- (void)parse
-{
-    void(^nextAction)() = nil;
-    if (self.parseDelayTimer.isValid)
-    {
-        nextAction = self.parseDelayTimer.userInfo[@"next"];
-        [self.parseDelayTimer invalidate];
-    }
-
+- (void)parseMarkdown:(NSString *)markdown {
     [self.currentLanguages removeAllObjects];
-
+    
     id<MPRendererDelegate> delegate = self.delegate;
     int extensions = [delegate rendererExtensions:self];
     BOOL smartypants = [delegate rendererHasSmartyPants:self];
     BOOL hasFrontMatter = [delegate rendererDetectsFrontMatter:self];
     BOOL hasTOC = [delegate rendererRendersTOC:self];
-
+    
     id frontMatter = nil;
-    NSString *markdown = [self.dataSource rendererMarkdown:self];
     if (hasFrontMatter)
     {
         NSUInteger offset = 0;
@@ -589,21 +599,18 @@ NS_INLINE void MPFreeHTMLRenderer(hoedown_renderer *htmlRenderer)
     hoedown_renderer *htmlRenderer = MPCreateHTMLRenderer(self);
     hoedown_renderer *tocRenderer = NULL;
     if (hasTOC)
-        tocRenderer = MPCreateHTMLTOCRenderer();
+    tocRenderer = MPCreateHTMLTOCRenderer();
     self.currentHtml = MPHTMLFromMarkdown(
-        markdown, extensions, smartypants, [frontMatter HTMLTable],
-        htmlRenderer, tocRenderer);
+                                          markdown, extensions, smartypants, [frontMatter HTMLTable],
+                                          htmlRenderer, tocRenderer);
     if (tocRenderer)
-        hoedown_html_renderer_free(tocRenderer);
+    hoedown_html_renderer_free(tocRenderer);
     MPFreeHTMLRenderer(htmlRenderer);
-
+    
     self.extensions = extensions;
     self.smartypants = smartypants;
     self.TOC = hasTOC;
     self.frontMatter = hasFrontMatter;
-
-    if (nextAction)
-        nextAction();
 }
 
 - (void)renderIfPreferencesChanged
@@ -689,20 +696,6 @@ NS_INLINE void MPFreeHTMLRenderer(hoedown_renderer *htmlRenderer)
     NSString *html = MPGetHTML(
         title, self.currentHtml, styles, stylesOption, scripts, scriptsOption);
     return html;
-}
-
-
-#pragma mark - Private
-
-- (void)parseLater:(NSTimeInterval)delay
-       withCommand:(SEL)action completionHandler:(void(^)())handler
-{
-    self.parseDelayTimer =
-        [NSTimer scheduledTimerWithTimeInterval:delay
-                                         target:self
-                                       selector:action
-                                       userInfo:@{@"next": handler}
-                                        repeats:NO];
 }
 
 @end
