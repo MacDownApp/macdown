@@ -1,5 +1,5 @@
 # Uncomment this line to define a global platform for your project
-# platform :ios, "6.0"
+platform :osx, "10.8"
 
 source 'https://github.com/MacDownApp/cocoapods-specs.git'
 source 'https://github.com/CocoaPods/Specs.git'

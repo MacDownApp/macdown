@@ -28,6 +28,7 @@
 #import "MPExportPanelAccessoryViewController.h"
 #import "MPMathJaxListener.h"
 #import "WebView+WebViewPrivateHeaders.h"
+#import "MPToolbarController.h"
 
 
 static NSString * const kMPDefaultAutosaveName = @"Untitled";
@@ -181,12 +182,14 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
     MPWordCountTypeCharacterNoSpaces,
 };
 
+@property (weak) IBOutlet NSToolbar *toolbar;
 @property (weak) IBOutlet MPDocumentSplitView *splitView;
 @property (weak) IBOutlet NSView *editorContainer;
 @property (unsafe_unretained) IBOutlet MPEditorView *editor;
 @property (weak) IBOutlet NSLayoutConstraint *editorPaddingBottom;
 @property (weak) IBOutlet WebView *preview;
 @property (weak) IBOutlet NSPopUpButton *wordCountWidget;
+@property (strong) IBOutlet MPToolbarController *toolbarController;
 @property (copy, nonatomic) NSString *autosaveName;
 @property (strong) HGMarkdownHighlighter *highlighter;
 @property (strong) MPRenderer *renderer;
@@ -197,8 +200,6 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
 @property BOOL shouldHandleBoundsChange;
 @property BOOL isPreviewReady;
 @property (strong) NSURL *currentBaseUrl;
-@property (readonly) BOOL previewVisible;
-@property (readonly) BOOL editorVisible;
 @property CGFloat lastPreviewScrollTop;
 @property (nonatomic, readonly) BOOL needsHtml;
 @property (nonatomic) NSUInteger totalWords;
@@ -267,6 +268,11 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     return self.renderer.currentHtml;
 }
 
+- (BOOL)toolbarVisible
+{
+    return self.windowForSheet.toolbar.visible;
+}
+
 - (BOOL)previewVisible
 {
     return (self.preview.frame.size.width != 0.0);
@@ -333,6 +339,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     self.isPreviewReady = NO;
     self.shouldHandleBoundsChange = YES;
     self.previousSplitRatio = -1.0;
+    
     return self;
 }
 
@@ -364,7 +371,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 
     self.highlighter =
         [[HGMarkdownHighlighter alloc] initWithTextView:self.editor
-                                           waitInterval:0.1];
+                                           waitInterval:0.0];
     self.renderer = [[MPRenderer alloc] init];
     self.renderer.dataSource = self;
     self.renderer.delegate = self;
@@ -633,7 +640,16 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 {
     BOOL result = [super validateUserInterfaceItem:item];
     SEL action = item.action;
-    if (action == @selector(togglePreviewPane:))
+    if (action == @selector(toggleToolbar:))
+    {
+        NSMenuItem *it = ((NSMenuItem *)item);
+        it.title = self.toolbarVisible ?
+            NSLocalizedString(@"Hide toolbar",
+                              @"Toggle reveal toolbar") :
+            NSLocalizedString(@"Show toolbar",
+                              @"Toggle reveal toolbar");
+    }
+    else if (action == @selector(togglePreviewPane:))
     {
         NSMenuItem *it = ((NSMenuItem *)item);
         it.hidden = (!self.previewVisible && self.previousSplitRatio < 0.0);
@@ -698,9 +714,19 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
                                           strikethroughEnabled:strikethrough])
             return NO;
     }
+    
+	// For every change, set the typing attributes
+	if (range.location > 0) {
+		NSRange prevRange = range;
+		prevRange.location -= 1;
+		prevRange.length = 1;
+
+		NSDictionary *attr = [[textView attributedString] fontAttributesInRange:prevRange];
+		[textView setTypingAttributes:attr];
+	}
+
     return YES;
 }
-
 
 #pragma mark - Fake NSTextViewDelegate
 
@@ -896,6 +922,10 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 
 #pragma mark - MPRendererDataSource
 
+- (BOOL)rendererLoading {
+	return self.preview.loading;
+}
+    
 - (NSString *)rendererMarkdown:(MPRenderer *)renderer
 {
     return self.editor.string;
@@ -938,6 +968,16 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 - (BOOL)rendererHasSyntaxHighlighting:(MPRenderer *)renderer
 {
     return self.preferences.htmlSyntaxHighlighting;
+}
+
+- (BOOL)rendererHasMermaid:(MPRenderer *)renderer
+{
+    return self.preferences.htmlMermaid;
+}
+
+- (BOOL)rendererHasGraphviz:(MPRenderer *)renderer
+{
+    return self.preferences.htmlGraphviz;
 }
 
 - (MPCodeBlockAccessoryType)rendererCodeBlockAccesory:(MPRenderer *)renderer
@@ -1046,10 +1086,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     }
     else
     {
-        [renderer parseNowWithCommand:@selector(parseIfPreferencesChanged)
-                      completionHandler:^{
-                          [renderer render];
-                      }];
+        [renderer parseIfPreferencesChanged];
         [renderer renderIfPreferencesChanged];
     }
 }
@@ -1340,6 +1377,11 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 - (IBAction)setEqualSplit:(id)sender
 {
     [self setSplitViewDividerLocation:0.5];
+}
+
+- (IBAction)toggleToolbar:(id)sender
+{
+    [self.windowForSheet toggleToolbarShown:sender];
 }
 
 - (IBAction)togglePreviewPane:(id)sender

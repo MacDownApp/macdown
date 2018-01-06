@@ -1,0 +1,92 @@
+/* Prism theme title */
+"(Default)" = "(Predefinito)";
+
+/* Displayed when shell utility is not installed */
+"<Not installed>" = "<Non installato>";
+
+/* preview navigation error information */
+"An error occurred while creating the file:
+%@" = "Si è verificato un errore nella creazione del file: 
+%@";
+
+/* No comment provided by engineer. */
+"CHARACTERS_NO_SPACES_PLURAL_STRING" = "Carattere %@ (senza spazi);caratteri %@ (senza spazi)";
+
+/* No comment provided by engineer. */
+"CHARACTERS_PLURAL_STRING" = "Carattere %@;%@ Caratteri";
+
+/* preview navigation error message */
+"Can’t create file:
+%@" = "Impossibile create il file
+%@";
+
+/* Preference pane title. */
+"Editor" = "Editor";
+
+/* preview navigation error message */
+"File not found at path:
+%@" = "File non trovato all'indirizzo:
+%@";
+
+/* Preference pane title. */
+"General" = "Generale";
+
+/* Toggle editor pane menu item */
+"Hide Editor Pane" = "Nascondi Editor";
+
+/* Toggle preview pane menu item */
+"Hide Preview Pane" = "Nascondi Anteprima";
+
+/* Install shell utility button */
+"Install" = "Installa";
+
+/* (No Commment) */
+"JJ_PLURAL_FORM_RULE" = "1";
+
+/* preview navigation error information */
+"MacDown can’t create a file for the clicked link because 
+the current file is not saved anywhere yet. Save the 
+current file somewhere to enable this feature." = "MacDown non può creare un file per il link perché
+questo file non è ancora stato salvato.  Salva il file 
+da qualche parte per abilitare questa funzione.";
+
+/* Preference pane title. */
+"Markdown" = "Markdown";
+
+/* preview navigation error information */
+"Please check the path of your link is correct. Turn on 
+“Automatically create link targets” If you want MacDown to 
+create nonexistent link targets for you." = "Controlla che il percorso del link sia corretto. Attiva
+\"Crea automaticamente link di destinazione\" se vuoi che MacDown 
+crei link di destinazione inesistenti per te.";
+
+/* Preferences window title. */
+"Preferences" = "Preferenze";
+
+/* Preference pane title. */
+"Rendering" = "Resa grafica";
+
+/* Toggle editor pane menu item */
+"Restore Editor Pane" = "Ripristina Editor";
+
+/* Toggle preview pane menu item */
+"Restore Preview Pane" = "Ripristina Anteprima";
+
+/* Label stating that shell utility has been installed */
+"Shell utility installed" = "Supporto Shell installato";
+
+/* Label stating that shell utility has not been installed */
+"Shell utility not installed" = "Supporto Shell non installato";
+
+/* Preference pane title. */
+"Terminal" = "Terminale";
+
+/* Uninstall shell utility button */
+"Uninstall" = "Disinstalla";
+
+/* default filename if no title can be determined */
+"Untitled" = "Senza Titolo";
+
+/* No comment provided by engineer. */
+"WORDS_PLURAL_STRING" = "%@ parola;%@ parole";
+

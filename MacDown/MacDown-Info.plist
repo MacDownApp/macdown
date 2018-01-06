@@ -44,7 +44,7 @@
 			<string>Editor</string>
 			<key>LSItemContentTypes</key>
 			<array>
-				<string>public.text</string>
+				<string>public.plain-text</string>
 			</array>
 			<key>LSTypeIsPackage</key>
 			<integer>0</integer>
@@ -92,7 +92,7 @@
 		<true/>
 		<key>NSExceptionDomains</key>
 		<dict>
-			<key>mathjax.org</key>
+			<key>cdnjs.cloudflare.com</key>
 			<dict>
 				<key>NSExceptionRequiresForwardSecrecy</key>
 				<false/>

@@ -89,11 +89,12 @@ def main(argv):
         re.MULTILINE,
     )
     archive_path = match.group(1)
+
     print('Exporting application bundle...')
-    execute(
-        XCODEBUILD, '-exportArchive', '-exportFormat', 'app',
-        '-archivePath', archive_path, '-exportPath', APP_NAME,
+    source_app_path = os.path.join(
+        archive_path, 'Products', 'Applications', APP_NAME,
     )
+    shutil.copytree(source_app_path, APP_NAME)
 
     # Zip.
     with zipfile.ZipFile(ZIP_NAME, 'w') as f:

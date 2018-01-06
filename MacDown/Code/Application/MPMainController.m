@@ -155,6 +155,11 @@ NS_INLINE void treat()
     MPOpenBundledFile(@"help", @"md");
 }
 
+- (IBAction)showContributing:(id)sender
+{
+    MPOpenBundledFile(@"contribute", @"md");
+}
+
 
 #pragma mark - Override
 
@@ -287,6 +292,7 @@ NS_INLINE void treat()
 - (void)showFirstLaunchTips
 {
     [self showHelp:nil];
+    [self showContributing:nil];
 }
 
 

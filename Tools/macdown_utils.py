@@ -7,6 +7,8 @@ import subprocess
 
 XCODEBUILD = '/usr/bin/xcodebuild'
 
+XLIFF_URL = 'urn:oasis:names:tc:xliff:document:1.2'
+
 ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
