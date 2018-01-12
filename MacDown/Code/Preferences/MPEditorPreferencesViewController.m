@@ -27,7 +27,7 @@ NSString * const MPDidRequestEditorSetupNotificationKeyName =
 
 #pragma mark - MASPreferencesViewController
 
-- (NSString *)identifier
+- (NSString *)viewIdentifier
 {
     return @"EditorPreferences";
 }
