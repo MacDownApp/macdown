@@ -1,1 +1,16 @@
+/*
+  Localizable.strings
+  MacDown
+
+  Created by Tzu-ping Chung  on 14/7.
+  Copyright (c) 2014 Tzu-ping Chung . All rights reserved.
+*/
+
+"JJ_PLURAL_FORM_RULE" = "1";
+
+"WORDS_PLURAL_STRING" = "%@ woord;%@ woorden";
+
+"CHARACTERS_PLURAL_STRING" = "%@ karakter;%@ karakters";
+
+"CHARACTERS_NO_SPACES_PLURAL_STRING" = "%@ katakter (zonder spaces);%@ katakters (zonder spaces)";
 /* No Localized Strings */
