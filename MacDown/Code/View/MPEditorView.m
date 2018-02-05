@@ -213,11 +213,12 @@ NS_INLINE BOOL MPAreRectsEqual(NSRect r1, NSRect r2)
     }
 
     [touchBar setDefaultItemIdentifiers:@[
-        NSTouchBarItemIdentifierCharacterPicker,
         MPTouchBarItemHeadingPopIdentifier,
         MPTouchBarItemFormattingIdentifier,
+        NSTouchBarItemIdentifierFlexibleSpace,
         MPTouchBarItemListsIdentifier,
         MPTouchBarItemLinkIdentifier,
+        MPTouchBarItemImageIdentifier,
         NSTouchBarItemIdentifierFlexibleSpace,
         NSTouchBarItemIdentifierCandidateList,
         NSTouchBarItemIdentifierOtherItemsProxy
