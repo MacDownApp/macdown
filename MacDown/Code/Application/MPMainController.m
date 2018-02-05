@@ -431,7 +431,10 @@ NS_INLINE void treat()
     NSString *label = NSLocalizedString(@"Lists",
                                         @"TouchBar button label");
 
-    return [self segmentedItem:identifier images:images andLabel:label];
+    return [self segmentedItem:identifier
+                        images:images
+                segmentedStyle:NSSegmentStyleSeparated
+                      andLabel:label];
 }
 
 - (NSTouchBarItem *)shiftTextGroupTouchBarItem:(NSTouchBar *)touchBar
@@ -446,7 +449,10 @@ NS_INLINE void treat()
     NSString *label = NSLocalizedString(@"Shift Text",
                                         @"TouchBar button label");
 
-    return [self segmentedItem:identifier images:images andLabel:label];
+    return [self segmentedItem:identifier
+                        images:images
+                segmentedStyle:NSSegmentStyleSeparated
+                      andLabel:label];
 }
 
 - (NSTouchBarItem *)paragraphPopoverTouchBarItem
