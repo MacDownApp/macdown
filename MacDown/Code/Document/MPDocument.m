@@ -1459,6 +1459,10 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     {
         [self togglePreviewPane:sender];
     }
+    else if ([identifier isEqualToString:MPTouchBarItemEqualSplitEditorIdentifier])
+    {
+        [self setEqualSplit:sender];
+    }
 }
 
 #pragma mark - Private

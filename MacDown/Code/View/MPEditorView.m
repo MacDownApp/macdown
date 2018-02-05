@@ -184,8 +184,8 @@ NS_INLINE BOOL MPAreRectsEqual(NSRect r1, NSRect r2)
         MPTouchBarItemLinkIdentifier,
         MPTouchBarItemImageIdentifier,
         MPTouchBarItemCopyHTMLIdentifier,
-        MPTouchBarItemHideEditorIdentifier,
-        MPTouchBarItemHidePreviewIdentifier
+        MPTouchBarItemLayoutPopIdentifier,
+        MPTouchBarItemLayoutIdentifier // as alternative to the smaller popup layout button
     ]];
 
     // Add items that only should be included if the respective extension

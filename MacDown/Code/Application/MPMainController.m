@@ -484,6 +484,45 @@ NS_INLINE void treat()
     return item;
 }
 
+- (NSTouchBarItem *)layoutGroupTouchBarItem:(NSTouchBar *)touchBar
+{
+    id identifier = MPTouchBarItemLayoutIdentifier;
+    
+    NSMutableArray *images = [@[
+        [NSImage imageNamed:@"HideEditor"],
+        [NSImage imageNamed:@"EditorAndPreview"],
+        [NSImage imageNamed:@"HidePreview"]
+    ] mutableCopy];
+    
+    NSString *label = NSLocalizedString(@"Layout",
+                                        @"TouchBar button label");
+    
+    return [self segmentedItem:identifier images:images andLabel:label];
+}
+
+-(NSTouchBarItem *)layoutPopoverTouchBarItem
+{
+    id identifier = MPTouchBarItemLayoutPopIdentifier;
+    NSPopoverTouchBarItem *item = [[NSPopoverTouchBarItem alloc]
+                                   initWithIdentifier:identifier];
+    
+    NSTouchBar *subTouchBar = [[NSTouchBar alloc] init];
+    [subTouchBar setDelegate:self];
+    
+    [subTouchBar setDefaultItemIdentifiers:@[
+        MPTouchBarItemLayoutIdentifier
+    ]];
+    
+    [item setPopoverTouchBar:subTouchBar];
+    [item setPressAndHoldTouchBar:subTouchBar];
+    [item setCollapsedRepresentationImage:[NSImage imageNamed:@"EditorAndPreview"]];
+    [item setShowsCloseButton:YES];
+    [item setCustomizationLabel:NSLocalizedString(@"Layout",
+                                                  @"TouchBar button label")];
+    
+    return item;
+}
+
 - (NSTouchBarItem *)touchBar:(NSTouchBar *)touchBar
        makeItemForIdentifier:(NSTouchBarItemIdentifier)identifier
 {
@@ -624,6 +663,14 @@ NS_INLINE void treat()
                        andLabel:NSLocalizedString(@"Hide Editor Pane",
                                                   @"TouchBar button label")];
     }
+    else if ([identifier isEqualToString:MPTouchBarItemLayoutIdentifier])
+    {
+        return [self layoutGroupTouchBarItem:touchBar];
+    }
+    else if ([identifier isEqualToString:MPTouchBarItemLayoutPopIdentifier])
+    {
+        return [self layoutPopoverTouchBarItem];
+    }
     else
     {
         // Try from the extra plugin items
@@ -695,6 +742,16 @@ NS_INLINE void treat()
                 MPTouchBarItemShiftRightIdentifier
             };
 
+            identifier = identifiers[[sender selectedSegment]];
+        }
+        else if ([identifier isEqualToString:MPTouchBarItemLayoutIdentifier])
+        {
+            NSTouchBarItemIdentifier identifiers[] = {
+                MPTouchBarItemHideEditorIdentifier,
+                MPTouchBarItemEqualSplitEditorIdentifier,
+                MPTouchBarItemHidePreviewIdentifier
+            };
+            
             identifier = identifiers[[sender selectedSegment]];
         }
     }

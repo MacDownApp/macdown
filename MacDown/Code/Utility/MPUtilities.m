@@ -77,10 +77,17 @@ const NSTouchBarItemIdentifier MPTouchBarItemShiftLeftIdentifier =
 
 const NSTouchBarItemIdentifier MPTouchBarItemCopyHTMLIdentifier =
     @"com.uranusjr.macdown.touchbar.copyHTML";
+
+const NSTouchBarItemIdentifier MPTouchBarItemLayoutPopIdentifier =
+    @"com.uranusjr.macdown.touchbar.layoutPopover";
+const NSTouchBarItemIdentifier MPTouchBarItemLayoutIdentifier =
+    @"com.uranusjr.macdown.touchbar.layout";
 const NSTouchBarItemIdentifier MPTouchBarItemHideEditorIdentifier =
-    @"com.uranusjr.macdown.touchbar.hideEditor";
+    @"com.uranusjr.macdown.touchbar.layout-hideEditor";
+const NSTouchBarItemIdentifier MPTouchBarItemEqualSplitEditorIdentifier =
+    @"com.uranusjr.macdown.touchbar.layout-equalSplitEditor";
 const NSTouchBarItemIdentifier MPTouchBarItemHidePreviewIdentifier =
-    @"com.uranusjr.macdown.touchbar.hidePreview";
+    @"com.uranusjr.macdown.touchbar.layout-hidePreview";
 
 static NSString *MPDataRootDirectory()
 {

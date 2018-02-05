@@ -23,8 +23,10 @@
     }
 
     [touchBar setDefaultItemIdentifiers:@[
-        MPTouchBarItemHideEditorIdentifier,
-        MPTouchBarItemHidePreviewIdentifier
+        NSTouchBarItemIdentifierFlexibleSpace,
+        MPTouchBarItemLayoutIdentifier,
+        NSTouchBarItemIdentifierFlexibleSpace,
+        MPTouchBarItemCopyHTMLIdentifier
     ]];
 
     return touchBar;

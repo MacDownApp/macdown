@@ -46,7 +46,11 @@ extern const NSTouchBarItemIdentifier MPTouchBarItemShiftRightIdentifier;
 extern const NSTouchBarItemIdentifier MPTouchBarItemShiftLeftIdentifier;
 
 extern const NSTouchBarItemIdentifier MPTouchBarItemCopyHTMLIdentifier;
+
+extern const NSTouchBarItemIdentifier MPTouchBarItemLayoutPopIdentifier;
+extern const NSTouchBarItemIdentifier MPTouchBarItemLayoutIdentifier;
 extern const NSTouchBarItemIdentifier MPTouchBarItemHideEditorIdentifier;
+extern const NSTouchBarItemIdentifier MPTouchBarItemEqualSplitEditorIdentifier;
 extern const NSTouchBarItemIdentifier MPTouchBarItemHidePreviewIdentifier;
 
 NSString *MPDataDirectory(NSString *relativePath);
