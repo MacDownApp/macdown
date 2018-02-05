@@ -67,8 +67,6 @@ extern NSString * const MPDidDetectFreshInstallationNotification;
 @property (assign) BOOL htmlSyntaxHighlighting;
 @property (assign) NSString *htmlHighlightingThemeName;
 @property (assign) BOOL htmlLineNumbers;
-@property (assign) BOOL htmlGraphviz;
-@property (assign) BOOL htmlMermaid;
 @property (assign) NSInteger htmlCodeBlockAccessory;
 @property (assign) NSURL *htmlDefaultDirectoryUrl;
 @property (assign) BOOL htmlRendersTOC;

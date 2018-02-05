@@ -10,7 +10,7 @@
 
 @interface MPMathJaxListener : NSObject
 
-- (void)addCallback:(void (^)(void))block forKey:(NSString *)key;
+- (void)addCallback:(void (^)())block forKey:(NSString *)key;
 - (void)invokeCallbackForKey:(NSString *)key;
 
 @end

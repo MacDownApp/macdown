@@ -13,7 +13,7 @@
 
 #pragma mark - MASPreferencesViewController
 
-- (NSString *)viewIdentifier
+- (NSString *)identifier
 {
     return @"MarkdownPreferences";
 }

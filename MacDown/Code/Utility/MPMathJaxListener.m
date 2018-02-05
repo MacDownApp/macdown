@@ -21,7 +21,7 @@
     return _callbacks;
 }
 
-- (void)addCallback:(void (^)(void))block forKey:(NSString *)key
+- (void)addCallback:(void (^)())block forKey:(NSString *)key
 {
     self.callbacks[key] = block;
 }
@@ -31,7 +31,7 @@
     id object = self.callbacks[key];
     if (object)
     {
-        void (^block)(void) = object;
+        void (^block)() = object;
         block();
     }
 }

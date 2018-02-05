@@ -1,23 +1,20 @@
-platform :osx, "10.8"
+# Uncomment this line to define a global platform for your project
+# platform :ios, "6.0"
 
-source 'https://github.com/MacDownApp/cocoapods-specs.git'  # Patched Howdown.
+source 'https://github.com/MacDownApp/cocoapods-specs.git'
 source 'https://github.com/CocoaPods/Specs.git'
 
 project 'MacDown.xcodeproj'
 
-inhibit_all_warnings!
-
 target "MacDown" do
   pod 'handlebars-objc', '~> 1.4'
-  pod 'hoedown', '~> 3.0.7', :inhibit_warnings => false
-  pod 'JJPluralForm', '~> 2.1'
-  pod 'LibYAML', '~> 0.1'
+  pod 'hoedown', '~> 3.0.7'
+  pod 'JJPluralForm', '~> 2.1'      # Plural form localization.
+  pod 'LibYAML', '~> 0.1', :inhibit_warnings => true
   pod 'M13OrderedDictionary', '~> 1.1'
-  pod 'MASPreferences', '~> 1.3'
-  pod 'Sparkle', '~> 1.18', :inhibit_warnings => false
-
-  # Locked on 0.4.x until we drop 10.8.
-  pod 'PAPreferences', '~> 0.4'
+  pod 'MASPreferences', '~> 1.1.3'  # Preference window.
+  pod 'PAPreferences', '~> 0.4'     # Preference singleton (Locked until we drop 10.8 support).
+  pod 'Sparkle', '~> 1.13'          # Updater.
 end
 
 target "MacDownTests" do

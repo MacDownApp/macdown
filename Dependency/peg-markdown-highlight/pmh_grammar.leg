@@ -407,7 +407,7 @@ Space = Spacechar+
 
 Str = NormalChar (NormalChar | '_'+ &Alphanumeric)*
 
-EscapedChar =   '\\' !Newline [-\\`~|*_{}[\]()#+.!><$]
+EscapedChar =   '\\' !Newline [-\\`~|*_{}[\]()#+.!><]
 
 Entity =    < s:LocMarker
             ( HexEntity | DecEntity | CharEntity ) >

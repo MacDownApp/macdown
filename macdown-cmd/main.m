@@ -6,7 +6,6 @@
 //  Copyright (c) 2014 Tzu-ping Chung . All rights reserved.
 //
 
-#import <sys/time.h>
 #import <AppKit/AppKit.h>
 #import <GBCli/GBCli.h>
 #import "NSUserDefaults+Suite.h"

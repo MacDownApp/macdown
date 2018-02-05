@@ -10,7 +10,17 @@
 #import "MPPlugIn.h"
 #import "MPPlugInController.h"
 #import "MPUtilities.h"
+#import "MPPlugInTouchBarButton.h"
 
+const NSTouchBarItemIdentifier MPTouchBarItemPluginPrefix =
+    @"com.uranusjr.macdown.touchbar.plugin.";
+
+@interface MPPlugIn (Tools)
+
+- (NSString *)touchBarIdentifier;
+- (MPPlugInTouchBarButton *)makeButton;
+
+@end
 
 @implementation MPPlugInController
 
@@ -44,13 +54,46 @@
     }
 }
 
+- (NSDictionary<NSString *, NSTouchBarItem *> *)makeTouchBarItems
+{
+    NSMutableDictionary<NSString *, NSTouchBarItem *> * items =
+        [[NSMutableDictionary alloc] init];
+
+    for (MPPlugIn *plugin in [self buildPlugIns])
+    {
+        NSString *identifier = [plugin touchBarIdentifier];
+        NSCustomTouchBarItem *item = [[NSCustomTouchBarItem alloc]
+                                      initWithIdentifier:identifier];
+        MPPlugInTouchBarButton *button = [plugin makeButton];
+        [button setTarget:self];
+        [button setTranslatesAutoresizingMaskIntoConstraints:YES];
+        [button setPlugin:plugin];
+
+        [item setView:button];
+        [item setCustomizationLabel:[plugin name]];
+
+        [items setObject:item forKey:identifier];
+    }
+
+    return items;
+}
 
 #pragma mark - Private
 
-- (void)invokePlugIn:(NSMenuItem *)item
+- (void)invokePlugIn:(id)sender
 {
-    MPPlugIn *plugin = item.representedObject;
-    if (![plugin run:item])
+    MPPlugIn *plugin;
+
+    if ([sender isKindOfClass:[NSMenuItem class]])
+    {
+        plugin = [(NSMenuItem *)sender representedObject];
+    }
+    else if ([sender isKindOfClass:[MPPlugInTouchBarButton class]])
+    {
+        plugin = [(MPPlugInTouchBarButton *)sender plugin];
+    }
+
+    if (![plugin run:sender])
         NSLog(@"Failed to run plugin %@", plugin.name);
 }
 
@@ -69,6 +112,39 @@
         [plugins addObject:plugin];
     }
     return [plugins copy];
+}
+
+@end
+
+
+@implementation MPPlugIn (Tools)
+
+- (NSString *)touchBarIdentifier
+{
+    NSString *sanitizedName = [[self name]
+                               stringByReplacingOccurrencesOfString:@" "
+                               withString:@"_"];
+
+    return [NSString stringWithFormat:@"%@%@",
+            MPTouchBarItemPluginPrefix, sanitizedName];
+}
+
+- (MPPlugInTouchBarButton *)makeButton
+{
+    SEL selector = @selector(invokePlugIn:);
+
+    if (self.touchBarImage)
+    {
+        return [MPPlugInTouchBarButton buttonWithImage:self.touchBarImage
+                                                target:nil
+                                                action:selector];
+    }
+    else
+    {
+        return [MPPlugInTouchBarButton buttonWithTitle:[self name]
+                                                target:nil
+                                                action:selector];
+    }
 }
 
 @end

@@ -28,7 +28,6 @@
 #import "MPExportPanelAccessoryViewController.h"
 #import "MPMathJaxListener.h"
 #import "WebView+WebViewPrivateHeaders.h"
-#import "MPToolbarController.h"
 
 
 static NSString * const kMPDefaultAutosaveName = @"Untitled";
@@ -182,14 +181,12 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
     MPWordCountTypeCharacterNoSpaces,
 };
 
-@property (weak) IBOutlet NSToolbar *toolbar;
 @property (weak) IBOutlet MPDocumentSplitView *splitView;
 @property (weak) IBOutlet NSView *editorContainer;
 @property (unsafe_unretained) IBOutlet MPEditorView *editor;
 @property (weak) IBOutlet NSLayoutConstraint *editorPaddingBottom;
 @property (weak) IBOutlet WebView *preview;
 @property (weak) IBOutlet NSPopUpButton *wordCountWidget;
-@property (strong) IBOutlet MPToolbarController *toolbarController;
 @property (copy, nonatomic) NSString *autosaveName;
 @property (strong) HGMarkdownHighlighter *highlighter;
 @property (strong) MPRenderer *renderer;
@@ -200,6 +197,8 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
 @property BOOL shouldHandleBoundsChange;
 @property BOOL isPreviewReady;
 @property (strong) NSURL *currentBaseUrl;
+@property (readonly) BOOL previewVisible;
+@property (readonly) BOOL editorVisible;
 @property CGFloat lastPreviewScrollTop;
 @property (nonatomic, readonly) BOOL needsHtml;
 @property (nonatomic) NSUInteger totalWords;
@@ -268,11 +267,6 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     return self.renderer.currentHtml;
 }
 
-- (BOOL)toolbarVisible
-{
-    return self.windowForSheet.toolbar.visible;
-}
-
 - (BOOL)previewVisible
 {
     return (self.preview.frame.size.width != 0.0);
@@ -339,7 +333,6 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     self.isPreviewReady = NO;
     self.shouldHandleBoundsChange = YES;
     self.previousSplitRatio = -1.0;
-    
     return self;
 }
 
@@ -371,7 +364,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 
     self.highlighter =
         [[HGMarkdownHighlighter alloc] initWithTextView:self.editor
-                                           waitInterval:0.0];
+                                           waitInterval:0.1];
     self.renderer = [[MPRenderer alloc] init];
     self.renderer.dataSource = self;
     self.renderer.delegate = self;
@@ -640,16 +633,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 {
     BOOL result = [super validateUserInterfaceItem:item];
     SEL action = item.action;
-    if (action == @selector(toggleToolbar:))
-    {
-        NSMenuItem *it = ((NSMenuItem *)item);
-        it.title = self.toolbarVisible ?
-            NSLocalizedString(@"Hide Toolbar",
-                              @"Toggle reveal toolbar") :
-            NSLocalizedString(@"Show Toolbar",
-                              @"Toggle reveal toolbar");
-    }
-    else if (action == @selector(togglePreviewPane:))
+    if (action == @selector(togglePreviewPane:))
     {
         NSMenuItem *it = ((NSMenuItem *)item);
         it.hidden = (!self.previewVisible && self.previousSplitRatio < 0.0);
@@ -714,19 +698,9 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
                                           strikethroughEnabled:strikethrough])
             return NO;
     }
-    
-	// For every change, set the typing attributes
-	if (range.location > 0) {
-		NSRange prevRange = range;
-		prevRange.location -= 1;
-		prevRange.length = 1;
-
-		NSDictionary *attr = [[textView attributedString] fontAttributesInRange:prevRange];
-		[textView setTypingAttributes:attr];
-	}
-
     return YES;
 }
+
 
 #pragma mark - Fake NSTextViewDelegate
 
@@ -922,10 +896,6 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 
 #pragma mark - MPRendererDataSource
 
-- (BOOL)rendererLoading {
-	return self.preview.loading;
-}
-    
 - (NSString *)rendererMarkdown:(MPRenderer *)renderer
 {
     return self.editor.string;
@@ -968,16 +938,6 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 - (BOOL)rendererHasSyntaxHighlighting:(MPRenderer *)renderer
 {
     return self.preferences.htmlSyntaxHighlighting;
-}
-
-- (BOOL)rendererHasMermaid:(MPRenderer *)renderer
-{
-    return self.preferences.htmlMermaid;
-}
-
-- (BOOL)rendererHasGraphviz:(MPRenderer *)renderer
-{
-    return self.preferences.htmlGraphviz;
 }
 
 - (MPCodeBlockAccessoryType)rendererCodeBlockAccesory:(MPRenderer *)renderer
@@ -1086,7 +1046,10 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     }
     else
     {
-        [renderer parseIfPreferencesChanged];
+        [renderer parseNowWithCommand:@selector(parseIfPreferencesChanged)
+                      completionHandler:^{
+                          [renderer render];
+                      }];
         [renderer renderIfPreferencesChanged];
     }
 }
@@ -1379,11 +1342,6 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     [self setSplitViewDividerLocation:0.5];
 }
 
-- (IBAction)toggleToolbar:(id)sender
-{
-    [self.windowForSheet toggleToolbarShown:sender];
-}
-
 - (IBAction)togglePreviewPane:(id)sender
 {
     [self toggleSplitterCollapsingEditorPane:NO];
@@ -1399,6 +1357,113 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     [self.renderer parseAndRenderLater];
 }
 
+#pragma mark - Touch Bar Proxy
+
+// Processes TouchBar actions. Using the toolbar actions in order to make
+// the behavior intrinsically consistent between the touchbar and the toolbar.
+- (void)touchBarAction:(NSTouchBarItemIdentifier)identifier sender:(id)sender
+{
+    if ([identifier isEqualToString:MPTouchBarItemStrongIdentifier])
+    {
+        [self toggleStrong:sender];
+    }
+    else if ([identifier isEqualToString:MPTouchBarItemEmphasisIdentifier])
+    {
+        [self toggleEmphasis:sender];
+    }
+    else if ([identifier isEqualToString:MPTouchBarItemUnderlineIdentifier])
+    {
+        [self toggleUnderline:sender];
+    }
+    else if ([identifier isEqualToString:MPTouchBarItemCodeIdentifier])
+    {
+        [self toggleInlineCode:sender];
+    }
+    else if ([identifier isEqualToString:MPTouchBarItemCommentIdentifier])
+    {
+        [self toggleComment:sender];
+    }
+    else if ([identifier isEqualToString:MPTouchBarItemH1Identifier])
+    {
+        [self convertToH1:sender];
+    }
+    else if ([identifier isEqualToString:MPTouchBarItemH2Identifier])
+    {
+        [self convertToH2:sender];
+    }
+    else if ([identifier isEqualToString:MPTouchBarItemH3Identifier])
+    {
+        [self convertToH3:sender];
+    }
+    else if ([identifier isEqualToString:MPTouchBarItemH4Identifier])
+    {
+        [self convertToH4:sender];
+    }
+    else if ([identifier isEqualToString:MPTouchBarItemH5Identifier])
+    {
+        [self convertToH5:sender];
+    }
+    else if ([identifier isEqualToString:MPTouchBarItemH6Identifier])
+    {
+        [self convertToH6:sender];
+    }
+    else if ([identifier isEqualToString:MPTouchBarItemH0Identifier])
+    {
+        [self convertToParagraph:sender];
+    }
+    else if ([identifier isEqualToString:MPTouchBarItemLinkIdentifier])
+    {
+        [self toggleLink:sender];
+    }
+    else if ([identifier isEqualToString:MPTouchBarItemImageIdentifier])
+    {
+        [self toggleImage:sender];
+    }
+    else if ([identifier isEqualToString:MPTouchBarItemSimpleListIdentifier])
+    {
+        [self toggleUnorderedList:sender];
+    }
+    else if ([identifier isEqualToString:MPTouchBarItemOrderedListIdentifier])
+    {
+        [self toggleOrderedList:sender];
+    }
+    else if ([identifier isEqualToString:MPTouchBarItemBlockquoteIdentifier])
+    {
+        [self toggleBlockquote:sender];
+    }
+    else if ([identifier isEqualToString:MPTouchBarItemShiftLeftIdentifier])
+    {
+        [self unindent:sender];
+    }
+    else if ([identifier isEqualToString:MPTouchBarItemShiftRightIdentifier])
+    {
+        [self indent:sender];
+    }
+    else if ([identifier isEqualToString:MPTouchBarItemCopyHTMLIdentifier])
+    {
+        [self copyHtml:sender];
+    }
+    else if ([identifier isEqualToString:MPTouchBarItemStrikeIdentifier])
+    {
+        [self toggleStrikethrough:sender];
+    }
+    else if ([identifier isEqualToString:MPTouchBarItemHighlightIdentifier])
+    {
+        [self toggleHighlight:sender];
+    }
+    else if ([identifier isEqualToString:MPTouchBarItemHideEditorIdentifier])
+    {
+        [self toggleEditorPane:sender];
+    }
+    else if ([identifier isEqualToString:MPTouchBarItemHidePreviewIdentifier])
+    {
+        [self togglePreviewPane:sender];
+    }
+    else if ([identifier isEqualToString:MPTouchBarItemEqualSplitEditorIdentifier])
+    {
+        [self setEqualSplit:sender];
+    }
+}
 
 #pragma mark - Private
 

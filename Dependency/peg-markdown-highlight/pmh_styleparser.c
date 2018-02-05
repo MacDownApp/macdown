@@ -469,16 +469,13 @@ static void interpret_and_add_style(style_parser_data *p_data,
     pmh_element_type type = pmh_element_type_from_name(style_rule_name);
     if (type == pmh_NO_TYPE)
     {
-        if (EQUALS(style_rule_name, "editor")) {
-            isEditorType = true;
-            type = pmh_NO_TYPE;
-        } else if (EQUALS(style_rule_name, "editor-current-line")) {
-            isCurrentLineType = true;
-            type = pmh_NO_TYPE;
-        } else if (EQUALS(style_rule_name, "editor-selection")) {
-            isSelectionType = true;
-            type = pmh_NO_TYPE;
-        } else {
+        if (EQUALS(style_rule_name, "editor"))
+            isEditorType = true, type = pmh_NO_TYPE;
+        else if (EQUALS(style_rule_name, "editor-current-line"))
+            isCurrentLineType = true, type = pmh_NO_TYPE;
+        else if (EQUALS(style_rule_name, "editor-selection"))
+            isSelectionType = true, type = pmh_NO_TYPE;
+        else {
             report_error(p_data, style_rule_line_number,
                 "Style rule '%s' is not a language element type name or "
                 "one of the following: 'editor', 'editor-current-line', "

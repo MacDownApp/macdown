@@ -15,6 +15,44 @@ extern NSString * const kMPThemeFileExtension;
 extern NSString * const kMPPlugInsDirectoryName;
 extern NSString * const kMPPlugInFileExtension;
 
+extern const NSTouchBarItemIdentifier MPTouchBarItemFormattingIdentifier;
+extern const NSTouchBarItemIdentifier MPTouchBarItemStrongIdentifier;
+extern const NSTouchBarItemIdentifier MPTouchBarItemEmphasisIdentifier;
+extern const NSTouchBarItemIdentifier MPTouchBarItemUnderlineIdentifier;
+extern const NSTouchBarItemIdentifier MPTouchBarItemCodeIdentifier;
+extern const NSTouchBarItemIdentifier MPTouchBarItemCommentIdentifier;
+extern const NSTouchBarItemIdentifier MPTouchBarItemBlockquoteIdentifier;
+extern const NSTouchBarItemIdentifier MPTouchBarItemStrikeIdentifier;
+extern const NSTouchBarItemIdentifier MPTouchBarItemHighlightIdentifier;
+
+extern const NSTouchBarItemIdentifier MPTouchBarItemHeadingPopIdentifier;
+extern const NSTouchBarItemIdentifier MPTouchBarItemH1Identifier;
+extern const NSTouchBarItemIdentifier MPTouchBarItemH2Identifier;
+extern const NSTouchBarItemIdentifier MPTouchBarItemH3Identifier;
+extern const NSTouchBarItemIdentifier MPTouchBarItemH4Identifier;
+extern const NSTouchBarItemIdentifier MPTouchBarItemH5Identifier;
+extern const NSTouchBarItemIdentifier MPTouchBarItemH6Identifier;
+extern const NSTouchBarItemIdentifier MPTouchBarItemH0Identifier;
+
+extern const NSTouchBarItemIdentifier MPTouchBarItemLinkIdentifier;
+extern const NSTouchBarItemIdentifier MPTouchBarItemImageIdentifier;
+
+extern const NSTouchBarItemIdentifier MPTouchBarItemListsIdentifier;
+extern const NSTouchBarItemIdentifier MPTouchBarItemOrderedListIdentifier;
+extern const NSTouchBarItemIdentifier MPTouchBarItemSimpleListIdentifier;
+
+extern const NSTouchBarItemIdentifier MPTouchBarItemShiftIdentifier;
+extern const NSTouchBarItemIdentifier MPTouchBarItemShiftRightIdentifier;
+extern const NSTouchBarItemIdentifier MPTouchBarItemShiftLeftIdentifier;
+
+extern const NSTouchBarItemIdentifier MPTouchBarItemCopyHTMLIdentifier;
+
+extern const NSTouchBarItemIdentifier MPTouchBarItemLayoutPopIdentifier;
+extern const NSTouchBarItemIdentifier MPTouchBarItemLayoutIdentifier;
+extern const NSTouchBarItemIdentifier MPTouchBarItemHideEditorIdentifier;
+extern const NSTouchBarItemIdentifier MPTouchBarItemEqualSplitEditorIdentifier;
+extern const NSTouchBarItemIdentifier MPTouchBarItemHidePreviewIdentifier;
+
 NSString *MPDataDirectory(NSString *relativePath);
 NSString *MPPathToDataFile(NSString *name, NSString *dirPath);
 

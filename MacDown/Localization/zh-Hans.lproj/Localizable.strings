@@ -1,30 +1,15 @@
-/* Toggle editor pane menu item */
-"Hide Editor Pane" = "隐藏编辑窗口";
+/*
+  Localizable.strings
+  MacDown
 
-/* Toggle preview pane menu item */
-"Hide Preview Pane" = "隐藏预览窗口";
+  Created by Tzu-ping Chung  on 14/7.
+  Copyright (c) 2014 Tzu-ping Chung . All rights reserved.
+*/
 
-/* Install shell utility button */
-"Install" = "安装";
+"JJ_PLURAL_FORM_RULE" = "1";
 
-/* Preference pane title. */
-"Markdown" = "Markdown";
+"WORDS_PLURAL_STRING" = "%@ word;%@ words";
 
-/* Preferences window title. */
-"Preferences" = "偏好设置";
+"CHARACTERS_PLURAL_STRING" = "%@ character;%@ characters";
 
-/* Label stating that shell utility has been installed */
-"Shell utility installed" = "Shell 工具已安装";
-
-/* Label stating that shell utility has not been installed */
-"Shell utility not installed" = "Shell 工具未安装";
-
-/* Preference pane title. */
-"Terminal" = "终端";
-
-/* Uninstall shell utility button */
-"Uninstall" = "卸载";
-
-/* default filename if no title can be determined */
-"Untitled" = "未命名";
-
+"CHARACTERS_NO_SPACES_PLURAL_STRING" = "%@ character (no spaces);%@ characters (no spaces)";

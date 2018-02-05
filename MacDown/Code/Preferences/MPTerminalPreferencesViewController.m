@@ -103,7 +103,7 @@ NS_INLINE NSColor *MPGetInstallationIndicatorColor(BOOL installed)
 
 #pragma mark - MASPreferencesViewController
 
-- (NSString *)viewIdentifier
+- (NSString *)identifier
 {
     return @"TerminalPreferences";
 }

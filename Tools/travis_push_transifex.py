@@ -6,19 +6,7 @@ import io
 import os
 import sys
 
-from xml.etree import ElementTree
-
-from macdown_utils import XLIFF_URL, execute
-
-
-# Translations of these keys will be dropped.
-NO_TRANSLATE_FILES = {
-    'MacDown/MacDown-Info.plist',
-    'MacDownTests/MacDownTests-Info.plist',
-}
-
-
-ElementTree.register_namespace('', XLIFF_URL)
+from macdown_utils import execute
 
 
 def write_transifex_config():
@@ -39,32 +27,6 @@ def write_transifex_config():
         ).format(password=os.environ['TRANSIFEX_PASSWORD']))
 
 
-PREFIX_MAP = {'xliff': XLIFF_URL}
-
-
-def clean_xliff():
-    xliff_dirpath = os.getenv('LOCALIZATION_OUT')
-    assert xliff_dirpath, 'LOCALIZATION_OUT not set'
-    for fn in os.listdir(xliff_dirpath):
-        if os.path.splitext(fn)[-1] != '.xliff':
-            continue
-        xliff_filepath = os.path.join(xliff_dirpath, fn)
-        tree = ElementTree.parse(xliff_filepath)
-        root = tree.getroot()
-
-        # Remove files that should not be translated.
-        for source in NO_TRANSLATE_FILES:
-            source_xpath = 'xliff:file[@original="{}"]'.format(source)
-            source_node = tree.find(source_xpath, PREFIX_MAP)
-            if source_node:
-                root.remove(source_node)
-
-        tree.write(
-            xliff_filepath,
-            encoding='UTF-8', xml_declaration=True, method='xml',
-        )
-
-
 def main():
     if os.getenv('TRAVIS_PULL_REQUEST') != 'false':
         print('Build triggered by a pull request. Transifex push skipped.',
@@ -77,7 +39,6 @@ def main():
             cur=current_branch, target=target_branch,
         ), file=sys.stderr)
         return
-    clean_xliff()
     write_transifex_config()
     execute(os.path.expanduser('~/Library/Python/2.7/bin/tx'), 'push', '-s')
 

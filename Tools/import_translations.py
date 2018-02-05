@@ -3,14 +3,16 @@
 
 import logging
 import os
+import shutil
 
 from xml.etree import ElementTree
 
 from compat import ConfigParser
-from macdown_utils import ROOT_DIR, XCODEBUILD, XLIFF_URL, execute
+from macdown_utils import ROOT_DIR, XCODEBUILD, execute
 
 
 TX_CONFIG_FILE = os.path.join(ROOT_DIR, '.tx', 'config')
+XLIFF_URL = 'urn:oasis:names:tc:xliff:document:1.2'
 
 
 logger = logging.getLogger()
@@ -20,15 +22,11 @@ ElementTree.register_namespace('', XLIFF_URL)
 
 
 def pull_translations(parser):
-    xliff_dirpath = os.path.abspath(os.path.join(
-        __file__, '..', '..',
+    xliff_dirpath = os.path.dirname(
         parser.get('macdown.macdownxliff', 'file_filter'),
-        '..',
-    ))
-    if os.path.exists(xliff_dirpath):
-        for fn in os.listdir(xliff_dirpath):
-            os.remove(os.path.join(xliff_dirpath, fn))
-    logger.info('Connecting...')
+    )
+    for fn in os.listdir(xliff_dirpath):
+        os.remove(os.path.join(xliff_dirpath, fn))
     os.system('tx pull -a')
 
 

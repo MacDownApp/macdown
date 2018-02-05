@@ -7,7 +7,12 @@
 //
 
 #import "MPEditorView.h"
+#import "MPMainController.h"
+#import "MPUtilities.h"
+#import "MPPreferences.h"
 
+const NSTouchBarCustomizationIdentifier MPTouchBarEditorViewIdentifier =
+    @"com.uranusjr.macdown.touchbar.editorView";
 
 NS_INLINE BOOL MPAreRectsEqual(NSRect r1, NSRect r2)
 {
@@ -32,66 +37,49 @@ NS_INLINE BOOL MPAreRectsEqual(NSRect r1, NSRect r2)
 @synthesize contentRect = _contentRect;
 @synthesize scrollsPastEnd = _scrollsPastEnd;
 
+- (id)initWithCoder:(NSCoder *)coder
+{
+    self = [super initWithCoder:coder];
+
+    if (self)
+    {
+		// The TouchBar for the editor view has to be updated when the value of
+		// these preferences changes
+		[[MPPreferences sharedInstance] addObserver:self
+										 forKeyPath:@"extensionStrikethough"
+											options:NSKeyValueObservingOptionOld
+											context:nil];
+
+		[[MPPreferences sharedInstance] addObserver:self
+										 forKeyPath:@"extensionUnderline"
+											options:NSKeyValueObservingOptionOld
+											context:nil];
+
+		[[MPPreferences sharedInstance] addObserver:self
+										 forKeyPath:@"extensionHighlight"
+											options:NSKeyValueObservingOptionOld
+											context:nil];
+    }
+
+    return self;
+}
+
+- (void)dealloc
+{
+	[[MPPreferences sharedInstance] removeObserver:self
+										forKeyPath:@"extensionStrikethough"];
+	[[MPPreferences sharedInstance] removeObserver:self
+										forKeyPath:@"extensionUnderline"];
+	[[MPPreferences sharedInstance] removeObserver:self
+										forKeyPath:@"extensionHighlight"];
+}
+
 - (BOOL)scrollsPastEnd
 {
     @synchronized(self) {
         return _scrollsPastEnd;
     }
 }
-
-- (void)awakeFromNib {
-    [self registerForDraggedTypes:[NSArray arrayWithObjects: NSDragPboard, nil]];
-    [super awakeFromNib];
-}
-
-- (NSDragOperation)draggingEntered:(id <NSDraggingInfo>)sender {
-    NSPasteboard *pboard;
-    NSDragOperation sourceDragMask;
-    
-    sourceDragMask = [sender draggingSourceOperationMask];
-    pboard = [sender draggingPasteboard];
-    
-    if ([pboard canReadItemWithDataConformingToTypes:[NSArray arrayWithObjects:@"public.jpeg", nil]]) {
-        if (sourceDragMask & NSDragOperationLink) {
-            return NSDragOperationLink;
-        } else if (sourceDragMask & NSDragOperationCopy) {
-            return NSDragOperationCopy;
-        }
-    }
-    
-    return NSDragOperationNone;
-}
-
-- (BOOL)performDragOperation:(id <NSDraggingInfo>)sender {
-    NSPasteboard *pboard;
-    NSDragOperation sourceDragMask;
-    
-    sourceDragMask = [sender draggingSourceOperationMask];
-    pboard = [sender draggingPasteboard];
-    
-    if ( [[pboard types] containsObject:NSFilenamesPboardType] ) {
-        NSArray *files = [pboard propertyListForType:NSFilenamesPboardType];
-        
-        /* Load data of file. */
-        NSError *error;
-        NSData *fileData = [NSData dataWithContentsOfFile: files[0]
-                                                  options: NSMappedRead
-                                                    error: &error];
-        if (!error) {
-            // convert to base64 representation
-            NSString *dataString = [fileData base64Encoding];
-            
-            // insert into text.
-            NSInteger insertionPoint = [[[self selectedRanges] objectAtIndex:0] rangeValue].location;
-            [self setString:[NSString stringWithFormat:@"%@![](data:image/jpeg;base64,%@)%@", [[self string] substringToIndex:insertionPoint], dataString, [[self string] substringFromIndex:insertionPoint]]];
-            [self didChangeText];
-        } else {
-            return NO;
-        }
-    }
-    return YES;
-}
-
 
 - (void)setScrollsPastEnd:(BOOL)scrollsPastEnd
 {
@@ -162,6 +150,113 @@ NS_INLINE BOOL MPAreRectsEqual(NSRect r1, NSRect r2)
     }
 }
 
+- (void)observeValueForKeyPath:(NSString *)keyPath
+					  ofObject:(id)object
+						change:(NSDictionary<NSKeyValueChangeKey,id> *)change
+					   context:(void *)context
+{
+	if (object == [MPPreferences sharedInstance])
+	{
+		[self setTouchBar:[self makeTouchBar]];
+	}
+}
+
+#pragma mark - Touch Bar
+
+- (NSTouchBar *)makeTouchBar
+{
+    id delegate = [[NSApplication sharedApplication] delegate];
+    NSTouchBar *touchBar = [[NSTouchBar alloc] init];
+
+    [touchBar setDelegate:self];
+
+    NSMutableArray<NSTouchBarItemIdentifier> *customItems =
+        [[NSMutableArray alloc] init];
+
+    [customItems addObjectsFromArray:@[
+        MPTouchBarItemHeadingPopIdentifier,
+        MPTouchBarItemFormattingIdentifier,
+        MPTouchBarItemListsIdentifier,
+        MPTouchBarItemBlockquoteIdentifier,
+        MPTouchBarItemCodeIdentifier,
+        MPTouchBarItemShiftIdentifier,
+        MPTouchBarItemCommentIdentifier,
+        MPTouchBarItemLinkIdentifier,
+        MPTouchBarItemImageIdentifier,
+        MPTouchBarItemCopyHTMLIdentifier,
+        MPTouchBarItemLayoutPopIdentifier,
+        MPTouchBarItemLayoutIdentifier // as alternative to the smaller popup layout button
+    ]];
+
+    // Add items that only should be included if the respective extension
+    // is enabled
+    if ([delegate respondsToSelector:@selector(extentionTouchBarIdentifiers)])
+    {
+        [customItems addObjectsFromArray:
+            [delegate extentionTouchBarIdentifiers]];
+    }
+
+    [customItems addObjectsFromArray:@[
+        NSTouchBarItemIdentifierCharacterPicker,
+        NSTouchBarItemIdentifierFlexibleSpace,
+        NSTouchBarItemIdentifierCandidateList
+    ]];
+
+    // Loads the touch bar items for the installed plugins
+    if ([delegate respondsToSelector:@selector(pluginEditorTouchBarItems)])
+    {
+        id items = [delegate pluginEditorTouchBarItems];
+        if ([items isKindOfClass:[NSArray<NSTouchBarItemIdentifier> class]])
+        {
+            [customItems addObjectsFromArray:items];
+        }
+    }
+
+    [touchBar setDefaultItemIdentifiers:@[
+        MPTouchBarItemHeadingPopIdentifier,
+        MPTouchBarItemFormattingIdentifier,
+        NSTouchBarItemIdentifierFlexibleSpace,
+        MPTouchBarItemListsIdentifier,
+        MPTouchBarItemLinkIdentifier,
+        MPTouchBarItemImageIdentifier,
+        NSTouchBarItemIdentifierFlexibleSpace,
+        NSTouchBarItemIdentifierCandidateList,
+        NSTouchBarItemIdentifierOtherItemsProxy
+    ]];
+
+    [touchBar setCustomizationAllowedItemIdentifiers:customItems];
+
+    [touchBar setCustomizationIdentifier:MPTouchBarEditorViewIdentifier];
+
+    return touchBar;
+}
+
+#pragma mark - TouchBar Delegate
+
+- (NSTouchBarItem *)touchBar:(NSTouchBar *)touchBar
+       makeItemForIdentifier:(NSTouchBarItemIdentifier)identifier
+{
+    if ([identifier isEqualToString:NSTouchBarItemIdentifierCandidateList])
+    {
+        // This one we request the default implementation via super
+        return [super touchBar:touchBar makeItemForIdentifier:identifier];
+    }
+    else
+    {
+        // Otherwise we request that from the App delegate
+        // (so the implementation is shared between all views)
+
+        id delegate = [[NSApplication sharedApplication] delegate];
+
+        if ([delegate conformsToProtocol:@protocol(NSTouchBarDelegate)])
+        {
+            return [delegate touchBar:touchBar
+                makeItemForIdentifier:identifier];
+        }
+    }
+
+    return nil;
+}
 
 #pragma mark - Overrides
 

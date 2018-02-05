@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11762"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -400,13 +400,6 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="Cux-kV-g5Z"/>
-                            <menuItem title="Show Toolbar" keyEquivalent="t" id="fKI-yk-0lv">
-                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
-                                <connections>
-                                    <action selector="toggleToolbar:" target="-1" id="Crk-Yu-una"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem isSeparatorItem="YES" id="QMZ-Ld-Nza"/>
                             <menuItem title="Enter Full Screen" keyEquivalent="f" id="1gz-YB-DZE">
                                 <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
                                 <connections>
@@ -612,18 +605,16 @@ DQ
                                     <action selector="showHelp:" target="eq0-c4-vgQ" id="8IP-1m-7eG"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Contributing to MacDown" id="K3J-v5-s91">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="showContributing:" target="eq0-c4-vgQ" id="kry-sc-poi"/>
-                                </connections>
-                            </menuItem>
                         </items>
                     </menu>
                 </menuItem>
             </items>
         </menu>
-        <customObject id="eq0-c4-vgQ" customClass="MPMainController"/>
+        <customObject id="eq0-c4-vgQ" customClass="MPMainController">
+            <connections>
+                <outlet property="pluginController" destination="N0l-eA-KkD" id="Mlj-fb-sdY"/>
+            </connections>
+        </customObject>
         <customObject id="Zfp-OK-9bN" customClass="SUUpdater">
             <connections>
                 <outlet property="delegate" destination="eq0-c4-vgQ" id="UJV-6a-eCL"/>
