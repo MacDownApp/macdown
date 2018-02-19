@@ -209,6 +209,7 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
 @property (strong) NSMenuItem *charMenuItem;
 @property (strong) NSMenuItem *charNoSpacesMenuItem;
 @property (nonatomic) BOOL needsToUnregister;
+@property (nonatomic) void(^lastExportOperation)(void);
 
 // Store file content in initializer until nib is loaded.
 @property (copy) NSString *loadedString;
@@ -640,6 +641,9 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 {
     BOOL result = [super validateUserInterfaceItem:item];
     SEL action = item.action;
+    if (action == @selector(exportAgain:)){
+        result = self.lastExportOperation != nil;
+    }
     if (action == @selector(toggleToolbar:))
     {
         NSMenuItem *it = ((NSMenuItem *)item);
@@ -1176,6 +1180,13 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     [pasteboard writeObjects:@[self.renderer.currentHtml]];
 }
 
+- (IBAction)exportAgain:(id)sender
+{
+    if(self.lastExportOperation){
+        self.lastExportOperation();
+    }
+}
+
 - (IBAction)exportHtml:(id)sender
 {
     NSSavePanel *panel = [NSSavePanel savePanel];
@@ -1195,10 +1206,18 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
             return;
         BOOL styles = controller.stylesIncluded;
         BOOL highlighting = controller.highlightingIncluded;
-        NSString *html = [self.renderer HTMLForExportWithStyles:styles
-                                                   highlighting:highlighting];
-        [html writeToURL:panel.URL atomically:NO encoding:NSUTF8StringEncoding
-                   error:NULL];
+        NSURL *exportURL = panel.URL;
+        
+        __weak MPDocument *weakSelf = self;
+        self.lastExportOperation = ^{
+            MPDocument *strongSelf = weakSelf;
+            NSString *html = [strongSelf.renderer HTMLForExportWithStyles:styles
+                                                             highlighting:highlighting];
+            [html writeToURL:exportURL atomically:NO encoding:NSUTF8StringEncoding
+                       error:NULL];
+        };
+        
+        self.lastExportOperation();
     }];
 }
 
@@ -1222,8 +1241,15 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
             NSPrintJobDisposition: NSPrintSaveJob,
             NSPrintJobSavingURL: panel.URL,
         };
-        [self printDocumentWithSettings:settings showPrintPanel:NO delegate:nil
-                       didPrintSelector:NULL contextInfo:NULL];
+        
+        __weak MPDocument *weakSelf = self;
+        self.lastExportOperation = ^{
+            MPDocument *strongSelf = weakSelf;
+            [strongSelf printDocumentWithSettings:settings showPrintPanel:NO delegate:nil
+                                 didPrintSelector:NULL contextInfo:NULL];
+        };
+        
+        self.lastExportOperation();
     }];
 }
 

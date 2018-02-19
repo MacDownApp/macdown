@@ -138,6 +138,12 @@
                                     </items>
                                 </menu>
                             </menuItem>
+                            <menuItem title="Export Again" enabled="NO" keyEquivalent="r" id="XJw-OW-nHY">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                <connections>
+                                    <action selector="exportAgain:" target="-1" id="XyE-C9-m7g"/>
+                                </connections>
+                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="aJh-i4-bef"/>
                             <menuItem title="Page Setup…" keyEquivalent="P" id="qIS-W8-SiK">
                                 <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
