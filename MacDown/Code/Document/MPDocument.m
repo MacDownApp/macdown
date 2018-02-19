@@ -209,6 +209,8 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
 @property (strong) NSMenuItem *charMenuItem;
 @property (strong) NSMenuItem *charNoSpacesMenuItem;
 @property (nonatomic) BOOL needsToUnregister;
+@property (nonatomic) BOOL alreadyRenderingInWeb;
+@property (nonatomic) BOOL renderToWebPending;
 
 // Store file content in initializer until nib is loaded.
 @property (copy) NSString *loadedString;
@@ -852,12 +854,28 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     // Update word count
     if (self.preferences.editorShowWordCount)
         [self updateWordCount];
+    
+    self.alreadyRenderingInWeb = NO;
+
+    if(self.renderToWebPending){
+        [self.renderer parseAndRenderNow];
+    }
+
+    self.renderToWebPending = NO;
 }
 
 - (void)webView:(WebView *)sender didFailLoadWithError:(NSError *)error
        forFrame:(WebFrame *)frame
 {
     [self webView:sender didFinishLoadForFrame:frame];
+    
+    self.alreadyRenderingInWeb = NO;
+
+    if(self.renderToWebPending){
+        [self.renderer parseAndRenderNow];
+    }
+
+    self.renderToWebPending = NO;
 }
 
 
@@ -997,8 +1015,15 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 
 - (void)renderer:(MPRenderer *)renderer didProduceHTMLOutput:(NSString *)html
 {
+    if (self.alreadyRenderingInWeb){
+        self.renderToWebPending = YES;
+        return;
+    }
+    
     if (self.printing)
         return;
+    
+    self.alreadyRenderingInWeb = YES;
 
     // Delayed copying for -copyHtml.
     if (self.copying)
