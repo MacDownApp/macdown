@@ -172,7 +172,7 @@ NS_INLINE NSColor *MPGetWebViewBackgroundColor(WebView *webview)
 @interface MPDocument ()
     <NSSplitViewDelegate, NSTextViewDelegate,
 #if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101100
-     WebEditingDelegate, WebFrameLoadDelegate, WebPolicyDelegate,
+     WebEditingDelegate, WebFrameLoadDelegate, WebPolicyDelegate,WebResourceLoadDelegate,
 #endif
      MPAutosaving, MPRendererDataSource, MPRendererDelegate>
 
@@ -209,6 +209,8 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
 @property (strong) NSMenuItem *charMenuItem;
 @property (strong) NSMenuItem *charNoSpacesMenuItem;
 @property (nonatomic) BOOL needsToUnregister;
+@property (nonatomic) BOOL alreadyRenderingInWeb;
+@property (nonatomic) BOOL renderToWebPending;
 
 // Store file content in initializer until nib is loaded.
 @property (copy) NSString *loadedString;
@@ -391,6 +393,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     self.preview.frameLoadDelegate = self;
     self.preview.policyDelegate = self;
     self.preview.editingDelegate = self;
+    self.preview.resourceLoadDelegate = self;
 
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self selector:@selector(editorTextDidChange:)
@@ -815,6 +818,21 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 }
 
 
+#pragma mark - WebResourceLoadDelegate
+
+- (NSURLRequest *)webView:(WebView *)sender resource:(id)identifier willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)redirectResponse fromDataSource:(WebDataSource *)dataSource{
+    
+    if([[request.URL lastPathComponent] isEqualToString:@"MathJax.js"]){
+        NSURLComponents *origComps = [NSURLComponents componentsWithURL:[request URL] resolvingAgainstBaseURL:YES];
+        NSURLComponents *updatedComps = [NSURLComponents componentsWithURL:[[NSBundle mainBundle] URLForResource:@"MathJax" withExtension:@"js" subdirectory:@"MathJax"] resolvingAgainstBaseURL:NO];
+        [updatedComps setQueryItems:[origComps queryItems]];
+        
+        request = [NSMutableURLRequest requestWithURL:[updatedComps URL]];
+    }
+    
+    return request;
+}
+
 #pragma mark - WebFrameLoadDelegate
 
 - (void)webView:(WebView *)sender didCommitLoadForFrame:(WebFrame *)frame
@@ -852,12 +870,26 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     // Update word count
     if (self.preferences.editorShowWordCount)
         [self updateWordCount];
+    
+    self.alreadyRenderingInWeb = NO;
+
+    if (self.renderToWebPending)
+        [self.renderer parseAndRenderNow];
+
+    self.renderToWebPending = NO;
 }
 
 - (void)webView:(WebView *)sender didFailLoadWithError:(NSError *)error
        forFrame:(WebFrame *)frame
 {
     [self webView:sender didFinishLoadForFrame:frame];
+    
+    self.alreadyRenderingInWeb = NO;
+
+    if (self.renderToWebPending)
+        [self.renderer parseAndRenderNow];
+
+    self.renderToWebPending = NO;
 }
 
 
@@ -997,8 +1029,15 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 
 - (void)renderer:(MPRenderer *)renderer didProduceHTMLOutput:(NSString *)html
 {
+    if (self.alreadyRenderingInWeb){
+        self.renderToWebPending = YES;
+        return;
+    }
+    
     if (self.printing)
         return;
+    
+    self.alreadyRenderingInWeb = YES;
 
     // Delayed copying for -copyHtml.
     if (self.copying)
