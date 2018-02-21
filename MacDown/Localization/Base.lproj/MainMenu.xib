@@ -129,20 +129,26 @@
                                                 <action selector="exportHtml:" target="-1" id="g0v-ZC-o6m"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem title="HTML Again" alternate="YES" keyEquivalent="E" id="UcS-0Z-EGM">
+                                            <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                            <connections>
+                                                <action selector="exportHtmlAgain:" target="-1" id="fiC-zY-Xlj"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem title="PDF…" keyEquivalent="p" id="XFN-MJ-RrW">
                                             <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                             <connections>
                                                 <action selector="exportPdf:" target="-1" id="Rhh-ni-CdX"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem title="PDF Again" alternate="YES" keyEquivalent="P" id="McY-7A-xjP">
+                                            <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                            <connections>
+                                                <action selector="exportPdfAgain:" target="-1" id="dbE-76-M8p"/>
+                                            </connections>
+                                        </menuItem>
                                     </items>
                                 </menu>
-                            </menuItem>
-                            <menuItem title="Export Again" enabled="NO" keyEquivalent="r" id="XJw-OW-nHY">
-                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
-                                <connections>
-                                    <action selector="exportAgain:" target="-1" id="XyE-C9-m7g"/>
-                                </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="aJh-i4-bef"/>
                             <menuItem title="Page Setup…" keyEquivalent="P" id="qIS-W8-SiK">
