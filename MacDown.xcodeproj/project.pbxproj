@@ -807,8 +807,7 @@
 				1F8858BB1A2D8D82008DC543 /* MPArgumentProcessor.m */,
 				1FBE8E0E1A11DB1E003E1EF4 /* main.m */,
 			);
-			name = "macdown-cmd";
-			path = "MacDown-cmd";
+			path = "macdown-cmd";
 			sourceTree = "<group>";
 		};
 		AC6D1A361B8B63012D598BC7 /* Pods */ = {
