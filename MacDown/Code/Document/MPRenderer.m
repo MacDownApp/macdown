@@ -24,7 +24,7 @@
 // in to MathJax, then the WebResourceLoadDelegate can be removed from MPDocument
 // and MathJax.js can be removed from this project.
 static NSString * const kMPMathJaxCDN =
-    @"https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js"
+    @"https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/MathJax.js"
     @"?config=TeX-AMS-MML_HTMLorMML";
 static NSString * const kMPPrismScriptDirectory = @"Prism/components";
 static NSString * const kMPPrismThemeDirectory = @"Prism/themes";
