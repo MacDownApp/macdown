@@ -1697,7 +1697,8 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     NSInteger relativeHeader = -1; // start of document
     NSInteger characterCount = 0;
 
-    NSRegularExpression* regex = [NSRegularExpression regularExpressionWithPattern:@"^(#+)\\s" options:0 error:nil];
+    NSRegularExpression* hRegex = [NSRegularExpression regularExpressionWithPattern:@"^(#+)\\s" options:0 error:nil];
+    NSRegularExpression* imgRegex = [NSRegularExpression regularExpressionWithPattern:@"!\\[[^\\]]*\\]\\([^)]*\\)" options:0 error:nil];
 
     CGFloat minY = 0;
     CGFloat maxY = 0;
@@ -1708,7 +1709,8 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     for(NSInteger lineNumber = 0;lineNumber < [documentLines count];lineNumber++){
         NSString *line = documentLines[lineNumber];
 
-        if([regex numberOfMatchesInString:line options:0 range:NSMakeRange(0, [line length])]){
+        if([imgRegex numberOfMatchesInString:line options:0 range:NSMakeRange(0, [line length])] ||
+           [hRegex numberOfMatchesInString:line options:0 range:NSMakeRange(0, [line length])]){
             NSRange glyphRange = [layoutManager glyphRangeForCharacterRange:NSMakeRange(characterCount, [line length]) actualCharacterRange:nil];
             NSRect topRect = [layoutManager boundingRectForGlyphRange:glyphRange inTextContainer:[self.editor textContainer]];
             CGFloat headerY = NSMidY(topRect);
@@ -1739,7 +1741,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 
 //    self.preview.enclosingScrollView.contentSize.height;
 
-    NSArray<NSNumber*>* headerLocations = [[self.preview.mainFrame.javaScriptContext evaluateScript:@"var arr = Array.prototype.slice.call(document.querySelectorAll(\"h1, h2, h3, h4, h5, h6\")); arr.map(function(n){ return n.getBoundingClientRect().top })"] toArray];
+    NSArray<NSNumber*>* headerLocations = [[self.preview.mainFrame.javaScriptContext evaluateScript:@"var arr = Array.prototype.slice.call(document.querySelectorAll(\"h1, h2, h3, h4, h5, h6, img\")); arr.map(function(n){ return n.getBoundingClientRect().top })"] toArray];
     CGFloat offset = NSMinY(self.preview.enclosingScrollView.contentView.bounds);
 
     CGFloat topHeaderY = 0;
