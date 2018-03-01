@@ -29,7 +29,7 @@
 #import "MPMathJaxListener.h"
 #import "WebView+WebViewPrivateHeaders.h"
 #import "MPToolbarController.h"
-
+@import JavaScriptCore;
 
 static NSString * const kMPDefaultAutosaveName = @"Untitled";
 
@@ -1667,26 +1667,98 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 #endif
 }
 
+-(NSInteger) lineNumberForCharacterIndex:(NSInteger)character inDocument:(NSArray<NSString*>*)documentLines{
+    for(NSInteger lineNumber = 0;lineNumber < [documentLines count];lineNumber++){
+        NSString *line = documentLines[lineNumber];
+        
+        if(character > [line length]){
+            character -= ([line length] + 1);
+        }else{
+            return lineNumber;
+        }
+    }
+    return [documentLines count];
+}
+
 - (void)syncScrollers
 {
-    NSRect contentBounds = [self.editor.enclosingScrollView.contentView bounds];
-    NSRect realContentRect = self.editor.contentRect;
+    NSRect visibleRect = [[[self.editor enclosingScrollView] contentView] documentVisibleRect];
+    NSLayoutManager *layoutManager = [self.editor layoutManager];
+    NSRange visibleGlyphRange = [layoutManager glyphRangeForBoundingRect:visibleRect inTextContainer:[self.editor textContainer]];
+    NSRange visibleCharRange = [layoutManager characterRangeForGlyphRange:visibleGlyphRange actualGlyphRange:NULL];
 
-    CGFloat ratio = 0.0;
-    if (realContentRect.size.height > contentBounds.size.height)
-    {
-        ratio = contentBounds.origin.y /
-            (realContentRect.size.height - contentBounds.size.height);
+    
+    NSArray<NSString *>* documentLines = [self.editor.string componentsSeparatedByString:@"\n"];
+    NSInteger firstVisibleLine = [self lineNumberForCharacterIndex:visibleCharRange.location inDocument:documentLines];
+    NSInteger lastVisibleLine = [self lineNumberForCharacterIndex:visibleCharRange.location + visibleCharRange.length inDocument:documentLines];
+
+    NSLog(@"visible lines: %@ => %@", @(firstVisibleLine), @(lastVisibleLine));
+    
+    NSInteger relativeHeader = -1; // start of document
+    NSInteger characterCount = 0;
+
+    NSRegularExpression* regex = [NSRegularExpression regularExpressionWithPattern:@"^(#+)\\s" options:0 error:nil];
+
+    CGFloat minY = 0;
+    CGFloat maxY = 0;
+    CGFloat currY = NSMinY(self.editor.enclosingScrollView.contentView.bounds);
+
+    NSMutableArray<NSNumber*>* offsetForHeaderInEditor = [NSMutableArray array];
+    
+    for(NSInteger lineNumber = 0;lineNumber < [documentLines count];lineNumber++){
+        NSString *line = documentLines[lineNumber];
+
+        if([regex numberOfMatchesInString:line options:0 range:NSMakeRange(0, [line length])]){
+            NSRange glyphRange = [layoutManager glyphRangeForCharacterRange:NSMakeRange(characterCount, [line length]) actualCharacterRange:nil];
+            NSRect topRect = [layoutManager boundingRectForGlyphRange:glyphRange inTextContainer:[self.editor textContainer]];
+            CGFloat headerY = NSMidY(topRect);
+            
+            [offsetForHeaderInEditor addObject:@(headerY)];
+            
+            if(headerY < currY){
+                relativeHeader += 1;
+                minY = headerY;
+            }else if(maxY == 0){
+                maxY = headerY;
+            }
+        }
+        
+        characterCount += [line length] + 1;
+    }
+    
+    if(maxY == 0){
+        maxY = NSHeight(self.editor.enclosingScrollView.contentView.bounds);
+    }
+    
+    currY = MAX(0, currY - minY);
+    maxY -= minY;
+    minY -= minY;
+
+    NSLog(@"header %@ => %@", @(relativeHeader), @(relativeHeader+1));
+    NSLog(@" - %.2f between %.2f => %.2f", currY,minY, maxY);
+
+//    self.preview.enclosingScrollView.contentSize.height;
+
+    NSArray<NSNumber*>* headerLocations = [[self.preview.mainFrame.javaScriptContext evaluateScript:@"var arr = Array.prototype.slice.call(document.querySelectorAll(\"h1, h2, h3, h4, h5, h6\")); arr.map(function(n){ return n.getBoundingClientRect().top })"] toArray];
+    CGFloat offset = NSMinY(self.preview.enclosingScrollView.contentView.bounds);
+
+    CGFloat topHeaderY = 0;
+    CGFloat bottomHeaderY = ceilf(NSHeight(self.preview.enclosingScrollView.contentView.bounds));
+
+    if([headerLocations count] > relativeHeader){
+        topHeaderY = floorf([headerLocations[relativeHeader] doubleValue] + offset);
     }
 
-    NSScrollView *previewScrollView = self.preview.enclosingScrollView;
-    NSClipView *previewContentView = previewScrollView.contentView;
-    NSView *previewDocumentView = previewScrollView.documentView;
-    NSRect previewContentBounds = previewContentView.bounds;
-    previewContentBounds.origin.y =
-        ratio * (previewDocumentView.frame.size.height
-                 - previewContentBounds.size.height);
-    previewContentView.bounds = previewContentBounds;
+    if([headerLocations count] > relativeHeader + 1){
+        bottomHeaderY = ceilf([headerLocations[relativeHeader + 1] doubleValue] + offset);
+    }
+
+    NSLog(@"scroll %@ between: %@ => %@", @(round(currY / maxY * 100)), @(topHeaderY), @(bottomHeaderY));
+    
+    CGFloat previewY = topHeaderY + (bottomHeaderY - topHeaderY) * (currY / maxY);
+    NSRect contentBounds = self.preview.enclosingScrollView.contentView.bounds;
+    contentBounds.origin.y = previewY;
+    self.preview.enclosingScrollView.contentView.bounds = contentBounds;
 }
 
 - (void)setSplitViewDividerLocation:(CGFloat)ratio
