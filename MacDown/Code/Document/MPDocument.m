@@ -1683,8 +1683,10 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     
     // These are the patterns for markdown headers and images respectively. we're only going to
     // handle images that are not inline with other text/images
+    NSRegularExpression *dashRegex = [NSRegularExpression regularExpressionWithPattern:@"^([-]+)$" options:0 error:nil];
     NSRegularExpression *headerRegex = [NSRegularExpression regularExpressionWithPattern:@"^(#+)\\s" options:0 error:nil];
     NSRegularExpression *imgRegex = [NSRegularExpression regularExpressionWithPattern:@"^!\\[[^\\]]*\\]\\([^)]*\\)$" options:0 error:nil];
+    BOOL previousLineHadContent = NO;
     
     // We start by splitting our document into lines, and then searching
     // line by line for headers or images.
@@ -1692,7 +1694,8 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     {
         NSString *line = documentLines[lineNumber];
         
-        if ([imgRegex numberOfMatchesInString:line options:0 range:NSMakeRange(0, [line length])] ||
+        if ((previousLineHadContent && [dashRegex numberOfMatchesInString:line options:0 range:NSMakeRange(0, [line length])]) ||
+            [imgRegex numberOfMatchesInString:line options:0 range:NSMakeRange(0, [line length])] ||
             [headerRegex numberOfMatchesInString:line options:0 range:NSMakeRange(0, [line length])])
         {
             // Calculate where this header/image appears vertically in the editor
@@ -1713,6 +1716,8 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
                 maxY = headerY;
             }
         }
+        
+        previousLineHadContent = [line length] && ![dashRegex numberOfMatchesInString:line options:0 range:NSMakeRange(0, [line length])];
         
         characterCount += [line length] + 1;
     }
