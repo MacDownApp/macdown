@@ -1739,7 +1739,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     currY = MAX(0, currY - minY);
     maxY -= minY;
     minY -= minY;
-    CGFloat percentScrolledBetweenHeaders = currY / maxY;
+    CGFloat percentScrolledBetweenHeaders = MAX(0, MIN(1.0, currY / maxY));
     
     // Now that we know where the editor position is relative to two reference nodes,
     // we need to find the positions of those nodes in the HTML preview
