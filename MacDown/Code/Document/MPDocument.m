@@ -211,12 +211,15 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
 @property (nonatomic) BOOL needsToUnregister;
 @property (nonatomic) BOOL alreadyRenderingInWeb;
 @property (nonatomic) BOOL renderToWebPending;
+@property (strong) NSArray<NSNumber *> *headerLocations;
+@property (nonatomic) BOOL inLiveScroll;
 
 // Store file content in initializer until nib is loaded.
 @property (copy) NSString *loadedString;
 
 - (void)scaleWebview;
 - (void)syncScrollers;
+-(void) updateHeaderLocations;
 
 @end
 
@@ -233,6 +236,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
         [weakObj scaleWebview];
         if (weakObj.preferences.editorSyncScrolling)
         {
+            [weakObj updateHeaderLocations];
             [weakObj syncScrollers];
         }
         else
@@ -410,6 +414,12 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
                    name:MPDidRequestEditorSetupNotification object:nil];
     [center addObserver:self selector:@selector(didRequestPreviewReload:)
                    name:MPDidRequestPreviewRenderNotification object:nil];
+    [center addObserver:self selector:@selector(willStartLiveScroll:)
+                   name:NSScrollViewWillStartLiveScrollNotification
+                 object:self.editor.enclosingScrollView];
+    [center addObserver:self selector:@selector(didEndLiveScroll:)
+                   name:NSScrollViewDidEndLiveScrollNotification
+                 object:self.editor.enclosingScrollView];
     if (kCFCoreFoundationVersionNumber >= kCFCoreFoundationVersionNumber10_9)
     {
         [center addObserver:self selector:@selector(previewDidLiveScroll:)
@@ -1139,6 +1149,17 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
         [self adjustEditorInsets];
 }
 
+- (void)willStartLiveScroll:(NSNotification *)notification
+{
+    [self updateHeaderLocations];
+    _inLiveScroll = YES;
+}
+
+-(void)didEndLiveScroll:(NSNotification *)notification
+{
+    _inLiveScroll = NO;
+}
+
 - (void)editorBoundsDidChange:(NSNotification *)notification
 {
     if (!self.shouldHandleBoundsChange)
@@ -1148,6 +1169,10 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     {
         @synchronized(self) {
             self.shouldHandleBoundsChange = NO;
+            if(!_inLiveScroll){
+                [self updateHeaderLocations];
+            }
+            
             [self syncScrollers];
             self.shouldHandleBoundsChange = YES;
         }
@@ -1667,6 +1692,22 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 #endif
 }
 
+-(void) updateHeaderLocations
+{
+    CGFloat offset = NSMinY(self.preview.enclosingScrollView.contentView.bounds);
+    NSMutableArray<NSNumber *> *locations = [NSMutableArray array];
+
+    _headerLocations = [[self.preview.mainFrame.javaScriptContext evaluateScript:@"var arr = Array.prototype.slice.call(document.querySelectorAll(\"h1, h2, h3, h4, h5, h6, img:only-child\")); arr.map(function(n){ return n.getBoundingClientRect().top })"] toArray];
+    
+    // add offset to all numbers
+    for (NSNumber *location in _headerLocations)
+    {
+        [locations addObject:@([location floatValue] + offset)];
+    }
+    
+    _headerLocations = locations;
+}
+
 - (void)syncScrollers
 {
     NSLayoutManager *layoutManager = [self.editor layoutManager];
@@ -1743,20 +1784,18 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     
     // Now that we know where the editor position is relative to two reference nodes,
     // we need to find the positions of those nodes in the HTML preview
-    NSArray<NSNumber*> *headerLocations = [[self.preview.mainFrame.javaScriptContext evaluateScript:@"var arr = Array.prototype.slice.call(document.querySelectorAll(\"h1, h2, h3, h4, h5, h6, img:only-child\")); arr.map(function(n){ return n.getBoundingClientRect().top })"] toArray];
-    CGFloat offset = NSMinY(self.preview.enclosingScrollView.contentView.bounds);
     CGFloat topHeaderY = 0;
     CGFloat bottomHeaderY = previewContentHeight - previewVisibleHeight;
     
     // Find the Y positions in the preview window that we're scrolling between
-    if ([headerLocations count] > relativeHeaderIndex)
+    if ([_headerLocations count] > relativeHeaderIndex)
     {
-        topHeaderY = floorf([headerLocations[relativeHeaderIndex] doubleValue] + offset);
+        topHeaderY = floorf([_headerLocations[relativeHeaderIndex] doubleValue]);
     }
     
-    if (!interpolateToEndOfDocument && [headerLocations count] > relativeHeaderIndex + 1)
+    if (!interpolateToEndOfDocument && [_headerLocations count] > relativeHeaderIndex + 1)
     {
-        bottomHeaderY = ceilf([headerLocations[relativeHeaderIndex + 1] doubleValue] + offset);
+        bottomHeaderY = ceilf([_headerLocations[relativeHeaderIndex + 1] doubleValue]);
     }
     
     // Now we scroll percentScrolledBetweenHeaders percent between those two positions in the webview
