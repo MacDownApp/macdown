@@ -1,7 +1,20 @@
-osx_image: xcode7
+osx_image: xcode9.2
 language: objective-c
+cache:
+- bundler
+- cocoapods
+env:
+  global:
+    - LOCALIZATION_OUT=Build/Localizations
+    - secure: Vyar5YYP3n5CXQWiGxxT2QGYCcZgrSECmMb0BxeaG60KrKfDuXIoj6+rL/VqSImIlaF7qiVHkhHQba8Gf9QHhktUtfK4PQLfE0DzogoFVp8IXaTVEg9wBDnHAiqdadMmY3Vt2blnIIBLiV5+lFWxuSYlX27TTlr1ieev9Z+fMC0=
 install:
-  - "bundle install"
-  - "bundle exec pod install"
-xcode_workspace: MacDown.xcworkspace
-xcode_scheme: MacDown
+- bundle install
+- travis_wait bundle exec pod install
+- pip install --user transifex-client
+before_script:
+- set -o pipefail
+script:
+- xcodebuild -workspace MacDown.xcworkspace -scheme MacDown test | xcpretty
+- xcodebuild -exportLocalizations -localizationPath "$LOCALIZATION_OUT"
+after_success:
+- python Tools/travis_push_transifex.py

@@ -9,13 +9,17 @@
 #import "MPMainController.h"
 #import <MASPreferences/MASPreferencesWindowController.h>
 #import <Sparkle/SUUpdater.h>
+#import "MPGlobals.h"
 #import "MPUtilities.h"
 #import "NSDocumentController+Document.h"
+#import "NSUserDefaults+Suite.h"
 #import "MPPreferences.h"
 #import "MPGeneralPreferencesViewController.h"
 #import "MPMarkdownPreferencesViewController.h"
 #import "MPEditorPreferencesViewController.h"
 #import "MPHtmlPreferencesViewController.h"
+#import "MPTerminalPreferencesViewController.h"
+#import "MPDocument.h"
 
 
 static NSString * const kMPTreatLastSeenStampKey = @"treatLastSeenStamp";
@@ -96,7 +100,26 @@ NS_INLINE void treat()
 
 @synthesize preferencesWindowController = _preferencesWindowController;
 
-- (MPPreferences *)prefereces
+- (void)applicationDidFinishLaunching:(NSNotification *)notification
+{
+    // Using private API [WebCache setDisabled:YES] to disable WebView's cache
+    id webCacheClass = (id)NSClassFromString(@"WebCache");
+    if (webCacheClass) {
+// Ignoring "undeclared selector" warning
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+        BOOL setDisabledValue = YES;
+        NSMethodSignature *signature = [webCacheClass methodSignatureForSelector:@selector(setDisabled:)];
+        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
+        invocation.selector = @selector(setDisabled:);
+        invocation.target = [webCacheClass class];
+        [invocation setArgument:&setDisabledValue atIndex:2];
+        [invocation invoke];
+#pragma clang diagnostic pop
+    }
+}
+
+- (MPPreferences *)preferences
 {
     return [MPPreferences sharedInstance];
 }
@@ -110,6 +133,7 @@ NS_INLINE void treat()
             [[MPMarkdownPreferencesViewController alloc] init],
             [[MPEditorPreferencesViewController alloc] init],
             [[MPHtmlPreferencesViewController alloc] init],
+            [[MPTerminalPreferencesViewController alloc] init],
         ];
         NSString *title = NSLocalizedString(@"Preferences",
                                             @"Preferences window title.");
@@ -131,6 +155,11 @@ NS_INLINE void treat()
     MPOpenBundledFile(@"help", @"md");
 }
 
+- (IBAction)showContributing:(id)sender
+{
+    MPOpenBundledFile(@"contribute", @"md");
+}
+
 
 #pragma mark - Override
 
@@ -143,9 +172,8 @@ NS_INLINE void treat()
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self selector:@selector(showFirstLaunchTips)
                    name:MPDidDetectFreshInstallationNotification
-                 object:self.prefereces];
+                 object:self.preferences];
     [self copyFiles];
-    [self openPendingFiles];
     return self;
 }
 
@@ -154,7 +182,16 @@ NS_INLINE void treat()
 
 - (BOOL)applicationShouldOpenUntitledFile:(NSApplication *)sender
 {
-    return !self.prefereces.supressesUntitledDocumentOnLaunch;
+    if (self.preferences.filesToOpen.count || self.preferences.pipedContentFileToOpen)
+        return NO;
+    return !self.preferences.supressesUntitledDocumentOnLaunch;
+}
+
+- (void)applicationDidBecomeActive:(NSNotification *)notification
+{
+    [self openPendingPipedContent];
+    [self openPendingFiles];
+    treat();
 }
 
 
@@ -162,7 +199,7 @@ NS_INLINE void treat()
 
 - (NSString *)feedURLStringForUpdater:(SUUpdater *)updater
 {
-    if (self.prefereces.updateIncludesPreReleases)
+    if (self.preferences.updateIncludesPreReleases)
         return [NSBundle mainBundle].infoDictionary[@"SUBetaFeedURL"];
     return [NSBundle mainBundle].infoDictionary[@"SUFeedURL"];
 }
@@ -210,9 +247,10 @@ NS_INLINE void treat()
 - (void)openPendingFiles
 {
     NSDocumentController *c = [NSDocumentController sharedDocumentController];
-    for (NSString *path in self.prefereces.filesToOpenOnNextLaunch)
+
+    for (NSString *path in self.preferences.filesToOpen)
     {
-        NSURL *url = [NSURL URLWithString:path];
+        NSURL *url = [NSURL fileURLWithPath:path];
         if ([url checkResourceIsReachableAndReturnError:NULL])
         {
             [c openDocumentWithContentsOfURL:url display:YES
@@ -220,11 +258,32 @@ NS_INLINE void treat()
         }
         else
         {
-            [c openUntitledDocumentForURL:url display:YES error:NULL];
+            [c createNewEmptyDocumentForURL:url display:YES error:NULL];
         }
     }
-    self.prefereces.filesToOpenOnNextLaunch = nil;
-    treat();
+
+    self.preferences.filesToOpen = nil;
+    [self.preferences synchronize];
+}
+
+- (void)openPendingPipedContent {
+    NSDocumentController *c = [NSDocumentController sharedDocumentController];
+    
+    if (self.preferences.pipedContentFileToOpen) {
+        NSURL *pipedContentFileToOpenURL = [NSURL fileURLWithPath:self.preferences.pipedContentFileToOpen];
+        NSError *readPipedContentError;
+        NSString *pipedContentString = [NSString stringWithContentsOfURL:pipedContentFileToOpenURL encoding:NSUTF8StringEncoding error:&readPipedContentError];
+        
+        NSError *openDocumentError;
+        MPDocument *document = (MPDocument *)[c openUntitledDocumentAndDisplay:YES error:&openDocumentError];
+        
+        if (document && openDocumentError == nil && readPipedContentError == nil) {
+            document.markdown = pipedContentString;
+        }
+        
+        self.preferences.pipedContentFileToOpen = nil;
+        [self.preferences synchronize];
+    }
 }
 
 
@@ -233,6 +292,7 @@ NS_INLINE void treat()
 - (void)showFirstLaunchTips
 {
     [self showHelp:nil];
+    [self showContributing:nil];
 }
 
 

@@ -1,0 +1,39 @@
+/* Class = "NSSegmentedCell"; 0rH-I9-Dxr.ibShadowedLabels[0] = "Reveal"; ObjectID = "0rH-I9-Dxr"; */
+"0rH-I9-Dxr.ibShadowedLabels[0]" = "Visa fil";
+
+/* Class = "NSSegmentedCell"; 0rH-I9-Dxr.ibShadowedLabels[1] = "Reload"; ObjectID = "0rH-I9-Dxr"; */
+"0rH-I9-Dxr.ibShadowedLabels[1]" = "Ladda om";
+
+/* Class = "NSTextFieldCell"; title = "Math support requires Internet connection."; ObjectID = "5Ch-dG-juL"; */
+"5Ch-dG-juL.title" = "Matematik-stöd kräver Internet-uppkoppling";
+
+/* Class = "NSButtonCell"; title = "TeX-like math syntax"; ObjectID = "6vg-3f-KWk"; */
+"6vg-3f-KWk.title" = "Matematik-synax liknande TeX";
+
+/* Class = "NSTextFieldCell"; title = "CSS:"; ObjectID = "9I3-I7-HLu"; */
+"9I3-I7-HLu.title" = "CSS:";
+
+/* Class = "NSButtonCell"; title = "Use dollar sign ($) as inline delimiter"; ObjectID = "GF9-Dm-IoB"; */
+"GF9-Dm-IoB.title" = "Använd dollar-tecken ($) som inline delimiter";
+
+/* Class = "NSButtonCell"; title = "Show line numbers"; ObjectID = "WZa-V6-vvf"; */
+"WZa-V6-vvf.title" = "Visa radnummer";
+
+/* Class = "NSTextFieldCell"; title = "Theme:"; ObjectID = "a6o-qD-AIp"; */
+"a6o-qD-AIp.title" = "Tema:";
+
+/* Class = "NSButtonCell"; title = "Scale preview based on editor font size"; ObjectID = "aWw-Wb-pBl"; */
+"aWw-Wb-pBl.title" = "Förhandsvisning skalas baserat på redigeraren's font-storlek";
+
+/* Class = "NSTextFieldCell"; title = "Default path:"; ObjectID = "e1A-Mm-svq"; */
+"e1A-Mm-svq.title" = "Standard-sökväg:";
+
+/* Class = "NSButtonCell"; title = "Task list syntax"; ObjectID = "kBf-iW-HlH"; */
+"kBf-iW-HlH.title" = "Checklist-syntax";
+
+/* Class = "NSMenuItem"; title = "None"; ObjectID = "pWW-vM-8JK"; */
+"pWW-vM-8JK.title" = "Ingen";
+
+/* Class = "NSMenuItem"; title = "Language name"; ObjectID = "qFd-cs-OtZ"; */
+"qFd-cs-OtZ.title" = "Språknamn";
+

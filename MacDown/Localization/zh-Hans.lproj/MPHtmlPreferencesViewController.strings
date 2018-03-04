@@ -1,0 +1,18 @@
+/* Class = "NSSegmentedCell"; 0rH-I9-Dxr.ibShadowedLabels[1] = "Reload"; ObjectID = "0rH-I9-Dxr"; */
+"0rH-I9-Dxr.ibShadowedLabels[1]" = "重新载入";
+
+/* Class = "NSTextFieldCell"; title = "CSS:"; ObjectID = "9I3-I7-HLu"; */
+"9I3-I7-HLu.title" = "CSS:";
+
+/* Class = "NSButtonCell"; title = "Show line numbers"; ObjectID = "WZa-V6-vvf"; */
+"WZa-V6-vvf.title" = "显示行数";
+
+/* Class = "NSTextFieldCell"; title = "Theme:"; ObjectID = "a6o-qD-AIp"; */
+"a6o-qD-AIp.title" = "主题：";
+
+/* Class = "NSTextFieldCell"; title = "Default path:"; ObjectID = "e1A-Mm-svq"; */
+"e1A-Mm-svq.title" = "默认路径：";
+
+/* Class = "NSButtonCell"; title = "Detect Jekyll front-matter"; ObjectID = "iXi-Pv-mFl"; */
+"iXi-Pv-mFl.title" = "检测 Jekyll 头部参数";
+

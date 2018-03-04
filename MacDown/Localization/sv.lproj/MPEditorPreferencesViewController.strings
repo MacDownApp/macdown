@@ -1,0 +1,30 @@
+/* Class = "NSMenuItem"; title = "- (Minus sign)"; ObjectID = "2yJ-j5-PLm"; */
+"2yJ-j5-PLm.title" = "- (minus)";
+
+/* Class = "NSBox"; title = "Behavior"; ObjectID = "6JP-Pc-JFd"; */
+"6JP-Pc-JFd.title" = "Beteende";
+
+/* Class = "NSButtonCell"; title = "Change…"; ObjectID = "8bz-cc-gLF"; */
+"8bz-cc-gLF.title" = "Ändra…";
+
+/* Class = "NSSegmentedCell"; GHX-3h-1HI.ibShadowedLabels[0] = "Reveal"; ObjectID = "GHX-3h-1HI"; */
+"GHX-3h-1HI.ibShadowedLabels[0]" = "Visa";
+
+/* Class = "NSSegmentedCell"; GHX-3h-1HI.ibShadowedLabels[1] = "Reload"; ObjectID = "GHX-3h-1HI"; */
+"GHX-3h-1HI.ibShadowedLabels[1]" = "Ladda om";
+
+/* Class = "NSTextFieldCell"; title = "Line spacing:"; ObjectID = "InD-Fc-CTS"; */
+"InD-Fc-CTS.title" = "Rad-avstånd:";
+
+/* Class = "NSButtonCell"; title = "Limit editor width to"; ObjectID = "bhL-NA-9No"; */
+"bhL-NA-9No.title" = "Begränsa redigerings-vyn's bredd till";
+
+/* Class = "NSMenuItem"; title = "* (Asterisk)"; ObjectID = "bnJ-BQ-mHV"; */
+"bnJ-BQ-mHV.title" = "* (asterisk)";
+
+/* Class = "NSTextFieldCell"; title = "Theme:"; ObjectID = "vA9-IT-8Z7"; */
+"vA9-IT-8Z7.title" = "Tema:";
+
+/* Class = "NSMenuItem"; title = "+ (Plus sign)"; ObjectID = "zX4-JY-wTT"; */
+"zX4-JY-wTT.title" = "+ (plus)";
+

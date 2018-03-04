@@ -1,0 +1,27 @@
+/* Class = "NSButtonCell"; title = "Sync preview scrollbar when editor scrolls"; ObjectID = "2Uj-Sx-FjV"; */
+"2Uj-Sx-FjV.title" = "エディタと連動してプレビューもスクロール";
+
+/* Class = "NSBox"; title = "Behavior"; ObjectID = "Nma-PL-ZvX"; */
+"Nma-PL-ZvX.title" = "動作";
+
+/* Class = "NSButtonCell"; title = "Put editor on the right"; ObjectID = "bUn-PQ-5Ez"; */
+"bUn-PQ-5Ez.title" = "エディタを右側に表示";
+
+/* Class = "NSBox"; title = "Update"; ObjectID = "eLn-fW-Agu"; */
+"eLn-fW-Agu.title" = "アップデート";
+
+/* Class = "NSButtonCell"; title = "Automatically create files for link targets"; ObjectID = "hpF-zP-3cM"; */
+"hpF-zP-3cM.title" = "リンク先のファイルを自動的に作成";
+
+/* Class = "NSButtonCell"; title = "Ensure open document on launch"; ObjectID = "l9N-wk-WRY"; */
+"l9N-wk-WRY.title" = "起動時に必ずドキュメントを開く";
+
+/* Class = "NSButtonCell"; title = "Update preview automatically as you type"; ObjectID = "npz-xj-plX"; */
+"npz-xj-plX.title" = "プレビューを自動的に更新";
+
+/* Class = "NSButtonCell"; title = "Show word count"; ObjectID = "oeW-bF-ybW"; */
+"oeW-bF-ybW.title" = "単語数を表示";
+
+/* Class = "NSButtonCell"; title = "Include pre-releases"; ObjectID = "vbz-fv-8BX"; */
+"vbz-fv-8BX.title" = "プレリリースを含める";
+

@@ -1,14 +1,14 @@
 {
   "images" : [
     {
-      "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "PreferencesMarkdown.png"
+      "idiom" : "mac",
+      "filename" : "PreferencesMarkdown.png",
+      "scale" : "1x"
     },
     {
-      "idiom" : "universal",
-      "scale" : "2x",
-      "filename" : "PreferencesMarkdown@2x.png"
+      "idiom" : "mac",
+      "filename" : "PreferencesMarkdown@2x.png",
+      "scale" : "2x"
     }
   ],
   "info" : {

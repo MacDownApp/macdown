@@ -1,0 +1,36 @@
+/* Class = "NSButtonCell"; title = "⌘← jumps to first non-whitespace character in line"; ObjectID = "2Yf-FT-MDH"; */
+"2Yf-FT-MDH.title" = "⌘← 跳至本行的第一个非空白字符";
+
+/* Class = "NSMenuItem"; title = "- (Minus sign)"; ObjectID = "2yJ-j5-PLm"; */
+"2yJ-j5-PLm.title" = "- (减号)";
+
+/* Class = "NSButtonCell"; title = "Ensure newline at end of file on save"; ObjectID = "9Wp-5V-GeQ"; */
+"9Wp-5V-GeQ.title" = "在保存时确保文末有换行符";
+
+/* Class = "NSSegmentedCell"; GHX-3h-1HI.ibShadowedLabels[0] = "Reveal"; ObjectID = "GHX-3h-1HI"; */
+"GHX-3h-1HI.ibShadowedLabels[0]" = "文件夹";
+
+/* Class = "NSSegmentedCell"; GHX-3h-1HI.ibShadowedLabels[1] = "Reload"; ObjectID = "GHX-3h-1HI"; */
+"GHX-3h-1HI.ibShadowedLabels[1]" = "重新加载";
+
+/* Class = "NSTextFieldCell"; title = "Line spacing:"; ObjectID = "InD-Fc-CTS"; */
+"InD-Fc-CTS.title" = "行间距";
+
+/* Class = "NSButtonCell"; title = "Limit editor width to"; ObjectID = "bhL-NA-9No"; */
+"bhL-NA-9No.title" = "限制编辑窗口最大宽度为：";
+
+/* Class = "NSMenuItem"; title = "* (Asterisk)"; ObjectID = "bnJ-BQ-mHV"; */
+"bnJ-BQ-mHV.title" = "* (星号)";
+
+/* Class = "NSTextFieldCell"; title = "Base font:"; ObjectID = "eXF-SL-hBq"; */
+"eXF-SL-hBq.title" = "默认字体：";
+
+/* Class = "NSTextFieldCell"; title = "×"; ObjectID = "g5w-Qw-Khw"; */
+"g5w-Qw-Khw.title" = "×";
+
+/* Class = "NSTextFieldCell"; title = "Theme:"; ObjectID = "vA9-IT-8Z7"; */
+"vA9-IT-8Z7.title" = "主题：";
+
+/* Class = "NSMenuItem"; title = "+ (Plus sign)"; ObjectID = "zX4-JY-wTT"; */
+"zX4-JY-wTT.title" = "+ (加号)";
+

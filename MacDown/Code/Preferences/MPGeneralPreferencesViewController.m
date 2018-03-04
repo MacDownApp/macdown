@@ -17,9 +17,9 @@
 
 @implementation MPGeneralPreferencesViewController
 
-#pragma mark - MASPrefernecesViewController
+#pragma mark - MASPreferencesViewController
 
-- (NSString *)identifier
+- (NSString *)viewIdentifier
 {
     return @"GeneralPreferences";
 }

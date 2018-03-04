@@ -10,16 +10,21 @@
 #import <limits.h>
 #import <hoedown/html.h>
 #import <hoedown/document.h>
+#import <HBHandlebars/HBHandlebars.h>
 #import "hoedown_html_patch.h"
 #import "NSJSONSerialization+File.h"
 #import "NSObject+HTMLTabularize.h"
 #import "NSString+Lookup.h"
 #import "MPUtilities.h"
 #import "MPAsset.h"
+#import "MPPreferences.h"
 
-
+// Warning: If the version of MathJax is ever updated, please check the status
+// of https://github.com/mathjax/MathJax/issues/548. If the fix has been merged
+// in to MathJax, then the WebResourceLoadDelegate can be removed from MPDocument
+// and MathJax.js can be removed from this project.
 static NSString * const kMPMathJaxCDN =
-    @"https://cdn.mathjax.org/mathjax/latest/MathJax.js"
+    @"https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/MathJax.js"
     @"?config=TeX-AMS-MML_HTMLorMML";
 static NSString * const kMPPrismScriptDirectory = @"Prism/components";
 static NSString * const kMPPrismThemeDirectory = @"Prism/themes";
@@ -157,19 +162,34 @@ NS_INLINE NSString *MPGetHTML(
         if (s)
             [scriptTags addObject:s];
     }
-    NSString *style = [styleTags componentsJoinedByString:@"\n"];
-    NSString *script = [scriptTags componentsJoinedByString:@"\n"];
 
-    static NSString *f =
-        (@"<!DOCTYPE html><html>\n\n"
-         @"<head>\n<meta charset=\"utf-8\">\n%@%@\n</head>\n"
-         @"<body>\n%@\n%@\n</body>\n\n</html>\n");
+    MPPreferences *preferences = [MPPreferences sharedInstance];
 
+    static NSString *f = nil;
+    static dispatch_once_t token;
+    dispatch_once(&token, ^{
+        NSBundle *bundle = [NSBundle mainBundle];
+        NSURL *url = [bundle URLForResource:preferences.htmlTemplateName
+                              withExtension:@".handlebars"
+                               subdirectory:@"Templates"];
+        f = [NSString stringWithContentsOfURL:url
+                                     encoding:NSUTF8StringEncoding error:NULL];
+    });
+    NSCAssert(f.length, @"Could not read template");
+
+    NSString *titleTag = @"";
     if (title.length)
-        title = [NSString stringWithFormat:@"<title>%@</title>\n", title];
-    else
-        title = @"";
-    NSString *html = [NSString stringWithFormat:f, title, style, body, script];
+        titleTag = [NSString stringWithFormat:@"<title>%@</title>", title];
+
+    NSDictionary *context = @{
+        @"title": title ? title : @"",
+        @"titleTag": titleTag ? titleTag : @"",
+        @"styleTags": styleTags ? styleTags : @[],
+        @"body": body ? body : @"",
+        @"scriptTags": scriptTags ? scriptTags : @[],
+    };
+    NSString *html = [HBHandlebars renderTemplateString:f withContext:context
+                                                  error:NULL];
     return html;
 }
 
@@ -187,22 +207,55 @@ NS_INLINE BOOL MPAreNilableStringsEqual(NSString *s1, NSString *s2)
 @property (readonly) NSArray *prismStylesheets;
 @property (readonly) NSArray *prismScripts;
 @property (readonly) NSArray *mathjaxScripts;
+@property (readonly) NSArray *mermaidStylesheets;
+@property (readonly) NSArray *mermaidScripts;
+@property (readonly) NSArray *graphvizScripts;
 @property (readonly) NSArray *stylesheets;
 @property (readonly) NSArray *scripts;
 @property (copy) NSString *currentHtml;
-@property (strong) NSTimer *parseDelayTimer;
+@property (strong) NSOperationQueue *parseQueue;
 @property int extensions;
 @property BOOL smartypants;
 @property BOOL TOC;
 @property (copy) NSString *styleName;
 @property BOOL frontMatter;
 @property BOOL syntaxHighlighting;
+@property BOOL mermaid;
+@property BOOL graphviz;
 @property MPCodeBlockAccessoryType codeBlockAccesory;
 @property BOOL lineNumbers;
 @property BOOL manualRender;
 @property (copy) NSString *highlightingThemeName;
 
 @end
+
+
+NS_INLINE void add_to_languages(
+    NSString *lang, NSMutableArray *languages, NSDictionary *languageMap)
+{
+    // Move language to root of dependencies.
+    NSUInteger index = [languages indexOfObject:lang];
+    if (index != NSNotFound)
+        [languages removeObjectAtIndex:index];
+    [languages insertObject:lang atIndex:0];
+
+    // Add dependencies of this language.
+    id require = languageMap[lang][@"require"];
+    if ([require isKindOfClass:[NSString class]])
+    {
+        add_to_languages(require, languages, languageMap);
+    }
+    else if ([require isKindOfClass:[NSArray class]])
+    {
+        for (NSString *lang in require)
+            add_to_languages(lang, languages, languageMap);
+    }
+    else if (require)
+    {
+        NSLog(@"Unknown Prism langauge requirement "
+              @"%@ dropped for unknown format", require);
+    }
+}
 
 
 NS_INLINE hoedown_buffer *language_addition(
@@ -246,15 +299,7 @@ NS_INLINE hoedown_buffer *language_addition(
     }
 
     // Walk dependencies to include all required scripts.
-    NSMutableArray *languages = renderer.currentLanguages;
-    while (lang)
-    {
-        NSUInteger index = [languages indexOfObject:lang];
-        if (index != NSNotFound)
-            [languages removeObjectAtIndex:index];
-        [languages insertObject:lang atIndex:0];
-        lang = languageMap[lang][@"require"];
-    }
+    add_to_languages(lang, renderer.currentLanguages, languageMap);
     
     return mapped;
 }
@@ -304,6 +349,8 @@ NS_INLINE void MPFreeHTMLRenderer(hoedown_renderer *htmlRenderer)
 
     self.currentHtml = @"";
     self.currentLanguages = [NSMutableArray array];
+    self.parseQueue = [[NSOperationQueue alloc] init];
+    self.parseQueue.maxConcurrentOperationCount = 1; // Serial queue
 
     return self;
 }
@@ -378,12 +425,56 @@ NS_INLINE void MPFreeHTMLRenderer(hoedown_renderer *htmlRenderer)
     NSURL *url = [NSURL URLWithString:kMPMathJaxCDN];
     NSBundle *bundle = [NSBundle mainBundle];
     MPEmbeddedScript *script =
-        [MPEmbeddedScript assetWithURL:[bundle URLForResource:@"callback"
+        [MPEmbeddedScript assetWithURL:[bundle URLForResource:@"init"
                                                 withExtension:@"js"
                                                  subdirectory:@"MathJax"]
                                andType:kMPMathJaxConfigType];
     [scripts addObject:script];
     [scripts addObject:[MPScript javaScriptWithURL:url]];
+    return scripts;
+}
+
+- (NSArray *)mermaidStylesheets
+{
+    NSMutableArray *stylesheets = [NSMutableArray array];
+    
+    NSURL *url = MPExtensionURL(@"mermaid.forest", @"css");
+    [stylesheets addObject:[MPStyleSheet CSSWithURL:url]];
+    
+    return stylesheets;
+}
+
+- (NSArray *)mermaidScripts
+{
+    // TODO
+    NSMutableArray *scripts = [NSMutableArray array];
+
+    {
+        NSURL *url = MPExtensionURL(@"mermaid.min", @"js");
+        [scripts addObject:[MPScript javaScriptWithURL:url]];
+    }
+    {
+        NSURL *url = MPExtensionURL(@"mermaid.init", @"js");
+        [scripts addObject:[MPScript javaScriptWithURL:url]];
+    }
+    
+    return scripts;
+}
+
+- (NSArray *)graphvizScripts
+{
+    // TODO
+    NSMutableArray *scripts = [NSMutableArray array];
+
+    {
+        NSURL *url = MPExtensionURL(@"viz", @"js");
+        [scripts addObject:[MPScript javaScriptWithURL:url]];
+    }
+    {
+        NSURL *url = MPExtensionURL(@"viz.init", @"js");
+        [scripts addObject:[MPScript javaScriptWithURL:url]];
+    }
+    
     return scripts;
 }
 
@@ -393,7 +484,15 @@ NS_INLINE void MPFreeHTMLRenderer(hoedown_renderer *htmlRenderer)
 
     NSMutableArray *stylesheets = [self.baseStylesheets mutableCopy];
     if ([delegate rendererHasSyntaxHighlighting:self])
+    {
         [stylesheets addObjectsFromArray:self.prismStylesheets];
+        // mermaid
+        if ([delegate rendererHasMermaid:self])
+        {
+            [stylesheets addObjectsFromArray:self.mermaidStylesheets];
+        }
+        
+    }
 
     if ([delegate rendererCodeBlockAccesory:self] == MPCodeBlockAccessoryCustom)
     {
@@ -413,36 +512,63 @@ NS_INLINE void MPFreeHTMLRenderer(hoedown_renderer *htmlRenderer)
         [scripts addObject:[MPScript javaScriptWithURL:url]];
     }
     if ([d rendererHasSyntaxHighlighting:self])
+    {
         [scripts addObjectsFromArray:self.prismScripts];
+        // mermaid
+        if ([d rendererHasMermaid:self])
+        {
+            [scripts addObjectsFromArray:self.mermaidScripts];
+        }
+        // graphviz
+        if ([d rendererHasGraphviz:self])
+        {
+            [scripts addObjectsFromArray:self.graphvizScripts];
+        }
+    }
     if ([d rendererHasMathJax:self])
         [scripts addObjectsFromArray:self.mathjaxScripts];
     return scripts;
 }
 
 #pragma mark - Public
+    
+- (void)parseAndRenderWithMaxDelay:(NSTimeInterval)maxDelay {
+    [self.parseQueue cancelAllOperations];
+    [self.parseQueue addOperationWithBlock:^{
+        // Fetch the markdown (from the main thread)
+        __block NSString *markdown;
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            markdown = [[self.dataSource rendererMarkdown:self] copy];
+        });
+
+        // Parse in backgound
+        [self parseMarkdown:markdown];
+        
+        // Wait untils is renderer has finished loading OR until the maxDelay has passed
+        // This should result in overall faster update times
+        NSDate *start = [NSDate date];
+        __block BOOL rendererIsLoading = true;
+        while (rendererIsLoading || [start timeIntervalSinceNow] >= maxDelay) {
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                rendererIsLoading = [self.dataSource rendererLoading];
+            });
+        }
+        
+        // Render on main thread
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self render];
+        });
+    }];
+}
 
 - (void)parseAndRenderNow
 {
-    [self parseNowWithCommand:@selector(parse) completionHandler:^{
-        [self render];
-    }];
+    [self parseAndRenderWithMaxDelay:0];
 }
 
 - (void)parseAndRenderLater
 {
-    [self parseLaterWithCommand:@selector(parse) completionHandler:^{
-        [self render];
-    }];
-}
-
-- (void)parseNowWithCommand:(SEL)action completionHandler:(void(^)())handler
-{
-    [self parseLater:0.0 withCommand:action completionHandler:handler];
-}
-
-- (void)parseLaterWithCommand:(SEL)action completionHandler:(void(^)())handler
-{
-    [self parseLater:0.5 withCommand:action completionHandler:handler];
+    [self parseAndRenderWithMaxDelay:0.5];
 }
 
 - (void)parseIfPreferencesChanged
@@ -452,28 +578,21 @@ NS_INLINE void MPFreeHTMLRenderer(hoedown_renderer *htmlRenderer)
             || [delegate rendererHasSmartyPants:self] != self.smartypants
             || [delegate rendererRendersTOC:self] != self.TOC
             || [delegate rendererDetectsFrontMatter:self] != self.frontMatter)
-        [self parse];
+    {
+        [self parseMarkdown:[self.dataSource rendererMarkdown:self]];
+    }
 }
 
-- (void)parse
-{
-    void(^nextAction)() = nil;
-    if (self.parseDelayTimer.isValid)
-    {
-        nextAction = self.parseDelayTimer.userInfo[@"next"];
-        [self.parseDelayTimer invalidate];
-    }
-
+- (void)parseMarkdown:(NSString *)markdown {
     [self.currentLanguages removeAllObjects];
-
+    
     id<MPRendererDelegate> delegate = self.delegate;
     int extensions = [delegate rendererExtensions:self];
     BOOL smartypants = [delegate rendererHasSmartyPants:self];
     BOOL hasFrontMatter = [delegate rendererDetectsFrontMatter:self];
     BOOL hasTOC = [delegate rendererRendersTOC:self];
-
+    
     id frontMatter = nil;
-    NSString *markdown = [self.dataSource rendererMarkdown:self];
     if (hasFrontMatter)
     {
         NSUInteger offset = 0;
@@ -483,21 +602,18 @@ NS_INLINE void MPFreeHTMLRenderer(hoedown_renderer *htmlRenderer)
     hoedown_renderer *htmlRenderer = MPCreateHTMLRenderer(self);
     hoedown_renderer *tocRenderer = NULL;
     if (hasTOC)
-        tocRenderer = MPCreateHTMLTOCRenderer();
+    tocRenderer = MPCreateHTMLTOCRenderer();
     self.currentHtml = MPHTMLFromMarkdown(
-        markdown, extensions, smartypants, [frontMatter HTMLTable],
-        htmlRenderer, tocRenderer);
+                                          markdown, extensions, smartypants, [frontMatter HTMLTable],
+                                          htmlRenderer, tocRenderer);
     if (tocRenderer)
-        hoedown_html_renderer_free(tocRenderer);
+    hoedown_html_renderer_free(tocRenderer);
     MPFreeHTMLRenderer(htmlRenderer);
-
+    
     self.extensions = extensions;
     self.smartypants = smartypants;
     self.TOC = hasTOC;
     self.frontMatter = hasFrontMatter;
-
-    if (nextAction)
-        nextAction();
 }
 
 - (void)renderIfPreferencesChanged
@@ -505,6 +621,10 @@ NS_INLINE void MPFreeHTMLRenderer(hoedown_renderer *htmlRenderer)
     BOOL changed = NO;
     id<MPRendererDelegate> d = self.delegate;
     if ([d rendererHasSyntaxHighlighting:self] != self.syntaxHighlighting)
+        changed = YES;
+    else if ([d rendererHasMermaid:self] != self.mermaid)
+        changed = YES;
+    else if ([d rendererHasGraphviz:self] != self.graphviz)
         changed = YES;
     else if (!MPAreNilableStringsEqual(
             [d rendererHighlightingThemeName:self], self.highlightingThemeName))
@@ -531,6 +651,8 @@ NS_INLINE void MPFreeHTMLRenderer(hoedown_renderer *htmlRenderer)
 
     self.styleName = [delegate rendererStyleName:self];
     self.syntaxHighlighting = [delegate rendererHasSyntaxHighlighting:self];
+    self.mermaid = [delegate rendererHasMermaid:self];
+    self.graphviz = [delegate rendererHasGraphviz:self];
     self.highlightingThemeName = [delegate rendererHighlightingThemeName:self];
     self.codeBlockAccesory = [delegate rendererCodeBlockAccesory:self];
 }
@@ -554,6 +676,16 @@ NS_INLINE void MPFreeHTMLRenderer(hoedown_renderer *htmlRenderer)
         scriptsOption = MPAssetEmbedded;
         [styles addObjectsFromArray:self.prismStylesheets];
         [scripts addObjectsFromArray:self.prismScripts];
+        if ([self.delegate rendererHasMermaid:self])
+        {
+            [styles addObjectsFromArray:self.mermaidStylesheets];
+            [scripts addObjectsFromArray:self.mermaidScripts];
+        }
+        if ([self.delegate rendererHasGraphviz:self])
+        {
+            [scripts addObjectsFromArray:self.graphvizScripts];
+        }
+
     }
     if ([self.delegate rendererHasMathJax:self])
     {
@@ -567,20 +699,6 @@ NS_INLINE void MPFreeHTMLRenderer(hoedown_renderer *htmlRenderer)
     NSString *html = MPGetHTML(
         title, self.currentHtml, styles, stylesOption, scripts, scriptsOption);
     return html;
-}
-
-
-#pragma mark - Private
-
-- (void)parseLater:(NSTimeInterval)delay
-       withCommand:(SEL)action completionHandler:(void(^)())handler
-{
-    self.parseDelayTimer =
-        [NSTimer scheduledTimerWithTimeInterval:delay
-                                         target:self
-                                       selector:action
-                                       userInfo:@{@"next": handler}
-                                        repeats:NO];
 }
 
 @end

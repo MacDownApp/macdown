@@ -10,10 +10,15 @@
 
 @implementation NSDocumentController (Document)
 
-- (id)openUntitledDocumentForURL:(NSURL *)url display:(BOOL)display
-                           error:(NSError * __autoreleasing *)error
+- (__kindof NSDocument *)createNewEmptyDocumentForURL:(NSURL *)url
+        display:(BOOL)display error:(NSError * __autoreleasing *)error
 {
-    NSDocument *doc = [self openUntitledDocumentAndDisplay:display error:error];
+    [[NSFileManager defaultManager] createFileAtPath:[url path]
+                                            contents:[NSData data]
+                                          attributes:nil];
+
+    NSDocument *doc = [self openUntitledDocumentAndDisplay:display
+                                                     error:error];
     if (!doc)
         return doc;
 

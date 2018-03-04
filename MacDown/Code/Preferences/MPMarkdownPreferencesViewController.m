@@ -11,9 +11,9 @@
 
 @implementation MPMarkdownPreferencesViewController
 
-#pragma mark - MASPrefernecesViewController
+#pragma mark - MASPreferencesViewController
 
-- (NSString *)identifier
+- (NSString *)viewIdentifier
 {
     return @"MarkdownPreferences";
 }

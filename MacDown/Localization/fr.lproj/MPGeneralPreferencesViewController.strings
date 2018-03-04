@@ -1,0 +1,27 @@
+/* Class = "NSButtonCell"; title = "Sync preview scrollbar when editor scrolls"; ObjectID = "2Uj-Sx-FjV"; */
+"2Uj-Sx-FjV.title" = "Synchroniser le défilement de la prévisualisation quand l'éditeur défile";
+
+/* Class = "NSBox"; title = "Behavior"; ObjectID = "Nma-PL-ZvX"; */
+"Nma-PL-ZvX.title" = "Comportement";
+
+/* Class = "NSButtonCell"; title = "Put editor on the right"; ObjectID = "bUn-PQ-5Ez"; */
+"bUn-PQ-5Ez.title" = "Afficher l’éditeur à droite";
+
+/* Class = "NSBox"; title = "Update"; ObjectID = "eLn-fW-Agu"; */
+"eLn-fW-Agu.title" = "Mettre à jour";
+
+/* Class = "NSButtonCell"; title = "Automatically create files for link targets"; ObjectID = "hpF-zP-3cM"; */
+"hpF-zP-3cM.title" = "Créer automatiquement les fichiers des cibles de lien";
+
+/* Class = "NSButtonCell"; title = "Ensure open document on launch"; ObjectID = "l9N-wk-WRY"; */
+"l9N-wk-WRY.title" = "Forcer l’ouverture d’un document vierge au démarrage";
+
+/* Class = "NSButtonCell"; title = "Update preview automatically as you type"; ObjectID = "npz-xj-plX"; */
+"npz-xj-plX.title" = "Mettre à jour automatiquement la prévisualisation à la saisie";
+
+/* Class = "NSButtonCell"; title = "Show word count"; ObjectID = "oeW-bF-ybW"; */
+"oeW-bF-ybW.title" = "Afficher le compteur de mots";
+
+/* Class = "NSButtonCell"; title = "Include pre-releases"; ObjectID = "vbz-fv-8BX"; */
+"vbz-fv-8BX.title" = "Inclure les versions beta";
+

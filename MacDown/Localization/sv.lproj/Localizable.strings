@@ -1,0 +1,44 @@
+/* No comment provided by engineer. */
+"CHARACTERS_NO_SPACES_PLURAL_STRING" = "%@ character (inga mellanslag);%@ tecken (inga mellanslag)";
+
+/* No comment provided by engineer. */
+"CHARACTERS_PLURAL_STRING" = "%@ tecken;%@ tecken";
+
+/* Preference pane title. */
+"Editor" = "Redigering";
+
+/* preview navigation error message */
+"File not found at path:
+%@" = "Fil kunde inte hittas på sökväg:
+%@";
+
+/* Preference pane title. */
+"General" = "Allmänt";
+
+/* Toggle editor pane menu item */
+"Hide Editor Pane" = "Dölj redigerings-vy";
+
+/* Toggle preview pane menu item */
+"Hide Preview Pane" = "Dölj förhandsvisnings-vy";
+
+/* Preference pane title. */
+"Markdown" = "Markdown";
+
+/* Preferences window title. */
+"Preferences" = "Inställningar";
+
+/* Preference pane title. */
+"Rendering" = "Rendering";
+
+/* Toggle editor pane menu item */
+"Restore Editor Pane" = "Återställ redigerings-vy";
+
+/* Toggle preview pane menu item */
+"Restore Preview Pane" = "Återställ förhandsvisnings-vy";
+
+/* default filename if no title can be determined */
+"Untitled" = "Namnlöst";
+
+/* No comment provided by engineer. */
+"WORDS_PLURAL_STRING" = "%@ ord;%@ ord";
+

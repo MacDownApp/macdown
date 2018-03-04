@@ -26,9 +26,9 @@ NS_INLINE NSString *MPPrismDefaultThemeName()
 
 @implementation MPHtmlPreferencesViewController
 
-#pragma mark - MASPrefernecesViewController
+#pragma mark - MASPreferencesViewController
 
-- (NSString *)identifier
+- (NSString *)viewIdentifier
 {
     return @"HtmlPreferences";
 }

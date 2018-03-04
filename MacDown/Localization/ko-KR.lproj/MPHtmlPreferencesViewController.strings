@@ -1,0 +1,12 @@
+/* Class = "NSTextFieldCell"; title = "CSS:"; ObjectID = "9I3-I7-HLu"; */
+"9I3-I7-HLu.title" = "CSS:";
+
+/* Class = "NSButtonCell"; title = "Show line numbers"; ObjectID = "WZa-V6-vvf"; */
+"WZa-V6-vvf.title" = "행 번호 보이기";
+
+/* Class = "NSTextFieldCell"; title = "Theme:"; ObjectID = "a6o-qD-AIp"; */
+"a6o-qD-AIp.title" = "테마:";
+
+/* Class = "NSTextFieldCell"; title = "Default path:"; ObjectID = "e1A-Mm-svq"; */
+"e1A-Mm-svq.title" = "기본 경로:";
+

@@ -7,6 +7,17 @@
 //
 
 #import "MPPreferences.h"
+#import "NSUserDefaults+Suite.h"
+#import "MPGlobals.h"
+
+
+typedef NS_ENUM(NSUInteger, MPUnorderedListMarkerType)
+{
+    MPUnorderedListMarkerAsterisk = 0,
+    MPUnorderedListMarkerPlusSign = 1,
+    MPUnorderedListMarkerMinusSign = 2,
+};
+
 
 
 NSString * const MPDidDetectFreshInstallationNotification =
@@ -62,7 +73,6 @@ static NSString * const kMPDefaultHtmlStyleName = @"GitHub2";
 @dynamic firstVersionInstalled;
 @dynamic latestVersionInstalled;
 @dynamic updateIncludesPreReleases;
-@dynamic filesToOpenOnNextLaunch;
 @dynamic supressesUntitledDocumentOnLaunch;
 @dynamic createFileForLinkTarget;
 
@@ -97,9 +107,11 @@ static NSString * const kMPDefaultHtmlStyleName = @"GitHub2";
 @dynamic editorWordCountType;
 @dynamic editorScrollsPastEnd;
 @dynamic editorEnsuresNewlineAtEndOfFile;
+@dynamic editorUnorderedListMarkerType;
 
 @dynamic previewZoomRelativeToBaseFontSize;
 
+@dynamic htmlTemplateName;
 @dynamic htmlStyleName;
 @dynamic htmlDetectFrontMatter;
 @dynamic htmlTaskList;
@@ -110,6 +122,8 @@ static NSString * const kMPDefaultHtmlStyleName = @"GitHub2";
 @dynamic htmlDefaultDirectoryUrl;
 @dynamic htmlHighlightingThemeName;
 @dynamic htmlLineNumbers;
+@dynamic htmlGraphviz;
+@dynamic htmlMermaid;
 @dynamic htmlCodeBlockAccessory;
 @dynamic htmlRendersTOC;
 
@@ -140,6 +154,45 @@ static NSString * const kMPDefaultHtmlStyleName = @"GitHub2";
         kMPDefaultEditorFontPointSizeKey: @(font.pointSize)
     };
     self.editorBaseFontInfo = info;
+}
+
+- (NSString *)editorUnorderedListMarker
+{
+    switch (self.editorUnorderedListMarkerType)
+    {
+        case MPUnorderedListMarkerAsterisk:
+            return @"* ";
+        case MPUnorderedListMarkerPlusSign:
+            return @"+ ";
+        case MPUnorderedListMarkerMinusSign:
+            return @"- ";
+        default:
+            return @"* ";
+    }
+}
+
+- (NSArray *)filesToOpen
+{
+    return [self.userDefaults objectForKey:kMPFilesToOpenKey
+                              inSuiteNamed:kMPApplicationSuiteName];
+}
+
+- (void)setFilesToOpen:(NSArray *)filesToOpen
+{
+    [self.userDefaults setObject:filesToOpen
+                          forKey:kMPFilesToOpenKey
+                    inSuiteNamed:kMPApplicationSuiteName];
+}
+
+- (NSString *)pipedContentFileToOpen {
+    return [self.userDefaults objectForKey:kMPPipedContentFileToOpen
+                              inSuiteNamed:kMPApplicationSuiteName];
+}
+
+- (void)setPipedContentFileToOpen:(NSString *)pipedContentFileToOpenPath {
+    [self.userDefaults setObject:pipedContentFileToOpenPath
+                          forKey:kMPPipedContentFileToOpen
+                    inSuiteNamed:kMPApplicationSuiteName];
 }
 
 
@@ -228,6 +281,8 @@ static NSString * const kMPDefaultHtmlStyleName = @"GitHub2";
         self.editorAutoIncrementNumberedLists = YES;
     if (![defaults objectForKey:@"editorInsertPrefixInBlock"])
         self.editorInsertPrefixInBlock = YES;
+    if (![defaults objectForKey:@"htmlTemplateName"])
+        self.htmlTemplateName = @"Default";
 }
 
 @end

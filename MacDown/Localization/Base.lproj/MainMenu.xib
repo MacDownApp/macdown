@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -400,6 +400,13 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="Cux-kV-g5Z"/>
+                            <menuItem title="Show Toolbar" keyEquivalent="t" id="fKI-yk-0lv">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                <connections>
+                                    <action selector="toggleToolbar:" target="-1" id="Crk-Yu-una"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="QMZ-Ld-Nza"/>
                             <menuItem title="Enter Full Screen" keyEquivalent="f" id="1gz-YB-DZE">
                                 <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
                                 <connections>
@@ -433,7 +440,7 @@
                             <menuItem title="Underline" keyEquivalent="u" id="98U-cK-P7J">
                                 <connections>
                                     <action selector="toggleUnderline:" target="-1" id="Jvi-30-6Gz"/>
-                                    <binding destination="eq0-c4-vgQ" name="hidden" keyPath="self.prefereces.extensionUnderline" id="HNG-eA-odB">
+                                    <binding destination="eq0-c4-vgQ" name="hidden" keyPath="self.preferences.extensionUnderline" id="HNG-eA-odB">
                                         <dictionary key="options">
                                             <string key="NSValueTransformerName">NSNegateBoolean</string>
                                         </dictionary>
@@ -443,7 +450,7 @@
                             <menuItem title="Strikethrough" keyEquivalent="-" id="9CN-Qi-Fln">
                                 <connections>
                                     <action selector="toggleStrikethrough:" target="-1" id="rUc-gb-x5q"/>
-                                    <binding destination="eq0-c4-vgQ" name="hidden" keyPath="self.prefereces.extensionStrikethough" id="kQ0-Wi-BPs">
+                                    <binding destination="eq0-c4-vgQ" name="hidden" keyPath="self.preferences.extensionStrikethough" id="kQ0-Wi-BPs">
                                         <dictionary key="options">
                                             <string key="NSValueTransformerName">NSNegateBoolean</string>
                                         </dictionary>
@@ -453,7 +460,7 @@
                             <menuItem title="Highlight" keyEquivalent="=" id="2Os-ij-Aup">
                                 <connections>
                                     <action selector="toggleHighlight:" target="-1" id="Uda-cB-xYx"/>
-                                    <binding destination="eq0-c4-vgQ" name="hidden" keyPath="self.prefereces.extensionHighlight" id="9y2-h2-XrX">
+                                    <binding destination="eq0-c4-vgQ" name="hidden" keyPath="self.preferences.extensionHighlight" id="9y2-h2-XrX">
                                         <dictionary key="options">
                                             <string key="NSValueTransformerName">NSNegateBoolean</string>
                                         </dictionary>
@@ -514,6 +521,11 @@
                                 </menu>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="tY3-Ap-TRo"/>
+                            <menuItem title="Ordered List" keyEquivalent="O" id="jn0-Kb-yH7">
+                                <connections>
+                                    <action selector="toggleOrderedList:" target="-1" id="K5g-7x-qoW"/>
+                                </connections>
+                            </menuItem>
                             <menuItem title="Unordered List" keyEquivalent="U" id="jn0-Kb-yH6">
                                 <connections>
                                     <action selector="toggleUnorderedList:" target="-1" id="K5g-7x-qoV"/>
@@ -557,6 +569,14 @@ DQ
                         </items>
                     </menu>
                 </menuItem>
+                <menuItem title="Plug-ins" id="bMu-UN-Yfx">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="Plug-ins" id="Ppl-BS-KtG">
+                        <connections>
+                            <outlet property="delegate" destination="N0l-eA-KkD" id="2b6-Ap-EdW"/>
+                        </connections>
+                    </menu>
+                </menuItem>
                 <menuItem title="Window" id="aUF-d1-5bR">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Window" systemMenu="window" id="Td7-aD-5lo">
@@ -592,6 +612,12 @@ DQ
                                     <action selector="showHelp:" target="eq0-c4-vgQ" id="8IP-1m-7eG"/>
                                 </connections>
                             </menuItem>
+                            <menuItem title="Contributing to MacDown" id="K3J-v5-s91">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="showContributing:" target="eq0-c4-vgQ" id="kry-sc-poi"/>
+                                </connections>
+                            </menuItem>
                         </items>
                     </menu>
                 </menuItem>
@@ -604,6 +630,11 @@ DQ
             </connections>
         </customObject>
         <customObject id="LEY-zf-22t" customClass="NSDocumentController"/>
+        <customObject id="N0l-eA-KkD" customClass="MPPlugInController">
+            <connections>
+                <outlet property="documentController" destination="LEY-zf-22t" id="9rV-l0-Wfs"/>
+            </connections>
+        </customObject>
         <userDefaultsController representsSharedInstance="YES" id="ow1-Qr-nTV"/>
     </objects>
 </document>

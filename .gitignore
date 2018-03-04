@@ -170,9 +170,11 @@ xcuserdata
 
 # This needs to be included explicitly because we excluded *.lock previously.
 !Podfile.lock
+!Gemfile.lock
 
 Build/
 Pods/
+Tools/__pycache__/
 Dependency/version/version.h
 Dependency/peg-markdown-highlight/pmh_parser_core.c
 Dependency/peg-markdown-highlight/pmh_parser.c

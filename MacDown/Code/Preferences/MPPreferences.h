@@ -17,7 +17,6 @@ extern NSString * const MPDidDetectFreshInstallationNotification;
 @property (assign) NSString *firstVersionInstalled;
 @property (assign) NSString *latestVersionInstalled;
 @property (assign) BOOL updateIncludesPreReleases;
-@property (assign) NSArray *filesToOpenOnNextLaunch;
 @property (assign) BOOL supressesUntitledDocumentOnLaunch;
 @property (assign) BOOL createFileForLinkTarget;
 
@@ -54,9 +53,11 @@ extern NSString * const MPDidDetectFreshInstallationNotification;
 @property (assign) NSInteger editorWordCountType;
 @property (assign) BOOL editorScrollsPastEnd;
 @property (assign) BOOL editorEnsuresNewlineAtEndOfFile;
+@property (assign) NSInteger editorUnorderedListMarkerType;
 
 @property (assign) BOOL previewZoomRelativeToBaseFontSize;
 
+@property (assign) NSString *htmlTemplateName;
 @property (assign) NSString *htmlStyleName;
 @property (assign) BOOL htmlDetectFrontMatter;
 @property (assign) BOOL htmlTaskList;
@@ -66,6 +67,8 @@ extern NSString * const MPDidDetectFreshInstallationNotification;
 @property (assign) BOOL htmlSyntaxHighlighting;
 @property (assign) NSString *htmlHighlightingThemeName;
 @property (assign) BOOL htmlLineNumbers;
+@property (assign) BOOL htmlGraphviz;
+@property (assign) BOOL htmlMermaid;
 @property (assign) NSInteger htmlCodeBlockAccessory;
 @property (assign) NSURL *htmlDefaultDirectoryUrl;
 @property (assign) BOOL htmlRendersTOC;
@@ -74,7 +77,12 @@ extern NSString * const MPDidDetectFreshInstallationNotification;
 @property (readonly) NSString *editorBaseFontName;
 @property (readonly) CGFloat editorBaseFontSize;
 @property (nonatomic, assign) NSFont *editorBaseFont;
+@property (readonly) NSString *editorUnorderedListMarker;
 
 - (instancetype)init;
+
+// Convinience methods.
+@property (nonatomic, assign) NSArray *filesToOpen;
+@property (nonatomic, assign) NSString *pipedContentFileToOpen;
 
 @end
