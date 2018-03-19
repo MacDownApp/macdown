@@ -16,6 +16,7 @@
 #import "MPAutosaving.h"
 #import "NSColor+HTML.h"
 #import "NSDocumentController+Document.h"
+#import "NSPasteboard+Types.h"
 #import "NSString+Lookup.h"
 #import "NSTextView+Autocomplete.h"
 #import "DOMNode+Text.h"
@@ -1367,22 +1368,42 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 
 - (IBAction)toggleLink:(id)sender
 {
-    if ([self.editor toggleForMarkupPrefix:@"[" suffix:@"]()"])
+    BOOL inserted = [self.editor toggleForMarkupPrefix:@"[" suffix:@"]()"];
+    if (!inserted)
+        return;
+
+    NSRange selectedRange = self.editor.selectedRange;
+    NSUInteger location = selectedRange.location + selectedRange.length + 2;
+    selectedRange = NSMakeRange(location, 0);
+
+    NSPasteboard *pb = [NSPasteboard generalPasteboard];
+    NSString *url = [pb URLForType:NSPasteboardTypeString].absoluteString;
+    if (url)
     {
-        NSRange selectedRange = self.editor.selectedRange;
-        NSUInteger location = selectedRange.location + selectedRange.length + 2;
-        self.editor.selectedRange = NSMakeRange(location, 0);
+        [self.editor insertText:url replacementRange:selectedRange];
+        selectedRange.length = url.length;
     }
+    self.editor.selectedRange = selectedRange;
 }
 
 - (IBAction)toggleImage:(id)sender
 {
-    if ([self.editor toggleForMarkupPrefix:@"![" suffix:@"]()"])
+    BOOL inserted = [self.editor toggleForMarkupPrefix:@"![" suffix:@"]()"];
+    if (!inserted)
+        return;
+
+    NSRange selectedRange = self.editor.selectedRange;
+    NSUInteger location = selectedRange.location + selectedRange.length + 2;
+    selectedRange = NSMakeRange(location, 0);
+
+    NSPasteboard *pb = [NSPasteboard generalPasteboard];
+    NSString *url = [pb URLForType:NSPasteboardTypeString].absoluteString;
+    if (url)
     {
-        NSRange selectedRange = self.editor.selectedRange;
-        NSUInteger location = selectedRange.location + selectedRange.length + 2;
-        self.editor.selectedRange = NSMakeRange(location, 0);
+        [self.editor insertText:url replacementRange:selectedRange];
+        selectedRange.length = url.length;
     }
+    self.editor.selectedRange = selectedRange;
 }
 
 - (IBAction)toggleOrderedList:(id)sender

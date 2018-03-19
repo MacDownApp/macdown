@@ -37,6 +37,7 @@
 		1F3619E61F36DA0F00EDA15A /* MPTerminalPreferencesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F3619E81F36DA0F00EDA15A /* MPTerminalPreferencesViewController.xib */; };
 		1F396E6619B0EA17000D3EFC /* MPEditorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F396E6519B0EA17000D3EFC /* MPEditorView.m */; };
 		1F3A47521953E84700293259 /* help.md in Resources */ = {isa = PBXBuildFile; fileRef = 1F3A47511953E84700293259 /* help.md */; };
+		1F3FC87C1C854E1C000965E1 /* NSPasteboard+Types.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F3FC87B1C854E1C000965E1 /* NSPasteboard+Types.m */; };
 		1F3FC8AA1C85AE9F000965E1 /* MacDown.sdef in Resources */ = {isa = PBXBuildFile; fileRef = 1F3FC8A91C85AE9F000965E1 /* MacDown.sdef */; };
 		1F41FF7B1C8EEE9200FD9886 /* Templates in Resources */ = {isa = PBXBuildFile; fileRef = 1F41FF7A1C8EEE9200FD9886 /* Templates */; };
 		1F4C8E9A194AE0B9004BF82E /* MarkdownDocument.icns in Resources */ = {isa = PBXBuildFile; fileRef = 1F4C8E99194AE0B9004BF82E /* MarkdownDocument.icns */; };
@@ -254,6 +255,8 @@
 		1F396E6419B0EA17000D3EFC /* MPEditorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPEditorView.h; sourceTree = "<group>"; };
 		1F396E6519B0EA17000D3EFC /* MPEditorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPEditorView.m; sourceTree = "<group>"; };
 		1F3A47511953E84700293259 /* help.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = help.md; path = Resources/help.md; sourceTree = "<group>"; };
+		1F3FC87A1C854E1C000965E1 /* NSPasteboard+Types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSPasteboard+Types.h"; sourceTree = "<group>"; };
+		1F3FC87B1C854E1C000965E1 /* NSPasteboard+Types.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSPasteboard+Types.m"; sourceTree = "<group>"; };
 		1F3FC8A91C85AE9F000965E1 /* MacDown.sdef */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = MacDown.sdef; path = Resources/MacDown.sdef; sourceTree = "<group>"; };
 		1F41FF7A1C8EEE9200FD9886 /* Templates */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Templates; path = Resources/Templates; sourceTree = "<group>"; };
 		1F4C8E99194AE0B9004BF82E /* MarkdownDocument.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = MarkdownDocument.icns; path = Resources/MarkdownDocument.icns; sourceTree = "<group>"; };
@@ -501,6 +504,8 @@
 				1F59491D1AB57D87007394CB /* NSJSONSerialization+File.m */,
 				1FFEB3231972D88900B2254F /* NSObject+HTMLTabularize.h */,
 				1FFEB3241972D88900B2254F /* NSObject+HTMLTabularize.m */,
+				1F3FC87A1C854E1C000965E1 /* NSPasteboard+Types.h */,
+				1F3FC87B1C854E1C000965E1 /* NSPasteboard+Types.m */,
 				1F0D9D5E194AC7CF008E1856 /* NSString+Lookup.h */,
 				1F0D9D5F194AC7CF008E1856 /* NSString+Lookup.m */,
 				1F0D9D60194AC7CF008E1856 /* NSTextView+Autocomplete.h */,
@@ -1178,6 +1183,7 @@
 				1F33F2A41A3B56D20001C849 /* NSColor+HTML.m in Sources */,
 				1F5A37141C869C81006E63E7 /* MPPlugInController.m in Sources */,
 				1F0D9D65194AC7CF008E1856 /* NSString+Lookup.m in Sources */,
+				1F3FC87C1C854E1C000965E1 /* NSPasteboard+Types.m in Sources */,
 				1F8A835E1953454F00B6BF69 /* HGMarkdownHighlightingStyle.m in Sources */,
 				1F33F2A11A3B4B660001C849 /* MPDocumentSplitView.m in Sources */,
 				1F23A92119928E650052DB78 /* MPMathJaxListener.m in Sources */,
