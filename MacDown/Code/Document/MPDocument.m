@@ -1758,21 +1758,29 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     CGFloat currY = NSMinY(self.editor.enclosingScrollView.contentView.bounds);
     CGFloat minY = 0;
     CGFloat maxY = 0;
+    
+    // align the documents at the middle of the screen, except at top/bottom of document
+    CGFloat topTaper = MAX(0, MIN(1.0, currY / editorVisibleHeight));
+    CGFloat bottomTaper = 1.0 - MAX(0, MIN(1.0, (currY - editorContentHeight + 2 * editorVisibleHeight) / editorVisibleHeight));
+    CGFloat adjustmentForScroll = topTaper * bottomTaper * editorVisibleHeight / 2;
 
     // We start by splitting our document into lines, and then searching
     // line by line for headers or images.
-    for (NSNumber *headerY in _editorHeaderLocations) {
-        if ([headerY floatValue] < currY)
+    for (NSNumber *headerYNum in _editorHeaderLocations) {
+        CGFloat headerY = [headerYNum floatValue];
+        headerY -= adjustmentForScroll;
+        
+        if (headerY < currY)
         {
             // The header is before our current scroll position. the closest
             // of these will be our first reference node
             relativeHeaderIndex += 1;
-            minY = [headerY floatValue];
-        } else if (maxY == 0 && [headerY floatValue] < editorContentHeight - editorVisibleHeight)
+            minY = headerY;
+        } else if (maxY == 0 && headerY < editorContentHeight - editorVisibleHeight)
         {
             // Skip any headers that are within the last screen of the editor.
             // we'll interpolate to the end of the document in that case.
-            maxY = [headerY floatValue];
+            maxY = headerY;
         }
     }
     
@@ -1784,10 +1792,10 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     {
         // We only have a reference node before our current position,
         // but not after, so we'll use the end of the document.
-        maxY = editorContentHeight - editorVisibleHeight;
+        maxY = editorContentHeight - editorVisibleHeight + adjustmentForScroll;
         interpolateToEndOfDocument = YES;
     }
-    
+
     // We are currently at currY offset, between minY and maxY, which represent
     // headers indexed by relativeHeaderIndex and relativeHeaderIndex+1.
     currY = MAX(0, currY - minY);
@@ -1803,12 +1811,12 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     // Find the Y positions in the preview window that we're scrolling between
     if ([_webViewHeaderLocations count] > relativeHeaderIndex)
     {
-        topHeaderY = floorf([_webViewHeaderLocations[relativeHeaderIndex] doubleValue]);
+        topHeaderY = floorf([_webViewHeaderLocations[relativeHeaderIndex] doubleValue]) - adjustmentForScroll;
     }
     
     if (!interpolateToEndOfDocument && [_webViewHeaderLocations count] > relativeHeaderIndex + 1)
     {
-        bottomHeaderY = ceilf([_webViewHeaderLocations[relativeHeaderIndex + 1] doubleValue]);
+        bottomHeaderY = ceilf([_webViewHeaderLocations[relativeHeaderIndex + 1] doubleValue]) - adjustmentForScroll;
     }
     
     // Now we scroll percentScrolledBetweenHeaders percent between those two positions in the webview
