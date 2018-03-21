@@ -406,6 +406,11 @@
                                     <action selector="toggleToolbar:" target="-1" id="Crk-Yu-una"/>
                                 </connections>
                             </menuItem>
+                            <menuItem title="Show Invisibles" keyEquivalent="i" id="1ol-zK-RID">
+                                <connections>
+                                    <action selector="toggleInvisibles:" target="-1" id="4Lo-Dr-s6i"/>
+                                </connections>
+                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="QMZ-Ld-Nza"/>
                             <menuItem title="Enter Full Screen" keyEquivalent="f" id="1gz-YB-DZE">
                                 <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
