@@ -10,26 +10,32 @@
 
 @implementation MPLayoutManager
 
-- (void)drawGlyphsForGlyphRange:(NSRange)range atPoint:(NSPoint)point {
+- (void)drawGlyphsForGlyphRange:(NSRange)range atPoint:(NSPoint)point
+{
     NSTextStorage* storage = self.textStorage;
     NSString* string = storage.string;
-    for (NSUInteger glyphIndex = range.location; glyphIndex < range.location + range.length; glyphIndex++) {
+    for (NSUInteger glyphIndex = range.location; glyphIndex < range.location + range.length; glyphIndex++)
+    {
         NSUInteger characterIndex = [self characterIndexForGlyphAtIndex: glyphIndex];
-        switch ([string characterAtIndex:characterIndex]) {
+        switch ([string characterAtIndex:characterIndex])
+        {
                 
-            case ' ': {
+            case ' ':
+            {
                 NSFont* font = [storage attribute:NSFontAttributeName atIndex:characterIndex effectiveRange:NULL];
                 [self replaceGlyphAtIndex:glyphIndex withGlyph:[font glyphWithName:@"periodcentered"]];
                 break;
             }
                 
-            case '\t': {
+            case '\t':
+            {
                 NSFont* font = [storage attribute:NSFontAttributeName atIndex:characterIndex effectiveRange:NULL];
                 [self replaceGlyphAtIndex:glyphIndex withGlyph:[font glyphWithName:@"arrowright"]];
                 break;
             }
                 
-            case '\n': {
+            case '\n':
+            {
                 NSFont* font = [storage attribute:NSFontAttributeName atIndex:characterIndex effectiveRange:NULL];
                 [self replaceGlyphAtIndex:glyphIndex withGlyph:[font glyphWithName:@"carriagereturn"]];
                 break;

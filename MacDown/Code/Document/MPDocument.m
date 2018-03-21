@@ -363,15 +363,13 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
-    if([self invisiblesVisible]){
+    if ([self invisiblesVisible])
+    {
         [self.editor.textContainer replaceLayoutManager:[[MPLayoutManager alloc] init]];
-    }else{
-        [self.editor.textContainer replaceLayoutManager:[[NSLayoutManager alloc] init]];
     }
-    
-    CGFontRef font = CGFontCreateWithFontName(CFSTR("Menlo-Regular"));
-    for (size_t i = 0; i < CGFontGetNumberOfGlyphs(font); ++i) {
-        printf("%s\n", [CFBridgingRelease(CGFontCopyGlyphNameForGlyph(font, i)) UTF8String]);
+    else
+    {
+        [self.editor.textContainer replaceLayoutManager:[[NSLayoutManager alloc] init]];
     }
     
     // All files use their absolute path to keep their window states.
@@ -1477,9 +1475,12 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 {
     [[NSUserDefaults standardUserDefaults] setBool:![self invisiblesVisible] forKey:@"ShowInvisibles"];
     
-    if([self invisiblesVisible]){
+    if ([self invisiblesVisible])
+    {
         [self.editor.textContainer replaceLayoutManager:[[MPLayoutManager alloc] init]];
-    }else{
+    }
+    else
+    {
         [self.editor.textContainer replaceLayoutManager:[[NSLayoutManager alloc] init]];
     }
 }
