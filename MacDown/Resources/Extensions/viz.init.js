@@ -8,17 +8,12 @@
                          "twopi"];
  
   function doGraphviz(engine) {
-    var domAllDot = document.querySelectorAll(".language-" + engine);
+    var domAllDot = document.querySelectorAll("code.language-" + engine);
     for (var i = 0; i < domAllDot.length; i++) {
       var dom = domAllDot[i];
       var graphSource = dom.innerText || dom.textContent;
 
- 
-      dom = dom.parentElement;
-      if (dom.tagName === "PRE") {
-        dom = dom.parentElement;
-      }
-      dom.innerHTML = Viz(graphSource, { engine: engine});
+      dom.parentElement.parentElement.innerHTML = Viz(graphSource, { engine: engine});
     }
   }
  
