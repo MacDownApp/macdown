@@ -13,7 +13,11 @@
       var dom = domAllDot[i];
       var graphSource = dom.innerText || dom.textContent;
 
-      dom.parentElement.parentElement.innerHTML = Viz(graphSource, { engine: engine});
+      try {
+        dom.parentElement.parentElement.innerHTML = Viz(graphSource, {engine: engine});
+      } catch (e) {
+        console.error("Error when parsing node:", dom, e);
+      }
     }
   }
  
