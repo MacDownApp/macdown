@@ -56,7 +56,7 @@ Exception: If a URL in a comment is too long, it can go over the limit. This hap
     }
     ```
 
-* If code alignment is ambiguious, add extra indentation.
+* If code alignment is ambiguous, add extra indentation.
 
     Yes:
     ```c
@@ -88,7 +88,7 @@ Exception: If a URL in a comment is too long, it can go over the limit. This hap
 
 Always use *four spaces* instead of tabs for indentation. Trailing whitespaces should be removed. You can turn on the **Automatically trim trailing whitespace** option in Xcode to let it do the job for you.
 
-Try to ensure that there’s a trailing newline in the end of a file. This is not strictly enforced since there are no easy ways to do that (except checking manually), but I’d appriciate the effort.
+Try to ensure that there’s a trailing newline in the end of a file. This is not strictly enforced since there are no easy ways to do that (except checking manually), but I’d appreciate the effort.
 
 ## Version Control
 
@@ -98,7 +98,7 @@ MacDown uses Git for source control, and is hosted on GitHub.
 
 [General rules](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html) apply. If you absolutely need to, the first line of the message *can* go as long as 72 (instead of 50) characters, but it must not exceed it.
 
-Xcode’s commit window does not do a good job indicating whether your commit message is well-formed. I seldom use it personally, but if you do, you can check whether the commit message is good after you push to GitHub—If you see the first line of your commit message getting truncated, it is too long.
+Xcode’s commit window does not do a good job indicating whether your commit message is well-formed. I seldom use it personally, but if you do, you can check whether the commit message is good after you push to GitHub. If you see the first line of your commit message getting truncated, it is too long.
 
 ### Pull Requests
 
