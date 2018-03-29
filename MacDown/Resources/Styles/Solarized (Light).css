@@ -196,4 +196,7 @@ kbd {
   * {
     color: #000 !important;
   }
+  body {
+    margin: 2cm 2cm 2cm 2cm; 
+  }
 }

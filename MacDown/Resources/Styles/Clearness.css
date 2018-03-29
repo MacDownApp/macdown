@@ -157,4 +157,7 @@ kbd {
 	table, pre {
 		page-break-inside: avoid;
 	}
+  body {
+    margin: 2cm 2cm 2cm 2cm; 
+  }
 }
