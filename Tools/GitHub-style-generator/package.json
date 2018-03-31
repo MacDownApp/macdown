@@ -1,0 +1,20 @@
+{
+  "name": "github-style-generator",
+  "version": "1.0.0",
+  "description": "Generates GitHub style for MacDown.",
+  "scripts": {
+    "build": "gulp"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MacDownApp/macdown/tree/master/Tools/GitHub-theme-generator"
+  },
+  "author": "Franklin Yu",
+  "license": "MIT",
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp-replace": "^0.6.1",
+    "gulp-sass": "^3.2.1",
+    "primer-markdown": "^3.7.5"
+  }
+}
