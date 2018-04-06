@@ -1,6 +1,6 @@
 platform :osx, "10.8"
 
-source 'https://github.com/MacDownApp/cocoapods-specs.git'  # Patched Howdown.
+source 'https://github.com/MacDownApp/cocoapods-specs.git'  # Patched libraries.
 source 'https://github.com/CocoaPods/Specs.git'
 
 project 'MacDown.xcodeproj'
