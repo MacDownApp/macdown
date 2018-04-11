@@ -90,4 +90,7 @@ kbd {
 	pre {
 		word-wrap: break-word;
 	}
+  body {
+    padding: 2cm; 
+  }
 }
