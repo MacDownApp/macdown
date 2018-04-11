@@ -22,9 +22,9 @@
     }
  
     var insertSvg = function(svgCode, bindFunctions){
-      dom.innerHTML = svgCode;
+      this.innerHTML = svgCode;
     };
-    var graph = mermaidAPI.render('graphDiv' + i, graphSource, insertSvg)
+    var graph = mermaidAPI.render('graphDiv' + i, graphSource, insertSvg.bind(dom))
     }
   };
  
