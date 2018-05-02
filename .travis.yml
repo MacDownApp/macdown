@@ -10,8 +10,9 @@ env:
 install:
 - bundle install
 - travis_wait bundle exec pod install
-- pip install --upgrade pip
-- pip install --user transifex-client
+- curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+- python get-pip.py --user
+- python -m pip install --user transifex-client
 before_script:
 - set -o pipefail
 script:
