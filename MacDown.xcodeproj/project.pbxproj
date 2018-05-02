@@ -219,6 +219,15 @@
 		1F0D9DAE194AC905008E1856 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Code/main.m; sourceTree = "<group>"; };
 		1F0D9DB5194ACA33008E1856 /* MacDown-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "MacDown-Prefix.pch"; path = "Code/MacDown-Prefix.pch"; sourceTree = "<group>"; };
 		1F0F3BFB195F75F200FC0B3B /* MathJax */ = {isa = PBXFileReference; lastKnownFileType = folder; name = MathJax; path = Resources/MathJax; sourceTree = "<group>"; };
+		1F20EA242099A18A00C81510 /* nb-NO */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nb-NO"; path = "Localization/nb-NO.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		1F20EA252099A18A00C81510 /* nb-NO */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nb-NO"; path = "Localization/nb-NO.lproj/MPExportPanelAccessoryViewController.strings"; sourceTree = "<group>"; };
+		1F20EA262099A18A00C81510 /* nb-NO */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nb-NO"; path = "Localization/nb-NO.lproj/MainMenu.strings"; sourceTree = "<group>"; };
+		1F20EA272099A18A00C81510 /* nb-NO */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nb-NO"; path = "Localization/nb-NO.lproj/MPHtmlPreferencesViewController.strings"; sourceTree = "<group>"; };
+		1F20EA282099A18A00C81510 /* nb-NO */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nb-NO"; path = "nb-NO.lproj/MPTerminalPreferencesViewController.strings"; sourceTree = "<group>"; };
+		1F20EA292099A18A00C81510 /* nb-NO */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nb-NO"; path = "Localization/nb-NO.lproj/MPEditorPreferencesViewController.strings"; sourceTree = "<group>"; };
+		1F20EA2A2099A18A00C81510 /* nb-NO */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nb-NO"; path = "Localization/nb-NO.lproj/MPGeneralPreferencesViewController.strings"; sourceTree = "<group>"; };
+		1F20EA2B2099A18A00C81510 /* nb-NO */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nb-NO"; path = "Localization/nb-NO.lproj/MPMarkdownPreferencesViewController.strings"; sourceTree = "<group>"; };
+		1F20EA2C2099A18A00C81510 /* nb-NO */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nb-NO"; path = "Localization/nb-NO.lproj/MPDocument.strings"; sourceTree = "<group>"; };
 		1F23A91F19928E650052DB78 /* MPMathJaxListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPMathJaxListener.h; sourceTree = "<group>"; };
 		1F23A92019928E650052DB78 /* MPMathJaxListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPMathJaxListener.m; sourceTree = "<group>"; };
 		1F25E1C21A50F4F10029371D /* MPColorTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPColorTests.m; sourceTree = "<group>"; };
@@ -261,6 +270,15 @@
 		1F41FF7A1C8EEE9200FD9886 /* Templates */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Templates; path = Resources/Templates; sourceTree = "<group>"; };
 		1F4C8E99194AE0B9004BF82E /* MarkdownDocument.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = MarkdownDocument.icns; path = Resources/MarkdownDocument.icns; sourceTree = "<group>"; };
 		1F51C9A1194564670015A96F /* libPods-MacDown-PAPreferences.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-MacDown-PAPreferences.a"; path = "../../../../Library/Developer/Xcode/DerivedData/MacDown-ggdtxvuybojeqbhjydkhilziizrv/Build/Products/Debug/libPods-MacDown-PAPreferences.a"; sourceTree = "<group>"; };
+		1F56013E2099A1E60035F207 /* de-DE */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "de-DE"; path = "Localization/de-DE.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		1F56013F2099A1E60035F207 /* de-DE */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "de-DE"; path = "Localization/de-DE.lproj/MPExportPanelAccessoryViewController.strings"; sourceTree = "<group>"; };
+		1F5601402099A1E60035F207 /* de-DE */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "de-DE"; path = "Localization/de-DE.lproj/MainMenu.strings"; sourceTree = "<group>"; };
+		1F5601412099A1E60035F207 /* de-DE */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "de-DE"; path = "de-DE.lproj/MPTerminalPreferencesViewController.strings"; sourceTree = "<group>"; };
+		1F5601422099A1E60035F207 /* de-DE */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "de-DE"; path = "Localization/de-DE.lproj/MPHtmlPreferencesViewController.strings"; sourceTree = "<group>"; };
+		1F5601432099A1E60035F207 /* de-DE */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "de-DE"; path = "Localization/de-DE.lproj/MPEditorPreferencesViewController.strings"; sourceTree = "<group>"; };
+		1F5601442099A1E60035F207 /* de-DE */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "de-DE"; path = "Localization/de-DE.lproj/MPGeneralPreferencesViewController.strings"; sourceTree = "<group>"; };
+		1F5601452099A1E60035F207 /* de-DE */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "de-DE"; path = "Localization/de-DE.lproj/MPMarkdownPreferencesViewController.strings"; sourceTree = "<group>"; };
+		1F5601462099A1E60035F207 /* de-DE */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "de-DE"; path = "Localization/de-DE.lproj/MPDocument.strings"; sourceTree = "<group>"; };
 		1F59491A1AB57C78007394CB /* syntax_highlighting.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = syntax_highlighting.json; path = Resources/syntax_highlighting.json; sourceTree = "<group>"; };
 		1F59491C1AB57D87007394CB /* NSJSONSerialization+File.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSJSONSerialization+File.h"; sourceTree = "<group>"; };
 		1F59491D1AB57D87007394CB /* NSJSONSerialization+File.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSJSONSerialization+File.m"; sourceTree = "<group>"; };
@@ -371,6 +389,15 @@
 		1F9A14EB194EEE9900D1C6A9 /* MPMainController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MPMainController.m; path = Code/Application/MPMainController.m; sourceTree = "<group>"; };
 		1F9A14EE194EEEDD00D1C6A9 /* Styles */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Styles; path = Resources/Styles; sourceTree = "<group>"; };
 		1F9A14F3194EF6A600D1C6A9 /* Themes */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Themes; path = Resources/Themes; sourceTree = "<group>"; };
+		1F9F351C2099A1FC00C4B4F1 /* sk-SK */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "sk-SK"; path = "Localization/sk-SK.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		1F9F351D2099A1FC00C4B4F1 /* sk-SK */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "sk-SK"; path = "Localization/sk-SK.lproj/MPExportPanelAccessoryViewController.strings"; sourceTree = "<group>"; };
+		1F9F351E2099A1FC00C4B4F1 /* sk-SK */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "sk-SK"; path = "Localization/sk-SK.lproj/MainMenu.strings"; sourceTree = "<group>"; };
+		1F9F351F2099A1FC00C4B4F1 /* sk-SK */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "sk-SK"; path = "Localization/sk-SK.lproj/MPHtmlPreferencesViewController.strings"; sourceTree = "<group>"; };
+		1F9F35202099A1FC00C4B4F1 /* sk-SK */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "sk-SK"; path = "sk-SK.lproj/MPTerminalPreferencesViewController.strings"; sourceTree = "<group>"; };
+		1F9F35212099A1FC00C4B4F1 /* sk-SK */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "sk-SK"; path = "Localization/sk-SK.lproj/MPEditorPreferencesViewController.strings"; sourceTree = "<group>"; };
+		1F9F35222099A1FC00C4B4F1 /* sk-SK */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "sk-SK"; path = "Localization/sk-SK.lproj/MPGeneralPreferencesViewController.strings"; sourceTree = "<group>"; };
+		1F9F35232099A1FC00C4B4F1 /* sk-SK */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "sk-SK"; path = "Localization/sk-SK.lproj/MPMarkdownPreferencesViewController.strings"; sourceTree = "<group>"; };
+		1F9F35242099A1FC00C4B4F1 /* sk-SK */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "sk-SK"; path = "Localization/sk-SK.lproj/MPDocument.strings"; sourceTree = "<group>"; };
 		1FA6CDB81952D2CD008D5CA0 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = dsa_pub.pem; path = Resources/dsa_pub.pem; sourceTree = "<group>"; };
 		1FA6DE211941CC9E000409FB /* MacDown.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacDown.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FA6DE241941CC9E000409FB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
@@ -380,8 +407,26 @@
 		1FA6DE451941CC9E000409FB /* MacDownTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MacDownTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FA9196B1E4723A200850517 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = Localization/en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1FB3C0231E5061A2002AEB6A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Localization/Base.lproj/MPExportPanelAccessoryViewController.xib; sourceTree = "<group>"; };
+		1FB813A32099A228004EC5D7 /* et */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = et; path = Localization/et.lproj/Localizable.strings; sourceTree = "<group>"; };
+		1FB813A42099A228004EC5D7 /* et */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = et; path = Localization/et.lproj/MPExportPanelAccessoryViewController.strings; sourceTree = "<group>"; };
+		1FB813A52099A228004EC5D7 /* et */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = et; path = Localization/et.lproj/MainMenu.strings; sourceTree = "<group>"; };
+		1FB813A62099A228004EC5D7 /* et */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = et; path = et.lproj/MPTerminalPreferencesViewController.strings; sourceTree = "<group>"; };
+		1FB813A72099A228004EC5D7 /* et */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = et; path = Localization/et.lproj/MPHtmlPreferencesViewController.strings; sourceTree = "<group>"; };
+		1FB813A82099A228004EC5D7 /* et */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = et; path = Localization/et.lproj/MPEditorPreferencesViewController.strings; sourceTree = "<group>"; };
+		1FB813A92099A228004EC5D7 /* et */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = et; path = Localization/et.lproj/MPGeneralPreferencesViewController.strings; sourceTree = "<group>"; };
+		1FB813AA2099A228004EC5D7 /* et */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = et; path = Localization/et.lproj/MPMarkdownPreferencesViewController.strings; sourceTree = "<group>"; };
+		1FB813AB2099A228004EC5D7 /* et */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = et; path = Localization/et.lproj/MPDocument.strings; sourceTree = "<group>"; };
 		1FBBD4C9194CA35900BB3C88 /* hoedown_html_patch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = hoedown_html_patch.h; sourceTree = "<group>"; };
 		1FBBD4CA194CA36500BB3C88 /* hoedown_html_patch.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hoedown_html_patch.c; sourceTree = "<group>"; };
+		1FBD430D2099A1A200B348CD /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = Localization/tr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		1FBD430E2099A1A200B348CD /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = Localization/tr.lproj/MPExportPanelAccessoryViewController.strings; sourceTree = "<group>"; };
+		1FBD430F2099A1A200B348CD /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = Localization/tr.lproj/MainMenu.strings; sourceTree = "<group>"; };
+		1FBD43102099A1A200B348CD /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/MPTerminalPreferencesViewController.strings; sourceTree = "<group>"; };
+		1FBD43112099A1A200B348CD /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = Localization/tr.lproj/MPHtmlPreferencesViewController.strings; sourceTree = "<group>"; };
+		1FBD43122099A1A200B348CD /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = Localization/tr.lproj/MPEditorPreferencesViewController.strings; sourceTree = "<group>"; };
+		1FBD43132099A1A200B348CD /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = Localization/tr.lproj/MPGeneralPreferencesViewController.strings; sourceTree = "<group>"; };
+		1FBD43142099A1A200B348CD /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = Localization/tr.lproj/MPMarkdownPreferencesViewController.strings; sourceTree = "<group>"; };
+		1FBD43152099A1A200B348CD /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = Localization/tr.lproj/MPDocument.strings; sourceTree = "<group>"; };
 		1FBDFE9B196170FE00BEEA70 /* Extensions */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Extensions; path = Resources/Extensions; sourceTree = "<group>"; };
 		1FBDFE9E1962A25A00BEEA70 /* MPGeneralPreferencesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPGeneralPreferencesViewController.h; sourceTree = "<group>"; };
 		1FBDFE9F1962A25A00BEEA70 /* MPGeneralPreferencesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPGeneralPreferencesViewController.m; sourceTree = "<group>"; };
@@ -1283,6 +1328,11 @@
 				1F05E8BD1F36E58700E4D06C /* ko-KR */,
 				1F05E8C61F36E5A900E4D06C /* pt-BR */,
 				1F6B58F21F5D2EA2006559CB /* nl-NL */,
+				1F20EA262099A18A00C81510 /* nb-NO */,
+				1FBD430F2099A1A200B348CD /* tr */,
+				1F5601402099A1E60035F207 /* de-DE */,
+				1F9F351E2099A1FC00C4B4F1 /* sk-SK */,
+				1FB813A52099A228004EC5D7 /* et */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";
@@ -1305,6 +1355,11 @@
 				1F05E8C41F36E58800E4D06C /* ko-KR */,
 				1F05E8CD1F36E5AA00E4D06C /* pt-BR */,
 				1F6B58F91F5D2EA3006559CB /* nl-NL */,
+				1F20EA2C2099A18A00C81510 /* nb-NO */,
+				1FBD43152099A1A200B348CD /* tr */,
+				1F5601462099A1E60035F207 /* de-DE */,
+				1F9F35242099A1FC00C4B4F1 /* sk-SK */,
+				1FB813AB2099A228004EC5D7 /* et */,
 			);
 			name = MPDocument.xib;
 			path = ../..;
@@ -1328,6 +1383,11 @@
 				1F05E8C11F36E58800E4D06C /* ko-KR */,
 				1F05E8CA1F36E5AA00E4D06C /* pt-BR */,
 				1F6B58F61F5D2EA2006559CB /* nl-NL */,
+				1F20EA292099A18A00C81510 /* nb-NO */,
+				1FBD43122099A1A200B348CD /* tr */,
+				1F5601432099A1E60035F207 /* de-DE */,
+				1F9F35212099A1FC00C4B4F1 /* sk-SK */,
+				1FB813A82099A228004EC5D7 /* et */,
 			);
 			name = MPEditorPreferencesViewController.xib;
 			path = ../..;
@@ -1351,6 +1411,11 @@
 				1F05E8C21F36E58800E4D06C /* ko-KR */,
 				1F05E8CB1F36E5AA00E4D06C /* pt-BR */,
 				1F6B58F71F5D2EA2006559CB /* nl-NL */,
+				1F20EA272099A18A00C81510 /* nb-NO */,
+				1FBD43112099A1A200B348CD /* tr */,
+				1F5601422099A1E60035F207 /* de-DE */,
+				1F9F351F2099A1FC00C4B4F1 /* sk-SK */,
+				1FB813A72099A228004EC5D7 /* et */,
 			);
 			name = MPHtmlPreferencesViewController.xib;
 			path = ../..;
@@ -1374,6 +1439,11 @@
 				1F05E8C01F36E58700E4D06C /* ko-KR */,
 				1F05E8C91F36E5AA00E4D06C /* pt-BR */,
 				1F6B58F51F5D2EA2006559CB /* nl-NL */,
+				1F20EA2B2099A18A00C81510 /* nb-NO */,
+				1FBD43142099A1A200B348CD /* tr */,
+				1F5601452099A1E60035F207 /* de-DE */,
+				1F9F35232099A1FC00C4B4F1 /* sk-SK */,
+				1FB813AA2099A228004EC5D7 /* et */,
 			);
 			name = MPMarkdownPreferencesViewController.xib;
 			path = ../..;
@@ -1439,6 +1509,11 @@
 				1F2ABD021F381099005FB620 /* ko-KR */,
 				1F2ABD031F38109A005FB620 /* pt-BR */,
 				1F6B58FB1F5D2EE5006559CB /* nl-NL */,
+				1F20EA242099A18A00C81510 /* nb-NO */,
+				1FBD430D2099A1A200B348CD /* tr */,
+				1F56013E2099A1E60035F207 /* de-DE */,
+				1F9F351C2099A1FC00C4B4F1 /* sk-SK */,
+				1FB813A32099A228004EC5D7 /* et */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -1461,6 +1536,11 @@
 				1F05E8C31F36E58800E4D06C /* ko-KR */,
 				1F05E8CC1F36E5AA00E4D06C /* pt-BR */,
 				1F6B58F81F5D2EA2006559CB /* nl-NL */,
+				1F20EA282099A18A00C81510 /* nb-NO */,
+				1FBD43102099A1A200B348CD /* tr */,
+				1F5601412099A1E60035F207 /* de-DE */,
+				1F9F35202099A1FC00C4B4F1 /* sk-SK */,
+				1FB813A62099A228004EC5D7 /* et */,
 			);
 			name = MPTerminalPreferencesViewController.xib;
 			path = ../../Localization;
@@ -1484,6 +1564,11 @@
 				1F05E8BE1F36E58700E4D06C /* ko-KR */,
 				1F05E8C71F36E5A900E4D06C /* pt-BR */,
 				1F6B58F31F5D2EA2006559CB /* nl-NL */,
+				1F20EA252099A18A00C81510 /* nb-NO */,
+				1FBD430E2099A1A200B348CD /* tr */,
+				1F56013F2099A1E60035F207 /* de-DE */,
+				1F9F351D2099A1FC00C4B4F1 /* sk-SK */,
+				1FB813A42099A228004EC5D7 /* et */,
 			);
 			name = MPExportPanelAccessoryViewController.xib;
 			sourceTree = "<group>";
@@ -1506,6 +1591,11 @@
 				1F05E8BF1F36E58700E4D06C /* ko-KR */,
 				1F05E8C81F36E5AA00E4D06C /* pt-BR */,
 				1F6B58F41F5D2EA2006559CB /* nl-NL */,
+				1F20EA2A2099A18A00C81510 /* nb-NO */,
+				1FBD43132099A1A200B348CD /* tr */,
+				1F5601442099A1E60035F207 /* de-DE */,
+				1F9F35222099A1FC00C4B4F1 /* sk-SK */,
+				1FB813A92099A228004EC5D7 /* et */,
 			);
 			name = MPGeneralPreferencesViewController.xib;
 			path = ../..;
