@@ -10,6 +10,7 @@ env:
 install:
 - bundle install
 - travis_wait bundle exec pod install
+- pip install --upgrade pip
 - pip install --user transifex-client
 before_script:
 - set -o pipefail
