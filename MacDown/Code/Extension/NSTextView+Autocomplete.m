@@ -15,6 +15,14 @@ static const unichar kMPLeftSingleQuotation  = L'\u2018';
 static const unichar kMPRightSingleQuotation = L'\u2019';
 static const unichar kMPLeftDoubleQuotation  = L'\u201c';
 static const unichar kMPRightDoubleQuotation = L'\u201d';
+static const unichar kMPLeftAngleSingleQuotation  = L'\u2039';
+static const unichar kMPRightAngleSingleQuotation = L'\u203a';
+static const unichar kMPLeftAngleDoubleQuotation  = L'\u00ab';
+static const unichar kMPRightAngleDoubleQuotation = L'\u00bb';
+static const unichar kMPLeftAngleSingleBracket  = L'\u3008';
+static const unichar kMPRightAngleSingleBracket = L'\u3009';
+static const unichar kMPLeftAngleDoubleBracket  = L'\u300a';
+static const unichar kMPRightAngleDoubleBracket = L'\u300b';
 
 static const unichar kMPMatchingCharactersMap[][2] = {
     {L'(', L')'},
@@ -28,6 +36,10 @@ static const unichar kMPMatchingCharactersMap[][2] = {
     {L'\u300e', L'\u300f'},     // white corner brackets
     {kMPLeftSingleQuotation, kMPRightSingleQuotation},
     {kMPLeftDoubleQuotation, kMPRightDoubleQuotation},
+    {kMPLeftAngleSingleQuotation, kMPRightAngleSingleQuotation},    // Latin Single Guillemet
+    {kMPLeftAngleDoubleQuotation, kMPRightAngleDoubleQuotation},    // Latin Double Guillemet
+    {kMPLeftAngleSingleBracket, kMPRightAngleSingleBracket},        // East Asian Single Guillemet
+    {kMPLeftAngleDoubleBracket, kMPRightAngleDoubleBracket},        // East Asian Double Guillemet
     {L'\0', L'\0'},
 };
 
