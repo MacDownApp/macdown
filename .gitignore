@@ -172,6 +172,7 @@ xcuserdata
 !Podfile.lock
 !Gemfile.lock
 
+*.py[co]
 Build/
 Pods/
 Tools/__pycache__/

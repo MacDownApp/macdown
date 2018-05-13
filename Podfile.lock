@@ -1,6 +1,6 @@
 PODS:
   - GBCli (1.1)
-  - handlebars-objc (1.4.4)
+  - handlebars-objc (1.4.5)
   - hoedown (3.0.7):
     - hoedown/standard (= 3.0.7)
   - hoedown/standard (3.0.7)
@@ -24,7 +24,7 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   GBCli: e5f988fadb68e1e3c01919f134009fed9796fde0
-  handlebars-objc: ffad49df7e6dd17630ecccb2ef5e91cbaf12ad70
+  handlebars-objc: dde09557cfee1dd0f34ab39595bd5eae7e17cb8b
   hoedown: 8141833441f6430686c06bbc5159d7ce615155fb
   JJPluralForm: 9a6235813990a33a63fb3eff457eb2c633af6acd
   LibYAML: 3af2c5adf3a40dff936d087aa6a77edc10036bc5
@@ -33,6 +33,6 @@ SPEC CHECKSUMS:
   PAPreferences: 9f0ffb1e67174a0df001af9d3320166ceb9ee6f5
   Sparkle: 06ea33170007c5937ee54da481b4481af98fac79
 
-PODFILE CHECKSUM: 69e73b80f886f1262b23e4a59632685ac15c0ac3
+PODFILE CHECKSUM: 1c5b20dfe418eb7c8d4ad108b08133a493681f55
 
 COCOAPODS: 1.3.1

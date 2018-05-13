@@ -1,4 +1,4 @@
-osx_image: xcode9.2
+osx_image: xcode9.3
 language: objective-c
 cache:
 - bundler
@@ -10,7 +10,7 @@ env:
 install:
 - bundle install
 - travis_wait bundle exec pod install
-- pip install --user transifex-client
+- python -m pip install --user transifex-client
 before_script:
 - set -o pipefail
 script:
