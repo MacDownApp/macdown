@@ -117,6 +117,61 @@ NS_INLINE void treat()
         [invocation invoke];
 #pragma clang diagnostic pop
     }
+    [[NSAppleEventManager sharedAppleEventManager] setEventHandler:self andSelector:@selector(openUrlSchemeAppleEvent:withReplyEvent:) forEventClass:kInternetEventClass andEventID:kAEGetURL];
+}
+
+// Open a file from a browser with url of the form "x-macdown://open?url=file:///path/to/a/file&line=123&column=45"
+- (void)openUrlSchemeAppleEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)reply
+{
+    NSString *urlString = [[event paramDescriptorForKeyword:keyDirectObject] stringValue];
+    if (!urlString) {
+        return;
+    }
+    NSURL *url = [[NSURL alloc] initWithString:urlString];
+    if (!url) {
+        return;
+    }
+    NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
+    if (!urlComponents) {
+        return;
+    }
+    NSString *host = urlComponents.host;
+    if (!host || ![host isEqualToString:@"open"]) {
+        return;
+    }
+    NSArray *queryItems = urlComponents.queryItems;
+    if (!queryItems) {
+        return;
+    }
+    NSString *fileParam = [self valueForKey:@"url" fromQueryItems:queryItems];
+    if (!fileParam) {
+        return;
+    }
+    /* Unused */ NSString *lineParam = [self valueForKey:@"line" fromQueryItems:queryItems];
+    /* Unused */ NSString *columnParam = [self valueForKey:@"column" fromQueryItems:queryItems];
+    NSLog(@"%@:%@:%@", fileParam, lineParam, columnParam);
+
+    NSURL *target = [NSURL URLWithString:fileParam];
+    if (!target) {
+        return;
+    }
+    NSDocumentController *c = [NSDocumentController sharedDocumentController];
+    [c openDocumentWithContentsOfURL:target display:YES completionHandler:
+     ^(NSDocument *document, BOOL wasOpen, NSError *error) {
+         if (!document || wasOpen || error)
+             return;
+         NSRect frame = [NSScreen mainScreen].visibleFrame;
+         for (NSWindowController *wc in document.windowControllers)
+             [wc.window setFrame:frame display:YES];
+     }];
+
+}
+
+- (NSString *)valueForKey:(NSString *)key fromQueryItems:(NSArray *)queryItems
+{
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name=%@", key];
+    NSURLQueryItem *queryItem = [[queryItems filteredArrayUsingPredicate:predicate] firstObject];
+    return queryItem.value;
 }
 
 - (MPPreferences *)preferences
