@@ -117,11 +117,16 @@ NS_INLINE void treat()
         [invocation invoke];
 #pragma clang diagnostic pop
     }
-    [[NSAppleEventManager sharedAppleEventManager] setEventHandler:self andSelector:@selector(openUrlSchemeAppleEvent:withReplyEvent:) forEventClass:kInternetEventClass andEventID:kAEGetURL];
+    [[NSAppleEventManager sharedAppleEventManager]
+        setEventHandler:self
+            andSelector:@selector(openUrlSchemeAppleEvent:withReplyEvent:)
+          forEventClass:kInternetEventClass andEventID:kAEGetURL];
 }
 
-// Open a file from a browser with url of the form "x-macdown://open?url=file:///path/to/a/file&line=123&column=45"
-- (void)openUrlSchemeAppleEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)reply
+// Open a file from a browser with url of the form :
+// "x-macdown://open?url=file:///path/to/a/file&line=123&column=45"
+- (void)openUrlSchemeAppleEvent:(NSAppleEventDescriptor *)event
+                 withReplyEvent:(NSAppleEventDescriptor *)reply
 {
     NSString *urlString = [[event paramDescriptorForKeyword:keyDirectObject] stringValue];
     if (!urlString) {
@@ -131,7 +136,8 @@ NS_INLINE void treat()
     if (!url) {
         return;
     }
-    NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
+    NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:url
+                                                resolvingAgainstBaseURL:NO];
     if (!urlComponents) {
         return;
     }
@@ -147,9 +153,12 @@ NS_INLINE void treat()
     if (!fileParam) {
         return;
     }
-    // FIXME: Could not figure out how to place the insertion point at a given line and column.
-    /* Unused */ NSString *lineParam = [self valueForKey:@"line" fromQueryItems:queryItems];
-    /* Unused */ NSString *columnParam = [self valueForKey:@"column" fromQueryItems:queryItems];
+    // FIXME: Could not figure out how to place the insertion point at a given
+    // line and column.
+    /* Unused */ NSString *lineParam = [self valueForKey:@"line"
+                                          fromQueryItems:queryItems];
+    /* Unused */ NSString *columnParam = [self valueForKey:@"column"
+                                            fromQueryItems:queryItems];
     NSLog(@"%@:%@:%@", fileParam, lineParam, columnParam);
 
     NSURL *target = [NSURL URLWithString:fileParam];
@@ -324,19 +333,19 @@ NS_INLINE void treat()
 
 - (void)openPendingPipedContent {
     NSDocumentController *c = [NSDocumentController sharedDocumentController];
-    
+
     if (self.preferences.pipedContentFileToOpen) {
         NSURL *pipedContentFileToOpenURL = [NSURL fileURLWithPath:self.preferences.pipedContentFileToOpen];
         NSError *readPipedContentError;
         NSString *pipedContentString = [NSString stringWithContentsOfURL:pipedContentFileToOpenURL encoding:NSUTF8StringEncoding error:&readPipedContentError];
-        
+
         NSError *openDocumentError;
         MPDocument *document = (MPDocument *)[c openUntitledDocumentAndDisplay:YES error:&openDocumentError];
-        
+
         if (document && openDocumentError == nil && readPipedContentError == nil) {
             document.markdown = pipedContentString;
         }
-        
+
         self.preferences.pipedContentFileToOpen = nil;
         [self.preferences synchronize];
     }
