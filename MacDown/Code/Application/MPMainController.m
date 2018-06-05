@@ -20,6 +20,8 @@
 #import "MPHtmlPreferencesViewController.h"
 #import "MPTerminalPreferencesViewController.h"
 #import "MPDocument.h"
+#import "NSString+LineOffsets.h"
+#import "MPEditorView.h"
 
 
 static NSString * const kMPTreatLastSeenStampKey = @"treatLastSeenStamp";
@@ -153,26 +155,35 @@ NS_INLINE void treat()
     if (!fileParam) {
         return;
     }
-    // FIXME: Could not figure out how to place the insertion point at a given
-    // line and column.
-    /* Unused */ NSString *lineParam = [self valueForKey:@"line"
-                                          fromQueryItems:queryItems];
-    /* Unused */ NSString *columnParam = [self valueForKey:@"column"
-                                            fromQueryItems:queryItems];
-    NSLog(@"%@:%@:%@", fileParam, lineParam, columnParam);
+    NSString *lineParam = [self valueForKey:@"line" fromQueryItems:queryItems];
+    NSString *columnParam = [self valueForKey:@"column" fromQueryItems:queryItems];
+    //NSLog(@"%@:%@:%@", fileParam, lineParam, columnParam);
 
     NSURL *target = [NSURL URLWithString:fileParam];
     if (!target) {
         return;
     }
+    
+    __block NSUInteger lineNumber = [lineParam integerValue];
+    __block NSUInteger columnNumber = [columnParam integerValue];
+    if (lineNumber < 1) lineNumber = 1;
+    if (columnNumber < 1) columnNumber = 1;
     NSDocumentController *c = [NSDocumentController sharedDocumentController];
     [c openDocumentWithContentsOfURL:target display:YES completionHandler:
      ^(NSDocument *document, BOOL wasOpen, NSError *error) {
-         if (!document || wasOpen || error)
+         if (!document || error)
              return;
-         NSRect frame = [NSScreen mainScreen].visibleFrame;
-         for (NSWindowController *wc in document.windowControllers)
-             [wc.window setFrame:frame display:YES];
+         MPEditorView *editor = [(MPDocument *)document valueForKey:@"editor"];
+         if (wasOpen) {
+             [editor placeInsertionPointAtLine:@(lineNumber) column:@(columnNumber)];
+         } else {
+             NSRect frame = [NSScreen mainScreen].visibleFrame;
+             for (NSWindowController *wc in document.windowControllers) {
+                 [wc.window setFrame:frame display:YES];
+             }
+             [editor setInsertionPointLine:@(lineNumber)];
+             [editor setInsertionPointColumn:@(columnNumber)];
+        }
      }];
 
 }

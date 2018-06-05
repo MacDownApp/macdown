@@ -31,6 +31,7 @@
 #import "WebView+WebViewPrivateHeaders.h"
 #import "MPToolbarController.h"
 #import <JavaScriptCore/JavaScriptCore.h>
+#import "MPEditorView+LineHightlight.h"
 
 static NSString * const kMPDefaultAutosaveName = @"Untitled";
 
@@ -1573,6 +1574,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
         if (backgroundCGColor)
             layer.backgroundColor = backgroundCGColor;
         self.editorContainer.layer = layer;
+        [self.editor updateLineHighlightColor];
     }
     
     if ([changedKey isEqualToString:@"editorBaseFontInfo"])
