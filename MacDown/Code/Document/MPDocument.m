@@ -1225,6 +1225,75 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 
 #pragma mark - IBAction
 
+- (IBAction)handlePaste:(id)sender {
+    NSPasteboard *pb = [NSPasteboard generalPasteboard];
+    NSArray *types = [pb types];
+    //NSLog(@"types: %@", types);
+    
+    // attachment
+    if (@available(macOS 10.13, *)) {
+        if ([types containsObject:NSPasteboardTypeFileURL]) {
+            [self pasteAttachment:pb];
+            return;
+        }
+    }
+    
+    // images - TIFF
+    if ([types containsObject:NSPasteboardTypeTIFF]) {
+        [self pasteImage:pb];
+        return;
+    }
+    
+    // plaintext or other
+    [self.editor paste:nil];
+}
+
+- (void)pasteAttachment:(NSPasteboard *)pb {
+    NSArray<NSURL *> *urls = [[pb readObjectsForClasses:@[[NSURL class]] options:@{NSPasteboardURLReadingFileURLsOnlyKey: @(YES)}] valueForKey:@"path"];
+    NSLog(@"%@", urls);
+    //TODO: the following line should be replaced
+    [self.editor paste:nil];
+}
+
+- (void)pasteImage:(NSPasteboard *)pb {
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSString *currentDir = [self.currentBaseUrl path];
+    BOOL isDir;
+    [fileManager fileExistsAtPath:currentDir isDirectory: &isDir];
+    if (!isDir) currentDir = [currentDir stringByDeletingLastPathComponent];
+    NSLog(@"currentDir=%@", currentDir);
+    NSString *imgDir = [currentDir stringByAppendingString:@"/_image/"];
+    
+    
+    NSDate *date = [NSDate date];
+    NSDateFormatter *df = [[NSDateFormatter alloc] init];
+    [df setDateFormat:@"yyyy-MM-dd-HH-mm-ss"];
+    NSString *imgName = [[df stringFromDate:date] stringByAppendingString:@".jpg"];
+    NSString *imgPath = [imgDir stringByAppendingString:imgName];
+    NSLog(@"imgPath=%@", imgPath);
+    
+    if (![fileManager fileExistsAtPath:imgDir])
+        [fileManager createDirectoryAtPath:imgDir withIntermediateDirectories:YES attributes:nil error:nil];
+    
+    NSData *imgData = [pb dataForType:NSPasteboardTypeTIFF];
+    NSImage *img = [[NSImage alloc]initWithData:imgData];
+    [self saveImageJPG:img atPath:imgPath];
+    
+    NSString *str = [NSString stringWithFormat:@"![](./_image/%@)", imgName];
+    [pb declareTypes:[NSArray arrayWithObject:NSPasteboardTypeString] owner:nil];
+    [pb setString:str forType:NSPasteboardTypeString];
+    [self.editor pasteAsPlainText:nil];
+    [pb setData:imgData forType:NSPasteboardTypeTIFF];
+}
+
+- (void)saveImageJPG:(NSImage *)image atPath:(NSString *)path {
+    CGImageRef cgImage = [image CGImageForProposedRect:nil context:nil hints:nil];
+    NSBitmapImageRep *bitmapRep = [[NSBitmapImageRep alloc] initWithCGImage:cgImage];
+    NSData *jpgData = [bitmapRep representationUsingType:NSBitmapImageFileTypeJPEG properties:@{}.mutableCopy];
+    [jpgData writeToFile:path atomically:YES];
+}
+
+
 - (IBAction)copyHtml:(id)sender
 {
     // Dis-select things in WebView so that it's more obvious we're NOT
