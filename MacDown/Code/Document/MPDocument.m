@@ -1249,10 +1249,36 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 }
 
 - (void)pasteAttachment:(NSPasteboard *)pb {
-    NSArray<NSURL *> *urls = [[pb readObjectsForClasses:@[[NSURL class]] options:@{NSPasteboardURLReadingFileURLsOnlyKey: @(YES)}] valueForKey:@"path"];
-    NSLog(@"%@", urls);
-    //TODO: the following line should be replaced
-    [self.editor paste:nil];
+    if (@available(macOS 10.13, *)) {
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        NSString *currentDir = [self.currentBaseUrl path];
+        BOOL isDir;
+        [fileManager fileExistsAtPath:currentDir isDirectory: &isDir];
+        if (!isDir) currentDir = [currentDir stringByDeletingLastPathComponent];
+        NSLog(@"currentDir=%@", currentDir);
+        NSString *attachmentDir = [currentDir stringByAppendingString:@"/_attachment/"];
+        NSLog(@"attachmentDir=%@", attachmentDir);
+        
+        if (![fileManager fileExistsAtPath:attachmentDir])
+            [fileManager createDirectoryAtPath:attachmentDir withIntermediateDirectories:YES attributes:nil error:nil];
+        
+        NSData *attachmentData = [pb dataForType:NSPasteboardTypeFileURL];
+        NSArray<NSString *> *paths = [[pb readObjectsForClasses:@[[NSURL class]] options:@{NSPasteboardURLReadingFileURLsOnlyKey: @(YES)}] valueForKey:@"path"];
+        NSLog(@"%@", paths);
+        
+        for (NSString *path in paths) {
+            NSString *fileName = [path lastPathComponent];
+            NSString *toPath = [attachmentDir stringByAppendingString:fileName];
+            NSLog(@"toPath=%@", toPath);
+            [fileManager copyItemAtPath:path toPath:toPath error:nil];
+            
+            NSString *str = [NSString stringWithFormat:@"[%@](./_attachment/%@)", fileName, fileName];
+            [pb declareTypes:[NSArray arrayWithObject:NSPasteboardTypeString] owner:nil];
+            [pb setString:str forType:NSPasteboardTypeString];
+            [self.editor pasteAsPlainText:nil];
+        }
+        [pb setData:attachmentData forType:NSPasteboardTypeFileURL];
+    }
 }
 
 - (void)pasteImage:(NSPasteboard *)pb {
@@ -1263,7 +1289,6 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     if (!isDir) currentDir = [currentDir stringByDeletingLastPathComponent];
     NSLog(@"currentDir=%@", currentDir);
     NSString *imgDir = [currentDir stringByAppendingString:@"/_image/"];
-    
     
     NSDate *date = [NSDate date];
     NSDateFormatter *df = [[NSDateFormatter alloc] init];
