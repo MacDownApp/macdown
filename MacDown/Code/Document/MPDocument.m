@@ -1267,7 +1267,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
         NSLog(@"%@", paths);
         
         for (NSString *path in paths) {
-            NSString *fileName = [path lastPathComponent];
+            NSString *fileName = [[path lastPathComponent] stringByReplacingOccurrencesOfString:@" " withString:@""];
             NSString *toPath = [attachmentDir stringByAppendingString:fileName];
             NSLog(@"toPath=%@", toPath);
             [fileManager copyItemAtPath:path toPath:toPath error:nil];
