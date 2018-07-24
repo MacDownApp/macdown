@@ -1251,7 +1251,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 - (void)pasteAttachment:(NSPasteboard *)pb
 {
     NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSString *currentDir = [self.currentBaseUrl path];
+    NSString *currentDir = (self.fileURL)? [self.fileURL path] : [self.currentBaseUrl path];
     BOOL isDir;
     [fileManager fileExistsAtPath:currentDir isDirectory: &isDir];
     if (!isDir) currentDir = [currentDir stringByDeletingLastPathComponent];
@@ -1282,7 +1282,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 - (void)pasteImage:(NSPasteboard *)pb
 {
     NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSString *currentDir = [self.currentBaseUrl path];
+    NSString *currentDir = (self.fileURL)? [self.fileURL path] : [self.currentBaseUrl path];
     BOOL isDir;
     [fileManager fileExistsAtPath:currentDir isDirectory: &isDir];
     if (!isDir) currentDir = [currentDir stringByDeletingLastPathComponent];
