@@ -327,7 +327,17 @@ You can also edit, or even add new themes if you want to! Just click the ***Reve
 I offer auto-completion and other functions to ease your editing experience. If you don’t like it, however, you can turn them off.
 
 
+## Hidden preference
 
+You can see the HTML behind a preview by enabling the OS X built-in WebKit developer tools for MacDown in a terminal window:
+
+```
+defaults write com.uranusjr.macdown WebKitDeveloperExtras -bool true
+```
+
+Then select “Inspect Element” in the right-click context menu inside the preview pane.
+
+This is the exact same inspector you find in Safari if you turn on the developer tools.
 
 
 ## Hack On
