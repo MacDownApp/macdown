@@ -12,7 +12,7 @@ Visit the [project site](http://macdown.uranusjr.com/) for more information, or 
 
 ## Install
 
-[Download](http://macdown.uranusjr.com/download/latest/), unzip, and drag the app to Applications folder. MacDown is also available through [Homebrew Cask](https://caskroom.github.io/):
+[Download](http://macdown.uranusjr.com/download/latest/), unzip, and drag the app to `Applications` folder. MacDown is also available through [Homebrew Cask](https://caskroom.github.io/):
 
     brew cask install macdown
 
