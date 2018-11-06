@@ -1,6 +1,6 @@
 # MacDown
 
-![MacDown logo](http://macdown.uranusjr.com/static/images/logo-160.png)
+![MacDown logo](https://macdown.uranusjr.com/static/images/logo-160.png)
 
 Hello there! I’m **MacDown**, the open source Markdown editor for OS X.
 
@@ -10,11 +10,11 @@ Let me introduce myself.
 
 ## Markdown and I
 
-**Markdown** is a plain text formatting syntax created by John Gruber, aiming to provide a easy-to-read and feasible markup. The original Markdown syntax specification can be found [here](http://daringfireball.net/projects/markdown/syntax).
+**Markdown** is a plain text formatting syntax created by John Gruber, aiming to provide a easy-to-read and feasible markup. The original Markdown syntax specification can be found [here](https://daringfireball.net/projects/markdown/syntax).
 
 **MacDown** is created as a simple-to-use editor for Markdown documents. I render your Markdown contents real-time into HTML, and display them in a preview panel.
 
-![MacDown Screenshot](http://d.pr/i/10UGP+)
+![MacDown Screenshot](https://d.pr/i/10UGP+)
 
 I support all the original Markdown syntaxes. But I can do so much more! Various popular but non-standard syntaxes can be turned on/off from the [**Markdown** preference pane](#markdown-pane).
 
@@ -75,24 +75,24 @@ or
 Just put angle brackets around an email and it becomes clickable: <uranusjr@gmail.com>  
 `<uranusjr@gmail.com>`  
 
-Same thing with urls: <http://macdown.uranusjr.com>  
-` <http://macdown.uranusjr.com>`  
+Same thing with urls: <https://macdown.uranusjr.com>  
+` <https://macdown.uranusjr.com>`  
 
-Perhaps you want to link some text like this: [Macdown Website](http://macdown.uranusjr.com "Title")  
-`[Macdown Website](http://macdown.uranusjr.com "Title")` (The title is optional)  
+Perhaps you want to link some text like this: [Macdown Website](https://macdown.uranusjr.com "Title")  
+`[Macdown Website](https://macdown.uranusjr.com "Title")` (The title is optional)  
 
 
 #### Reference style
 Sometimes it looks too messy to include big long urls inline, or you want to keep all your urls together.  
 
 Make [a link][arbitrary_id] `[a link][arbitrary_id]` then on it's own line anywhere else in the file:  
-`[arbitrary_id]: http://macdown.uranusjr.com "Title"`
+`[arbitrary_id]: https://macdown.uranusjr.com "Title"`
   
 If the link text itself would make a good id, you can link [like this][] `[like this][]`, then on it's own line anywhere else in the file:  
-`[like this]: http://macdown.uranusjr.com`  
+`[like this]: https://macdown.uranusjr.com`  
 
-[arbitrary_id]: http://macdown.uranusjr.com "Title"
-[like this]: http://macdown.uranusjr.com  
+[arbitrary_id]: https://macdown.uranusjr.com "Title"
+[like this]: https://macdown.uranusjr.com  
 
 
 ### Images
@@ -189,7 +189,7 @@ If you type three asterisks `***` or three dashes `---` on a line, I'll display 
 
 ## <a name="markdown-pane"></a>The Markdown Preference Pane
 This is where I keep all preferences related to how I parse markdown into html.  
-![Markdown preferences pane](http://d.pr/i/RQEi+)
+![Markdown preferences pane](https://d.pr/i/RQEi+)
 
 ### Document Formatting
 The ***Smartypants*** extension automatically transforms straight quotes (`"` and `'`) in your text into typographer’s quotes (`“`, `”`, `‘`, and `’`) according to the context. Very useful if you’re a typography freak like I am. Quote and Smartypants are syntactically incompatible. If both are enabled, Quote takes precedence.
@@ -233,9 +233,9 @@ print('Hello world!')
 
 You can add an optional language ID at the end of the first line. The language ID will only be used to highlight the code inside if you tick the ***Enable highlighting in code blocks*** option. This is what happens if you enable it:
 
-![Syntax highlighting example](http://d.pr/i/9HM6+)
+![Syntax highlighting example](https://d.pr/i/9HM6+)
 
-I support many popular languages as well as some generic syntax descriptions that can be used if your language of choice is not supported. See [relevant sections on the official site](http://macdown.uranusjr.com/features/) for a full list of supported syntaxes.
+I support many popular languages as well as some generic syntax descriptions that can be used if your language of choice is not supported. See [relevant sections on the official site](https://macdown.uranusjr.com/features/) for a full list of supported syntaxes.
 
 
 ### Inline Formatting
@@ -260,7 +260,7 @@ Footnotes           | [\^4] and [\^4]: | [^4] and footnote 4   |
 
 ## <a name="rendering-pane"></a>The Rendering Preference Pane
 This is where I keep preferences relating to how I render and style the parsed markdown in the preview window.  
-![Rendering preferences pane](http://d.pr/i/rT4d+)
+![Rendering preferences pane](https://d.pr/i/rT4d+)
 
 ### CSS
 You can choose different css files for me to use to render your html. You can even customize or add your own custom css files.
@@ -309,13 +309,13 @@ Normally I require you to put two spaces and a newline (aka return) at the end o
 ## <a name="general-pane"></a>The General Preferences Pane
 
 This is where I keep preferences related to application behavior.  
-![General preferences pane](http://d.pr/i/rvwu+)
+![General preferences pane](https://d.pr/i/rvwu+)
 
 The General Preferences Pane allows you to tell me how you want me to behave. For example, do you want me to make sure there is a document open when I launch? You can also tell me if I should constantly update the preview window as you type, or wait for you to hit `command-R` instead. Maybe you prefer your editor window on the right? Or to see the word-count as you type. This is also the place to tell me if you are interested in pre-releases of me, or just want to stick to better-tested official releases.  
 
 ## <a name="editor-pane"></a>The Editor Preference Pane
 This is where I keep preferences related to the behavior and styling of the editing window.  
-![Editor preferences pane](http://d.pr/i/6OL5+)
+![Editor preferences pane](https://d.pr/i/6OL5+)
 
 
 ### Styling
