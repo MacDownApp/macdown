@@ -1,5 +1,5 @@
 GEM
-  remote: https://rubygems.org/
+  remote: http://rubygems.org/
   specs:
     CFPropertyList (2.3.5)
     activesupport (4.2.10)
@@ -111,4 +111,4 @@ DEPENDENCIES
   travis (~> 1.8, >= 1.8.6)
 
 BUNDLED WITH
-   1.16.0
+   1.17.1
