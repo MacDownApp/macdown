@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14113" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14113"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -139,8 +139,8 @@
                                 </menu>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="aJh-i4-bef"/>
-                            <menuItem title="Page Setup…" keyEquivalent="P" id="qIS-W8-SiK">
-                                <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
+                            <menuItem title="Page Setup…" id="qIS-W8-SiK">
+                                <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="runPageLayout:" target="-1" id="Din-rz-gC5"/>
                                 </connections>
@@ -371,16 +371,15 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="onf-Mq-Pah"/>
+                            <menuItem title="Left 1:1 Right" keyEquivalent="O" id="hOV-YQ-vzy">
+                                <connections>
+                                    <action selector="setEqualSplit:" target="-1" id="fJH-RN-c01"/>
+                                </connections>
+                            </menuItem>
                             <menuItem title="Left 1:3 Right" id="VW7-VH-9yl">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="setEditorOneQuarter:" target="-1" id="kyy-J2-6rx"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Left 1:1 Right" keyEquivalent="0" id="hOV-YQ-vzy">
-                                <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
-                                <connections>
-                                    <action selector="setEqualSplit:" target="-1" id="fJH-RN-c01"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="Left 3:1 Right" id="NZX-Ev-sWt">
@@ -389,14 +388,14 @@
                                     <action selector="setEditorThreeQuarters:" target="-1" id="IEv-Wg-wJA"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Hide Preview Pane" keyEquivalent="H" id="T74-vt-YUA">
-                                <connections>
-                                    <action selector="togglePreviewPane:" target="-1" id="03s-kD-O7K"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Hide Editor Pane" keyEquivalent="E" id="wHk-AQ-iOQ">
+                            <menuItem title="Hide Editor Pane" keyEquivalent="L" id="wHk-AQ-iOQ">
                                 <connections>
                                     <action selector="toggleEditorPane:" target="-1" id="BGN-6z-VZN"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Hide Preview Pane" keyEquivalent="P" id="T74-vt-YUA">
+                                <connections>
+                                    <action selector="togglePreviewPane:" target="-1" id="03s-kD-O7K"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="Cux-kV-g5Z"/>

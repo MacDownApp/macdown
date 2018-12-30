@@ -288,7 +288,9 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 
 - (BOOL)editorVisible
 {
-    return (self.editorContainer.frame.size.width != 0.0);
+    // fix the problem that the size will not drop to 0.0 when
+    // the editor is with a scrollbar
+    return (self.editorContainer.frame.size.width > 20.0);
 }
 
 - (BOOL)needsHtml
