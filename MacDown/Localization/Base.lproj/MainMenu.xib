@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -556,6 +556,11 @@
                             <menuItem title="Image" keyEquivalent="I" id="VkR-aw-5AU">
                                 <connections>
                                     <action selector="toggleImage:" target="-1" id="xuX-4U-p9x"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Insert Current Date" keyEquivalent="D" id="DnJ-Zm-4Jb">
+                                <connections>
+                                    <action selector="insertCurrentDate:" target="-1" id="7Av-Ci-R0q"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="New Paragraph" id="zHE-JL-8eu">
