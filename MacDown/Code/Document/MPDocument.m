@@ -1453,6 +1453,12 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
         [self.editor insertText:@"\n\n"];
 }
 
+- (IBAction)insertCurrentDate:(id)sender
+{
+    NSRange range = self.editor.selectedRange;
+    [self.editor insertText: @"yyyy-MM-dd HH:mm:ss" replacementRange:range];
+}
+
 - (IBAction)setEditorOneQuarter:(id)sender
 {
     [self setSplitViewDividerLocation:0.25];
