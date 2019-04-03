@@ -1456,7 +1456,11 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 - (IBAction)insertCurrentDate:(id)sender
 {
     NSRange range = self.editor.selectedRange;
-    [self.editor insertText: @"yyyy-MM-dd HH:mm:ss" replacementRange:range];
+    NSDateFormatter* df = [NSDateFormatter new];
+    df.locale = [NSLocale systemLocale];			//	Avoids potential crashes with certain locales and the specific format below
+    df.dateFormat = @"yyyy-MM-dd HH:mm:ss ZZZ";
+    NSDate* now = [NSDate new];
+    [self.editor insertText: [df stringFromDate: now] replacementRange:range];
 }
 
 - (IBAction)setEditorOneQuarter:(id)sender
