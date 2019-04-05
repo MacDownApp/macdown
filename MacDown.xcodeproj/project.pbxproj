@@ -963,6 +963,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 				sv,
@@ -979,6 +980,11 @@
 				"ko-KR",
 				"pt-BR",
 				"nl-NL",
+				"nb-NO",
+				tr,
+				"de-DE",
+				"sk-SK",
+				et,
 			);
 			mainGroup = 1FA6DE181941CC9E000409FB;
 			productRefGroup = 1FA6DE221941CC9E000409FB /* Products */;
