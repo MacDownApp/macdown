@@ -18,7 +18,7 @@ Visit the [project site](http://macdown.uranusjr.com/) for more information, or 
 
 ## Screenshot
 
-![screenshot](screenshot.png)
+![screenshot](assets/screenshot.png)
 
 ## License
 
