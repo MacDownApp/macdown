@@ -16,6 +16,10 @@ Visit the [project site](http://macdown.uranusjr.com/) for more information, or 
 
     brew cask install macdown
 
+## Screenshot
+
+![screenshot](assets/screenshot.png)
+
 ## License
 
 MacDown is released under the terms of MIT License. You may find the content of the license [here](http://opensource.org/licenses/MIT), or inside the `LICENSE` directory.
