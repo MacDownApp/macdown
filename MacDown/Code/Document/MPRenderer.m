@@ -222,6 +222,7 @@ NS_INLINE BOOL MPAreNilableStringsEqual(NSString *s1, NSString *s2)
 @property BOOL syntaxHighlighting;
 @property BOOL mermaid;
 @property BOOL graphviz;
+@property BOOL wavedrom;
 @property MPCodeBlockAccessoryType codeBlockAccesory;
 @property BOOL lineNumbers;
 @property BOOL manualRender;
@@ -461,6 +462,26 @@ NS_INLINE void MPFreeHTMLRenderer(hoedown_renderer *htmlRenderer)
     return scripts;
 }
 
+- (NSArray *)wavedromScripts
+{
+    NSMutableArray *scripts = [NSMutableArray array];
+
+    {
+        NSURL *url = MPExtensionURL(@"wavedrom_default_skin", @"js");
+        [scripts addObject:[MPScript javaScriptWithURL:url]];
+    }
+    {
+        NSURL *url = MPExtensionURL(@"wavedrom", @"js");
+        [scripts addObject:[MPScript javaScriptWithURL:url]];
+    }
+    {
+        NSURL *url = MPExtensionURL(@"wavedrom.init", @"js");
+        [scripts addObject:[MPScript javaScriptWithURL:url]];
+    }
+
+    return scripts;
+}
+
 - (NSArray *)graphvizScripts
 {
     // TODO
@@ -523,6 +544,11 @@ NS_INLINE void MPFreeHTMLRenderer(hoedown_renderer *htmlRenderer)
         if ([d rendererHasGraphviz:self])
         {
             [scripts addObjectsFromArray:self.graphvizScripts];
+        }
+        // wavedrom
+        if ([d rendererHasWavedrom:self])
+        {
+            [scripts addObjectsFromArray:self.wavedromScripts];
         }
     }
     if ([d rendererHasMathJax:self])
@@ -626,6 +652,8 @@ NS_INLINE void MPFreeHTMLRenderer(hoedown_renderer *htmlRenderer)
         changed = YES;
     else if ([d rendererHasGraphviz:self] != self.graphviz)
         changed = YES;
+    else if([d rendererHasWavedrom:self] != self.wavedrom)
+        changed = YES;
     else if (!MPAreNilableStringsEqual(
             [d rendererHighlightingThemeName:self], self.highlightingThemeName))
         changed = YES;
@@ -653,6 +681,7 @@ NS_INLINE void MPFreeHTMLRenderer(hoedown_renderer *htmlRenderer)
     self.syntaxHighlighting = [delegate rendererHasSyntaxHighlighting:self];
     self.mermaid = [delegate rendererHasMermaid:self];
     self.graphviz = [delegate rendererHasGraphviz:self];
+    self.wavedrom = [delegate rendererHasWavedrom:self];
     self.highlightingThemeName = [delegate rendererHighlightingThemeName:self];
     self.codeBlockAccesory = [delegate rendererCodeBlockAccesory:self];
 }
@@ -685,7 +714,10 @@ NS_INLINE void MPFreeHTMLRenderer(hoedown_renderer *htmlRenderer)
         {
             [scripts addObjectsFromArray:self.graphvizScripts];
         }
-
+        if ([self.delegate rendererHasWavedrom:self])
+        {
+            [scripts addObjectsFromArray:self.wavedromScripts];
+        }
     }
     if ([self.delegate rendererHasMathJax:self])
     {

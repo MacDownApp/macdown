@@ -56,6 +56,7 @@ typedef NS_ENUM(NSUInteger, MPCodeBlockAccessoryType)
 - (BOOL)rendererHasSyntaxHighlighting:(MPRenderer *)renderer;
 - (BOOL)rendererHasMermaid:(MPRenderer *)renderer;
 - (BOOL)rendererHasGraphviz:(MPRenderer *)renderer;
+- (BOOL)rendererHasWavedrom:(MPRenderer *)renderer;
 - (MPCodeBlockAccessoryType)rendererCodeBlockAccesory:(MPRenderer *)renderer;
 - (BOOL)rendererHasMathJax:(MPRenderer *)renderer;
 - (NSString *)rendererHighlightingThemeName:(MPRenderer *)renderer;
