@@ -16,6 +16,10 @@ Visit the [project site](http://macdown.uranusjr.com/) for more information, or 
 
     brew cask install macdown
 
+## Screenshot
+
+![screenshot](assets/screenshot.png)
+
 ## License
 
 MacDown is released under the terms of MIT License. You may find the content of the license [here](http://opensource.org/licenses/MIT), or inside the `LICENSE` directory.
@@ -73,6 +77,12 @@ Refer to the official guides of Git and CocoaPods if you need more instructions.
 
     git submodule update
     bundle exec pod install
+
+### Translation
+
+Please help translation on [Transifex](https://www.transifex.com/macdown/macdown/).
+
+![Transifex translation percentage](https://www.transifex.com/projects/p/macdown/resource/macdownxliff/chart/image_png/)
 
 ## Discussion
 

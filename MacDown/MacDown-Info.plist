@@ -4,6 +4,18 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>Macdown custom control</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>x-macdown</string>
+			</array>
+		</dict>
+	</array>
+
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>

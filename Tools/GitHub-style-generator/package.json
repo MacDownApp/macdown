@@ -1,0 +1,15 @@
+{
+  "name": "github-style-generator",
+  "version": "1.0.0",
+  "description": "Generates GitHub style for MacDown.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MacDownApp/macdown/tree/master/Tools/GitHub-theme-generator"
+  },
+  "author": "Franklin Yu",
+  "license": "MIT",
+  "dependencies": {
+    "node-sass": "^4.9.2",
+    "primer-markdown": "^3.7.8"
+  }
+}
