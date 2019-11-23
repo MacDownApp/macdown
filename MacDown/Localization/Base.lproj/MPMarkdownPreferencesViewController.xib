@@ -16,7 +16,7 @@
             <rect key="frame" x="0.0" y="0.0" width="400" height="230"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <box autoresizesSubviews="NO" title="Block formatting" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="TXy-fD-S4Y">
+                <box autoresizesSubviews="YES" title="Block formatting" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="TXy-fD-S4Y">
                     <rect key="frame" x="17" y="78" width="181" height="74"/>
                     <view key="contentView">
                         <rect key="frame" x="1" y="1" width="179" height="58"/>
@@ -45,7 +45,7 @@
                         </subviews>
                     </view>
                     <constraints>
-                        <constraint firstItem="J8u-0k-Z3s" firstAttribute="top" secondItem="TXy-fD-S4Y" secondAttribute="top" constant="25" id="2lc-DW-rD3"/>
+                        <constraint firstItem="J8u-0k-Z3s" firstAttribute="top" secondItem="TXy-fD-S4Y" secondAttribute="top" constant="11" id="2lc-DW-rD3"/>
                         <constraint firstAttribute="trailing" secondItem="fhk-gr-iF0" secondAttribute="trailing" constant="16" id="5eI-GF-UXZ"/>
                         <constraint firstItem="fhk-gr-iF0" firstAttribute="top" secondItem="J8u-0k-Z3s" secondAttribute="bottom" constant="6" symbolic="YES" id="GWV-8n-o6t"/>
                         <constraint firstItem="J8u-0k-Z3s" firstAttribute="leading" secondItem="fhk-gr-iF0" secondAttribute="leading" id="gA1-jc-5wE"/>
@@ -58,7 +58,7 @@
                     <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                     <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </box>
-                <box autoresizesSubviews="NO" title="Inline formatting" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="Ycc-Px-jbu">
+                <box autoresizesSubviews="YES" title="Inline formatting" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="Ycc-Px-jbu">
                     <rect key="frame" x="200" y="16" width="183" height="194"/>
                     <view key="contentView">
                         <rect key="frame" x="1" y="1" width="181" height="178"/>
@@ -159,7 +159,7 @@
                         <constraint firstItem="lYF-J6-3YU" firstAttribute="top" secondItem="QMR-TV-GNi" secondAttribute="bottom" constant="6" id="KvZ-Uz-Q9R"/>
                         <constraint firstItem="CCI-wC-lHw" firstAttribute="top" secondItem="iwB-ah-rER" secondAttribute="bottom" constant="6" id="NdM-5P-atE"/>
                         <constraint firstItem="tqY-25-uOh" firstAttribute="width" secondItem="lYF-J6-3YU" secondAttribute="width" id="Ngh-78-6G6"/>
-                        <constraint firstItem="tqY-25-uOh" firstAttribute="top" secondItem="Ycc-Px-jbu" secondAttribute="top" constant="25" id="WfH-CD-pNO"/>
+                        <constraint firstItem="tqY-25-uOh" firstAttribute="top" secondItem="Ycc-Px-jbu" secondAttribute="top" constant="11" id="WfH-CD-pNO"/>
                         <constraint firstItem="tqY-25-uOh" firstAttribute="width" secondItem="iwB-ah-rER" secondAttribute="width" id="b6r-9U-Ka5"/>
                         <constraint firstItem="tqY-25-uOh" firstAttribute="leading" secondItem="CCI-wC-lHw" secondAttribute="leading" id="bXa-Ro-SyE"/>
                         <constraint firstItem="tqY-25-uOh" firstAttribute="leading" secondItem="lYF-J6-3YU" secondAttribute="leading" id="bfe-nk-zKL"/>
@@ -176,7 +176,7 @@
                     <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                     <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </box>
-                <box autoresizesSubviews="NO" horizontalHuggingPriority="1" title="Document formatting" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="x36-52-U0p">
+                <box autoresizesSubviews="YES" horizontalHuggingPriority="1" title="Document formatting" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="x36-52-U0p">
                     <rect key="frame" x="17" y="156" width="181" height="54"/>
                     <view key="contentView">
                         <rect key="frame" x="1" y="1" width="179" height="38"/>
@@ -196,7 +196,7 @@
                     </view>
                     <constraints>
                         <constraint firstItem="rDS-Bm-rxW" firstAttribute="leading" secondItem="x36-52-U0p" secondAttribute="leading" constant="16" id="CDi-Lt-pfU"/>
-                        <constraint firstItem="rDS-Bm-rxW" firstAttribute="top" secondItem="x36-52-U0p" secondAttribute="top" constant="25" id="LIS-AY-YUh"/>
+                        <constraint firstItem="rDS-Bm-rxW" firstAttribute="top" secondItem="x36-52-U0p" secondAttribute="top" constant="11" id="LIS-AY-YUh"/>
                         <constraint firstAttribute="bottom" secondItem="rDS-Bm-rxW" secondAttribute="bottom" constant="11" id="eV0-qt-mpH"/>
                     </constraints>
                     <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
