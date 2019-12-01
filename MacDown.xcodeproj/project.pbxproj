@@ -947,7 +947,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = MP;
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = "Tzu-ping Chung ";
 				TargetAttributes = {
 					1FA6DE441941CC9E000409FB = {
@@ -1082,7 +1082,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "bash Tools/update_build_number.sh";
+			shellScript = "bash Tools/update_build_number.sh\n";
 			showEnvVarsInLog = 0;
 		};
 		1FF16580199A6C950080D9A5 /* Fetch Prism Resources */ = {
@@ -1097,7 +1097,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "SOURCE=\"$PWD/Dependency/prism\"\nTARGET=\"$PWD/MacDown/Resources/Prism\"\nrm -rf \"$TARGET\"\nmkdir -p \"$TARGET\"\ncp -r \"$SOURCE/components\" \"$TARGET\"\ncp -r \"$SOURCE/themes\" \"$TARGET\"\ncp -r \"$SOURCE/plugins\" \"$TARGET\"\ncp -r \"$SOURCE/components.js\" \"$TARGET\"";
+			shellScript = "SOURCE=\"$PWD/Dependency/prism\"\nTARGET=\"$PWD/MacDown/Resources/Prism\"\nrm -rf \"$TARGET\"\nmkdir -p \"$TARGET\"\ncp -r \"$SOURCE/components\" \"$TARGET\"\ncp -r \"$SOURCE/themes\" \"$TARGET\"\ncp -r \"$SOURCE/plugins\" \"$TARGET\"\ncp -r \"$SOURCE/components.js\" \"$TARGET\"\n";
 			showEnvVarsInLog = 0;
 		};
 		655CCD821E310F9767572216 /* [CP] Check Pods Manifest.lock */ = {
@@ -1613,12 +1613,14 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -1664,12 +1666,14 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -1700,6 +1704,7 @@
 			baseConfigurationReference = 1A198D1BA59D710201DD3BC8 /* Pods-MacDown.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MacDown/Code/MacDown-Prefix.pch";
@@ -1717,6 +1722,7 @@
 			baseConfigurationReference = 39EFCAE04F60154F0C8C5469 /* Pods-MacDown.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MacDown/Code/MacDown-Prefix.pch";
@@ -1789,6 +1795,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4DBAA63927A60EB2150642B3 /* Pods-macdown-cmd.debug.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1804,6 +1811,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7A8EA75FA95818275755F0B6 /* Pods-macdown-cmd.release.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "";
 				PRODUCT_NAME = macdown;

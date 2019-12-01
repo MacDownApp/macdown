@@ -236,7 +236,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
                 [window enableFlushWindow];
         }
         [weakObj scaleWebview];
-        if (weakObj.preferences.editorSyncScrolling)
+        if (weakObj.preferences.editorSyncScrolling || weakObj.preferences.editorSyncScrollingOnRender)
         {
             [weakObj updateHeaderLocations];
             [weakObj syncScrollers];
