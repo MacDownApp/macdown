@@ -347,7 +347,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     self.isPreviewReady = NO;
     self.shouldHandleBoundsChange = YES;
     self.previousSplitRatio = -1.0;
-    
+
     return self;
 }
 
@@ -472,7 +472,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 
 - (void)close
 {
-    if (self.needsToUnregister) 
+    if (self.needsToUnregister)
     {
         // Close can be called multiple times, but this can only be done once.
         // http://www.cocoabuilder.com/archive/cocoa/240166-nsdocument-close-method-calls-itself.html
@@ -581,7 +581,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
             savePanel.nameFieldStringValue = fileName;
         }
     }
-    
+
     // Get supported extensions from plist
     static NSMutableArray *supportedExtensions = nil;
     static dispatch_once_t onceToken;
@@ -597,10 +597,10 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
             }
         }
     });
-    
+
     savePanel.allowedFileTypes = supportedExtensions;
     savePanel.allowsOtherFileTypes = YES; // Allow all extensions.
-    
+
     return [super prepareSavePanel:savePanel];
 }
 
@@ -729,7 +729,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
                                           strikethroughEnabled:strikethrough])
             return NO;
     }
-    
+
 	// For every change, set the typing attributes
 	if (range.location > 0) {
 		NSRange prevRange = range;
@@ -834,16 +834,16 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 
 - (NSURLRequest *)webView:(WebView *)sender resource:(id)identifier willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)redirectResponse fromDataSource:(WebDataSource *)dataSource
 {
-    
+
     if ([[request.URL lastPathComponent] isEqualToString:@"MathJax.js"])
     {
         NSURLComponents *origComps = [NSURLComponents componentsWithURL:[request URL] resolvingAgainstBaseURL:YES];
         NSURLComponents *updatedComps = [NSURLComponents componentsWithURL:[[NSBundle mainBundle] URLForResource:@"MathJax" withExtension:@"js" subdirectory:@"MathJax"] resolvingAgainstBaseURL:NO];
         [updatedComps setQueryItems:[origComps queryItems]];
-        
+
         request = [NSURLRequest requestWithURL:[updatedComps URL]];
     }
-    
+
     return request;
 }
 
@@ -884,7 +884,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     // Update word count
     if (self.preferences.editorShowWordCount)
         [self updateWordCount];
-    
+
     self.alreadyRenderingInWeb = NO;
 
     if (self.renderToWebPending)
@@ -897,7 +897,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
        forFrame:(WebFrame *)frame
 {
     [self webView:sender didFinishLoadForFrame:frame];
-    
+
     self.alreadyRenderingInWeb = NO;
 
     if (self.renderToWebPending)
@@ -971,7 +971,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 - (BOOL)rendererLoading {
 	return self.preview.loading;
 }
-    
+
 - (NSString *)rendererMarkdown:(MPRenderer *)renderer
 {
     return self.editor.string;
@@ -1048,10 +1048,10 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
         self.renderToWebPending = YES;
         return;
     }
-    
+
     if (self.printing)
         return;
-    
+
     self.alreadyRenderingInWeb = YES;
 
     // Delayed copying for -copyHtml.
@@ -1174,7 +1174,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
             if(!_inLiveScroll){
                 [self updateHeaderLocations];
             }
-            
+
             [self syncScrollers];
             self.shouldHandleBoundsChange = YES;
         }
@@ -1277,7 +1277,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     panel.allowedFileTypes = @[@"pdf"];
     if (self.presumedFileName)
         panel.nameFieldStringValue = self.presumedFileName;
-    
+
     NSWindow *w = nil;
     NSArray *windowControllers = self.windowControllers;
     if (windowControllers.count > 0)
@@ -1573,8 +1573,18 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
         if (backgroundCGColor)
             layer.backgroundColor = backgroundCGColor;
         self.editorContainer.layer = layer;
+
+        if (@available(macOS 10.14, *))
+        {
+            if (self.editor.backgroundColor.brightnessComponent > .5)
+                // Users with light background coheres to system default
+                self.windowForSheet.appearance = nil;
+            else
+                // Users with dark background gets automatic dark mode
+                self.windowForSheet.appearance = [NSAppearance appearanceNamed:NSAppearanceNameDarkAqua];
+        }
     }
-    
+
     if ([changedKey isEqualToString:@"editorBaseFontInfo"])
     {
         [self scaleWebview];
@@ -1699,7 +1709,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 
     static const CGFloat defaultSize = 14.0;
     CGFloat scale = fontSize / defaultSize;
-    
+
 #if 0
     // Sadly, this doesn’t work correctly.
     // It looks fine, but selections are offset relative to the mouse cursor.
@@ -1720,15 +1730,15 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     NSMutableArray<NSNumber *> *locations = [NSMutableArray array];
 
     _webViewHeaderLocations = [[self.preview.mainFrame.javaScriptContext evaluateScript:@"var arr = Array.prototype.slice.call(document.querySelectorAll(\"h1, h2, h3, h4, h5, h6, img:only-child\")); arr.map(function(n){ return n.getBoundingClientRect().top })"] toArray];
-    
+
     // add offset to all numbers
     for (NSNumber *location in _webViewHeaderLocations)
     {
         [locations addObject:@([location floatValue] + offset)];
     }
-    
+
     _webViewHeaderLocations = [locations copy];
-    
+
 
     // Next, cache the locations of all of the reference nodes in the editor view.
     NSInteger characterCount = 0;
@@ -1742,7 +1752,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     NSRegularExpression *headerRegex = [NSRegularExpression regularExpressionWithPattern:@"^(#+)\\s" options:0 error:nil];
     NSRegularExpression *imgRegex = [NSRegularExpression regularExpressionWithPattern:@"^!\\[[^\\]]*\\]\\([^)]*\\)$" options:0 error:nil];
     BOOL previousLineHadContent = NO;
-    
+
     CGFloat editorContentHeight = ceilf(NSHeight(self.editor.enclosingScrollView.documentView.bounds));
     CGFloat editorVisibleHeight = ceilf(NSHeight(self.editor.enclosingScrollView.contentView.bounds));
 
@@ -1751,7 +1761,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     for (NSInteger lineNumber = 0; lineNumber < [documentLines count]; lineNumber++)
     {
         NSString *line = documentLines[lineNumber];
-        
+
         if ((previousLineHadContent && [dashRegex numberOfMatchesInString:line options:0 range:NSMakeRange(0, [line length])]) ||
             [imgRegex numberOfMatchesInString:line options:0 range:NSMakeRange(0, [line length])] ||
             [headerRegex numberOfMatchesInString:line options:0 range:NSMakeRange(0, [line length])])
@@ -1765,9 +1775,9 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
                 [locations addObject:@(headerY)];
             }
         }
-        
+
         previousLineHadContent = [line length] && ![dashRegex numberOfMatchesInString:line options:0 range:NSMakeRange(0, [line length])];
-        
+
         characterCount += [line length] + 1;
     }
 
@@ -1784,7 +1794,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     CGFloat currY = NSMinY(self.editor.enclosingScrollView.contentView.bounds);
     CGFloat minY = 0;
     CGFloat maxY = 0;
-    
+
     // align the documents at the middle of the screen, except at top/bottom of document
     CGFloat topTaper = MAX(0, MIN(1.0, currY / editorVisibleHeight));
     CGFloat bottomTaper = 1.0 - MAX(0, MIN(1.0, (currY - editorContentHeight + 2 * editorVisibleHeight) / editorVisibleHeight));
@@ -1795,7 +1805,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     for (NSNumber *headerYNum in _editorHeaderLocations) {
         CGFloat headerY = [headerYNum floatValue];
         headerY -= adjustmentForScroll;
-        
+
         if (headerY < currY)
         {
             // The header is before our current scroll position. the closest
@@ -1809,11 +1819,11 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
             maxY = headerY;
         }
     }
-    
+
     // Usually, we'll be scrolling between two reference nodes, but toward the end
     // of the document we'll ignore nodes and reference the end of the document instead
     BOOL interpolateToEndOfDocument = NO;
-    
+
     if (maxY == 0)
     {
         // We only have a reference node before our current position,
@@ -1828,23 +1838,23 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     maxY -= minY;
     minY -= minY;
     CGFloat percentScrolledBetweenHeaders = MAX(0, MIN(1.0, currY / maxY));
-    
+
     // Now that we know where the editor position is relative to two reference nodes,
     // we need to find the positions of those nodes in the HTML preview
     CGFloat topHeaderY = 0;
     CGFloat bottomHeaderY = previewContentHeight - previewVisibleHeight;
-    
+
     // Find the Y positions in the preview window that we're scrolling between
     if ([_webViewHeaderLocations count] > relativeHeaderIndex)
     {
         topHeaderY = floorf([_webViewHeaderLocations[relativeHeaderIndex] doubleValue]) - adjustmentForScroll;
     }
-    
+
     if (!interpolateToEndOfDocument && [_webViewHeaderLocations count] > relativeHeaderIndex + 1)
     {
         bottomHeaderY = ceilf([_webViewHeaderLocations[relativeHeaderIndex + 1] doubleValue]) - adjustmentForScroll;
     }
-    
+
     // Now we scroll percentScrolledBetweenHeaders percent between those two positions in the webview
     CGFloat previewY = topHeaderY + (bottomHeaderY - topHeaderY) * percentScrolledBetweenHeaders;
     NSRect contentBounds = self.preview.enclosingScrollView.contentView.bounds;
