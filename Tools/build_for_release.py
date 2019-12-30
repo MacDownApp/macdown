@@ -60,7 +60,8 @@ def parse_args(argv):
 
 def main(argv):
     options = parse_args(argv)
-    cert_path = options.path_to_pem
+    cert_path = os.path.join(os.path.abspath('.'),options.path_to_pem)
+    print(cert_path)
 
     print('Pre-build cleaning...')
     if os.path.exists(BUILD_DIR):
@@ -98,6 +99,7 @@ def main(argv):
     source_app_path = os.path.join(
         archive_path, 'Products', 'Applications', APP_NAME,
     )
+    print(source_app_path)
     shutil.copytree(source_app_path, APP_NAME)
 
     # Zip.
@@ -111,6 +113,7 @@ def main(argv):
 
     print()
     print('DSA signature:')
+    print(cert_path)
     command = (
         '{openssl} dgst -sha1 -binary < "{zip_name}" | '
         '{openssl} dgst -dss1 -sign "{cert}" | '

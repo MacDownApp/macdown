@@ -24,7 +24,7 @@
     var insertSvg = function(svgCode, bindFunctions){
       this.innerHTML = svgCode;
     };
-    var graph = mermaidAPI.render('graphDiv' + i, graphSource, insertSvg.bind(dom))
+    var graph = mermaid.render('graphDiv' + i, graphSource, insertSvg.bind(dom))
     }
   };
  
