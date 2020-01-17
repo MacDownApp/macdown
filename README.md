@@ -66,8 +66,7 @@ An appropriate SDK should be bundled with Xcode 5 or later versions.
 
 After cloning the repository, run the following commands inside the repository root (directory containing this `README.md` file):
 
-    git submodule init
-    git submodule update
+    git submodule update --init
     bundle install
     bundle exec pod install
 
