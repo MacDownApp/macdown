@@ -100,9 +100,6 @@ def main(argv):
     )
     shutil.copytree(source_app_path, APP_NAME)
 
-    # TODO: find a better way because this is private API
-    execute('codesign', '--remove-signature', APP_NAME)
-
     # Zip.
     with zipfile.ZipFile(ZIP_NAME, 'w') as f:
         archive_dir(f, APP_NAME)
