@@ -50,15 +50,17 @@ The following editor themes and CSS files are extracted from [Mou](http://mouapp
 
 If you wish to build MacDown yourself, you will need the following components/tools:
 
-* OS X SDK (10.8 or later)
+* OS X SDK (10.14 or later)
 * Git
 * [Bundler](http://bundler.io)
 
-You may also need to install Xcode’s command line tools with the following command:
+> Note: Old versions of CocoaPods are not supported. Please use Bundler to execute CocoaPods, or make sure your CocoaPods is later than shown in `Gemfile.lock`.
 
-    xcode-select --install
-
-> Note: Due to multiple upstream bugs, Xcode may fail to build certain dependencies if you use the CocoaPods with versions lower than 0.39. Please upgrade CocoaPods, or use Bundler to execute a local version (as suggested above) instead.
+> Note: The Command Line Tools (CLT) should be unnecessary. If you failed to compile without it, please install CLT with
+>
+>     xcode-select --install
+>
+> and report back.
 
 An appropriate SDK should be bundled with Xcode 5 or later versions.
 
