@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="15701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="8191"/>
-        <capability name="box content view" minToolsVersion="7.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15701"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="MPGeneralPreferencesViewController">
@@ -15,23 +15,23 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="Hz6-mo-xeY">
-            <rect key="frame" x="0.0" y="0.0" width="353" height="249"/>
+            <rect key="frame" x="0.0" y="0.0" width="353" height="268"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <box autoresizesSubviews="NO" title="Update" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="eLn-fW-Agu">
+                <box autoresizesSubviews="NO" borderType="line" title="Update" translatesAutoresizingMaskIntoConstraints="NO" id="eLn-fW-Agu">
                     <rect key="frame" x="17" y="16" width="319" height="54"/>
                     <view key="contentView" id="pfL-Xy-QHh">
-                        <rect key="frame" x="1" y="1" width="317" height="38"/>
+                        <rect key="frame" x="3" y="3" width="313" height="36"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="jet-bG-trd">
-                                <rect key="frame" x="16" y="12" width="285" height="18"/>
+                                <rect key="frame" x="14" y="10" width="285" height="18"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="14" id="Prd-FU-8Gz"/>
                                 </constraints>
                                 <buttonCell key="cell" type="check" title="Include pre-releases" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="vbz-fv-8BX">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
+                                    <font key="font" metaFont="message"/>
                                 </buttonCell>
                                 <connections>
                                     <binding destination="-2" name="value" keyPath="self.preferences.updateIncludesPreReleases" id="Q7f-f6-kMa"/>
@@ -45,23 +45,21 @@
                         <constraint firstItem="jet-bG-trd" firstAttribute="top" secondItem="eLn-fW-Agu" secondAttribute="top" constant="25" id="Yp1-GT-c9v"/>
                         <constraint firstItem="jet-bG-trd" firstAttribute="leading" secondItem="eLn-fW-Agu" secondAttribute="leading" constant="16" id="oYY-b5-wrF"/>
                     </constraints>
-                    <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                    <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </box>
-                <box autoresizesSubviews="NO" title="Behavior" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="Nma-PL-ZvX">
-                    <rect key="frame" x="17" y="74" width="319" height="155"/>
+                <box autoresizesSubviews="NO" borderType="line" title="Behavior" translatesAutoresizingMaskIntoConstraints="NO" id="Nma-PL-ZvX">
+                    <rect key="frame" x="17" y="74" width="319" height="174"/>
                     <view key="contentView" id="onQ-1i-oQ0">
-                        <rect key="frame" x="1" y="1" width="317" height="139"/>
+                        <rect key="frame" x="3" y="3" width="313" height="156"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="6Nz-Ft-FbR">
-                                <rect key="frame" x="16" y="93" width="285" height="18"/>
+                                <rect key="frame" x="14" y="110" width="285" height="18"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="14" id="HtO-jU-tMN"/>
                                 </constraints>
                                 <buttonCell key="cell" type="check" title="Update preview automatically as you type" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="npz-xj-plX">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
+                                    <font key="font" metaFont="message"/>
                                 </buttonCell>
                                 <connections>
                                     <action selector="updateWordCounterVisibility:" target="-2" id="9qQ-ir-xd6"/>
@@ -73,39 +71,43 @@
                                 </connections>
                             </button>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="Vab-4T-IU5">
-                                <rect key="frame" x="16" y="73" width="285" height="18"/>
+                                <rect key="frame" x="14" y="90" width="285" height="18"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="14" id="X3J-8y-4eQ"/>
                                 </constraints>
                                 <buttonCell key="cell" type="check" title="Sync preview scrollbar when editor scrolls" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="2Uj-Sx-FjV">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
+                                    <font key="font" metaFont="message"/>
                                 </buttonCell>
                                 <connections>
-                                    <binding destination="-2" name="value" keyPath="self.preferences.editorSyncScrolling" id="jyJ-xe-ppE"/>
+                                    <binding destination="-2" name="value" keyPath="self.preferences.editorSyncScrolling" id="wKU-io-PaH">
+                                        <dictionary key="options">
+                                            <bool key="NSValidatesImmediately" value="YES"/>
+                                        </dictionary>
+                                    </binding>
                                 </connections>
                             </button>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="fjb-tU-1Kw">
-                                <rect key="frame" x="16" y="53" width="285" height="18"/>
+                                <rect key="frame" x="14" y="50" width="285" height="18"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="14" id="gLz-Pu-BCz"/>
                                 </constraints>
                                 <buttonCell key="cell" type="check" title="Put editor on the right" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="bUn-PQ-5Ez">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
+                                    <font key="font" metaFont="message"/>
                                 </buttonCell>
                                 <connections>
                                     <binding destination="-2" name="value" keyPath="self.preferences.editorOnRight" id="ACj-cC-Ver"/>
                                 </connections>
                             </button>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="WVd-hz-Dcr">
-                                <rect key="frame" x="16" y="33" width="285" height="18"/>
+                                <rect key="frame" x="14" y="30" width="285" height="18"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="14" id="8H5-jQ-GoX"/>
                                 </constraints>
                                 <buttonCell key="cell" type="check" title="Show word count" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="oeW-bF-ybW">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
+                                    <font key="font" metaFont="message"/>
                                 </buttonCell>
                                 <connections>
                                     <binding destination="-2" name="value" keyPath="self.preferences.editorShowWordCount" id="WA5-xF-5Qz"/>
@@ -117,13 +119,13 @@
                                 </connections>
                             </button>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="hqr-gd-6gi">
-                                <rect key="frame" x="16" y="113" width="285" height="18"/>
+                                <rect key="frame" x="14" y="130" width="285" height="18"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="14" id="mpk-Ws-hqc"/>
                                 </constraints>
                                 <buttonCell key="cell" type="check" title="Ensure open document on launch" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="l9N-wk-WRY">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
+                                    <font key="font" metaFont="message"/>
                                 </buttonCell>
                                 <connections>
                                     <action selector="updateWordCounterVisibility:" target="-2" id="COx-AW-eef"/>
@@ -135,16 +137,40 @@
                                 </connections>
                             </button>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="UZT-HE-EaK">
-                                <rect key="frame" x="16" y="12" width="285" height="18"/>
+                                <rect key="frame" x="14" y="10" width="285" height="18"/>
                                 <buttonCell key="cell" type="check" title="Automatically create files for link targets" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="hpF-zP-3cM">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
+                                    <font key="font" metaFont="message"/>
                                 </buttonCell>
                                 <connections>
                                     <binding destination="-2" name="value" keyPath="self.preferences.createFileForLinkTarget" id="MLt-T7-Cm3"/>
                                 </connections>
                             </button>
+                            <button translatesAutoresizingMaskIntoConstraints="NO" id="NHc-dF-B7a">
+                                <rect key="frame" x="14" y="70" width="285" height="18"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="14" id="Zmn-z4-NSm"/>
+                                </constraints>
+                                <buttonCell key="cell" type="check" title="Sync preview scrollbar on update" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Sgl-M9-O6x">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="message"/>
+                                </buttonCell>
+                                <connections>
+                                    <binding destination="-2" name="enabled" keyPath="self.preferences.editorSyncScrolling" id="1Te-R3-i50">
+                                        <dictionary key="options">
+                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                        </dictionary>
+                                    </binding>
+                                    <binding destination="-2" name="value" keyPath="self.preferences.editorSyncScrollingOnRender" id="9pn-aY-A1O"/>
+                                </connections>
+                            </button>
                         </subviews>
+                        <constraints>
+                            <constraint firstItem="UZT-HE-EaK" firstAttribute="top" secondItem="WVd-hz-Dcr" secondAttribute="bottom" constant="6" id="863-oY-hww"/>
+                            <constraint firstItem="NHc-dF-B7a" firstAttribute="leading" secondItem="onQ-1i-oQ0" secondAttribute="leading" constant="16" id="CFx-nn-ZBa"/>
+                            <constraint firstItem="NHc-dF-B7a" firstAttribute="top" secondItem="Vab-4T-IU5" secondAttribute="bottom" constant="6" id="ZEJ-CB-L0O"/>
+                            <constraint firstAttribute="trailing" secondItem="NHc-dF-B7a" secondAttribute="trailing" constant="16" id="ewy-W8-Md6"/>
+                        </constraints>
                     </view>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="WVd-hz-Dcr" secondAttribute="trailing" constant="16" id="0B8-iM-rNc"/>
@@ -157,7 +183,7 @@
                         <constraint firstItem="6Nz-Ft-FbR" firstAttribute="leading" secondItem="Nma-PL-ZvX" secondAttribute="leading" constant="16" id="Orz-1j-PcM"/>
                         <constraint firstAttribute="trailing" secondItem="Vab-4T-IU5" secondAttribute="trailing" constant="16" id="SSy-nb-3Jk"/>
                         <constraint firstItem="hqr-gd-6gi" firstAttribute="leading" secondItem="Nma-PL-ZvX" secondAttribute="leading" constant="16" id="al2-wQ-QB5"/>
-                        <constraint firstItem="fjb-tU-1Kw" firstAttribute="top" secondItem="Vab-4T-IU5" secondAttribute="bottom" constant="6" id="f6f-eO-7Ut"/>
+                        <constraint firstItem="fjb-tU-1Kw" firstAttribute="top" secondItem="NHc-dF-B7a" secondAttribute="bottom" constant="6" id="f6f-eO-7Ut"/>
                         <constraint firstAttribute="trailing" secondItem="hqr-gd-6gi" secondAttribute="trailing" constant="16" id="fC0-Y0-hq7"/>
                         <constraint firstItem="fjb-tU-1Kw" firstAttribute="leading" secondItem="Nma-PL-ZvX" secondAttribute="leading" constant="16" id="jLG-a7-k64"/>
                         <constraint firstItem="UZT-HE-EaK" firstAttribute="leading" secondItem="Nma-PL-ZvX" secondAttribute="leading" constant="16" id="mGA-Ss-CKp"/>
@@ -166,8 +192,6 @@
                         <constraint firstItem="6Nz-Ft-FbR" firstAttribute="top" secondItem="hqr-gd-6gi" secondAttribute="bottom" constant="6" id="tnU-Pf-heR"/>
                         <constraint firstAttribute="trailing" secondItem="fjb-tU-1Kw" secondAttribute="trailing" constant="16" id="uQJ-Jy-vPP"/>
                     </constraints>
-                    <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                    <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </box>
             </subviews>
             <constraints>
