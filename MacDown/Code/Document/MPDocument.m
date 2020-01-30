@@ -1927,7 +1927,22 @@ current file somewhere to enable this feature.", \
 - (void)openOrCreateFileForUrl:(NSURL *)url
 {
     // Simply open the file if it is not local, or exists already.
-    if (!url.isFileURL || [url checkResourceIsReachableAndReturnError:NULL])
+    BOOL file = url.isFileURL;
+    BOOL reachable = !file || [url checkResourceIsReachableAndReturnError:NULL];
+    
+    // If the file is local but doesn't exist, check if a file with
+    // the .md extension exists.
+    if (file && !reachable && [url.pathExtension isEqualToString:@""])
+    {
+        NSURL *markdownURL = [url URLByAppendingPathExtension:@"md"];
+        if ([markdownURL checkResourceIsReachableAndReturnError:NULL])
+        {
+            reachable = YES;
+            url = markdownURL;
+        }
+    }
+    
+    if (reachable)
     {
         [[NSWorkspace sharedWorkspace] openURL:url];
         return;
