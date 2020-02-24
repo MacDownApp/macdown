@@ -486,11 +486,13 @@ NS_INLINE void MPFreeHTMLRenderer(hoedown_renderer *htmlRenderer)
     if ([delegate rendererHasSyntaxHighlighting:self])
     {
         [stylesheets addObjectsFromArray:self.prismStylesheets];
+        /**
         // mermaid
         if ([delegate rendererHasMermaid:self])
         {
             [stylesheets addObjectsFromArray:self.mermaidStylesheets];
         }
+        */
         
     }
 
