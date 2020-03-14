@@ -1,0 +1,142 @@
+/* Prism theme title */
+"(Default)" = "(Standaard)";
+
+/* Displayed when shell utility is not installed */
+"<Not installed>" = "<Not installed>";
+
+/* Blockquote toolbar button */
+"Blockquote" = "Blokcitaat";
+
+/* (No Comment) */
+"CHARACTERS_NO_SPACES_PLURAL_STRING" = "%@-teken (geen spaties);%@-tekens (geen spaties)";
+
+/* (No Comment) */
+"CHARACTERS_PLURAL_STRING" = "%@-teken;%@-tekens";
+
+/* Comment toolbar button */
+"Comment" = "Opmerking";
+
+/* Copy HTML toolbar button */
+"Copy HTML" = "Kopieer HTML";
+
+/* Preference pane title. */
+"Editor" = "Bewerker";
+
+/* Emphasize toolbar button */
+"Emphasize" = "Benadruk";
+
+/* Preference pane title. */
+"General" = "Algemeen";
+
+/* Heading 1 toolbar button */
+"Heading 1" = "Kop 1";
+
+/* Heading 2 toolbar button */
+"Heading 2" = "Kop 2";
+
+/* Heading 3 toolbar button */
+"Heading 3" = "Kop 3";
+
+/* No comment provided by engineer. */
+"Headings" = "Koppen";
+
+/* Toggle editor pane menu item */
+"Hide Editor Pane" = "Verberg bewerkpaneel";
+
+/* Toggle preview pane menu item */
+"Hide Preview Pane" = "Verberg voorbeeldpaneel";
+
+/* Toggle reveal toolbar */
+"Hide Toolbar" = "Verberg werkbalk";
+
+/* Highlight toolbar button */
+"Highlight" = "Markeer";
+
+/* Image toolbar button */
+"Image" = "Afbeelding";
+
+/* Inline code toolbar button */
+"Inline Code" = "Ingesloten code";
+
+/* Install shell utility button */
+"Install" = "Installeer";
+
+/* Localizable.strings
+  MacDown
+
+  Created by Tzu-ping Chung  on 14/7.
+  Copyright (c) 2014 Tzu-ping Chung . All rights reserved. */
+"JJ_PLURAL_FORM_RULE" = "1";
+
+/* Layout toolbar button */
+"Layout" = "Indeling";
+
+/* Link toolbar button */
+"Link" = "Link";
+
+/* Preference pane title. */
+"Markdown" = "Markdown";
+
+/* Ordered list toolbar button */
+"Ordered List" = "Geordende lijst";
+
+/* No comment provided by engineer. */
+"Ordered/Unordered List" = "Ongeordende lijst";
+
+/* Preferences window title. */
+"Preferences" = "Voorkeuren";
+
+/* Preference pane title. */
+"Rendering" = "Rendering";
+
+/* Toggle editor pane menu item */
+"Restore Editor Pane" = "Herstel bewerkpaneel";
+
+/* Toggle preview pane menu item */
+"Restore Preview Pane" = "Herstel voorbeeldpaneel";
+
+/* Label stating that shell utility has been installed */
+"Shell utility installed" = "Shell-hulpmiddel is geïnstalleerd";
+
+/* Label stating that shell utility has not been installed */
+"Shell utility not installed" = "Shell-hulpmiddel is niet geïnstalleerd";
+
+/* Shift text to the left toolbar button */
+"Shift Left" = "Linker shifttoets";
+
+/* No comment provided by engineer. */
+"Shift Left/Right" = "Linker-/rechtershifttoets";
+
+/* Shift text to the right toolbar button */
+"Shift Right" = "Rechter shifttoets";
+
+/* Toggle reveal toolbar */
+"Show Toolbar" = "Toon werkbalk";
+
+/* Strikethrough toolbar button */
+"Strikethrough" = "Haal door";
+
+/* Strong toolbar button */
+"Strong" = "Vetgedrukt";
+
+/* Preference pane title. */
+"Terminal" = "Terminalvenster";
+
+/* No comment provided by engineer. */
+"Text Styles" = "Tekststijlen";
+
+/* Underline toolbar button */
+"Underline" = "Onderstreep";
+
+/* Uninstall shell utility button */
+"Uninstall" = "Deïnstalleer";
+
+/* Unordered list toolbar button */
+"Unordered List" = "Ongeordende lijst";
+
+/* default filename if no title can be determined */
+"Untitled" = "Naamloos";
+
+/* (No Comment) */
+"WORDS_PLURAL_STRING" = "%@ woord;%@ woorden";
+

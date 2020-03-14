@@ -1,0 +1,112 @@
+/* Prism theme title */
+"(Default)" = "(Vaikeväärtus)";
+
+/* Displayed when shell utility is not installed */
+"<Not installed>" = "<Not installed>";
+
+/* Blockquote toolbar button */
+"Blockquote" = "Plokktsitaat";
+
+/* (No Comment) */
+"CHARACTERS_NO_SPACES_PLURAL_STRING" = "%@ märki (ilma tühikuteta);%@ märki (ilma tühikuteta)";
+
+/* (No Comment) */
+"CHARACTERS_PLURAL_STRING" = "%@ märki;%@ märki";
+
+/* Comment toolbar button */
+"Comment" = "Kommentaar";
+
+/* Copy HTML toolbar button */
+"Copy HTML" = "Kopeeri HTML";
+
+/* Preference pane title. */
+"Editor" = "Redaktor";
+
+/* Emphasize toolbar button */
+"Emphasize" = "Rõhuta";
+
+/* Preference pane title. */
+"General" = "Üldine";
+
+/* Heading 1 toolbar button */
+"Heading 1" = "Pealkiri 1";
+
+/* Heading 2 toolbar button */
+"Heading 2" = "Pealkiri 2";
+
+/* Heading 3 toolbar button */
+"Heading 3" = "Pealkiri 3";
+
+/* No comment provided by engineer. */
+"Headings" = "Pealkirjad";
+
+/* Toggle editor pane menu item */
+"Hide Editor Pane" = "Peida redaktori paan";
+
+/* Toggle preview pane menu item */
+"Hide Preview Pane" = "Peida eelvaade";
+
+/* Toggle reveal toolbar */
+"Hide Toolbar" = "Peida tööriistariba";
+
+/* Highlight toolbar button */
+"Highlight" = "Esiletõstmine";
+
+/* Image toolbar button */
+"Image" = "Pilt";
+
+/* Install shell utility button */
+"Install" = "Paigalda";
+
+/* Localizable.strings
+  MacDown
+
+  Created by Tzu-ping Chung  on 14/7.
+  Copyright (c) 2014 Tzu-ping Chung . All rights reserved. */
+"JJ_PLURAL_FORM_RULE" = "1";
+
+/* Layout toolbar button */
+"Layout" = "Paigutus";
+
+/* Link toolbar button */
+"Link" = "Link";
+
+/* Ordered list toolbar button */
+"Ordered List" = "Nummerdatud loetelu";
+
+/* No comment provided by engineer. */
+"Ordered/Unordered List" = "Nummerdatud/Nummerdamata loetelu";
+
+/* Preferences window title. */
+"Preferences" = "Eelistused";
+
+/* Toggle reveal toolbar */
+"Show Toolbar" = "Näita tööriistariba";
+
+/* Strikethrough toolbar button */
+"Strikethrough" = "Läbijoonitud";
+
+/* Strong toolbar button */
+"Strong" = "Paks";
+
+/* Preference pane title. */
+"Terminal" = "Terminal";
+
+/* No comment provided by engineer. */
+"Text Styles" = "Tekstistiilid";
+
+/* Underline toolbar button */
+"Underline" = "Allajoonitud";
+
+/* Uninstall shell utility button */
+"Uninstall" = "Eemalda";
+
+/* Unordered list toolbar button */
+"Unordered List" = "Nummerdamata loetelu";
+
+/* default filename if no title can be determined */
+"Untitled" = "Pealkirjata";
+
+/* (No Comment) */
+"WORDS_PLURAL_STRING" = "%@ sõna;%@ sõna";
+
