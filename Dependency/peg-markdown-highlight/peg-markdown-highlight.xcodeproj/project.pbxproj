@@ -54,10 +54,9 @@
 			};
 			buildConfigurationList = 1F8A836A195348C500B6BF69 /* Build configuration list for PBXProject "peg-markdown-highlight" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
 			);
 			mainGroup = 1F8A8366195348C500B6BF69;

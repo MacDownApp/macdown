@@ -982,10 +982,9 @@
 			};
 			buildConfigurationList = 1FA6DE1C1941CC9E000409FB /* Build configuration list for PBXProject "MacDown" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
 				Base,
 				sv,
