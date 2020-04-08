@@ -1631,6 +1631,13 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
             || (editorOnRight && subviews[1] == self.preview))
         {
             [self.splitView swapViews];
+
+            // Manually swapping the split ratio. NSDocument wouldn't
+            // magically do this for us since we manipulated the views.
+            if (!changedKey)
+                [self.splitView setDividerLocation:
+                                (1.0 - self.splitView.dividerLocation)];
+
             if (!self.previewVisible && self.previousSplitRatio >= 0.0)
                 self.previousSplitRatio = 1.0 - self.previousSplitRatio;
 
