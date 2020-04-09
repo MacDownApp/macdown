@@ -895,7 +895,14 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     // Update word count
     if (self.preferences.editorShowWordCount)
         [self updateWordCount];
-    
+
+    // Delayed execution of post-render actions
+    if (self.renderCompletionHandler)
+    {
+        self.renderCompletionHandler();
+        self.renderCompletionHandler = nil;
+    }
+
     self.alreadyRenderingInWeb = NO;
 
     if (self.renderToWebPending)
