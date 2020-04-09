@@ -183,6 +183,8 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
     MPWordCountTypeCharacterNoSpaces,
 };
 
+typedef void (^MPRenderCompletionHandler)(void);
+
 @property (weak) IBOutlet NSToolbar *toolbar;
 @property (weak) IBOutlet MPDocumentSplitView *splitView;
 @property (weak) IBOutlet NSView *editorContainer;
@@ -212,6 +214,7 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
 @property (nonatomic) BOOL needsToUnregister;
 @property (nonatomic) BOOL alreadyRenderingInWeb;
 @property (nonatomic) BOOL renderToWebPending;
+@property (nonatomic, strong) MPRenderCompletionHandler renderCompletionHandler;
 @property (strong) NSArray<NSNumber *> *webViewHeaderLocations;
 @property (strong) NSArray<NSNumber *> *editorHeaderLocations;
 @property (nonatomic) BOOL inLiveScroll;
@@ -617,6 +620,14 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     info.rightMargin = 0.0;
     info.bottomMargin = 50.0;
     return info;
+}
+
+- (IBAction)printDocument:(id)sender
+{
+    // Prepare the document first, as print panel shows preview.
+    [self performAfterRender:^{
+        [super printDocument:sender];
+    }];
 }
 
 - (NSPrintOperation *)printOperationWithSettings:(NSDictionary *)printSettings
@@ -1054,15 +1065,6 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     
     self.alreadyRenderingInWeb = YES;
 
-    // Delayed copying for -copyHtml.
-    if (self.copying)
-    {
-        self.copying = NO;
-        NSPasteboard *pasteboard = [NSPasteboard generalPasteboard];
-        [pasteboard clearContents];
-        [pasteboard writeObjects:@[self.renderer.currentHtml]];
-    }
-
     NSURL *baseUrl = self.fileURL;
     if (!baseUrl)   // Unsaved doument; just use the default URL.
         baseUrl = self.preferences.htmlDefaultDirectoryUrl;
@@ -1230,19 +1232,11 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     // Dis-select things in WebView so that it's more obvious we're NOT
     // respecting the selection range.
     [self.preview setSelectedDOMRange:nil affinity:NSSelectionAffinityUpstream];
-
-    // If the preview is hidden, the HTML are not updating on text change.
-    // Perform one extra rendering so that the HTML is up to date, and do the
-    // copy in the rendering callback.
-    if (!self.needsHtml)
-    {
-        self.copying = YES;
-        [self.renderer parseAndRenderNow];
-        return;
-    }
-    NSPasteboard *pasteboard = [NSPasteboard generalPasteboard];
-    [pasteboard clearContents];
-    [pasteboard writeObjects:@[self.renderer.currentHtml]];
+    [self performAfterRender:^{
+        NSPasteboard *pasteboard = [NSPasteboard generalPasteboard];
+        [pasteboard clearContents];
+        [pasteboard writeObjects:@[self.renderer.currentHtml]];
+    }];
 }
 
 - (IBAction)exportHtml:(id)sender
@@ -1264,10 +1258,12 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
             return;
         BOOL styles = controller.stylesIncluded;
         BOOL highlighting = controller.highlightingIncluded;
-        NSString *html = [self.renderer HTMLForExportWithStyles:styles
-                                                   highlighting:highlighting];
-        [html writeToURL:panel.URL atomically:NO encoding:NSUTF8StringEncoding
-                   error:NULL];
+        [self performAfterRender:^{
+            NSString *html = [self.renderer HTMLForExportWithStyles:styles
+                                                       highlighting:highlighting];
+            [html writeToURL:panel.URL atomically:NO encoding:NSUTF8StringEncoding
+                       error:NULL];
+        }];
     }];
 }
 
@@ -1287,12 +1283,15 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
         if (result != NSFileHandlingPanelOKButton)
             return;
 
-        NSDictionary *settings = @{
-            NSPrintJobDisposition: NSPrintSaveJob,
-            NSPrintJobSavingURL: panel.URL,
-        };
-        [self printDocumentWithSettings:settings showPrintPanel:NO delegate:nil
-                       didPrintSelector:NULL contextInfo:NULL];
+        NSURL *url = panel.URL;
+        [self performAfterRender:^{
+            NSDictionary *settings = @{
+                NSPrintJobDisposition: NSPrintSaveJob,
+                NSPrintJobSavingURL: url,
+            };
+            [self printDocumentWithSettings:settings showPrintPanel:NO delegate:nil
+                           didPrintSelector:NULL contextInfo:NULL];
+        }];
     }];
 }
 
@@ -1686,6 +1685,22 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
         // similar to both the editor and preview and being obscured.
         self.splitView.dividerColor = nil;
     }
+}
+
+- (void)performAfterRender:(MPRenderCompletionHandler)handler
+{
+    // If the preview is hidden, the HTML are not updating on text change.
+    // Perform one extra rendering so that the HTML is up to date, and do the
+    // action in the rendering callback.
+    if (!self.needsHtml)
+    {
+        self.renderCompletionHandler = handler;
+        [self.renderer parseAndRenderNow];
+        return;
+    }
+
+    // Otherwise, proceed with fresh buffer.
+    handler();
 }
 
 - (void)scaleWebview
