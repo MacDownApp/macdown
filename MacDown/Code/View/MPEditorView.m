@@ -8,6 +8,16 @@
 
 #import "MPEditorView.h"
 
+// If an image dragged into the editor pane generates a Base64
+// string over this length, warn the user that linking
+// may be a better option.
+static NSUInteger kLargBase64WarnThreshold = 256;
+
+typedef NS_ENUM(NSUInteger, MPEmbedPreference)
+{
+  MPStringEmbedPreference = 0,
+  MPLinkEmbedPreference = 1,
+};
 
 NS_INLINE BOOL MPAreRectsEqual(NSRect r1, NSRect r2)
 {
@@ -62,6 +72,11 @@ NS_INLINE BOOL MPAreRectsEqual(NSRect r1, NSRect r2)
     return NSDragOperationNone;
 }
 
+#define PERFORM_DRAG_BASE64_INFORMATIVE NSLocalizedString( \
+@"Embedding the image will add %d characters to the document \
+text. Alternately, MacDown can generate a link to the image.", \
+@"large base64 string information")
+
 - (BOOL)performDragOperation:(id <NSDraggingInfo>)sender {
     NSPasteboard *pboard;
     NSDragOperation sourceDragMask;
@@ -77,19 +92,76 @@ NS_INLINE BOOL MPAreRectsEqual(NSRect r1, NSRect r2)
         NSData *fileData = [NSData dataWithContentsOfFile: files[0]
                                                   options: NSMappedRead
                                                     error: &error];
-        if (!error) {
+        if (!error)
+        {
             // convert to base64 representation
             NSString *dataString = [fileData base64Encoding];
             
-            // insert into text.
-            NSInteger insertionPoint = [[[self selectedRanges] objectAtIndex:0] rangeValue].location;
-            [self setString:[NSString stringWithFormat:@"%@![](data:image/jpeg;base64,%@)%@", [[self string] substringToIndex:insertionPoint], dataString, [[self string] substringFromIndex:insertionPoint]]];
-            [self didChangeText];
+            // if the string is sufficiently large, prompt the user
+            MPEmbedPreference embedStyle = MPStringEmbedPreference;
+            if ( [dataString length] > kLargBase64WarnThreshold )
+            {
+                embedStyle = [self warnForLargeEmbed:dataString];
+            }
+
+            // generate a relative link or an embedded base64
+            NSString *embeddedString;
+            if ( MPStringEmbedPreference == embedStyle )
+            {
+                embeddedString = [NSString stringWithFormat:@"![](data:image/jpeg;base64,%@)",
+                                            dataString];
+            }
+            else if ( MPLinkEmbedPreference == embedStyle )
+            {
+                embeddedString = [NSString stringWithFormat:@"![](%@)", files[0]];
+            }
+            else
+            {
+                // Cancel button pressed/error
+                return NO;
+            }
+                
+            // insertText is used over setting the backing textStorage
+            // directly, as insertText will trigger the undo manager
+            [self insertText:embeddedString];
         } else {
             return NO;
         }
     }
     return YES;
+}
+
+- (MPEmbedPreference)warnForLargeEmbed:(NSString *)dataString
+{
+    NSAlert *alert = [[NSAlert alloc] init];
+    alert.messageText = NSLocalizedString(@"Embedding this image will result in a large document.",
+                                              @"large base64 string warning");
+    alert.informativeText = [NSString stringWithFormat:PERFORM_DRAG_BASE64_INFORMATIVE,
+                             [dataString length]];
+    [alert addButtonWithTitle:NSLocalizedString(@"Generate Link",
+                                                @"large base64 string link button")];
+    [alert addButtonWithTitle:NSLocalizedString(@"Embed Anyways",
+                                                @"large base64 string embed button")];
+    [alert addButtonWithTitle:NSLocalizedString(@"Cancel",
+                                                @"large base64 string cancel button")];
+    
+    NSModalResponse response = [alert runModal];
+    MPEmbedPreference result = -1;
+    switch (response)
+    {
+        case NSAlertFirstButtonReturn:
+            result = MPLinkEmbedPreference;
+            break;
+        
+        case NSAlertSecondButtonReturn:
+            result = MPStringEmbedPreference;
+            break;
+        
+        default:
+            result = -1;
+            break;
+    }
+    return result;
 }
 
 
