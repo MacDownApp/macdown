@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14109" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17506" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaDFRPlugin" version="14019"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14109"/>
-        <plugIn identifier="com.apple.WebKitIBPlugin" version="14109"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaDFRPlugin" version="17008"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17506"/>
+        <plugIn identifier="com.apple.WebKitIBPlugin" version="17506"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
         <capability name="the Touch Bar" minToolsVersion="8.1" minSystemVersion="10.12.2" requiredIntegratedClassName="NSTouchBar"/>
     </dependencies>
@@ -29,34 +29,34 @@
             <windowCollectionBehavior key="collectionBehavior" fullScreenPrimary="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="0.0" y="0.0" width="1024" height="578"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1028"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1792" height="1095"/>
             <value key="minSize" type="size" width="94" height="86"/>
             <view key="contentView" id="gIp-Ho-8D9">
                 <rect key="frame" x="0.0" y="0.0" width="1024" height="578"/>
-                <autoresizingMask key="autoresizingMask"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <splitView focusRingType="none" dividerStyle="thin" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0kv-p9-H4b" customClass="MPDocumentSplitView">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="578"/>
                         <subviews>
                             <customView wantsLayer="YES" id="WJx-Xb-9af">
-                                <rect key="frame" x="0.0" y="0.0" width="509" height="578"/>
+                                <rect key="frame" x="0.0" y="0.0" width="617" height="578"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
                                     <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5HT-Up-YAd">
-                                        <rect key="frame" x="0.0" y="0.0" width="509" height="578"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="617" height="578"/>
                                         <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="5eJ-HC-3WM">
-                                            <rect key="frame" x="0.0" y="0.0" width="509" height="578"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="617" height="578"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <textView importsGraphics="NO" richText="NO" verticallyResizable="YES" findStyle="bar" allowsDocumentBackgroundColorChange="YES" allowsUndo="YES" dashSubstitution="YES" smartInsertDelete="YES" id="VLv-r5-dZU" customClass="MPEditorView">
-                                                    <rect key="frame" x="0.0" y="0.0" width="509" height="578"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="617" height="578"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <touchBar key="touchBar" id="uyf-zu-EdK">
                                                         <touchBarItems>
                                                             <touchBarItem id="sSp-mh-ZwK">
                                                                 <viewController key="viewController" id="7Nv-tM-qQa">
                                                                     <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="et6-8d-LrM">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="40" height="30"/>
+                                                                        <rect key="frame" x="0.0" y="-12" width="54" height="42"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" constant="40" id="NEW-bJ-2UP"/>
                                                                         </constraints>
@@ -74,7 +74,7 @@
                                                             <touchBarItem id="6wk-ES-1Z0">
                                                                 <viewController key="viewController" id="P5D-3L-eIr">
                                                                     <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7Xh-gY-7du">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="40" height="30"/>
+                                                                        <rect key="frame" x="0.0" y="-12" width="54" height="42"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" constant="40" id="wM2-xs-mPM"/>
                                                                         </constraints>
@@ -93,7 +93,7 @@
                                                             <touchBarItem id="lrg-rQ-HD4">
                                                                 <viewController key="viewController" id="wcQ-yS-faM">
                                                                     <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gka-R1-jaA">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="40" height="30"/>
+                                                                        <rect key="frame" x="0.0" y="-12" width="54" height="42"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" constant="40" id="voO-vs-6Zb"/>
                                                                         </constraints>
@@ -111,7 +111,7 @@
                                                             <touchBarItem id="Dfc-T4-2vh">
                                                                 <viewController key="viewController" id="7Qy-D9-pML">
                                                                     <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XTG-XE-1bO">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="40" height="30"/>
+                                                                        <rect key="frame" x="0.0" y="-12" width="54" height="42"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" constant="40" id="kRa-t7-DdC"/>
                                                                         </constraints>
@@ -132,7 +132,7 @@
                                                                     <touchBarItems>
                                                                         <touchBarItem id="TH0-ta-7E1">
                                                                             <viewController key="viewController" id="oRY-8q-ycL">
-                                                                                <button key="view" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8ix-4P-UIB">
+                                                                                <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8ix-4P-UIB">
                                                                                     <rect key="frame" x="6" y="-4" width="72" height="30"/>
                                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                                     <buttonCell key="cell" type="push" title="Text" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="dPo-OZ-Hdz">
@@ -148,7 +148,7 @@
                                                                         </touchBarItem>
                                                                         <touchBarItem id="bRQ-aq-aXo">
                                                                             <viewController key="viewController" id="oqN-wb-Vly">
-                                                                                <button key="view" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2nX-cf-kFS">
+                                                                                <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2nX-cf-kFS">
                                                                                     <rect key="frame" x="6" y="-4" width="72" height="30"/>
                                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                                     <buttonCell key="cell" type="push" title="H1" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="H5W-Wu-gPZ">
@@ -164,7 +164,7 @@
                                                                         </touchBarItem>
                                                                         <touchBarItem id="DLu-ki-KXD">
                                                                             <viewController key="viewController" id="2Uc-US-JCj">
-                                                                                <button key="view" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dxb-gK-8HI">
+                                                                                <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dxb-gK-8HI">
                                                                                     <rect key="frame" x="6" y="-4" width="72" height="30"/>
                                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                                     <buttonCell key="cell" type="push" title="H2" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="rdq-e7-ugg">
@@ -180,7 +180,7 @@
                                                                         </touchBarItem>
                                                                         <touchBarItem id="bxd-rh-vhR">
                                                                             <viewController key="viewController" id="Peo-tt-YI5">
-                                                                                <button key="view" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZVw-1e-hfv">
+                                                                                <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ZVw-1e-hfv">
                                                                                     <rect key="frame" x="6" y="-4" width="72" height="30"/>
                                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                                     <buttonCell key="cell" type="push" title="H3" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="xRF-se-t13">
@@ -196,7 +196,7 @@
                                                                         </touchBarItem>
                                                                         <touchBarItem id="scE-vy-m0B">
                                                                             <viewController key="viewController" id="V1U-4G-4gw">
-                                                                                <button key="view" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3n2-Kg-rF6">
+                                                                                <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3n2-Kg-rF6">
                                                                                     <rect key="frame" x="6" y="-4" width="72" height="30"/>
                                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                                     <buttonCell key="cell" type="push" title="H4" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="QiC-vC-KbR">
@@ -212,7 +212,7 @@
                                                                         </touchBarItem>
                                                                         <touchBarItem id="oZ5-T7-hLm">
                                                                             <viewController key="viewController" id="a6r-1M-uoR">
-                                                                                <button key="view" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hVd-8e-I5V">
+                                                                                <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hVd-8e-I5V">
                                                                                     <rect key="frame" x="6" y="-4" width="72" height="30"/>
                                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                                     <buttonCell key="cell" type="push" title="H5" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="KTn-mr-UBa">
@@ -228,7 +228,7 @@
                                                                         </touchBarItem>
                                                                         <touchBarItem id="iaP-Q7-5qn">
                                                                             <viewController key="viewController" id="LCs-in-t5U">
-                                                                                <button key="view" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FD4-Ba-qiT">
+                                                                                <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="FD4-Ba-qiT">
                                                                                     <rect key="frame" x="6" y="-4" width="72" height="30"/>
                                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                                     <buttonCell key="cell" type="push" title="H6" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="r5a-yJ-MY2">
@@ -249,7 +249,7 @@
                                                             <touchBarItem id="KyV-NE-0fD">
                                                                 <viewController key="viewController" id="Jeg-dU-NyD">
                                                                     <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="z2S-kp-7ZU">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="40" height="30"/>
+                                                                        <rect key="frame" x="0.0" y="-12" width="54" height="42"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" constant="40" id="2TX-4K-p7h"/>
                                                                         </constraints>
@@ -267,7 +267,7 @@
                                                             <touchBarItem id="KvN-JP-Txk">
                                                                 <viewController key="viewController" id="jpx-oj-v0w">
                                                                     <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="lva-T6-Z0h">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="40" height="30"/>
+                                                                        <rect key="frame" x="0.0" y="-12" width="54" height="42"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" constant="40" id="Yum-ud-Np2"/>
                                                                         </constraints>
@@ -286,7 +286,7 @@
                                                             <touchBarItem id="CAJ-9f-72R">
                                                                 <viewController key="viewController" id="VZ8-Fx-eeV">
                                                                     <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="oyw-eD-Ws5">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="40" height="30"/>
+                                                                        <rect key="frame" x="0.0" y="-12" width="54" height="42"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" constant="40" id="CbV-hl-cOo"/>
                                                                         </constraints>
@@ -304,7 +304,7 @@
                                                             <touchBarItem id="ZYe-KD-dvx">
                                                                 <viewController key="viewController" id="cvn-Qa-a8w">
                                                                     <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="aBH-vu-Kud">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="40" height="30"/>
+                                                                        <rect key="frame" x="0.0" y="-12" width="54" height="42"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" constant="40" id="K7J-gG-gYt"/>
                                                                         </constraints>
@@ -323,7 +323,7 @@
                                                             <touchBarItem id="DEE-Qp-CSL">
                                                                 <viewController key="viewController" id="QUS-Ae-ifK">
                                                                     <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="HCx-zg-Fi2">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="40" height="30"/>
+                                                                        <rect key="frame" x="0.0" y="-12" width="54" height="42"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" constant="40" id="F1u-O4-mHh"/>
                                                                         </constraints>
@@ -341,7 +341,7 @@
                                                             <touchBarItem id="rdr-ih-IKE">
                                                                 <viewController key="viewController" id="vwe-vK-fAa">
                                                                     <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="GAZ-UX-2vW">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="40" height="30"/>
+                                                                        <rect key="frame" x="0.0" y="-12" width="54" height="42"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" constant="40" id="KXx-2Q-TcL"/>
                                                                         </constraints>
@@ -360,7 +360,7 @@
                                                             <touchBarItem id="Uk6-f6-1mf">
                                                                 <viewController key="viewController" id="jco-ad-7fY">
                                                                     <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kl9-Fg-i6T">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="40" height="30"/>
+                                                                        <rect key="frame" x="0.0" y="-12" width="54" height="42"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" constant="40" id="7iW-vj-tKb"/>
                                                                         </constraints>
@@ -377,27 +377,27 @@
                                                             </touchBarItem>
                                                         </touchBarItems>
                                                     </touchBar>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <size key="minSize" width="509" height="578"/>
-                                                    <size key="maxSize" width="771" height="10000000"/>
-                                                    <color key="insertionPointColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                    <size key="minSize" width="617" height="578"/>
+                                                    <size key="maxSize" width="1024" height="10000000"/>
+                                                    <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                     <connections>
                                                         <outlet property="delegate" destination="-2" id="TdC-zV-Jhk"/>
                                                     </connections>
                                                 </textView>
                                             </subviews>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </clipView>
-                                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="3Oj-1c-nVc">
+                                        <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="3Oj-1c-nVc">
                                             <rect key="frame" x="-100" y="-100" width="87" height="18"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
-                                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="Ofi-bn-LVK">
+                                        <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="Ofi-bn-LVK">
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                     </scrollView>
                                     <popUpButton translatesAutoresizingMaskIntoConstraints="NO" id="kfG-Fe-ode">
-                                        <rect key="frame" x="163" y="2" width="184" height="30"/>
+                                        <rect key="frame" x="216" y="1" width="186" height="32"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="180" id="mHu-Un-sUm"/>
                                             <constraint firstAttribute="height" constant="25" id="oA6-sw-Vyh"/>
@@ -427,16 +427,22 @@
                                     <constraint firstAttribute="centerX" secondItem="kfG-Fe-ode" secondAttribute="centerX" id="ynw-y8-yAH"/>
                                 </constraints>
                             </customView>
-                            <webView fixedFrame="YES" id="XJO-AS-uPd">
-                                <rect key="frame" x="510" y="0.0" width="514" height="578"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <webPreferences key="preferences" defaultFontSize="12" defaultFixedFontSize="12">
-                                    <nil key="identifier"/>
-                                </webPreferences>
-                                <connections>
-                                    <outlet property="UIDelegate" destination="-2" id="5Ky-Oy-jNW"/>
-                                </connections>
-                            </webView>
+                            <customView identifier="webcontainer" fixedFrame="YES" id="CH6-Pp-foc">
+                                <rect key="frame" x="618" y="0.0" width="406" height="578"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <subviews>
+                                    <webView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XJO-AS-uPd">
+                                        <rect key="frame" x="0" y="0.0" width="406" height="578"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <webPreferences key="preferences" defaultFontSize="12" defaultFixedFontSize="12">
+                                            <nil key="identifier"/>
+                                        </webPreferences>
+                                        <connections>
+                                            <outlet property="UIDelegate" destination="-2" id="5Ky-Oy-jNW"/>
+                                        </connections>
+                                    </webView>
+                                </subviews>
+                            </customView>
                         </subviews>
                         <holdingPriorities>
                             <real value="250"/>
@@ -467,6 +473,7 @@
             <connections>
                 <outlet property="delegate" destination="-2" id="0bl-1N-x8E"/>
             </connections>
+            <point key="canvasLocation" x="-142" y="132"/>
         </window>
         <userDefaultsController representsSharedInstance="YES" id="xWe-NS-iYh"/>
         <customObject id="3i0-CY-DlB" customClass="MPToolbarController">
@@ -476,8 +483,8 @@
         </customObject>
     </objects>
     <resources>
-        <image name="NSTouchBarTextBoldTemplate" width="12" height="30"/>
-        <image name="NSTouchBarTextItalicTemplate" width="8" height="30"/>
+        <image name="NSTouchBarTextBoldTemplate" width="11" height="12"/>
+        <image name="NSTouchBarTextItalicTemplate" width="10" height="12"/>
         <image name="ToolbarIconInlineCode" width="19" height="19"/>
         <image name="TouchBarIconBlockquote" width="30" height="30"/>
         <image name="TouchBarIconCopyHTML" width="30" height="30"/>
