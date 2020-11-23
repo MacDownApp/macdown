@@ -251,8 +251,12 @@ static void (^MPGetPreviewLoadingCompletionHandler(WebView *webview, MPDocument 
         }
 
         if (doc.oldPreview && webView == doc.preview) {
-            [doc.oldPreview removeFromSuperview];
+            WebView *viewToRemove = doc.oldPreview;
             doc.oldPreview = nil;
+
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [viewToRemove removeFromSuperview];
+            });
         }
     };
 }
@@ -1122,10 +1126,10 @@ static void (^MPGetPreviewLoadingCompletionHandler(WebView *webview, MPDocument 
         WebView *previousPreview = self.preview;
         previousPreview = self.preview;
         previousPreview.UIDelegate = nil;
-        previousPreview.frameLoadDelegate = self;
-        previousPreview.policyDelegate = self;
-        previousPreview.editingDelegate = self;
-        previousPreview.resourceLoadDelegate = self;
+        previousPreview.frameLoadDelegate = nil;
+        previousPreview.policyDelegate = nil;
+        previousPreview.editingDelegate = nil;
+        previousPreview.resourceLoadDelegate = nil;
 
         WebView *loadingView = [[WebView alloc] initWithFrame:self.oldPreview.frame];
         loadingView.UIDelegate = self;
