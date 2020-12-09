@@ -1,0 +1,48 @@
+/* Class = "NSMenuItem"; title = "Header 2"; ObjectID = "0WP-T5-QxP"; */
+"0WP-T5-QxP.title" = "Otsikko 2";
+
+/* Class = "NSMenu"; title = "Find"; ObjectID = "1b7-l0-nxx"; */
+"1b7-l0-nxx.title" = "Etsi";
+
+/* Class = "NSMenuItem"; title = "Enter Full Screen"; ObjectID = "1gz-YB-DZE"; */
+"1gz-YB-DZE.title" = "Siirry koko näytön tilaan";
+
+/* Class = "NSMenuItem"; title = "MacDown"; ObjectID = "1Xt-HY-uBw"; */
+"1Xt-HY-uBw.title" = "MacDown";
+
+/* Class = "NSMenuItem"; title = "Transformations"; ObjectID = "2oI-Rn-ZJC"; */
+"2oI-Rn-ZJC.title" = "Muunnokset";
+
+/* Class = "NSMenuItem"; title = "Highlight"; ObjectID = "2Os-ij-Aup"; */
+"2Os-ij-Aup.title" = "Korosta";
+
+/* Class = "NSMenu"; title = "Spelling"; ObjectID = "3IN-sU-3Bg"; */
+"3IN-sU-3Bg.title" = "Oikeinkirjoitus";
+
+/* Class = "NSMenu"; title = "Speech"; ObjectID = "3rS-ZA-NoH"; */
+"3rS-ZA-NoH.title" = "Puhe";
+
+/* Class = "NSMenuItem"; title = "Find"; ObjectID = "4EN-yA-p0u"; */
+"4EN-yA-p0u.title" = "Etsi";
+
+/* Class = "NSMenuItem"; title = "Quit MacDown"; ObjectID = "4sb-4s-VLi"; */
+"4sb-4s-VLi.title" = "Lopeta MacDown";
+
+/* Class = "NSMenuItem"; title = "Emphasize"; ObjectID = "4UH-k2-fgy"; */
+"4UH-k2-fgy.title" = "Painota";
+
+/* Class = "NSMenuItem"; title = "About MacDown"; ObjectID = "5kV-Vb-QxS"; */
+"5kV-Vb-QxS.title" = "Tietoja MacDownista";
+
+/* Class = "NSMenuItem"; title = "Export"; ObjectID = "5mp-ev-1el"; */
+"5mp-ev-1el.title" = "Vie";
+
+/* Class = "NSMenuItem"; title = "Edit"; ObjectID = "5QF-Oa-p0T"; */
+"5QF-Oa-p0T.title" = "Muokkaa";
+
+/* Class = "NSMenuItem"; title = "Redo"; ObjectID = "6dh-zS-Vam"; */
+"6dh-zS-Vam.title" = "Tee uudelleen";
+
+/* Class = "NSMenuItem"; title = "Check for Updates…"; ObjectID = "8xL-1V-VPX"; */
+"8xL-1V-VPX.title" = "Tarkista päivitykset…";
+

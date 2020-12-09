@@ -1,0 +1,21 @@
+/* Highlight toolbar button */
+"Highlight" = "Выделить";
+
+/* Image toolbar button */
+"Image" = "Картинка";
+
+/* Install shell utility button */
+"Install" = "Установить";
+
+/* Ordered list toolbar button */
+"Ordered List" = "Нумерованный список";
+
+/* Shift text to the right toolbar button */
+"Shift Right" = "Сместить вправо";
+
+/* Strikethrough toolbar button */
+"Strikethrough" = "Зачеркнуть";
+
+/* Unordered list toolbar button */
+"Unordered List" = "Маркированный список";
+

@@ -1,0 +1,42 @@
+/* Class = "NSSegmentedCell"; 0rH-I9-Dxr.ibShadowedLabels[0] = "Reveal"; ObjectID = "0rH-I9-Dxr"; */
+"0rH-I9-Dxr.ibShadowedLabels[0]" = "Näita";
+
+/* Class = "NSSegmentedCell"; 0rH-I9-Dxr.ibShadowedLabels[1] = "Reload"; ObjectID = "0rH-I9-Dxr"; */
+"0rH-I9-Dxr.ibShadowedLabels[1]" = "Laadi uuesti";
+
+/* Class = "NSTextFieldCell"; title = "CSS:"; ObjectID = "9I3-I7-HLu"; */
+"9I3-I7-HLu.title" = "CSS:";
+
+/* Class = "NSTextFieldCell"; title = "Theme:"; ObjectID = "a6o-qD-AIp"; */
+"a6o-qD-AIp.title" = "Teema:";
+
+/* Class = "NSButtonCell"; title = "Scale preview based on editor font size"; ObjectID = "aWw-Wb-pBl"; */
+"aWw-Wb-pBl.title" = "Muuda eelvaate suurust vastavalt redaktori tekstisuurusele";
+
+/* Class = "NSButtonCell"; title = "Mermaid"; ObjectID = "bda-Ft-ecb"; */
+"bda-Ft-ecb.title" = "Merineitsi";
+
+/* Class = "NSTextFieldCell"; title = "Default path:"; ObjectID = "e1A-Mm-svq"; */
+"e1A-Mm-svq.title" = "Vaikimisi asukoht:";
+
+/* Class = "NSButtonCell"; title = "Detect Jekyll front-matter"; ObjectID = "iXi-Pv-mFl"; */
+"iXi-Pv-mFl.title" = "Tuvasta Jekyll front-matter";
+
+/* Class = "NSMenuItem"; title = "Custom"; ObjectID = "Jmq-wq-Dux"; */
+"Jmq-wq-Dux.title" = "Kohandatud";
+
+/* Class = "NSButtonCell"; title = "Task list syntax"; ObjectID = "kBf-iW-HlH"; */
+"kBf-iW-HlH.title" = "Ülesannete nimekirja süntaks";
+
+/* Class = "NSButtonCell"; title = "Graphviz"; ObjectID = "Lnj-HG-QHi"; */
+"Lnj-HG-QHi.title" = "Graphviz";
+
+/* Class = "NSMenuItem"; title = "None"; ObjectID = "pWW-vM-8JK"; */
+"pWW-vM-8JK.title" = "Pole";
+
+/* Class = "NSMenuItem"; title = "Language name"; ObjectID = "qFd-cs-OtZ"; */
+"qFd-cs-OtZ.title" = "Keele nimi";
+
+/* Class = "NSButtonCell"; title = "Show line numbers"; ObjectID = "WZa-V6-vvf"; */
+"WZa-V6-vvf.title" = "Näita reanumbreid";
+

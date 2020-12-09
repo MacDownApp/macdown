@@ -1,0 +1,165 @@
+/* Class = "NSMenuItem"; title = "Header 2"; ObjectID = "0WP-T5-QxP"; */
+"0WP-T5-QxP.title" = "Заголовок 2";
+
+/* Class = "NSMenu"; title = "Find"; ObjectID = "1b7-l0-nxx"; */
+"1b7-l0-nxx.title" = "Найти";
+
+/* Class = "NSMenuItem"; title = "Enter Full Screen"; ObjectID = "1gz-YB-DZE"; */
+"1gz-YB-DZE.title" = "Развернуть на весь экран";
+
+/* Class = "NSMenuItem"; title = "MacDown"; ObjectID = "1Xt-HY-uBw"; */
+"1Xt-HY-uBw.title" = "MacDown";
+
+/* Class = "NSMenuItem"; title = "Transformations"; ObjectID = "2oI-Rn-ZJC"; */
+"2oI-Rn-ZJC.title" = "Преобразования";
+
+/* Class = "NSMenuItem"; title = "Highlight"; ObjectID = "2Os-ij-Aup"; */
+"2Os-ij-Aup.title" = "Выделить";
+
+/* Class = "NSMenu"; title = "Spelling"; ObjectID = "3IN-sU-3Bg"; */
+"3IN-sU-3Bg.title" = "Правописание";
+
+/* Class = "NSMenuItem"; title = "Find"; ObjectID = "4EN-yA-p0u"; */
+"4EN-yA-p0u.title" = "Найти";
+
+/* Class = "NSMenuItem"; title = "Quit MacDown"; ObjectID = "4sb-4s-VLi"; */
+"4sb-4s-VLi.title" = "Выйти из MacDown";
+
+/* Class = "NSMenuItem"; title = "About MacDown"; ObjectID = "5kV-Vb-QxS"; */
+"5kV-Vb-QxS.title" = "О приложении MacDown";
+
+/* Class = "NSMenuItem"; title = "Export"; ObjectID = "5mp-ev-1el"; */
+"5mp-ev-1el.title" = "Экспортировать";
+
+/* Class = "NSMenuItem"; title = "Edit"; ObjectID = "5QF-Oa-p0T"; */
+"5QF-Oa-p0T.title" = "Редактировать";
+
+/* Class = "NSMenuItem"; title = "Redo"; ObjectID = "6dh-zS-Vam"; */
+"6dh-zS-Vam.title" = "Повторить";
+
+/* Class = "NSMenuItem"; title = "Check for Updates…"; ObjectID = "8xL-1V-VPX"; */
+"8xL-1V-VPX.title" = "Проверить наличие обновлений...";
+
+/* Class = "NSMenuItem"; title = "Strikethrough"; ObjectID = "9CN-Qi-Fln"; */
+"9CN-Qi-Fln.title" = "Зачеркнуть";
+
+/* Class = "NSMenuItem"; title = "Correct Spelling Automatically"; ObjectID = "78Y-hA-62v"; */
+"78Y-hA-62v.title" = "Автоматически исправлять орфографические ошибки";
+
+/* Class = "NSMenuItem"; title = "Underline"; ObjectID = "98U-cK-P7J"; */
+"98U-cK-P7J.title" = "Подчеркнуть";
+
+/* Class = "NSMenuItem"; title = "Print…"; ObjectID = "aTl-1u-JFS"; */
+"aTl-1u-JFS.title" = "Напечатать...";
+
+/* Class = "NSMenuItem"; title = "Window"; ObjectID = "aUF-d1-5bR"; */
+"aUF-d1-5bR.title" = "Окно";
+
+/* Class = "NSMenu"; title = "Main Menu"; ObjectID = "AYu-sK-qS6"; */
+"AYu-sK-qS6.title" = "Главное меню";
+
+/* Class = "NSMenuItem"; title = "Header 4"; ObjectID = "B98-b8-che"; */
+"B98-b8-che.title" = "Заголовок 4";
+
+/* Class = "NSMenu"; title = "File"; ObjectID = "bib-Uj-vzu"; */
+"bib-Uj-vzu.title" = "Файл";
+
+/* Class = "NSMenuItem"; title = "Plug-ins"; ObjectID = "bMu-UN-Yfx"; */
+"bMu-UN-Yfx.title" = "Плагины";
+
+/* Class = "NSMenuItem"; title = "Preferences…"; ObjectID = "BOF-NM-1cW"; */
+"BOF-NM-1cW.title" = "Настройки...";
+
+/* Class = "NSMenuItem"; title = "Save As…"; ObjectID = "Bw7-FT-i3A"; */
+"Bw7-FT-i3A.title" = "Сохранить как...";
+
+/* Class = "NSMenuItem"; title = "Header 6"; ObjectID = "D4C-PE-qJi"; */
+"D4C-PE-qJi.title" = "Заголовок 6";
+
+/* Class = "NSMenuItem"; title = "HTML…"; ObjectID = "dGm-Yl-i3Z"; */
+"dGm-Yl-i3Z.title" = "HTML...";
+
+/* Class = "NSMenuItem"; title = "File"; ObjectID = "dMs-cI-mzQ"; */
+"dMs-cI-mzQ.title" = "Файл";
+
+/* Class = "NSMenuItem"; title = "Undo"; ObjectID = "dRJ-4n-Yzg"; */
+"dRJ-4n-Yzg.title" = "Отменить";
+
+/* Class = "NSMenuItem"; title = "Spelling and Grammar"; ObjectID = "Dv1-io-Yv7"; */
+"Dv1-io-Yv7.title" = "Орфография и грамматика";
+
+/* Class = "NSMenuItem"; title = "Close"; ObjectID = "DVo-aG-piG"; */
+"DVo-aG-piG.title" = "Закрыть";
+
+/* Class = "NSMenu"; title = "Help"; ObjectID = "F2S-fz-NVQ"; */
+"F2S-fz-NVQ.title" = "Помощь";
+
+/* Class = "NSMenuItem"; title = "Link"; ObjectID = "GIg-Wo-P8m"; */
+"GIg-Wo-P8m.title" = "Ссылка";
+
+/* Class = "NSMenuItem"; title = "Open…"; ObjectID = "IAo-SY-fd9"; */
+"IAo-SY-fd9.title" = "Открыть...";
+
+/* Class = "NSMenuItem"; title = "Shift Left"; ObjectID = "Jzs-tR-jkL"; */
+"Jzs-tR-jkL.title" = "Сместить влево";
+
+/* Class = "NSMenuItem"; title = "Show All"; ObjectID = "Kd2-mp-pUS"; */
+"Kd2-mp-pUS.title" = "Показать все";
+
+/* Class = "NSMenuItem"; title = "Header 3"; ObjectID = "kSO-QG-dHa"; */
+"kSO-QG-dHa.title" = "Заголовок 3";
+
+/* Class = "NSMenuItem"; title = "Header 1"; ObjectID = "NLm-rz-EyT"; */
+"NLm-rz-EyT.title" = "Заголовок 1";
+
+/* Class = "NSMenuItem"; title = "Hide MacDown"; ObjectID = "Olw-nP-bQN"; */
+"Olw-nP-bQN.title" = "Свернуть MacDown";
+
+/* Class = "NSMenuItem"; title = "Minimize"; ObjectID = "OY7-WF-poV"; */
+"OY7-WF-poV.title" = "Свернуть";
+
+/* Class = "NSMenuItem"; title = "Delete"; ObjectID = "pa3-QI-u2k"; */
+"pa3-QI-u2k.title" = "Удалить";
+
+/* Class = "NSMenu"; title = "Plug-ins"; ObjectID = "Ppl-BS-KtG"; */
+"Ppl-BS-KtG.title" = "Плагины";
+
+/* Class = "NSMenuItem"; title = "Save…"; ObjectID = "pxx-59-PXV"; */
+"pxx-59-PXV.title" = "Сохранить...";
+
+/* Class = "NSMenuItem"; title = "Select All"; ObjectID = "Ruw-6m-B2m"; */
+"Ruw-6m-B2m.title" = "Выбрать все";
+
+/* Class = "NSMenu"; title = "Export"; ObjectID = "SJM-Pp-ywb"; */
+"SJM-Pp-ywb.title" = "Экспортировать";
+
+/* Class = "NSMenu"; title = "Window"; ObjectID = "Td7-aD-5lo"; */
+"Td7-aD-5lo.title" = "Окно";
+
+/* Class = "NSMenuItem"; title = "Image"; ObjectID = "VkR-aw-5AU"; */
+"VkR-aw-5AU.title" = "Картинка";
+
+/* Class = "NSMenu"; title = "Edit"; ObjectID = "W48-6f-4Dl"; */
+"W48-6f-4Dl.title" = "Редактировать";
+
+/* Class = "NSMenuItem"; title = "New"; ObjectID = "Was-JA-tGl"; */
+"Was-JA-tGl.title" = "Новый";
+
+/* Class = "NSMenuItem"; title = "Header 5"; ObjectID = "wlq-BA-PKH"; */
+"wlq-BA-PKH.title" = "Заголовок 5";
+
+/* Class = "NSMenuItem"; title = "Help"; ObjectID = "wpr-3q-Mcd"; */
+"wpr-3q-Mcd.title" = "Помощь";
+
+/* Class = "NSMenuItem"; title = "Copy"; ObjectID = "x3v-GG-iWU"; */
+"x3v-GG-iWU.title" = "Скопировать";
+
+/* Class = "NSMenuItem"; title = "PDF…"; ObjectID = "XFN-MJ-RrW"; */
+"XFN-MJ-RrW.title" = "PDF...";
+
+/* Class = "NSMenuItem"; title = "Find…"; ObjectID = "Xz5-n4-O0W"; */
+"Xz5-n4-O0W.title" = "Найти...";
+
+/* Class = "NSMenuItem"; title = "Find and Replace…"; ObjectID = "YEy-JH-Tfz"; */
+"YEy-JH-Tfz.title" = "Найти и заменить...";
+

@@ -1,0 +1,42 @@
+/* Class = "NSTextFieldCell"; title = "List marker:"; ObjectID = "0Bc-iD-VCh"; */
+"0Bc-iD-VCh.title" = "Nimekirja marker:";
+
+/* Class = "NSButtonCell"; title = "⌘← jumps to first non-whitespace character in line"; ObjectID = "2Yf-FT-MDH"; */
+"2Yf-FT-MDH.title" = "⌘← hüppab reas esimese märgi juurde, mis pole tühik";
+
+/* Class = "NSMenuItem"; title = "- (Minus sign)"; ObjectID = "2yJ-j5-PLm"; */
+"2yJ-j5-PLm.title" = "- (miinusmärk)";
+
+/* Class = "NSBox"; title = "Behavior"; ObjectID = "6JP-Pc-JFd"; */
+"6JP-Pc-JFd.title" = "Käitumine";
+
+/* Class = "NSButtonCell"; title = "Change…"; ObjectID = "8bz-cc-gLF"; */
+"8bz-cc-gLF.title" = "Muuda...";
+
+/* Class = "NSButtonCell"; title = "Ensure newline at end of file on save"; ObjectID = "9Wp-5V-GeQ"; */
+"9Wp-5V-GeQ.title" = "Veendu, et faili lõpus oleks salvestamisel tühi rida";
+
+/* Class = "NSMenuItem"; title = "* (Asterisk)"; ObjectID = "bnJ-BQ-mHV"; */
+"bnJ-BQ-mHV.title" = "* (tärn)";
+
+/* Class = "NSTextFieldCell"; title = "Text insets:"; ObjectID = "Ee6-Cj-SWW"; */
+"Ee6-Cj-SWW.title" = "Teksti sisestamine:";
+
+/* Class = "NSTextFieldCell"; title = "×"; ObjectID = "g5w-Qw-Khw"; */
+"g5w-Qw-Khw.title" = "×";
+
+/* Class = "NSSegmentedCell"; GHX-3h-1HI.ibShadowedLabels[0] = "Reveal"; ObjectID = "GHX-3h-1HI"; */
+"GHX-3h-1HI.ibShadowedLabels[0]" = "Näita";
+
+/* Class = "NSSegmentedCell"; GHX-3h-1HI.ibShadowedLabels[1] = "Reload"; ObjectID = "GHX-3h-1HI"; */
+"GHX-3h-1HI.ibShadowedLabels[1]" = "Laadi uuesti";
+
+/* Class = "NSTextFieldCell"; title = "Line spacing:"; ObjectID = "InD-Fc-CTS"; */
+"InD-Fc-CTS.title" = "Reavahed:";
+
+/* Class = "NSTextFieldCell"; title = "Theme:"; ObjectID = "vA9-IT-8Z7"; */
+"vA9-IT-8Z7.title" = "Teema:";
+
+/* Class = "NSMenuItem"; title = "+ (Plus sign)"; ObjectID = "zX4-JY-wTT"; */
+"zX4-JY-wTT.title" = "+ (pluss märk)";
+

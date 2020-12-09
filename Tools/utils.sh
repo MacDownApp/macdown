@@ -22,16 +22,9 @@ function get_short_version() {
     if [ $COMMIT_COUNT_SINCE_TAG = 0 ]; then
         SHORT_VERSION="$LATEST_TAG"
     else
-        # increment final digit of tag and append "d" + commit-count-since-tag
-        # e.g. commit after 1.0 is 1.1d1, commit after 1.0.0 is 1.0.1d1
-        # this is the bit that requires /bin/bash
-        OLD_IFS=$IFS
-        IFS="."
-        VERSION_PARTS=($LATEST_TAG)
-        LAST_PART=$((${#VERSION_PARTS[@]}-1))
-        VERSION_PARTS[$LAST_PART]=$((${VERSION_PARTS[${LAST_PART}]}+1))
-        SHORT_VERSION="${VERSION_PARTS[*]}d${COMMIT_COUNT_SINCE_TAG}"
-        IFS=$OLD_IFS
+        local tools_dir=$(dirname "${BASH_SOURCE[0]:-${(%):-%x}}")
+        local next_version=$(cat "$tools_dir/version.txt")
+        SHORT_VERSION="${next_version}d${COMMIT_COUNT_SINCE_TAG}"
     fi
     echo $SHORT_VERSION
 }

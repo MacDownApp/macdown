@@ -1,0 +1,9 @@
+/* Class = "NSTextFieldCell"; title = "Shell support not installed"; ObjectID = "g7m-Fr-pUo"; */
+"g7m-Fr-pUo.title" = "Supporto alla shell non installato";
+
+/* Class = "NSTextFieldCell"; title = "By activating shell support you can use the macdown utility to open MacDown and documents from a shell."; ObjectID = "W5n-x2-ygz"; */
+"W5n-x2-ygz.title" = "Attivando il supporto della shell potrai usare l'utility macdown per aprire documenti di MacDown direttamente dalla shell.";
+
+/* Class = "NSButtonCell"; title = "Install"; ObjectID = "XiC-FP-TWZ"; */
+"XiC-FP-TWZ.title" = "Installa";
+
