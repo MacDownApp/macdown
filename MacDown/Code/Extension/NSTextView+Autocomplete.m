@@ -147,7 +147,7 @@ static NSString * const kMPBlockquoteLinePattern = @"^((?:\\> ?)+).*$";
 
     for (const unichar *cs = kMPMatchingCharactersMap[0]; *cs != 0; cs += 2)
     {
-        // Ignore IM input of ASCII charaters.
+        // Ignore IM input of ASCII characters.
         if (hasMarkedText && cs[0] < L'\u0100')
             continue;
 
