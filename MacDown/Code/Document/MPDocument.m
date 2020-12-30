@@ -1657,7 +1657,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
         if (editorWidth > 2 * x + maxWidth)
             x = (editorWidth - maxWidth) * 0.45;
         // We tend to expect things in an editor to shift to left a bit.
-        // Hence the 0.45 instead of 0.5 (which whould feel a bit too much).
+        // Hence the 0.45 instead of 0.5 (which would feel a bit too much).
     }
     self.editor.textContainerInset = NSMakeSize(x, y);
 }
