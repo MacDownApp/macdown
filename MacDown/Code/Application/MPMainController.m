@@ -249,7 +249,7 @@ NS_INLINE void treat()
 {
     if (self.preferences.filesToOpen.count || self.preferences.pipedContentFileToOpen)
         return NO;
-    return !self.preferences.supressesUntitledDocumentOnLaunch;
+    return !self.preferences.suppressesUntitledDocumentOnLaunch;
 }
 
 - (void)applicationDidBecomeActive:(NSNotification *)notification

@@ -127,7 +127,7 @@
                                 </buttonCell>
                                 <connections>
                                     <action selector="updateWordCounterVisibility:" target="-2" id="COx-AW-eef"/>
-                                    <binding destination="-2" name="value" keyPath="self.preferences.supressesUntitledDocumentOnLaunch" id="r2p-vy-69v">
+                                    <binding destination="-2" name="value" keyPath="self.preferences.suppressesUntitledDocumentOnLaunch" id="r2p-vy-69v">
                                         <dictionary key="options">
                                             <string key="NSValueTransformerName">NSNegateBoolean</string>
                                         </dictionary>
