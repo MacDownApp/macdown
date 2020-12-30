@@ -25,7 +25,7 @@ extern NSString * const MPDidDetectFreshInstallationNotification;
 @property (assign) BOOL extensionTables;
 @property (assign) BOOL extensionFencedCode;
 @property (assign) BOOL extensionAutolink;
-@property (assign) BOOL extensionStrikethough;
+@property (assign) BOOL extensionStrikethrough;
 @property (assign) BOOL extensionUnderline;
 @property (assign) BOOL extensionSuperscript;
 @property (assign) BOOL extensionHighlight;

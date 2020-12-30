@@ -71,7 +71,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <binding destination="-2" name="value" keyPath="self.preferences.extensionStrikethough" id="tWe-ZX-b8J"/>
+                                    <binding destination="-2" name="value" keyPath="self.preferences.extensionStrikethrough" id="tWe-ZX-b8J"/>
                                 </connections>
                             </button>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="CCI-wC-lHw">

@@ -80,7 +80,7 @@ static NSString * const kMPDefaultHtmlStyleName = @"GitHub2";
 @dynamic extensionTables;
 @dynamic extensionFencedCode;
 @dynamic extensionAutolink;
-@dynamic extensionStrikethough;
+@dynamic extensionStrikethrough;
 @dynamic extensionUnderline;
 @dynamic extensionSuperscript;
 @dynamic extensionHighlight;

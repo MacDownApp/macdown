@@ -139,7 +139,7 @@ NS_INLINE NSColor *MPGetWebViewBackgroundColor(WebView *webview)
         flags |= HOEDOWN_EXT_NO_INTRA_EMPHASIS;
     if (self.extensionQuote)
         flags |= HOEDOWN_EXT_QUOTE;
-    if (self.extensionStrikethough)
+    if (self.extensionStrikethrough)
         flags |= HOEDOWN_EXT_STRIKETHROUGH;
     if (self.extensionSuperscript)
         flags |= HOEDOWN_EXT_SUPERSCRIPT;
@@ -723,7 +723,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 
     if (self.preferences.editorCompleteMatchingCharacters)
     {
-        BOOL strikethrough = self.preferences.extensionStrikethough;
+        BOOL strikethrough = self.preferences.extensionStrikethrough;
         if ([textView completeMatchingCharactersForTextInRange:range
                                                     withString:str
                                           strikethroughEnabled:strikethrough])
