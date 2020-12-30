@@ -56,7 +56,7 @@ Exception: If a URL in a comment is too long, it can go over the limit. This hap
     }
     ```
 
-* If code alignment is ambiguious, add extra indentation.
+* If code alignment is ambiguous, add extra indentation.
 
     Yes:
     ```c
