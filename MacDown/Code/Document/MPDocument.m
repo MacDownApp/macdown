@@ -1064,7 +1064,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     }
 
     NSURL *baseUrl = self.fileURL;
-    if (!baseUrl)   // Unsaved doument; just use the default URL.
+    if (!baseUrl)   // Unsaved document; just use the default URL.
         baseUrl = self.preferences.htmlDefaultDirectoryUrl;
 
     self.manualRender = self.preferences.markdownManualRender;
@@ -1082,7 +1082,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     if (self.isPreviewReady && [self.currentBaseUrl isEqualTo:baseUrl])
     {
         // HACK: Ideally we should only inject the parts that changed, and only
-        // get the parts we need. For now we only get a complete HTML codument,
+        // get the parts we need. For now we only get a complete HTML document,
         // and rely on regex to get the parts we want in the DOM.
 
         // Use the existing tree if available, and replace the content.
