@@ -450,7 +450,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     wordCountWidget.enabled = NO;
 
     // These needs to be queued until after the window is shown, so that editor
-    // can have the correct dimention for size-limiting and stuff. See
+    // can have the correct dimension for size-limiting and stuff. See
     // https://github.com/uranusjr/macdown/issues/236
     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
         [self setupEditor:nil];
