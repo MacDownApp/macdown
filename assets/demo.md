@@ -2,7 +2,7 @@
 # Graph Visualization
 
 Two graph visualization grammar are supported, mermaid and graphviz.
-To enable these features, options `Mermaid` and/or `Graphviz` in `MacDown` -> `Perferences...` -> `Rendering` should be checked.
+To enable these features, options `Mermaid` and/or `Graphviz` in `MacDown` -> `Preferences...` -> `Rendering` should be checked.
 
 # Mermaid
 
