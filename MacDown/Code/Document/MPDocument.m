@@ -1682,7 +1682,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     else
     {
         // If both sides are visible, draw a default "transparent" divider.
-        // This works around the possibile problem of divider's color being too
+        // This works around the possible problem of divider's color being too
         // similar to both the editor and preview and being obscured.
         self.splitView.dividerColor = nil;
     }
