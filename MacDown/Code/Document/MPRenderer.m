@@ -222,7 +222,7 @@ NS_INLINE BOOL MPAreNilableStringsEqual(NSString *s1, NSString *s2)
 @property BOOL syntaxHighlighting;
 @property BOOL mermaid;
 @property BOOL graphviz;
-@property MPCodeBlockAccessoryType codeBlockAccesory;
+@property MPCodeBlockAccessoryType codeBlockAccessory;
 @property BOOL lineNumbers;
 @property BOOL manualRender;
 @property (copy) NSString *highlightingThemeName;
@@ -382,7 +382,7 @@ NS_INLINE void MPFreeHTMLRenderer(hoedown_renderer *htmlRenderer)
         NSURL *url = MPPrismPluginURL(@"line-numbers", @"css");
         [stylesheets addObject:[MPStyleSheet CSSWithURL:url]];
     }
-    if ([self.delegate rendererCodeBlockAccesory:self]
+    if ([self.delegate rendererCodeBlockAccessory:self]
         == MPCodeBlockAccessoryLanguageName)
     {
         NSURL *url = MPPrismPluginURL(@"show-language", @"css");
@@ -410,7 +410,7 @@ NS_INLINE void MPFreeHTMLRenderer(hoedown_renderer *htmlRenderer)
         NSURL *url = MPPrismPluginURL(@"line-numbers", @"js");
         [scripts addObject:[MPScript javaScriptWithURL:url]];
     }
-    if ([self.delegate rendererCodeBlockAccesory:self]
+    if ([self.delegate rendererCodeBlockAccessory:self]
         == MPCodeBlockAccessoryLanguageName)
     {
         NSURL *url = MPPrismPluginURL(@"show-language", @"js");
@@ -494,7 +494,7 @@ NS_INLINE void MPFreeHTMLRenderer(hoedown_renderer *htmlRenderer)
         
     }
 
-    if ([delegate rendererCodeBlockAccesory:self] == MPCodeBlockAccessoryCustom)
+    if ([delegate rendererCodeBlockAccessory:self] == MPCodeBlockAccessoryCustom)
     {
         NSURL *url = MPExtensionURL(@"show-information", @"css");
         [stylesheets addObject:[MPStyleSheet CSSWithURL:url]];
@@ -632,7 +632,7 @@ NS_INLINE void MPFreeHTMLRenderer(hoedown_renderer *htmlRenderer)
     else if (!MPAreNilableStringsEqual(
             [d rendererStyleName:self], self.styleName))
         changed = YES;
-    else if ([d rendererCodeBlockAccesory:self] != self.codeBlockAccesory)
+    else if ([d rendererCodeBlockAccessory:self] != self.codeBlockAccessory)
         changed = YES;
 
     if (changed)
@@ -654,7 +654,7 @@ NS_INLINE void MPFreeHTMLRenderer(hoedown_renderer *htmlRenderer)
     self.mermaid = [delegate rendererHasMermaid:self];
     self.graphviz = [delegate rendererHasGraphviz:self];
     self.highlightingThemeName = [delegate rendererHighlightingThemeName:self];
-    self.codeBlockAccesory = [delegate rendererCodeBlockAccesory:self];
+    self.codeBlockAccessory = [delegate rendererCodeBlockAccessory:self];
 }
 
 - (NSString *)HTMLForExportWithStyles:(BOOL)withStyles

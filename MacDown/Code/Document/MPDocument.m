@@ -1026,7 +1026,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     return self.preferences.htmlGraphviz;
 }
 
-- (MPCodeBlockAccessoryType)rendererCodeBlockAccesory:(MPRenderer *)renderer
+- (MPCodeBlockAccessoryType)rendererCodeBlockAccessory:(MPRenderer *)renderer
 {
     return self.preferences.htmlCodeBlockAccessory;
 }
