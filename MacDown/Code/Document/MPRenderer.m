@@ -252,7 +252,7 @@ NS_INLINE void add_to_languages(
     }
     else if (require)
     {
-        NSLog(@"Unknown Prism langauge requirement "
+        NSLog(@"Unknown Prism language requirement "
               @"%@ dropped for unknown format", require);
     }
 }
