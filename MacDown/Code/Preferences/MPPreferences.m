@@ -235,7 +235,7 @@ static NSString * const kMPDefaultHtmlStyleName = @"GitHub2";
  * Note that since this is called only when the user launches the app the first
  * time, new preferences that breaks backward compatibility should NOT be put
  * here. An example would be adding a boolean config to turn OFF an existing
- * functionality. If you add the defualt-loading code here, existing users
+ * functionality. If you add the default-loading code here, existing users
  * upgrading from an old version will not have this method invoked, thus
  * effecting app behavior.
  *
