@@ -541,7 +541,7 @@ NS_INLINE void MPFreeHTMLRenderer(hoedown_renderer *htmlRenderer)
             markdown = [[self.dataSource rendererMarkdown:self] copy];
         });
 
-        // Parse in backgound
+        // Parse in background
         [self parseMarkdown:markdown];
         
         // Wait untils is renderer has finished loading OR until the maxDelay has passed
