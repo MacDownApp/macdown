@@ -172,7 +172,7 @@ NS_INLINE NSColor *MPGetInstallationIndicatorColor(BOOL installed)
 }
 
 /**
- * Highlights all occurences of "macdown" in the info-text
+ * Highlights all occurrences of "macdown" in the info-text
  */
 - (void)highlightMacDownInInfo
 {
@@ -197,7 +197,7 @@ NS_INLINE NSColor *MPGetInstallationIndicatorColor(BOOL installed)
             
             searchRange.location = foundRange.location + foundRange.length;
         }
-        else // Found all occurences
+        else // Found all occurrences
         {
             break;
         }
