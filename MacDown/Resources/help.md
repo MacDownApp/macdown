@@ -78,8 +78,8 @@ Just put angle brackets around an email and it becomes clickable: <uranusjr@gmai
 Same thing with urls: <https://macdown.uranusjr.com>  
 ` <https://macdown.uranusjr.com>`  
 
-Perhaps you want to link some text like this: [Macdown Website](https://macdown.uranusjr.com "Title")  
-`[Macdown Website](https://macdown.uranusjr.com "Title")` (The title is optional)  
+Perhaps you want to link some text like this: [MacDown Website](https://macdown.uranusjr.com "Title")  
+`[MacDown Website](https://macdown.uranusjr.com "Title")` (The title is optional)  
 
 
 #### Reference style
@@ -297,7 +297,7 @@ If you like, I can display Jekyll front-matter in a nice table. Just make sure y
 
 ```
 ---
-title: "Macdown is my friend"
+title: "MacDown is my friend"
 date: 2014-06-06 20:00:00
 ---
 ```

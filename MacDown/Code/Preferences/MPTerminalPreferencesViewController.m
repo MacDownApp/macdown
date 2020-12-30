@@ -90,7 +90,7 @@ NS_INLINE NSColor *MPGetInstallationIndicatorColor(BOOL installed)
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self highlightMacdownInInfo];
+    [self highlightMacDownInInfo];
     
     self.installUninstallButton.target = self;
     self.shellUtilityURL = nil;
@@ -174,7 +174,7 @@ NS_INLINE NSColor *MPGetInstallationIndicatorColor(BOOL installed)
 /**
  * Highlights all occurences of "macdown" in the info-text
  */
-- (void)highlightMacdownInInfo
+- (void)highlightMacDownInInfo
 {
     NSString *infoString = self.infoTextField.stringValue;
     NSMutableAttributedString *attributedInfoString =
