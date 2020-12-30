@@ -157,7 +157,7 @@ static NSString * const kMPBlockquoteLinePattern = @"^((?:\\> ?)+).*$";
         {
             NSRange range = NSMakeRange(location, 0);
             NSString *completion = [NSString stringWithCharacters:cs length:2];
-            // Mimic OS X's quote substitution if it's on.
+            // Mimic macOS's quote substitution if it's on.
             if (self.isAutomaticQuoteSubstitutionEnabled)
             {
                 unichar c = L'\0';
