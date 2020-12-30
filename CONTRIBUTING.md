@@ -29,7 +29,7 @@ Exception: If a URL in a comment is too long, it can go over the limit. This hap
 * If only one statement is contained inside the block, omit braces unless...
     * This is part of an if-(else if-)else structure. All brace styles in the same structure should match (i.e. either non or all of them omit braces).
 
-#### Stetements Inside `if`, `while`, etc.
+#### Statements Inside `if`, `while`, etc.
 
 * Prefer implicit boolean conversion when it makes sense.
     * `if (str.length)` is better than `if (str.length != 0)` if you want to know whether a string is empty. 
