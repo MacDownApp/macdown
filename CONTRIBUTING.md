@@ -12,7 +12,7 @@ All code should obey the 80-column rule.
 
 Exception: If a URL in a comment is too long, it can go over the limit. This happens a lot for Apple’s official documentation. Remember, however, that many websites offer alternative, shorter URL forms that are permanent. For example:
 
-* The title slug in StackOverflow (and other StackExchange sites) URLs can be ommitted. The following two are equivalent:
+* The title slug in StackOverflow (and other StackExchange sites) URLs can be omitted. The following two are equivalent:
 
     `http://stackoverflow.com/questions/13155612/how-does-one-eliminate-objective-c-try-catch-blocks-like-this`
     `http://stackoverflow.com/questions/13155612`
