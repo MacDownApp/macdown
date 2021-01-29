@@ -117,8 +117,8 @@ static CGFloat itemWidth = 37;
     // Must convert to IMP to let the compiler know about the method definition
     MPDocument *document = self.document;
     IMP imp = [document methodForSelector:selectedItem.action];
-    void (*impFunc)(id) = (void *)imp;
-    impFunc(document);
+    void (*impFunc)(id, SEL, id) = (void *)imp;
+    impFunc(document, NSSelectorFromString(sender.identifier), document);
 }
 
 
