@@ -135,7 +135,7 @@ NSURL *MPHighlightingThemeURLForName(NSString *name)
     NSURL *url = [bundle URLForResource:name withExtension:@"css"
                            subdirectory:@"Prism/themes"];
 
-    // Safty net: file not found, use default.
+    // Safety net: file not found, use default.
     if (!url)
     {
         url = [bundle URLForResource:@"prism" withExtension:@"css"

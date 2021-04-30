@@ -17,7 +17,7 @@ extern NSString * const MPDidDetectFreshInstallationNotification;
 @property (assign) NSString *firstVersionInstalled;
 @property (assign) NSString *latestVersionInstalled;
 @property (assign) BOOL updateIncludesPreReleases;
-@property (assign) BOOL supressesUntitledDocumentOnLaunch;
+@property (assign) BOOL suppressesUntitledDocumentOnLaunch;
 @property (assign) BOOL createFileForLinkTarget;
 
 // Extension flags.
@@ -25,7 +25,7 @@ extern NSString * const MPDidDetectFreshInstallationNotification;
 @property (assign) BOOL extensionTables;
 @property (assign) BOOL extensionFencedCode;
 @property (assign) BOOL extensionAutolink;
-@property (assign) BOOL extensionStrikethough;
+@property (assign) BOOL extensionStrikethrough;
 @property (assign) BOOL extensionUnderline;
 @property (assign) BOOL extensionSuperscript;
 @property (assign) BOOL extensionHighlight;
@@ -81,7 +81,7 @@ extern NSString * const MPDidDetectFreshInstallationNotification;
 
 - (instancetype)init;
 
-// Convinience methods.
+// Convenience methods.
 @property (nonatomic, assign) NSArray *filesToOpen;
 @property (nonatomic, assign) NSString *pipedContentFileToOpen;
 

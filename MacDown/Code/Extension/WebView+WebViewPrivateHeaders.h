@@ -19,7 +19,7 @@
 
 /*!
  @method pageSizeMultiplier
- @result The page size multipler.
+ @result The page size multiplier.
  */
 - (float)pageSizeMultiplier;
 

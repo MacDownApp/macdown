@@ -147,7 +147,7 @@ static NSString * const kMPBlockquoteLinePattern = @"^((?:\\> ?)+).*$";
 
     for (const unichar *cs = kMPMatchingCharactersMap[0]; *cs != 0; cs += 2)
     {
-        // Ignore IM input of ASCII charaters.
+        // Ignore IM input of ASCII characters.
         if (hasMarkedText && cs[0] < L'\u0100')
             continue;
 
@@ -157,7 +157,7 @@ static NSString * const kMPBlockquoteLinePattern = @"^((?:\\> ?)+).*$";
         {
             NSRange range = NSMakeRange(location, 0);
             NSString *completion = [NSString stringWithCharacters:cs length:2];
-            // Mimic OS X's quote substitution if it's on.
+            // Mimic macOS's quote substitution if it's on.
             if (self.isAutomaticQuoteSubstitutionEnabled)
             {
                 unichar c = L'\0';

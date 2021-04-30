@@ -139,7 +139,7 @@ NS_INLINE NSColor *MPGetWebViewBackgroundColor(WebView *webview)
         flags |= HOEDOWN_EXT_NO_INTRA_EMPHASIS;
     if (self.extensionQuote)
         flags |= HOEDOWN_EXT_QUOTE;
-    if (self.extensionStrikethough)
+    if (self.extensionStrikethrough)
         flags |= HOEDOWN_EXT_STRIKETHROUGH;
     if (self.extensionSuperscript)
         flags |= HOEDOWN_EXT_SUPERSCRIPT;
@@ -450,7 +450,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     wordCountWidget.enabled = NO;
 
     // These needs to be queued until after the window is shown, so that editor
-    // can have the correct dimention for size-limiting and stuff. See
+    // can have the correct dimension for size-limiting and stuff. See
     // https://github.com/uranusjr/macdown/issues/236
     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
         [self setupEditor:nil];
@@ -723,7 +723,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 
     if (self.preferences.editorCompleteMatchingCharacters)
     {
-        BOOL strikethrough = self.preferences.extensionStrikethough;
+        BOOL strikethrough = self.preferences.extensionStrikethrough;
         if ([textView completeMatchingCharactersForTextInRange:range
                                                     withString:str
                                           strikethroughEnabled:strikethrough])
@@ -1026,7 +1026,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     return self.preferences.htmlGraphviz;
 }
 
-- (MPCodeBlockAccessoryType)rendererCodeBlockAccesory:(MPRenderer *)renderer
+- (MPCodeBlockAccessoryType)rendererCodeBlockAccessory:(MPRenderer *)renderer
 {
     return self.preferences.htmlCodeBlockAccessory;
 }
@@ -1064,7 +1064,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     }
 
     NSURL *baseUrl = self.fileURL;
-    if (!baseUrl)   // Unsaved doument; just use the default URL.
+    if (!baseUrl)   // Unsaved document; just use the default URL.
         baseUrl = self.preferences.htmlDefaultDirectoryUrl;
 
     self.manualRender = self.preferences.markdownManualRender;
@@ -1082,7 +1082,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     if (self.isPreviewReady && [self.currentBaseUrl isEqualTo:baseUrl])
     {
         // HACK: Ideally we should only inject the parts that changed, and only
-        // get the parts we need. For now we only get a complete HTML codument,
+        // get the parts we need. For now we only get a complete HTML document,
         // and rely on regex to get the parts we want in the DOM.
 
         // Use the existing tree if available, and replace the content.
@@ -1657,7 +1657,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
         if (editorWidth > 2 * x + maxWidth)
             x = (editorWidth - maxWidth) * 0.45;
         // We tend to expect things in an editor to shift to left a bit.
-        // Hence the 0.45 instead of 0.5 (which whould feel a bit too much).
+        // Hence the 0.45 instead of 0.5 (which would feel a bit too much).
     }
     self.editor.textContainerInset = NSMakeSize(x, y);
 }
@@ -1682,7 +1682,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     else
     {
         // If both sides are visible, draw a default "transparent" divider.
-        // This works around the possibile problem of divider's color being too
+        // This works around the possible problem of divider's color being too
         // similar to both the editor and preview and being obscured.
         self.splitView.dividerColor = nil;
     }

@@ -46,7 +46,7 @@
                  @"Init and NULL rendering");
 }
 
-- (void)testAssetConvinienceAndEmbedded
+- (void)testAssetConvenienceAndEmbedded
 {
     NSURL *url = [self.bundle URLForResource:@"test" withExtension:@"txt"];
     MPScript *script = [MPScript assetWithURL:url andType:@"text/plain"];
@@ -54,7 +54,7 @@
     NSString *expected =
         @"<script type=\"text/plain\">\nFoobar\n</script>";
     XCTAssertEqualObjects([script htmlForOption:MPAssetEmbedded], expected,
-                          @"Convinience and embedded");
+                          @"Convenience and embedded");
 }
 
 - (void)testAssetInitAndFullLink
@@ -65,7 +65,7 @@
     NSString *expected = @"<script type=\"text/plain\" src=\"%@\"></script>";
     expected = [NSString stringWithFormat:expected, url.absoluteString];
     XCTAssertEqualObjects([script htmlForOption:MPAssetFullLink], expected,
-                          @"Convinience and full link");
+                          @"Convenience and full link");
 
 }
 

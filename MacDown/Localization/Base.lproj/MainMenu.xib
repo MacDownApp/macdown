@@ -450,7 +450,7 @@
                             <menuItem title="Strikethrough" keyEquivalent="-" id="9CN-Qi-Fln">
                                 <connections>
                                     <action selector="toggleStrikethrough:" target="-1" id="rUc-gb-x5q"/>
-                                    <binding destination="eq0-c4-vgQ" name="hidden" keyPath="self.preferences.extensionStrikethough" id="kQ0-Wi-BPs">
+                                    <binding destination="eq0-c4-vgQ" name="hidden" keyPath="self.preferences.extensionStrikethrough" id="kQ0-Wi-BPs">
                                         <dictionary key="options">
                                             <string key="NSValueTransformerName">NSNegateBoolean</string>
                                         </dictionary>

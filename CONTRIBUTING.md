@@ -12,7 +12,7 @@ All code should obey the 80-column rule.
 
 Exception: If a URL in a comment is too long, it can go over the limit. This happens a lot for Apple’s official documentation. Remember, however, that many websites offer alternative, shorter URL forms that are permanent. For example:
 
-* The title slug in StackOverflow (and other StackExchange sites) URLs can be ommitted. The following two are equivalent:
+* The title slug in StackOverflow (and other StackExchange sites) URLs can be omitted. The following two are equivalent:
 
     `http://stackoverflow.com/questions/13155612/how-does-one-eliminate-objective-c-try-catch-blocks-like-this`
     `http://stackoverflow.com/questions/13155612`
@@ -29,7 +29,7 @@ Exception: If a URL in a comment is too long, it can go over the limit. This hap
 * If only one statement is contained inside the block, omit braces unless...
     * This is part of an if-(else if-)else structure. All brace styles in the same structure should match (i.e. either non or all of them omit braces).
 
-#### Stetements Inside `if`, `while`, etc.
+#### Statements Inside `if`, `while`, etc.
 
 * Prefer implicit boolean conversion when it makes sense.
     * `if (str.length)` is better than `if (str.length != 0)` if you want to know whether a string is empty. 
@@ -56,7 +56,7 @@ Exception: If a URL in a comment is too long, it can go over the limit. This hap
     }
     ```
 
-* If code alignment is ambiguious, add extra indentation.
+* If code alignment is ambiguous, add extra indentation.
 
     Yes:
     ```c
@@ -88,7 +88,7 @@ Exception: If a URL in a comment is too long, it can go over the limit. This hap
 
 Always use *four spaces* instead of tabs for indentation. Trailing whitespaces should be removed. You can turn on the **Automatically trim trailing whitespace** option in Xcode to let it do the job for you.
 
-Try to ensure that there’s a trailing newline in the end of a file. This is not strictly enforced since there are no easy ways to do that (except checking manually), but I’d appriciate the effort.
+Try to ensure that there’s a trailing newline in the end of a file. This is not strictly enforced since there are no easy ways to do that (except checking manually), but I’d appreciate the effort.
 
 ## Version Control
 

@@ -141,7 +141,7 @@ NS_INLINE BOOL MPAreRectsEqual(NSRect r1, NSRect r2)
     [super setFrameSize:newSize];
 }
 
-/** Overriden to perform extra operation on initial text setup.
+/** Overridden to perform extra operation on initial text setup.
  *
  * When we first launch the editor, -didChangeText will *not* be called, so we
  * override this to perform required resizing. The -updateContentRect is wrapped
@@ -165,7 +165,7 @@ NS_INLINE BOOL MPAreRectsEqual(NSRect r1, NSRect r2)
 
 #pragma mark - Overrides
 
-/** Overriden to perform extra operation on text change.
+/** Overridden to perform extra operation on text change.
  *
  * Updates content height, and invoke the resizing method to apply it.
  *

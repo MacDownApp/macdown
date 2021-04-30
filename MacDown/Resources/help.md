@@ -2,7 +2,7 @@
 
 ![MacDown logo](https://macdown.uranusjr.com/static/images/logo-160.png)
 
-Hello there! I’m **MacDown**, the open source Markdown editor for OS X.
+Hello there! I’m **MacDown**, the open source Markdown editor for macOS.
 
 Let me introduce myself.
 
@@ -78,8 +78,8 @@ Just put angle brackets around an email and it becomes clickable: <uranusjr@gmai
 Same thing with urls: <https://macdown.uranusjr.com>  
 ` <https://macdown.uranusjr.com>`  
 
-Perhaps you want to link some text like this: [Macdown Website](https://macdown.uranusjr.com "Title")  
-`[Macdown Website](https://macdown.uranusjr.com "Title")` (The title is optional)  
+Perhaps you want to link some text like this: [MacDown Website](https://macdown.uranusjr.com "Title")  
+`[MacDown Website](https://macdown.uranusjr.com "Title")` (The title is optional)  
 
 
 #### Reference style
@@ -297,7 +297,7 @@ If you like, I can display Jekyll front-matter in a nice table. Just make sure y
 
 ```
 ---
-title: "Macdown is my friend"
+title: "MacDown is my friend"
 date: 2014-06-06 20:00:00
 ---
 ```
@@ -329,7 +329,7 @@ I offer auto-completion and other functions to ease your editing experience. If 
 
 ## Hidden preference
 
-You can see the HTML behind a preview by enabling the OS X built-in WebKit developer tools for MacDown in a terminal window:
+You can see the HTML behind a preview by enabling the macOS built-in WebKit developer tools for MacDown in a terminal window:
 
 ```
 defaults write com.uranusjr.macdown WebKitDeveloperExtras -bool true
