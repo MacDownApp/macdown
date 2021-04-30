@@ -173,7 +173,7 @@ NS_INLINE NSColor *MPGetWebViewBackgroundColor(WebView *webview)
 @interface MPDocument ()
     <NSSplitViewDelegate, NSTextViewDelegate,
 #if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101100
-     WebEditingDelegate, WebFrameLoadDelegate, WebPolicyDelegate, WebResourceLoadDelegate,
+     WebEditingDelegate, WebFrameLoadDelegate, WebPolicyDelegate, WebResourceLoadDelegate, WebUIDelegate,
 #endif
      MPAutosaving, MPRendererDataSource, MPRendererDelegate>
 
@@ -189,6 +189,7 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
 @property (unsafe_unretained) IBOutlet MPEditorView *editor;
 @property (weak) IBOutlet NSLayoutConstraint *editorPaddingBottom;
 @property (weak) IBOutlet WebView *preview;
+@property (weak) IBOutlet WebView *oldPreview;
 @property (weak) IBOutlet NSPopUpButton *wordCountWidget;
 @property (strong) IBOutlet MPToolbarController *toolbarController;
 @property (copy, nonatomic) NSString *autosaveName;
@@ -225,7 +226,7 @@ typedef NS_ENUM(NSUInteger, MPWordCountType) {
 
 @end
 
-static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
+static void (^MPGetPreviewLoadingCompletionHandler(WebView *webview, MPDocument *doc))()
 {
     __weak MPDocument *weakObj = doc;
     return ^{
@@ -247,6 +248,15 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
             NSRect bounds = contentView.bounds;
             bounds.origin.y = weakObj.lastPreviewScrollTop;
             contentView.bounds = bounds;
+        }
+
+        if (doc.oldPreview && webView == doc.preview) {
+            WebView *viewToRemove = doc.oldPreview;
+            doc.oldPreview = nil;
+
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [viewToRemove removeFromSuperview];
+            });
         }
     };
 }
@@ -862,7 +872,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     if (self.preferences.htmlMathJax)
     {
         MPMathJaxListener *listener = [[MPMathJaxListener alloc] init];
-        [listener addCallback:MPGetPreviewLoadingCompletionHandler(self)
+        [listener addCallback:MPGetPreviewLoadingCompletionHandler(sender, self)
                        forKey:@"End"];
         [sender.windowScriptObject setValue:listener forKey:@"MathJaxListener"];
     }
@@ -874,7 +884,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     // JavaScript handler injected in -webView:didCommitLoadForFrame:.
     if (!self.preferences.htmlMathJax)
     {
-        id callback = MPGetPreviewLoadingCompletionHandler(self);
+        id callback = MPGetPreviewLoadingCompletionHandler(sender, self);
         NSOperationQueue *queue = [NSOperationQueue mainQueue];
         [queue addOperationWithBlock:callback];
     }
@@ -884,7 +894,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     // Update word count
     if (self.preferences.editorShowWordCount)
         [self updateWordCount];
-    
+
     self.alreadyRenderingInWeb = NO;
 
     if (self.renderToWebPending)
@@ -1110,6 +1120,40 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
         }
     }
 #endif
+
+    if (!self.oldPreview) {
+        NSView *superView = self.preview.superview;
+        WebView *previousPreview = self.preview;
+        previousPreview = self.preview;
+        previousPreview.UIDelegate = nil;
+        previousPreview.frameLoadDelegate = nil;
+        previousPreview.policyDelegate = nil;
+        previousPreview.editingDelegate = nil;
+        previousPreview.resourceLoadDelegate = nil;
+
+        WebView *loadingView = [[WebView alloc] initWithFrame:self.oldPreview.frame];
+        loadingView.UIDelegate = self;
+        loadingView.frameLoadDelegate = self;
+        loadingView.policyDelegate = self;
+        loadingView.editingDelegate = self;
+        loadingView.resourceLoadDelegate = self;
+        loadingView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+        [superView addSubview:loadingView positioned:NSWindowBelow relativeTo:self.oldPreview];
+        [loadingView setFrame:[superView bounds]];
+
+        self.preview = loadingView;
+        [self.oldPreview removeFromSuperview];
+        self.oldPreview = previousPreview;
+
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            if ([previousPreview superview]) {
+                [previousPreview removeFromSuperview];
+                if (self.oldPreview == previousPreview) {
+                    self.oldPreview = nil;
+                }
+            }
+        });
+    }
 
     // Reload the page if there's not valid tree to work with.
     [self.preview.mainFrame loadHTMLString:html baseURL:baseUrl];
@@ -1776,10 +1820,18 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 
 - (void)syncScrollers
 {
+    [self syncScrollersFor:self.preview];
+    if (self.oldPreview) {
+        [self syncScrollersFor:self.oldPreview];
+    }
+}
+
+- (void)syncScrollersFor:(WebView*)webView
+{
     CGFloat editorContentHeight = ceilf(NSHeight(self.editor.enclosingScrollView.documentView.bounds));
     CGFloat editorVisibleHeight = ceilf(NSHeight(self.editor.enclosingScrollView.contentView.bounds));
-    CGFloat previewContentHeight = ceilf(NSHeight(self.preview.enclosingScrollView.documentView.bounds));
-    CGFloat previewVisibleHeight = ceilf(NSHeight(self.preview.enclosingScrollView.contentView.bounds));
+    CGFloat previewContentHeight = ceilf(NSHeight(webView.enclosingScrollView.documentView.bounds));
+    CGFloat previewVisibleHeight = ceilf(NSHeight(webView.enclosingScrollView.contentView.bounds));
     NSInteger relativeHeaderIndex = -1; // -1 is start of document, before any other header
     CGFloat currY = NSMinY(self.editor.enclosingScrollView.contentView.bounds);
     CGFloat minY = 0;
@@ -1847,9 +1899,9 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     
     // Now we scroll percentScrolledBetweenHeaders percent between those two positions in the webview
     CGFloat previewY = topHeaderY + (bottomHeaderY - topHeaderY) * percentScrolledBetweenHeaders;
-    NSRect contentBounds = self.preview.enclosingScrollView.contentView.bounds;
+    NSRect contentBounds = webView.enclosingScrollView.contentView.bounds;
     contentBounds.origin.y = previewY;
-    self.preview.enclosingScrollView.contentView.bounds = contentBounds;
+    webView.enclosingScrollView.contentView.bounds = contentBounds;
 }
 
 - (void)setSplitViewDividerLocation:(CGFloat)ratio
