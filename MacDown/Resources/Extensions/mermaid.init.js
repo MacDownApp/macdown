@@ -3,6 +3,7 @@
 (function () {
 
   mermaid.initialize({
+    theme: 'forest',
     startOnLoad:false,
     flowchart:{
       htmlLabels: false,

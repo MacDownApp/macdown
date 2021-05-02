@@ -207,7 +207,6 @@ NS_INLINE BOOL MPAreNilableStringsEqual(NSString *s1, NSString *s2)
 @property (readonly) NSArray *prismStylesheets;
 @property (readonly) NSArray *prismScripts;
 @property (readonly) NSArray *mathjaxScripts;
-@property (readonly) NSArray *mermaidStylesheets;
 @property (readonly) NSArray *mermaidScripts;
 @property (readonly) NSArray *graphvizScripts;
 @property (readonly) NSArray *stylesheets;
@@ -434,16 +433,6 @@ NS_INLINE void MPFreeHTMLRenderer(hoedown_renderer *htmlRenderer)
     return scripts;
 }
 
-- (NSArray *)mermaidStylesheets
-{
-    NSMutableArray *stylesheets = [NSMutableArray array];
-    
-    NSURL *url = MPExtensionURL(@"mermaid.forest", @"css");
-    [stylesheets addObject:[MPStyleSheet CSSWithURL:url]];
-    
-    return stylesheets;
-}
-
 - (NSArray *)mermaidScripts
 {
     // TODO
@@ -486,12 +475,6 @@ NS_INLINE void MPFreeHTMLRenderer(hoedown_renderer *htmlRenderer)
     if ([delegate rendererHasSyntaxHighlighting:self])
     {
         [stylesheets addObjectsFromArray:self.prismStylesheets];
-        // mermaid
-        if ([delegate rendererHasMermaid:self])
-        {
-            [stylesheets addObjectsFromArray:self.mermaidStylesheets];
-        }
-        
     }
 
     if ([delegate rendererCodeBlockAccesory:self] == MPCodeBlockAccessoryCustom)
@@ -678,7 +661,6 @@ NS_INLINE void MPFreeHTMLRenderer(hoedown_renderer *htmlRenderer)
         [scripts addObjectsFromArray:self.prismScripts];
         if ([self.delegate rendererHasMermaid:self])
         {
-            [styles addObjectsFromArray:self.mermaidStylesheets];
             [scripts addObjectsFromArray:self.mermaidScripts];
         }
         if ([self.delegate rendererHasGraphviz:self])
