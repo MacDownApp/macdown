@@ -1026,6 +1026,11 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     return self.preferences.htmlGraphviz;
 }
 
+- (BOOL)rendererHasWavedrom:(MPRenderer *)renderer
+{
+    return self.preferences.htmlWavedrom;
+}
+
 - (MPCodeBlockAccessoryType)rendererCodeBlockAccesory:(MPRenderer *)renderer
 {
     return self.preferences.htmlCodeBlockAccessory;
