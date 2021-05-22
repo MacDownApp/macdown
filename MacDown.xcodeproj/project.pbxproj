@@ -83,6 +83,8 @@
 		1FFEB3271972DAB400B2254F /* MPHTMLTabularizeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEB3261972DAB400B2254F /* MPHTMLTabularizeTests.m */; };
 		1FFEB32B19737D6E00B2254F /* YAMLSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEB32A19737D6E00B2254F /* YAMLSerialization.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc -Wno-unused-variable"; }; };
 		1FFF301D1948A5320009AF24 /* MPStringLookupTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FFF301C1948A5320009AF24 /* MPStringLookupTests.m */; };
+		28B987B620C3CF6F00121D5A /* NSString+LineOffsets.m in Sources */ = {isa = PBXBuildFile; fileRef = 28B987B520C3CF6F00121D5A /* NSString+LineOffsets.m */; };
+		28B987BA20C494A900121D5A /* MPEditorView+LineHightlight.m in Sources */ = {isa = PBXBuildFile; fileRef = 28B987B720C44D6500121D5A /* MPEditorView+LineHightlight.m */; };
 		3028039E1FD84EAC0055B0DA /* contribute.md in Resources */ = {isa = PBXBuildFile; fileRef = 3028039D1FD84EAB0055B0DA /* contribute.md */; };
 		770BB49E962A302D0715A6A5 /* libPods-MacDown.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 42F926DD38559C7CEDB6E42F /* libPods-MacDown.a */; };
 		852D523C1E260A6400BA7162 /* MPTerminalPreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 852D523A1E260A6400BA7162 /* MPTerminalPreferencesViewController.m */; };
@@ -486,6 +488,10 @@
 		1FFEB32A19737D6E00B2254F /* YAMLSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YAMLSerialization.m; sourceTree = "<group>"; };
 		1FFF301C1948A5320009AF24 /* MPStringLookupTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPStringLookupTests.m; sourceTree = "<group>"; };
 		263367245B2D78A42C2F19D7 /* libPods-macdown-cmd.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-macdown-cmd.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		28A0D79E20C71A31000C6617 /* MPEditorView+LineHightlight.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MPEditorView+LineHightlight.h"; sourceTree = "<group>"; };
+		28B987B420C3CF4500121D5A /* NSString+LineOffsets.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+LineOffsets.h"; sourceTree = "<group>"; };
+		28B987B520C3CF6F00121D5A /* NSString+LineOffsets.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+LineOffsets.m"; sourceTree = "<group>"; };
+		28B987B720C44D6500121D5A /* MPEditorView+LineHightlight.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "MPEditorView+LineHightlight.m"; sourceTree = "<group>"; };
 		3028039D1FD84EAB0055B0DA /* contribute.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = contribute.md; path = Resources/contribute.md; sourceTree = "<group>"; };
 		39EFCAE04F60154F0C8C5469 /* Pods-MacDown.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacDown.release.xcconfig"; path = "Pods/Target Support Files/Pods-MacDown/Pods-MacDown.release.xcconfig"; sourceTree = "<group>"; };
 		3C949FDE45493AE77DAD9BF4 /* libPods-MacDownTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MacDownTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -570,6 +576,8 @@
 				1F33F2A31A3B56D20001C849 /* NSColor+HTML.m */,
 				1F2649AE1A7406DB00EF6AF3 /* NSDocumentController+Document.h */,
 				1F2649AF1A7406DB00EF6AF3 /* NSDocumentController+Document.m */,
+				28A0D79E20C71A31000C6617 /* MPEditorView+LineHightlight.h */,
+				28B987B720C44D6500121D5A /* MPEditorView+LineHightlight.m */,
 				1F59491C1AB57D87007394CB /* NSJSONSerialization+File.h */,
 				1F59491D1AB57D87007394CB /* NSJSONSerialization+File.m */,
 				1FFEB3231972D88900B2254F /* NSObject+HTMLTabularize.h */,
@@ -578,6 +586,8 @@
 				1F3FC87B1C854E1C000965E1 /* NSPasteboard+Types.m */,
 				1F0D9D5E194AC7CF008E1856 /* NSString+Lookup.h */,
 				1F0D9D5F194AC7CF008E1856 /* NSString+Lookup.m */,
+				28B987B420C3CF4500121D5A /* NSString+LineOffsets.h */,
+				28B987B520C3CF6F00121D5A /* NSString+LineOffsets.m */,
 				1F0D9D60194AC7CF008E1856 /* NSTextView+Autocomplete.h */,
 				1F0D9D61194AC7CF008E1856 /* NSTextView+Autocomplete.m */,
 				1F847BC41DCC9DB600A47385 /* NSUserDefaults+Suite.h */,
@@ -1229,6 +1239,7 @@
 				1F0D9D7A194AC7F7008E1856 /* MPMarkdownPreferencesViewController.m in Sources */,
 				1F0D9D7D194AC7F7008E1856 /* MPPreferencesViewController.m in Sources */,
 				1F33F2A41A3B56D20001C849 /* NSColor+HTML.m in Sources */,
+				28B987BA20C494A900121D5A /* MPEditorView+LineHightlight.m in Sources */,
 				1F5A37141C869C81006E63E7 /* MPPlugInController.m in Sources */,
 				1F0D9D65194AC7CF008E1856 /* NSString+Lookup.m in Sources */,
 				1F3FC87C1C854E1C000965E1 /* NSPasteboard+Types.m in Sources */,
@@ -1242,6 +1253,7 @@
 				1F0D9D7C194AC7F7008E1856 /* MPPreferences.m in Sources */,
 				1F0D9DAF194AC905008E1856 /* main.m in Sources */,
 				1F0D9D66194AC7CF008E1856 /* NSTextView+Autocomplete.m in Sources */,
+				28B987B620C3CF6F00121D5A /* NSString+LineOffsets.m in Sources */,
 				1F59491E1AB57D87007394CB /* NSJSONSerialization+File.m in Sources */,
 				1FFEB32B19737D6E00B2254F /* YAMLSerialization.m in Sources */,
 				1F64CCC9195F5AB900CE619A /* MPAsset.m in Sources */,

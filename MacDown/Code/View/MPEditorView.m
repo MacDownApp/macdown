@@ -7,6 +7,7 @@
 //
 
 #import "MPEditorView.h"
+#import "NSString+LineOffsets.h"
 
 
 NS_INLINE BOOL MPAreRectsEqual(NSRect r1, NSRect r2)
@@ -42,12 +43,12 @@ NS_INLINE BOOL MPAreRectsEqual(NSRect r1, NSRect r2)
 - (void)awakeFromNib {
     [self registerForDraggedTypes:[NSArray arrayWithObjects: NSDragPboard, nil]];
     [super awakeFromNib];
+    self.delegate = self;
 }
 
 - (NSDragOperation)draggingEntered:(id <NSDraggingInfo>)sender {
     NSPasteboard *pboard;
     NSDragOperation sourceDragMask;
-    
     sourceDragMask = [sender draggingSourceOperationMask];
     pboard = [sender draggingPasteboard];
     
@@ -148,8 +149,13 @@ NS_INLINE BOOL MPAreRectsEqual(NSRect r1, NSRect r2)
  * inside an NSOperation to be invoked later since the layout manager will not
  * be invoked when the text is first set.
  *
+ * If insertionPointLineNumber and insertionPointColumnNumber are set,
+ * we place the insertion point to this location.
+ *
  * @see didChangeText
  * @see updateContentRect
+ * @see insertionPointLine
+ * @see insertionPointColumn
  */
 - (void)setString:(NSString *)string
 {
@@ -160,8 +166,33 @@ NS_INLINE BOOL MPAreRectsEqual(NSRect r1, NSRect r2)
             [self updateContentGeometry];
         }];
     }
+    [self placeInsertionPointAtLine:self.insertionPointLine
+                               column:self.insertionPointColumn];
 }
 
+// MARK - Utilities
+
+/**
+ * Places the insertion point at given line and column.
+ */
+- (void)placeInsertionPointAtLine:(NSNumber *)lineNumber
+                           column:(NSNumber *)columnNumber {
+    NSUInteger line = 1;
+    NSUInteger column = 1;
+    if (lineNumber != nil) {
+        line = [lineNumber unsignedIntegerValue];
+    }
+    if (columnNumber != nil) {
+        column = [columnNumber unsignedIntegerValue];
+    }
+    NSUInteger lineOffset = [[self string] getOffsetOfLineAtLineNumber:line];
+    NSUInteger columnOffset = column - 1;
+    NSUInteger offset = lineOffset + columnOffset;
+    NSRange range = NSMakeRange(offset, 0);
+    [self scrollRangeToVisible: range];
+    [self setSelectedRange: range];
+    [self setNeedsDisplay:YES];
+}
 
 #pragma mark - Overrides
 
@@ -178,6 +209,15 @@ NS_INLINE BOOL MPAreRectsEqual(NSRect r1, NSRect r2)
         [self updateContentGeometry];
 }
 
+- (void)textViewDidChangeSelection:(NSNotification *)notification {
+    [self setNeedsDisplay:YES];
+}
+
+- (void)mouseDown:(NSEvent *)event {
+    [self setNeedsDisplay:YES]; // Has to come before super's mouseDown.
+
+    [super mouseDown:event];
+}
 
 #pragma mark - Private
 
