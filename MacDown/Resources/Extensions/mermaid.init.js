@@ -2,7 +2,7 @@
 
 (function () {
 
-  mermaid.initialize({
+  mermaid.mermaidAPI.initialize({
     startOnLoad:false,
     flowchart:{
       htmlLabels: false,
@@ -24,7 +24,7 @@
     var insertSvg = function(svgCode, bindFunctions){
       this.innerHTML = svgCode;
     };
-    var graph = mermaid.render('graphDiv' + i, graphSource, insertSvg.bind(dom))
+    var graph = mermaid.mermaidAPI.render('graphDiv' + i, graphSource, insertSvg.bind(dom))
     }
   };
  
