@@ -8,7 +8,7 @@ If you are reading this, then you are probably curious or want to contribute in 
 
 MacDown is hosted on GitHub:
 
-https://github.com/MacDownApp/macdown
+<https://github.com/MacDownApp/macdown>
 
 Here you can get the source code, read through the issues and start contributing.
 
@@ -22,7 +22,7 @@ If you want to help translate, then you can look at our project page on [Transif
 
 If you are new the project, then a good place to start is Gitter:
 
-https://gitter.im/MacDownApp/macdown
+<https://gitter.im/MacDownApp/macdown>
 
 Join the room, introduce yourself and find out how you can help out.
 
