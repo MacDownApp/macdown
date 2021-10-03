@@ -10,17 +10,17 @@ MacDown is hosted on GitHub:
 
 https://github.com/MacDownApp/macdown
 
-Here you can get the source code, read through the issues and start contributing.
+Here you can get the source code, read through the issues, and start contributing.
 
 ## But, I am not a Coder
 
-Contribution is not limited to software developers, since there are other ways you can help. For example, contributing towards documentation, translation and support. Join the room on Gitter to see how you can help (see below).
+Contribution is not limited to software developers, since there are other ways you can help. For example, contributing towards documentation, translation, and support. Join the room on Gitter to see how you can help (see below).
 
 If you want to help translate, then you can look at our project page on [Transifex](https://www.transifex.com/macdown/macdown/) and see whether to add a new languages or complete the work of an existing language.
 
 ## Joining the Conversation
 
-If you are new the project, then a good place to start is Gitter:
+If you are new to the project, then a good place to start is Gitter:
 
 https://gitter.im/MacDownApp/macdown
 
@@ -29,4 +29,3 @@ Join the room, introduce yourself and find out how you can help out.
 ## License
 
 MacDown is released under the terms of MIT License. For more details take a look at the [README](https://github.com/MacDownApp/macdown/blob/master/README.md).
-
