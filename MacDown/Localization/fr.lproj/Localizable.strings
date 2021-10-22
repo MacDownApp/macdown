@@ -8,10 +8,10 @@
 "Blockquote" = "Bloc de citation";
 
 /* (No Comment) */
-"CHARACTERS_NO_SPACES_PLURAL_STRING" = "%@ charactère (sans espaces);%@ charactères (sans espaces)";
+"CHARACTERS_NO_SPACES_PLURAL_STRING" = "%@ caractère (sans espaces);%@ caractères (sans espaces)";
 
 /* (No Comment) */
-"CHARACTERS_PLURAL_STRING" = "%@ charactère;%@ charactères";
+"CHARACTERS_PLURAL_STRING" = "%@ caractère;%@ caractères";
 
 /* Comment toolbar button */
 "Comment" = "Commentaire";
