@@ -107,7 +107,7 @@ GEM
       pusher-client (~> 0.4)
     typhoeus (1.4.0)
       ethon (>= 0.9.0)
-    tzinfo (1.2.9)
+    tzinfo (1.2.10)
       thread_safe (~> 0.1)
     websocket (1.2.8)
     xcodeproj (1.19.0)
