@@ -1,0 +1,53 @@
+on: push
+
+jobs:
+  check:
+    # The latest virtual environment to have Xcode 11.
+    runs-on: macOS-11
+
+    env:
+      LOCALIZATION_OUT: Build/Localizations
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+
+      - name: Select Xcode 11.7
+        run: sudo xcode-select --switch /Applications/Xcode_11.7.app
+
+      - name: Set up Ruby and install Bundler dependencies using cache
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Set up Node for GitHub-style-generator and install npm dependencies using cache
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: Tools/GitHub-style-generator/.nvmrc
+          cache: npm
+          cache-dependency-path: Tools/GitHub-style-generator/package-lock.json
+
+      - name: Use cache for CocoaPods dependencies
+        uses: actions/cache@v3
+        with:
+          path: Pods
+          key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pods-
+
+      - name: Install CocoaPods dependencies
+        run: bundle exec pod install
+
+      - name: Build peg-markdown-highlight
+        run: make -C Dependency/peg-markdown-highlight
+
+          # TODO restore xcpretty
+      - name: Run tests
+        run: |
+          set -o pipefail
+          xcodebuild -workspace MacDown.xcworkspace -scheme MacDown test
+
+      - name: Export localizations
+        run: xcodebuild -exportLocalizations -localizationPath "$LOCALIZATION_OUT"
