@@ -125,4 +125,4 @@ DEPENDENCIES
   travis (~> 1.10)
 
 BUNDLED WITH
-   1.17.3
+   2.3.26
