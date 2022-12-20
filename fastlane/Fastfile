@@ -1,9 +1,26 @@
+require 'base64'
+
 lane :certificates do
+  setup_ci if is_ci
+
+  git_url = "git@github.com:lawrence-forooghian/macdown-match.git"
+  git_basic_authorization = nil
+
+  if is_ci
+    git_url = "https://github.com/lawrence-forooghian/macdown-match.git"
+    repository_access_token = ENV["MACDOWN_MATCH_REPOSITORY_ACCESS_TOKEN"]
+    git_basic_authorization = Base64.strict_encode64("lawrence-forooghian:#{repository_access_token}")
+  end
+
   match(app_identifier: "com.forooghian.macdown-debug", 
         type: "development", 
-        readonly: is_ci)
+        git_url: git_url,
+        git_basic_authorization: git_basic_authorization
+       )
 
   match(app_identifier: "com.forooghian.macdown",
         type: "developer_id",
-        readonly: is_ci)
+        git_url: git_url,
+        git_basic_authorization: git_basic_authorization
+       )
 end
