@@ -1,0 +1,9 @@
+lane :certificates do
+  match(app_identifier: "com.forooghian.macdown-debug", 
+        type: "development", 
+        readonly: is_ci)
+
+  match(app_identifier: "com.forooghian.macdown",
+        type: "developer_id",
+        readonly: is_ci)
+end
