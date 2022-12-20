@@ -71,6 +71,8 @@ After cloning the repository, run the following commands inside the repository r
     bundle install
     bundle exec pod install
     make -C Dependency/peg-markdown-highlight
+    cd Tools/GitHub-style-generator
+    npm install
 
 and open `MacDown.xcworkspace` in Xcode. The first command initialises the dependency submodule(s) used in MacDown; the second one installs dependencies managed by CocoaPods.
 
