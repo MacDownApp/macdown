@@ -24,3 +24,13 @@ lane :certificates do
         git_basic_authorization: git_basic_authorization
        )
 end
+
+lane :build_release do
+  build_mac_app(
+    scheme: "MacDown",
+    workspace: "MacDown.xcworkspace",
+    export_method: "developer-id",
+    export_team_id: "M57TZFTAQ6",
+    output_directory: "release",
+  )
+end
