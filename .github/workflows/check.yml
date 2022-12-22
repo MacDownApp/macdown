@@ -60,3 +60,21 @@ jobs:
 
       - name: Build a release
         run: bundle exec fastlane build_release
+
+      # The zipping done by the upload-artifact action isn’t sufficient – macOS
+      # refused to run the app bundle that I extracted from its zip. I think
+      # this is, possibly amongst other reasons, because it doesn’t preserve
+      # executable permissions. So I’ve instead copied the usage of the ditto
+      # command from
+      # https://developer.apple.com/documentation/security/notarizing_macos_software_before_distribution/customizing_the_notarization_workflow.
+      - name: Zip the app bundle
+        run: |
+          cd release
+          /usr/bin/ditto -c -k --keepParent MacDown.app MacDown.zip
+          rm -rf MacDown.app
+
+      - name: Save release artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: release
+          path: release
