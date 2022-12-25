@@ -1,0 +1,7 @@
+git_url("git@github.com:lawrence-forooghian/macdown-match.git")
+
+platform "macos"
+
+storage_mode("git")
+
+username("lawrence@forooghian.com")
