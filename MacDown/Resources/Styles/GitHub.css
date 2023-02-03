@@ -47,6 +47,7 @@ code {
 	color:#444;
 	padding:0 .2em;
 	border:1px solid #dedede;
+	word-break: break-word
 }
 img{border:0;max-width:100%;}
 abbr{border-bottom:none;}
@@ -54,14 +55,14 @@ a{color:#4183c4;text-decoration:none;}
 a:hover{text-decoration:underline;}
 a code,a:link code,a:visited code{color:#4183c4;}
 h2,h3{margin:1em 0;}
-h1,h2,h3,h4,h5,h6{border:0;}
+h1,h2,h3,h4,h5,h6{border:0; word-break: break-word}
 h1{font-size:170%;border-top:4px solid #aaa;padding-top:.5em;margin-top:1.5em;}
 h1:first-child{margin-top:0;padding-top:.25em;border-top:none;}
 h2{font-size:150%;margin-top:1.5em;border-top:4px solid #e0e0e0;padding-top:.5em;}
 h3{margin-top:1em;}
 hr{border:1px solid #ddd;}
-ul{margin:1em 0 1em 2em;}
-ol{margin:1em 0 1em 2em;}
+ul{margin:1em 0 1em 2em; word-break: break-word}
+ol{margin:1em 0 1em 2em; word-break: break-word}
 ul li,ol li{margin-top:.5em;margin-bottom:.5em;}
 ul ul,ul ol,ol ol,ol ul{margin-top:0;margin-bottom:0;}
 blockquote{margin:1em 0;border-left:5px solid #ddd;padding-left:.6em;color:#555;}
