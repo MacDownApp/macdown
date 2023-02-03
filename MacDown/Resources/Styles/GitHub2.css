@@ -32,7 +32,8 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: bold;
   -webkit-font-smoothing: antialiased;
   cursor: text;
-  position: relative; }
+  position: relative; 
+  word-break: break-word }
 
 h1:hover a.anchor, h2:hover a.anchor, h3:hover a.anchor, h4:hover a.anchor, h5:hover a.anchor, h6:hover a.anchor {
   background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA09pVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoMTMuMCAyMDEyMDMwNS5tLjQxNSAyMDEyLzAzLzA1OjIxOjAwOjAwKSAgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OUM2NjlDQjI4ODBGMTFFMTg1ODlEODNERDJBRjUwQTQiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OUM2NjlDQjM4ODBGMTFFMTg1ODlEODNERDJBRjUwQTQiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo5QzY2OUNCMDg4MEYxMUUxODU4OUQ4M0REMkFGNTBBNCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo5QzY2OUNCMTg4MEYxMUUxODU4OUQ4M0REMkFGNTBBNCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PsQhXeAAAABfSURBVHjaYvz//z8DJYCRUgMYQAbAMBQIAvEqkBQWXI6sHqwHiwG70TTBxGaiWwjCTGgOUgJiF1J8wMRAIUA34B4Q76HUBelAfJYSA0CuMIEaRP8wGIkGMA54bgQIMACAmkXJi0hKJQAAAABJRU5ErkJggg==) no-repeat 10px center;
@@ -58,25 +59,31 @@ h6 tt, h6 code {
 
 h1 {
   font-size: 28px;
-  color: black; }
+  color: black; 
+  word-break: break-word; }
 
 h2 {
   font-size: 24px;
   border-bottom: 1px solid #cccccc;
-  color: black; }
+  color: black; 
+  word-break: break-word; }
 
 h3 {
-  font-size: 18px; }
+  font-size: 18px; 
+  word-break: break-word; }
 
 h4 {
-  font-size: 16px; }
+  font-size: 16px; 
+  word-break: break-word; }
 
 h5 {
-  font-size: 14px; }
+  font-size: 14px; 
+  word-break: break-word; }
 
 h6 {
   color: #777777;
-  font-size: 14px; }
+  font-size: 14px; 
+  word-break: break-word; }
 
 p, blockquote, ul, ol, dl, li, table, pre {
   margin: 15px 0; }
@@ -112,9 +119,11 @@ h1 p, h2 p, h3 p, h4 p, h5 p, h6 p {
 li p.first {
   display: inline-block; }
 li {
-  margin: 0; }
+  margin: 0; 
+  word-break: break-word; }
 ul, ol {
-  padding-left: 30px; }
+  padding-left: 30px; 
+  word-break: break-word; }
 
 ul :first-child, ol :first-child {
   margin-top: 0; }
@@ -243,7 +252,8 @@ code, tt {
   white-space: nowrap;
   border: 1px solid #eaeaea;
   background-color: #f8f8f8;
-  border-radius: 3px; }
+  border-radius: 3px; 
+  word-break: break-word; }
 
 pre code {
   margin: 0;
