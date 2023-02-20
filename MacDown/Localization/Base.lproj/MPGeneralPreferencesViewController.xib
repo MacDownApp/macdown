@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21507" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="8191"/>
-        <capability name="box content view" minToolsVersion="7.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21507"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="MPGeneralPreferencesViewController">
@@ -15,17 +15,17 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="Hz6-mo-xeY">
-            <rect key="frame" x="0.0" y="0.0" width="353" height="249"/>
+            <rect key="frame" x="0.0" y="0.0" width="353" height="272"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <box autoresizesSubviews="NO" title="Update" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="eLn-fW-Agu">
+                <box autoresizesSubviews="NO" borderType="line" title="Update" translatesAutoresizingMaskIntoConstraints="NO" id="eLn-fW-Agu">
                     <rect key="frame" x="17" y="16" width="319" height="54"/>
                     <view key="contentView" id="pfL-Xy-QHh">
-                        <rect key="frame" x="1" y="1" width="317" height="38"/>
+                        <rect key="frame" x="4" y="5" width="311" height="34"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="jet-bG-trd">
-                                <rect key="frame" x="16" y="12" width="285" height="18"/>
+                                <rect key="frame" x="13" y="9" width="283" height="16"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="14" id="Prd-FU-8Gz"/>
                                 </constraints>
@@ -45,17 +45,15 @@
                         <constraint firstItem="jet-bG-trd" firstAttribute="top" secondItem="eLn-fW-Agu" secondAttribute="top" constant="25" id="Yp1-GT-c9v"/>
                         <constraint firstItem="jet-bG-trd" firstAttribute="leading" secondItem="eLn-fW-Agu" secondAttribute="leading" constant="16" id="oYY-b5-wrF"/>
                     </constraints>
-                    <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                    <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </box>
-                <box autoresizesSubviews="NO" title="Behavior" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="Nma-PL-ZvX">
-                    <rect key="frame" x="17" y="74" width="319" height="155"/>
+                <box autoresizesSubviews="NO" borderType="line" title="Behavior" translatesAutoresizingMaskIntoConstraints="NO" id="Nma-PL-ZvX">
+                    <rect key="frame" x="17" y="74" width="319" height="178"/>
                     <view key="contentView" id="onQ-1i-oQ0">
-                        <rect key="frame" x="1" y="1" width="317" height="139"/>
+                        <rect key="frame" x="4" y="5" width="311" height="158"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="6Nz-Ft-FbR">
-                                <rect key="frame" x="16" y="93" width="285" height="18"/>
+                                <rect key="frame" x="13" y="113" width="283" height="16"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="14" id="HtO-jU-tMN"/>
                                 </constraints>
@@ -73,7 +71,7 @@
                                 </connections>
                             </button>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="Vab-4T-IU5">
-                                <rect key="frame" x="16" y="73" width="285" height="18"/>
+                                <rect key="frame" x="13" y="93" width="283" height="16"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="14" id="X3J-8y-4eQ"/>
                                 </constraints>
@@ -86,7 +84,7 @@
                                 </connections>
                             </button>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="fjb-tU-1Kw">
-                                <rect key="frame" x="16" y="53" width="285" height="18"/>
+                                <rect key="frame" x="13" y="73" width="283" height="16"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="14" id="gLz-Pu-BCz"/>
                                 </constraints>
@@ -99,7 +97,7 @@
                                 </connections>
                             </button>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="WVd-hz-Dcr">
-                                <rect key="frame" x="16" y="33" width="285" height="18"/>
+                                <rect key="frame" x="13" y="53" width="283" height="16"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="14" id="8H5-jQ-GoX"/>
                                 </constraints>
@@ -117,7 +115,7 @@
                                 </connections>
                             </button>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="hqr-gd-6gi">
-                                <rect key="frame" x="16" y="113" width="285" height="18"/>
+                                <rect key="frame" x="13" y="133" width="283" height="16"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="14" id="mpk-Ws-hqc"/>
                                 </constraints>
@@ -135,7 +133,7 @@
                                 </connections>
                             </button>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="UZT-HE-EaK">
-                                <rect key="frame" x="16" y="12" width="285" height="18"/>
+                                <rect key="frame" x="13" y="9" width="283" height="18"/>
                                 <buttonCell key="cell" type="check" title="Automatically create files for link targets" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="hpF-zP-3cM">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -144,7 +142,22 @@
                                     <binding destination="-2" name="value" keyPath="self.preferences.createFileForLinkTarget" id="MLt-T7-Cm3"/>
                                 </connections>
                             </button>
+                            <button translatesAutoresizingMaskIntoConstraints="NO" id="lfI-zd-ORx">
+                                <rect key="frame" x="14" y="31" width="174" height="18"/>
+                                <buttonCell key="cell" type="check" title="Preview Mode on launch" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="B9A-BW-zNO">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <binding destination="-2" name="value" keyPath="self.preferences.previewMode" id="QfP-E3-W0Q"/>
+                                </connections>
+                            </button>
                         </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="lfI-zd-ORx" secondAttribute="trailing" constant="16" id="1g7-uK-Mn2"/>
+                            <constraint firstItem="lfI-zd-ORx" firstAttribute="leading" secondItem="onQ-1i-oQ0" secondAttribute="leading" constant="16" id="et3-gb-deg"/>
+                            <constraint firstItem="UZT-HE-EaK" firstAttribute="top" secondItem="lfI-zd-ORx" secondAttribute="bottom" constant="6" id="uXd-TI-22f"/>
+                        </constraints>
                     </view>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="WVd-hz-Dcr" secondAttribute="trailing" constant="16" id="0B8-iM-rNc"/>
@@ -166,8 +179,6 @@
                         <constraint firstItem="6Nz-Ft-FbR" firstAttribute="top" secondItem="hqr-gd-6gi" secondAttribute="bottom" constant="6" id="tnU-Pf-heR"/>
                         <constraint firstAttribute="trailing" secondItem="fjb-tU-1Kw" secondAttribute="trailing" constant="16" id="uQJ-Jy-vPP"/>
                     </constraints>
-                    <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                    <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </box>
             </subviews>
             <constraints>

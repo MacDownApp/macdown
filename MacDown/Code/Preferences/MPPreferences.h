@@ -18,6 +18,7 @@ extern NSString * const MPDidDetectFreshInstallationNotification;
 @property (assign) NSString *latestVersionInstalled;
 @property (assign) BOOL updateIncludesPreReleases;
 @property (assign) BOOL supressesUntitledDocumentOnLaunch;
+@property (assign) BOOL previewMode;
 @property (assign) BOOL createFileForLinkTarget;
 
 // Extension flags.

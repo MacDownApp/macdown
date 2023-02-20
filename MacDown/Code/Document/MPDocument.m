@@ -456,6 +456,10 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
         [self setupEditor:nil];
         [self redrawDivider];
         [self reloadFromLoadedString];
+        
+        if (self.preferences.previewMode) {
+            [self setSplitViewDividerLocation:0];
+        }
     }];
 }
 
