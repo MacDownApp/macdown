@@ -58,6 +58,11 @@ jobs:
           MACDOWN_MATCH_REPOSITORY_ACCESS_TOKEN: ${{ secrets.MATCH_REPOSITORY_ACCESS_TOKEN }}
           MATCH_PASSWORD: ${{ secrets.MATCH_REPOSITORY_PASSWORD }}
 
+      - name: Write App Store Connect API key to file
+        run: echo "${MACDOWN_APP_STORE_CONNECT_API_FASTLANE_KEY}" > fastlane/AppStoreConnectAPIKey.json
+        env:
+          MACDOWN_APP_STORE_CONNECT_API_FASTLANE_KEY: ${{ secrets.APP_STORE_CONNECT_API_FASTLANE_KEY }}
+
       - name: Build a release
         run: bundle exec fastlane build_release
 
