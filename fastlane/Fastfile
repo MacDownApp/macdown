@@ -38,4 +38,23 @@ lane :build_release do
       }
     }
   )
+
+  notarize(
+    package: "release/MacDown.app",
+    api_key_path: "fastlane/AppStoreConnectAPIKey.json",
+  )
+end
+
+lane :generate_app_store_connect_api_key do
+  key = app_store_connect_api_key(
+    key_id: "9J42G3U3LV",
+    issuer_id: "69a6de90-d3c5-47e3-e053-5b8c7c11a4d1",
+    key_filepath: "AuthKey_9J42G3U3LV.p8",
+  )
+
+  File.open("AppStoreConnectAPIKey.json", "w") do |f|
+    f << key.to_json
+  end
+
+  puts("fastlane-compatible App Store Connect API key JSON written to #{File.join(Dir.pwd, "AppStoreConnectAPIKey.json")}")
 end
