@@ -32,5 +32,10 @@ lane :build_release do
     export_method: "developer-id",
     export_team_id: "M57TZFTAQ6",
     output_directory: "release",
+    export_options: {
+      provisioningProfiles: {
+        "com.forooghian.macdown" => "match Direct com.forooghian.macdown macos"
+      }
+    }
   )
 end
