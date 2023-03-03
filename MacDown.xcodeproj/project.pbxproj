@@ -1783,7 +1783,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = MacDown/MacDown.entitlements;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "Developer ID Application: Lawrence Forooghian (M57TZFTAQ6)";
 				COMBINE_HIDPI_IMAGES = YES;
 				"DEVELOPMENT_TEAM[sdk=macosx*]" = M57TZFTAQ6;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -1885,6 +1885,7 @@
 			baseConfigurationReference = 7A8EA75FA95818275755F0B6 /* Pods-macdown-cmd.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "macdown-cmd/macdown-cmd.entitlements";
+				CODE_SIGN_IDENTITY = "Developer ID Application: Lawrence Forooghian (M57TZFTAQ6)";
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "";
