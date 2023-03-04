@@ -78,10 +78,6 @@ popd > /dev/null
 SHORT_VERSION=$(get_short_version)
 BUNDLE_VERSION=$(get_bundle_version)
 
-# Alternatively, we could use Xcode's copy of the Git binary,
-# but old Xcodes don't have this.
-#GIT=$(xcrun -find git)
-
 # Run Script build phases that operate on product files of the target that defines them should use the value of this build setting [TARGET_BUILD_DIR]. But Run Script build phases that operate on product files of other targets should use “BUILT_PRODUCTS_DIR” instead.
 INFO_PLIST="${TARGET_BUILD_DIR}/${INFOPLIST_PATH}"
 
