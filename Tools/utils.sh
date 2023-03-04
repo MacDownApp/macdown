@@ -1,11 +1,6 @@
 # First, check for git in $PATH
 hash git 2>/dev/null || { echo >&2 "Git required, not installed.  Aborting build number update script."; exit 0; }
 
-# Build version (closest-tag-or-branch "-" commits-since-tag "-" short-hash dirty-flag)
-function get_build_version() {
-    echo $(git describe --tags --always --dirty=+)
-}
-
 # Use the latest tag for short version (expected tag format "vn[.n[.n]]")
 # or if there are no tags, we make up version 0.0.<commit count>
 function get_short_version() {

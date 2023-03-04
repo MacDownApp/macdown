@@ -75,7 +75,6 @@ popd > /dev/null
 # >
 # > This key can be localized by including it in your InfoPlist.strings files.
 
-BUILD_VERSION=$(get_build_version)
 SHORT_VERSION=$(get_short_version)
 BUNDLE_VERSION=$(get_bundle_version)
 
@@ -86,6 +85,5 @@ BUNDLE_VERSION=$(get_bundle_version)
 # Run Script build phases that operate on product files of the target that defines them should use the value of this build setting [TARGET_BUILD_DIR]. But Run Script build phases that operate on product files of other targets should use “BUILT_PRODUCTS_DIR” instead.
 INFO_PLIST="${TARGET_BUILD_DIR}/${INFOPLIST_PATH}"
 
-/usr/libexec/PlistBuddy -c "Add :CFBundleBuildVersion string $BUILD_VERSION" "$INFO_PLIST" 2>/dev/null || /usr/libexec/PlistBuddy -c "Set :CFBundleBuildVersion $BUILD_VERSION" "$INFO_PLIST"
 /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString $SHORT_VERSION" "$INFO_PLIST"
 /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $BUNDLE_VERSION" "$INFO_PLIST"
