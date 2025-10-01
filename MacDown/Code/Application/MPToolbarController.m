@@ -135,33 +135,42 @@ static CGFloat itemWidth = 37;
     // Add space after the specified toolbar item indices
     int spaceAfterIndices[] = {}; // No space in the default set
     int flexibleSpaceAfterIndices[] = {2, 3, 5, 7, 11};
+    int spaceAfterIndicesCount = 0;
+    int flexibleSpaceAfterIndicesCount = 5;
     int i = 0;
     int j = 0;
     int k = 0;
-    
+
     for (NSString *itemIdentifier in orderedToolbarItemIdentifiers)
     {
+        // Skip nil identifiers
+        if (!itemIdentifier) {
+            continue;
+        }
+
         // exclude some toolbar items from the default toolbar
         if ([itemIdentifier  isEqual: @"comment"]
             || [itemIdentifier  isEqual: @"highlight"]
             || [itemIdentifier  isEqual: @"strikethrough"]) {
             // do nothing here
         }else {
-            [defaultItemIdentifiers addObject:itemIdentifier];
+            if (itemIdentifier != nil) {
+                [defaultItemIdentifiers addObject:itemIdentifier];
+            }
         }
-        
-        if (i == spaceAfterIndices[j])
+
+        if (j < spaceAfterIndicesCount && i == spaceAfterIndices[j])
         {
             [defaultItemIdentifiers addObject:NSToolbarSpaceItemIdentifier];
             j++;
         }
-        
-        if (i == flexibleSpaceAfterIndices[k])
+
+        if (k < flexibleSpaceAfterIndicesCount && i == flexibleSpaceAfterIndices[k])
         {
             [defaultItemIdentifiers addObject:NSToolbarFlexibleSpaceItemIdentifier];
             k++;
         }
-        
+
         i++;
     }
     
