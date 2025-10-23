@@ -1,0 +1,41 @@
+name: Tests
+
+on:
+  push:
+    branches: [ master, develop ]
+  pull_request:
+    branches: [ master, develop ]
+
+jobs:
+  test:
+    name: Run Tests
+    runs-on: macos-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        submodules: recursive
+
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.0'
+        bundler-cache: true
+
+    - name: Cache CocoaPods
+      uses: actions/cache@v4
+      with:
+        path: Pods
+        key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-pods-
+
+    - name: Install CocoaPods dependencies
+      run: |
+        bundle exec pod install
+
+    - name: Run tests
+      run: |
+        set -o pipefail
+        xcodebuild -workspace MacDown.xcworkspace -scheme MacDown -destination 'platform=macOS' test | xcpretty || xcodebuild -workspace MacDown.xcworkspace -scheme MacDown -destination 'platform=macOS' test
