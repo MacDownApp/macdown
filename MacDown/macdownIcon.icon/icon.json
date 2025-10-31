@@ -1,0 +1,52 @@
+{
+  "fill" : {
+    "linear-gradient" : [
+      "display-p3:0.25098,0.87843,0.88627,1.00000",
+      "srgb:0.09020,0.54510,0.80000,1.00000"
+    ]
+  },
+  "groups" : [
+    {
+      "layers" : [
+        {
+          "glass-specializations" : [
+            {
+              "value" : false
+            },
+            {
+              "appearance" : "dark",
+              "value" : true
+            },
+            {
+              "appearance" : "tinted",
+              "value" : true
+            }
+          ],
+          "image-name-specializations" : [
+            {
+              "value" : "markdownIcon.svg"
+            },
+            {
+              "idiom" : "macOS",
+              "value" : "macdownIcon.svg"
+            }
+          ],
+          "name" : "macdownIcon"
+        }
+      ],
+      "shadow" : {
+        "kind" : "neutral",
+        "opacity" : 0.5
+      },
+      "translucency" : {
+        "enabled" : true,
+        "value" : 0.5
+      }
+    }
+  ],
+  "supported-platforms" : {
+    "squares" : [
+      "macOS"
+    ]
+  }
+}
