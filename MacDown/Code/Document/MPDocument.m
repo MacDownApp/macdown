@@ -534,7 +534,14 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
             self.editor.selectedRange = selection;
         }
     }
-    return [super writeToURL:url ofType:typeName error:outError];
+    BOOL ok = [super writeToURL:url ofType:typeName error:outError];
+    if (ok)
+    {
+        NSDocumentController *controller =
+            [NSDocumentController sharedDocumentController];
+        [controller mp_noteNewRecentDocumentURL:url];
+    }
+    return ok;
 }
 
 - (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError
@@ -552,6 +559,11 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 
     self.loadedString = content;
     [self reloadFromLoadedString];
+
+    // Ensure the file is registered for the system "Open Recent" menu.
+    NSDocumentController *controller =
+        [NSDocumentController sharedDocumentController];
+    [controller mp_noteNewRecentDocumentURL:self.fileURL];
     return YES;
 }
 
