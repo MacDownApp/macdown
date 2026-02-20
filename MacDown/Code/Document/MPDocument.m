@@ -1069,49 +1069,71 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 
     self.manualRender = self.preferences.markdownManualRender;
 
-#if 0
-    // Unfortunately this DOM-replacing causes a lot of problems...
-    // 1. MathJax needs to be triggered.
-    // 2. Prism rendering is lost.
-    // 3. Potentially more.
-    // Essentially all JavaScript needs to be run again after we replace
-    // the DOM. I have no idea how many more problems there are, so we'll have
-    // to back off from the path for now... :(
-
-    // If we're working on the same document, try not to reload.
+    // If we're updating the same document, replace the body content via
+    // JavaScript instead of doing a full page reload. This avoids the visible
+    // flash/flicker that loadHTMLString: causes.
+    // After replacing the DOM, re-trigger syntax highlighting (Prism) and
+    // math rendering (MathJax) so those features continue to work.
     if (self.isPreviewReady && [self.currentBaseUrl isEqualTo:baseUrl])
     {
-        // HACK: Ideally we should only inject the parts that changed, and only
-        // get the parts we need. For now we only get a complete HTML codument,
-        // and rely on regex to get the parts we want in the DOM.
+        // Extract <body> content from the rendered HTML.
+        static NSString *bodyPattern = @"<body[^>]*>(.*)</body>";
+        static int opts = NSRegularExpressionDotMatchesLineSeparators
+                        | NSRegularExpressionCaseInsensitive;
 
-        // Use the existing tree if available, and replace the content.
-        DOMDocument *doc = self.preview.mainFrame.DOMDocument;
-        DOMNodeList *htmlNodes = [doc getElementsByTagName:@"html"];
-        if (htmlNodes.length >= 1)
+        NSRegularExpression *regex =
+            [[NSRegularExpression alloc] initWithPattern:bodyPattern
+                                                 options:opts error:NULL];
+        NSTextCheckingResult *result =
+            [regex firstMatchInString:html options:0
+                                range:NSMakeRange(0, html.length)];
+
+        if (result && result.numberOfRanges >= 2)
         {
-            static NSString *pattern = @"<html>(.*)</html>";
-            static int opts = NSRegularExpressionDotMatchesLineSeparators;
+            NSString *bodyContent = [html substringWithRange:
+                                     [result rangeAtIndex:1]];
 
-            // Find things inside the <html> tag.
-            NSRegularExpression *regex =
-                [[NSRegularExpression alloc] initWithPattern:pattern
-                                                     options:opts error:NULL];
-            NSTextCheckingResult *result =
-                [regex firstMatchInString:html options:0
-                                    range:NSMakeRange(0, html.length)];
-            html = [html substringWithRange:[result rangeAtIndex:1]];
+            // Escape for JS string literal: backslashes, backticks,
+            // dollar signs (template literal delimiters), and newlines.
+            bodyContent = [bodyContent stringByReplacingOccurrencesOfString:@"\\"
+                                       withString:@"\\\\"];
+            bodyContent = [bodyContent stringByReplacingOccurrencesOfString:@"`"
+                                       withString:@"\\`"];
+            bodyContent = [bodyContent stringByReplacingOccurrencesOfString:@"$"
+                                       withString:@"\\$"];
 
-            // Replace everything in the old <html> tag.
-            DOMElement *htmlNode = (DOMElement *)[htmlNodes item:0];
-            htmlNode.innerHTML = html;
+            // Replace body innerHTML and re-trigger JS libraries.
+            NSString *js = [NSString stringWithFormat:
+                @"(function() {"
+                 "  document.body.innerHTML = `%@`;"
+                 "  if (typeof Prism !== 'undefined') Prism.highlightAll();"
+                 "  if (typeof MathJax !== 'undefined') {"
+                 "    if (MathJax.Hub) MathJax.Hub.Queue(['Typeset', MathJax.Hub]);"
+                 "    else if (MathJax.typeset) MathJax.typeset();"
+                 "  }"
+                 "  if (typeof hljs !== 'undefined') {"
+                 "    document.querySelectorAll('pre code').forEach(function(b) { hljs.highlightElement(b); });"
+                 "  }"
+                 "})();",
+                bodyContent];
 
+            [self.preview stringByEvaluatingJavaScriptFromString:js];
+
+            // Signal rendering complete without going through the full
+            // frame load delegate cycle.
+            self.alreadyRenderingInWeb = NO;
+            if (self.preferences.editorShowWordCount)
+                [self updateWordCount];
+            if (self.preferences.editorSyncScrolling)
+                [self syncScrollers];
+            if (self.renderToWebPending)
+                [self.renderer parseAndRenderNow];
+            self.renderToWebPending = NO;
             return;
         }
     }
-#endif
 
-    // Reload the page if there's not valid tree to work with.
+    // Full page reload for initial load or when base URL changes.
     [self.preview.mainFrame loadHTMLString:html baseURL:baseUrl];
     self.currentBaseUrl = baseUrl;
 }
