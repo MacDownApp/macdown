@@ -155,6 +155,6 @@ kbd {
 		page-break-inside: avoid;
 	}
   body {
-    margin: 2cm; 
+    margin: 0;
   }
 }

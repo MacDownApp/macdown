@@ -310,6 +310,6 @@ kbd {
 		word-wrap: break-word;
 	}
   body {
-    padding: 2cm; 
+    padding: 0;
   }
 }

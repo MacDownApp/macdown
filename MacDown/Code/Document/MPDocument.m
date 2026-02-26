@@ -612,10 +612,6 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     info.horizontalPagination = NSAutoPagination;
     info.verticalPagination = NSAutoPagination;
     info.verticallyCentered = NO;
-    info.topMargin = 50.0;
-    info.leftMargin = 0.0;
-    info.rightMargin = 0.0;
-    info.bottomMargin = 50.0;
     return info;
 }
 

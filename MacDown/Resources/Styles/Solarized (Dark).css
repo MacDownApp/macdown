@@ -191,6 +191,6 @@ kbd {
 
 @media print {
   body {
-    margin: 2cm; 
+    margin: 0;
   }
 }
