@@ -407,6 +407,17 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="QMZ-Ld-Nza"/>
+                            <menuItem title="Zoom In" keyEquivalent="+" id="zIn-01-ABC">
+                                <connections>
+                                    <action selector="zoomIn:" target="-1" id="zIn-02-DEF"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Zoom Out" keyEquivalent="-" id="zOt-01-GHI">
+                                <connections>
+                                    <action selector="zoomOut:" target="-1" id="zOt-02-JKL"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="zSp-01-MNO"/>
                             <menuItem title="Enter Full Screen" keyEquivalent="f" id="1gz-YB-DZE">
                                 <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
                                 <connections>
