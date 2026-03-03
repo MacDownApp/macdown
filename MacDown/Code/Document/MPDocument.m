@@ -1690,9 +1690,6 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 
 - (void)scaleWebview
 {
-    if (!self.preferences.previewZoomRelativeToBaseFontSize)
-        return;
-
     CGFloat fontSize = self.preferences.editorBaseFontSize;
     if (fontSize <= 0.0)
         return;
@@ -1712,6 +1709,25 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     // Warning: this is private webkit API and NOT App Store-safe!
     [self.preview setPageSizeMultiplier:scale];
 #endif
+}
+
+
+- (IBAction)zoomIn:(id)sender
+{
+    NSFont *currentFont = self.preferences.editorBaseFont;
+    CGFloat newSize = currentFont.pointSize + 1.0;
+    NSFont *newFont = [NSFont fontWithName:currentFont.fontName size:newSize];
+    self.preferences.editorBaseFont = newFont;
+    [self scaleWebview];
+}
+
+- (IBAction)zoomOut:(id)sender
+{
+    NSFont *currentFont = self.preferences.editorBaseFont;
+    CGFloat newSize = MAX(currentFont.pointSize - 1.0, 8.0);
+    NSFont *newFont = [NSFont fontWithName:currentFont.fontName size:newSize];
+    self.preferences.editorBaseFont = newFont;
+    [self scaleWebview];
 }
 
 -(void) updateHeaderLocations
