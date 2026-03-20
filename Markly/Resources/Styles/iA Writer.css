@@ -1,0 +1,35 @@
+body {
+    font-family: "Noto Serif", Georgia, "Times New Roman", serif;
+    font-size: 18px;
+    line-height: 1.8;
+    color: #1a1a1a;
+    background-color: #f9f9f9;
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 40px 24px;
+    -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, sans-serif;
+    font-weight: 700;
+    margin-top: 2em;
+    margin-bottom: 0.5em;
+    color: #111;
+}
+h1 { font-size: 1.8em; }
+h2 { font-size: 1.4em; }
+h3 { font-size: 1.2em; }
+p { margin: 1em 0; }
+a { color: #2563eb; text-decoration: none; border-bottom: 1px solid #93c5fd; }
+a:hover { border-bottom-color: #2563eb; }
+a.wikilink { color: #2563eb; border-bottom: 1px dashed #93c5fd; }
+a.wikilink-new { color: #dc2626; border-bottom: 1px dashed #dc2626; }
+code { font-family: "SF Mono", Menlo, monospace; background: #f0f0f0; padding: 0.15em 0.4em; border-radius: 3px; font-size: 0.85em; }
+pre { background: #f0f0f0; padding: 20px; border-radius: 4px; overflow: auto; line-height: 1.5; }
+pre code { background: none; padding: 0; font-size: 0.9em; }
+blockquote { border-left: 3px solid #d1d5db; color: #6b7280; margin: 1.5em 0; padding: 0.5em 1.2em; font-style: italic; }
+img { max-width: 100%; border-radius: 4px; }
+table { border-collapse: collapse; width: 100%; margin: 1.5em 0; }
+th, td { border: 1px solid #e5e7eb; padding: 8px 14px; text-align: left; }
+th { background: #f3f4f6; font-weight: 600; font-family: -apple-system, sans-serif; }
+hr { border: none; border-top: 1px solid #e5e7eb; margin: 2.5em 0; }

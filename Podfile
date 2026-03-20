@@ -3,7 +3,7 @@ platform :osx, "10.8"
 source 'https://github.com/MacDownApp/cocoapods-specs.git'  # Patched libraries.
 source 'https://cdn.cocoapods.org/'
 
-project 'MacDown.xcodeproj'
+project 'Markly.xcodeproj'
 
 inhibit_all_warnings!
 
