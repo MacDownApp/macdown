@@ -112,6 +112,7 @@ NS_INLINE NSString *MPPrismDefaultThemeName()
         kMPStylesDirectoryName,
         MPFileNameHasExtensionProcessor(kMPStyleFileExtension)
     );
+    itemTitles = [itemTitles sortedArrayUsingSelector:@selector(localizedStandardCompare:)];
 
     [self.stylesheetSelect addItemWithTitle:@""];
     [self.stylesheetSelect addItemsWithTitles:itemTitles];

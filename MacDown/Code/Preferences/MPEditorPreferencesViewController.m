@@ -71,6 +71,7 @@ NSString * const MPDidRequestEditorSetupNotificationKeyName =
         kMPThemesDirectoryName,
         MPFileNameHasExtensionProcessor(kMPThemeFileExtension)
     );
+    itemTitles = [itemTitles sortedArrayUsingSelector:@selector(localizedStandardCompare:)];
 
     [self.themeSelect addItemWithTitle:@""];
     [self.themeSelect addItemsWithTitles:itemTitles];
