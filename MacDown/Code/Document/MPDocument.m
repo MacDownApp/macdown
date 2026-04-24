@@ -499,6 +499,77 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     [super close];
 }
 
+
+#pragma mark - NSFilePresenter (auto-reload on external change)
+
+- (void)presentedItemDidChange
+{
+    // NSFilePresenter delivers this on a background queue.
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self autoReloadFromDiskIfNeeded];
+    });
+}
+
+- (void)autoReloadFromDiskIfNeeded
+{
+    if (!self.preferences.autoReloadExternalChanges)
+        return;
+
+    NSURL *url = self.fileURL;
+    if (!url)
+        return;
+
+    // Nib not ready yet — nothing to refresh.
+    if (!self.editor || !self.renderer)
+        return;
+
+    // Refuse to clobber unsaved in-memory edits.
+    if (self.isDocumentEdited)
+        return;
+
+    // A single external write often fires several presentedItemDidChange
+    // notifications (FSEvents coalesces but still delivers multiple). Skip
+    // the revert unless the on-disk mtime is actually newer than the one
+    // we last read, to avoid redundant reloads and the visible restyling
+    // flash they cause.
+    NSDate *diskMtime = nil;
+    [url getResourceValue:&diskMtime
+                   forKey:NSURLContentModificationDateKey
+                    error:NULL];
+    NSDate *knownMtime = self.fileModificationDate;
+    if (diskMtime && knownMtime
+        && [diskMtime compare:knownMtime] != NSOrderedDescending)
+        return;
+
+    NSClipView *editorClip = self.editor.enclosingScrollView.contentView;
+    NSClipView *previewClip = self.preview.enclosingScrollView.contentView;
+    CGFloat editorScrollY = editorClip.bounds.origin.y;
+    CGFloat previewScrollY = previewClip.bounds.origin.y;
+    NSRange selection = self.editor.selectedRange;
+
+    NSError *error = nil;
+    if (![self revertToContentsOfURL:url ofType:self.fileType error:&error])
+        return;
+
+    // Restore reading position after the editor/preview have re-laid out.
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+        NSUInteger length = self.editor.string.length;
+        NSUInteger location = MIN(selection.location, length);
+        NSUInteger remaining = length - location;
+        self.editor.selectedRange =
+            NSMakeRange(location, MIN(selection.length, remaining));
+
+        NSRect eBounds = editorClip.bounds;
+        eBounds.origin.y = editorScrollY;
+        editorClip.bounds = eBounds;
+
+        self.lastPreviewScrollTop = previewScrollY;
+        NSRect pBounds = previewClip.bounds;
+        pBounds.origin.y = previewScrollY;
+        previewClip.bounds = pBounds;
+    }];
+}
+
 + (BOOL)autosavesInPlace
 {
     return YES;
