@@ -1,7 +1,7 @@
-platform :osx, "10.8"
+platform :osx, "10.13"
 
 source 'https://github.com/MacDownApp/cocoapods-specs.git'  # Patched libraries.
-source 'https://cdn.cocoapods.org/'
+source 'https://github.com/CocoaPods/Specs.git'
 
 project 'MacDown.xcodeproj'
 
@@ -16,12 +16,11 @@ target "MacDown" do
   pod 'MASPreferences', '~> 1.3'
   pod 'Sparkle', '~> 1.18', :inhibit_warnings => false
 
-  # Locked on 0.4.x until we drop 10.8.
-  pod 'PAPreferences', '~> 0.4'
+  pod 'PAPreferences', '~> 0.5'
 end
 
 target "MacDownTests" do
-  pod 'PAPreferences', '~> 0.4'
+  pod 'PAPreferences', '~> 0.5'
 end
 
 target "macdown-cmd" do

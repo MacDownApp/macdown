@@ -19,21 +19,21 @@ DEPENDENCIES:
   - LibYAML (~> 0.1)
   - M13OrderedDictionary (~> 1.1)
   - MASPreferences (~> 1.3)
-  - PAPreferences (~> 0.4)
+  - PAPreferences (~> 0.5)
   - Sparkle (~> 1.18)
 
 SPEC REPOS:
-  https://github.com/MacDownApp/cocoapods-specs.git:
-    - handlebars-objc
-    - hoedown
-    - LibYAML
-  trunk:
+  https://github.com/CocoaPods/Specs.git:
     - GBCli
     - JJPluralForm
     - M13OrderedDictionary
     - MASPreferences
     - PAPreferences
     - Sparkle
+  https://github.com/MacDownApp/cocoapods-specs.git:
+    - handlebars-objc
+    - hoedown
+    - LibYAML
 
 SPEC CHECKSUMS:
   GBCli: e5f988fadb68e1e3c01919f134009fed9796fde0
@@ -46,6 +46,6 @@ SPEC CHECKSUMS:
   PAPreferences: 9f0ffb1e67174a0df001af9d3320166ceb9ee6f5
   Sparkle: 06ea33170007c5937ee54da481b4481af98fac79
 
-PODFILE CHECKSUM: e9356b9a2ceafda7889ba385de6e9f2d8b06cba0
+PODFILE CHECKSUM: e6512d583ee77030cbd7116a1cffcd60650889f8
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.16.2
