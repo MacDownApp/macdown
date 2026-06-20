@@ -1,4 +1,4 @@
-platform :osx, "10.8"
+platform :osx, "11.0"
 
 source 'https://github.com/MacDownApp/cocoapods-specs.git'  # Patched libraries.
 source 'https://cdn.cocoapods.org/'
@@ -26,4 +26,12 @@ end
 
 target "macdown-cmd" do
   pod 'GBCli', '~> 1.1'
+end
+
+post_install do |installer|
+  installer.pods_project.targets.each do |t|
+    t.build_configurations.each do |config|
+      config.build_settings['MACOSX_DEPLOYMENT_TARGET'] = '11.0'
+    end
+  end
 end

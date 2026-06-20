@@ -41,7 +41,7 @@
 {
     if (sender == self.autoRenderingToggle)
     {
-        if (self.autoRenderingToggle.state != NSOnState)
+        if (self.autoRenderingToggle.state != NSControlStateValueOn)
             self.preferences.editorShowWordCount = NO;
     }
 }
