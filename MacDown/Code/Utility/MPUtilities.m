@@ -160,7 +160,16 @@ NSDictionary *MPGetDataMap(NSString *name)
     NSBundle *bundle = [NSBundle mainBundle];
     NSString *filePath = [bundle pathForResource:name ofType:@"map"
                                      inDirectory:@"Data"];
-    return [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];
+    NSData *data = [NSData dataWithContentsOfFile:filePath];
+    if (!data)
+        return nil;
+
+    NSSet *classes = [NSSet setWithObjects:
+                      [NSDictionary class], [NSMutableDictionary class],
+                      [NSString class], [NSMutableString class],
+                      [NSData class], [NSMutableData class], nil];
+    return [NSKeyedUnarchiver unarchivedObjectOfClasses:classes
+                                               fromData:data error:NULL];
 }
 
 id MPGetObjectFromJavaScript(NSString *code, NSString *variableName)
@@ -211,4 +220,3 @@ id MPGetObjectFromJavaScript(NSString *code, NSString *variableName)
         JSStringRelease(js);
     return object;
 }
-
