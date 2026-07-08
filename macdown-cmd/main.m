@@ -5,6 +5,8 @@
 //  Created by Esben Sorig on 30/06/2014.
 //  Copyright (c) 2014 Tzu-ping Chung . All rights reserved.
 //
+//  Portions Copyright (c) 2026 Roberto Bissanti.
+//
 
 #import <sys/time.h>
 #import <AppKit/AppKit.h>
@@ -14,10 +16,7 @@
 #import "MPArgumentProcessor.h"
 
 
-const NSUInteger kMPPathEncoding = NSUTF8StringEncoding;
-
-
-NSRunningApplication *MPRunningMacDownInstance()
+NSRunningApplication *MPRunningMacDownInstance(void)
 {
     NSArray *runningInstances = [NSRunningApplication
         runningApplicationsWithBundleIdentifier:kMPApplicationSuiteName];
@@ -50,7 +49,7 @@ void MPCollectForMacDown(NSOrderedSet<NSURL *> *urls)
  * 
  * @return Piped data if any, otherwise nil.
  */
-NSData* MPPipedData() {
+NSData* MPPipedData(void) {
     NSFileHandle *stdInFileHandle = [NSFileHandle fileHandleWithStandardInput];
     // Check if stdin file handle have anything to read
     // Modified solution from http://stackoverflow.com/questions/7505777/how-do-i-check-for-nsfilehandle-has-data-available
@@ -106,15 +105,35 @@ int main(int argc, const char * argv[])
         NSMutableOrderedSet<NSURL *> *urls = [NSMutableOrderedSet orderedSet];
         for (NSString *arg in argproc.arguments)
         {
+            // stringByAddingPercentEscapesUsingEncoding: is deprecated (and
+            // always used UTF-8 as its "encoding" was really about how bytes
+            // got escaped, not which characters got escaped). The modern
+            // equivalent takes an explicit allowed-character set instead;
+            // URLPathAllowedCharacterSet keeps "/" unescaped, matching the
+            // old behavior for these path-like arguments.
             NSString *escaped =
-                [arg stringByAddingPercentEscapesUsingEncoding:kMPPathEncoding];
+                [arg stringByAddingPercentEncodingWithAllowedCharacters:
+                    [NSCharacterSet URLPathAllowedCharacterSet]];
             NSURL *url = [NSURL URLWithString:escaped relativeToURL:pwdUrl];
             [urls addObject:url];
         }
         MPCollectForMacDown(urls);
 
-        // Launch MacDown.
-        [[NSWorkspace sharedWorkspace] launchAppWithBundleIdentifier:kMPApplicationBundleIdentifier options:NSWorkspaceLaunchDefault additionalEventParamDescriptor:nil launchIdentifier:nil];
+        // Launch MacDown. launchAppWithBundleIdentifier:options:
+        // additionalEventParamDescriptor:launchIdentifier: and
+        // NSWorkspaceLaunchDefault are both deprecated (macOS 11); the
+        // replacement API takes an app URL rather than a bundle identifier,
+        // so resolve that first.
+        NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
+        NSURL *appURL =
+            [workspace URLForApplicationWithBundleIdentifier:kMPApplicationBundleIdentifier];
+        if (appURL)
+        {
+            NSWorkspaceOpenConfiguration *configuration =
+                [NSWorkspaceOpenConfiguration configuration];
+            [workspace openApplicationAtURL:appURL configuration:configuration
+                           completionHandler:nil];
+        }
     }
     return EXIT_SUCCESS;
 }

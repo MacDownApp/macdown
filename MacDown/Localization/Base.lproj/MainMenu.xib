@@ -624,9 +624,9 @@ DQ
             </items>
         </menu>
         <customObject id="eq0-c4-vgQ" customClass="MPMainController"/>
-        <customObject id="Zfp-OK-9bN" customClass="SUUpdater">
+        <customObject id="Zfp-OK-9bN" customClass="SPUStandardUpdaterController">
             <connections>
-                <outlet property="delegate" destination="eq0-c4-vgQ" id="UJV-6a-eCL"/>
+                <outlet property="updaterDelegate" destination="eq0-c4-vgQ" id="UJV-6a-eCL"/>
             </connections>
         </customObject>
         <customObject id="LEY-zf-22t" customClass="NSDocumentController"/>

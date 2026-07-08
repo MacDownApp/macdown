@@ -5,6 +5,8 @@
 //  Created by Tzu-ping Chung  on 30/8.
 //  Copyright (c) 2014 Tzu-ping Chung . All rights reserved.
 //
+//  Portions Copyright (c) 2026 Roberto Bissanti.
+//
 
 #import "MPEditorView.h"
 
@@ -14,6 +16,14 @@ NS_INLINE BOOL MPAreRectsEqual(NSRect r1, NSRect r2)
     return (r1.origin.x == r2.origin.x && r1.origin.y == r2.origin.y
             && r1.size.width == r2.size.width
             && r1.size.height == r2.size.height);
+}
+
+NS_INLINE NSDictionary<NSPasteboardReadingOptionKey, id> *MPImageFileReadingOptions(void)
+{
+    return @{
+        NSPasteboardURLReadingFileURLsOnlyKey: @YES,
+        NSPasteboardURLReadingContentsConformToTypesKey: @[@"public.image"],
+    };
 }
 
 
@@ -40,55 +50,70 @@ NS_INLINE BOOL MPAreRectsEqual(NSRect r1, NSRect r2)
 }
 
 - (void)awakeFromNib {
-    [self registerForDraggedTypes:[NSArray arrayWithObjects: NSDragPboard, nil]];
+    // NSDragPboard is a *pasteboard name* (identifies which pasteboard),
+    // not a drag type/UTI -- registerForDraggedTypes: wants the latter.
+    // It happened to work regardless and is now also deprecated; register
+    // the actual type this view's -draggingEntered:/-performDragOperation:
+    // care about (see MPImageFileReadingOptions() above).
+    [self registerForDraggedTypes:@[NSPasteboardTypeFileURL]];
     [super awakeFromNib];
 }
 
 - (NSDragOperation)draggingEntered:(id <NSDraggingInfo>)sender {
-    NSPasteboard *pboard;
-    NSDragOperation sourceDragMask;
-    
-    sourceDragMask = [sender draggingSourceOperationMask];
-    pboard = [sender draggingPasteboard];
-    
-    if ([pboard canReadItemWithDataConformingToTypes:[NSArray arrayWithObjects:@"public.jpeg", nil]]) {
+    NSPasteboard *pboard = [sender draggingPasteboard];
+    NSDragOperation sourceDragMask = [sender draggingSourceOperationMask];
+
+    if ([pboard canReadObjectForClasses:@[[NSURL class]]
+                                 options:MPImageFileReadingOptions()]) {
         if (sourceDragMask & NSDragOperationLink) {
             return NSDragOperationLink;
         } else if (sourceDragMask & NSDragOperationCopy) {
             return NSDragOperationCopy;
         }
     }
-    
+
     return NSDragOperationNone;
 }
 
 - (BOOL)performDragOperation:(id <NSDraggingInfo>)sender {
-    NSPasteboard *pboard;
-    NSDragOperation sourceDragMask;
-    
-    sourceDragMask = [sender draggingSourceOperationMask];
-    pboard = [sender draggingPasteboard];
-    
-    if ( [[pboard types] containsObject:NSFilenamesPboardType] ) {
-        NSArray *files = [pboard propertyListForType:NSFilenamesPboardType];
-        
-        /* Load data of file. */
-        NSError *error;
-        NSData *fileData = [NSData dataWithContentsOfFile: files[0]
-                                                  options: NSMappedRead
-                                                    error: &error];
-        if (!error) {
-            // convert to base64 representation
-            NSString *dataString = [fileData base64Encoding];
-            
-            // insert into text.
-            NSInteger insertionPoint = [[[self selectedRanges] objectAtIndex:0] rangeValue].location;
-            [self setString:[NSString stringWithFormat:@"%@![](data:image/jpeg;base64,%@)%@", [[self string] substringToIndex:insertionPoint], dataString, [[self string] substringFromIndex:insertionPoint]]];
-            [self didChangeText];
-        } else {
-            return NO;
-        }
+    NSPasteboard *pboard = [sender draggingPasteboard];
+    NSArray<NSURL *> *fileURLs =
+        [pboard readObjectsForClasses:@[[NSURL class]]
+                               options:MPImageFileReadingOptions()];
+    if (!fileURLs.count)
+        return NO;
+
+    // Insert a Markdown reference to each dropped image's path instead of
+    // embedding the file's raw bytes as a base64 data URI: the previous
+    // implementation read the whole file into memory, base64-encoded it,
+    // and inlined it as "![](data:image/jpeg;base64,<...>)" -- unconditionally
+    // labeled image/jpeg regardless of the file's real type, and bloating
+    // the Markdown source with the full file contents on every drop. A
+    // plain path reference is what every other Markdown editor does here,
+    // keeps the source text readable, and works for any image type.
+    //
+    // Plain Markdown ![](), not raw <img>: the full-width preview styling
+    // is applied globally in the HTML template (see Default.handlebars)
+    // instead of per-image, so the Markdown source stays clean and portable.
+    NSMutableString *insertion = [NSMutableString string];
+    NSCharacterSet *allowed = [NSCharacterSet URLPathAllowedCharacterSet];
+    for (NSURL *fileURL in fileURLs)
+    {
+        NSString *path = fileURL.path;
+        NSString *escapedPath =
+            [path stringByAddingPercentEncodingWithAllowedCharacters:allowed];
+        [insertion appendFormat:@"![](%@)\n", escapedPath ?: path];
     }
+
+    NSInteger insertionPoint =
+        [[[self selectedRanges] objectAtIndex:0] rangeValue].location;
+    NSString *text = self.string;
+    NSString *newText =
+        [NSString stringWithFormat:@"%@%@%@",
+            [text substringToIndex:insertionPoint], insertion,
+            [text substringFromIndex:insertionPoint]];
+    [self setString:newText];
+    [self didChangeText];
     return YES;
 }
 

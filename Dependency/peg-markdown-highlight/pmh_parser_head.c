@@ -6,6 +6,8 @@
  * 
  * Code to be inserted into the beginning of the parser code generated
  * from the PEG grammar.
+ *
+ * Portions Copyright 2026 Roberto Bissanti.
  */
 
 #include "pmh_parser.h"
@@ -150,7 +152,7 @@ static void parse_references(parser_data *p_data);
 
 
 
-static char **get_element_type_names()
+static char **get_element_type_names(void)
 {
     static char **elem_type_names = NULL;
     if (elem_type_names == NULL)
@@ -460,7 +462,12 @@ static int strcpy_preformat(char *str, char **out,
     while (*c != '\0')
     {
         if (!IS_CONTINUATION_BYTE(*c)) {
-            *(new_str+i) = *c, i++;
+            // Two statements instead of a comma-operator one-liner: same
+            // behavior (assign, then increment), but Clang flags the comma
+            // form as a possible misuse (easy to mistake for the equality
+            // operator at a glance).
+            *(new_str+i) = *c;
+            i++;
         } else {
             ADD_STRIP_POS((int)(c-str));
         }
@@ -967,7 +974,14 @@ static void yy_input_func(char *buf, int *result, int max_size,
             if (p_data->current_elem != NULL)
                 p_data->offset = p_data->current_elem->pos;
         }
-        (*result) = (EOF == yyc) ? 0 : (*(buf) = yyc, 1);
+        // Same "assign, then use 1 as the ternary's value" idiom as above,
+        // rewritten without the comma operator Clang flags.
+        if (EOF == yyc) {
+            (*result) = 0;
+        } else {
+            *(buf) = yyc;
+            (*result) = 1;
+        }
         return;
     }
     

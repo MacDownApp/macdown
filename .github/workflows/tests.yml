@@ -1,0 +1,62 @@
+name: Tests
+
+# Replaces the old .travis.yml. Travis CI's free macOS build queue for open
+# source projects has been effectively dead for years, and the pinned
+# osx_image (xcode10.1) predates this project's current
+# MACOSX_DEPLOYMENT_TARGET (12.0) by several major Xcode/macOS releases --
+# the check would never realistically complete on current infrastructure.
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  test:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Cache Bundler gems
+        uses: actions/cache@v4
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-bundler-${{ hashFiles('Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-bundler-
+
+      - name: Cache CocoaPods
+        uses: actions/cache@v4
+        with:
+          path: Pods
+          key: ${{ runner.os }}-pods-${{ hashFiles('Podfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pods-
+
+      - name: Install Ruby dependencies
+        run: |
+          bundle config set path 'vendor/bundle'
+          bundle install
+
+      - name: Install CocoaPods dependencies
+        run: bundle exec pod install
+
+      - name: Build peg-markdown-highlight
+        run: make -C Dependency/peg-markdown-highlight
+
+      - name: Install xcpretty
+        run: gem install xcpretty --no-document
+
+      - name: Run tests
+        run: |
+          set -o pipefail
+          xcodebuild \
+            -workspace MacDown.xcworkspace \
+            -scheme MacDown \
+            -destination 'platform=macOS' \
+            test | xcpretty

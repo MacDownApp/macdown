@@ -7,6 +7,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 {{{ titleTag }}}
 
+<style type="text/css">
+/* Images always fill the preview's width, regardless of their natural
+   size or any width/height attributes on the <img> tag itself. Kept here
+   (applied globally) rather than per-image in the Markdown source, so
+   dropped/typed images can use plain ![]() syntax. */
+img { width: 100% !important; }
+</style>
+
 {{#each styleTags }}
 {{{ this }}}
 {{/each }}

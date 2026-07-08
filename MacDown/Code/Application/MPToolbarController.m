@@ -5,6 +5,8 @@
 //  Created by Niklas Berglund on 2017-02-12.
 //  Copyright © 2017 Tzu-ping Chung . All rights reserved.
 //
+//  Portions Copyright (c) 2026 Roberto Bissanti.
+//
 
 #import "MPToolbarController.h"
 
@@ -112,13 +114,19 @@ static CGFloat itemWidth = 37;
     
     NSToolbarItemGroup *selectedGroup = self->toolbarItemIdentifierObjectDictionary[sender.identifier];
     NSToolbarItem *selectedItem = selectedGroup.subitems[selectedIndex];
-    
-    // Invoke the toolbar item's action
-    // Must convert to IMP to let the compiler know about the method definition
-    MPDocument *document = self.document;
-    IMP imp = [document methodForSelector:selectedItem.action];
-    void (*impFunc)(id) = (void *)imp;
-    impFunc(document);
+
+    // Dispatch through the standard AppKit action mechanism rather than
+    // resolving and calling the IMP by hand: the previous code cast the
+    // IMP to a 1-argument function pointer (id)->void, but every
+    // Objective-C method actually receives 3 arguments (self, _cmd,
+    // sender). Calling it with the wrong signature left _cmd/sender as
+    // whatever garbage happened to be in those registers/stack slots; if
+    // the callee's own `sender` parameter (implicitly __strong under ARC)
+    // then got retained, that retain call could receive a garbage pointer
+    // and crash with EXC_BAD_ACCESS -- which is exactly what was
+    // happening here (reported on Underline, but any of these actions
+    // could have triggered it).
+    [NSApp sendAction:selectedItem.action to:self.document from:selectedItem];
 }
 
 
@@ -228,7 +236,13 @@ static CGFloat itemWidth = 37;
         segmentIndex++;
     }
     
-    itemGroup.maxSize = NSMakeSize(itemGroupWidth, 25);
+    // NSToolbarItem[Group].maxSize/minSize are deprecated as of macOS 12:
+    // "let the system measure the item automatically using constraints"
+    // instead of setting an explicit size on the toolbar item itself.
+    segmentedControl.translatesAutoresizingMaskIntoConstraints = NO;
+    [segmentedControl.widthAnchor
+        constraintEqualToConstant:itemGroupWidth].active = YES;
+    [segmentedControl.heightAnchor constraintEqualToConstant:25].active = YES;
     itemGroup.view = segmentedControl;
     
     [self->toolbarItemIdentifierObjectDictionary setObject:itemGroup forKey:itemIdentifier];

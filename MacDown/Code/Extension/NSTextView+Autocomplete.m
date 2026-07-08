@@ -5,6 +5,8 @@
 //  Created by Tzu-ping Chung  on 11/06/2014.
 //  Copyright (c) 2014 Tzu-ping Chung . All rights reserved.
 //
+//  Portions Copyright (c) 2026 Roberto Bissanti.
+//
 
 #import "NSTextView+Autocomplete.h"
 #import "NSString+Lookup.h"
@@ -93,7 +95,12 @@ static NSString * const kMPBlockquoteLinePattern = @"^((?:\\> ?)+).*$";
     NSUInteger offset = (currentLocation - p - 1) % 4;
     if (offset)
         spaces = [spaces substringFromIndex:offset];
-    [self insertText:spaces];
+    // NSMakeRange(NSNotFound, 0) is Apple's documented sentinel for
+    // -insertText:replacementRange: meaning "use the current selection, or
+    // the marked (IME composition) range if there is one" -- the same
+    // behavior the deprecated 1-arg -insertText: had. Every other call in
+    // this file already uses the 2-arg form; these were the stragglers.
+    [self insertText:spaces replacementRange:NSMakeRange(NSNotFound, 0)];
 }
 
 - (BOOL)completeMatchingCharactersForTextInRange:(NSRange)range
@@ -583,7 +590,7 @@ static NSString * const kMPBlockquoteLinePattern = @"^((?:\\> ?)+).*$";
     if (contentLength > location + t.length
             && [[content substringWithRange:r] isEqualToString:t])
     {
-        [self insertText:indent];
+        [self insertText:indent replacementRange:NSMakeRange(NSNotFound, 0)];
         return YES;
     }
 
@@ -598,7 +605,7 @@ static NSString * const kMPBlockquoteLinePattern = @"^((?:\\> ?)+).*$";
     // Insert completion for normal cases.
     if (t.length)
         it = [NSString stringWithFormat:@"%@ ", it];
-    [self insertText:it];
+    [self insertText:it replacementRange:NSMakeRange(NSNotFound, 0)];
     return YES;
 }
 
@@ -639,7 +646,7 @@ static NSString * const kMPBlockquoteLinePattern = @"^((?:\\> ?)+).*$";
     }
 
     // Insert completion.
-    [self insertText:markers];
+    [self insertText:markers replacementRange:NSMakeRange(NSNotFound, 0)];
     return YES;
 }
 
@@ -658,7 +665,8 @@ static NSString * const kMPBlockquoteLinePattern = @"^((?:\\> ?)+).*$";
 
     [self insertNewline:self];
     NSRange indentRange = NSMakeRange(start, end - start);
-    [self insertText:[content substringWithRange:indentRange]];
+    [self insertText:[content substringWithRange:indentRange]
+     replacementRange:NSMakeRange(NSNotFound, 0)];
     return YES;
 }
 

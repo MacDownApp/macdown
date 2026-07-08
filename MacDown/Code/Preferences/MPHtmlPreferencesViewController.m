@@ -5,13 +5,15 @@
 //  Created by Tzu-ping Chung  on 8/06/2014.
 //  Copyright (c) 2014 Tzu-ping Chung . All rights reserved.
 //
+//  Portions Copyright (c) 2026 Roberto Bissanti.
+//
 
 #import "MPHtmlPreferencesViewController.h"
 #import "MPUtilities.h"
 #import "MPPreferences.h"
 
 
-NS_INLINE NSString *MPPrismDefaultThemeName()
+NS_INLINE NSString *MPPrismDefaultThemeName(void)
 {
     return NSLocalizedString(@"(Default)", @"Prism theme title");
 }

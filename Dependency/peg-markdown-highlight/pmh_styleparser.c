@@ -3,8 +3,10 @@
  * Licensed under the GPL2+ and MIT licenses (see LICENSE for more info).
  * 
  * styleparser.c
- * 
+ *
  * Parser for custom syntax highlighting stylesheets.
+ *
+ * Portions Copyright 2026 Roberto Bissanti.
  */
 
 #include <stdio.h>
@@ -198,12 +200,12 @@ static pmh_attr_argb_color *new_argb_from_hex_str(style_parser_data *p_data,
     return new_argb_from_hex(num, (len == 8));
 }
 
-static pmh_attr_value *new_attr_value()
+static pmh_attr_value *new_attr_value(void)
 {
     return (pmh_attr_value *)malloc(sizeof(pmh_attr_value));
 }
 
-static pmh_attr_font_styles *new_font_styles()
+static pmh_attr_font_styles *new_font_styles(void)
 {
     pmh_attr_font_styles *ret = (pmh_attr_font_styles *)
                                 malloc(sizeof(pmh_attr_font_styles));
@@ -213,7 +215,7 @@ static pmh_attr_font_styles *new_font_styles()
     return ret;
 }
 
-static pmh_attr_font_size *new_font_size()
+static pmh_attr_font_size *new_font_size(void)
 {
     pmh_attr_font_size *ret = (pmh_attr_font_size *)
                               malloc(sizeof(pmh_attr_font_size));
@@ -544,7 +546,7 @@ typedef struct block
     struct block *next;
 } block;
 
-static block *new_block()
+static block *new_block(void)
 {
     block *ret = (block *)malloc(sizeof(block));
     ret->next = NULL;
@@ -870,7 +872,7 @@ static void _sty_parse(style_parser_data *p_data)
 
 
 
-static pmh_style_collection *new_style_collection()
+static pmh_style_collection *new_style_collection(void)
 {
     pmh_style_collection *sc = (pmh_style_collection *)
                                malloc(sizeof(pmh_style_collection));

@@ -134,6 +134,12 @@
 	<string>https://macdown.uranusjr.com/sparkle/macdown/testing/appcast.xml</string>
 	<key>SUFeedURL</key>
 	<string>https://macdown.uranusjr.com/sparkle/macdown/stable/appcast.xml</string>
+	<!-- TODO(Sparkle 2 migration): DSA signing is legacy. Run Sparkle's
+	     bin/generate_keys on a Mac to create an EdDSA keypair, then add:
+	       <key>SUPublicEDKey</key>
+	       <string>{base64 public key from generate_keys}</string>
+	     Keep SUPublicDSAKeyFile only if you still need to verify updates
+	     signed under the old DSA key during a transition period. -->
 	<key>SUPublicDSAKeyFile</key>
 	<string>dsa_pub.pem</string>
 	<key>UTExportedTypeDeclarations</key>

@@ -26,6 +26,10 @@
 
 .DS_Store
 
+# MacDown writes a hidden sidecar HTML file next to whatever document is
+# open, to render the live preview (see -[MPDocument renderer:didProduceHTMLOutput:]).
+.macdown-preview-*.html
+
 # c.f. http://www.westwind.com/reference/os-x/invisibles.html
 
 .Trashes

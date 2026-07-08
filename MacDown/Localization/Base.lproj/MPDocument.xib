@@ -4,7 +4,6 @@
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaDFRPlugin" version="14019"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14109"/>
-        <plugIn identifier="com.apple.WebKitIBPlugin" version="14109"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
         <capability name="the Touch Bar" minToolsVersion="8.1" minSystemVersion="10.12.2" requiredIntegratedClassName="NSTouchBar"/>
     </dependencies>
@@ -427,16 +426,17 @@
                                     <constraint firstAttribute="centerX" secondItem="kfG-Fe-ode" secondAttribute="centerX" id="ynw-y8-yAH"/>
                                 </constraints>
                             </customView>
-                            <webView fixedFrame="YES" id="XJO-AS-uPd">
+                            <!-- Placeholder for the preview pane. The real WKWebView is
+                                 created programmatically in
+                                 -[MPDocument windowControllerDidLoadNib:] and swapped in
+                                 for this view, so that a WKWebViewConfiguration with
+                                 script message handlers can be attached before any
+                                 content loads (not possible via Interface Builder's
+                                 nib-based WKWebView instantiation). -->
+                            <customView id="XJO-AS-uPd">
                                 <rect key="frame" x="510" y="0.0" width="514" height="578"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <webPreferences key="preferences" defaultFontSize="12" defaultFixedFontSize="12">
-                                    <nil key="identifier"/>
-                                </webPreferences>
-                                <connections>
-                                    <outlet property="UIDelegate" destination="-2" id="5Ky-Oy-jNW"/>
-                                </connections>
-                            </webView>
+                            </customView>
                         </subviews>
                         <holdingPriorities>
                             <real value="250"/>

@@ -5,6 +5,8 @@
 //  Created by Tzu-ping Chung  on 01/7.
 //  Copyright (c) 2014 Tzu-ping Chung . All rights reserved.
 //
+//  Portions Copyright (c) 2026 Roberto Bissanti.
+//
 
 #import "MPGeneralPreferencesViewController.h"
 #import "MPPreferences.h"
@@ -41,7 +43,7 @@
 {
     if (sender == self.autoRenderingToggle)
     {
-        if (self.autoRenderingToggle.state != NSOnState)
+        if (self.autoRenderingToggle.state != NSControlStateValueOn)
             self.preferences.editorShowWordCount = NO;
     }
 }

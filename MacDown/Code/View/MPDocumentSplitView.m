@@ -5,6 +5,8 @@
 //  Created by Tzu-ping Chung on 13/12.
 //  Copyright (c) 2014 Tzu-ping Chung . All rights reserved.
 //
+//  Portions Copyright (c) 2026 Roberto Bissanti.
+//
 
 #import "MPDocumentSplitView.h"
 
@@ -13,8 +15,13 @@
 
 - (BOOL)isEqualToColor:(NSColor *)color
 {
-    NSColor *rgb1 = [self colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
-    NSColor *rgb2 = [color colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
+    // colorUsingColorSpaceName: is deprecated; colorUsingColorSpace: with an
+    // explicit NSColorSpace is the modern equivalent. genericRGBColorSpace is
+    // the closest analog to the old NSCalibratedRGBColorSpace for this
+    // equality check.
+    NSColorSpace *space = [NSColorSpace genericRGBColorSpace];
+    NSColor *rgb1 = [self colorUsingColorSpace:space];
+    NSColor *rgb2 = [color colorUsingColorSpace:space];
     return rgb1 && rgb2 && [rgb1 isEqual:rgb2];
 }
 
