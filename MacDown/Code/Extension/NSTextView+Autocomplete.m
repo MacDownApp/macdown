@@ -50,7 +50,7 @@ static const unichar kMPMarkupCharacters[] = {
 };
 
 static NSString * const kMPListLineHeadPattern =
-    @"^(\\s*)((?:(?:\\*|\\+|-|)\\s+)?)((?:\\d+\\.\\s+)?)(\\S)?";
+    @"^(\\s*)((?:(?:\\*|\\+|-|)\\s+)?)((?:\\d+\\.\\s+)?)((?:\\[[ xX]\\]\\s+)?)(\\S)?";
 static NSString * const kMPBlockquoteLinePattern = @"^((?:\\> ?)+).*$";
 
 
@@ -537,7 +537,8 @@ static NSString * const kMPBlockquoteLinePattern = @"^((?:\\> ?)+).*$";
     NSString *t = nil;
     BOOL isUl = ([result rangeAtIndex:2].length != 0);
     BOOL isOl = ([result rangeAtIndex:3].length != 0);
-    BOOL previousLineEmpty = ([result rangeAtIndex:4].length == 0);
+    BOOL hasCheckbox = ([result rangeAtIndex:4].length != 0);
+    BOOL previousLineEmpty = ([result rangeAtIndex:5].length == 0);
     if (previousLineEmpty)
     {
         NSRange replaceRange = NSMakeRange(NSNotFound, 0);
@@ -558,6 +559,8 @@ static NSString * const kMPBlockquoteLinePattern = @"^((?:\\> ?)+).*$";
         NSRange range = [result rangeAtIndex:2];
         range.length -= 1;      // Exclude trailing whitespace.
         t = [line substringWithRange:range];
+        if (hasCheckbox)
+            t = [t stringByAppendingString:@" [ ]"];
     }
     else if (isOl)
     {
@@ -568,6 +571,8 @@ static NSString * const kMPBlockquoteLinePattern = @"^((?:\\> ?)+).*$";
         if (autoIncrement)
             i += 1;
         t = [NSString stringWithFormat:@"%ld.", i];
+        if (hasCheckbox)
+            t = [t stringByAppendingString:@" [ ]"];
     }
     if (!t)
         return NO;
