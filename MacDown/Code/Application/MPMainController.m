@@ -8,7 +8,7 @@
 
 #import "MPMainController.h"
 #import <MASPreferences/MASPreferencesWindowController.h>
-#import <Sparkle/SUUpdater.h>
+// #import <Sparkle/SUUpdater.h>  // Disabled: Sparkle not compatible with arm64 + macOS 10.8
 #import "MPGlobals.h"
 #import "MPUtilities.h"
 #import "NSDocumentController+Document.h"
@@ -260,14 +260,15 @@ NS_INLINE void treat()
 }
 
 
-#pragma mark - SUUpdaterDelegate
-
-- (NSString *)feedURLStringForUpdater:(SUUpdater *)updater
-{
-    if (self.preferences.updateIncludesPreReleases)
-        return [NSBundle mainBundle].infoDictionary[@"SUBetaFeedURL"];
-    return [NSBundle mainBundle].infoDictionary[@"SUFeedURL"];
-}
+// Disabled: Sparkle not compatible with arm64 + macOS 10.8
+// #pragma mark - SUUpdaterDelegate
+//
+// - (NSString *)feedURLStringForUpdater:(SUUpdater *)updater
+// {
+//     if (self.preferences.updateIncludesPreReleases)
+//         return [NSBundle mainBundle].infoDictionary[@"SUBetaFeedURL"];
+//     return [NSBundle mainBundle].infoDictionary[@"SUFeedURL"];
+// }
 
 
 #pragma mark - Private

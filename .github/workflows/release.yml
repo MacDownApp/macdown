@@ -1,0 +1,141 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  build-apple-silicon:
+    timeout-minutes: 90
+    runs-on: macos-14
+    name: "Release - Apple Silicon"
+
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        submodules: recursive
+        fetch-depth: 0
+
+    - name: Setup Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.0'
+        bundler-cache: true
+
+    - name: Cache CocoaPods
+      uses: actions/cache@v3
+      with:
+        path: Pods
+        key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-pods-
+
+    - name: Install CocoaPods and xcpretty
+      run: |
+        gem install cocoapods xcpretty
+        pod repo update --silent
+
+    - name: Install Dependencies
+      run: |
+        pod install --repo-update
+
+    - name: Generate pmh_parser.c
+      run: |
+        cd Dependency/peg-markdown-highlight
+        make
+        cd ../..
+        echo "✓ pmh_parser.c generated successfully"
+
+    - name: Build Information
+      run: |
+        echo "============================================"
+        echo "Building Release: Apple Silicon (arm64)"
+        echo "Runner: macos-14"
+        echo "Version: ${{ github.ref_name }}"
+        echo "============================================"
+
+    - name: Build MacDown Release (Apple Silicon)
+      run: |
+        xcodebuild -workspace MacDown.xcworkspace \
+          -scheme MacDown \
+          -configuration Release \
+          -derivedDataPath build-arm64 \
+          ARCHS=arm64 \
+          VALID_ARCHS=arm64 \
+          build | xcpretty
+
+    - name: Locate Built App (Apple Silicon)
+      run: |
+        echo "Looking for MacDown.app in build directory..."
+        find build-arm64 -name "MacDown.app" -type d
+        ls -la build-arm64/Build/Products/Release/ || echo "Release directory not found"
+
+    - name: Create Disk Image (Apple Silicon)
+      run: |
+        set -e
+        APP_PATH="build-arm64/Build/Products/Release/MacDown.app"
+
+        if [ ! -d "$APP_PATH" ]; then
+          echo "ERROR: MacDown.app not found at $APP_PATH"
+          find build-arm64 -name "MacDown.app" -type d
+          exit 1
+        fi
+
+        mkdir -p dist-arm64
+        cp -r "$APP_PATH" dist-arm64/MacDown.app
+
+        DMG_NAME="MacDown-${{ github.ref_name }}-arm64.dmg"
+        echo "Creating $DMG_NAME..."
+
+        hdiutil create -volname "MacDown-arm64" \
+          -srcfolder dist-arm64 \
+          -ov -format UDZO \
+          "$DMG_NAME"
+
+        if [ -f "$DMG_NAME" ]; then
+          ls -lh "$DMG_NAME"
+          echo "✓ DMG created successfully"
+        else
+          echo "ERROR: Failed to create DMG"
+          exit 1
+        fi
+
+    - name: Upload DMG as Artifact
+      if: success()
+      uses: actions/upload-artifact@v4
+      with:
+        name: MacDown-arm64-dmg
+        path: MacDown-${{ github.ref_name }}-arm64.dmg
+        if-no-files-found: error
+        retention-days: 30
+
+    - name: Create Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: MacDown-${{ github.ref_name }}-arm64.dmg
+        draft: false
+        prerelease: ${{ contains(github.ref, 'beta') || contains(github.ref, 'alpha') }}
+        body: |
+          MacDown Release ${{ github.ref_name }}
+
+          ## Downloads
+
+          📦 **MacDown-${{ github.ref_name }}-arm64.dmg** - Apple Silicon (M1/M2/M3/Ultra)
+
+          ### System Requirements
+          - macOS 10.8 or later
+          - For RMarkdown: R and Rscript installed
+          - For LaTeX: pdflatex (MacTeX or TeX Live)
+
+          ### What's New
+          See CHANGELOG.md for details.
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

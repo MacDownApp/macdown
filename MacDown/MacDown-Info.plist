@@ -64,6 +64,56 @@
 			<string>MPDocument</string>
 		</dict>
 		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>rmd</string>
+				<string>Rmd</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>MarkdownDocument</string>
+			<key>CFBundleTypeMIMETypes</key>
+			<array>
+				<string>text/x-rmarkdown</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>RMarkdown</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>com.macdown.rmarkdown</string>
+			</array>
+			<key>LSTypeIsPackage</key>
+			<integer>0</integer>
+			<key>NSDocumentClass</key>
+			<string>MPDocument</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>tex</string>
+				<string>latex</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>MarkdownDocument</string>
+			<key>CFBundleTypeMIMETypes</key>
+			<array>
+				<string>application/x-latex</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>LaTeX</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>com.macdown.latex</string>
+			</array>
+			<key>LSTypeIsPackage</key>
+			<integer>0</integer>
+			<key>NSDocumentClass</key>
+			<string>MPDocument</string>
+		</dict>
+		<dict>
 			<key>CFBundleTypeName</key>
 			<string>Document</string>
 			<key>CFBundleTypeRole</key>
@@ -162,6 +212,60 @@
 				<key>public.mime-type</key>
 				<array>
 					<string>text/x-markdown</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.text</string>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>RMarkdown</string>
+			<key>UTTypeIconFile</key>
+			<string>MarkdownDocument</string>
+			<key>UTTypeIdentifier</key>
+			<string>com.macdown.rmarkdown</string>
+			<key>UTTypeReferenceURL</key>
+			<string>https://rmarkdown.rstudio.com</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>rmd</string>
+					<string>Rmd</string>
+				</array>
+				<key>public.mime-type</key>
+				<array>
+					<string>text/x-rmarkdown</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.text</string>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>LaTeX</string>
+			<key>UTTypeIconFile</key>
+			<string>MarkdownDocument</string>
+			<key>UTTypeIdentifier</key>
+			<string>com.macdown.latex</string>
+			<key>UTTypeReferenceURL</key>
+			<string>https://www.latex-project.org</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>tex</string>
+					<string>latex</string>
+				</array>
+				<key>public.mime-type</key>
+				<array>
+					<string>application/x-latex</string>
 				</array>
 			</dict>
 		</dict>

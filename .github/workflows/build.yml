@@ -1,0 +1,91 @@
+name: Build
+
+on:
+  push:
+    branches: [ master, main, develop ]
+  pull_request:
+    branches: [ master, main, develop ]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-apple-silicon:
+    timeout-minutes: 60
+    runs-on: macos-14
+    name: "Build Apple Silicon"
+
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        submodules: recursive
+        fetch-depth: 0
+
+    - name: Setup Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.0'
+        bundler-cache: true
+
+    - name: Cache CocoaPods
+      uses: actions/cache@v3
+      with:
+        path: Pods
+        key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-pods-
+
+    - name: Install CocoaPods and xcpretty
+      run: |
+        gem install cocoapods xcpretty
+        pod repo update --silent
+
+    - name: Install Dependencies
+      run: |
+        if [ ! -d "Pods" ] || [ ! -f "Pods/Manifest.lock" ] || ! cmp -s "Podfile.lock" "Pods/Manifest.lock"; then
+          pod install --repo-update
+        else
+          echo "Using cached Pods"
+        fi
+
+    - name: Generate pmh_parser.c
+      run: |
+        cd Dependency/peg-markdown-highlight
+        make
+        cd ../..
+        echo "✓ pmh_parser.c generated successfully"
+
+    - name: Build Information
+      run: |
+        echo "============================================"
+        echo "Building: Apple Silicon (arm64)"
+        echo "Runner: macos-14"
+        echo "Event: ${{ github.event_name }}"
+        echo "============================================"
+
+    - name: Build MacDown (Apple Silicon)
+      run: |
+        xcodebuild -workspace MacDown.xcworkspace \
+          -scheme MacDown \
+          -configuration Release \
+          -derivedDataPath build-arm64 \
+          ARCHS=arm64 \
+          VALID_ARCHS=arm64 \
+          build | xcpretty
+
+    - name: Run Tests (Apple Silicon)
+      run: |
+        xcodebuild -workspace MacDown.xcworkspace \
+          -scheme MacDown \
+          -configuration Debug \
+          test | xcpretty
+
+    - name: Upload Build Artifacts (Apple Silicon)
+      if: success()
+      uses: actions/upload-artifact@v4
+      with:
+        name: MacDown-arm64
+        path: build-arm64
+        retention-days: 30
