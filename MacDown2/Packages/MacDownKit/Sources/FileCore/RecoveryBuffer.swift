@@ -42,8 +42,12 @@ public actor RecoveryBuffer {
     }
 
     private func fileURL(for documentID: String) -> URL {
-        // Sanitize the ID for use as a filename.
-        let sanitized = documentID.replacingOccurrences(of: "/", with: "_")
+        // Only UUID-based IDs reach this path today (recovery is for untitled
+        // documents), but sanitize defensively so any future identifier is a
+        // safe single path component: keep alphanumerics plus `-_.`, and map
+        // everything else (`/`, `:`, `%`, whitespace, …) to `_`.
+        let allowed = CharacterSet.alphanumerics.union(CharacterSet(charactersIn: "-_."))
+        let sanitized = String(documentID.unicodeScalars.map { allowed.contains($0) ? Character($0) : "_" })
         return recoveryDirectory.appendingPathComponent("\(sanitized).recovery.md")
     }
 }

@@ -53,6 +53,14 @@ import Testing
     #expect(resolved.state == .dirty)
 }
 
+@Test func resolveCloseCancelOnCleanDocumentStaysClean() {
+    // Cancelling a close outside the prompt flow must not dirty a clean doc.
+    let document = FileDocument(text: "hello")
+    #expect(document.state == .clean)
+    let resolved = document.resolveClose(.cancel)
+    #expect(resolved.state == .clean)
+}
+
 @Test func saveExistingFileMarksClean() throws {
     let directory = FileManager.default.temporaryDirectory
         .appendingPathComponent(UUID().uuidString, isDirectory: true)

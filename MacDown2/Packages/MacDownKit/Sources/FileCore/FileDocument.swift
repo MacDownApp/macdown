@@ -121,7 +121,10 @@ public struct FileDocument: Sendable {
         case .save, .discard:
             copy.state = .clean
         case .cancel:
-            copy.state = .dirty
+            // Only a document that was actually prompting to close returns to
+            // `.dirty`. Guard against dirtying an already-clean document if
+            // `resolveClose(.cancel)` is ever called out of the prompt flow.
+            copy.state = (state == .promptingClose) ? .dirty : state
         }
         return copy
     }
