@@ -906,6 +906,7 @@
 			buildConfigurationList = 1FA6DE551941CC9E000409FB /* Build configuration list for PBXNativeTarget "MacDown" */;
 			buildPhases = (
 				B4334ECDC0751C835C1600D7 /* [CP] Check Pods Manifest.lock */,
+				1F8A83B01953461800B6BF69 /* Generate Markdown Parser */,
 				1FA6DE1D1941CC9E000409FB /* Sources */,
 				1FA6DE1E1941CC9E000409FB /* Frameworks */,
 				1FF16580199A6C950080D9A5 /* Fetch Prism Resources */,
@@ -1081,6 +1082,26 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		1F8A83B01953461800B6BF69 /* Generate Markdown Parser */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Dependency/peg-markdown-highlight/pmh_grammar.leg",
+				"$(SRCROOT)/Dependency/peg-markdown-highlight/pmh_parser_head.c",
+				"$(SRCROOT)/Dependency/peg-markdown-highlight/pmh_parser_foot.c",
+				"$(SRCROOT)/Dependency/peg-markdown-highlight/tools/combine_parser_files.sh",
+			);
+			name = "Generate Markdown Parser";
+			outputPaths = (
+				"$(SRCROOT)/Dependency/peg-markdown-highlight/pmh_parser.c",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "make -C \"$SRCROOT/Dependency/peg-markdown-highlight\"\n";
+			showEnvVarsInLog = 0;
+		};
 		1E02F0A95AAEBCEF65493F5F /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
