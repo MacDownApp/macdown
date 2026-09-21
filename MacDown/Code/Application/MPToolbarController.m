@@ -150,13 +150,13 @@ static CGFloat itemWidth = 37;
             [defaultItemIdentifiers addObject:itemIdentifier];
         }
         
-        if (i == spaceAfterIndices[j])
+        if (j < (int)(sizeof(spaceAfterIndices)/sizeof(spaceAfterIndices[0])) && i == spaceAfterIndices[j])
         {
             [defaultItemIdentifiers addObject:NSToolbarSpaceItemIdentifier];
             j++;
         }
         
-        if (i == flexibleSpaceAfterIndices[k])
+        if (k < (int)(sizeof(flexibleSpaceAfterIndices)/sizeof(flexibleSpaceAfterIndices[0])) && i == flexibleSpaceAfterIndices[k])
         {
             [defaultItemIdentifiers addObject:NSToolbarFlexibleSpaceItemIdentifier];
             k++;
