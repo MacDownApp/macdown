@@ -94,6 +94,7 @@
 		69F9A424ACEF87C0725F7B82 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07965DDA28C6E093CFAB6EF2 /* Theme.swift */; };
 		6CE92B9351073EB2AA2A6DB7 /* ThemeColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E02D37A6ED64C0F6F1CFF4 /* ThemeColor.swift */; };
 		770BB49E962A302D0715A6A5 /* libPods-MacDown.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 42F926DD38559C7CEDB6E42F /* libPods-MacDown.a */; };
+		777F6B6BED99B018D2B4470A /* NSURL+Convert.m in Sources */ = {isa = PBXBuildFile; fileRef = 249BA74EBF058FC5F8FEE3BB /* NSURL+Convert.m */; };
 		84110CD34B80356B90289088 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E96175BA12C141E294AD762 /* ThemeManager.swift */; };
 		852D523C1E260A6400BA7162 /* MPTerminalPreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 852D523A1E260A6400BA7162 /* MPTerminalPreferencesViewController.m */; };
 		85E24E5C1E5019C00056E696 /* MPToolbarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85E24E5B1E5019C00056E696 /* MPToolbarController.m */; };
@@ -103,7 +104,9 @@
 		A6CB4964B718D8646777DA2C /* MPMarkdownEngineTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 64E3C2CA3CE79E0B76CDBD2D /* MPMarkdownEngineTests.m */; };
 		AC2A677108794A44FEC75581 /* Snapshots in Resources */ = {isa = PBXBuildFile; fileRef = A21731D80F883C955BE96B61 /* Snapshots */; };
 		B5C5C1666A506FEA86435D25 /* libPods-macdown-cmd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 263367245B2D78A42C2F19D7 /* libPods-macdown-cmd.a */; };
+		BF9F34F6E5D2D0516C4693D6 /* WebView+Shortcut.m in Sources */ = {isa = PBXBuildFile; fileRef = AADEDCA9CC0F51761457638A /* WebView+Shortcut.m */; };
 		EBFE3157737058F5A63699C8 /* libPods-MacDownTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C949FDE45493AE77DAD9BF4 /* libPods-MacDownTests.a */; };
+		FB6DD036468D8DCD6F4E7CF1 /* MPPreferences+Hoedown.m in Sources */ = {isa = PBXBuildFile; fileRef = 06926F5A2B0D9C0B20CEF6E3 /* MPPreferences+Hoedown.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -162,6 +165,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		06926F5A2B0D9C0B20CEF6E3 /* MPPreferences+Hoedown.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "MPPreferences+Hoedown.m"; sourceTree = "<group>"; };
 		07965DDA28C6E093CFAB6EF2 /* Theme.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		0B5A25BA30FEED05E020C3F4 /* MPHoedownEngine.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPHoedownEngine.m; sourceTree = "<group>"; };
 		0D0EC0DE9FEA22F962083921 /* Pods-MacDownTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacDownTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MacDownTests/Pods-MacDownTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -501,17 +505,21 @@
 		1FFEB32919737D6E00B2254F /* YAMLSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YAMLSerialization.h; sourceTree = "<group>"; };
 		1FFEB32A19737D6E00B2254F /* YAMLSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YAMLSerialization.m; sourceTree = "<group>"; };
 		1FFF301C1948A5320009AF24 /* MPStringLookupTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPStringLookupTests.m; sourceTree = "<group>"; };
+		249BA74EBF058FC5F8FEE3BB /* NSURL+Convert.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NSURL+Convert.m"; sourceTree = "<group>"; };
 		25E02D37A6ED64C0F6F1CFF4 /* ThemeColor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ThemeColor.swift; sourceTree = "<group>"; };
 		263367245B2D78A42C2F19D7 /* libPods-macdown-cmd.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-macdown-cmd.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E96175BA12C141E294AD762 /* ThemeManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
 		3028039D1FD84EAB0055B0DA /* contribute.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = contribute.md; path = Resources/contribute.md; sourceTree = "<group>"; };
+		38D802F5EA6FDDFF60E0A677 /* WebView+Shortcut.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "WebView+Shortcut.h"; sourceTree = "<group>"; };
 		39EFCAE04F60154F0C8C5469 /* Pods-MacDown.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacDown.release.xcconfig"; path = "Pods/Target Support Files/Pods-MacDown/Pods-MacDown.release.xcconfig"; sourceTree = "<group>"; };
 		3C949FDE45493AE77DAD9BF4 /* libPods-MacDownTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MacDownTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D175F0F1974282400A5EFE8 /* WebView+WebViewPrivateHeaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WebView+WebViewPrivateHeaders.h"; sourceTree = "<group>"; };
+		3F4892BEAF295F4F2334C7FC /* NSURL+Convert.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NSURL+Convert.h"; sourceTree = "<group>"; };
 		42F926DD38559C7CEDB6E42F /* libPods-MacDown.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MacDown.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		46CE310899F1CF976D7E7A36 /* MPMarkdownEngine.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPMarkdownEngine.h; sourceTree = "<group>"; };
 		4DBAA63927A60EB2150642B3 /* Pods-macdown-cmd.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-macdown-cmd.debug.xcconfig"; path = "Pods/Target Support Files/Pods-macdown-cmd/Pods-macdown-cmd.debug.xcconfig"; sourceTree = "<group>"; };
 		5D7A98AE7456B40021623A57 /* MPHoedownEngine.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPHoedownEngine.h; sourceTree = "<group>"; };
+		62DDC90B4712BFAC44E855CA /* MPPreferences+Hoedown.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MPPreferences+Hoedown.h"; sourceTree = "<group>"; };
 		64E3C2CA3CE79E0B76CDBD2D /* MPMarkdownEngineTests.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPMarkdownEngineTests.m; sourceTree = "<group>"; };
 		7A8EA75FA95818275755F0B6 /* Pods-macdown-cmd.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-macdown-cmd.release.xcconfig"; path = "Pods/Target Support Files/Pods-macdown-cmd/Pods-macdown-cmd.release.xcconfig"; sourceTree = "<group>"; };
 		80AF0F089878ED26203CC848 /* AppConfigTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AppConfigTests.swift; sourceTree = "<group>"; };
@@ -527,6 +535,7 @@
 		9DF72DC953F51FC71399343F /* MPPerformanceTests.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPerformanceTests.m; sourceTree = "<group>"; };
 		A21731D80F883C955BE96B61 /* Snapshots */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = Snapshots; path = MacDownTests/Snapshots; sourceTree = "<group>"; };
 		A76F40CDE52CE7F4970A0A33 /* BuiltinThemes */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = BuiltinThemes; path = MacDown/Resources/BuiltinThemes; sourceTree = "<group>"; };
+		AADEDCA9CC0F51761457638A /* WebView+Shortcut.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "WebView+Shortcut.m"; sourceTree = "<group>"; };
 		E70ECDD4241C933C00537A46 /* ru-RU */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ru-RU"; path = "Localization/ru-RU.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		E70ECDD5241C933C00537A46 /* ru-RU */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ru-RU"; path = "Localization/ru-RU.lproj/MainMenu.strings"; sourceTree = "<group>"; };
 		E70ECDD6241C933C00537A46 /* ru-RU */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ru-RU"; path = "Localization/ru-RU.lproj/MPMarkdownPreferencesViewController.strings"; sourceTree = "<group>"; };
@@ -614,6 +623,10 @@
 				3D175F0F1974282400A5EFE8 /* WebView+WebViewPrivateHeaders.h */,
 				1FBBD4C9194CA35900BB3C88 /* hoedown_html_patch.h */,
 				1FBBD4CA194CA36500BB3C88 /* hoedown_html_patch.c */,
+				3F4892BEAF295F4F2334C7FC /* NSURL+Convert.h */,
+				249BA74EBF058FC5F8FEE3BB /* NSURL+Convert.m */,
+				38D802F5EA6FDDFF60E0A677 /* WebView+Shortcut.h */,
+				AADEDCA9CC0F51761457638A /* WebView+Shortcut.m */,
 			);
 			name = Extension;
 			path = Code/Extension;
@@ -659,6 +672,8 @@
 				1F3619E81F36DA0F00EDA15A /* MPTerminalPreferencesViewController.xib */,
 				1F0D9D72194AC7F7008E1856 /* MPPreferences.h */,
 				1F0D9D73194AC7F7008E1856 /* MPPreferences.m */,
+				62DDC90B4712BFAC44E855CA /* MPPreferences+Hoedown.h */,
+				06926F5A2B0D9C0B20CEF6E3 /* MPPreferences+Hoedown.m */,
 			);
 			name = Preferences;
 			path = Code/Preferences;
@@ -1353,6 +1368,9 @@
 				6CE92B9351073EB2AA2A6DB7 /* ThemeColor.swift in Sources */,
 				84110CD34B80356B90289088 /* ThemeManager.swift in Sources */,
 				610E4A195CC07CDCF392872B /* MPHoedownEngine.m in Sources */,
+				777F6B6BED99B018D2B4470A /* NSURL+Convert.m in Sources */,
+				BF9F34F6E5D2D0516C4693D6 /* WebView+Shortcut.m in Sources */,
+				FB6DD036468D8DCD6F4E7CF1 /* MPPreferences+Hoedown.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

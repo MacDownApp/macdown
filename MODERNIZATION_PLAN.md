@@ -177,12 +177,13 @@ preview:
 - Still open: universal-binary check, Sparkle 2 (Phase 13), Transifex upload step that Travis used to run (re-add to GitHub Actions in Phase 13).
 - The build needs `pod install` with the system CocoaPods (the pinned Bundler gems in `Gemfile.lock` do not install on current Ruby).
 
-### Phase 1 – Decompose, seams, benchmarks (1–2 weeks)
-- Split `MPDocument` (export, scroll sync, file I/O, toolbar, preview coordination).
-- Introduce protocol seams. Wrap Hoedown and WebView behind them.
-- Snapshot tests: Markdown to HTML on a corpus (CommonMark spec, GFM spec, MacDown samples).
-- Add the **benchmark target and signposts** (section 2) and record the baseline numbers of the current app.
-- Exit: behavior unchanged; `MPDocument` under ~600 lines; baseline numbers committed.
+### Phase 1 – Decompose, seams, benchmarks (1–2 weeks) — DONE (with changes)
+- Done: `MPMarkdownEngine` protocol and `MPHoedownEngine` (all Hoedown code moved out of `MPRenderer`; `MPRenderer` only sees the protocol). Golden-file tests: 20 documents in two option sets, 40 goldens (`MacDownTests/Snapshots`). Benchmarks with hard limits plus a recorded baseline (`docs/benchmarks.md`). `os_signpost` around each render. Three categories moved out of `MPDocument` into their own files.
+- **Changes from the original plan:**
+  - `MPDocument` is **not** cut to 600 lines now (1949 lines). What remains (export, scroll sync, WebView delegates, editor setup) is tied to the old `WebView` and `peg-markdown-highlight`, which Phases 3 and 4 replace. Splitting it now would be work thrown away. The split happens inside those phases.
+  - Only the Markdown seam is defined now. The other seams (`PreviewView`, `SyntaxHighlighter`, `GitProvider`) are defined at the start of the phase that implements them, so they match a real implementation.
+  - The Phase 2 parser must stay within about 3 times the Hoedown benchmark numbers.
+- Known Hoedown quirks recorded in the goldens (fix in Phase 2 or 5): `$5 and $10` is turned into math; `\[ ... \]` display math is not recognized; code blocks with no language get `language-none`.
 
 ### Phase 2 – Markdown core (2 weeks)
 - Replace Hoedown with **swift-markdown** (cmark-gfm underneath). Gives an AST used by source maps, outline and scroll sync.
