@@ -68,7 +68,7 @@ Gotcha: directory listings can return `/private/var/...` for `/var/...`. Never c
 
 ## Preview (WKWebView)
 
-`MPPreviewController` (Swift) creates the web view in code: the nib only holds a placeholder view, because a `WKURLSchemeHandler` must be set before a `WKWebView` exists. Local files are served through the custom scheme `macdown-file://` (same paths as `file://`; `PreviewSchemeHandler`); `PreviewURL.rewrite` converts `src/href="file://..."` in the page and points MathJax at the bundled copy. The page reports heading positions and height (`PreviewScripts.metrics`) so scroll sync in `MPDocument` can stay synchronous; the MathJax completion signal comes through `window.MathJaxListener` (a shim). Tests: `PreviewTests.swift` (real `WKWebView`), `DocumentPreviewIntegrationTests.swift` (real document window from the nib).
+`MPPreviewController` (Swift) creates the web view in code: the nib only holds a placeholder view, because a `WKURLSchemeHandler` must be set before a `WKWebView` exists. Local files are served through the custom scheme `macdown-file://` (same paths as `file://`; `PreviewSchemeHandler`); `PreviewURL.rewrite` converts `src/href="file://..."` in the page. The page reports heading positions and height (`PreviewScripts.metrics`) so scroll sync in `MPDocument` can stay synchronous; the math-done signal (`MathJaxListener.invokeCallbackForKey_('End')`, a shim kept from the MathJax days) comes from `Resources/KaTeX/katex-init.js`, which loads the bundled KaTeX only if the page has math. Exported HTML uses pinned jsDelivr links instead. Tests: `PreviewTests.swift` (real `WKWebView`), `DocumentPreviewIntegrationTests.swift` (real document window from the nib).
 
 ## Modernization in progress
 

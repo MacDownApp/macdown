@@ -37,20 +37,13 @@ enum PreviewURL {
     private static let fileReference = try! NSRegularExpression(
         pattern: "(src|href|poster|data)(\\s*=\\s*)([\"'])file://", options: [.caseInsensitive])
 
-    private static let mathJaxCDN = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/MathJax.js"
-
-    /// Rewrites the page so every local resource goes through the preview scheme.
-    /// - `src="file://..."` and `href="file://..."` get the preview scheme.
-    /// - The MathJax CDN address becomes the copy inside the app, so math works offline.
+    /// Rewrites the page so every local resource goes through the preview scheme:
+    /// `src="file://..."` and `href="file://..."` get the preview scheme.
     /// Text outside attributes (for example a code block that shows a file path) is not touched.
-    static func rewrite(html: String, localMathJax: URL? = Bundle.main.url(forResource: "MathJax", withExtension: "js", subdirectory: "MathJax")) -> String {
-        var result = html
-        if let local = localMathJax, result.contains(mathJaxCDN) {
-            result = result.replacingOccurrences(of: mathJaxCDN, with: previewURL(for: local).absoluteString)
-        }
-        guard result.range(of: "file://", options: .caseInsensitive) != nil else { return result }
-        let range = NSRange(result.startIndex..., in: result)
-        return fileReference.stringByReplacingMatches(in: result, options: [], range: range,
+    static func rewrite(html: String) -> String {
+        guard html.range(of: "file://", options: .caseInsensitive) != nil else { return html }
+        let range = NSRange(html.startIndex..., in: html)
+        return fileReference.stringByReplacingMatches(in: html, options: [], range: range,
                                                       withTemplate: "$1$2$3\(scheme)://")
     }
 }

@@ -26,7 +26,7 @@ Honest summary of what exists. "Engine" means the logic is written, tested and c
 | 2 Markdown core | Done. cmark-gfm engine is live in the app; Hoedown is gone. |
 | 3 Editor | **Engine only:** multi-cursor edit logic (fuzz tested). Not started: TextKit 2, tree-sitter highlighting, wiring multi-cursor into the text view, spell-check toggle. |
 | 4 WKWebView | **Done, with gaps** (see Phase 4). The old `WebView`, its private headers, the DOM helpers and the MathJax listener are gone. |
-| 5 KaTeX | Not started. Math is detected and protected by the new engine, and still rendered by MathJax. |
+| 5 KaTeX | **Done.** Bundled KaTeX 0.16.11, loaded only for pages with math. MathJax is gone. See Phase 5. |
 | 6 Mermaid, Vega-Lite | Not started. |
 | 7 Themes | **Live in the preview:** YAML themes, 9 built-in, live reload, `theme:` in `config.yaml`. Not started: editor colors from the theme, theme picker UI, converting the old Mou themes. |
 | 8 Fonts | Not started. |
@@ -238,10 +238,14 @@ preview:
   - The preview was **not looked at by eye** in a running app. Things worth checking by hand: print and PDF export output, MathJax typesetting, zoom with large editor fonts, and scroll sync feel.
 - The old `-webView:doCommandBySelector:` copy handler (adds `public.html` to the pasteboard) was dropped: `WKWebView` puts HTML on the pasteboard by itself. Verify with a copy from the preview.
 
-### Phase 5 – LaTeX (1 week)
-- **KaTeX** bundled, lazy-loaded, offline. Syntax: `$inline$`, `$$block$$`, ```` ```math ````. Currency (`$5`) and escapes handled in the Swift parser.
-- Cache output per formula. Highlight LaTeX in the editor via tree-sitter.
-- Remove MathJax.
+### Phase 5 – LaTeX / math (1 week) — DONE
+- Done: **KaTeX 0.16.11** is bundled in `Resources/KaTeX` (woff2 fonts only, 600 KB) and works offline. A small loader (`katex-init.js`) runs on every page when math is enabled, checks the text outside code for `\(` or `\[`, and loads KaTeX only if it finds some. It then renders with auto-render and sends the same "math done" signal the scroll sync already waits for. MathJax and its CDN dependency are removed; the preview no longer needs the network for math.
+- Math syntax is found by the Phase 2 masker (not by JavaScript guessing): `$x$` (when "inline dollar" is on), `$$..$$`, `\(..\)`, `\[..\]`. Currency such as `$5 and $10`, math inside code, and escaped dollars stay text.
+- Exported HTML cannot read files inside the app, so it links KaTeX from jsDelivr with a pinned version and an embedded init script. Not done: Subresource Integrity hashes on those links.
+- Behavior to know: KaTeX auto-render stops at math it cannot delimit (for example `\(\frac{\)` with unbalanced braces) and leaves that line as text; an unknown command is drawn in red.
+- The preference is still called "MathJax" in the settings window and in code (`htmlMathJax`). Renaming it touches localized strings; it moves to the Phase 13 settings rewrite.
+- Not done from the original list: rendering math to images for PDF export (PDF export prints the web view, so formulas are already vector text); highlighting LaTeX in the editor (needs the Phase 3 tree-sitter work).
+- 9 new tests in a real web view (typesetting, fonts load offline, lazy loading, code and currency, errors, 500 formulas in a fraction of a second, export, preference off).
 
 ### Phase 6 – Mermaid and Vega-Lite (2 weeks)
 - Current **Mermaid** bundled, lazy-loaded only when a Mermaid block exists. Render after idle; cache SVG by block hash; render timeout.

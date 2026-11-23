@@ -36,7 +36,6 @@
 		1F0D9DB2194AC9EE008E1856 /* MPHtmlPreferencesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F0D9D87194AC83C008E1856 /* MPHtmlPreferencesViewController.xib */; };
 		1F0D9DB3194AC9EE008E1856 /* MPMarkdownPreferencesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F0D9D89194AC83C008E1856 /* MPMarkdownPreferencesViewController.xib */; };
 		1F0D9DB4194AC9EE008E1856 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F0D9D81194AC83C008E1856 /* MainMenu.xib */; };
-		1F0F3BFC195F75F200FC0B3B /* MathJax in Resources */ = {isa = PBXBuildFile; fileRef = 1F0F3BFB195F75F200FC0B3B /* MathJax */; };
 		1F25E1C31A50F4F10029371D /* MPColorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F25E1C21A50F4F10029371D /* MPColorTests.m */; };
 		1F2649B01A7406DB00EF6AF3 /* NSDocumentController+Document.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F2649AF1A7406DB00EF6AF3 /* NSDocumentController+Document.m */; };
 		1F27896B1973BEB100EE696A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1F2789691973BEB100EE696A /* Localizable.strings */; };
@@ -99,6 +98,7 @@
 		35C07F6D093A6569C06175EF /* WorkspaceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28BFF5163D678567C212B2D /* WorkspaceTests.swift */; };
 		3993B80A704AD80B8A41729A /* CMarkEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DED5592B20CE84DDA30B29B /* CMarkEngine.swift */; };
 		3D10142F8C3C4231316F34F3 /* FuzzyMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3968D1739E10A1F781C4CD /* FuzzyMatcher.swift */; };
+		3E008F34441BC95D14925958 /* KaTeX in Resources */ = {isa = PBXBuildFile; fileRef = AF444E5BC750D5724DEAFA71 /* KaTeX */; };
 		444378B12D0B6FCE0AA8B661 /* MultiSelectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1EF571403671197CA19B70 /* MultiSelectionTests.swift */; };
 		484D32008C1C611D97A08E18 /* Yams in Frameworks */ = {isa = PBXBuildFile; productRef = B07459FFC34C9D68445055FF /* Yams */; };
 		536A964260F034F51348D750 /* ThemeServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6737291494BF6B080B150883 /* ThemeServiceTests.swift */; };
@@ -133,6 +133,7 @@
 		D465E6978E07BFF9EC260338 /* DirectoryWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E168F75B211C6F1FD26E69 /* DirectoryWatcher.swift */; };
 		D6F2416B8ABAF76120303FAF /* PreviewSchemeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB77FB58647EE9FC9C4163B /* PreviewSchemeHandler.swift */; };
 		EBFE3157737058F5A63699C8 /* libPods-MacDownTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C949FDE45493AE77DAD9BF4 /* libPods-MacDownTests.a */; };
+		EDDC572136E307B0216CEFDD /* MathPreviewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F94F6A2763E7688ED58DCC0B /* MathPreviewTests.swift */; };
 		F1B6DB85C5E64F83AA0F1E0A /* PrismLanguages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C338E2565DF5E5451027C3E /* PrismLanguages.swift */; };
 		FA10DA3BCCA684E1C4FBCCF6 /* MPMarkdownEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = EFB765E471A177E0A751EFA7 /* MPMarkdownEngine.m */; };
 /* End PBXBuildFile section */
@@ -266,7 +267,6 @@
 		1F0D9DAC194AC8EF008E1856 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		1F0D9DAE194AC905008E1856 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Code/main.m; sourceTree = "<group>"; };
 		1F0D9DB5194ACA33008E1856 /* MacDown-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "MacDown-Prefix.pch"; path = "Code/MacDown-Prefix.pch"; sourceTree = "<group>"; };
-		1F0F3BFB195F75F200FC0B3B /* MathJax */ = {isa = PBXFileReference; lastKnownFileType = folder; name = MathJax; path = Resources/MathJax; sourceTree = "<group>"; };
 		1F20EA242099A18A00C81510 /* nb-NO */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nb-NO"; path = "Localization/nb-NO.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		1F20EA252099A18A00C81510 /* nb-NO */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nb-NO"; path = "Localization/nb-NO.lproj/MPExportPanelAccessoryViewController.strings"; sourceTree = "<group>"; };
 		1F20EA262099A18A00C81510 /* nb-NO */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nb-NO"; path = "Localization/nb-NO.lproj/MainMenu.strings"; sourceTree = "<group>"; };
@@ -569,6 +569,7 @@
 		A21731D80F883C955BE96B61 /* Snapshots */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = Snapshots; path = MacDownTests/Snapshots; sourceTree = "<group>"; };
 		A76F40CDE52CE7F4970A0A33 /* BuiltinThemes */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = BuiltinThemes; path = MacDown/Resources/BuiltinThemes; sourceTree = "<group>"; };
 		AB9E7D1A61A32ED8857FC26D /* WorkspaceTree.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WorkspaceTree.swift; sourceTree = "<group>"; };
+		AF444E5BC750D5724DEAFA71 /* KaTeX */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = KaTeX; path = MacDown/Resources/KaTeX; sourceTree = "<group>"; };
 		B3592786ED8C977E92667A47 /* DocumentPreviewIntegrationTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DocumentPreviewIntegrationTests.swift; sourceTree = "<group>"; };
 		B570A3FC3D7E832EF94EF478 /* MPPreferences+Markdown.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "MPPreferences+Markdown.m"; sourceTree = "<group>"; };
 		B605FD543F9FE6C0AD3194C1 /* PreviewTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PreviewTests.swift; sourceTree = "<group>"; };
@@ -611,6 +612,7 @@
 		EFB765E471A177E0A751EFA7 /* MPMarkdownEngine.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPMarkdownEngine.m; sourceTree = "<group>"; };
 		F586EC703D31B54F45CD8E15 /* GitModels.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GitModels.swift; sourceTree = "<group>"; };
 		F8A041DC3E6E235CC76C7E0D /* ThemeCSS.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ThemeCSS.swift; sourceTree = "<group>"; };
+		F94F6A2763E7688ED58DCC0B /* MathPreviewTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MathPreviewTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -782,7 +784,6 @@
 				1F9A14F3194EF6A600D1C6A9 /* Themes */,
 				1F41FF7A1C8EEE9200FD9886 /* Templates */,
 				1FBDFE9B196170FE00BEEA70 /* Extensions */,
-				1F0F3BFB195F75F200FC0B3B /* MathJax */,
 				1F8A82D819533E9300B6BF69 /* Prism */,
 				1F4C8E99194AE0B9004BF82E /* MarkdownDocument.icns */,
 				1F0D9DA6194AC8CB008E1856 /* Credits.rtf */,
@@ -871,6 +872,7 @@
 				A76F40CDE52CE7F4970A0A33 /* BuiltinThemes */,
 				A21731D80F883C955BE96B61 /* Snapshots */,
 				87DAF39DE605C5324F78926A /* MacDownTests-Bridging-Header.h */,
+				AF444E5BC750D5724DEAFA71 /* KaTeX */,
 			);
 			sourceTree = "<group>";
 			usesTabs = 0;
@@ -1026,6 +1028,7 @@
 				38033273DA961F870F5CFA96 /* RendererThemeIntegrationTests.swift */,
 				B605FD543F9FE6C0AD3194C1 /* PreviewTests.swift */,
 				B3592786ED8C977E92667A47 /* DocumentPreviewIntegrationTests.swift */,
+				F94F6A2763E7688ED58DCC0B /* MathPreviewTests.swift */,
 			);
 			name = SwiftTests;
 			path = MacDownTests/Swift;
@@ -1285,7 +1288,6 @@
 				1F0D9DAD194AC8EF008E1856 /* Images.xcassets in Resources */,
 				1F0D9DAA194AC8CB008E1856 /* Credits.rtf in Resources */,
 				1FBDFEA51962A27300BEEA70 /* MPGeneralPreferencesViewController.xib in Resources */,
-				1F0F3BFC195F75F200FC0B3B /* MathJax in Resources */,
 				1F3619E61F36DA0F00EDA15A /* MPTerminalPreferencesViewController.xib in Resources */,
 				1F4C8E9A194AE0B9004BF82E /* MarkdownDocument.icns in Resources */,
 				1F59491B1AB57C78007394CB /* syntax_highlighting.json in Resources */,
@@ -1295,6 +1297,7 @@
 				1FB3C0241E5061A2002AEB6A /* MPExportPanelAccessoryViewController.xib in Resources */,
 				3028039E1FD84EAC0055B0DA /* contribute.md in Resources */,
 				62548E77654F949D5AB73C85 /* BuiltinThemes in Resources */,
+				3E008F34441BC95D14925958 /* KaTeX in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1543,6 +1546,7 @@
 				A72828850A2F2CE58C7FD312 /* RendererThemeIntegrationTests.swift in Sources */,
 				21D0A98B7D7B49D129C80226 /* PreviewTests.swift in Sources */,
 				09F169789CFA68A3F1BCA978 /* DocumentPreviewIntegrationTests.swift in Sources */,
+				EDDC572136E307B0216CEFDD /* MathPreviewTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

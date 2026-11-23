@@ -23,20 +23,13 @@ final class PreviewHelpersTests: XCTestCase {
         <script SRC = "file:///x.js"></script><pre><code>open file:///etc/hosts</code></pre>
         <a href="https://example.com">web</a><a href="notes.md">rel</a>
         """
-        let out = PreviewURL.rewrite(html: html, localMathJax: nil)
+        let out = PreviewURL.rewrite(html: html)
         XCTAssertTrue(out.contains("href=\"macdown-file:///app/style.css\""))
         XCTAssertTrue(out.contains("src='macdown-file:///a/b.png'"))
         XCTAssertTrue(out.contains("SRC = \"macdown-file:///x.js\""))
         XCTAssertTrue(out.contains("open file:///etc/hosts"), "Text must not change")
         XCTAssertTrue(out.contains("href=\"https://example.com\""))
         XCTAssertTrue(out.contains("href=\"notes.md\""))
-    }
-
-    func testRewriteUsesTheBundledMathJax() {
-        let cdn = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
-        let local = URL(fileURLWithPath: "/App/MathJax/MathJax.js")
-        let out = PreviewURL.rewrite(html: "<script src=\"\(cdn)\"></script>", localMathJax: local)
-        XCTAssertEqual(out, "<script src=\"macdown-file:///App/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML\"></script>")
     }
 
     func testBaseURLOfAFolderGetsATrailingSlash() throws {
