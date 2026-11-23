@@ -52,6 +52,19 @@ Other directories: `MacDown/Resources` (styles, themes, templates, JS/CSS, Prism
 
 `Swift/Markdown/CMarkEngine.swift`: front matter → `MarkdownExtensionMasker` (finds math, `==x==`, `^x`, `_x_`, `"x"` outside code, swaps in private-use placeholders) → cmark-gfm parse → rewrite headings, code blocks and alerts in the AST → cmark HTML → fill in TOC, task lists and placeholders. Options are semantic (`MPMarkdownRenderOptions`), built from preferences in `MPPreferences+Markdown`. Golden tests: `MacDownTests/Snapshots/{corpus,golden}`; after an intended output change re-record with `TEST_RUNNER_MACDOWN_RECORD_SNAPSHOTS=<abs path to Snapshots/golden>` and review the diff. Benchmarks: `docs/benchmarks.md`.
 
+## New Swift modules (`MacDown/Code/Swift/`)
+
+Headless and unit tested; several are not wired into the UI yet (see the Status table in `MODERNIZATION_PLAN.md`).
+- `Config/` – `AppConfig` (typed `config.yaml`).
+- `Theme/` – `Theme`, `ThemeManager`, `ThemeCSS`, `ThemeService` (live: adds the generated stylesheet in `MPRenderer.baseStylesheets`).
+- `Markdown/` – `CMarkEngine`, `MarkdownExtensionMasker`, `TableOfContents`, `AlertBox`, `DocumentOutline`.
+- `Lint/` – `Linter` (8 rules, UTF-16 ranges).
+- `Git/` – `GitRunner`/`GitRepository` (system git; async).
+- `Workspace/` – `WorkspaceTree`, `FuzzyMatcher`, `DirectoryWatcher`.
+- `Editor/` – `MultiSelection` (pure multi-cursor logic).
+
+Gotcha: directory listings can return `/private/var/...` for `/var/...`. Never compare URLs or strip path prefixes; compare file names or build relative paths while walking.
+
 ## Modernization in progress
 
 `MODERNIZATION_PLAN.md` is the roadmap; follow it phase by phase. Swift pieces already in place: `Config/AppConfig` (typed `~/.config/macdown/config.yaml`, feature toggles with defaults) and `Theme/` (YAML themes; built-ins in `MacDown/Resources/BuiltinThemes`, user themes in `~/.config/macdown/themes`). Set `MACDOWN_CONFIG_DIR` to point the app at another config directory (tests do this).

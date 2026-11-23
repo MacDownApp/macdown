@@ -15,6 +15,29 @@ Goal: turn MacDown (Objective-C, WebView, Hoedown, macOS 10.8 target) into a mod
 
 Explicitly out of scope: AI features, slides/presentation mode, slash commands, focus mode, typewriter mode, writing goals, spreadsheet paste, plug-in API.
 
+## Status (2026-11-23)
+
+Honest summary of what exists. "Engine" means the logic is written, tested and committed but nothing in the app calls it yet.
+
+| Phase | State |
+|---|---|
+| 0 Build | Done. CocoaPods stays until the last pod is replaced. |
+| 1 Seams, benchmarks | Done. |
+| 2 Markdown core | Done. cmark-gfm engine is live in the app; Hoedown is gone. |
+| 3 Editor | **Engine only:** multi-cursor edit logic (fuzz tested). Not started: TextKit 2, tree-sitter highlighting, wiring multi-cursor into the text view, spell-check toggle. |
+| 4 WKWebView | Not started. |
+| 5 KaTeX | Not started. Math is detected and protected by the new engine, and still rendered by MathJax. |
+| 6 Mermaid, Vega-Lite | Not started. |
+| 7 Themes | **Live in the preview:** YAML themes, 9 built-in, live reload, `theme:` in `config.yaml`. Not started: editor colors from the theme, theme picker UI, converting the old Mou themes. |
+| 8 Fonts | Not started. |
+| 9 Sidebar | **Engine only:** lazy markdown tree, Quick Open matcher, FSEvents watcher, outline. No sidebar UI yet. |
+| 10 Git | **Engine only:** status, hunks, gutter markers, stage, commit, branches, remote. No UI yet. Uses the system `git`, not libgit2 (see Phase 10). |
+| 11 Lint | **Engine only:** 8 rules. No editor marks or settings yet. |
+| 12 Modern style | Not started. |
+| 13 Settings, release | Not started. `AppConfig` parses every toggle, but only `theme` is read by the app. |
+
+Branches are stacked: `modernize/phase-0-build` -> `phase-1-seams` -> `phase-2-markdown-core` -> `phase-3-engines` (latest).
+
 ## 1. Current State (verified)
 
 | Area | Today | Problem |
@@ -252,7 +275,7 @@ preview:
 
 ### Phase 10 – Git, minimal, with on/off toggle (2 weeks)
 - **Toggle** in Settings > Features (and `git.enabled`). Off means nothing Git related is created. Turning it on or off applies without restart.
-- **libgit2** via a thin Swift wrapper; no dependency on system `git` for core features (shell out only for hooks/signing if needed).
+- **Decision changed:** the system `git` is used (async, no shell, prompts off, time limit), not libgit2. The app is not sandboxed, so this is possible, and the user's own git config, credential helpers, SSH agent and hooks then work exactly as in Terminal. No extra dependency or build time.
 - In order: (1) detect repo, show branch name; (2) sidebar status dots (async, cached, size-limited); (3) editor gutter marks vs `HEAD` (on save and idle); (4) diff of the current file, revert hunk; (5) stage, unstage, commit; (6) switch and create branch; (7) push/pull/fetch with Keychain credentials and SSH agent.
 - **Not in v1:** history browser, blame, graph, merge-conflict UI.
 - Confirmation sheet before any destructive action. All work off the main thread, cancellable.
