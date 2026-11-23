@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  push:
+    branches: [master, "modernize/**"]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - name: Install CocoaPods dependencies
+        run: pod install
+      - name: Build peg-markdown-highlight
+        run: make -C Dependency/peg-markdown-highlight
+      - name: Test
+        run: |
+          set -o pipefail
+          xcodebuild -workspace MacDown.xcworkspace -scheme MacDown \
+            -destination 'platform=macOS' test CODE_SIGNING_ALLOWED=NO | xcpretty || \
+          xcodebuild -workspace MacDown.xcworkspace -scheme MacDown \
+            -destination 'platform=macOS' test CODE_SIGNING_ALLOWED=NO
