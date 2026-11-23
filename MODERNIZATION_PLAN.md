@@ -171,14 +171,11 @@ preview:
 
 ## 6. Phases
 
-### Phase 0 – Revive the build (1 week)
-- Get a clean build on current Xcode (universal binary: Apple Silicon + Intel).
-- Raise deployment target to **macOS 13**. Build with the **macOS 27 SDK** and guard every macOS 27 API with `#available`, so Modern style is optional and older systems run Classic. Record in `CLAUDE.md`.
-- Replace CocoaPods with **Swift Package Manager** (Sparkle 2, ArgumentParser, Yams). Temporarily vendor `hoedown` until Phase 2. Remove `Podfile`, `Gemfile`, patched spec repo.
-- Keep `peg-markdown-highlight` building until Phase 3.
-- Replace Travis with GitHub Actions (build + test).
-- Add Swift and a bridging header.
-- Exit: CI green; app launches, edits and previews as before.
+### Phase 0 – Revive the build (1 week) — DONE (with one change)
+- Done: clean build and tests on Xcode 27; deployment target raised to **macOS 13** (Xcode 27 cannot target below macOS 12); GitHub Actions replaces Travis; Swift enabled (bridging header, Swift 5 language mode); Yams added through Swift Package Manager; `Tools/sync_xcodeproj.rb` keeps new Swift files and bundled folders in the Xcode project.
+- **Change from the original plan:** CocoaPods is **not** removed in Phase 0. Most pods are replaced by later phases (hoedown, LibYAML and handlebars in Phase 2; MASPreferences, PAPreferences, Sparkle, GBCli, JJPluralForm in Phase 13). Vendoring them now only to delete them later is wasted work. Each pod is removed in the phase that replaces it; CocoaPods goes away when the last pod does.
+- Still open: universal-binary check, Sparkle 2 (Phase 13), Transifex upload step that Travis used to run (re-add to GitHub Actions in Phase 13).
+- The build needs `pod install` with the system CocoaPods (the pinned Bundler gems in `Gemfile.lock` do not install on current Ruby).
 
 ### Phase 1 – Decompose, seams, benchmarks (1–2 weeks)
 - Split `MPDocument` (export, scroll sync, file I/O, toolbar, preview coordination).
