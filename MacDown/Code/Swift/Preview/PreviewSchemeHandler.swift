@@ -10,14 +10,20 @@ import UniformTypeIdentifiers
 ///   in the document) gets 403.
 /// - No CORS headers are sent, so other origins cannot read the answers.
 /// - Only regular files are served, never folders.
+///
+/// Threading: file reads run on a background queue; every call into WebKit happens on the
+/// main thread, with no lock held.
 final class PreviewSchemeHandler: NSObject, WKURLSchemeHandler {
-    private let lock = NSLock()
-    private var stopped = Set<ObjectIdentifier>()
+    /// Requests WebKit has started and not stopped or finished. Only touched on the main
+    /// thread (WebKit calls `start` and `stop` there, and replies are sent from there), so
+    /// there is no lock. A lock here once froze the whole app: a background thread held it
+    /// while WebKit waited for the main thread, which was waiting for the same lock.
+    private var active = Set<ObjectIdentifier>()
     private let queue = DispatchQueue(label: "app.macdown.preview-files", qos: .userInitiated, attributes: .concurrent)
 
     func webView(_ webView: WKWebView, start task: WKURLSchemeTask) {
         let id = ObjectIdentifier(task)
-        lock.lock(); stopped.remove(id); lock.unlock()
+        active.insert(id)
         let request = task.request
 
         guard let url = request.url, url.scheme == PreviewURL.scheme else {
@@ -32,37 +38,39 @@ final class PreviewSchemeHandler: NSObject, WKURLSchemeHandler {
         let path = (url.path as NSString).standardizingPath
         let rangeHeader = request.value(forHTTPHeaderField: "Range")
 
+        // Read the file off the main thread; answer on the main thread.
         queue.async { [weak self] in
-            guard let self = self else { return }
             var isDirectory: ObjCBool = false
             guard !path.isEmpty, FileManager.default.fileExists(atPath: path, isDirectory: &isDirectory),
                   !isDirectory.boolValue,
                   let data = try? Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
-            else { return self.finish(task, id, status: 404, body: Data()) }
-
+            else {
+                DispatchQueue.main.async { self?.finish(task, id, status: 404, body: Data()) }
+                return
+            }
             var headers = ["Content-Type": PreviewSchemeHandler.mimeType(forPath: path),
                            "Cache-Control": "no-store"]
+            var status = 200
+            var body = data
             if let rangeHeader = rangeHeader, let range = PreviewSchemeHandler.parseRange(rangeHeader, length: data.count) {
                 headers["Content-Range"] = "bytes \(range.lowerBound)-\(range.upperBound - 1)/\(data.count)"
-                self.finish(task, id, url: url, status: 206, headers: headers, body: data.subdata(in: range))
-            } else {
-                self.finish(task, id, url: url, status: 200, headers: headers, body: data)
+                status = 206
+                body = data.subdata(in: range)
             }
+            DispatchQueue.main.async { self?.finish(task, id, url: url, status: status, headers: headers, body: body) }
         }
     }
 
     func webView(_ webView: WKWebView, stop task: WKURLSchemeTask) {
-        lock.lock(); stopped.insert(ObjectIdentifier(task)); lock.unlock()
+        active.remove(ObjectIdentifier(task))
     }
 
-    // MARK: Answering
+    // MARK: Answering (main thread)
 
     private func finish(_ task: WKURLSchemeTask, _ id: ObjectIdentifier, url: URL? = nil, status: Int,
                         headers: [String: String] = [:], body: Data) {
-        // Calling a stopped task raises an exception, so check first (and hold the
-        // lock while answering, so a stop cannot slip in between).
-        lock.lock(); defer { lock.unlock() }
-        guard !stopped.contains(id) else { return }
+        // Calling a stopped task raises an exception, so only answer tasks that are still active.
+        guard active.remove(id) != nil else { return }
         var fields = headers
         fields["Content-Length"] = String(body.count)
         let responseURL = url ?? task.request.url ?? URL(string: "\(PreviewURL.scheme):///")!
