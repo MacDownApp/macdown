@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Overview
 
-MacDown is an open-source Markdown editor for macOS, written in Objective-C (Cocoa, AppKit, WebView). It has a split view: an `NSTextView` editor on the left and a `WebView` HTML preview on the right.
+MacDown is an open-source Markdown editor for macOS, written in Objective-C with a growing Swift part (Cocoa, AppKit, WebKit). It has a split view: an `NSTextView` editor on the left and a `WKWebView` HTML preview on the right.
 
 ## Setup & Build
 
@@ -44,7 +44,7 @@ Source lives in `MacDown/Code/`, with the `MP` class prefix throughout:
 - **Extension/** – Objective-C categories and helpers (autocomplete, HTML tabularize, color parsing, pasteboard types, private WebView headers, etc.).
 - **Utility/** – globals, shared helpers, the plug-in protocol (`MPPlugIn`), MathJax listener, and Homebrew subprocess helper (for installing Jekyll/Graphviz-type dependencies).
 
-Rendering flow: editor text change → `MPDocument` → `MPRenderer` (cmark-gfm → HTML, wrapped in a template with selected style/highlighting/MathJax assets) → loaded into the preview `WebView`. Editor syntax highlighting is separate: it uses `Dependency/peg-markdown-highlight` (a git submodule that must be built with `make`).
+Rendering flow: editor text change → `MPDocument` → `MPRenderer` (cmark-gfm → HTML, wrapped in a template with selected style/highlighting/MathJax assets) → loaded into the preview `WKWebView` (`Swift/Preview/PreviewController`). Editor syntax highlighting is separate: it uses `Dependency/peg-markdown-highlight` (a git submodule that must be built with `make`).
 
 Other directories: `MacDown/Resources` (styles, themes, templates, JS/CSS, Prism), `MacDown/Localization` and `MacDownTests/*.lproj` (translations managed via Transifex; `Tools/import_translations.py`), `Tools/` (release/version scripts; `generate_version_header.sh` and `update_build_number.sh` run during the Xcode build), `Dependency/` (submodules: peg-markdown-highlight, version).
 
@@ -57,6 +57,7 @@ Other directories: `MacDown/Resources` (styles, themes, templates, JS/CSS, Prism
 Headless and unit tested; several are not wired into the UI yet (see the Status table in `MODERNIZATION_PLAN.md`).
 - `Config/` – `AppConfig` (typed `config.yaml`).
 - `Theme/` – `Theme`, `ThemeManager`, `ThemeCSS`, `ThemeService` (live: adds the generated stylesheet in `MPRenderer.baseStylesheets`).
+- `Preview/` – `PreviewController`, `PreviewSchemeHandler`, `PreviewURL`.
 - `Markdown/` – `CMarkEngine`, `MarkdownExtensionMasker`, `TableOfContents`, `AlertBox`, `DocumentOutline`.
 - `Lint/` – `Linter` (8 rules, UTF-16 ranges).
 - `Git/` – `GitRunner`/`GitRepository` (system git; async).
@@ -65,12 +66,16 @@ Headless and unit tested; several are not wired into the UI yet (see the Status 
 
 Gotcha: directory listings can return `/private/var/...` for `/var/...`. Never compare URLs or strip path prefixes; compare file names or build relative paths while walking.
 
+## Preview (WKWebView)
+
+`MPPreviewController` (Swift) creates the web view in code: the nib only holds a placeholder view, because a `WKURLSchemeHandler` must be set before a `WKWebView` exists. Local files are served through the custom scheme `macdown-file://` (same paths as `file://`; `PreviewSchemeHandler`); `PreviewURL.rewrite` converts `src/href="file://..."` in the page and points MathJax at the bundled copy. The page reports heading positions and height (`PreviewScripts.metrics`) so scroll sync in `MPDocument` can stay synchronous; the MathJax completion signal comes through `window.MathJaxListener` (a shim). Tests: `PreviewTests.swift` (real `WKWebView`), `DocumentPreviewIntegrationTests.swift` (real document window from the nib).
+
 ## Modernization in progress
 
 `MODERNIZATION_PLAN.md` is the roadmap; follow it phase by phase. Swift pieces already in place: `Config/AppConfig` (typed `~/.config/macdown/config.yaml`, feature toggles with defaults) and `Theme/` (YAML themes; built-ins in `MacDown/Resources/BuiltinThemes`, user themes in `~/.config/macdown/themes`). Set `MACDOWN_CONFIG_DIR` to point the app at another config directory (tests do this).
 
 ## Notes
 
-- Deployment target is macOS 13. The project still uses the deprecated `WebView`, not `WKWebView`, until Phase 4 of the plan.
+- Deployment target is macOS 13. The preview is a `WKWebView`; the old `WebView` and its private headers are gone.
 - Podfile uses a patched spec repo (`MacDownApp/cocoapods-specs`) for some libraries.
 - See `CONTRIBUTING.md` for contribution guidelines.

@@ -25,7 +25,7 @@ Honest summary of what exists. "Engine" means the logic is written, tested and c
 | 1 Seams, benchmarks | Done. |
 | 2 Markdown core | Done. cmark-gfm engine is live in the app; Hoedown is gone. |
 | 3 Editor | **Engine only:** multi-cursor edit logic (fuzz tested). Not started: TextKit 2, tree-sitter highlighting, wiring multi-cursor into the text view, spell-check toggle. |
-| 4 WKWebView | Not started. |
+| 4 WKWebView | **Done, with gaps** (see Phase 4). The old `WebView`, its private headers, the DOM helpers and the MathJax listener are gone. |
 | 5 KaTeX | Not started. Math is detected and protected by the new engine, and still rendered by MathJax. |
 | 6 Mermaid, Vega-Lite | Not started. |
 | 7 Themes | **Live in the preview:** YAML themes, 9 built-in, live reload, `theme:` in `config.yaml`. Not started: editor colors from the theme, theme picker UI, converting the old Mou themes. |
@@ -228,14 +228,15 @@ preview:
 - Remove `peg-markdown-highlight`, `Dependency/` submodule, `syntax_highlighting.json`.
 - Exit: 1 MB file typing stays under 16 ms; highlight is incremental.
 
-### Phase 4 – WKWebView preview (2 weeks)
-- Replace `WebView`; delete private headers.
-- Custom URL scheme handler for local assets (images, relative links).
-- JS bridge: scroll position, link clicks, task-list checkbox toggles (edit source), render-complete events.
-- DOM patching for updates; warm webview; scroll sync from AST source positions.
-- Export: HTML, PDF (`createPDF`), print, copy as rich text.
-- Content Security Policy; raw HTML sanitized by default (setting to allow).
-- Exit: no deprecated `WebView` symbols; preview budget met.
+### Phase 4 – WKWebView preview (2 weeks) — DONE, with gaps
+- Done: `WKWebView` created in code by `MPPreviewController` (the nib holds a placeholder; a URL scheme handler must exist before the web view). Local files are served through `macdown-file://` (`PreviewSchemeHandler`: only our own pages may load files, no CORS headers, folders and missing files give 404, range requests work). `file://` references in the page and the MathJax CDN address are rewritten (`PreviewURL.rewrite`). Links go through a delegate (local `.md` files open in MacDown, other links in the browser, `#anchors` stay on the page). Scroll sync keeps its algorithm, using heading positions and page height that the page reports. Word count, divider color, zoom (`pageZoom`), print and PDF export (`printOperation`) are ported. Drops on the preview are refused. A killed web content process reloads the page. The private `WebCache` call is gone.
+- 249 tests pass, including a real `WKWebView` (local images, scripts, styles, names with spaces and accents, ranges, link clicks, MathJax signal, metrics, scroll, text count, color, print) and a real document window loaded from the nib.
+- **Not done from the original list (still open):**
+  - DOM patching and a warm web view: every render still reloads the whole page, as before. Expect the same brief flash as the old preview; scroll position is restored after load.
+  - Raw HTML sanitizer setting and a Content Security Policy.
+  - Moving scroll sync to AST source positions.
+  - The preview was **not looked at by eye** in a running app. Things worth checking by hand: print and PDF export output, MathJax typesetting, zoom with large editor fonts, and scroll sync feel.
+- The old `-webView:doCommandBySelector:` copy handler (adds `public.html` to the pasteboard) was dropped: `WKWebView` puts HTML on the pasteboard by itself. Verify with a copy from the preview.
 
 ### Phase 5 – LaTeX (1 week)
 - **KaTeX** bundled, lazy-loaded, offline. Syntax: `$inline$`, `$$block$$`, ```` ```math ````. Currency (`$5`) and escapes handled in the Swift parser.
