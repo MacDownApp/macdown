@@ -1,0 +1,26 @@
+name: GitHub Light
+appearance: light
+editor:
+  background: "#ffffff"
+  text: "#1f2328"
+  caret: "#0969da"
+  selection: "#b6e3ff"
+  line-highlight: "#f6f8fa"
+tokens:
+  heading: { color: "#0550ae", bold: true }
+  emphasis: { color: "#1f2328", italic: true }
+  strong: { color: "#1f2328", bold: true }
+  link: { color: "#0969da" }
+  code: { color: "#0550ae" }
+  quote: { color: "#59636e", italic: true }
+  list: { color: "#953800" }
+  keyword: { color: "#cf222e" }
+  string: { color: "#0a3069" }
+  number: { color: "#0550ae" }
+  comment: { color: "#59636e", italic: true }
+  function: { color: "#8250df" }
+  type: { color: "#953800" }
+preview:
+  background: "#ffffff"
+  text: "#1f2328"
+  content-width: 760

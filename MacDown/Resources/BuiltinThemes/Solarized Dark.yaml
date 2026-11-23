@@ -1,0 +1,26 @@
+name: Solarized Dark
+appearance: dark
+editor:
+  background: "#002b36"
+  text: "#839496"
+  caret: "#93a1a1"
+  selection: "#073642"
+  line-highlight: "#073642"
+tokens:
+  heading: { color: "#268bd2", bold: true }
+  emphasis: { color: "#93a1a1", italic: true }
+  strong: { color: "#93a1a1", bold: true }
+  link: { color: "#2aa198" }
+  code: { color: "#859900" }
+  quote: { color: "#586e75", italic: true }
+  list: { color: "#cb4b16" }
+  keyword: { color: "#859900" }
+  string: { color: "#2aa198" }
+  number: { color: "#d33682" }
+  comment: { color: "#586e75", italic: true }
+  function: { color: "#268bd2" }
+  type: { color: "#b58900" }
+preview:
+  background: "#002b36"
+  text: "#839496"
+  content-width: 760

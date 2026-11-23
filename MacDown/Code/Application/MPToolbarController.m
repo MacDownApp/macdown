@@ -132,11 +132,13 @@ static CGFloat itemWidth = 37;
     // Mixed identifiers from dictionary and space at below specified indices
     NSMutableArray *defaultItemIdentifiers = [NSMutableArray new];
     
-    // Add space after the specified toolbar item indices
-    int spaceAfterIndices[] = {}; // No space in the default set
+    // Add flexible space after the specified toolbar item indices. (The
+    // default set has no fixed spaces.) The array must never be read past its
+    // end: that is undefined behavior and crashes optimized builds.
     int flexibleSpaceAfterIndices[] = {2, 3, 5, 7, 11};
+    const int flexibleSpaceCount =
+        sizeof(flexibleSpaceAfterIndices) / sizeof(flexibleSpaceAfterIndices[0]);
     int i = 0;
-    int j = 0;
     int k = 0;
     
     for (NSString *itemIdentifier in orderedToolbarItemIdentifiers)
@@ -150,13 +152,7 @@ static CGFloat itemWidth = 37;
             [defaultItemIdentifiers addObject:itemIdentifier];
         }
         
-        if (i == spaceAfterIndices[j])
-        {
-            [defaultItemIdentifiers addObject:NSToolbarSpaceItemIdentifier];
-            j++;
-        }
-        
-        if (i == flexibleSpaceAfterIndices[k])
+        if (k < flexibleSpaceCount && i == flexibleSpaceAfterIndices[k])
         {
             [defaultItemIdentifiers addObject:NSToolbarFlexibleSpaceItemIdentifier];
             k++;

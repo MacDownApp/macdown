@@ -1,0 +1,26 @@
+name: One Light
+appearance: light
+editor:
+  background: "#fafafa"
+  text: "#383a42"
+  caret: "#526fff"
+  selection: "#e5e5e6"
+  line-highlight: "#f0f0f1"
+tokens:
+  heading: { color: "#e45649", bold: true }
+  emphasis: { color: "#383a42", italic: true }
+  strong: { color: "#383a42", bold: true }
+  link: { color: "#4078f2" }
+  code: { color: "#50a14f" }
+  quote: { color: "#a0a1a7", italic: true }
+  list: { color: "#986801" }
+  keyword: { color: "#a626a4" }
+  string: { color: "#50a14f" }
+  number: { color: "#986801" }
+  comment: { color: "#a0a1a7", italic: true }
+  function: { color: "#4078f2" }
+  type: { color: "#c18401" }
+preview:
+  background: "#fafafa"
+  text: "#383a42"
+  content-width: 760

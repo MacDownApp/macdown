@@ -1,0 +1,26 @@
+name: Dracula
+appearance: dark
+editor:
+  background: "#282a36"
+  text: "#f8f8f2"
+  caret: "#f8f8f0"
+  selection: "#44475a"
+  line-highlight: "#44475a"
+tokens:
+  heading: { color: "#bd93f9", bold: true }
+  emphasis: { color: "#f8f8f2", italic: true }
+  strong: { color: "#f8f8f2", bold: true }
+  link: { color: "#8be9fd" }
+  code: { color: "#50fa7b" }
+  quote: { color: "#6272a4", italic: true }
+  list: { color: "#ffb86c" }
+  keyword: { color: "#ff79c6" }
+  string: { color: "#f1fa8c" }
+  number: { color: "#bd93f9" }
+  comment: { color: "#6272a4", italic: true }
+  function: { color: "#50fa7b" }
+  type: { color: "#8be9fd" }
+preview:
+  background: "#282a36"
+  text: "#f8f8f2"
+  content-width: 760

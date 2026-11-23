@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04370DD406A3852FF0E206C2 /* WorkspaceTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9E7D1A61A32ED8857FC26D /* WorkspaceTree.swift */; };
+		047FD1AD4DEEC5651189E4C3 /* ThemeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004A7562E0D426BFC414F9BB /* ThemeService.swift */; };
+		04BE25412EC55371631FDB17 /* CodeBlockHTML.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21922B2671C85E7035E56315 /* CodeBlockHTML.swift */; };
+		05C6723FD3323A6BC1F46104 /* GitRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924063CF9B2A0095A0902957 /* GitRepository.swift */; };
+		0A04B0E0F11C548BAA171927 /* MPPreferences+Markdown.m in Sources */ = {isa = PBXBuildFile; fileRef = B570A3FC3D7E832EF94EF478 /* MPPreferences+Markdown.m */; };
+		1272BE6FE80782875D42EDFF /* cmark-gfm-extensions in Frameworks */ = {isa = PBXBuildFile; productRef = CAC9650200602AD609CE3462 /* cmark-gfm-extensions */; };
+		14B1ABA252C424626AC1A88D /* DocumentOutline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0089EC6F7B95EE24F102C56D /* DocumentOutline.swift */; };
+		1511FFFC90D7BB2FC513E695 /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154050C692599A904857769F /* AppConfig.swift */; };
+		19926333C9F8368238BA4D15 /* ThemeCSS.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A041DC3E6E235CC76C7E0D /* ThemeCSS.swift */; };
 		1F002A23195B3DAE008B8D93 /* MPRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F002A22195B3DAE008B8D93 /* MPRenderer.m */; };
 		1F0D9D65194AC7CF008E1856 /* NSString+Lookup.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0D9D5F194AC7CF008E1856 /* NSString+Lookup.m */; };
 		1F0D9D66194AC7CF008E1856 /* NSTextView+Autocomplete.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0D9D61194AC7CF008E1856 /* NSTextView+Autocomplete.m */; };
@@ -63,7 +72,6 @@
 		1FA6DE251941CC9E000409FB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FA6DE241941CC9E000409FB /* Cocoa.framework */; };
 		1FA6DE481941CC9E000409FB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FA6DE241941CC9E000409FB /* Cocoa.framework */; };
 		1FB3C0241E5061A2002AEB6A /* MPExportPanelAccessoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FB3C0221E5061A2002AEB6A /* MPExportPanelAccessoryViewController.xib */; };
-		1FBBD4CB194CA36500BB3C88 /* hoedown_html_patch.c in Sources */ = {isa = PBXBuildFile; fileRef = 1FBBD4CA194CA36500BB3C88 /* hoedown_html_patch.c */; };
 		1FBDFE9C196170FE00BEEA70 /* Extensions in Resources */ = {isa = PBXBuildFile; fileRef = 1FBDFE9B196170FE00BEEA70 /* Extensions */; };
 		1FBDFEA11962A25A00BEEA70 /* MPGeneralPreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FBDFE9F1962A25A00BEEA70 /* MPGeneralPreferencesViewController.m */; };
 		1FBDFEA51962A27300BEEA70 /* MPGeneralPreferencesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FBDFEA31962A27300BEEA70 /* MPGeneralPreferencesViewController.xib */; };
@@ -83,14 +91,47 @@
 		1FFEB3271972DAB400B2254F /* MPHTMLTabularizeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEB3261972DAB400B2254F /* MPHTMLTabularizeTests.m */; };
 		1FFEB32B19737D6E00B2254F /* YAMLSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FFEB32A19737D6E00B2254F /* YAMLSerialization.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc -Wno-unused-variable"; }; };
 		1FFF301D1948A5320009AF24 /* MPStringLookupTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FFF301C1948A5320009AF24 /* MPStringLookupTests.m */; };
+		2B2CB05DAE53EE80EDDA3B87 /* TableOfContents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6E114FF0C367A912A501CA /* TableOfContents.swift */; };
 		3028039E1FD84EAC0055B0DA /* contribute.md in Resources */ = {isa = PBXBuildFile; fileRef = 3028039D1FD84EAB0055B0DA /* contribute.md */; };
+		30418CB033ED2B2BEB433D2D /* GitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB76FC7CD18C07BE75C4D07 /* GitTests.swift */; };
+		33886B68B7C32B0558C1784E /* ConfigDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED31241AC52F158150E337EC /* ConfigDirectory.swift */; };
+		343A2FE22E6ECB7D1C033493 /* AppConfigTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AF0F089878ED26203CC848 /* AppConfigTests.swift */; };
+		35C07F6D093A6569C06175EF /* WorkspaceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28BFF5163D678567C212B2D /* WorkspaceTests.swift */; };
+		3993B80A704AD80B8A41729A /* CMarkEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DED5592B20CE84DDA30B29B /* CMarkEngine.swift */; };
+		3D10142F8C3C4231316F34F3 /* FuzzyMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3968D1739E10A1F781C4CD /* FuzzyMatcher.swift */; };
+		444378B12D0B6FCE0AA8B661 /* MultiSelectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1EF571403671197CA19B70 /* MultiSelectionTests.swift */; };
+		484D32008C1C611D97A08E18 /* Yams in Frameworks */ = {isa = PBXBuildFile; productRef = B07459FFC34C9D68445055FF /* Yams */; };
+		536A964260F034F51348D750 /* ThemeServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6737291494BF6B080B150883 /* ThemeServiceTests.swift */; };
+		6227BD0DF4E958BA6CE09B9F /* LinterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A0E6030B9B5EC33E3F4051 /* LinterTests.swift */; };
+		62548E77654F949D5AB73C85 /* BuiltinThemes in Resources */ = {isa = PBXBuildFile; fileRef = A76F40CDE52CE7F4970A0A33 /* BuiltinThemes */; };
+		69F9A424ACEF87C0725F7B82 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07965DDA28C6E093CFAB6EF2 /* Theme.swift */; };
+		6BA59BD954902597BEA90D72 /* CMarkEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB346773DDBC1AC069870A3 /* CMarkEngineTests.swift */; };
+		6CE92B9351073EB2AA2A6DB7 /* ThemeColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E02D37A6ED64C0F6F1CFF4 /* ThemeColor.swift */; };
+		6CF445520A2F9CE129BC7864 /* MarkdownExtensionMaskerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EACDCDDB85D62033AC139A0 /* MarkdownExtensionMaskerTests.swift */; };
+		6EDA99ADCCC2CDA044A06BCD /* MarkdownExtensionMasker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01897957297417C3214F59C /* MarkdownExtensionMasker.swift */; };
+		762BAA4D751FA31E474AFD3F /* Linter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E4B5B253EB56C24714078E /* Linter.swift */; };
 		770BB49E962A302D0715A6A5 /* libPods-MacDown.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 42F926DD38559C7CEDB6E42F /* libPods-MacDown.a */; };
+		777F6B6BED99B018D2B4470A /* NSURL+Convert.m in Sources */ = {isa = PBXBuildFile; fileRef = 249BA74EBF058FC5F8FEE3BB /* NSURL+Convert.m */; };
+		7A3165EE17B27F055E7E9FDE /* AlertBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF5CD4D5D6F3B9E2BBD41D4 /* AlertBox.swift */; };
+		84110CD34B80356B90289088 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E96175BA12C141E294AD762 /* ThemeManager.swift */; };
 		852D523C1E260A6400BA7162 /* MPTerminalPreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 852D523A1E260A6400BA7162 /* MPTerminalPreferencesViewController.m */; };
 		85E24E5C1E5019C00056E696 /* MPToolbarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85E24E5B1E5019C00056E696 /* MPToolbarController.m */; };
 		905EF1A9196164CA00FC3CE9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 905EF1A8196164CA00FC3CE9 /* Foundation.framework */; };
 		905EF1B7196164F300FC3CE9 /* macdown in Copy Command Line Utility */ = {isa = PBXBuildFile; fileRef = 905EF1A7196164CA00FC3CE9 /* macdown */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		9EFA13AFAC4895752988C84F /* GitRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD21CB2FA2B8332A978F2F3E /* GitRunner.swift */; };
+		A529EC33EE288F965EC215FF /* ThemeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CAD965730C76B07C1D67CD1 /* ThemeTests.swift */; };
+		A72828850A2F2CE58C7FD312 /* RendererThemeIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38033273DA961F870F5CFA96 /* RendererThemeIntegrationTests.swift */; };
+		AC2A677108794A44FEC75581 /* Snapshots in Resources */ = {isa = PBXBuildFile; fileRef = A21731D80F883C955BE96B61 /* Snapshots */; };
+		ACCDEB9E150623DA8BFCF4AC /* MarkdownPerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343137F5EB3D0BC8A6019D7E /* MarkdownPerformanceTests.swift */; };
+		AFF7CD859FD7BB05D4CEC8C8 /* GitModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = F586EC703D31B54F45CD8E15 /* GitModels.swift */; };
 		B5C5C1666A506FEA86435D25 /* libPods-macdown-cmd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 263367245B2D78A42C2F19D7 /* libPods-macdown-cmd.a */; };
+		BA49D551D54D1849FF49105B /* MultiSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA5A8F949D161B2B90ED44E /* MultiSelection.swift */; };
+		BF9F34F6E5D2D0516C4693D6 /* WebView+Shortcut.m in Sources */ = {isa = PBXBuildFile; fileRef = AADEDCA9CC0F51761457638A /* WebView+Shortcut.m */; };
+		C5AC805C84D58A94D7A64A2A /* cmark-gfm in Frameworks */ = {isa = PBXBuildFile; productRef = 5F73D350DF82DA8CDAF6E23E /* cmark-gfm */; };
+		D465E6978E07BFF9EC260338 /* DirectoryWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E168F75B211C6F1FD26E69 /* DirectoryWatcher.swift */; };
 		EBFE3157737058F5A63699C8 /* libPods-MacDownTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C949FDE45493AE77DAD9BF4 /* libPods-MacDownTests.a */; };
+		F1B6DB85C5E64F83AA0F1E0A /* PrismLanguages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C338E2565DF5E5451027C3E /* PrismLanguages.swift */; };
+		FA10DA3BCCA684E1C4FBCCF6 /* MPMarkdownEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = EFB765E471A177E0A751EFA7 /* MPMarkdownEngine.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -149,7 +190,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		004A7562E0D426BFC414F9BB /* ThemeService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ThemeService.swift; sourceTree = "<group>"; };
+		0089EC6F7B95EE24F102C56D /* DocumentOutline.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DocumentOutline.swift; sourceTree = "<group>"; };
+		07965DDA28C6E093CFAB6EF2 /* Theme.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		0D0EC0DE9FEA22F962083921 /* Pods-MacDownTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacDownTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MacDownTests/Pods-MacDownTests.release.xcconfig"; sourceTree = "<group>"; };
+		154050C692599A904857769F /* AppConfig.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
 		1A198D1BA59D710201DD3BC8 /* Pods-MacDown.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacDown.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MacDown/Pods-MacDown.debug.xcconfig"; sourceTree = "<group>"; };
 		1F002A21195B3DAE008B8D93 /* MPRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPRenderer.h; sourceTree = "<group>"; };
 		1F002A22195B3DAE008B8D93 /* MPRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPRenderer.m; sourceTree = "<group>"; };
@@ -416,8 +461,6 @@
 		1FB813A92099A228004EC5D7 /* et */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = et; path = Localization/et.lproj/MPGeneralPreferencesViewController.strings; sourceTree = "<group>"; };
 		1FB813AA2099A228004EC5D7 /* et */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = et; path = Localization/et.lproj/MPMarkdownPreferencesViewController.strings; sourceTree = "<group>"; };
 		1FB813AB2099A228004EC5D7 /* et */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = et; path = Localization/et.lproj/MPDocument.strings; sourceTree = "<group>"; };
-		1FBBD4C9194CA35900BB3C88 /* hoedown_html_patch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = hoedown_html_patch.h; sourceTree = "<group>"; };
-		1FBBD4CA194CA36500BB3C88 /* hoedown_html_patch.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hoedown_html_patch.c; sourceTree = "<group>"; };
 		1FBD430D2099A1A200B348CD /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = Localization/tr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1FBD430E2099A1A200B348CD /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = Localization/tr.lproj/MPExportPanelAccessoryViewController.strings; sourceTree = "<group>"; };
 		1FBD430F2099A1A200B348CD /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = Localization/tr.lproj/MainMenu.strings; sourceTree = "<group>"; };
@@ -485,21 +528,57 @@
 		1FFEB32919737D6E00B2254F /* YAMLSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YAMLSerialization.h; sourceTree = "<group>"; };
 		1FFEB32A19737D6E00B2254F /* YAMLSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YAMLSerialization.m; sourceTree = "<group>"; };
 		1FFF301C1948A5320009AF24 /* MPStringLookupTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPStringLookupTests.m; sourceTree = "<group>"; };
+		21922B2671C85E7035E56315 /* CodeBlockHTML.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CodeBlockHTML.swift; sourceTree = "<group>"; };
+		249BA74EBF058FC5F8FEE3BB /* NSURL+Convert.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NSURL+Convert.m"; sourceTree = "<group>"; };
+		25E02D37A6ED64C0F6F1CFF4 /* ThemeColor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ThemeColor.swift; sourceTree = "<group>"; };
 		263367245B2D78A42C2F19D7 /* libPods-macdown-cmd.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-macdown-cmd.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2E96175BA12C141E294AD762 /* ThemeManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
 		3028039D1FD84EAB0055B0DA /* contribute.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = contribute.md; path = Resources/contribute.md; sourceTree = "<group>"; };
+		33E168F75B211C6F1FD26E69 /* DirectoryWatcher.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DirectoryWatcher.swift; sourceTree = "<group>"; };
+		343137F5EB3D0BC8A6019D7E /* MarkdownPerformanceTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MarkdownPerformanceTests.swift; sourceTree = "<group>"; };
+		38033273DA961F870F5CFA96 /* RendererThemeIntegrationTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RendererThemeIntegrationTests.swift; sourceTree = "<group>"; };
+		38D802F5EA6FDDFF60E0A677 /* WebView+Shortcut.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "WebView+Shortcut.h"; sourceTree = "<group>"; };
 		39EFCAE04F60154F0C8C5469 /* Pods-MacDown.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacDown.release.xcconfig"; path = "Pods/Target Support Files/Pods-MacDown/Pods-MacDown.release.xcconfig"; sourceTree = "<group>"; };
 		3C949FDE45493AE77DAD9BF4 /* libPods-MacDownTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MacDownTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D175F0F1974282400A5EFE8 /* WebView+WebViewPrivateHeaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WebView+WebViewPrivateHeaders.h"; sourceTree = "<group>"; };
+		3DED5592B20CE84DDA30B29B /* CMarkEngine.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CMarkEngine.swift; sourceTree = "<group>"; };
+		3F4892BEAF295F4F2334C7FC /* NSURL+Convert.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NSURL+Convert.h"; sourceTree = "<group>"; };
 		42F926DD38559C7CEDB6E42F /* libPods-MacDown.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MacDown.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		43E4B5B253EB56C24714078E /* Linter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Linter.swift; sourceTree = "<group>"; };
+		46CE310899F1CF976D7E7A36 /* MPMarkdownEngine.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPMarkdownEngine.h; sourceTree = "<group>"; };
+		4B6E114FF0C367A912A501CA /* TableOfContents.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TableOfContents.swift; sourceTree = "<group>"; };
+		4C338E2565DF5E5451027C3E /* PrismLanguages.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PrismLanguages.swift; sourceTree = "<group>"; };
 		4DBAA63927A60EB2150642B3 /* Pods-macdown-cmd.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-macdown-cmd.debug.xcconfig"; path = "Pods/Target Support Files/Pods-macdown-cmd/Pods-macdown-cmd.debug.xcconfig"; sourceTree = "<group>"; };
+		6737291494BF6B080B150883 /* ThemeServiceTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ThemeServiceTests.swift; sourceTree = "<group>"; };
+		6EACDCDDB85D62033AC139A0 /* MarkdownExtensionMaskerTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MarkdownExtensionMaskerTests.swift; sourceTree = "<group>"; };
 		7A8EA75FA95818275755F0B6 /* Pods-macdown-cmd.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-macdown-cmd.release.xcconfig"; path = "Pods/Target Support Files/Pods-macdown-cmd/Pods-macdown-cmd.release.xcconfig"; sourceTree = "<group>"; };
+		80AF0F089878ED26203CC848 /* AppConfigTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AppConfigTests.swift; sourceTree = "<group>"; };
 		852D52391E260A6400BA7162 /* MPTerminalPreferencesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPTerminalPreferencesViewController.h; sourceTree = "<group>"; };
 		852D523A1E260A6400BA7162 /* MPTerminalPreferencesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPTerminalPreferencesViewController.m; sourceTree = "<group>"; };
 		85E24E5A1E5019C00056E696 /* MPToolbarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MPToolbarController.h; path = Code/Application/MPToolbarController.h; sourceTree = "<group>"; };
 		85E24E5B1E5019C00056E696 /* MPToolbarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MPToolbarController.m; path = Code/Application/MPToolbarController.m; sourceTree = "<group>"; };
+		87DAF39DE605C5324F78926A /* MacDownTests-Bridging-Header.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "MacDownTests-Bridging-Header.h"; path = "MacDownTests/MacDownTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		8BB76FC7CD18C07BE75C4D07 /* GitTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GitTests.swift; sourceTree = "<group>"; };
 		8CDC5EA0050D2F722FB1AADD /* Pods-MacDownTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacDownTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MacDownTests/Pods-MacDownTests.debug.xcconfig"; sourceTree = "<group>"; };
+		8FC09CFF6E350C1FE91622DF /* MacDown-Bridging-Header.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "MacDown-Bridging-Header.h"; path = "MacDown/Code/MacDown-Bridging-Header.h"; sourceTree = "<group>"; };
 		905EF1A7196164CA00FC3CE9 /* macdown */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = macdown; sourceTree = BUILT_PRODUCTS_DIR; };
 		905EF1A8196164CA00FC3CE9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		924063CF9B2A0095A0902957 /* GitRepository.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GitRepository.swift; sourceTree = "<group>"; };
+		9CAD965730C76B07C1D67CD1 /* ThemeTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ThemeTests.swift; sourceTree = "<group>"; };
+		9D3968D1739E10A1F781C4CD /* FuzzyMatcher.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FuzzyMatcher.swift; sourceTree = "<group>"; };
+		A0BB9641F8F97F9398BC60D2 /* MPPreferences+Markdown.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MPPreferences+Markdown.h"; sourceTree = "<group>"; };
+		A21731D80F883C955BE96B61 /* Snapshots */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = Snapshots; path = MacDownTests/Snapshots; sourceTree = "<group>"; };
+		A76F40CDE52CE7F4970A0A33 /* BuiltinThemes */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = BuiltinThemes; path = MacDown/Resources/BuiltinThemes; sourceTree = "<group>"; };
+		AADEDCA9CC0F51761457638A /* WebView+Shortcut.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "WebView+Shortcut.m"; sourceTree = "<group>"; };
+		AB9E7D1A61A32ED8857FC26D /* WorkspaceTree.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WorkspaceTree.swift; sourceTree = "<group>"; };
+		B570A3FC3D7E832EF94EF478 /* MPPreferences+Markdown.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "MPPreferences+Markdown.m"; sourceTree = "<group>"; };
+		BA1EF571403671197CA19B70 /* MultiSelectionTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MultiSelectionTests.swift; sourceTree = "<group>"; };
+		BDA5A8F949D161B2B90ED44E /* MultiSelection.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MultiSelection.swift; sourceTree = "<group>"; };
+		CD21CB2FA2B8332A978F2F3E /* GitRunner.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GitRunner.swift; sourceTree = "<group>"; };
+		CDF5CD4D5D6F3B9E2BBD41D4 /* AlertBox.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AlertBox.swift; sourceTree = "<group>"; };
+		D01897957297417C3214F59C /* MarkdownExtensionMasker.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MarkdownExtensionMasker.swift; sourceTree = "<group>"; };
+		D28BFF5163D678567C212B2D /* WorkspaceTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WorkspaceTests.swift; sourceTree = "<group>"; };
+		E6A0E6030B9B5EC33E3F4051 /* LinterTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LinterTests.swift; sourceTree = "<group>"; };
 		E70ECDD4241C933C00537A46 /* ru-RU */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ru-RU"; path = "Localization/ru-RU.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		E70ECDD5241C933C00537A46 /* ru-RU */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ru-RU"; path = "Localization/ru-RU.lproj/MainMenu.strings"; sourceTree = "<group>"; };
 		E70ECDD6241C933C00537A46 /* ru-RU */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ru-RU"; path = "Localization/ru-RU.lproj/MPMarkdownPreferencesViewController.strings"; sourceTree = "<group>"; };
@@ -525,6 +604,11 @@
 		E77E5D72241C935100699B5A /* da-DK */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "da-DK"; path = "Localization/da-DK.lproj/MPDocument.strings"; sourceTree = "<group>"; };
 		E7D458CB241C933800411A36 /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = Localization/fi.lproj/MainMenu.strings; sourceTree = "<group>"; };
 		E7DD09F1241C9368008FBC25 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = Localization/da.lproj/MainMenu.strings; sourceTree = "<group>"; };
+		EAB346773DDBC1AC069870A3 /* CMarkEngineTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CMarkEngineTests.swift; sourceTree = "<group>"; };
+		ED31241AC52F158150E337EC /* ConfigDirectory.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ConfigDirectory.swift; sourceTree = "<group>"; };
+		EFB765E471A177E0A751EFA7 /* MPMarkdownEngine.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPMarkdownEngine.m; sourceTree = "<group>"; };
+		F586EC703D31B54F45CD8E15 /* GitModels.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GitModels.swift; sourceTree = "<group>"; };
+		F8A041DC3E6E235CC76C7E0D /* ThemeCSS.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ThemeCSS.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -536,6 +620,9 @@
 				1FF207631941CF22005B5654 /* WebKit.framework in Frameworks */,
 				1FA6DE251941CC9E000409FB /* Cocoa.framework in Frameworks */,
 				770BB49E962A302D0715A6A5 /* libPods-MacDown.a in Frameworks */,
+				484D32008C1C611D97A08E18 /* Yams in Frameworks */,
+				C5AC805C84D58A94D7A64A2A /* cmark-gfm in Frameworks */,
+				1272BE6FE80782875D42EDFF /* cmark-gfm-extensions in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -561,6 +648,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0946BEB65E6344D89380904C /* Workspace */ = {
+			isa = PBXGroup;
+			children = (
+				33E168F75B211C6F1FD26E69 /* DirectoryWatcher.swift */,
+				9D3968D1739E10A1F781C4CD /* FuzzyMatcher.swift */,
+				AB9E7D1A61A32ED8857FC26D /* WorkspaceTree.swift */,
+			);
+			name = Workspace;
+			path = Workspace;
+			sourceTree = "<group>";
+		};
 		1F0D9D5D194AC7CF008E1856 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
@@ -583,8 +681,10 @@
 				1F847BC41DCC9DB600A47385 /* NSUserDefaults+Suite.h */,
 				1F847BC51DCC9DB600A47385 /* NSUserDefaults+Suite.m */,
 				3D175F0F1974282400A5EFE8 /* WebView+WebViewPrivateHeaders.h */,
-				1FBBD4C9194CA35900BB3C88 /* hoedown_html_patch.h */,
-				1FBBD4CA194CA36500BB3C88 /* hoedown_html_patch.c */,
+				3F4892BEAF295F4F2334C7FC /* NSURL+Convert.h */,
+				249BA74EBF058FC5F8FEE3BB /* NSURL+Convert.m */,
+				38D802F5EA6FDDFF60E0A677 /* WebView+Shortcut.h */,
+				AADEDCA9CC0F51761457638A /* WebView+Shortcut.m */,
 			);
 			name = Extension;
 			path = Code/Extension;
@@ -630,6 +730,8 @@
 				1F3619E81F36DA0F00EDA15A /* MPTerminalPreferencesViewController.xib */,
 				1F0D9D72194AC7F7008E1856 /* MPPreferences.h */,
 				1F0D9D73194AC7F7008E1856 /* MPPreferences.m */,
+				A0BB9641F8F97F9398BC60D2 /* MPPreferences+Markdown.h */,
+				B570A3FC3D7E832EF94EF478 /* MPPreferences+Markdown.m */,
 			);
 			name = Preferences;
 			path = Code/Preferences;
@@ -645,6 +747,8 @@
 				1F0D9D91194AC852008E1856 /* MPDocument.h */,
 				1F0D9D92194AC852008E1856 /* MPDocument.m */,
 				1F0D9D83194AC83C008E1856 /* MPDocument.xib */,
+				46CE310899F1CF976D7E7A36 /* MPMarkdownEngine.h */,
+				EFB765E471A177E0A751EFA7 /* MPMarkdownEngine.m */,
 			);
 			name = Document;
 			path = Code/Document;
@@ -754,6 +858,12 @@
 				1FA6DE231941CC9E000409FB /* Frameworks */,
 				1FA6DE221941CC9E000409FB /* Products */,
 				AC6D1A361B8B63012D598BC7 /* Pods */,
+				5DA70D62313F6D29AB80E004 /* Swift */,
+				3E0A8425DBCFE1CD58919C89 /* SwiftTests */,
+				8FC09CFF6E350C1FE91622DF /* MacDown-Bridging-Header.h */,
+				A76F40CDE52CE7F4970A0A33 /* BuiltinThemes */,
+				A21731D80F883C955BE96B61 /* Snapshots */,
+				87DAF39DE605C5324F78926A /* MacDownTests-Bridging-Header.h */,
 			);
 			sourceTree = "<group>";
 			usesTabs = 0;
@@ -874,6 +984,70 @@
 			path = "Dependency/YAML-framework";
 			sourceTree = SOURCE_ROOT;
 		};
+		33D365CD079BF55D4E8D308B /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				154050C692599A904857769F /* AppConfig.swift */,
+				ED31241AC52F158150E337EC /* ConfigDirectory.swift */,
+			);
+			name = Config;
+			path = Config;
+			sourceTree = "<group>";
+		};
+		3AECAF0A84B3AEA26B9226C9 /* Editor */ = {
+			isa = PBXGroup;
+			children = (
+				BDA5A8F949D161B2B90ED44E /* MultiSelection.swift */,
+			);
+			name = Editor;
+			path = Editor;
+			sourceTree = "<group>";
+		};
+		3E0A8425DBCFE1CD58919C89 /* SwiftTests */ = {
+			isa = PBXGroup;
+			children = (
+				80AF0F089878ED26203CC848 /* AppConfigTests.swift */,
+				9CAD965730C76B07C1D67CD1 /* ThemeTests.swift */,
+				6EACDCDDB85D62033AC139A0 /* MarkdownExtensionMaskerTests.swift */,
+				EAB346773DDBC1AC069870A3 /* CMarkEngineTests.swift */,
+				343137F5EB3D0BC8A6019D7E /* MarkdownPerformanceTests.swift */,
+				E6A0E6030B9B5EC33E3F4051 /* LinterTests.swift */,
+				8BB76FC7CD18C07BE75C4D07 /* GitTests.swift */,
+				D28BFF5163D678567C212B2D /* WorkspaceTests.swift */,
+				BA1EF571403671197CA19B70 /* MultiSelectionTests.swift */,
+				6737291494BF6B080B150883 /* ThemeServiceTests.swift */,
+				38033273DA961F870F5CFA96 /* RendererThemeIntegrationTests.swift */,
+			);
+			name = SwiftTests;
+			path = MacDownTests/Swift;
+			sourceTree = SOURCE_ROOT;
+		};
+		50AEE7F54C85C038B3CC58CE /* Git */ = {
+			isa = PBXGroup;
+			children = (
+				F586EC703D31B54F45CD8E15 /* GitModels.swift */,
+				924063CF9B2A0095A0902957 /* GitRepository.swift */,
+				CD21CB2FA2B8332A978F2F3E /* GitRunner.swift */,
+			);
+			name = Git;
+			path = Git;
+			sourceTree = "<group>";
+		};
+		5DA70D62313F6D29AB80E004 /* Swift */ = {
+			isa = PBXGroup;
+			children = (
+				33D365CD079BF55D4E8D308B /* Config */,
+				A582753422D3EEBFA670E19E /* Theme */,
+				9272A67D68137799876A3450 /* Markdown */,
+				9D9C9116AB0C3C3A4898E1C5 /* Lint */,
+				50AEE7F54C85C038B3CC58CE /* Git */,
+				0946BEB65E6344D89380904C /* Workspace */,
+				3AECAF0A84B3AEA26B9226C9 /* Editor */,
+			);
+			name = Swift;
+			path = MacDown/Code/Swift;
+			sourceTree = SOURCE_ROOT;
+		};
 		905EF1AA196164CA00FC3CE9 /* macdown-cmd */ = {
 			isa = PBXGroup;
 			children = (
@@ -883,6 +1057,43 @@
 				1FBE8E0E1A11DB1E003E1EF4 /* main.m */,
 			);
 			path = "macdown-cmd";
+			sourceTree = "<group>";
+		};
+		9272A67D68137799876A3450 /* Markdown */ = {
+			isa = PBXGroup;
+			children = (
+				D01897957297417C3214F59C /* MarkdownExtensionMasker.swift */,
+				3DED5592B20CE84DDA30B29B /* CMarkEngine.swift */,
+				21922B2671C85E7035E56315 /* CodeBlockHTML.swift */,
+				4C338E2565DF5E5451027C3E /* PrismLanguages.swift */,
+				4B6E114FF0C367A912A501CA /* TableOfContents.swift */,
+				CDF5CD4D5D6F3B9E2BBD41D4 /* AlertBox.swift */,
+				0089EC6F7B95EE24F102C56D /* DocumentOutline.swift */,
+			);
+			name = Markdown;
+			path = Markdown;
+			sourceTree = "<group>";
+		};
+		9D9C9116AB0C3C3A4898E1C5 /* Lint */ = {
+			isa = PBXGroup;
+			children = (
+				43E4B5B253EB56C24714078E /* Linter.swift */,
+			);
+			name = Lint;
+			path = Lint;
+			sourceTree = "<group>";
+		};
+		A582753422D3EEBFA670E19E /* Theme */ = {
+			isa = PBXGroup;
+			children = (
+				07965DDA28C6E093CFAB6EF2 /* Theme.swift */,
+				25E02D37A6ED64C0F6F1CFF4 /* ThemeColor.swift */,
+				2E96175BA12C141E294AD762 /* ThemeManager.swift */,
+				F8A041DC3E6E235CC76C7E0D /* ThemeCSS.swift */,
+				004A7562E0D426BFC414F9BB /* ThemeService.swift */,
+			);
+			name = Theme;
+			path = Theme;
 			sourceTree = "<group>";
 		};
 		AC6D1A361B8B63012D598BC7 /* Pods */ = {
@@ -923,6 +1134,11 @@
 				1FE2197819534A5D00DB931F /* PBXTargetDependency */,
 			);
 			name = MacDown;
+			packageProductDependencies = (
+				B07459FFC34C9D68445055FF /* Yams */,
+				5F73D350DF82DA8CDAF6E23E /* cmark-gfm */,
+				CAC9650200602AD609CE3462 /* cmark-gfm-extensions */,
+			);
 			productName = MarkPad;
 			productReference = 1FA6DE211941CC9E000409FB /* MacDown.app */;
 			productType = "com.apple.product-type.application";
@@ -1013,6 +1229,10 @@
 				da,
 			);
 			mainGroup = 1FA6DE181941CC9E000409FB;
+			packageReferences = (
+				EB1B5C7AEA6ECEF9271E2E77 /* XCRemoteSwiftPackageReference "Yams" */,
+				5553F1AB43FBA65D234D7804 /* XCRemoteSwiftPackageReference "swift-cmark" */,
+			);
 			productRefGroup = 1FA6DE221941CC9E000409FB /* Products */;
 			projectDirPath = "";
 			projectReferences = (
@@ -1064,6 +1284,7 @@
 				1F3FC8AA1C85AE9F000965E1 /* MacDown.sdef in Resources */,
 				1FB3C0241E5061A2002AEB6A /* MPExportPanelAccessoryViewController.xib in Resources */,
 				3028039E1FD84EAC0055B0DA /* contribute.md in Resources */,
+				62548E77654F949D5AB73C85 /* BuiltinThemes in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1075,6 +1296,7 @@
 				1FFEB31D19729FEF00B2254F /* test.css in Resources */,
 				1FFEB3201972B04D00B2254F /* test.txt in Resources */,
 				1FFEB31E1972A28400B2254F /* test.js in Resources */,
+				AC2A677108794A44FEC75581 /* Snapshots in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1191,12 +1413,10 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-MacDown/Pods-MacDown-frameworks.sh",
 				"${PODS_ROOT}/Sparkle/Sparkle.framework",
-				"${PODS_ROOT}/Sparkle/Sparkle.framework.dSYM",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Sparkle.framework",
-				"${DWARF_DSYM_FOLDER_PATH}/Sparkle.framework.dSYM",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1252,7 +1472,6 @@
 				1FBDFEA11962A25A00BEEA70 /* MPGeneralPreferencesViewController.m in Sources */,
 				1F9A14ED194EEE9900D1C6A9 /* MPMainController.m in Sources */,
 				1F002A23195B3DAE008B8D93 /* MPRenderer.m in Sources */,
-				1FBBD4CB194CA36500BB3C88 /* hoedown_html_patch.c in Sources */,
 				1F8A8364195346B200B6BF69 /* pmh_styleparser.c in Sources */,
 				1F0D9D93194AC852008E1856 /* MPDocument.m in Sources */,
 				1F96BD801E584A03005E0456 /* MPHomebrewSubprocessController.m in Sources */,
@@ -1261,6 +1480,32 @@
 				1F8A835D1953454F00B6BF69 /* HGMarkdownHighlighter.m in Sources */,
 				1F847BC61DCC9DB600A47385 /* NSUserDefaults+Suite.m in Sources */,
 				1F3386E61A6B999600FC88C4 /* DOMNode+Text.m in Sources */,
+				1511FFFC90D7BB2FC513E695 /* AppConfig.swift in Sources */,
+				33886B68B7C32B0558C1784E /* ConfigDirectory.swift in Sources */,
+				69F9A424ACEF87C0725F7B82 /* Theme.swift in Sources */,
+				6CE92B9351073EB2AA2A6DB7 /* ThemeColor.swift in Sources */,
+				84110CD34B80356B90289088 /* ThemeManager.swift in Sources */,
+				777F6B6BED99B018D2B4470A /* NSURL+Convert.m in Sources */,
+				BF9F34F6E5D2D0516C4693D6 /* WebView+Shortcut.m in Sources */,
+				0A04B0E0F11C548BAA171927 /* MPPreferences+Markdown.m in Sources */,
+				6EDA99ADCCC2CDA044A06BCD /* MarkdownExtensionMasker.swift in Sources */,
+				3993B80A704AD80B8A41729A /* CMarkEngine.swift in Sources */,
+				04BE25412EC55371631FDB17 /* CodeBlockHTML.swift in Sources */,
+				F1B6DB85C5E64F83AA0F1E0A /* PrismLanguages.swift in Sources */,
+				2B2CB05DAE53EE80EDDA3B87 /* TableOfContents.swift in Sources */,
+				FA10DA3BCCA684E1C4FBCCF6 /* MPMarkdownEngine.m in Sources */,
+				7A3165EE17B27F055E7E9FDE /* AlertBox.swift in Sources */,
+				762BAA4D751FA31E474AFD3F /* Linter.swift in Sources */,
+				AFF7CD859FD7BB05D4CEC8C8 /* GitModels.swift in Sources */,
+				05C6723FD3323A6BC1F46104 /* GitRepository.swift in Sources */,
+				9EFA13AFAC4895752988C84F /* GitRunner.swift in Sources */,
+				14B1ABA252C424626AC1A88D /* DocumentOutline.swift in Sources */,
+				D465E6978E07BFF9EC260338 /* DirectoryWatcher.swift in Sources */,
+				3D10142F8C3C4231316F34F3 /* FuzzyMatcher.swift in Sources */,
+				04370DD406A3852FF0E206C2 /* WorkspaceTree.swift in Sources */,
+				BA49D551D54D1849FF49105B /* MultiSelection.swift in Sources */,
+				19926333C9F8368238BA4D15 /* ThemeCSS.swift in Sources */,
+				047FD1AD4DEEC5651189E4C3 /* ThemeService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1274,6 +1519,17 @@
 				1FFEB3271972DAB400B2254F /* MPHTMLTabularizeTests.m in Sources */,
 				1F25E1C31A50F4F10029371D /* MPColorTests.m in Sources */,
 				1FFF301D1948A5320009AF24 /* MPStringLookupTests.m in Sources */,
+				343A2FE22E6ECB7D1C033493 /* AppConfigTests.swift in Sources */,
+				A529EC33EE288F965EC215FF /* ThemeTests.swift in Sources */,
+				6CF445520A2F9CE129BC7864 /* MarkdownExtensionMaskerTests.swift in Sources */,
+				6BA59BD954902597BEA90D72 /* CMarkEngineTests.swift in Sources */,
+				ACCDEB9E150623DA8BFCF4AC /* MarkdownPerformanceTests.swift in Sources */,
+				6227BD0DF4E958BA6CE09B9F /* LinterTests.swift in Sources */,
+				30418CB033ED2B2BEB433D2D /* GitTests.swift in Sources */,
+				35C07F6D093A6569C06175EF /* WorkspaceTests.swift in Sources */,
+				444378B12D0B6FCE0AA8B661 /* MultiSelectionTests.swift in Sources */,
+				536A964260F034F51348D750 /* ThemeServiceTests.swift in Sources */,
+				A72828850A2F2CE58C7FD312 /* RendererThemeIntegrationTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1699,7 +1955,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 			};
@@ -1744,7 +2000,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -1754,15 +2010,20 @@
 			baseConfigurationReference = 1A198D1BA59D710201DD3BC8 /* Pods-MacDown.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MacDown/Code/MacDown-Prefix.pch";
 				INFOPLIST_FILE = "MacDown/MacDown-Info.plist";
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.uranusjr.${PRODUCT_NAME:rfc1034identifier:lower}-debug";
 				PRODUCT_NAME = MacDown;
 				SDKROOT = macosx;
+				SWIFT_OBJC_BRIDGING_HEADER = "MacDown/Code/MacDown-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1772,15 +2033,19 @@
 			baseConfigurationReference = 39EFCAE04F60154F0C8C5469 /* Pods-MacDown.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MacDown/Code/MacDown-Prefix.pch";
 				INFOPLIST_FILE = "MacDown/MacDown-Info.plist";
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.uranusjr.${PRODUCT_NAME:rfc1034identifier:lower}";
 				PRODUCT_NAME = MacDown;
 				SDKROOT = macosx;
+				SWIFT_OBJC_BRIDGING_HEADER = "MacDown/Code/MacDown-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -1790,8 +2055,9 @@
 			baseConfigurationReference = 8CDC5EA0050D2F722FB1AADD /* Pods-MacDownTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/MacDown.app/Contents/MacOS/MacDown";
-				CLANG_ENABLE_MODULES = NO;
+				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"$(inherited)",
@@ -1807,9 +2073,12 @@
 					"$(inherited)",
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/MacDown-ggdtxvuybojeqbhjydkhilziizrv/Build/Products/Debug",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.uranusjr.${PRODUCT_NAME:rfc1034identifier:lower}";
 				PRODUCT_NAME = MacDownTests;
+				SWIFT_OBJC_BRIDGING_HEADER = "MacDownTests/MacDownTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -1820,7 +2089,7 @@
 			baseConfigurationReference = 0D0EC0DE9FEA22F962083921 /* Pods-MacDownTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/MacDown.app/Contents/MacOS/MacDown";
-				CLANG_ENABLE_MODULES = NO;
+				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
@@ -1833,9 +2102,12 @@
 					"$(inherited)",
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/MacDown-ggdtxvuybojeqbhjydkhilziizrv/Build/Products/Debug",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.uranusjr.${PRODUCT_NAME:rfc1034identifier:lower}";
 				PRODUCT_NAME = MacDownTests;
+				SWIFT_OBJC_BRIDGING_HEADER = "MacDownTests/MacDownTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -1907,6 +2179,43 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		5553F1AB43FBA65D234D7804 /* XCRemoteSwiftPackageReference "swift-cmark" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/swiftlang/swift-cmark";
+			requirement = {
+				branch = gfm;
+				kind = branch;
+			};
+		};
+		EB1B5C7AEA6ECEF9271E2E77 /* XCRemoteSwiftPackageReference "Yams" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/jpsim/Yams";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		5F73D350DF82DA8CDAF6E23E /* cmark-gfm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5553F1AB43FBA65D234D7804 /* XCRemoteSwiftPackageReference "swift-cmark" */;
+			productName = "cmark-gfm";
+		};
+		B07459FFC34C9D68445055FF /* Yams */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EB1B5C7AEA6ECEF9271E2E77 /* XCRemoteSwiftPackageReference "Yams" */;
+			productName = Yams;
+		};
+		CAC9650200602AD609CE3462 /* cmark-gfm-extensions */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5553F1AB43FBA65D234D7804 /* XCRemoteSwiftPackageReference "swift-cmark" */;
+			productName = "cmark-gfm-extensions";
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 1FA6DE191941CC9E000409FB /* Project object */;
 }

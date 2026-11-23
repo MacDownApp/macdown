@@ -1,0 +1,24 @@
+{
+  "originHash" : "89b0971d3e2d739e04bb8502db42ae7c3b7b55694314b5f9cdf7e2e9a75fbe1d",
+  "pins" : [
+    {
+      "identity" : "swift-cmark",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/swiftlang/swift-cmark",
+      "state" : {
+        "branch" : "gfm",
+        "revision" : "437611671145d47e6d9679761b8a5987766f4ae5"
+      }
+    },
+    {
+      "identity" : "yams",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/jpsim/Yams",
+      "state" : {
+        "revision" : "3d6871d5b4a5cd519adf233fbb576e0a2af71c17",
+        "version" : "5.4.0"
+      }
+    }
+  ],
+  "version" : 3
+}
