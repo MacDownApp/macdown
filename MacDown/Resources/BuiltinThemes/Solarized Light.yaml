@@ -1,0 +1,26 @@
+name: Solarized Light
+appearance: light
+editor:
+  background: "#fdf6e3"
+  text: "#657b83"
+  caret: "#586e75"
+  selection: "#eee8d5"
+  line-highlight: "#f5efdc"
+tokens:
+  heading: { color: "#268bd2", bold: true }
+  emphasis: { color: "#586e75", italic: true }
+  strong: { color: "#586e75", bold: true }
+  link: { color: "#2aa198" }
+  code: { color: "#859900" }
+  quote: { color: "#93a1a1", italic: true }
+  list: { color: "#cb4b16" }
+  keyword: { color: "#859900" }
+  string: { color: "#2aa198" }
+  number: { color: "#d33682" }
+  comment: { color: "#93a1a1", italic: true }
+  function: { color: "#268bd2" }
+  type: { color: "#b58900" }
+preview:
+  background: "#fdf6e3"
+  text: "#657b83"
+  content-width: 760

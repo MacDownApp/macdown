@@ -1,0 +1,26 @@
+name: One Dark
+appearance: dark
+editor:
+  background: "#282c34"
+  text: "#abb2bf"
+  caret: "#528bff"
+  selection: "#3e4451"
+  line-highlight: "#2c313c"
+tokens:
+  heading: { color: "#e06c75", bold: true }
+  emphasis: { color: "#abb2bf", italic: true }
+  strong: { color: "#abb2bf", bold: true }
+  link: { color: "#61afef" }
+  code: { color: "#98c379" }
+  quote: { color: "#5c6370", italic: true }
+  list: { color: "#d19a66" }
+  keyword: { color: "#c678dd" }
+  string: { color: "#98c379" }
+  number: { color: "#d19a66" }
+  comment: { color: "#5c6370", italic: true }
+  function: { color: "#61afef" }
+  type: { color: "#e5c07b" }
+preview:
+  background: "#282c34"
+  text: "#abb2bf"
+  content-width: 760

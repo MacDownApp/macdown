@@ -1,0 +1,26 @@
+name: GitHub Dark
+appearance: dark
+editor:
+  background: "#0d1117"
+  text: "#e6edf3"
+  caret: "#58a6ff"
+  selection: "#264f78"
+  line-highlight: "#161b22"
+tokens:
+  heading: { color: "#79c0ff", bold: true }
+  emphasis: { color: "#e6edf3", italic: true }
+  strong: { color: "#e6edf3", bold: true }
+  link: { color: "#58a6ff" }
+  code: { color: "#79c0ff" }
+  quote: { color: "#8b949e", italic: true }
+  list: { color: "#ffa657" }
+  keyword: { color: "#ff7b72" }
+  string: { color: "#a5d6ff" }
+  number: { color: "#79c0ff" }
+  comment: { color: "#8b949e", italic: true }
+  function: { color: "#d2a8ff" }
+  type: { color: "#ffa657" }
+preview:
+  background: "#0d1117"
+  text: "#e6edf3"
+  content-width: 760

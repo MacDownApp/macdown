@@ -60,6 +60,14 @@ unless project.files.any? { |f| f.path == 'MacDown/Code/MacDown-Bridging-Header.
   project.main_group.new_reference('MacDown/Code/MacDown-Bridging-Header.h')
 end
 
+# -- Folder resources ---------------------------------------------------------
+['MacDown/Resources/BuiltinThemes'].each do |folder|
+  next if app.resources_build_phase.files_references.any? { |r| r && r.path == folder }
+  ref = project.files.find { |f| f.path == folder } || project.main_group.new_reference(folder)
+  ref.last_known_file_type = 'folder'
+  app.resources_build_phase.add_file_reference(ref, true)
+end
+
 # -- Swift packages -----------------------------------------------------------
 PACKAGES.each do |pkg|
   ref = project.root_object.package_references.find { |r| r.repositoryURL == pkg[:url] }

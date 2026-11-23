@@ -1,0 +1,26 @@
+name: Nord
+appearance: dark
+editor:
+  background: "#2e3440"
+  text: "#d8dee9"
+  caret: "#d8dee9"
+  selection: "#434c5e"
+  line-highlight: "#3b4252"
+tokens:
+  heading: { color: "#88c0d0", bold: true }
+  emphasis: { color: "#eceff4", italic: true }
+  strong: { color: "#eceff4", bold: true }
+  link: { color: "#81a1c1" }
+  code: { color: "#a3be8c" }
+  quote: { color: "#616e88", italic: true }
+  list: { color: "#d08770" }
+  keyword: { color: "#81a1c1" }
+  string: { color: "#a3be8c" }
+  number: { color: "#b48ead" }
+  comment: { color: "#616e88", italic: true }
+  function: { color: "#88c0d0" }
+  type: { color: "#8fbcbb" }
+preview:
+  background: "#2e3440"
+  text: "#d8dee9"
+  content-width: 760

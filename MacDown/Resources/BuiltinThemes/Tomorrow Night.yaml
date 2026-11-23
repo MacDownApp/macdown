@@ -1,0 +1,26 @@
+name: Tomorrow Night
+appearance: dark
+editor:
+  background: "#1d1f21"
+  text: "#c5c8c6"
+  caret: "#aeafad"
+  selection: "#373b41"
+  line-highlight: "#282a2e"
+tokens:
+  heading: { color: "#81a2be", bold: true }
+  emphasis: { color: "#c5c8c6", italic: true }
+  strong: { color: "#c5c8c6", bold: true }
+  link: { color: "#8abeb7" }
+  code: { color: "#b5bd68" }
+  quote: { color: "#969896", italic: true }
+  list: { color: "#de935f" }
+  keyword: { color: "#b294bb" }
+  string: { color: "#b5bd68" }
+  number: { color: "#de935f" }
+  comment: { color: "#969896", italic: true }
+  function: { color: "#81a2be" }
+  type: { color: "#f0c674" }
+preview:
+  background: "#1d1f21"
+  text: "#c5c8c6"
+  content-width: 760
