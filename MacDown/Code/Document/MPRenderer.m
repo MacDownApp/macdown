@@ -489,11 +489,6 @@ NS_INLINE void MPFreeHTMLRenderer(hoedown_renderer *htmlRenderer)
 {
     id<MPRendererDelegate> d = self.delegate;
     NSMutableArray *scripts = [NSMutableArray array];
-    if (self.rendererFlags & HOEDOWN_HTML_USE_TASK_LIST)
-    {
-        NSURL *url = MPExtensionURL(@"tasklist", @"js");
-        [scripts addObject:[MPScript javaScriptWithURL:url]];
-    }
     if ([d rendererHasSyntaxHighlighting:self])
     {
         [scripts addObjectsFromArray:self.prismScripts];

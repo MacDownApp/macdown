@@ -383,6 +383,7 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     self.renderer = [[MPRenderer alloc] init];
     self.renderer.dataSource = self;
     self.renderer.delegate = self;
+    self.renderer.rendererFlags = self.preferences.rendererFlags;
 
     for (NSString *key in MPEditorPreferencesToObserve())
     {
