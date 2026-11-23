@@ -97,6 +97,7 @@
 		35C07F6D093A6569C06175EF /* WorkspaceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28BFF5163D678567C212B2D /* WorkspaceTests.swift */; };
 		3993B80A704AD80B8A41729A /* CMarkEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DED5592B20CE84DDA30B29B /* CMarkEngine.swift */; };
 		3D10142F8C3C4231316F34F3 /* FuzzyMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3968D1739E10A1F781C4CD /* FuzzyMatcher.swift */; };
+		444378B12D0B6FCE0AA8B661 /* MultiSelectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1EF571403671197CA19B70 /* MultiSelectionTests.swift */; };
 		484D32008C1C611D97A08E18 /* Yams in Frameworks */ = {isa = PBXBuildFile; productRef = B07459FFC34C9D68445055FF /* Yams */; };
 		6227BD0DF4E958BA6CE09B9F /* LinterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A0E6030B9B5EC33E3F4051 /* LinterTests.swift */; };
 		62548E77654F949D5AB73C85 /* BuiltinThemes in Resources */ = {isa = PBXBuildFile; fileRef = A76F40CDE52CE7F4970A0A33 /* BuiltinThemes */; };
@@ -120,6 +121,7 @@
 		ACCDEB9E150623DA8BFCF4AC /* MarkdownPerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343137F5EB3D0BC8A6019D7E /* MarkdownPerformanceTests.swift */; };
 		AFF7CD859FD7BB05D4CEC8C8 /* GitModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = F586EC703D31B54F45CD8E15 /* GitModels.swift */; };
 		B5C5C1666A506FEA86435D25 /* libPods-macdown-cmd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 263367245B2D78A42C2F19D7 /* libPods-macdown-cmd.a */; };
+		BA49D551D54D1849FF49105B /* MultiSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA5A8F949D161B2B90ED44E /* MultiSelection.swift */; };
 		BF9F34F6E5D2D0516C4693D6 /* WebView+Shortcut.m in Sources */ = {isa = PBXBuildFile; fileRef = AADEDCA9CC0F51761457638A /* WebView+Shortcut.m */; };
 		C5AC805C84D58A94D7A64A2A /* cmark-gfm in Frameworks */ = {isa = PBXBuildFile; productRef = 5F73D350DF82DA8CDAF6E23E /* cmark-gfm */; };
 		D465E6978E07BFF9EC260338 /* DirectoryWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E168F75B211C6F1FD26E69 /* DirectoryWatcher.swift */; };
@@ -563,6 +565,8 @@
 		AADEDCA9CC0F51761457638A /* WebView+Shortcut.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "WebView+Shortcut.m"; sourceTree = "<group>"; };
 		AB9E7D1A61A32ED8857FC26D /* WorkspaceTree.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WorkspaceTree.swift; sourceTree = "<group>"; };
 		B570A3FC3D7E832EF94EF478 /* MPPreferences+Markdown.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "MPPreferences+Markdown.m"; sourceTree = "<group>"; };
+		BA1EF571403671197CA19B70 /* MultiSelectionTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MultiSelectionTests.swift; sourceTree = "<group>"; };
+		BDA5A8F949D161B2B90ED44E /* MultiSelection.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MultiSelection.swift; sourceTree = "<group>"; };
 		CD21CB2FA2B8332A978F2F3E /* GitRunner.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GitRunner.swift; sourceTree = "<group>"; };
 		CDF5CD4D5D6F3B9E2BBD41D4 /* AlertBox.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AlertBox.swift; sourceTree = "<group>"; };
 		D01897957297417C3214F59C /* MarkdownExtensionMasker.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MarkdownExtensionMasker.swift; sourceTree = "<group>"; };
@@ -982,6 +986,15 @@
 			path = Config;
 			sourceTree = "<group>";
 		};
+		3AECAF0A84B3AEA26B9226C9 /* Editor */ = {
+			isa = PBXGroup;
+			children = (
+				BDA5A8F949D161B2B90ED44E /* MultiSelection.swift */,
+			);
+			name = Editor;
+			path = Editor;
+			sourceTree = "<group>";
+		};
 		3E0A8425DBCFE1CD58919C89 /* SwiftTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -993,6 +1006,7 @@
 				E6A0E6030B9B5EC33E3F4051 /* LinterTests.swift */,
 				8BB76FC7CD18C07BE75C4D07 /* GitTests.swift */,
 				D28BFF5163D678567C212B2D /* WorkspaceTests.swift */,
+				BA1EF571403671197CA19B70 /* MultiSelectionTests.swift */,
 			);
 			name = SwiftTests;
 			path = MacDownTests/Swift;
@@ -1018,6 +1032,7 @@
 				9D9C9116AB0C3C3A4898E1C5 /* Lint */,
 				50AEE7F54C85C038B3CC58CE /* Git */,
 				0946BEB65E6344D89380904C /* Workspace */,
+				3AECAF0A84B3AEA26B9226C9 /* Editor */,
 			);
 			name = Swift;
 			path = MacDown/Code/Swift;
@@ -1476,6 +1491,7 @@
 				D465E6978E07BFF9EC260338 /* DirectoryWatcher.swift in Sources */,
 				3D10142F8C3C4231316F34F3 /* FuzzyMatcher.swift in Sources */,
 				04370DD406A3852FF0E206C2 /* WorkspaceTree.swift in Sources */,
+				BA49D551D54D1849FF49105B /* MultiSelection.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1497,6 +1513,7 @@
 				6227BD0DF4E958BA6CE09B9F /* LinterTests.swift in Sources */,
 				30418CB033ED2B2BEB433D2D /* GitTests.swift in Sources */,
 				35C07F6D093A6569C06175EF /* WorkspaceTests.swift in Sources */,
+				444378B12D0B6FCE0AA8B661 /* MultiSelectionTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
