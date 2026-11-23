@@ -55,6 +55,20 @@ end
 sync_dir(project, app, 'MacDown/Code/Swift', 'Swift')
 sync_dir(project, tests, 'MacDownTests/Swift', 'SwiftTests')
 
+# -- Prune references to files that were deleted or renamed ---------------------
+project.files.dup.each do |ref|
+  path = ref.real_path.to_s
+  next unless path.start_with?(ROOT) && !path.include?('/Pods/') && !File.exist?(path)
+  [app, tests].each do |t|
+    t.build_phases.each do |phase|
+      next unless phase.respond_to?(:files)
+      phase.files.dup.each { |bf| bf.remove_from_project if bf.file_ref == ref }
+    end
+  end
+  puts "removed #{ref.path}"
+  ref.remove_from_project
+end
+
 # -- Objective-C / C files in existing groups ----------------------------------
 # New .h/.m/.c files placed in a directory that already has an Xcode group are
 # added to that group (and .m/.c to the MacDown target).

@@ -10,12 +10,30 @@
 #import <Foundation/Foundation.h>
 
 
-/// Options for one render. `extensions` and `rendererFlags` currently carry
-/// Hoedown flag values (see MPPreferences+Hoedown.h).
-@interface MPMarkdownRenderOptions : NSObject
+/// Options for one render. Engine independent: each engine maps these to its
+/// own parser settings. Equality is by value, so callers can detect changes.
+@interface MPMarkdownRenderOptions : NSObject <NSCopying>
 
-@property (nonatomic) int extensions;
-@property (nonatomic) int rendererFlags;
+// Syntax extensions.
+@property (nonatomic) BOOL tables;
+@property (nonatomic) BOOL fencedCode;
+@property (nonatomic) BOOL footnotes;
+@property (nonatomic) BOOL autolink;
+@property (nonatomic) BOOL strikethrough;
+@property (nonatomic) BOOL underline;       // _text_ renders <u>.
+@property (nonatomic) BOOL highlight;       // ==text== renders <mark>.
+@property (nonatomic) BOOL quote;           // "text" renders <q>.
+@property (nonatomic) BOOL superscript;     // ^text and ^(text).
+@property (nonatomic) BOOL intraEmphasis;   // Emphasis inside words.
+@property (nonatomic) BOOL math;            // \(..\), \[..\] and $$..$$.
+@property (nonatomic) BOOL mathInlineDollar;// $..$ (needs `math`).
+
+// HTML output.
+@property (nonatomic) BOOL taskList;
+@property (nonatomic) BOOL lineNumbers;     // Adds "line-numbers" to <pre>.
+@property (nonatomic) BOOL hardWrap;
+/// Code block info strings of the form "language:information".
+@property (nonatomic) BOOL codeBlockInformation;
 @property (nonatomic) BOOL smartyPants;
 @property (nonatomic) BOOL rendersTOC;
 @property (nonatomic) BOOL detectsFrontMatter;

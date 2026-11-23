@@ -21,6 +21,50 @@ static int kMPRendererTOCLevel = 6;  // h1 to h6.
 
 
 @implementation MPMarkdownRenderOptions
+
+static NSArray<NSString *> *MPOptionKeys(void)
+{
+    static NSArray *keys;
+    static dispatch_once_t token;
+    dispatch_once(&token, ^{
+        keys = @[@"tables", @"fencedCode", @"footnotes", @"autolink",
+                 @"strikethrough", @"underline", @"highlight", @"quote",
+                 @"superscript", @"intraEmphasis", @"math",
+                 @"mathInlineDollar", @"taskList", @"lineNumbers", @"hardWrap",
+                 @"codeBlockInformation", @"smartyPants", @"rendersTOC",
+                 @"detectsFrontMatter"];
+    });
+    return keys;
+}
+
+- (id)copyWithZone:(NSZone *)zone
+{
+    MPMarkdownRenderOptions *copy = [[[self class] allocWithZone:zone] init];
+    for (NSString *key in MPOptionKeys())
+        [copy setValue:[self valueForKey:key] forKey:key];
+    return copy;
+}
+
+- (BOOL)isEqual:(id)object
+{
+    if (![object isKindOfClass:[MPMarkdownRenderOptions class]])
+        return NO;
+    for (NSString *key in MPOptionKeys())
+    {
+        if (![[self valueForKey:key] isEqual:[object valueForKey:key]])
+            return NO;
+    }
+    return YES;
+}
+
+- (NSUInteger)hash
+{
+    NSUInteger h = 0;
+    for (NSString *key in MPOptionKeys())
+        h = h * 31 + [[self valueForKey:key] hash];
+    return h;
+}
+
 @end
 
 
@@ -213,6 +257,52 @@ static os_log_t MPHoedownLog(void)
 }
 
 
+/// Hoedown parser flags for the given options.
+static int MPHoedownExtensions(MPMarkdownRenderOptions *o)
+{
+    int flags = 0;
+    if (o.autolink)
+        flags |= HOEDOWN_EXT_AUTOLINK;
+    if (o.fencedCode)
+        flags |= HOEDOWN_EXT_FENCED_CODE;
+    if (o.footnotes)
+        flags |= HOEDOWN_EXT_FOOTNOTES;
+    if (o.highlight)
+        flags |= HOEDOWN_EXT_HIGHLIGHT;
+    if (!o.intraEmphasis)
+        flags |= HOEDOWN_EXT_NO_INTRA_EMPHASIS;
+    if (o.quote)
+        flags |= HOEDOWN_EXT_QUOTE;
+    if (o.strikethrough)
+        flags |= HOEDOWN_EXT_STRIKETHROUGH;
+    if (o.superscript)
+        flags |= HOEDOWN_EXT_SUPERSCRIPT;
+    if (o.tables)
+        flags |= HOEDOWN_EXT_TABLES;
+    if (o.underline)
+        flags |= HOEDOWN_EXT_UNDERLINE;
+    if (o.math)
+        flags |= HOEDOWN_EXT_MATH;
+    if (o.mathInlineDollar)
+        flags |= HOEDOWN_EXT_MATH_EXPLICIT;
+    return flags;
+}
+
+static int MPHoedownRendererFlags(MPMarkdownRenderOptions *o)
+{
+    int flags = 0;
+    if (o.taskList)
+        flags |= HOEDOWN_HTML_USE_TASK_LIST;
+    if (o.lineNumbers)
+        flags |= HOEDOWN_HTML_BLOCKCODE_LINE_NUMBERS;
+    if (o.hardWrap)
+        flags |= HOEDOWN_HTML_HARD_WRAP;
+    if (o.codeBlockInformation)
+        flags |= HOEDOWN_HTML_BLOCKCODE_INFORMATION;
+    return flags;
+}
+
+
 @implementation MPHoedownEngine
 
 - (MPMarkdownResult *)renderMarkdown:(NSString *)markdown
@@ -232,13 +322,13 @@ static os_log_t MPHoedownLog(void)
     }
 
     hoedown_renderer *htmlRenderer =
-        MPCreateHTMLRenderer(options.rendererFlags, languages);
+        MPCreateHTMLRenderer(MPHoedownRendererFlags(options), languages);
     hoedown_renderer *tocRenderer = NULL;
     if (options.rendersTOC)
         tocRenderer = MPCreateHTMLTOCRenderer();
 
     NSString *html = MPHTMLFromMarkdown(
-        markdown, options.extensions, options.smartyPants,
+        markdown, MPHoedownExtensions(options), options.smartyPants,
         [frontMatter HTMLTable], htmlRenderer, tocRenderer);
 
     if (tocRenderer)

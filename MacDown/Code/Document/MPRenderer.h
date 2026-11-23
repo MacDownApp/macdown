@@ -22,7 +22,8 @@ typedef NS_ENUM(NSUInteger, MPCodeBlockAccessoryType)
 
 @interface MPRenderer : NSObject
 
-@property (nonatomic) int rendererFlags;
+/// Options used for the most recent parse. Nil before the first parse.
+@property (nonatomic, copy, readonly) MPMarkdownRenderOptions *markdownOptions;
 @property (weak) id<MPRendererDataSource> dataSource;
 @property (weak) id<MPRendererDelegate> delegate;
 
@@ -49,11 +50,8 @@ typedef NS_ENUM(NSUInteger, MPCodeBlockAccessoryType)
 
 @protocol MPRendererDelegate <NSObject>
 
-- (int)rendererExtensions:(MPRenderer *)renderer;
-- (BOOL)rendererHasSmartyPants:(MPRenderer *)renderer;
-- (BOOL)rendererRendersTOC:(MPRenderer *)renderer;
+- (MPMarkdownRenderOptions *)rendererMarkdownOptions:(MPRenderer *)renderer;
 - (NSString *)rendererStyleName:(MPRenderer *)renderer;
-- (BOOL)rendererDetectsFrontMatter:(MPRenderer *)renderer;
 - (BOOL)rendererHasSyntaxHighlighting:(MPRenderer *)renderer;
 - (BOOL)rendererHasMermaid:(MPRenderer *)renderer;
 - (BOOL)rendererHasGraphviz:(MPRenderer *)renderer;

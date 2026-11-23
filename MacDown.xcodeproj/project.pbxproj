@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A04B0E0F11C548BAA171927 /* MPPreferences+Markdown.m in Sources */ = {isa = PBXBuildFile; fileRef = B570A3FC3D7E832EF94EF478 /* MPPreferences+Markdown.m */; };
 		1511FFFC90D7BB2FC513E695 /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154050C692599A904857769F /* AppConfig.swift */; };
 		1F002A23195B3DAE008B8D93 /* MPRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F002A22195B3DAE008B8D93 /* MPRenderer.m */; };
 		1F0D9D65194AC7CF008E1856 /* NSString+Lookup.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0D9D5F194AC7CF008E1856 /* NSString+Lookup.m */; };
@@ -106,7 +107,6 @@
 		B5C5C1666A506FEA86435D25 /* libPods-macdown-cmd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 263367245B2D78A42C2F19D7 /* libPods-macdown-cmd.a */; };
 		BF9F34F6E5D2D0516C4693D6 /* WebView+Shortcut.m in Sources */ = {isa = PBXBuildFile; fileRef = AADEDCA9CC0F51761457638A /* WebView+Shortcut.m */; };
 		EBFE3157737058F5A63699C8 /* libPods-MacDownTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C949FDE45493AE77DAD9BF4 /* libPods-MacDownTests.a */; };
-		FB6DD036468D8DCD6F4E7CF1 /* MPPreferences+Hoedown.m in Sources */ = {isa = PBXBuildFile; fileRef = 06926F5A2B0D9C0B20CEF6E3 /* MPPreferences+Hoedown.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -165,7 +165,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		06926F5A2B0D9C0B20CEF6E3 /* MPPreferences+Hoedown.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "MPPreferences+Hoedown.m"; sourceTree = "<group>"; };
 		07965DDA28C6E093CFAB6EF2 /* Theme.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		0B5A25BA30FEED05E020C3F4 /* MPHoedownEngine.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPHoedownEngine.m; sourceTree = "<group>"; };
 		0D0EC0DE9FEA22F962083921 /* Pods-MacDownTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacDownTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MacDownTests/Pods-MacDownTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -519,7 +518,6 @@
 		46CE310899F1CF976D7E7A36 /* MPMarkdownEngine.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPMarkdownEngine.h; sourceTree = "<group>"; };
 		4DBAA63927A60EB2150642B3 /* Pods-macdown-cmd.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-macdown-cmd.debug.xcconfig"; path = "Pods/Target Support Files/Pods-macdown-cmd/Pods-macdown-cmd.debug.xcconfig"; sourceTree = "<group>"; };
 		5D7A98AE7456B40021623A57 /* MPHoedownEngine.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MPHoedownEngine.h; sourceTree = "<group>"; };
-		62DDC90B4712BFAC44E855CA /* MPPreferences+Hoedown.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MPPreferences+Hoedown.h"; sourceTree = "<group>"; };
 		64E3C2CA3CE79E0B76CDBD2D /* MPMarkdownEngineTests.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPMarkdownEngineTests.m; sourceTree = "<group>"; };
 		7A8EA75FA95818275755F0B6 /* Pods-macdown-cmd.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-macdown-cmd.release.xcconfig"; path = "Pods/Target Support Files/Pods-macdown-cmd/Pods-macdown-cmd.release.xcconfig"; sourceTree = "<group>"; };
 		80AF0F089878ED26203CC848 /* AppConfigTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AppConfigTests.swift; sourceTree = "<group>"; };
@@ -533,9 +531,11 @@
 		905EF1A8196164CA00FC3CE9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		9CAD965730C76B07C1D67CD1 /* ThemeTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ThemeTests.swift; sourceTree = "<group>"; };
 		9DF72DC953F51FC71399343F /* MPPerformanceTests.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPerformanceTests.m; sourceTree = "<group>"; };
+		A0BB9641F8F97F9398BC60D2 /* MPPreferences+Markdown.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MPPreferences+Markdown.h"; sourceTree = "<group>"; };
 		A21731D80F883C955BE96B61 /* Snapshots */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = Snapshots; path = MacDownTests/Snapshots; sourceTree = "<group>"; };
 		A76F40CDE52CE7F4970A0A33 /* BuiltinThemes */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = BuiltinThemes; path = MacDown/Resources/BuiltinThemes; sourceTree = "<group>"; };
 		AADEDCA9CC0F51761457638A /* WebView+Shortcut.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "WebView+Shortcut.m"; sourceTree = "<group>"; };
+		B570A3FC3D7E832EF94EF478 /* MPPreferences+Markdown.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "MPPreferences+Markdown.m"; sourceTree = "<group>"; };
 		E70ECDD4241C933C00537A46 /* ru-RU */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ru-RU"; path = "Localization/ru-RU.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		E70ECDD5241C933C00537A46 /* ru-RU */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ru-RU"; path = "Localization/ru-RU.lproj/MainMenu.strings"; sourceTree = "<group>"; };
 		E70ECDD6241C933C00537A46 /* ru-RU */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ru-RU"; path = "Localization/ru-RU.lproj/MPMarkdownPreferencesViewController.strings"; sourceTree = "<group>"; };
@@ -672,8 +672,8 @@
 				1F3619E81F36DA0F00EDA15A /* MPTerminalPreferencesViewController.xib */,
 				1F0D9D72194AC7F7008E1856 /* MPPreferences.h */,
 				1F0D9D73194AC7F7008E1856 /* MPPreferences.m */,
-				62DDC90B4712BFAC44E855CA /* MPPreferences+Hoedown.h */,
-				06926F5A2B0D9C0B20CEF6E3 /* MPPreferences+Hoedown.m */,
+				A0BB9641F8F97F9398BC60D2 /* MPPreferences+Markdown.h */,
+				B570A3FC3D7E832EF94EF478 /* MPPreferences+Markdown.m */,
 			);
 			name = Preferences;
 			path = Code/Preferences;
@@ -1370,7 +1370,7 @@
 				610E4A195CC07CDCF392872B /* MPHoedownEngine.m in Sources */,
 				777F6B6BED99B018D2B4470A /* NSURL+Convert.m in Sources */,
 				BF9F34F6E5D2D0516C4693D6 /* WebView+Shortcut.m in Sources */,
-				FB6DD036468D8DCD6F4E7CF1 /* MPPreferences+Hoedown.m in Sources */,
+				0A04B0E0F11C548BAA171927 /* MPPreferences+Markdown.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

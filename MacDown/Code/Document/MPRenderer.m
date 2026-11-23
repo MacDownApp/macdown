@@ -160,11 +160,8 @@ NS_INLINE BOOL MPAreNilableStringsEqual(NSString *s1, NSString *s2)
 @property (readonly) NSArray *scripts;
 @property (copy) NSString *currentHtml;
 @property (strong) NSOperationQueue *parseQueue;
-@property int extensions;
-@property BOOL smartypants;
-@property BOOL TOC;
+@property (copy) MPMarkdownRenderOptions *markdownOptions;
 @property (copy) NSString *styleName;
-@property BOOL frontMatter;
 @property BOOL syntaxHighlighting;
 @property BOOL mermaid;
 @property BOOL graphviz;
@@ -215,7 +212,7 @@ NS_INLINE BOOL MPAreNilableStringsEqual(NSString *s1, NSString *s2)
 
     NSMutableArray *stylesheets = [NSMutableArray arrayWithObject:stylesheet];
 
-    if (self.rendererFlags & HOEDOWN_HTML_BLOCKCODE_LINE_NUMBERS)
+    if (self.markdownOptions.lineNumbers)
     {
         NSURL *url = MPPrismPluginURL(@"line-numbers", @"css");
         [stylesheets addObject:[MPStyleSheet CSSWithURL:url]];
@@ -243,7 +240,7 @@ NS_INLINE BOOL MPAreNilableStringsEqual(NSString *s1, NSString *s2)
             [scripts addObject:[MPScript javaScriptWithURL:url]];
     }
 
-    if (self.rendererFlags & HOEDOWN_HTML_BLOCKCODE_LINE_NUMBERS)
+    if (self.markdownOptions.lineNumbers)
     {
         NSURL *url = MPPrismPluginURL(@"line-numbers", @"js");
         [scripts addObject:[MPScript javaScriptWithURL:url]];
@@ -344,7 +341,7 @@ NS_INLINE BOOL MPAreNilableStringsEqual(NSString *s1, NSString *s2)
 {
     id<MPRendererDelegate> d = self.delegate;
     NSMutableArray *scripts = [NSMutableArray array];
-    if (self.rendererFlags & HOEDOWN_HTML_USE_TASK_LIST)
+    if (self.markdownOptions.taskList)
     {
         NSURL *url = MPExtensionURL(@"tasklist", @"js");
         [scripts addObject:[MPScript javaScriptWithURL:url]];
@@ -412,10 +409,8 @@ NS_INLINE BOOL MPAreNilableStringsEqual(NSString *s1, NSString *s2)
 - (void)parseIfPreferencesChanged
 {
     id<MPRendererDelegate> delegate = self.delegate;
-    if ([delegate rendererExtensions:self] != self.extensions
-            || [delegate rendererHasSmartyPants:self] != self.smartypants
-            || [delegate rendererRendersTOC:self] != self.TOC
-            || [delegate rendererDetectsFrontMatter:self] != self.frontMatter)
+    if (![[delegate rendererMarkdownOptions:self]
+          isEqual:self.markdownOptions])
     {
         [self parseMarkdown:[self.dataSource rendererMarkdown:self]];
     }
@@ -423,27 +418,14 @@ NS_INLINE BOOL MPAreNilableStringsEqual(NSString *s1, NSString *s2)
 
 - (void)parseMarkdown:(NSString *)markdown {
     id<MPRendererDelegate> delegate = self.delegate;
-    int extensions = [delegate rendererExtensions:self];
-    BOOL smartypants = [delegate rendererHasSmartyPants:self];
-    BOOL hasFrontMatter = [delegate rendererDetectsFrontMatter:self];
-    BOOL hasTOC = [delegate rendererRendersTOC:self];
-
-    MPMarkdownRenderOptions *options = [[MPMarkdownRenderOptions alloc] init];
-    options.extensions = extensions;
-    options.rendererFlags = self.rendererFlags;
-    options.smartyPants = smartypants;
-    options.rendersTOC = hasTOC;
-    options.detectsFrontMatter = hasFrontMatter;
+    MPMarkdownRenderOptions *options =
+        [[delegate rendererMarkdownOptions:self] copy];
 
     MPMarkdownResult *result =
         [self.engine renderMarkdown:markdown options:options];
     self.currentHtml = result.html;
     self.currentLanguages = [result.languages mutableCopy];
-
-    self.extensions = extensions;
-    self.smartypants = smartypants;
-    self.TOC = hasTOC;
-    self.frontMatter = hasFrontMatter;
+    self.markdownOptions = options;
 }
 
 - (void)renderIfPreferencesChanged

@@ -23,7 +23,7 @@
 #import "MPPreferences.h"
 #import "NSURL+Convert.h"
 #import "WebView+Shortcut.h"
-#import "MPPreferences+Hoedown.h"
+#import "MPPreferences+Markdown.h"
 #import "MPDocumentSplitView.h"
 #import "MPEditorView.h"
 #import "MPRenderer.h"
@@ -918,29 +918,14 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 
 #pragma mark - MPRendererDelegate
 
-- (int)rendererExtensions:(MPRenderer *)renderer
+- (MPMarkdownRenderOptions *)rendererMarkdownOptions:(MPRenderer *)renderer
 {
-    return self.preferences.extensionFlags;
-}
-
-- (BOOL)rendererHasSmartyPants:(MPRenderer *)renderer
-{
-    return self.preferences.extensionSmartyPants;
-}
-
-- (BOOL)rendererRendersTOC:(MPRenderer *)renderer
-{
-    return self.preferences.htmlRendersTOC;
+    return self.preferences.markdownRenderOptions;
 }
 
 - (NSString *)rendererStyleName:(MPRenderer *)renderer
 {
     return self.preferences.htmlStyleName;
-}
-
-- (BOOL)rendererDetectsFrontMatter:(MPRenderer *)renderer
-{
-    return self.preferences.htmlDetectFrontMatter;
 }
 
 - (BOOL)rendererHasSyntaxHighlighting:(MPRenderer *)renderer
@@ -1063,16 +1048,15 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
 
     // Force update if we're switching from manual to auto, or renderer settings
     // changed.
-    int rendererFlags = self.preferences.rendererFlags;
+    BOOL optionsChanged = ![self.preferences.markdownRenderOptions
+                            isEqual:renderer.markdownOptions];
     if ((!self.preferences.markdownManualRender && self.manualRender)
-            || renderer.rendererFlags != rendererFlags)
+            || optionsChanged)
     {
-        renderer.rendererFlags = rendererFlags;
         [renderer parseAndRenderLater];
     }
     else
     {
-        [renderer parseIfPreferencesChanged];
         [renderer renderIfPreferencesChanged];
     }
 }

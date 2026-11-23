@@ -10,7 +10,6 @@
 //
 
 #import <XCTest/XCTest.h>
-#import <hoedown/document.h>
 #import "MPHoedownEngine.h"
 
 
@@ -47,9 +46,12 @@ static NSString *MPSyntheticDocument(NSUInteger bytes)
     self.continueAfterFailure = NO;
     self.engine = [[MPHoedownEngine alloc] init];
     self.options = [[MPMarkdownRenderOptions alloc] init];
-    self.options.extensions = HOEDOWN_EXT_TABLES | HOEDOWN_EXT_FENCED_CODE
-                            | HOEDOWN_EXT_FOOTNOTES | HOEDOWN_EXT_AUTOLINK
-                            | HOEDOWN_EXT_STRIKETHROUGH;
+    self.options.tables = YES;
+    self.options.fencedCode = YES;
+    self.options.footnotes = YES;
+    self.options.autolink = YES;
+    self.options.strikethrough = YES;
+    self.options.intraEmphasis = YES;
 }
 
 - (NSTimeInterval)secondsToRender:(NSString *)markdown

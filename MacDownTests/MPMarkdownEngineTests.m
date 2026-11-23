@@ -16,9 +16,6 @@
 //
 
 #import <XCTest/XCTest.h>
-#import <hoedown/document.h>
-#import <hoedown/html.h>
-#import "../MacDown/Code/Extension/hoedown_html_patch.h"
 #import "MPHoedownEngine.h"
 
 
@@ -43,23 +40,29 @@
 - (MPMarkdownRenderOptions *)defaultOptions
 {
     MPMarkdownRenderOptions *o = [[MPMarkdownRenderOptions alloc] init];
-    o.extensions = HOEDOWN_EXT_TABLES | HOEDOWN_EXT_FENCED_CODE
-                 | HOEDOWN_EXT_FOOTNOTES;
+    o.tables = YES;
+    o.fencedCode = YES;
+    o.footnotes = YES;
+    o.intraEmphasis = YES;
     return o;
 }
 
 /// Every optional feature switched on.
 - (MPMarkdownRenderOptions *)extendedOptions
 {
-    MPMarkdownRenderOptions *o = [[MPMarkdownRenderOptions alloc] init];
-    o.extensions = HOEDOWN_EXT_TABLES | HOEDOWN_EXT_FENCED_CODE
-                 | HOEDOWN_EXT_FOOTNOTES | HOEDOWN_EXT_AUTOLINK
-                 | HOEDOWN_EXT_STRIKETHROUGH | HOEDOWN_EXT_UNDERLINE
-                 | HOEDOWN_EXT_HIGHLIGHT | HOEDOWN_EXT_QUOTE
-                 | HOEDOWN_EXT_SUPERSCRIPT | HOEDOWN_EXT_MATH
-                 | HOEDOWN_EXT_MATH_EXPLICIT | HOEDOWN_EXT_NO_INTRA_EMPHASIS;
-    o.rendererFlags = HOEDOWN_HTML_USE_TASK_LIST | HOEDOWN_HTML_HARD_WRAP
-                    | HOEDOWN_HTML_BLOCKCODE_LINE_NUMBERS;
+    MPMarkdownRenderOptions *o = [self defaultOptions];
+    o.autolink = YES;
+    o.strikethrough = YES;
+    o.underline = YES;
+    o.highlight = YES;
+    o.quote = YES;
+    o.superscript = YES;
+    o.math = YES;
+    o.mathInlineDollar = YES;
+    o.intraEmphasis = NO;
+    o.taskList = YES;
+    o.hardWrap = YES;
+    o.lineNumbers = YES;
     o.smartyPants = YES;
     o.rendersTOC = YES;
     o.detectsFrontMatter = YES;
