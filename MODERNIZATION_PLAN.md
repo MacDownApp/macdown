@@ -27,7 +27,7 @@ Honest summary of what exists. "Engine" means the logic is written, tested and c
 | 3 Editor | **Engine only:** multi-cursor edit logic (fuzz tested). Not started: TextKit 2, tree-sitter highlighting, wiring multi-cursor into the text view, spell-check toggle. |
 | 4 WKWebView | **Done, with gaps** (see Phase 4). The old `WebView`, its private headers, the DOM helpers and the MathJax listener are gone. |
 | 5 KaTeX | **Done.** Bundled KaTeX 0.16.11, loaded only for pages with math. MathJax is gone. See Phase 5. |
-| 6 Mermaid, Vega-Lite | Not started. |
+| 6 Mermaid, Vega-Lite | **Done, not fully re-verified.** See Phase 6. |
 | 7 Themes | **Live in the preview:** YAML themes, 9 built-in, live reload, `theme:` in `config.yaml`. Not started: editor colors from the theme, theme picker UI, converting the old Mou themes. |
 | 8 Fonts | Not started. |
 | 9 Sidebar | **Engine only:** lazy markdown tree, Quick Open matcher, FSEvents watcher, outline. No sidebar UI yet. |
@@ -247,13 +247,15 @@ preview:
 - Not done from the original list: rendering math to images for PDF export (PDF export prints the web view, so formulas are already vector text); highlighting LaTeX in the editor (needs the Phase 3 tree-sitter work).
 - 9 new tests in a real web view (typesetting, fonts load offline, lazy loading, code and currency, errors, 500 formulas in a fraction of a second, export, preference off).
 
-### Phase 6 – Mermaid and Vega-Lite (2 weeks)
-- Current **Mermaid** bundled, lazy-loaded only when a Mermaid block exists. Render after idle; cache SVG by block hash; render timeout.
-- Follows the active theme and appearance. Errors shown under the diagram.
-- Remove `viz.js`.
-- **Vega-Lite:** fenced ```` ```vega-lite ```` block with a JSON or YAML spec. Bundle Vega, Vega-Lite and Vega-Embed locally; lazy-load only when such a block exists. Render to SVG after idle, cache by spec hash, set a time limit and a data row limit, show errors under the block.
-  - Data from local files (relative paths) goes through the asset scheme handler. Remote `data.url` is blocked unless `charts.vega-lite-remote-data` is true. Block `eval`-style expression features that the library allows to run unsafe code where possible, and keep the Content Security Policy on.
-  - Colors and fonts come from the active theme (map theme tokens to the Vega `config`). SVG output is used for PDF export.
+### Phase 6 – Mermaid and Vega-Lite (2 weeks) — DONE, last full test run skipped
+- Done: **Mermaid 11.17.2** (3.5 MB, one file, all diagram types) and **Vega-Lite 5.23** (Vega 5.33, Vega-Embed 6.29, js-yaml 4.3) are bundled in `Resources/Diagrams`. Three small loaders (`diagram-common.js`, `mermaid-init.js`, `vega-init.js`) load a library only if the page has a block that needs it. Mermaid blocks follow the preference (and no longer need syntax highlighting to be on). Charts are always on: ```` ```vega-lite ```` (and ```` ```vega ````) with a JSON or YAML spec.
+- Charts: colors follow the page text color, background is transparent. Data from the web is blocked unless `charts.vega-lite-remote-data: true` is set in `config.yaml`; local data files next to the document work. More than 100,000 inline rows, a bad spec, or a load that fails shows a message under the (still visible) source block; Vega itself would draw an empty chart, so every load failure is recorded and reported. Each diagram has a 10 second limit.
+- Mermaid: follows a dark page, security level strict, finished SVG is cached in page storage while the app runs. Errors keep the source visible with a message.
+- Exported HTML embeds the loaders; with no `src` they load pinned CDN versions.
+- Graphviz is removed (`viz.js`, 3.7 MB). `dot` blocks show as code. The Graphviz preference still exists but does nothing.
+- New: `DiagramPreviewTests` (22 tests in a real web view). They passed in isolation before the last edits (all but two selector mistakes in the tests themselves, then fixed). **A final full-suite run was not completed** at the user's request, and the last edits to `vega-init.js` (load-failure reporting) were verified only by the isolated diagram tests that passed afterwards.
+- Not done: Mermaid theme from the YAML theme colors (it follows light/dark only), SVG export of charts, Subresource Integrity on the CDN links, a setting to turn charts off.
+- Lesson recorded: overlapping `xcodebuild` runs interrupt each other and looked like hangs. Run one at a time.
 
 ### Phase 7 – Theme system (2 weeks)
 - YAML theme format (section 5). `ThemeManager` loads the active theme only; lists others by file name.

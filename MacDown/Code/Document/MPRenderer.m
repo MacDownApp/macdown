@@ -150,9 +150,9 @@ NS_INLINE BOOL MPAreNilableStringsEqual(NSString *s1, NSString *s2)
 @property (readonly) NSArray *katexScripts;
 @property (readonly) NSArray *katexExportStylesheets;
 @property (readonly) NSArray *katexExportScripts;
-@property (readonly) NSArray *mermaidStylesheets;
-@property (readonly) NSArray *mermaidScripts;
-@property (readonly) NSArray *graphvizScripts;
+@property (readonly) NSArray<NSURL *> *diagramScriptURLs;
+@property (readonly) NSArray *diagramScripts;
+@property (readonly) NSArray *diagramExportScripts;
 @property (readonly) NSArray *stylesheets;
 @property (readonly) NSArray *scripts;
 @property (copy) NSString *currentHtml;
@@ -290,47 +290,47 @@ NS_INLINE BOOL MPAreNilableStringsEqual(NSString *s1, NSString *s2)
     return scripts;
 }
 
-- (NSArray *)mermaidStylesheets
+/// URLs of the loaders in the bundled Diagrams folder. Each loads its libraries
+/// only when the page has a block that needs them. Mermaid is optional (a
+/// preference); charts (Vega-Lite) are always on, because they cost nothing
+/// unless a page has a chart.
+- (NSArray<NSURL *> *)diagramScriptURLs
 {
-    NSMutableArray *stylesheets = [NSMutableArray array];
-    
-    NSURL *url = MPExtensionURL(@"mermaid.forest", @"css");
-    [stylesheets addObject:[MPStyleSheet CSSWithURL:url]];
-    
-    return stylesheets;
+    NSBundle *bundle = [NSBundle mainBundle];
+    NSMutableArray *names = [NSMutableArray arrayWithObject:@"diagram-common"];
+    if ([self.delegate rendererHasMermaid:self])
+        [names addObject:@"mermaid-init"];
+    [names addObject:@"vega-init"];
+
+    NSMutableArray *urls = [NSMutableArray array];
+    for (NSString *name in names)
+    {
+        NSURL *url = [bundle URLForResource:name withExtension:@"js"
+                               subdirectory:@"Diagrams"];
+        if (url)
+            [urls addObject:url];
+    }
+    return urls;
 }
 
-- (NSArray *)mermaidScripts
+- (NSArray *)diagramScripts
 {
-    // TODO
     NSMutableArray *scripts = [NSMutableArray array];
-
-    {
-        NSURL *url = MPExtensionURL(@"mermaid.min", @"js");
+    for (NSURL *url in self.diagramScriptURLs)
         [scripts addObject:[MPScript javaScriptWithURL:url]];
-    }
-    {
-        NSURL *url = MPExtensionURL(@"mermaid.init", @"js");
-        [scripts addObject:[MPScript javaScriptWithURL:url]];
-    }
-    
     return scripts;
 }
 
-- (NSArray *)graphvizScripts
+/// Exported HTML: the same loaders embedded as inline scripts. Without a
+/// `src` they load their libraries from a CDN (pinned versions).
+- (NSArray *)diagramExportScripts
 {
-    // TODO
     NSMutableArray *scripts = [NSMutableArray array];
-
+    for (NSURL *url in self.diagramScriptURLs)
     {
-        NSURL *url = MPExtensionURL(@"viz", @"js");
-        [scripts addObject:[MPScript javaScriptWithURL:url]];
+        [scripts addObject:[MPEmbeddedScript assetWithURL:url
+                                                  andType:kMPJavaScriptType]];
     }
-    {
-        NSURL *url = MPExtensionURL(@"viz.init", @"js");
-        [scripts addObject:[MPScript javaScriptWithURL:url]];
-    }
-    
     return scripts;
 }
 
@@ -342,12 +342,6 @@ NS_INLINE BOOL MPAreNilableStringsEqual(NSString *s1, NSString *s2)
     if ([delegate rendererHasSyntaxHighlighting:self])
     {
         [stylesheets addObjectsFromArray:self.prismStylesheets];
-        // mermaid
-        if ([delegate rendererHasMermaid:self])
-        {
-            [stylesheets addObjectsFromArray:self.mermaidStylesheets];
-        }
-        
     }
 
     if ([delegate rendererCodeBlockAccesory:self] == MPCodeBlockAccessoryCustom)
@@ -370,17 +364,8 @@ NS_INLINE BOOL MPAreNilableStringsEqual(NSString *s1, NSString *s2)
     if ([d rendererHasSyntaxHighlighting:self])
     {
         [scripts addObjectsFromArray:self.prismScripts];
-        // mermaid
-        if ([d rendererHasMermaid:self])
-        {
-            [scripts addObjectsFromArray:self.mermaidScripts];
-        }
-        // graphviz
-        if ([d rendererHasGraphviz:self])
-        {
-            [scripts addObjectsFromArray:self.graphvizScripts];
-        }
     }
+    [scripts addObjectsFromArray:self.diagramScripts];
     if ([d rendererHasMathJax:self])
         [scripts addObjectsFromArray:self.katexScripts];
     return scripts;
@@ -509,17 +494,9 @@ NS_INLINE BOOL MPAreNilableStringsEqual(NSString *s1, NSString *s2)
         scriptsOption = MPAssetEmbedded;
         [styles addObjectsFromArray:self.prismStylesheets];
         [scripts addObjectsFromArray:self.prismScripts];
-        if ([self.delegate rendererHasMermaid:self])
-        {
-            [styles addObjectsFromArray:self.mermaidStylesheets];
-            [scripts addObjectsFromArray:self.mermaidScripts];
-        }
-        if ([self.delegate rendererHasGraphviz:self])
-        {
-            [scripts addObjectsFromArray:self.graphvizScripts];
-        }
-
     }
+    scriptsOption = MPAssetEmbedded;
+    [scripts addObjectsFromArray:self.diagramExportScripts];
     if ([self.delegate rendererHasMathJax:self])
     {
         stylesOption = MPAssetEmbedded;

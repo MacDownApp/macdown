@@ -20,6 +20,7 @@ final class ThemeService: NSObject {
     private let lock = NSLock()
 
     private var loaded = false
+    private var config = AppConfig.default
     private var theme: Theme?
     private var watcher: DirectoryWatcher?
     private var lastResult: (key: String, url: URL)?
@@ -65,6 +66,13 @@ final class ThemeService: NSObject {
         return url
     }
 
+    /// The settings from `config.yaml` (defaults if there is no file or it is broken).
+    func currentConfig() -> AppConfig {
+        lock.lock(); defer { lock.unlock() }
+        loadIfNeeded()
+        return config
+    }
+
     /// Reads `config.yaml` and the theme again. Call after the config folder changed.
     func reload() {
         lock.lock()
@@ -76,7 +84,7 @@ final class ThemeService: NSObject {
     private func loadIfNeeded() {
         guard !loaded else { return }
         loaded = true
-        let config = AppConfig.load(from: configDirectory.appendingPathComponent("config.yaml")).config
+        config = AppConfig.load(from: configDirectory.appendingPathComponent("config.yaml")).config
         if let name = config.theme {
             theme = manager.resolveTheme(named: name)
         } else {

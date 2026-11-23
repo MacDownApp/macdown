@@ -57,6 +57,7 @@ Other directories: `MacDown/Resources` (styles, themes, templates, JS/CSS, Prism
 Headless and unit tested; several are not wired into the UI yet (see the Status table in `MODERNIZATION_PLAN.md`).
 - `Config/` – `AppConfig` (typed `config.yaml`).
 - `Theme/` – `Theme`, `ThemeManager`, `ThemeCSS`, `ThemeService` (live: adds the generated stylesheet in `MPRenderer.baseStylesheets`).
+- `Diagrams` (resources, not Swift): `Resources/Diagrams` loaders for Mermaid and Vega-Lite (lazy, offline in the app, pinned CDN in exported HTML).
 - `Preview/` – `PreviewController`, `PreviewSchemeHandler`, `PreviewURL`.
 - `Markdown/` – `CMarkEngine`, `MarkdownExtensionMasker`, `TableOfContents`, `AlertBox`, `DocumentOutline`.
 - `Lint/` – `Linter` (8 rules, UTF-16 ranges).
