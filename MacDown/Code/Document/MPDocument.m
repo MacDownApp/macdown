@@ -997,6 +997,11 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     return self.preferences.extensionSmartyPants;
 }
 
+- (BOOL)rendererHasEmoji:(MPRenderer *)renderer
+{
+    return self.preferences.extensionEmoji;
+}
+
 - (BOOL)rendererRendersTOC:(MPRenderer *)renderer
 {
     return self.preferences.htmlRendersTOC;

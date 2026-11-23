@@ -13,6 +13,7 @@
 #import <HBHandlebars/HBHandlebars.h>
 #import "hoedown_html_patch.h"
 #import "NSJSONSerialization+File.h"
+#import "NSString+Emoji.h"
 #import "NSObject+HTMLTabularize.h"
 #import "NSString+Lookup.h"
 #import "MPUtilities.h"
@@ -215,6 +216,7 @@ NS_INLINE BOOL MPAreNilableStringsEqual(NSString *s1, NSString *s2)
 @property (strong) NSOperationQueue *parseQueue;
 @property int extensions;
 @property BOOL smartypants;
+@property BOOL emoji;
 @property BOOL TOC;
 @property (copy) NSString *styleName;
 @property BOOL frontMatter;
@@ -554,6 +556,7 @@ NS_INLINE void MPFreeHTMLRenderer(hoedown_renderer *htmlRenderer)
     id<MPRendererDelegate> delegate = self.delegate;
     if ([delegate rendererExtensions:self] != self.extensions
             || [delegate rendererHasSmartyPants:self] != self.smartypants
+            || [delegate rendererHasEmoji:self] != self.emoji
             || [delegate rendererRendersTOC:self] != self.TOC
             || [delegate rendererDetectsFrontMatter:self] != self.frontMatter)
     {
@@ -567,6 +570,7 @@ NS_INLINE void MPFreeHTMLRenderer(hoedown_renderer *htmlRenderer)
     id<MPRendererDelegate> delegate = self.delegate;
     int extensions = [delegate rendererExtensions:self];
     BOOL smartypants = [delegate rendererHasSmartyPants:self];
+    BOOL emoji = [delegate rendererHasEmoji:self];
     BOOL hasFrontMatter = [delegate rendererDetectsFrontMatter:self];
     BOOL hasTOC = [delegate rendererRendersTOC:self];
     
@@ -584,12 +588,15 @@ NS_INLINE void MPFreeHTMLRenderer(hoedown_renderer *htmlRenderer)
     self.currentHtml = MPHTMLFromMarkdown(
                                           markdown, extensions, smartypants, [frontMatter HTMLTable],
                                           htmlRenderer, tocRenderer);
+    if (emoji)
+        self.currentHtml = [self.currentHtml stringByReplacingEmojiShortcodes];
     if (tocRenderer)
     hoedown_html_renderer_free(tocRenderer);
     MPFreeHTMLRenderer(htmlRenderer);
     
     self.extensions = extensions;
     self.smartypants = smartypants;
+    self.emoji = emoji;
     self.TOC = hasTOC;
     self.frontMatter = hasFrontMatter;
 }
