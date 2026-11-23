@@ -14,13 +14,11 @@
 #import "MPPreferences.h"
 #import "MacDown-Swift.h"
 
-// Warning: If the version of MathJax is ever updated, please check the status
-// of https://github.com/mathjax/MathJax/issues/548. If the fix has been merged
-// in to MathJax, then the WebResourceLoadDelegate can be removed from MPDocument
-// and MathJax.js can be removed from this project.
-static NSString * const kMPMathJaxCDN =
-    @"https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/MathJax.js"
-    @"?config=TeX-AMS-MML_HTMLorMML";
+// KaTeX for exported HTML. An exported file cannot read the copy inside the
+// app, so it loads KaTeX from a CDN (the version is pinned). The preview uses
+// the bundled copy in Resources/KaTeX and works offline.
+static NSString * const kMPKaTeXCDN =
+    @"https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/";
 static NSString * const kMPPrismScriptDirectory = @"Prism/components";
 static NSString * const kMPPrismThemeDirectory = @"Prism/themes";
 static NSString * const kMPPrismPluginDirectory = @"Prism/plugins";
@@ -149,7 +147,9 @@ NS_INLINE BOOL MPAreNilableStringsEqual(NSString *s1, NSString *s2)
 @property (readonly) NSArray *baseStylesheets;
 @property (readonly) NSArray *prismStylesheets;
 @property (readonly) NSArray *prismScripts;
-@property (readonly) NSArray *mathjaxScripts;
+@property (readonly) NSArray *katexScripts;
+@property (readonly) NSArray *katexExportStylesheets;
+@property (readonly) NSArray *katexExportScripts;
 @property (readonly) NSArray *mermaidStylesheets;
 @property (readonly) NSArray *mermaidScripts;
 @property (readonly) NSArray *graphvizScripts;
@@ -258,18 +258,35 @@ NS_INLINE BOOL MPAreNilableStringsEqual(NSString *s1, NSString *s2)
     return scripts;
 }
 
-- (NSArray *)mathjaxScripts
+/// Preview: the bundled loader, which loads KaTeX only if the page has math.
+- (NSArray *)katexScripts
+{
+    NSURL *url = [[NSBundle mainBundle] URLForResource:@"katex-init"
+                                         withExtension:@"js"
+                                          subdirectory:@"KaTeX"];
+    return url ? @[[MPScript javaScriptWithURL:url]] : @[];
+}
+
+- (NSArray *)katexExportStylesheets
+{
+    NSString *css = [kMPKaTeXCDN stringByAppendingString:@"katex.min.css"];
+    return @[[MPStyleSheet CSSWithURL:[NSURL URLWithString:css]]];
+}
+
+- (NSArray *)katexExportScripts
 {
     NSMutableArray *scripts = [NSMutableArray array];
-    NSURL *url = [NSURL URLWithString:kMPMathJaxCDN];
-    NSBundle *bundle = [NSBundle mainBundle];
-    MPEmbeddedScript *script =
-        [MPEmbeddedScript assetWithURL:[bundle URLForResource:@"init"
-                                                withExtension:@"js"
-                                                 subdirectory:@"MathJax"]
-                               andType:kMPMathJaxConfigType];
-    [scripts addObject:script];
-    [scripts addObject:[MPScript javaScriptWithURL:url]];
+    for (NSString *file in @[@"katex.min.js", @"contrib/auto-render.min.js"])
+    {
+        NSString *url = [kMPKaTeXCDN stringByAppendingString:file];
+        [scripts addObject:[MPScript javaScriptWithURL:[NSURL URLWithString:url]]];
+    }
+    NSURL *init = [[NSBundle mainBundle] URLForResource:@"katex-export-init"
+                                          withExtension:@"js"
+                                           subdirectory:@"KaTeX"];
+    if (init)
+        [scripts addObject:[MPEmbeddedScript assetWithURL:init
+                                                  andType:kMPJavaScriptType]];
     return scripts;
 }
 
@@ -365,7 +382,7 @@ NS_INLINE BOOL MPAreNilableStringsEqual(NSString *s1, NSString *s2)
         }
     }
     if ([d rendererHasMathJax:self])
-        [scripts addObjectsFromArray:self.mathjaxScripts];
+        [scripts addObjectsFromArray:self.katexScripts];
     return scripts;
 }
 
@@ -505,8 +522,10 @@ NS_INLINE BOOL MPAreNilableStringsEqual(NSString *s1, NSString *s2)
     }
     if ([self.delegate rendererHasMathJax:self])
     {
+        stylesOption = MPAssetEmbedded;
         scriptsOption = MPAssetEmbedded;
-        [scripts addObjectsFromArray:self.mathjaxScripts];
+        [styles addObjectsFromArray:self.katexExportStylesheets];
+        [scripts addObjectsFromArray:self.katexExportScripts];
     }
 
     NSString *title = [self.dataSource rendererHTMLTitle:self];

@@ -106,7 +106,7 @@ unless project.files.any? { |f| f.path == 'MacDownTests/MacDownTests-Bridging-He
 end
 
 # -- Folder resources ---------------------------------------------------------
-['MacDown/Resources/BuiltinThemes'].each do |folder|
+['MacDown/Resources/BuiltinThemes', 'MacDown/Resources/KaTeX'].each do |folder|
   next if app.resources_build_phase.files_references.any? { |r| r && r.path == folder }
   ref = project.files.find { |f| f.path == folder } || project.main_group.new_reference(folder)
   ref.last_known_file_type = 'folder'
