@@ -11,23 +11,31 @@
   });
 
   var init = function() {
-    var domAll = document.querySelectorAll(".language-mermaid");
+    var domAll = document.querySelectorAll("code.language-mermaid");
     for (var i = 0; i < domAll.length; i++) {
-    var dom = domAll[i];
-    var graphSource = dom.textContent;
- 
-    dom = dom.parentElement;
-    if (dom.tagName === "PRE") {
+      var dom = domAll[i];
+      var graphSource = dom.textContent;
+
       dom = dom.parentElement;
-    }
- 
-    var insertSvg = function(svgCode, bindFunctions){
-      this.innerHTML = svgCode;
-    };
-    var graph = mermaid.render('graphDiv' + i, graphSource, insertSvg.bind(dom))
+      if (dom.tagName === "PRE") {
+        dom = dom.parentElement;
+      }
+
+      mermaid.render('graphDiv' + i, graphSource).then(
+        (function (target) {
+          return function (result) {
+            target.innerHTML = result.svg;
+            if (result.bindFunctions) {
+              result.bindFunctions(target);
+            }
+          };
+        })(dom)
+      ).catch(function (e) {
+        console.error("Error when rendering mermaid:", e);
+      });
     }
   };
- 
+
   if (typeof window.addEventListener != "undefined") {
     window.addEventListener("load", init, false);
   } else {
