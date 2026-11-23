@@ -17,6 +17,8 @@ tests = project.targets.find { |t| t.name == 'MacDownTests' }
 PACKAGES = [
   { url: 'https://github.com/jpsim/Yams', requirement: { kind: 'upToNextMajorVersion', minimumVersion: '5.0.0' },
     products: { 'MacDown' => ['Yams'] } },
+  { url: 'https://github.com/swiftlang/swift-cmark', requirement: { kind: 'branch', branch: 'gfm' },
+    products: { 'MacDown' => ['cmark-gfm', 'cmark-gfm-extensions'] } },
 ].freeze
 
 # -- Build settings -----------------------------------------------------------
