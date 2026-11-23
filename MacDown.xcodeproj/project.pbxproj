@@ -11,6 +11,7 @@
 		047FD1AD4DEEC5651189E4C3 /* ThemeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004A7562E0D426BFC414F9BB /* ThemeService.swift */; };
 		04BE25412EC55371631FDB17 /* CodeBlockHTML.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21922B2671C85E7035E56315 /* CodeBlockHTML.swift */; };
 		05C6723FD3323A6BC1F46104 /* GitRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924063CF9B2A0095A0902957 /* GitRepository.swift */; };
+		06B186E97D02DA48F0CEB05C /* DiagramPreviewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D57FA46167F7FBB27FB11D1 /* DiagramPreviewTests.swift */; };
 		09F169789CFA68A3F1BCA978 /* DocumentPreviewIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3592786ED8C977E92667A47 /* DocumentPreviewIntegrationTests.swift */; };
 		0A04B0E0F11C548BAA171927 /* MPPreferences+Markdown.m in Sources */ = {isa = PBXBuildFile; fileRef = B570A3FC3D7E832EF94EF478 /* MPPreferences+Markdown.m */; };
 		1272BE6FE80782875D42EDFF /* cmark-gfm-extensions in Frameworks */ = {isa = PBXBuildFile; productRef = CAC9650200602AD609CE3462 /* cmark-gfm-extensions */; };
@@ -130,6 +131,7 @@
 		BD76F50B9C468A4914BCF6C7 /* PreviewURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46CD7415089A8C0BB971D519 /* PreviewURL.swift */; };
 		C3FAEB61C1CCD0D790985430 /* PreviewSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF26C070B56A9EE12AE18CC6 /* PreviewSupport.swift */; };
 		C5AC805C84D58A94D7A64A2A /* cmark-gfm in Frameworks */ = {isa = PBXBuildFile; productRef = 5F73D350DF82DA8CDAF6E23E /* cmark-gfm */; };
+		CA17C5EBA695E065AAC07AEF /* Diagrams in Resources */ = {isa = PBXBuildFile; fileRef = D12E31E08EB0017E026177A9 /* Diagrams */; };
 		D465E6978E07BFF9EC260338 /* DirectoryWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E168F75B211C6F1FD26E69 /* DirectoryWatcher.swift */; };
 		D6F2416B8ABAF76120303FAF /* PreviewSchemeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB77FB58647EE9FC9C4163B /* PreviewSchemeHandler.swift */; };
 		EBFE3157737058F5A63699C8 /* libPods-MacDownTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C949FDE45493AE77DAD9BF4 /* libPods-MacDownTests.a */; };
@@ -200,6 +202,7 @@
 		0D0EC0DE9FEA22F962083921 /* Pods-MacDownTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacDownTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MacDownTests/Pods-MacDownTests.release.xcconfig"; sourceTree = "<group>"; };
 		154050C692599A904857769F /* AppConfig.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
 		1A198D1BA59D710201DD3BC8 /* Pods-MacDown.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacDown.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MacDown/Pods-MacDown.debug.xcconfig"; sourceTree = "<group>"; };
+		1D57FA46167F7FBB27FB11D1 /* DiagramPreviewTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DiagramPreviewTests.swift; sourceTree = "<group>"; };
 		1F002A21195B3DAE008B8D93 /* MPRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPRenderer.h; sourceTree = "<group>"; };
 		1F002A22195B3DAE008B8D93 /* MPRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPRenderer.m; sourceTree = "<group>"; };
 		1F05E8AB1F36E53B00E4D06C /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = Localization/fr.lproj/MainMenu.strings; sourceTree = "<group>"; };
@@ -580,6 +583,7 @@
 		CD21CB2FA2B8332A978F2F3E /* GitRunner.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GitRunner.swift; sourceTree = "<group>"; };
 		CDF5CD4D5D6F3B9E2BBD41D4 /* AlertBox.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AlertBox.swift; sourceTree = "<group>"; };
 		D01897957297417C3214F59C /* MarkdownExtensionMasker.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MarkdownExtensionMasker.swift; sourceTree = "<group>"; };
+		D12E31E08EB0017E026177A9 /* Diagrams */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = Diagrams; path = MacDown/Resources/Diagrams; sourceTree = "<group>"; };
 		D28BFF5163D678567C212B2D /* WorkspaceTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WorkspaceTests.swift; sourceTree = "<group>"; };
 		E6A0E6030B9B5EC33E3F4051 /* LinterTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LinterTests.swift; sourceTree = "<group>"; };
 		E70ECDD4241C933C00537A46 /* ru-RU */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ru-RU"; path = "Localization/ru-RU.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -873,6 +877,7 @@
 				A21731D80F883C955BE96B61 /* Snapshots */,
 				87DAF39DE605C5324F78926A /* MacDownTests-Bridging-Header.h */,
 				AF444E5BC750D5724DEAFA71 /* KaTeX */,
+				D12E31E08EB0017E026177A9 /* Diagrams */,
 			);
 			sourceTree = "<group>";
 			usesTabs = 0;
@@ -1029,6 +1034,7 @@
 				B605FD543F9FE6C0AD3194C1 /* PreviewTests.swift */,
 				B3592786ED8C977E92667A47 /* DocumentPreviewIntegrationTests.swift */,
 				F94F6A2763E7688ED58DCC0B /* MathPreviewTests.swift */,
+				1D57FA46167F7FBB27FB11D1 /* DiagramPreviewTests.swift */,
 			);
 			name = SwiftTests;
 			path = MacDownTests/Swift;
@@ -1298,6 +1304,7 @@
 				3028039E1FD84EAC0055B0DA /* contribute.md in Resources */,
 				62548E77654F949D5AB73C85 /* BuiltinThemes in Resources */,
 				3E008F34441BC95D14925958 /* KaTeX in Resources */,
+				CA17C5EBA695E065AAC07AEF /* Diagrams in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1547,6 +1554,7 @@
 				21D0A98B7D7B49D129C80226 /* PreviewTests.swift in Sources */,
 				09F169789CFA68A3F1BCA978 /* DocumentPreviewIntegrationTests.swift in Sources */,
 				EDDC572136E307B0216CEFDD /* MathPreviewTests.swift in Sources */,
+				06B186E97D02DA48F0CEB05C /* DiagramPreviewTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

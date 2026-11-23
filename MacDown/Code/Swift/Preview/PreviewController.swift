@@ -54,10 +54,8 @@ final class PreviewController: NSObject {
         self.delegate = delegate
         super.init()
 
-        let content = configuration.userContentController
-        content.add(WeakScriptMessageHandler(self), name: PreviewController.messageName)
-        content.addUserScript(WKUserScript(source: PreviewScripts.bridge, injectionTime: .atDocumentStart, forMainFrameOnly: true))
-        content.addUserScript(WKUserScript(source: PreviewScripts.metrics, injectionTime: .atDocumentEnd, forMainFrameOnly: true))
+        configuration.userContentController.add(WeakScriptMessageHandler(self), name: PreviewController.messageName)
+        installScripts()
 
         webView.navigationDelegate = self
         webView.uiDelegate = self
@@ -72,9 +70,32 @@ final class PreviewController: NSObject {
         webView.uiDelegate = nil
     }
 
+    // MARK: Scripts
+
+    /// What the page may know about the settings. Set before any page script runs.
+    private var appliedSettings: String?
+
+    private func settingsSource() -> String {
+        let remote = ThemeService.shared.currentConfig().charts.vegaLiteRemoteData
+        return "window.MacDownSettings = {vegaRemoteData: \(remote ? "true" : "false")};"
+    }
+
+    /// (Re)installs the scripts that run in every page. User scripts cannot be changed
+    /// one by one, so all are replaced.
+    private func installScripts() {
+        let content = webView.configuration.userContentController
+        let settings = settingsSource()
+        content.removeAllUserScripts()
+        content.addUserScript(WKUserScript(source: PreviewScripts.bridge, injectionTime: .atDocumentStart, forMainFrameOnly: true))
+        content.addUserScript(WKUserScript(source: settings, injectionTime: .atDocumentStart, forMainFrameOnly: true))
+        content.addUserScript(WKUserScript(source: PreviewScripts.metrics, injectionTime: .atDocumentEnd, forMainFrameOnly: true))
+        appliedSettings = settings
+    }
+
     // MARK: Loading
 
     @objc func loadHTML(_ html: String, baseURL: URL?) {
+        if settingsSource() != appliedSettings { installScripts() }
         isLoading = true
         lastLoad = (html, baseURL)
         webView.loadHTMLString(PreviewURL.rewrite(html: html), baseURL: baseURL.map(PreviewURL.baseURL(for:)))
