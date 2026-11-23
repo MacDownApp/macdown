@@ -20,7 +20,7 @@ After pulling, re-run `git submodule update` and `pod install` if builds break. 
 
 New Swift code lives in `MacDown/Code/Swift/` (tests in `MacDownTests/Swift/`). After adding or removing Swift files, or a bundled resource folder, run `ruby Tools/sync_xcodeproj.rb` to update the Xcode project. Swift packages (currently Yams) are declared in that script.
 
-Run tests (same as CI, see `.travis.yml`):
+Run tests (same as CI, see `.github/workflows/ci.yml`):
 
 ```
 xcodebuild -workspace MacDown.xcworkspace -scheme MacDown -destination 'platform=macOS' test CODE_SIGNING_ALLOWED=NO
