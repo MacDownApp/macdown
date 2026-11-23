@@ -88,6 +88,7 @@
 		33886B68B7C32B0558C1784E /* ConfigDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED31241AC52F158150E337EC /* ConfigDirectory.swift */; };
 		343A2FE22E6ECB7D1C033493 /* AppConfigTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AF0F089878ED26203CC848 /* AppConfigTests.swift */; };
 		484D32008C1C611D97A08E18 /* Yams in Frameworks */ = {isa = PBXBuildFile; productRef = B07459FFC34C9D68445055FF /* Yams */; };
+		491A16DC3109F983BC61072D /* MPPerformanceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DF72DC953F51FC71399343F /* MPPerformanceTests.m */; };
 		610E4A195CC07CDCF392872B /* MPHoedownEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B5A25BA30FEED05E020C3F4 /* MPHoedownEngine.m */; };
 		62548E77654F949D5AB73C85 /* BuiltinThemes in Resources */ = {isa = PBXBuildFile; fileRef = A76F40CDE52CE7F4970A0A33 /* BuiltinThemes */; };
 		69F9A424ACEF87C0725F7B82 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07965DDA28C6E093CFAB6EF2 /* Theme.swift */; };
@@ -523,6 +524,7 @@
 		905EF1A7196164CA00FC3CE9 /* macdown */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = macdown; sourceTree = BUILT_PRODUCTS_DIR; };
 		905EF1A8196164CA00FC3CE9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		9CAD965730C76B07C1D67CD1 /* ThemeTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ThemeTests.swift; sourceTree = "<group>"; };
+		9DF72DC953F51FC71399343F /* MPPerformanceTests.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPPerformanceTests.m; sourceTree = "<group>"; };
 		A21731D80F883C955BE96B61 /* Snapshots */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = Snapshots; path = MacDownTests/Snapshots; sourceTree = "<group>"; };
 		A76F40CDE52CE7F4970A0A33 /* BuiltinThemes */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = BuiltinThemes; path = MacDown/Resources/BuiltinThemes; sourceTree = "<group>"; };
 		E70ECDD4241C933C00537A46 /* ru-RU */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ru-RU"; path = "Localization/ru-RU.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -884,6 +886,7 @@
 				1FFEB3261972DAB400B2254F /* MPHTMLTabularizeTests.m */,
 				1FCDCA371944F97800B1F966 /* Supporting Files */,
 				64E3C2CA3CE79E0B76CDBD2D /* MPMarkdownEngineTests.m */,
+				9DF72DC953F51FC71399343F /* MPPerformanceTests.m */,
 			);
 			path = MacDownTests;
 			sourceTree = "<group>";
@@ -1366,6 +1369,7 @@
 				343A2FE22E6ECB7D1C033493 /* AppConfigTests.swift in Sources */,
 				A529EC33EE288F965EC215FF /* ThemeTests.swift in Sources */,
 				A6CB4964B718D8646777DA2C /* MPMarkdownEngineTests.m in Sources */,
+				491A16DC3109F983BC61072D /* MPPerformanceTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
