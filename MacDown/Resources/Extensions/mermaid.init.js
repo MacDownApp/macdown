@@ -14,7 +14,7 @@
     var domAll = document.querySelectorAll(".language-mermaid");
     for (var i = 0; i < domAll.length; i++) {
     var dom = domAll[i];
-    var graphSource = dom.innerText || dom.textContent;
+    var graphSource = dom.textContent;
  
     dom = dom.parentElement;
     if (dom.tagName === "PRE") {

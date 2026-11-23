@@ -11,7 +11,7 @@
     var domAllDot = document.querySelectorAll("code.language-" + engine);
     for (var i = 0; i < domAllDot.length; i++) {
       var dom = domAllDot[i];
-      var graphSource = dom.innerText || dom.textContent;
+      var graphSource = dom.textContent;
 
       try {
         dom.parentElement.parentElement.innerHTML = Viz(graphSource, {engine: engine});
