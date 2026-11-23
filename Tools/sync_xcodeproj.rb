@@ -55,6 +55,32 @@ end
 sync_dir(project, app, 'MacDown/Code/Swift', 'Swift')
 sync_dir(project, tests, 'MacDownTests/Swift', 'SwiftTests')
 
+# -- Objective-C / C files in existing groups ----------------------------------
+# New .h/.m/.c files placed in a directory that already has an Xcode group are
+# added to that group (and .m/.c to the MacDown target).
+swift_root = File.join(ROOT, 'MacDown/Code/Swift')
+project.main_group.recursive_children_groups.each do |group|
+  dir = group.real_path.to_s
+  next unless dir.start_with?(File.join(ROOT, 'MacDown/Code')) && !dir.start_with?(swift_root)
+  next unless Dir.exist?(dir)
+  known = group.files.map { |f| f.real_path.to_s }
+  Dir.children(dir).sort.each do |name|
+    path = File.join(dir, name)
+    next unless %w[.h .m .c].include?(File.extname(name)) && !known.include?(path)
+    ref = group.new_reference(name)
+    app.add_file_references([ref]) if %w[.m .c].include?(File.extname(name))
+    puts "added #{name}"
+  end
+end
+
+# Objective-C test files directly in MacDownTests/
+tests_group = project.main_group.children.find { |c| c.display_name == 'MacDownTests' }
+Dir.children(File.join(ROOT, 'MacDownTests')).sort.each do |name|
+  next unless name.end_with?('.m') && tests_group.files.none? { |f| f.path == name }
+  tests.add_file_references([tests_group.new_reference(name)])
+  puts "added test #{name}"
+end
+
 # bridging header reference (for navigation only)
 unless project.files.any? { |f| f.path == 'MacDown/Code/MacDown-Bridging-Header.h' }
   project.main_group.new_reference('MacDown/Code/MacDown-Bridging-Header.h')
@@ -66,6 +92,14 @@ end
   ref = project.files.find { |f| f.path == folder } || project.main_group.new_reference(folder)
   ref.last_known_file_type = 'folder'
   app.resources_build_phase.add_file_reference(ref, true)
+end
+
+# Test fixtures (golden-file corpus)
+['MacDownTests/Snapshots'].each do |folder|
+  next if tests.resources_build_phase.files_references.any? { |r| r && r.path == folder }
+  ref = project.files.find { |f| f.path == folder } || project.main_group.new_reference(folder)
+  ref.last_known_file_type = 'folder'
+  tests.resources_build_phase.add_file_reference(ref, true)
 end
 
 # -- Swift packages -----------------------------------------------------------
