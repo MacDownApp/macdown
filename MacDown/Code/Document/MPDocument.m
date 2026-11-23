@@ -31,6 +31,7 @@
 #import "MPMathJaxListener.h"
 #import "WebView+WebViewPrivateHeaders.h"
 #import "MPToolbarController.h"
+#import "MacDown-Swift.h"
 #import <JavaScriptCore/JavaScriptCore.h>
 
 static NSString * const kMPDefaultAutosaveName = @"Untitled";
@@ -337,6 +338,9 @@ static void (^MPGetPreviewLoadingCompletionHandler(MPDocument *doc))()
     [center addObserver:self selector:@selector(userDefaultsDidChange:)
                    name:NSUserDefaultsDidChangeNotification
                  object:[NSUserDefaults standardUserDefaults]];
+    // The YAML theme or config.yaml changed: render the preview again.
+    [center addObserver:self selector:@selector(didRequestPreviewReload:)
+                   name:MPThemeService.didChangeNotificationName object:nil];
     [center addObserver:self selector:@selector(editorBoundsDidChange:)
                    name:NSViewBoundsDidChangeNotification
                  object:self.editor.enclosingScrollView.contentView];

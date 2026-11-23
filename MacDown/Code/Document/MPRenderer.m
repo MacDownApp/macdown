@@ -191,13 +191,20 @@ NS_INLINE BOOL MPAreNilableStringsEqual(NSString *s1, NSString *s2)
 
 - (NSArray *)baseStylesheets
 {
+    NSMutableArray *stylesheets = [NSMutableArray array];
     NSString *defaultStyleName =
         MPStylePathForName([self.delegate rendererStyleName:self]);
-    if (!defaultStyleName)
-        return @[];
-    NSURL *defaultStyle = [NSURL fileURLWithPath:defaultStyleName];
-    NSMutableArray *stylesheets = [NSMutableArray array];
-    [stylesheets addObject:[MPStyleSheet CSSWithURL:defaultStyle]];
+    if (defaultStyleName)
+    {
+        NSURL *defaultStyle = [NSURL fileURLWithPath:defaultStyleName];
+        [stylesheets addObject:[MPStyleSheet CSSWithURL:defaultStyle]];
+    }
+
+    // The YAML theme from ~/.config/macdown/config.yaml, if one is set. It
+    // comes after the base style, so it can restyle it.
+    NSURL *themeURL = [[MPThemeService shared] previewStylesheetURL];
+    if (themeURL)
+        [stylesheets addObject:[MPStyleSheet CSSWithURL:themeURL]];
     return stylesheets;
 }
 

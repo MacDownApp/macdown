@@ -8,12 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		04370DD406A3852FF0E206C2 /* WorkspaceTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9E7D1A61A32ED8857FC26D /* WorkspaceTree.swift */; };
+		047FD1AD4DEEC5651189E4C3 /* ThemeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004A7562E0D426BFC414F9BB /* ThemeService.swift */; };
 		04BE25412EC55371631FDB17 /* CodeBlockHTML.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21922B2671C85E7035E56315 /* CodeBlockHTML.swift */; };
 		05C6723FD3323A6BC1F46104 /* GitRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924063CF9B2A0095A0902957 /* GitRepository.swift */; };
 		0A04B0E0F11C548BAA171927 /* MPPreferences+Markdown.m in Sources */ = {isa = PBXBuildFile; fileRef = B570A3FC3D7E832EF94EF478 /* MPPreferences+Markdown.m */; };
 		1272BE6FE80782875D42EDFF /* cmark-gfm-extensions in Frameworks */ = {isa = PBXBuildFile; productRef = CAC9650200602AD609CE3462 /* cmark-gfm-extensions */; };
 		14B1ABA252C424626AC1A88D /* DocumentOutline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0089EC6F7B95EE24F102C56D /* DocumentOutline.swift */; };
 		1511FFFC90D7BB2FC513E695 /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154050C692599A904857769F /* AppConfig.swift */; };
+		19926333C9F8368238BA4D15 /* ThemeCSS.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A041DC3E6E235CC76C7E0D /* ThemeCSS.swift */; };
 		1F002A23195B3DAE008B8D93 /* MPRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F002A22195B3DAE008B8D93 /* MPRenderer.m */; };
 		1F0D9D65194AC7CF008E1856 /* NSString+Lookup.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0D9D5F194AC7CF008E1856 /* NSString+Lookup.m */; };
 		1F0D9D66194AC7CF008E1856 /* NSTextView+Autocomplete.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0D9D61194AC7CF008E1856 /* NSTextView+Autocomplete.m */; };
@@ -99,6 +101,7 @@
 		3D10142F8C3C4231316F34F3 /* FuzzyMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3968D1739E10A1F781C4CD /* FuzzyMatcher.swift */; };
 		444378B12D0B6FCE0AA8B661 /* MultiSelectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1EF571403671197CA19B70 /* MultiSelectionTests.swift */; };
 		484D32008C1C611D97A08E18 /* Yams in Frameworks */ = {isa = PBXBuildFile; productRef = B07459FFC34C9D68445055FF /* Yams */; };
+		536A964260F034F51348D750 /* ThemeServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6737291494BF6B080B150883 /* ThemeServiceTests.swift */; };
 		6227BD0DF4E958BA6CE09B9F /* LinterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A0E6030B9B5EC33E3F4051 /* LinterTests.swift */; };
 		62548E77654F949D5AB73C85 /* BuiltinThemes in Resources */ = {isa = PBXBuildFile; fileRef = A76F40CDE52CE7F4970A0A33 /* BuiltinThemes */; };
 		69F9A424ACEF87C0725F7B82 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07965DDA28C6E093CFAB6EF2 /* Theme.swift */; };
@@ -117,6 +120,7 @@
 		905EF1B7196164F300FC3CE9 /* macdown in Copy Command Line Utility */ = {isa = PBXBuildFile; fileRef = 905EF1A7196164CA00FC3CE9 /* macdown */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		9EFA13AFAC4895752988C84F /* GitRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD21CB2FA2B8332A978F2F3E /* GitRunner.swift */; };
 		A529EC33EE288F965EC215FF /* ThemeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CAD965730C76B07C1D67CD1 /* ThemeTests.swift */; };
+		A72828850A2F2CE58C7FD312 /* RendererThemeIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38033273DA961F870F5CFA96 /* RendererThemeIntegrationTests.swift */; };
 		AC2A677108794A44FEC75581 /* Snapshots in Resources */ = {isa = PBXBuildFile; fileRef = A21731D80F883C955BE96B61 /* Snapshots */; };
 		ACCDEB9E150623DA8BFCF4AC /* MarkdownPerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343137F5EB3D0BC8A6019D7E /* MarkdownPerformanceTests.swift */; };
 		AFF7CD859FD7BB05D4CEC8C8 /* GitModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = F586EC703D31B54F45CD8E15 /* GitModels.swift */; };
@@ -186,6 +190,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		004A7562E0D426BFC414F9BB /* ThemeService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ThemeService.swift; sourceTree = "<group>"; };
 		0089EC6F7B95EE24F102C56D /* DocumentOutline.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DocumentOutline.swift; sourceTree = "<group>"; };
 		07965DDA28C6E093CFAB6EF2 /* Theme.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		0D0EC0DE9FEA22F962083921 /* Pods-MacDownTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacDownTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MacDownTests/Pods-MacDownTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -531,6 +536,7 @@
 		3028039D1FD84EAB0055B0DA /* contribute.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = contribute.md; path = Resources/contribute.md; sourceTree = "<group>"; };
 		33E168F75B211C6F1FD26E69 /* DirectoryWatcher.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DirectoryWatcher.swift; sourceTree = "<group>"; };
 		343137F5EB3D0BC8A6019D7E /* MarkdownPerformanceTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MarkdownPerformanceTests.swift; sourceTree = "<group>"; };
+		38033273DA961F870F5CFA96 /* RendererThemeIntegrationTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RendererThemeIntegrationTests.swift; sourceTree = "<group>"; };
 		38D802F5EA6FDDFF60E0A677 /* WebView+Shortcut.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "WebView+Shortcut.h"; sourceTree = "<group>"; };
 		39EFCAE04F60154F0C8C5469 /* Pods-MacDown.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacDown.release.xcconfig"; path = "Pods/Target Support Files/Pods-MacDown/Pods-MacDown.release.xcconfig"; sourceTree = "<group>"; };
 		3C949FDE45493AE77DAD9BF4 /* libPods-MacDownTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MacDownTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -543,6 +549,7 @@
 		4B6E114FF0C367A912A501CA /* TableOfContents.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TableOfContents.swift; sourceTree = "<group>"; };
 		4C338E2565DF5E5451027C3E /* PrismLanguages.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PrismLanguages.swift; sourceTree = "<group>"; };
 		4DBAA63927A60EB2150642B3 /* Pods-macdown-cmd.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-macdown-cmd.debug.xcconfig"; path = "Pods/Target Support Files/Pods-macdown-cmd/Pods-macdown-cmd.debug.xcconfig"; sourceTree = "<group>"; };
+		6737291494BF6B080B150883 /* ThemeServiceTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ThemeServiceTests.swift; sourceTree = "<group>"; };
 		6EACDCDDB85D62033AC139A0 /* MarkdownExtensionMaskerTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MarkdownExtensionMaskerTests.swift; sourceTree = "<group>"; };
 		7A8EA75FA95818275755F0B6 /* Pods-macdown-cmd.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-macdown-cmd.release.xcconfig"; path = "Pods/Target Support Files/Pods-macdown-cmd/Pods-macdown-cmd.release.xcconfig"; sourceTree = "<group>"; };
 		80AF0F089878ED26203CC848 /* AppConfigTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AppConfigTests.swift; sourceTree = "<group>"; };
@@ -601,6 +608,7 @@
 		ED31241AC52F158150E337EC /* ConfigDirectory.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ConfigDirectory.swift; sourceTree = "<group>"; };
 		EFB765E471A177E0A751EFA7 /* MPMarkdownEngine.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPMarkdownEngine.m; sourceTree = "<group>"; };
 		F586EC703D31B54F45CD8E15 /* GitModels.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GitModels.swift; sourceTree = "<group>"; };
+		F8A041DC3E6E235CC76C7E0D /* ThemeCSS.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ThemeCSS.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1007,6 +1015,8 @@
 				8BB76FC7CD18C07BE75C4D07 /* GitTests.swift */,
 				D28BFF5163D678567C212B2D /* WorkspaceTests.swift */,
 				BA1EF571403671197CA19B70 /* MultiSelectionTests.swift */,
+				6737291494BF6B080B150883 /* ThemeServiceTests.swift */,
+				38033273DA961F870F5CFA96 /* RendererThemeIntegrationTests.swift */,
 			);
 			name = SwiftTests;
 			path = MacDownTests/Swift;
@@ -1079,6 +1089,8 @@
 				07965DDA28C6E093CFAB6EF2 /* Theme.swift */,
 				25E02D37A6ED64C0F6F1CFF4 /* ThemeColor.swift */,
 				2E96175BA12C141E294AD762 /* ThemeManager.swift */,
+				F8A041DC3E6E235CC76C7E0D /* ThemeCSS.swift */,
+				004A7562E0D426BFC414F9BB /* ThemeService.swift */,
 			);
 			name = Theme;
 			path = Theme;
@@ -1492,6 +1504,8 @@
 				3D10142F8C3C4231316F34F3 /* FuzzyMatcher.swift in Sources */,
 				04370DD406A3852FF0E206C2 /* WorkspaceTree.swift in Sources */,
 				BA49D551D54D1849FF49105B /* MultiSelection.swift in Sources */,
+				19926333C9F8368238BA4D15 /* ThemeCSS.swift in Sources */,
+				047FD1AD4DEEC5651189E4C3 /* ThemeService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1514,6 +1528,8 @@
 				30418CB033ED2B2BEB433D2D /* GitTests.swift in Sources */,
 				35C07F6D093A6569C06175EF /* WorkspaceTests.swift in Sources */,
 				444378B12D0B6FCE0AA8B661 /* MultiSelectionTests.swift in Sources */,
+				536A964260F034F51348D750 /* ThemeServiceTests.swift in Sources */,
+				A72828850A2F2CE58C7FD312 /* RendererThemeIntegrationTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
