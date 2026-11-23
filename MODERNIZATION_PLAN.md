@@ -185,12 +185,15 @@ preview:
   - The Phase 2 parser must stay within about 3 times the Hoedown benchmark numbers.
 - Known Hoedown quirks recorded in the goldens (fix in Phase 2 or 5): `$5 and $10` is turned into math; `\[ ... \]` display math is not recognized; code blocks with no language get `language-none`.
 
-### Phase 2 – Markdown core (2 weeks)
-- Replace Hoedown with **swift-markdown** (cmark-gfm underneath). Gives an AST used by source maps, outline and scroll sync.
-- Support: tables, task lists, strikethrough, autolinks, footnotes, front matter (YAML), heading anchors, alert boxes (`> [!NOTE]`), `[TOC]`.
-- Custom hooks for math and Mermaid fences.
-- Remove Hoedown, `hoedown_html_patch.c`, LibYAML.
-- Exit: spec tests pass; render time within budget.
+### Phase 2 – Markdown core (2 weeks) — DONE (with changes)
+- Done: Hoedown is gone (engine, patch files, pod). The app now renders with **cmark-gfm** through `MPMarkdownEngine` (`CMarkEngine`, Swift). Supported: tables, task lists, strikethrough, autolinks, footnotes, YAML front matter, `[TOC]`, heading ids (`toc_N`), GitHub alerts (`> [!NOTE]`), math (`$..$`, `$$..$$`, `\(..\)`, `\[..\]`), `==highlight==`, `^superscript`, `_underline_`, `"quote"`, smart punctuation, hard wrap, code blocks in the Prism format with line numbers and `language:information`.
+- **Changes from the original plan:**
+  - The engine uses **cmark-gfm directly**, not `swift-markdown`. `swift-markdown` has no footnote support (footnotes are on by default in MacDown) and is slower. MacDown's own syntax is handled by `MarkdownExtensionMasker` (code-aware, one linear pass). If a typed AST is needed for the outline or scroll sync, add it in the phase that needs it.
+  - `CMARK_OPT_UNSAFE` is on (raw HTML passes through, as before). The sanitizer setting belongs to Phase 4.
+  - LibYAML and handlebars-objc stay for now: front matter and the page template still use them. They go with the Phase 4 / Phase 7 rewrites.
+- Behavior changes to know about (all follow CommonMark): `#Heading` without a space is no longer a heading; `* - +` list markers that change start a new list; `_` never makes emphasis inside a word; the "fenced code" preference cannot turn fences off; footnote markup is `<section class="footnotes">` (no bundled style uses footnotes). Fixed on the way: `$5 and $10` is no longer math, `\[..\]` and `$$..$$` display math work, `\|` in table cells works.
+- Also fixed (found while measuring with optimization on): `MPToolbarController` read past the end of two C arrays, which crashed any optimized build at launch.
+- 114 tests pass: 20-document golden corpus in two option sets, behavior tests, masker tests (including pathological input), benchmarks.
 
 ### Phase 3 – Native editor and highlighting (3 weeks)
 - **TextKit 2** `NSTextView` subclass.

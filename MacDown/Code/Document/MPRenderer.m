@@ -12,10 +12,7 @@
 #import "MPUtilities.h"
 #import "MPAsset.h"
 #import "MPPreferences.h"
-#import <hoedown/html.h>
-#import <hoedown/document.h>
-#import "hoedown_html_patch.h"  // Flag constants only. Removed with Hoedown in Phase 2.
-#import "MPHoedownEngine.h"
+#import "MacDown-Swift.h"
 
 // Warning: If the version of MathJax is ever updated, please check the status
 // of https://github.com/mathjax/MathJax/issues/548. If the fix has been merged
@@ -183,7 +180,7 @@ NS_INLINE BOOL MPAreNilableStringsEqual(NSString *s1, NSString *s2)
 
     self.currentHtml = @"";
     self.currentLanguages = [NSMutableArray array];
-    self.engine = [[MPHoedownEngine alloc] init];
+    self.engine = [[MPCMarkEngine alloc] init];
     self.parseQueue = [[NSOperationQueue alloc] init];
     self.parseQueue.maxConcurrentOperationCount = 1; // Serial queue
 

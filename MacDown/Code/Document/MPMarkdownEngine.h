@@ -9,6 +9,8 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 
 /// Options for one render. Engine independent: each engine maps these to its
 /// own parser settings. Equality is by value, so callers can detect changes.
@@ -63,3 +65,5 @@
                              options:(MPMarkdownRenderOptions *)options;
 
 @end
+
+NS_ASSUME_NONNULL_END

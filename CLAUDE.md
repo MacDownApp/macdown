@@ -38,15 +38,19 @@ The GitHub-2020 preview stylesheet is generated from Sass: `Tools/GitHub-style-g
 Source lives in `MacDown/Code/`, with the `MP` class prefix throughout:
 
 - **Application/** – `MPMainController` (app delegate, menus, prefs windows, plug-in loading), `MPToolbarController`, `MPPlugInController`, export panel accessory.
-- **Document/** – the core. `MPDocument` is an `NSDocument` subclass owning the editor, preview, split view, scroll syncing, export (HTML/PDF), and file I/O. `MPRenderer` converts Markdown to HTML and feeds it back to the document through a data-source/delegate protocol; it uses Hoedown (with local patches in `Extension/hoedown_html_patch.c`) and Handlebars templates from `Resources/Templates`. `MPAsset` models the CSS/JS assets (styles, Prism, MathJax, etc.) injected into the rendered HTML.
+- **Document/** – the core. `MPDocument` is an `NSDocument` subclass owning the editor, preview, split view, scroll syncing, export (HTML/PDF), and file I/O. `MPRenderer` converts Markdown to HTML (through the `MPMarkdownEngine` protocol; the engine is `MPCMarkEngine`, Swift, in `Swift/Markdown/`) and feeds it back to the document through a data-source/delegate protocol; it wraps the result in Handlebars templates from `Resources/Templates`. `MPAsset` models the CSS/JS assets (styles, Prism, MathJax, etc.) injected into the rendered HTML.
 - **Preferences/** – `MPPreferences` wraps `NSUserDefaults` (via PAPreferences) and is the single source of settings; one view controller per MASPreferences pane.
 - **View/** – `MPEditorView` (editor text view) and `MPDocumentSplitView`.
 - **Extension/** – Objective-C categories and helpers (autocomplete, HTML tabularize, color parsing, pasteboard types, private WebView headers, etc.).
 - **Utility/** – globals, shared helpers, the plug-in protocol (`MPPlugIn`), MathJax listener, and Homebrew subprocess helper (for installing Jekyll/Graphviz-type dependencies).
 
-Rendering flow: editor text change → `MPDocument` → `MPRenderer` (Hoedown → HTML, wrapped in a template with selected style/highlighting/MathJax assets) → loaded into the preview `WebView`. Editor syntax highlighting is separate: it uses `Dependency/peg-markdown-highlight` (a git submodule that must be built with `make`).
+Rendering flow: editor text change → `MPDocument` → `MPRenderer` (cmark-gfm → HTML, wrapped in a template with selected style/highlighting/MathJax assets) → loaded into the preview `WebView`. Editor syntax highlighting is separate: it uses `Dependency/peg-markdown-highlight` (a git submodule that must be built with `make`).
 
 Other directories: `MacDown/Resources` (styles, themes, templates, JS/CSS, Prism), `MacDown/Localization` and `MacDownTests/*.lproj` (translations managed via Transifex; `Tools/import_translations.py`), `Tools/` (release/version scripts; `generate_version_header.sh` and `update_build_number.sh` run during the Xcode build), `Dependency/` (submodules: peg-markdown-highlight, version).
+
+## Markdown engine
+
+`Swift/Markdown/CMarkEngine.swift`: front matter → `MarkdownExtensionMasker` (finds math, `==x==`, `^x`, `_x_`, `"x"` outside code, swaps in private-use placeholders) → cmark-gfm parse → rewrite headings, code blocks and alerts in the AST → cmark HTML → fill in TOC, task lists and placeholders. Options are semantic (`MPMarkdownRenderOptions`), built from preferences in `MPPreferences+Markdown`. Golden tests: `MacDownTests/Snapshots/{corpus,golden}`; after an intended output change re-record with `TEST_RUNNER_MACDOWN_RECORD_SNAPSHOTS=<abs path to Snapshots/golden>` and review the diff. Benchmarks: `docs/benchmarks.md`.
 
 ## Modernization in progress
 

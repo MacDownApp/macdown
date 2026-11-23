@@ -1,9 +1,6 @@
 PODS:
   - GBCli (1.1)
   - handlebars-objc (1.4.5)
-  - hoedown (3.0.7):
-    - hoedown/standard (= 3.0.7)
-  - hoedown/standard (3.0.7)
   - JJPluralForm (2.1)
   - LibYAML (0.1.4)
   - M13OrderedDictionary (1.1.0)
@@ -14,7 +11,6 @@ PODS:
 DEPENDENCIES:
   - GBCli (~> 1.1)
   - handlebars-objc (~> 1.4)
-  - hoedown (~> 3.0.7)
   - JJPluralForm (~> 2.1)
   - LibYAML (~> 0.1)
   - M13OrderedDictionary (~> 1.1)
@@ -25,7 +21,6 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/MacDownApp/cocoapods-specs.git:
     - handlebars-objc
-    - hoedown
     - LibYAML
   trunk:
     - GBCli
@@ -38,7 +33,6 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   GBCli: e5f988fadb68e1e3c01919f134009fed9796fde0
   handlebars-objc: dde09557cfee1dd0f34ab39595bd5eae7e17cb8b
-  hoedown: 8141833441f6430686c06bbc5159d7ce615155fb
   JJPluralForm: 9a6235813990a33a63fb3eff457eb2c633af6acd
   LibYAML: dee5c31dcab47b168425083c2b0a6baeacdf499e
   M13OrderedDictionary: 6e157fe9c82aa6b3cd7198f5c5c30c7a6834c4a6
@@ -46,6 +40,6 @@ SPEC CHECKSUMS:
   PAPreferences: 9f0ffb1e67174a0df001af9d3320166ceb9ee6f5
   Sparkle: 06ea33170007c5937ee54da481b4481af98fac79
 
-PODFILE CHECKSUM: 39a1e7cd9dce09479f41fd2da29445d8f7a63351
+PODFILE CHECKSUM: 5f788fd20d8ed92641c609cc0e48e5230e8f2827
 
 COCOAPODS: 1.16.2

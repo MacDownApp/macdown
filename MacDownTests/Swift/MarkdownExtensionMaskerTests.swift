@@ -89,6 +89,28 @@ final class MarkdownExtensionMaskerTests: XCTestCase {
         XCTAssertEqual(roundTrip("lone \" mark"), "lone \" mark")
     }
 
+    // MARK: Footnotes and intra-word emphasis
+
+    func testFootnoteMarkersAreNotSuperscript() {
+        XCTAssertEqual(roundTrip("text[^1] and [^note]"), "text[^1] and [^note]")
+        XCTAssertEqual(roundTrip("[^1]: definition x^2"), "[^1]: definition x<sup>2</sup>")
+    }
+
+    func testEscapedFootnoteOpenerIsProtected() {
+        var ext = all(); ext.footnotes = true
+        XCTAssertEqual(roundTrip("[\\^4] and [\\^x]", ext), "[^4] and [^x]")
+        ext.footnotes = false
+        XCTAssertEqual(roundTrip("[\\^4]", ext), "[\\^4]")
+    }
+
+    func testIntraWordAsterisksAreEscapedOnlyWhenAsked() {
+        var ext = MarkdownExtensions()
+        XCTAssertEqual(roundTrip("2*3*4 and a**b**c", ext), "2*3*4 and a**b**c")
+        ext.noIntraWordEmphasis = true
+        XCTAssertEqual(roundTrip("2*3*4 and a**b**c", ext), "2\\*3\\*4 and a\\*\\*b\\*\\*c")
+        XCTAssertEqual(roundTrip("*start* and word *x* and **bold**", ext), "*start* and word *x* and **bold**")
+    }
+
     // MARK: Math
 
     func testInlineDollarMath() {

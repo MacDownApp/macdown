@@ -26,7 +26,7 @@ PACKAGES = [
   t.build_configurations.each do |c|
     c.build_settings['SWIFT_VERSION'] = '5.0'
     c.build_settings['CLANG_ENABLE_MODULES'] = 'YES'
-    c.build_settings['SWIFT_OBJC_BRIDGING_HEADER'] = 'MacDown/Code/MacDown-Bridging-Header.h' if t == app
+    c.build_settings['SWIFT_OBJC_BRIDGING_HEADER'] = (t == app ? 'MacDown/Code/MacDown-Bridging-Header.h' : 'MacDownTests/MacDownTests-Bridging-Header.h')
     c.build_settings['ENABLE_TESTABILITY'] = 'YES' if c.name == 'Debug'
     c.build_settings['SWIFT_OPTIMIZATION_LEVEL'] = (c.name == 'Debug' ? '-Onone' : '-O')
   end
@@ -100,6 +100,9 @@ end
 # bridging header reference (for navigation only)
 unless project.files.any? { |f| f.path == 'MacDown/Code/MacDown-Bridging-Header.h' }
   project.main_group.new_reference('MacDown/Code/MacDown-Bridging-Header.h')
+end
+unless project.files.any? { |f| f.path == 'MacDownTests/MacDownTests-Bridging-Header.h' }
+  project.main_group.new_reference('MacDownTests/MacDownTests-Bridging-Header.h')
 end
 
 # -- Folder resources ---------------------------------------------------------

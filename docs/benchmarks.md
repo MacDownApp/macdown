@@ -32,6 +32,33 @@ a fenced code block), Markdown to body HTML, warm run, average of 10 runs.
 Rule for Phase 2: the replacement parser must stay within about 3 times these
 numbers. Debug builds are slower than Release; compare Debug with Debug.
 
+## Phase 2: cmark-gfm engine (current)
+
+The tests moved to `MacDownTests/Swift/MarkdownPerformanceTests.swift` and now
+use the cmark engine. Same machine and document shape as the baseline above.
+Optimized numbers come from running the tests with
+`SWIFT_OPTIMIZATION_LEVEL=-O GCC_OPTIMIZATION_LEVEL=3` added to the command
+(a Debug build with optimization on, which is close to Release).
+
+| Document size | Debug | Optimized | Plan budget |
+|---|---|---|---|
+| 10 KB | 4 ms | 1 ms | - |
+| 100 KB | 17 ms | 6 ms | - |
+| 1 MB | 136 ms | 36 ms | preview update < 500 ms |
+| 1 MB, all extensions on (math, highlight, TOC, task list, ...) | 274 ms | 116 ms | < 500 ms |
+| 5 MB | 652 ms | 165 ms | - |
+
+Notes:
+- In Debug the new engine is about 6 times slower than Hoedown was (136 ms
+  against 22 ms at 1 MB). Hoedown is plain C; the new engine has Swift code
+  that is slow without optimization. The old "3 times Hoedown" rule is
+  replaced by the absolute budgets in the table: they hold with a wide margin.
+  Hoedown was not measured in an optimized build before it was removed.
+- All extensions on costs about 3 times more than the plain case. The extra
+  time is the extension scanner and the regular expressions that run over the
+  whole HTML (table of contents, task lists). Both can be made faster if a
+  real document ever needs it.
+
 ## Not yet measured
 
 These need code that does not exist yet. Each phase must add its benchmark

@@ -9,9 +9,13 @@ struct MarkdownExtensions: Equatable {
     var superscript = false
     var underline = false
     var quote = false
+    /// Escape `*` runs inside words, so they do not make emphasis.
+    var noIntraWordEmphasis = false
+    /// Footnotes are on: work around a cmark quirk with an escaped `[\^`.
+    var footnotes = false
 
     var isEmpty: Bool {
-        !(math || highlight || superscript || underline || quote)
+        !(math || highlight || superscript || underline || quote || noIntraWordEmphasis || footnotes)
     }
 }
 
@@ -71,6 +75,7 @@ enum MaskToken {
     static let markOpen = 0, markClose = 1, supOpen = 2, supClose = 3
     static let uOpen = 4, uClose = 5, qOpen = 6, qClose = 7
     static let mathStart = 0x10, mathEnd = 0x11
+    static let caret = 0x12
 
     static func bytes(_ code: Int) -> [UInt8] { [0xEE, 0x80, UInt8(0x80 + code)] }
 
@@ -84,6 +89,7 @@ enum MaskToken {
         case uClose: return "</u>"
         case qOpen: return "<q>"
         case qClose: return "</q>"
+        case caret: return "^"
         default: return nil
         }
     }
@@ -105,7 +111,7 @@ enum MarkdownExtensionMasker {
     private static func containsPlaceholder(_ input: [UInt8]) -> Bool {
         var i = 0
         while i + 2 < input.count {
-            if input[i] == 0xEE, input[i + 1] == 0x80, input[i + 2] >= 0x80, input[i + 2] <= 0x91 { return true }
+            if input[i] == 0xEE, input[i + 1] == 0x80, input[i + 2] >= 0x80, input[i + 2] <= 0x92 { return true }
             i += 1
         }
         return false
@@ -263,6 +269,7 @@ private struct Scanner {
         while i < e, input[i] == Scanner.space, spaces < 4 { i += 1; spaces += 1 }
         guard i < e, input[i] == 0x5B else { return false }
         i += 1
+        if i < e, input[i] == 0x5E { return false }   // "[^1]: text" is a footnote, not a link reference.
         while i < e, input[i] != 0x5D { i += 1 }
         return i + 1 < e && input[i] == 0x5D && input[i + 1] == 0x3A
     }
@@ -293,7 +300,24 @@ private struct Scanner {
                     }
                     if isParen { noParenClose = true } else { noBracketClose = true }
                 }
+                if ext.footnotes, i + 1 < end, input[i + 1] == 0x5E, i > start, input[i - 1] == 0x5B {
+                    // "[\^x]": cmark mishandles this with footnotes on. A placeholder
+                    // for the caret gives the same text.
+                    replacements.append(Replacement(start: i, length: 2, bytes: MaskToken.bytes(MaskToken.caret)))
+                    i += 2
+                    continue
+                }
                 i += min(2, end - i)
+                continue
+
+            case 0x2A where ext.noIntraWordEmphasis: // '*' run
+                let runStart = i
+                while i < end, input[i] == 0x2A { i += 1 }
+                if runStart > start, isWord(input[runStart - 1]), i < end, isWord(input[i]) {
+                    for k in runStart..<i {
+                        replacements.append(Replacement(start: k, length: 1, bytes: [0x5C, 0x2A]))
+                    }
+                }
                 continue
 
             case 0x60: // backtick: skip a code span
@@ -389,6 +413,10 @@ private struct Scanner {
                 continue
 
             case 0x5E where ext.superscript: // '^'
+                if i > start, input[i - 1] == 0x5B {   // "[^x]" is a footnote, not a superscript.
+                    i += 1
+                    continue
+                }
                 if i + 1 < end, input[i + 1] == 0x28 {
                     stack.append(Open(kind: .supParen, start: i, length: 2))
                     i += 2
