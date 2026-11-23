@@ -27,7 +27,7 @@
     }
   };
   if (typeof window.addEventListener != "undefined") {
-    window.addEventListener("load", init, false);
+    window.addEventListener("DOMContentLoaded", init, false);
   } else {
     window.attachEvent("onload", init);
   }
