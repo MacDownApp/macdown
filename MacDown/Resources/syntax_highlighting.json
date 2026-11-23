@@ -6,6 +6,7 @@
         "cs": "csharp",
         "html": "markup",
         "jl": "julia",
+        "jinja": "twig",
         "js": "javascript",
         "json": "javascript",
         "objective-c": "objectivec",
