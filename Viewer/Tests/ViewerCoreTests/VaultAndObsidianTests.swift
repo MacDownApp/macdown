@@ -200,3 +200,55 @@ final class ObsidianSyntaxTests: XCTestCase {
         XCTAssertEqual(FrontMatter.split("---\r\na: 1\r\n---\r\nbody").body, "body")
     }
 }
+
+final class VaultOutlineTests: XCTestCase {
+    private func tree() -> [VaultNode] {
+        func note(_ p: String) -> VaultNode { VaultNode(id: p, name: (p as NSString).lastPathComponent, kind: .note, children: nil) }
+        func folder(_ p: String, _ kids: [VaultNode]) -> VaultNode { VaultNode(id: p, name: (p as NSString).lastPathComponent, kind: .folder, children: kids) }
+        return [folder("Work", [folder("Work/Deep", [note("Work/Deep/x.md")]), note("Work/a.md")]),
+                folder("Home", [note("Home/b.md")]), note("top.md")]
+    }
+
+    func testClosedFoldersShowOnlyThemselves() {
+        XCTAssertEqual(VaultOutline.rows(tree: tree(), expanded: []).map(\.id), ["Work", "Home", "top.md"])
+    }
+
+    func testExpandedFoldersShowChildrenWithDepth() {
+        let rows = VaultOutline.rows(tree: tree(), expanded: ["Work", "Work/Deep"])
+        XCTAssertEqual(rows.map(\.id), ["Work", "Work/Deep", "Work/Deep/x.md", "Work/a.md", "Home", "top.md"])
+        XCTAssertEqual(rows.map(\.depth), [0, 1, 2, 1, 0, 0])
+    }
+
+    func testAnOpenChildOfAClosedFolderStaysHidden() {
+        XCTAssertEqual(VaultOutline.rows(tree: tree(), expanded: ["Work/Deep"]).map(\.id), ["Work", "Home", "top.md"])
+    }
+
+    func testTappingAFolderTogglesIt() {
+        var set = VaultOutline.toggled("Work", in: [])
+        XCTAssertEqual(set, ["Work"])
+        set = VaultOutline.toggled("Work", in: set)
+        XCTAssertEqual(set, [])
+        XCTAssertEqual(VaultOutline.toggled("Home", in: ["Work"]), ["Work", "Home"])
+    }
+
+    func testAncestorsRevealAFile() {
+        XCTAssertEqual(VaultOutline.ancestors(of: "A/B/c.md"), ["A", "A/B"])
+        XCTAssertEqual(VaultOutline.ancestors(of: "top.md"), [])
+        XCTAssertEqual(VaultOutline.ancestors(of: "My Folder/日本語/メモ.md"), ["My Folder", "My Folder/日本語"])
+        let rows = VaultOutline.rows(tree: tree(), expanded: Set(VaultOutline.ancestors(of: "Work/Deep/x.md")))
+        XCTAssertTrue(rows.contains { $0.id == "Work/Deep/x.md" })
+    }
+
+    func testStaleFoldersAreDropped() {
+        XCTAssertEqual(VaultOutline.pruned(["Work", "Gone", "Work/Deep", "Work/a.md"], tree: tree()), ["Work", "Work/Deep"])
+    }
+
+    func testBigTreeFlattensQuickly() {
+        let big = (0..<300).map { f in
+            VaultNode(id: "F\(f)", name: "F\(f)", kind: .folder, children: (0..<30).map { VaultNode(id: "F\(f)/n\($0).md", name: "n", kind: .note, children: nil) })
+        }
+        let start = Date()
+        XCTAssertEqual(VaultOutline.rows(tree: big, expanded: Set(big.map(\.id))).count, 300 + 9000)
+        XCTAssertLessThan(Date().timeIntervalSince(start), 0.5)
+    }
+}

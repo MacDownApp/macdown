@@ -1,0 +1,26 @@
+name: Ayu Light
+appearance: light
+editor:
+  background: "#fcfcfc"
+  text: "#5c6166"
+  caret: "#ff9940"
+  selection: "#d1e4f4"
+  line-highlight: "#f3f4f5"
+tokens:
+  heading: { color: "#1b78b8", bold: true }
+  emphasis: { color: "#5c6166", italic: true }
+  strong: { color: "#5c6166", bold: true }
+  link: { color: "#1b78b8" }
+  code: { color: "#86b300" }
+  quote: { color: "#abb0b6", italic: true }
+  list: { color: "#ff9940" }
+  keyword: { color: "#cc5e00" }
+  string: { color: "#5c8200" }
+  number: { color: "#a37acc" }
+  comment: { color: "#abb0b6", italic: true }
+  function: { color: "#f2ae49" }
+  type: { color: "#55b4d4" }
+preview:
+  background: "#fcfcfc"
+  text: "#5c6166"
+  content-width: 760

@@ -5,23 +5,49 @@ import ViewerCore
 struct ContentView: View {
     @EnvironmentObject private var store: VaultStore
     @EnvironmentObject private var themes: ThemeStore
-    @Environment(\.colorScheme) private var colorScheme
+    @Environment(\.horizontalSizeClass) private var sizeClass
     @State private var showFolderPicker = false
+    @State private var showSettings = false
     @State private var search = ""
     @State private var visibility = NavigationSplitViewVisibility.all
+    @State private var stackPath: [String] = []
 
     var body: some View {
-        NavigationSplitView(columnVisibility: $visibility) {
-            SidebarView(search: $search, chooseFolder: { showFolderPicker = true })
-                .navigationTitle(store.vaultName ?? "Vault")
-        } detail: {
-            NoteScreen()
+        Group {
+            if sizeClass == .compact { compact } else { split }
         }
         .fileImporter(isPresented: $showFolderPicker, allowedContentTypes: [.folder]) { result in
             if case let .success(url) = result { store.chooseVault(url) }
         }
+        .sheet(isPresented: $showSettings) { SettingsView() }
         // A fixed dark or light theme also sets the app's own colors, so the sidebar matches.
         .preferredColorScheme(forcedScheme)
+        // A note opened from outside (a widget) also shows in the phone layout.
+        .onChange(of: store.selectedPath) { path in
+            if sizeClass == .compact, let path = path, stackPath != [path] { stackPath = [path] }
+        }
+    }
+
+    /// iPad: the sidebar and the note side by side.
+    private var split: some View {
+        NavigationSplitView(columnVisibility: $visibility) {
+            sidebar(onOpen: { store.open($0) })
+        } detail: {
+            NoteScreen(showSettings: $showSettings)
+        }
+    }
+
+    /// iPhone: the list first, a note pushed on top of it.
+    private var compact: some View {
+        NavigationStack(path: $stackPath) {
+            sidebar(onOpen: { path in store.open(path); stackPath = [path] })
+                .navigationDestination(for: String.self) { _ in NoteScreen(showSettings: $showSettings) }
+        }
+    }
+
+    private func sidebar(onOpen: @escaping (String) -> Void) -> some View {
+        SidebarView(search: $search, chooseFolder: { showFolderPicker = true }, showSettings: { showSettings = true }, onOpen: onOpen)
+            .navigationTitle(store.vaultName ?? "Vault")
     }
 
     private var forcedScheme: ColorScheme? {
@@ -36,24 +62,28 @@ struct SidebarView: View {
     @EnvironmentObject private var store: VaultStore
     @Binding var search: String
     let chooseFolder: () -> Void
+    let showSettings: () -> Void
+    let onOpen: (String) -> Void
+
+    private static let expandedKey = "expandedFolders"
+    @State private var expanded: Set<String> = Set(UserDefaults.standard.stringArray(forKey: SidebarView.expandedKey) ?? [])
 
     var body: some View {
         Group {
             if store.vaultName == nil {
                 EmptyVault(chooseFolder: chooseFolder)
             } else if search.trimmingCharacters(in: .whitespaces).isEmpty {
-                List(store.tree, children: \.children, selection: selection) { node in
-                    Label(node.name, systemImage: node.kind == .folder ? "folder" : (node.kind == .pdf ? "doc.richtext" : "doc.text"))
-                }
-            } else {
-                List(store.search(search), id: \.self, selection: selection) { path in
-                    VStack(alignment: .leading, spacing: 2) {
-                        Text((path as NSString).pathExtension.lowercased() == "pdf"
-                             ? (path as NSString).lastPathComponent
-                             : ((path as NSString).lastPathComponent as NSString).deletingPathExtension)
-                        let folder = (path as NSString).deletingLastPathComponent
-                        if !folder.isEmpty { Text(folder).font(.caption).foregroundStyle(.secondary) }
+                List {
+                    ForEach(VaultOutline.rows(tree: store.tree, expanded: expanded)) { row in
+                        treeRow(row)
                     }
+                }
+                .listStyle(.sidebar)
+            } else {
+                List(store.search(search), id: \.self) { path in
+                    Button { onOpen(path) } label: { searchLabel(path) }
+                        .buttonStyle(.plain)
+                        .listRowBackground(rowBackground(selected: store.selectedPath == path))
                 }
             }
         }
@@ -61,6 +91,7 @@ struct SidebarView: View {
         .toolbar {
             ToolbarItemGroup(placement: .topBarTrailing) {
                 if store.isLoading { ProgressView() }
+                Button(action: showSettings) { Image(systemName: "textformat") }
                 Menu {
                     Button { chooseFolder() } label: { Label("Choose Vault Folder…", systemImage: "folder.badge.plus") }
                     Button { store.refresh() } label: { Label("Reload Vault", systemImage: "arrow.clockwise") }
@@ -68,12 +99,59 @@ struct SidebarView: View {
                 } label: { Image(systemName: "ellipsis.circle") }
             }
         }
+        .onChange(of: expanded) { UserDefaults.standard.set(Array($0), forKey: SidebarView.expandedKey) }
+        .onChange(of: store.tree) { tree in expanded = VaultOutline.pruned(expanded, tree: tree) }
+        // Opening a note (also from a widget) opens the folders above it, so it is visible in the list.
+        .onChange(of: store.selectedPath) { path in
+            if let path = path { expanded.formUnion(VaultOutline.ancestors(of: path)) }
+        }
     }
 
-    /// Selecting a folder row only opens and closes it; only notes and PDFs open.
-    private var selection: Binding<String?> {
-        Binding(get: { store.selectedPath },
-                set: { if let path = $0, store.isOpenable(path) { store.open(path) } })
+    /// One row. The whole row of a folder opens and closes it, not only the arrow.
+    private func treeRow(_ row: VaultOutline.Row) -> some View {
+        let node = row.node
+        let isOpen = expanded.contains(node.id)
+        return Button {
+            if node.isFolder {
+                withAnimation(.easeInOut(duration: 0.15)) { expanded = VaultOutline.toggled(node.id, in: expanded) }
+            } else {
+                onOpen(node.id)
+            }
+        } label: {
+            HStack(spacing: 6) {
+                Spacer().frame(width: CGFloat(row.depth) * 16)
+                Image(systemName: "chevron.right")
+                    .font(.caption.weight(.semibold)).foregroundStyle(.secondary)
+                    .rotationEffect(.degrees(isOpen ? 90 : 0))
+                    .frame(width: 14).opacity(node.isFolder ? 1 : 0)
+                Image(systemName: node.kind == .folder ? (isOpen ? "folder.fill" : "folder") : (node.kind == .pdf ? "doc.richtext" : "doc.text"))
+                    .foregroundStyle(node.isFolder ? Color.accentColor : Color.secondary)
+                Text(node.name).lineLimit(1)
+                Spacer(minLength: 0)
+            }
+            .padding(.vertical, 2)
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+        .listRowBackground(rowBackground(selected: !node.isFolder && store.selectedPath == node.id))
+        .accessibilityLabel(node.isFolder ? "\(node.name), folder, \(isOpen ? "expanded" : "collapsed")" : node.name)
+        .accessibilityAddTraits(.isButton)
+    }
+
+    private func rowBackground(selected: Bool) -> some View {
+        (selected ? Color.accentColor.opacity(0.2) : Color.clear)
+    }
+
+    private func searchLabel(_ path: String) -> some View {
+        let isPDF = (path as NSString).pathExtension.lowercased() == "pdf"
+        let name = isPDF ? (path as NSString).lastPathComponent : ((path as NSString).lastPathComponent as NSString).deletingPathExtension
+        let folder = (path as NSString).deletingLastPathComponent
+        return VStack(alignment: .leading, spacing: 2) {
+            Text(name)
+            if !folder.isEmpty { Text(folder).font(.caption).foregroundStyle(.secondary) }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .contentShape(Rectangle())
     }
 }
 
@@ -96,24 +174,28 @@ struct EmptyVault: View {
 struct NoteScreen: View {
     @EnvironmentObject private var store: VaultStore
     @EnvironmentObject private var themes: ThemeStore
+    @EnvironmentObject private var fonts: FontStore
     @Environment(\.colorScheme) private var colorScheme
+    @Binding var showSettings: Bool
 
     var body: some View {
         let systemDark = colorScheme == .dark
         let theme = themes.current
+        let background = Color(hex: theme?.backgroundHex(systemDark: systemDark) ?? "#ffffff")
         ZStack {
-            Color(hex: theme?.backgroundHex(systemDark: systemDark) ?? "#ffffff").ignoresSafeArea()
+            background.ignoresSafeArea()
             if let item = store.pdf {
                 PDFScreen(item: item)
             } else if let note = store.note, let path = store.selectedPath {
                 NoteWebView(
                     html: ViewerPage.html(note: note, title: store.noteTitle,
                                           themeCSS: theme?.css(systemDark: systemDark) ?? "",
+                                          fontCSS: fonts.css,
                                           scrollTo: store.scrollTarget),
                     baseURL: baseURL(for: path),
                     currentPath: path,
                     zoom: themes.textScale,
-                    background: UIColor(Color(hex: theme?.backgroundHex(systemDark: systemDark) ?? "#ffffff")),
+                    background: UIColor(background),
                     store: store)
                 .ignoresSafeArea(edges: .bottom)
             } else if let message = store.message {
@@ -131,11 +213,7 @@ struct NoteScreen: View {
                 if store.pdf == nil {
                     Button { themes.adjustScale(by: -0.1) } label: { Image(systemName: "textformat.size.smaller") }
                     Button { themes.adjustScale(by: 0.1) } label: { Image(systemName: "textformat.size.larger") }
-                    Menu {
-                        Picker("Theme", selection: Binding(get: { themes.themeName }, set: { themes.themeName = $0 })) {
-                            ForEach(themes.themes) { Text($0.name).tag($0.name) }
-                        }
-                    } label: { Image(systemName: "paintpalette") }
+                    Button { showSettings = true } label: { Image(systemName: "paintpalette") }
                 }
             }
         }

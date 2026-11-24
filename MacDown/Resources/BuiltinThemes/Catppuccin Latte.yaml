@@ -1,0 +1,26 @@
+name: Catppuccin Latte
+appearance: light
+editor:
+  background: "#eff1f5"
+  text: "#4c4f69"
+  caret: "#dc8a78"
+  selection: "#ccd0da"
+  line-highlight: "#e6e9ef"
+tokens:
+  heading: { color: "#1e66f5", bold: true }
+  emphasis: { color: "#4c4f69", italic: true }
+  strong: { color: "#4c4f69", bold: true }
+  link: { color: "#4256d6" }
+  code: { color: "#40a02b" }
+  quote: { color: "#9ca0b0", italic: true }
+  list: { color: "#fe640b" }
+  keyword: { color: "#8839ef" }
+  string: { color: "#2f8a1d" }
+  number: { color: "#fe640b" }
+  comment: { color: "#9ca0b0", italic: true }
+  function: { color: "#1e66f5" }
+  type: { color: "#df8e1d" }
+preview:
+  background: "#eff1f5"
+  text: "#4c4f69"
+  content-width: 760

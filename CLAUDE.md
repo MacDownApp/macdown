@@ -73,6 +73,12 @@ Gotcha: directory listings can return `/private/var/...` for `/var/...`. Never c
 
 `MPPreviewController` (Swift) creates the web view in code: the nib only holds a placeholder view, because a `WKURLSchemeHandler` must be set before a `WKWebView` exists. Local files are served through the custom scheme `macdown-file://` (same paths as `file://`; `PreviewSchemeHandler`); `PreviewURL.rewrite` converts `src/href="file://..."` in the page. The page reports heading positions and height (`PreviewScripts.metrics`) so scroll sync in `MPDocument` can stay synchronous; the math-done signal (`MathJaxListener.invokeCallbackForKey_('End')`, a shim kept from the MathJax days) comes from `Resources/KaTeX/katex-init.js`, which loads the bundled KaTeX only if the page has math. Exported HTML uses pinned jsDelivr links instead. Tests: `PreviewTests.swift` (real `WKWebView`), `DocumentPreviewIntegrationTests.swift` (real document window from the nib).
 
+## iPhone/iPad viewer, fonts and themes
+
+`Viewer/` is a separate universal iOS app (read-only Obsidian vault viewer) on the `ViewerCore` Swift package; see `Viewer/README.md`. Build with `Tools/ipad/build-ipa.sh`; regenerate the Xcode project with `ruby Tools/ipad/make_project.rb`. Themes (`MacDown/Resources/BuiltinThemes`, 19 YAML files) and `Theme/FontCatalog.swift` are shared by the macOS app and the viewer (symlinked into `Viewer/Sources/ViewerCore/Shared`). macOS fonts are set in `config.yaml` (`fonts: {body: ..., code: ...}`).
+
+**Never commit `MacDown/Resources/Fonts/Cartograph*`.** It is a commercial font and the repository is public; `.gitignore` excludes it and `Tools/fonts/import-local-fonts.sh` copies it in from the owner's font folder. JetBrains Mono Nerd Font (OFL) is committed with its license.
+
 ## Modernization in progress
 
 `MODERNIZATION_PLAN.md` is the roadmap; follow it phase by phase. Swift pieces already in place: `Config/AppConfig` (typed `~/.config/macdown/config.yaml`, feature toggles with defaults) and `Theme/` (YAML themes; built-ins in `MacDown/Resources/BuiltinThemes`, user themes in `~/.config/macdown/themes`). Set `MACDOWN_CONFIG_DIR` to point the app at another config directory (tests do this).

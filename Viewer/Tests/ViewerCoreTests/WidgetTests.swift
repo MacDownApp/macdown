@@ -188,3 +188,59 @@ final class DeepLinkTests: XCTestCase {
         XCTAssertNil(AppGroup.identifier)
     }
 }
+
+final class ThemePaletteTests: XCTestCase {
+    private var folder: URL {
+        URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent()
+            .deletingLastPathComponent().appendingPathComponent("MacDown/Resources/BuiltinThemes")
+    }
+
+    private func luminance(_ c: ThemeColor) -> Double {
+        func f(_ v: Double) -> Double { v <= 0.03928 ? v / 12.92 : pow((v + 0.055) / 1.055, 2.4) }
+        return 0.2126 * f(c.red) + 0.7152 * f(c.green) + 0.0722 * f(c.blue)
+    }
+
+    private func contrast(_ a: ThemeColor, _ b: ThemeColor) -> Double {
+        let (x, y) = (luminance(a), luminance(b))
+        return (max(x, y) + 0.05) / (min(x, y) + 0.05)
+    }
+
+    func testEveryThemeFileParsesAndIsReadable() throws {
+        let files = try FileManager.default.contentsOfDirectory(atPath: folder.path).filter { $0.hasSuffix(".yaml") }
+        let loaded = ThemeCatalog.load(from: folder)
+        XCTAssertEqual(loaded.count, files.count, "A theme file failed to parse: \(files.count) files, \(loaded.count) themes")
+        for name in ["Ayu Light", "Ayu Mirage", "Ayu Dark", "Catppuccin Latte", "Catppuccin Frappe", "Catppuccin Macchiato",
+                     "Catppuccin Mocha", "Full Black", "Full White", "E-Paper"] {
+            XCTAssertTrue(loaded.contains { $0.name == name }, "Missing theme \(name)")
+        }
+        // Well-known palettes from before this check, kept as their authors made them (low contrast by design).
+        let knownLowContrast: Set<String> = ["Solarized Light", "Solarized Dark"]
+        for file in files {
+            let theme = try Theme.parse(yaml: String(contentsOf: folder.appendingPathComponent(file), encoding: .utf8))
+            let v = theme.variant(isDark: false)
+            let legacy = knownLowContrast.contains(theme.name)
+            XCTAssertGreaterThanOrEqual(contrast(v.preview.text, v.preview.background), legacy ? 4.0 : 4.5, "\(theme.name): body text contrast")
+            for key in ["heading", "link", "keyword", "string"] where !legacy {
+                if let c = v.tokens[key]?.color {
+                    XCTAssertGreaterThanOrEqual(contrast(c, v.preview.background), 3, "\(theme.name): \(key) is hard to read")
+                }
+            }
+        }
+    }
+
+    func testFullBlackAndWhiteAreExact() throws {
+        let themes = ThemeCatalog.load(from: folder)
+        XCTAssertEqual(themes.first { $0.name == "Full Black" }?.backgroundHex(systemDark: false), "#000000")
+        XCTAssertEqual(themes.first { $0.name == "Full White" }?.backgroundHex(systemDark: false), "#ffffff")
+        XCTAssertTrue(themes.first { $0.name == "Full Black" }!.isDark(systemDark: false))
+        XCTAssertFalse(themes.first { $0.name == "Full White" }!.isDark(systemDark: true))
+    }
+
+    func testEPaperHasNoColor() throws {
+        let theme = try Theme.parse(yaml: String(contentsOf: folder.appendingPathComponent("E-Paper.yaml"), encoding: .utf8))
+        let v = theme.variant(isDark: false)
+        func isGray(_ c: ThemeColor) -> Bool { abs(c.red - c.green) < 0.03 && abs(c.green - c.blue) < 0.03 }
+        for (key, style) in v.tokens { if let c = style.color { XCTAssertTrue(isGray(c), "E-Paper token \(key) has color") } }
+        XCTAssertTrue(v.tokens["keyword"]?.bold == true, "Without color, bold carries meaning")
+    }
+}

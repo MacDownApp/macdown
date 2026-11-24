@@ -20,6 +20,15 @@ public struct ViewerTheme: Identifiable, Equatable {
         theme.variant(isDark: systemDark).preview.background.cssString
     }
 
+    /// Text color as `#rrggbb`, for the theme picker.
+    public func textHex(systemDark: Bool) -> String { theme.variant(isDark: systemDark).preview.text.cssString }
+
+    /// The heading color, as a sample of the theme's accent.
+    public func accentHex(systemDark: Bool) -> String {
+        let v = theme.variant(isDark: systemDark)
+        return (v.tokens["heading"]?.color ?? v.tokens["link"]?.color ?? v.preview.text).cssString
+    }
+
     /// CSS for this theme: page, headings, links, code, quotes and code token colors.
     public func css(systemDark: Bool) -> String {
         let dark = isDark(systemDark: systemDark)

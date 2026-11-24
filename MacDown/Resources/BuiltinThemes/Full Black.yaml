@@ -1,0 +1,26 @@
+name: Full Black
+appearance: dark
+editor:
+  background: "#000000"
+  text: "#ffffff"
+  caret: "#ffffff"
+  selection: "#2a2a2a"
+  line-highlight: "#0d0d0d"
+tokens:
+  heading: { color: "#ffffff", bold: true }
+  emphasis: { color: "#ffffff", italic: true }
+  strong: { color: "#ffffff", bold: true }
+  link: { color: "#5eb0ff" }
+  code: { color: "#7ee787" }
+  quote: { color: "#9a9a9a", italic: true }
+  list: { color: "#c0c0c0" }
+  keyword: { color: "#ff7b72" }
+  string: { color: "#a5d6ff" }
+  number: { color: "#ffa657" }
+  comment: { color: "#8b8b8b", italic: true }
+  function: { color: "#d2a8ff" }
+  type: { color: "#ffa657" }
+preview:
+  background: "#000000"
+  text: "#ffffff"
+  content-width: 760

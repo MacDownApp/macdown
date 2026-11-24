@@ -1,11 +1,13 @@
-# Vault Viewer (iPad)
+# Vault Viewer (iPhone and iPad)
 
 A read-only viewer for an Obsidian vault in iCloud Drive. No editing. Sidebar with the notes,
-LaTeX (KaTeX), Mermaid diagrams, code highlighting, and predefined reading themes.
+LaTeX (KaTeX), Mermaid diagrams, code highlighting, PDFs, home screen widgets, custom fonts and 19 reading themes.
 
-Built for one iPad (iPadOS 16 or newer) and not meant for distribution.
+One universal app: the same `VaultViewer.ipa` installs on an iPhone and on an iPad (iOS / iPadOS 16 or newer;
+widgets need 17). On an iPad the sidebar and the note sit side by side; on an iPhone the list comes first and a
+note opens on top of it. Not meant for distribution.
 
-## Install on your iPad
+## Install on your iPhone or iPad
 
 The app is one file: `build/ipad/VaultViewer.ipa` (create it with `Tools/ipad/build-ipa.sh`).
 An iPad only runs apps that are signed for it, and signing needs *your* Apple ID, so pick one:
@@ -28,6 +30,24 @@ An iPad only runs apps that are signed for it, and signing needs *your* Apple ID
 ## First start
 Tap *Choose Folder…* and pick your vault folder (Files > iCloud Drive > Obsidian > your vault). The app
 remembers it. Notes that are not downloaded yet appear in the list and download when you open them.
+
+## Appearance
+Tap the **Aa** (sidebar) or the palette (note) button:
+- **Themes (19):** Ayu (Light, Mirage, Dark), Catppuccin (Latte, Frappé, Macchiato, Mocha), Full Black (pure `#000000`,
+  for OLED), Full White, E-Paper (ink on paper, no color), GitHub, Solarized, Nord, Dracula, One, Tomorrow Night.
+  Dark themes also make the app's own bars dark.
+- **Fonts:** pick a reading font and a code font, or type any installed font name. Bundled: **JetBrains Mono Nerd Font**
+  and **Cartograph CF Nerd Font** (symbols from JetBrains fill any icon Cartograph lacks).
+- **Text size:** slider (70% to 200%) and the two buttons in the note toolbar.
+- **Folders in the sidebar:** tap anywhere on a folder row to open or close it. Open folders are remembered, and opening
+  a note (also from a widget) opens the folders above it.
+
+### About the Cartograph font
+Cartograph CF is a commercial font, so it is **not in the git repository** (the repository is public). It is copied into
+the build from your own font folder: `Tools/fonts/import-local-fonts.sh` copies `CartographCFNerdFont-*.ttf` from
+`~/Library/Fonts` into `MacDown/Resources/Fonts` (git ignores `Cartograph*` there). The `.ipa` and Mac app you build
+yourself contain it; a fresh clone without the files simply does not offer it. JetBrains Mono (SIL OFL) is in the repo
+with its license.
 
 ## What it understands
 - Markdown with tables, task lists (read-only), footnotes, ~~strikethrough~~, `==highlight==`
@@ -65,6 +85,8 @@ tag search or backlinks; live sync (the app reloads when it comes to the front, 
 - `ViewerCore` is a Swift package (`Viewer/Package.swift`) that builds and tests on a Mac: `cd Viewer && swift test`.
 - The widget code is in `Viewer/Widget` (WidgetKit and App Intents); the snapshot, layout and links it uses are in
   `ViewerCore` and are tested (`WidgetTests.swift`). The widgets themselves have only been compiled, not run.
+- Icons: `swift Tools/ipad/make_icons.swift <macOS icon> <Assets.xcassets/AppIcon.appiconset>` makes the iOS icon (light,
+  dark and tinted) from MacDown's icon.
 - The app target is generated: `ruby Tools/ipad/make_project.rb` (do this after adding files to `Viewer/App`).
 - KaTeX, Mermaid, Prism and the YAML themes are shared with the macOS app and referenced in place.
 - The simulator is not available on the machine this was written on, so the SwiftUI screens have been

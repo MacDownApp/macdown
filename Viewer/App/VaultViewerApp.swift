@@ -5,6 +5,7 @@ import ViewerCore
 struct VaultViewerApp: App {
     @StateObject private var store = VaultStore()
     @StateObject private var themes = ThemeStore()
+    @StateObject private var fonts = FontStore()
     @Environment(\.scenePhase) private var scenePhase
 
     var body: some Scene {
@@ -12,6 +13,7 @@ struct VaultViewerApp: App {
             ContentView()
                 .environmentObject(store)
                 .environmentObject(themes)
+                .environmentObject(fonts)
                 .onOpenURL { store.handle(url: $0) }
                 .onChange(of: scenePhase) { phase in
                     // iCloud may have changed notes while the app was in the background.

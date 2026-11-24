@@ -1,0 +1,26 @@
+name: Catppuccin Mocha
+appearance: dark
+editor:
+  background: "#1e1e2e"
+  text: "#cdd6f4"
+  caret: "#f5e0dc"
+  selection: "#313244"
+  line-highlight: "#181825"
+tokens:
+  heading: { color: "#89b4fa", bold: true }
+  emphasis: { color: "#cdd6f4", italic: true }
+  strong: { color: "#cdd6f4", bold: true }
+  link: { color: "#b4befe" }
+  code: { color: "#a6e3a1" }
+  quote: { color: "#6c7086", italic: true }
+  list: { color: "#fab387" }
+  keyword: { color: "#cba6f7" }
+  string: { color: "#a6e3a1" }
+  number: { color: "#fab387" }
+  comment: { color: "#6c7086", italic: true }
+  function: { color: "#89b4fa" }
+  type: { color: "#f9e2af" }
+preview:
+  background: "#1e1e2e"
+  text: "#cdd6f4"
+  content-width: 760

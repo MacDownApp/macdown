@@ -1,0 +1,26 @@
+name: Ayu Dark
+appearance: dark
+editor:
+  background: "#0b0e14"
+  text: "#bfbdb6"
+  caret: "#e6b450"
+  selection: "#409fff4d"
+  line-highlight: "#131721"
+tokens:
+  heading: { color: "#59c2ff", bold: true }
+  emphasis: { color: "#bfbdb6", italic: true }
+  strong: { color: "#bfbdb6", bold: true }
+  link: { color: "#59c2ff" }
+  code: { color: "#aad94c" }
+  quote: { color: "#565b66", italic: true }
+  list: { color: "#e6b450" }
+  keyword: { color: "#ff8f40" }
+  string: { color: "#aad94c" }
+  number: { color: "#d2a6ff" }
+  comment: { color: "#565b66", italic: true }
+  function: { color: "#ffb454" }
+  type: { color: "#39bae6" }
+preview:
+  background: "#0b0e14"
+  text: "#bfbdb6"
+  content-width: 760

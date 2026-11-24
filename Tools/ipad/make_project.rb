@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-# Generates Viewer/VaultViewer.xcodeproj: an iPad-only app that uses the ViewerCore package
+# Generates Viewer/VaultViewer.xcodeproj: one universal app (iPhone and iPad) that uses the ViewerCore package
 # and bundles the shared KaTeX, Mermaid, Prism and theme files from the macOS app.
 # Run again after adding or removing files in Viewer/App.   ruby Tools/ipad/make_project.rb
 require 'fileutils'
@@ -31,7 +31,8 @@ shared = project.main_group.new_group('Shared', nil, :group)
 { 'KaTeX' => '../MacDown/Resources/KaTeX',
   'Diagrams' => '../MacDown/Resources/Diagrams',
   'BuiltinThemes' => '../MacDown/Resources/BuiltinThemes',
-  'components' => '../Dependency/prism/components' }.each do |name, path|
+  'components' => '../Dependency/prism/components',
+  'Fonts' => '../MacDown/Resources/Fonts' }.each do |name, path|
   ref = shared.new_reference(path)
   ref.name = name
   ref.last_known_file_type = 'folder'
@@ -89,7 +90,7 @@ target.build_configurations.each do |config|
   s = config.build_settings
   s['PRODUCT_NAME'] = 'VaultViewer'
   s['PRODUCT_BUNDLE_IDENTIFIER'] = BUNDLE_ID
-  s['TARGETED_DEVICE_FAMILY'] = '2'                 # iPad only
+  s['TARGETED_DEVICE_FAMILY'] = '1,2'               # iPhone and iPad
   s['SUPPORTS_MACCATALYST'] = 'NO'
   s['SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD'] = 'NO'
   s['GENERATE_INFOPLIST_FILE'] = 'YES'
@@ -103,6 +104,7 @@ target.build_configurations.each do |config|
   s['INFOPLIST_KEY_UIApplicationSceneManifest_Generation'] = 'YES'
   s['INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents'] = 'YES'
   s['INFOPLIST_KEY_UILaunchScreen_Generation'] = 'YES'
+  s['INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone'] = 'UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight'
   s['INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad'] = 'UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight'
   s['INFOPLIST_KEY_ITSAppUsesNonExemptEncryption'] = 'NO'
   s['ENABLE_USER_SCRIPT_SANDBOXING'] = 'YES'
@@ -118,7 +120,7 @@ widget.build_configurations.each do |config|
   s = config.build_settings
   s['PRODUCT_NAME'] = '$(TARGET_NAME)'
   s['PRODUCT_BUNDLE_IDENTIFIER'] = '$(APP_BUNDLE_ID).widget'
-  s['TARGETED_DEVICE_FAMILY'] = '2'
+  s['TARGETED_DEVICE_FAMILY'] = '1,2'
   s['GENERATE_INFOPLIST_FILE'] = 'YES'
   s['INFOPLIST_FILE'] = 'Widget/Info.plist'
   s['INFOPLIST_KEY_CFBundleDisplayName'] = 'Vault Viewer Widgets'

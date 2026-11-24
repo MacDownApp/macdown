@@ -195,3 +195,6 @@ Dependency/*/[0-9]*-[0-9A-Z]*/
 Viewer/.build/
 Viewer/*.xcodeproj/xcuserdata/
 Viewer/build/
+
+# Licensed fonts: never commit (see Tools/fonts/import-local-fonts.sh)
+MacDown/Resources/Fonts/Cartograph*
