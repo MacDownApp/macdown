@@ -41,6 +41,24 @@ autoloader = shared.new_reference('../Dependency/prism/plugins/autoloader/prism-
 autoloader.last_known_file_type = 'sourcecode.javascript'
 target.resources_build_phase.add_file_reference(autoloader, true)
 
+# Widget extension (home screen widgets). They read a snapshot the app writes into an App Group.
+widget = project.new_target(:app_extension, 'VaultWidget', :ios, '17.0')
+widget_group = project.main_group.new_group('Widget', 'Widget', :group)
+Dir.children(File.join(VIEWER, 'Widget')).sort.each do |name|
+  if name.end_with?('.swift')
+    widget.add_file_references([widget_group.new_reference(name)])
+  else
+    widget_group.new_reference(name)          # Info.plist and entitlements: referenced, not compiled
+  end
+end
+app_group.new_reference('Info.plist')
+app_group.new_reference('VaultViewer.entitlements')
+target.add_dependency(widget)
+embed = target.new_copy_files_build_phase('Embed Foundation Extensions')
+embed.symbol_dst_subfolder_spec = :plug_ins
+embed_file = embed.add_file_reference(widget.product_reference, true)
+embed_file.settings = { 'ATTRIBUTES' => %w[RemoveHeadersOnCopy CodeSignOnCopy] }
+
 # Local package
 package = project.new(Xcodeproj::Project::Object::XCLocalSwiftPackageReference)
 package.relative_path = '.'
@@ -51,6 +69,13 @@ target.package_product_dependencies << dependency
 build_file = project.new(Xcodeproj::Project::Object::PBXBuildFile)
 build_file.product_ref = dependency
 target.frameworks_build_phase.files << build_file
+# The widget uses the same package (snapshot, layout, links).
+widget_dependency = project.new(Xcodeproj::Project::Object::XCSwiftPackageProductDependency)
+widget_dependency.product_name = 'ViewerCore'
+widget.package_product_dependencies << widget_dependency
+widget_build_file = project.new(Xcodeproj::Project::Object::PBXBuildFile)
+widget_build_file.product_ref = widget_dependency
+widget.frameworks_build_phase.files << widget_build_file
 
 # Settings
 [project.build_configurations, target.build_configurations].flatten.each do |config|
@@ -81,6 +106,31 @@ target.build_configurations.each do |config|
   s['INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad'] = 'UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight'
   s['INFOPLIST_KEY_ITSAppUsesNonExemptEncryption'] = 'NO'
   s['ENABLE_USER_SCRIPT_SANDBOXING'] = 'YES'
+  s['PRODUCT_BUNDLE_IDENTIFIER'] = '$(APP_BUNDLE_ID)'
+  s['INFOPLIST_FILE'] = 'App/Info.plist'
+  s['CODE_SIGN_ENTITLEMENTS'] = 'App/VaultViewer.entitlements'
+end
+project.build_configurations.each do |config|
+  config.build_settings['APP_BUNDLE_ID'] = BUNDLE_ID
+  config.build_settings['APP_GROUP_ID'] = 'group.$(APP_BUNDLE_ID)'
+end
+widget.build_configurations.each do |config|
+  s = config.build_settings
+  s['PRODUCT_NAME'] = '$(TARGET_NAME)'
+  s['PRODUCT_BUNDLE_IDENTIFIER'] = '$(APP_BUNDLE_ID).widget'
+  s['TARGETED_DEVICE_FAMILY'] = '2'
+  s['GENERATE_INFOPLIST_FILE'] = 'YES'
+  s['INFOPLIST_FILE'] = 'Widget/Info.plist'
+  s['INFOPLIST_KEY_CFBundleDisplayName'] = 'Vault Viewer Widgets'
+  s['CODE_SIGN_ENTITLEMENTS'] = 'Widget/Widget.entitlements'
+  s['CODE_SIGN_STYLE'] = 'Automatic'
+  s['DEVELOPMENT_TEAM'] = TEAM
+  s['MARKETING_VERSION'] = '1.0'
+  s['CURRENT_PROJECT_VERSION'] = '1'
+  s['SKIP_INSTALL'] = 'YES'
+  s['SWIFT_VERSION'] = '5.0'
+  s['LD_RUNPATH_SEARCH_PATHS'] = '$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks'
+  s['SUPPORTS_MACCATALYST'] = 'NO'
 end
 project.save
 

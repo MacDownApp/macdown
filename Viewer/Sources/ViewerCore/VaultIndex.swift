@@ -41,6 +41,7 @@ public final class VaultIndex: VaultResolving {
     /// Notes and PDFs: everything that can be opened.
     public var documents: [String] { notes + pdfs }
 
+    private var modified: [String: Date] = [:]
     private var notesByName: [String: [String]] = [:]       // "plan" -> ["Projects/Plan.md"]
     private var filesByName: [String: [String]] = [:]       // "diagram.png" -> ["img/diagram.png"]
 
@@ -53,11 +54,12 @@ public final class VaultIndex: VaultResolving {
     public func scan() {
         var notes: [String] = []
         var pdfs: [String] = []
+        var modified: [String: Date] = [:]
         var notesByName: [String: [String]] = [:]
         var filesByName: [String: [String]] = [:]
 
         func list(_ folder: URL, prefix: String) -> [VaultNode] {
-            let keys: [URLResourceKey] = [.isDirectoryKey, .isSymbolicLinkKey]
+            let keys: [URLResourceKey] = [.isDirectoryKey, .isSymbolicLinkKey, .contentModificationDateKey]
             // Hidden files are included on purpose: iCloud placeholders are hidden.
             guard let urls = try? FileManager.default.contentsOfDirectory(at: folder, includingPropertiesForKeys: keys) else { return [] }
             var folders: [VaultNode] = []
@@ -80,6 +82,7 @@ public final class VaultIndex: VaultResolving {
                     filesByName[name.lowercased(), default: []].append(relative)
                     if VaultIndex.noteExtensions.contains(ext) {
                         notes.append(relative)
+                        if let date = values?.contentModificationDate { modified[relative] = date }
                         let base = (name as NSString).deletingPathExtension.lowercased()
                         notesByName[base, default: []].append(relative)
                         files.append(VaultNode(id: relative, name: (name as NSString).deletingPathExtension, kind: .note, children: nil))
@@ -98,6 +101,7 @@ public final class VaultIndex: VaultResolving {
         self.notes = notes.sorted { $0.localizedStandardCompare($1) == .orderedAscending }
         self.pdfs = pdfs.sorted { $0.localizedStandardCompare($1) == .orderedAscending }
         self.notesByName = notesByName
+        self.modified = modified
         self.filesByName = filesByName
     }
 
@@ -105,6 +109,9 @@ public final class VaultIndex: VaultResolving {
     public func search(_ query: String, limit: Int = 60) -> [String] {
         FuzzyMatcher.rank(query: query, in: documents, limit: limit)
     }
+
+    /// When a note was last changed (nil if the file system did not say).
+    public func modifiedDate(of note: String) -> Date? { modified[note] }
 
     // MARK: Resolving
 

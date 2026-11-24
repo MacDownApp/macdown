@@ -41,12 +41,30 @@ remembers it. Notes that are not downloaded yet appear in the list and download 
   note and section embeds (`![[Note#Heading]]`), callouts (`> [!tip] Title`, foldable with `+`/`-`),
   `#tags`, `%%comments%%`, front matter shown as a collapsible *Properties* box
 
+## Widgets (iPadOS 17 or newer)
+Long-press the Home Screen, tap **+**, and search for *Vault Viewer*.
+- **Note** (small): a shortcut to one note. Edit the widget to choose it; without a choice it shows the note you
+  changed last.
+- **Folder** (medium and large): edit the widget to choose a folder (or the whole vault). It lists that folder's own
+  notes, then a section for each of its sub-folders with their newest notes. The large size shows more rows.
+- Tapping a note opens it in the app. Widgets update when the app reads the vault (open the app, or use
+  *Reload Vault*); open the app once after installing so the widgets have something to show.
+
+Widgets cannot open your vault themselves: the app writes a small index (note names, folders, dates, no note text)
+into an App Group container, and the widgets read that. This needs the **App Groups** capability, so the signing
+has to grant it. In Xcode that is automatic for the `group.<bundle id>` group; a free Apple ID may or may not allow
+it. If a widget says *Open Vault Viewer once*, the group was not granted (the app itself still works).
+The group is read from the signed app's provisioning profile, so re-signing with AltStore or Sideloadly can rename it
+without breaking the link, but this has not been tried.
+
 ## Not supported
 Editing; dataview, canvas, or other plugins; block references (`^id`); password-protected PDFs and PDFs over 300 MB;
 tag search or backlinks; live sync (the app reloads when it comes to the front, or use *Reload Vault*).
 
 ## Development
 - `ViewerCore` is a Swift package (`Viewer/Package.swift`) that builds and tests on a Mac: `cd Viewer && swift test`.
+- The widget code is in `Viewer/Widget` (WidgetKit and App Intents); the snapshot, layout and links it uses are in
+  `ViewerCore` and are tested (`WidgetTests.swift`). The widgets themselves have only been compiled, not run.
 - The app target is generated: `ruby Tools/ipad/make_project.rb` (do this after adding files to `Viewer/App`).
 - KaTeX, Mermaid, Prism and the YAML themes are shared with the macOS app and referenced in place.
 - The simulator is not available on the machine this was written on, so the SwiftUI screens have been

@@ -1,5 +1,6 @@
 import SwiftUI
 import PDFKit
+import WidgetKit
 import ViewerCore
 
 /// Holds the open vault: the folder (kept by a security-scoped bookmark), its index, and the
@@ -26,6 +27,8 @@ final class VaultStore: ObservableObject {
     private let lastNoteKey = "lastNote"
     private var accessedURL: URL?
     private var openToken = 0
+    /// A note asked for by a link (a widget) before the vault finished loading.
+    private var pendingOpen: String?
 
     final class RootBox { var url: URL? }
 
@@ -95,6 +98,12 @@ final class VaultStore: ObservableObject {
         self.index = index
         tree = index.tree
         isLoading = false
+        publishToWidgets(index)
+        if let pending = pendingOpen, index.documents.contains(pending) {
+            pendingOpen = nil
+            open(pending)
+            return
+        }
         if index.notes.isEmpty { message = "No notes were found in this folder. Notes in iCloud may still be downloading." }
         if reopenLast, let last = UserDefaults.standard.string(forKey: lastNoteKey), index.documents.contains(last) {
             open(last)
@@ -117,7 +126,30 @@ final class VaultStore: ObservableObject {
         self.index = index
         tree = index.tree
         isLoading = false
+        publishToWidgets(index)
         if let current = current, index.documents.contains(current) { open(current, fragment: nil, keepScroll: true) }
+    }
+
+    // MARK: Widgets
+
+    /// Writes what the home screen widgets need (they cannot open the vault) and refreshes them.
+    private func publishToWidgets(_ index: VaultIndex) {
+        let name = vaultName ?? "Vault"
+        Task.detached(priority: .utility) {
+            guard let store = SnapshotStore.appGroup() else { return }
+            let snapshot = WidgetSnapshot.build(from: index, vaultName: name)
+            if (try? store.write(snapshot)) != nil { WidgetCenter.shared.reloadAllTimelines() }
+        }
+    }
+
+    /// A `vaultviewer://open?path=...` link, from a widget.
+    func handle(url: URL) {
+        guard let path = DeepLink.notePath(from: url) else { return }
+        if let index = index {
+            if index.documents.contains(path) { open(path) }
+        } else {
+            pendingOpen = path   // The vault is still loading: open it when it is ready.
+        }
     }
 
     // MARK: Opening notes
