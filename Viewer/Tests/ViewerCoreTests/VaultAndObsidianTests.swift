@@ -69,6 +69,27 @@ final class VaultIndexTests: XCTestCase {
         XCTAssertNil(index.resolveAttachment("missing.png", from: nil))
     }
 
+    func testPDFsAreListedSearchedAndKeepFoldersVisible() throws {
+        try touch("Note.md"); try touch("Papers/Smith 2020.pdf"); try touch("Papers/old/Jones.PDF"); try touch("Empty/readme.txt")
+        let index = VaultIndex(root: root); index.scan()
+        XCTAssertEqual(index.pdfs, ["Papers/old/Jones.PDF", "Papers/Smith 2020.pdf"])
+        XCTAssertEqual(index.notes, ["Note.md"])
+        XCTAssertEqual(Set(index.documents), ["Note.md", "Papers/Smith 2020.pdf", "Papers/old/Jones.PDF"])
+        let papers = try XCTUnwrap(index.tree.first { $0.name == "Papers" })
+        XCTAssertEqual(papers.kind, .folder)
+        XCTAssertEqual(papers.children?.map(\.name), ["old", "Smith 2020.pdf"])
+        XCTAssertEqual(papers.children?.last?.kind, .pdf)
+        XCTAssertNil(index.tree.first { $0.name == "Empty" }, "A folder with no notes or PDFs is hidden")
+        XCTAssertEqual(index.search("smith").first, "Papers/Smith 2020.pdf")
+        XCTAssertEqual(index.resolveAttachment("Smith 2020.pdf", from: "Note.md"), "Papers/Smith 2020.pdf")
+    }
+
+    func testICloudPDFPlaceholderIsListed() throws {
+        try touch("Papers/.Remote.pdf.icloud")
+        let index = VaultIndex(root: root); index.scan()
+        XCTAssertEqual(index.pdfs, ["Papers/Remote.pdf"])
+    }
+
     func testBigVaultScansQuickly() throws {
         for d in 0..<60 { for f in 0..<50 { try touch("Folder \(d)/Note \(f).\(f % 4 == 0 ? "png" : "md")") } }
         let start = Date()
@@ -102,7 +123,7 @@ final class ObsidianSyntaxTests: XCTestCase {
         XCTAssertTrue(run("![[pic.png|A caption]]").contains("alt=\"A caption\""))
         XCTAssertTrue(run("![[a.mp3]]").contains("<audio controls src=\"md://vault/audio/a.mp3\">"))
         XCTAssertTrue(run("![[clip.mp4]]").contains("<video controls"))
-        XCTAssertTrue(run("![[doc.pdf]]").contains("class=\"embed-file\""))
+        XCTAssertTrue(run("![[doc.pdf]]").contains("class=\"pdf-embed\" href=\"md://vault/doc.pdf\""))
         XCTAssertEqual(run("![[gone.png]]"), "<span class=\"wikilink unresolved\">gone.png</span>")
         XCTAssertTrue(run("![[my pic.png]]").contains("unresolved"), "Unknown names do not break the page")
     }
@@ -155,6 +176,20 @@ final class ObsidianSyntaxTests: XCTestCase {
         XCTAssertTrue(run("日本語 [[Plan]] 🙂 #日本語").contains("wikilink"))
         XCTAssertTrue(run("日本語 #日本語").contains("class=\"tag\""))
         for text in ["[[", "]]", "[[]]", "![[", "![[]]", "%%", "[[a|b|c]]", String(repeating: "[[", count: 500), "`", "```"] { _ = run(text) }
+    }
+
+    func testPDFEmbedsAndLinks() {
+        let card = run("![[doc.pdf#page=3]]")
+        XCTAssertTrue(card.contains("href=\"md://vault/doc.pdf#page=3\""), card)
+        XCTAssertTrue(card.contains("<span class=\"pdf-hint\">Page 3</span>"), card)
+        XCTAssertTrue(card.contains("<span class=\"pdf-name\">doc.pdf</span>"), card)
+        XCTAssertTrue(run("![[doc.pdf]]").contains("Tap to open"))
+        XCTAssertTrue(run("![[doc.pdf|My paper]]").contains("<span class=\"pdf-name\">My paper</span>"))
+        XCTAssertTrue(run("[[doc.pdf]]").contains("<a class=\"wikilink\" href=\"md://vault/doc.pdf\">doc.pdf</a>"))
+        XCTAssertTrue(run("[[doc.pdf#page=7|see page 7]]").contains("href=\"md://vault/doc.pdf#page=7\">see page 7</a>"))
+        XCTAssertEqual(run("[[gone.pdf]]"), "<span class=\"wikilink unresolved\">gone.pdf</span>")
+        XCTAssertEqual(run("![[gone.pdf]]"), "<span class=\"wikilink unresolved\">gone.pdf</span>")
+        XCTAssertTrue(run("![[doc.pdf|<b>x</b>]]").contains("&lt;b&gt;"), "Names are escaped")
     }
 
     func testFrontMatterSplit() {

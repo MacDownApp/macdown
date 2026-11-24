@@ -63,8 +63,8 @@ struct NoteWebView: UIViewRepresentable {
             case ViewerSchemeHandler.scheme:
                 let path = String(url.path.dropFirst())
                 let fragment = url.fragment?.removingPercentEncoding
-                if url.host == "note" || (url.host == "vault" && isNote(path)) {
-                    if path == currentPath, let fragment = fragment {
+                if url.host == "note" || (url.host == "vault" && isOpenable(path)) {
+                    if path == currentPath, !isPDF(path), let fragment = fragment {
                         scroll(to: fragment)
                     } else {
                         Task { @MainActor in self.store.open(path, fragment: fragment) }
@@ -79,9 +79,12 @@ struct NoteWebView: UIViewRepresentable {
             }
         }
 
-        private func isNote(_ path: String) -> Bool {
+        private func isPDF(_ path: String) -> Bool { (path as NSString).pathExtension.lowercased() == "pdf" }
+
+        /// Notes and PDFs open in the app; other files do nothing.
+        private func isOpenable(_ path: String) -> Bool {
             let ext = (path as NSString).pathExtension.lowercased()
-            return ext == "md" || ext == "markdown"
+            return ext == "md" || ext == "markdown" || ext == "pdf"
         }
 
         private func strip(_ url: URL) -> String {

@@ -34,12 +34,15 @@ remembers it. Notes that are not downloaded yet appear in the list and download 
 - Math: `$x^2$` and `$$...$$` (KaTeX, works offline)
 - Mermaid diagrams (` ```mermaid `, follows the theme's light or dark)
 - Code highlighting for most languages
+- PDFs: listed in the sidebar and searchable like notes, opened in a PDF viewer (select text, find in the document,
+  page counter). In notes, `![[paper.pdf]]` shows a tappable card; `![[paper.pdf#page=3]]` and `[[paper.pdf#page=3|alias]]`
+  open that page; ordinary links such as `[paper](docs/paper.pdf)` work too
 - Obsidian: `[[wikilinks]]` (with `#heading` and `|alias`), `![[image.png|300]]`, audio and video embeds,
   note and section embeds (`![[Note#Heading]]`), callouts (`> [!tip] Title`, foldable with `+`/`-`),
   `#tags`, `%%comments%%`, front matter shown as a collapsible *Properties* box
 
 ## Not supported
-Editing; dataview, canvas, or other plugins; block references (`^id`); PDF viewing (the link is shown);
+Editing; dataview, canvas, or other plugins; block references (`^id`); password-protected PDFs and PDFs over 300 MB;
 tag search or backlinks; live sync (the app reloads when it comes to the front, or use *Reload Vault*).
 
 ## Development

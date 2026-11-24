@@ -173,6 +173,13 @@ enum ObsidianPreprocessor {
 
     private static func link(target: String, alias: String, _ context: ObsidianContext) -> String {
         let (name, fragment) = splitTarget(target)
+        if (name as NSString).pathExtension.lowercased() == "pdf" {
+            guard let path = context.resolver.resolveAttachment(name, from: context.note) else {
+                return "<span class=\"wikilink unresolved\">\(HTMLEscape.escape(alias.isEmpty ? name : alias))</span>"
+            }
+            let suffix = fragment.map { "#" + ($0.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed) ?? $0) } ?? ""
+            return "<a class=\"wikilink\" href=\"\(fileURL(path: path))\(suffix)\">\(HTMLEscape.escape(alias.isEmpty ? (name as NSString).lastPathComponent : alias))</a>"
+        }
         let shown: String
         if !alias.isEmpty {
             shown = alias
@@ -193,7 +200,7 @@ enum ObsidianPreprocessor {
     private static let video: Set<String> = ["mp4", "mov", "webm", "m4v", "ogv"]
 
     private static func embedInline(target: String, alias: String, _ context: ObsidianContext) -> String {
-        let (name, _) = splitTarget(target)
+        let (name, fragment) = splitTarget(target)
         let ext = (name as NSString).pathExtension.lowercased()
         let escapedName = HTMLEscape.escape(name)
         if !images.contains(ext) && !audio.contains(ext) && !video.contains(ext) && ext != "pdf" {
@@ -216,7 +223,16 @@ enum ObsidianPreprocessor {
         }
         if audio.contains(ext) { return "<audio controls src=\"\(src)\"></audio>" }
         if video.contains(ext) { return "<video controls playsinline src=\"\(src)\"></video>" }
-        return "<a class=\"embed-file\" href=\"\(src)\">\(escapedName)</a>"
+        return pdfCard(src: src + (fragment.map { "#" + ($0.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed) ?? $0) } ?? ""),
+                       name: (name as NSString).lastPathComponent, alias: alias, fragment: fragment)
+    }
+
+    /// A tappable card for a PDF. The app opens it in its own PDF viewer (`#page=3` opens that page).
+    static func pdfCard(src: String, name: String, alias: String, fragment: String?) -> String {
+        let page = fragment.flatMap(PDFLink.page(fromFragment:)).map { "Page \($0)" } ?? "Tap to open"
+        let title = alias.isEmpty || Int(alias.prefix(1)) != nil ? name : alias
+        return "<a class=\"pdf-embed\" href=\"\(src)\"><span class=\"pdf-badge\">PDF</span>"
+            + "<span class=\"pdf-name\">\(HTMLEscape.escape(title))</span><span class=\"pdf-hint\">\(page)</span></a>"
     }
 
     private static func embedBlock(target: String, alias: String, _ context: ObsidianContext) -> String {

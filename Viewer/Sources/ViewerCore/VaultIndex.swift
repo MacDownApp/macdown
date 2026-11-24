@@ -2,12 +2,16 @@ import Foundation
 
 /// A node of the sidebar tree.
 public struct VaultNode: Identifiable, Hashable {
+    public enum Kind: Hashable { case folder, note, pdf }
+
     /// Path relative to the vault root, for example `Projects/Plan.md`.
     public let id: String
     public let name: String
-    public let isFolder: Bool
-    /// Nil for notes. Folders list only what is inside them that holds notes.
+    public let kind: Kind
+    /// Nil for files. Folders list only what is inside them that holds notes or PDFs.
     public let children: [VaultNode]?
+
+    public var isFolder: Bool { kind == .folder }
 }
 
 /// What links can be resolved against: the notes and files of a vault.
@@ -32,6 +36,10 @@ public final class VaultIndex: VaultResolving {
     public private(set) var tree: [VaultNode] = []
     /// Relative paths of all notes.
     public private(set) var notes: [String] = []
+    /// Relative paths of all PDF files.
+    public private(set) var pdfs: [String] = []
+    /// Notes and PDFs: everything that can be opened.
+    public var documents: [String] { notes + pdfs }
 
     private var notesByName: [String: [String]] = [:]       // "plan" -> ["Projects/Plan.md"]
     private var filesByName: [String: [String]] = [:]       // "diagram.png" -> ["img/diagram.png"]
@@ -44,6 +52,7 @@ public final class VaultIndex: VaultResolving {
 
     public func scan() {
         var notes: [String] = []
+        var pdfs: [String] = []
         var notesByName: [String: [String]] = [:]
         var filesByName: [String: [String]] = [:]
 
@@ -65,7 +74,7 @@ public final class VaultIndex: VaultResolving {
                 if values?.isDirectory == true {
                     if values?.isSymbolicLink == true || VaultIndex.ignoredFolders.contains(name) { continue }
                     let children = list(url, prefix: relative + "/")
-                    if !children.isEmpty { folders.append(VaultNode(id: relative, name: name, isFolder: true, children: children)) }
+                    if !children.isEmpty { folders.append(VaultNode(id: relative, name: name, kind: .folder, children: children)) }
                 } else {
                     let ext = (name as NSString).pathExtension.lowercased()
                     filesByName[name.lowercased(), default: []].append(relative)
@@ -73,7 +82,10 @@ public final class VaultIndex: VaultResolving {
                         notes.append(relative)
                         let base = (name as NSString).deletingPathExtension.lowercased()
                         notesByName[base, default: []].append(relative)
-                        files.append(VaultNode(id: relative, name: (name as NSString).deletingPathExtension, isFolder: false, children: nil))
+                        files.append(VaultNode(id: relative, name: (name as NSString).deletingPathExtension, kind: .note, children: nil))
+                    } else if ext == "pdf" {
+                        pdfs.append(relative)
+                        files.append(VaultNode(id: relative, name: name, kind: .pdf, children: nil))
                     }
                 }
             }
@@ -84,13 +96,14 @@ public final class VaultIndex: VaultResolving {
         let built = list(root, prefix: "")
         tree = built
         self.notes = notes.sorted { $0.localizedStandardCompare($1) == .orderedAscending }
+        self.pdfs = pdfs.sorted { $0.localizedStandardCompare($1) == .orderedAscending }
         self.notesByName = notesByName
         self.filesByName = filesByName
     }
 
-    /// Notes whose path matches a search query, best first.
+    /// Notes and PDFs whose path matches a search query, best first.
     public func search(_ query: String, limit: Int = 60) -> [String] {
-        FuzzyMatcher.rank(query: query, in: notes, limit: limit)
+        FuzzyMatcher.rank(query: query, in: documents, limit: limit)
     }
 
     // MARK: Resolving

@@ -1,4 +1,5 @@
 import SwiftUI
+import PDFKit
 import ViewerCore
 
 /// Holds the open vault: the folder (kept by a security-scoped bookmark), its index, and the
@@ -12,6 +13,8 @@ final class VaultStore: ObservableObject {
     @Published private(set) var noteTitle = ""
     /// Heading to scroll to after the note loads.
     @Published private(set) var scrollTarget: String?
+    /// The open PDF, if a PDF (not a note) is shown.
+    @Published private(set) var pdf: PDFItem?
     @Published private(set) var isLoading = false
     @Published private(set) var message: String?
 
@@ -25,6 +28,14 @@ final class VaultStore: ObservableObject {
     private var openToken = 0
 
     final class RootBox { var url: URL? }
+
+    struct PDFItem {
+        let path: String
+        let document: PDFDocument
+        /// 1-based page to show first.
+        let page: Int
+        var name: String { (path as NSString).lastPathComponent }
+    }
 
     init() { restore() }
 
@@ -85,7 +96,7 @@ final class VaultStore: ObservableObject {
         tree = index.tree
         isLoading = false
         if index.notes.isEmpty { message = "No notes were found in this folder. Notes in iCloud may still be downloading." }
-        if reopenLast, let last = UserDefaults.standard.string(forKey: lastNoteKey), index.notes.contains(last) {
+        if reopenLast, let last = UserDefaults.standard.string(forKey: lastNoteKey), index.documents.contains(last) {
             open(last)
         }
     }
@@ -106,17 +117,22 @@ final class VaultStore: ObservableObject {
         self.index = index
         tree = index.tree
         isLoading = false
-        if let current = current, index.notes.contains(current) { open(current, fragment: nil, keepScroll: true) }
+        if let current = current, index.documents.contains(current) { open(current, fragment: nil, keepScroll: true) }
     }
 
     // MARK: Opening notes
 
-    func isNote(_ path: String) -> Bool { index?.notes.contains(path) ?? false }
+    /// True for notes and PDFs, the things a click can open.
+    func isOpenable(_ path: String) -> Bool { index?.documents.contains(path) ?? false }
+
+    private func isPDF(_ path: String) -> Bool { (path as NSString).pathExtension.lowercased() == "pdf" }
 
     func search(_ query: String) -> [String] { index?.search(query) ?? [] }
 
     func open(_ path: String, fragment: String? = nil, keepScroll: Bool = false) {
-        guard let index = index, let root = rootBox.url, index.notes.contains(path) else { return }
+        guard let index = index, let root = rootBox.url, index.documents.contains(path) else { return }
+        if isPDF(path) { return openPDF(path, fragment: fragment, root: root) }
+        pdf = nil
         selectedPath = path
         scrollTarget = fragment
         UserDefaults.standard.set(path, forKey: lastNoteKey)
@@ -139,9 +155,38 @@ final class VaultStore: ObservableObject {
         }
     }
 
+    private func openPDF(_ path: String, fragment: String?, root: URL) {
+        selectedPath = path
+        scrollTarget = nil
+        UserDefaults.standard.set(path, forKey: lastNoteKey)
+        openToken += 1
+        let token = openToken
+        isLoading = true
+        message = nil
+        let page = fragment.flatMap(PDFLink.page(fromFragment:)) ?? 1
+
+        Task.detached(priority: .userInitiated) { [weak self] in
+            switch PDFLoader.load(root.appendingPathComponent(path)) {
+            case let .success(document):
+                await self?.finishedPDF(token, PDFItem(path: path, document: document, page: page))
+            case let .failure(failure):
+                await self?.failed(token, PDFLoader.message(for: failure, name: (path as NSString).lastPathComponent))
+            }
+        }
+    }
+
+    private func finishedPDF(_ token: Int, _ item: PDFItem) {
+        guard token == openToken else { return }
+        pdf = item
+        note = nil
+        noteTitle = item.name
+        isLoading = false
+    }
+
     private func finished(_ token: Int, _ rendered: RenderedNote, title: String) {
         guard token == openToken else { return }   // The user already opened another note.
         note = rendered
+        pdf = nil
         noteTitle = title
         isLoading = false
     }
@@ -149,6 +194,7 @@ final class VaultStore: ObservableObject {
     private func failed(_ token: Int, _ text: String) {
         guard token == openToken else { return }
         note = nil
+        pdf = nil
         isLoading = false
         message = text
     }

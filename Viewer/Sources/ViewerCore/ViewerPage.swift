@@ -98,6 +98,10 @@ public enum ViewerPage {
     .wikilink { color: #7c5cd6; }
     .wikilink.unresolved { opacity: 0.55; text-decoration: underline dotted; }
     .tag { background: rgba(124, 92, 214, 0.18); color: #7c5cd6; padding: 0.05em 0.5em; border-radius: 1em; font-size: 0.9em; }
+    a.pdf-embed { display: flex; align-items: center; gap: 0.8em; margin: 0.8em 0; padding: 0.7em 1em; border-radius: 10px; border: 1px solid rgba(128,128,128,0.35); background: rgba(128,128,128,0.08); color: inherit; text-decoration: none; }
+    .pdf-badge { background: #d9372b; color: #fff; font: 700 0.7em/1 -apple-system, sans-serif; padding: 0.45em 0.5em; border-radius: 4px; letter-spacing: 0.04em; }
+    .pdf-name { flex: 1; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .pdf-hint { font-size: 0.8em; opacity: 0.6; }
     .embed-note { border-left: 3px solid rgba(124, 92, 214, 0.6); padding: 0 1em; margin: 1em 0; background: rgba(128,128,128,0.06); border-radius: 0 6px 6px 0; }
     .embed-title { font-size: 0.8em; opacity: 0.7; margin-top: 0.6em; }
     details.properties { font-size: 0.9em; border: 1px solid rgba(128,128,128,0.3); border-radius: 8px; padding: 0.3em 0.9em; }

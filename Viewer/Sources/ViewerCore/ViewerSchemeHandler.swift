@@ -84,6 +84,9 @@ public enum VaultFiles {
         return file
     }
 
+    /// Reads a file through the file coordinator (so iCloud downloads it if needed). Blocks.
+    public static func readData(_ file: URL) -> Data? { read(file, coordinated: true) }
+
     /// Reads a text file through the file coordinator (so iCloud downloads it if needed).
     /// Blocks: call it off the main thread.
     public static func readText(_ file: URL) -> String? {

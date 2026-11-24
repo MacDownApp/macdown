@@ -7,120 +7,123 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		02024013A27D0073BE298F3E /* Diagrams in Resources */ = {isa = PBXBuildFile; fileRef = FC6D9DA9C977603BD73DAB0C /* Diagrams */; };
-		293878321E2F8615708AA678 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB6AD9E7598940646F21AD70 /* Foundation.framework */; };
-		667BC33509E4C6AF454E8344 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4DF1CDBC6C43368137315F0 /* Assets.xcassets */; };
-		73F0F5EC63000BE671509722 /* BuiltinThemes in Resources */ = {isa = PBXBuildFile; fileRef = FE3D6975364C3D8EA7A184CF /* BuiltinThemes */; };
-		9253369FF856A1BFBDD33057 /* ViewerCore in Frameworks */ = {isa = PBXBuildFile; productRef = B75F4E60F9828ACAA3EED97D /* ViewerCore */; };
-		9B747D522201A98AECA3C4FA /* prism-autoloader.min.js in Resources */ = {isa = PBXBuildFile; fileRef = FDD3F12842860E74C9ADD69E /* prism-autoloader.min.js */; };
-		B873EF5D2B79325610AB5798 /* components in Resources */ = {isa = PBXBuildFile; fileRef = C680D08E918ED76B4983CE1D /* components */; };
-		B9C86A354F80DC4FFCBEEB0C /* VaultStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FB974F2092AC71F40902FAE /* VaultStore.swift */; };
-		BB8E51C0AC6488A9F623716D /* VaultViewerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ABFE6E18B2D30F0573E8A65 /* VaultViewerApp.swift */; };
-		C73FEBF5315AAF687D100AAF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F459FE0D69079334D756C4F0 /* ContentView.swift */; };
-		D7976067AE112AF114E02592 /* KaTeX in Resources */ = {isa = PBXBuildFile; fileRef = 080A9A3E564E89C930B84EF9 /* KaTeX */; };
-		EB6E8F251AFE0A57E4643DD7 /* NoteWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8665E24F518D30573FF088EB /* NoteWebView.swift */; };
-		FDC66AAED833E95C6066E195 /* ThemeStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 850D42070B2E615AADBA47A3 /* ThemeStore.swift */; };
+		2CBA3E17F9BF3B2AF372404C /* ViewerCore in Frameworks */ = {isa = PBXBuildFile; productRef = B9392CE6B123AA6A8D41C65C /* ViewerCore */; };
+		2F6AE1AC501F0AC4BAD3C3AA /* components in Resources */ = {isa = PBXBuildFile; fileRef = E56DDDFEEC87F45438E7655C /* components */; };
+		4D520D3BD828315E8401A9B0 /* ThemeStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1BEE95E0C10126B4B13CEF /* ThemeStore.swift */; };
+		8139D84DB97B848486E62734 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1C86ED02BFCAA9AB2B44892 /* Foundation.framework */; };
+		82F618FA869E9431A42C033B /* NoteWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17428DAF5A0FEF09A00CFCB0 /* NoteWebView.swift */; };
+		90A84B6F75F24F5B5392ACA3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9851930694D0C610CBE1416 /* Assets.xcassets */; };
+		92A55B71BB5579EA6526612E /* BuiltinThemes in Resources */ = {isa = PBXBuildFile; fileRef = E5D0E322AABF345B14363CB7 /* BuiltinThemes */; };
+		C35457ABF415B39C99C7D8CC /* KaTeX in Resources */ = {isa = PBXBuildFile; fileRef = 66531410AD23E438611A9035 /* KaTeX */; };
+		C52AA4065B6EBFC3E40B6F3F /* PDFScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7952495102E5C5852783C6 /* PDFScreen.swift */; };
+		C8DAC6995479EF136064B1ED /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62BB23DC07440433BB867205 /* ContentView.swift */; };
+		D21487FA448A4630E3E93E68 /* VaultViewerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C2AE518C1110294F8C5834B /* VaultViewerApp.swift */; };
+		D30693EDAEDC7DDD4FAF5E91 /* prism-autoloader.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 82FD3292F7CB3A0DA4D2F568 /* prism-autoloader.min.js */; };
+		D93AD890B0AB8722DC7B17D3 /* Diagrams in Resources */ = {isa = PBXBuildFile; fileRef = 64DEF0D410A4C42A839699C4 /* Diagrams */; };
+		FC7B8093E22EE521E5CE7C1D /* VaultStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC297F4B607100DB03D7534 /* VaultStore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		080A9A3E564E89C930B84EF9 /* KaTeX */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = KaTeX; path = ../MacDown/Resources/KaTeX; sourceTree = "<group>"; };
-		3ABFE6E18B2D30F0573E8A65 /* VaultViewerApp.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = VaultViewerApp.swift; sourceTree = "<group>"; };
-		7FB974F2092AC71F40902FAE /* VaultStore.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = VaultStore.swift; sourceTree = "<group>"; };
-		850D42070B2E615AADBA47A3 /* ThemeStore.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ThemeStore.swift; sourceTree = "<group>"; };
-		8665E24F518D30573FF088EB /* NoteWebView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = NoteWebView.swift; sourceTree = "<group>"; };
-		B34271ABCC3DBB96500DB080 /* VaultViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = VaultViewer.app; path = VaultViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		BB6AD9E7598940646F21AD70 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		C4DF1CDBC6C43368137315F0 /* Assets.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		C680D08E918ED76B4983CE1D /* components */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = components; path = ../Dependency/prism/components; sourceTree = "<group>"; };
-		F459FE0D69079334D756C4F0 /* ContentView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		FC6D9DA9C977603BD73DAB0C /* Diagrams */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = Diagrams; path = ../MacDown/Resources/Diagrams; sourceTree = "<group>"; };
-		FDD3F12842860E74C9ADD69E /* prism-autoloader.min.js */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.javascript; name = "prism-autoloader.min.js"; path = "../Dependency/prism/plugins/autoloader/prism-autoloader.min.js"; sourceTree = "<group>"; };
-		FE3D6975364C3D8EA7A184CF /* BuiltinThemes */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = BuiltinThemes; path = ../MacDown/Resources/BuiltinThemes; sourceTree = "<group>"; };
+		17428DAF5A0FEF09A00CFCB0 /* NoteWebView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = NoteWebView.swift; sourceTree = "<group>"; };
+		62BB23DC07440433BB867205 /* ContentView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		64DEF0D410A4C42A839699C4 /* Diagrams */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = Diagrams; path = ../MacDown/Resources/Diagrams; sourceTree = "<group>"; };
+		66531410AD23E438611A9035 /* KaTeX */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = KaTeX; path = ../MacDown/Resources/KaTeX; sourceTree = "<group>"; };
+		6C2AE518C1110294F8C5834B /* VaultViewerApp.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = VaultViewerApp.swift; sourceTree = "<group>"; };
+		7BC297F4B607100DB03D7534 /* VaultStore.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = VaultStore.swift; sourceTree = "<group>"; };
+		82FD3292F7CB3A0DA4D2F568 /* prism-autoloader.min.js */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.javascript; name = "prism-autoloader.min.js"; path = "../Dependency/prism/plugins/autoloader/prism-autoloader.min.js"; sourceTree = "<group>"; };
+		A1C86ED02BFCAA9AB2B44892 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		BF1BEE95E0C10126B4B13CEF /* ThemeStore.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ThemeStore.swift; sourceTree = "<group>"; };
+		C5C0B3BCBFD34FE8B6E1C27B /* VaultViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = VaultViewer.app; path = VaultViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DE7952495102E5C5852783C6 /* PDFScreen.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PDFScreen.swift; sourceTree = "<group>"; };
+		E56DDDFEEC87F45438E7655C /* components */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = components; path = ../Dependency/prism/components; sourceTree = "<group>"; };
+		E5D0E322AABF345B14363CB7 /* BuiltinThemes */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = BuiltinThemes; path = ../MacDown/Resources/BuiltinThemes; sourceTree = "<group>"; };
+		E9851930694D0C610CBE1416 /* Assets.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		EF5145433EAD46C3F26A34CF /* Frameworks */ = {
+		51C79F96D8E1991D9C6B5185 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				293878321E2F8615708AA678 /* Foundation.framework in Frameworks */,
-				9253369FF856A1BFBDD33057 /* ViewerCore in Frameworks */,
+				8139D84DB97B848486E62734 /* Foundation.framework in Frameworks */,
+				2CBA3E17F9BF3B2AF372404C /* ViewerCore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		844D684F38571A9031F4EE15 /* iOS */ = {
+		09BC2BFA04A54CEA0B805FA8 = {
 			isa = PBXGroup;
 			children = (
-				BB6AD9E7598940646F21AD70 /* Foundation.framework */,
+				66F8ACC35F3903B7CCDDFEFC /* Products */,
+				6908979C9645EA3EC0B4100E /* Frameworks */,
+				EA6E47DA4A77B2F4E50F7096 /* App */,
+				ABDA97E00BD2A09A9A44C286 /* Shared */,
 			);
-			name = iOS;
 			sourceTree = "<group>";
 		};
-		8FCCF74D4F06903BFC76A75A /* Frameworks */ = {
+		66F8ACC35F3903B7CCDDFEFC /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				844D684F38571A9031F4EE15 /* iOS */,
+				C5C0B3BCBFD34FE8B6E1C27B /* VaultViewer.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6908979C9645EA3EC0B4100E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9E0B3E9B6D4BA9E4C7D54275 /* iOS */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		94EFA20668E0124572BCFFCC /* App */ = {
+		9E0B3E9B6D4BA9E4C7D54275 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				F459FE0D69079334D756C4F0 /* ContentView.swift */,
-				8665E24F518D30573FF088EB /* NoteWebView.swift */,
-				850D42070B2E615AADBA47A3 /* ThemeStore.swift */,
-				7FB974F2092AC71F40902FAE /* VaultStore.swift */,
-				3ABFE6E18B2D30F0573E8A65 /* VaultViewerApp.swift */,
-				C4DF1CDBC6C43368137315F0 /* Assets.xcassets */,
+				A1C86ED02BFCAA9AB2B44892 /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		ABDA97E00BD2A09A9A44C286 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				66531410AD23E438611A9035 /* KaTeX */,
+				64DEF0D410A4C42A839699C4 /* Diagrams */,
+				E5D0E322AABF345B14363CB7 /* BuiltinThemes */,
+				E56DDDFEEC87F45438E7655C /* components */,
+				82FD3292F7CB3A0DA4D2F568 /* prism-autoloader.min.js */,
+			);
+			name = Shared;
+			sourceTree = "<group>";
+		};
+		EA6E47DA4A77B2F4E50F7096 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				62BB23DC07440433BB867205 /* ContentView.swift */,
+				17428DAF5A0FEF09A00CFCB0 /* NoteWebView.swift */,
+				DE7952495102E5C5852783C6 /* PDFScreen.swift */,
+				BF1BEE95E0C10126B4B13CEF /* ThemeStore.swift */,
+				7BC297F4B607100DB03D7534 /* VaultStore.swift */,
+				6C2AE518C1110294F8C5834B /* VaultViewerApp.swift */,
+				E9851930694D0C610CBE1416 /* Assets.xcassets */,
 			);
 			name = App;
 			path = App;
 			sourceTree = "<group>";
 		};
-		A29D15F2206F9AF59709F66B /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				B34271ABCC3DBB96500DB080 /* VaultViewer.app */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		AE5D3947C150C6D8F8ECBFC0 = {
-			isa = PBXGroup;
-			children = (
-				A29D15F2206F9AF59709F66B /* Products */,
-				8FCCF74D4F06903BFC76A75A /* Frameworks */,
-				94EFA20668E0124572BCFFCC /* App */,
-				BE91B43D8EF334ECCCC23C50 /* Shared */,
-			);
-			sourceTree = "<group>";
-		};
-		BE91B43D8EF334ECCCC23C50 /* Shared */ = {
-			isa = PBXGroup;
-			children = (
-				080A9A3E564E89C930B84EF9 /* KaTeX */,
-				FC6D9DA9C977603BD73DAB0C /* Diagrams */,
-				FE3D6975364C3D8EA7A184CF /* BuiltinThemes */,
-				C680D08E918ED76B4983CE1D /* components */,
-				FDD3F12842860E74C9ADD69E /* prism-autoloader.min.js */,
-			);
-			name = Shared;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		A19B3D79804476DC5126DA05 /* VaultViewer */ = {
+		D91EEEE22828601EF5D3EF90 /* VaultViewer */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A2AA0A26096120F3BA5B14DD /* Build configuration list for PBXNativeTarget "VaultViewer" */;
+			buildConfigurationList = BA9E7DBE705FC8A0D0503778 /* Build configuration list for PBXNativeTarget "VaultViewer" */;
 			buildPhases = (
-				C32D4C0FED225CCEA1A3E6A1 /* Sources */,
-				EF5145433EAD46C3F26A34CF /* Frameworks */,
-				2C3B5926B97815F028CCA438 /* Resources */,
+				12C3537360CA5772181C446E /* Sources */,
+				51C79F96D8E1991D9C6B5185 /* Frameworks */,
+				F234A0BF11A82EB30AF1038F /* Resources */,
 			);
 			buildRules = (
 			);
@@ -128,22 +131,22 @@
 			);
 			name = VaultViewer;
 			packageProductDependencies = (
-				B75F4E60F9828ACAA3EED97D /* ViewerCore */,
+				B9392CE6B123AA6A8D41C65C /* ViewerCore */,
 			);
 			productName = VaultViewer;
-			productReference = B34271ABCC3DBB96500DB080 /* VaultViewer.app */;
+			productReference = C5C0B3BCBFD34FE8B6E1C27B /* VaultViewer.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		A54EE5F666D3A8BB5B14E513 /* Project object */ = {
+		19D20E057BFDC4963AE39CE6 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1600;
 				LastUpgradeCheck = 2700;
 			};
-			buildConfigurationList = DA5824B1AC6E87364CEB39C5 /* Build configuration list for PBXProject "VaultViewer" */;
+			buildConfigurationList = 831A2057C29F89317B39174E /* Build configuration list for PBXProject "VaultViewer" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -151,54 +154,55 @@
 				en,
 				Base,
 			);
-			mainGroup = AE5D3947C150C6D8F8ECBFC0;
+			mainGroup = 09BC2BFA04A54CEA0B805FA8;
 			minimizedProjectReferenceProxies = 0;
 			packageReferences = (
-				CC893BF906682782DCA2B340 /* XCLocalSwiftPackageReference "." */,
+				2C43C3B42BEE6B4A79ED7B7B /* XCLocalSwiftPackageReference "." */,
 			);
 			preferredProjectObjectVersion = 77;
-			productRefGroup = A29D15F2206F9AF59709F66B /* Products */;
+			productRefGroup = 66F8ACC35F3903B7CCDDFEFC /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A19B3D79804476DC5126DA05 /* VaultViewer */,
+				D91EEEE22828601EF5D3EF90 /* VaultViewer */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		2C3B5926B97815F028CCA438 /* Resources */ = {
+		F234A0BF11A82EB30AF1038F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				667BC33509E4C6AF454E8344 /* Assets.xcassets in Resources */,
-				D7976067AE112AF114E02592 /* KaTeX in Resources */,
-				02024013A27D0073BE298F3E /* Diagrams in Resources */,
-				73F0F5EC63000BE671509722 /* BuiltinThemes in Resources */,
-				B873EF5D2B79325610AB5798 /* components in Resources */,
-				9B747D522201A98AECA3C4FA /* prism-autoloader.min.js in Resources */,
+				90A84B6F75F24F5B5392ACA3 /* Assets.xcassets in Resources */,
+				C35457ABF415B39C99C7D8CC /* KaTeX in Resources */,
+				D93AD890B0AB8722DC7B17D3 /* Diagrams in Resources */,
+				92A55B71BB5579EA6526612E /* BuiltinThemes in Resources */,
+				2F6AE1AC501F0AC4BAD3C3AA /* components in Resources */,
+				D30693EDAEDC7DDD4FAF5E91 /* prism-autoloader.min.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		C32D4C0FED225CCEA1A3E6A1 /* Sources */ = {
+		12C3537360CA5772181C446E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C73FEBF5315AAF687D100AAF /* ContentView.swift in Sources */,
-				EB6E8F251AFE0A57E4643DD7 /* NoteWebView.swift in Sources */,
-				FDC66AAED833E95C6066E195 /* ThemeStore.swift in Sources */,
-				B9C86A354F80DC4FFCBEEB0C /* VaultStore.swift in Sources */,
-				BB8E51C0AC6488A9F623716D /* VaultViewerApp.swift in Sources */,
+				C8DAC6995479EF136064B1ED /* ContentView.swift in Sources */,
+				82F618FA869E9431A42C033B /* NoteWebView.swift in Sources */,
+				C52AA4065B6EBFC3E40B6F3F /* PDFScreen.swift in Sources */,
+				4D520D3BD828315E8401A9B0 /* ThemeStore.swift in Sources */,
+				FC7B8093E22EE521E5CE7C1D /* VaultStore.swift in Sources */,
+				D21487FA448A4630E3E93E68 /* VaultViewerApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		44457183DD42721159A47B9D /* Debug */ = {
+		082703FC385DDD0271FB539B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -226,10 +230,68 @@
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 2;
+				VALIDATE_PRODUCT = YES;
 			};
-			name = Debug;
+			name = Release;
 		};
-		6B8D7A841F0FD26B95D242AA /* Debug */ = {
+		0F43D98448B9C7C8498F99DD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		168585657988537110558B6B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -293,64 +355,7 @@
 			};
 			name = Debug;
 		};
-		75800E005CBBA13D5DD178B4 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				MTL_FAST_MATH = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				SWIFT_VERSION = 5.0;
-			};
-			name = Release;
-		};
-		86CBD581CB26E6FF2F1041DD /* Release */ = {
+		FFF2AD1953F7F8BE00E0D8D1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -378,27 +383,26 @@
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 2;
-				VALIDATE_PRODUCT = YES;
 			};
-			name = Release;
+			name = Debug;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A2AA0A26096120F3BA5B14DD /* Build configuration list for PBXNativeTarget "VaultViewer" */ = {
+		831A2057C29F89317B39174E /* Build configuration list for PBXProject "VaultViewer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				86CBD581CB26E6FF2F1041DD /* Release */,
-				44457183DD42721159A47B9D /* Debug */,
+				168585657988537110558B6B /* Debug */,
+				0F43D98448B9C7C8498F99DD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		DA5824B1AC6E87364CEB39C5 /* Build configuration list for PBXProject "VaultViewer" */ = {
+		BA9E7DBE705FC8A0D0503778 /* Build configuration list for PBXNativeTarget "VaultViewer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				6B8D7A841F0FD26B95D242AA /* Debug */,
-				75800E005CBBA13D5DD178B4 /* Release */,
+				082703FC385DDD0271FB539B /* Release */,
+				FFF2AD1953F7F8BE00E0D8D1 /* Debug */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -406,18 +410,18 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		CC893BF906682782DCA2B340 /* XCLocalSwiftPackageReference "." */ = {
+		2C43C3B42BEE6B4A79ED7B7B /* XCLocalSwiftPackageReference "." */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = .;
 		};
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		B75F4E60F9828ACAA3EED97D /* ViewerCore */ = {
+		B9392CE6B123AA6A8D41C65C /* ViewerCore */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = ViewerCore;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
-	rootObject = A54EE5F666D3A8BB5B14E513 /* Project object */;
+	rootObject = 19D20E057BFDC4963AE39CE6 /* Project object */;
 }

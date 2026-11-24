@@ -43,12 +43,14 @@ struct SidebarView: View {
                 EmptyVault(chooseFolder: chooseFolder)
             } else if search.trimmingCharacters(in: .whitespaces).isEmpty {
                 List(store.tree, children: \.children, selection: selection) { node in
-                    Label(node.name, systemImage: node.isFolder ? "folder" : "doc.text")
+                    Label(node.name, systemImage: node.kind == .folder ? "folder" : (node.kind == .pdf ? "doc.richtext" : "doc.text"))
                 }
             } else {
                 List(store.search(search), id: \.self, selection: selection) { path in
                     VStack(alignment: .leading, spacing: 2) {
-                        Text(((path as NSString).lastPathComponent as NSString).deletingPathExtension)
+                        Text((path as NSString).pathExtension.lowercased() == "pdf"
+                             ? (path as NSString).lastPathComponent
+                             : ((path as NSString).lastPathComponent as NSString).deletingPathExtension)
                         let folder = (path as NSString).deletingLastPathComponent
                         if !folder.isEmpty { Text(folder).font(.caption).foregroundStyle(.secondary) }
                     }
@@ -68,10 +70,10 @@ struct SidebarView: View {
         }
     }
 
-    /// Selecting a folder row only opens and closes it; only notes open.
+    /// Selecting a folder row only opens and closes it; only notes and PDFs open.
     private var selection: Binding<String?> {
         Binding(get: { store.selectedPath },
-                set: { if let path = $0, store.isNote(path) { store.open(path) } })
+                set: { if let path = $0, store.isOpenable(path) { store.open(path) } })
     }
 }
 
@@ -101,7 +103,9 @@ struct NoteScreen: View {
         let theme = themes.current
         ZStack {
             Color(hex: theme?.backgroundHex(systemDark: systemDark) ?? "#ffffff").ignoresSafeArea()
-            if let note = store.note, let path = store.selectedPath {
+            if let item = store.pdf {
+                PDFScreen(item: item)
+            } else if let note = store.note, let path = store.selectedPath {
                 NoteWebView(
                     html: ViewerPage.html(note: note, title: store.noteTitle,
                                           themeCSS: theme?.css(systemDark: systemDark) ?? "",
@@ -124,13 +128,15 @@ struct NoteScreen: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItemGroup(placement: .topBarTrailing) {
-                Button { themes.adjustScale(by: -0.1) } label: { Image(systemName: "textformat.size.smaller") }
-                Button { themes.adjustScale(by: 0.1) } label: { Image(systemName: "textformat.size.larger") }
-                Menu {
-                    Picker("Theme", selection: Binding(get: { themes.themeName }, set: { themes.themeName = $0 })) {
-                        ForEach(themes.themes) { Text($0.name).tag($0.name) }
-                    }
-                } label: { Image(systemName: "paintpalette") }
+                if store.pdf == nil {
+                    Button { themes.adjustScale(by: -0.1) } label: { Image(systemName: "textformat.size.smaller") }
+                    Button { themes.adjustScale(by: 0.1) } label: { Image(systemName: "textformat.size.larger") }
+                    Menu {
+                        Picker("Theme", selection: Binding(get: { themes.themeName }, set: { themes.themeName = $0 })) {
+                            ForEach(themes.themes) { Text($0.name).tag($0.name) }
+                        }
+                    } label: { Image(systemName: "paintpalette") }
+                }
             }
         }
     }
