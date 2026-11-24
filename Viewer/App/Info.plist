@@ -8,7 +8,7 @@
 	<array>
 		<dict>
 			<key>CFBundleURLName</key>
-			<string>Vault Viewer</string>
+			<string>MacDown</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>vaultviewer</string>

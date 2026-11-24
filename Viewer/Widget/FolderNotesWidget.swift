@@ -41,7 +41,7 @@ struct FolderNotesView: View {
 
     var body: some View {
         switch entry.state {
-        case .noVault: message("Open Vault Viewer once to set up this widget.")
+        case .noVault: message("Open MacDown once to set up this widget.")
         case .missing: message("This folder was not found. Choose another one.")
         case let .ready(title, sections):
             if sections.isEmpty {

@@ -1,4 +1,4 @@
-# Vault Viewer (iPhone and iPad)
+# MacDown (iPhone and iPad)
 
 A read-only viewer for an Obsidian vault in iCloud Drive. No editing. Sidebar with the notes,
 LaTeX (KaTeX), Mermaid diagrams, code highlighting, PDFs, home screen widgets, custom fonts and 19 reading themes.
@@ -9,10 +9,16 @@ note opens on top of it. Not meant for distribution.
 
 ## Install on your iPhone or iPad
 
-The app is one file: `build/ipad/VaultViewer.ipa` (create it with `Tools/ipad/build-ipa.sh`).
+The app is one file: `build/ipad/MacDown.ipa` (create it with `Tools/ipad/build-ipa.sh`).
 An iPad only runs apps that are signed for it, and signing needs *your* Apple ID, so pick one:
 
-**A. Xcode (most reliable)**
+**0. One command (recommended once Xcode has your Apple ID)**
+`Tools/ipad/install.sh` builds the app signed with your team and installs it on the connected iPhone or iPad
+(`Tools/ipad/install.sh "<device name>"` to choose). It uses `devicectl`, so it works even when Xcode's Run is stuck.
+First launch: Settings > General > VPN & Device Management > trust your Apple ID. With a free Apple ID the app stops
+opening after 7 days; run the script again to renew.
+
+**A. Xcode**
 1. Connect the iPad, turn on Developer Mode (Settings > Privacy & Security).
 2. `open Viewer/VaultViewer.xcodeproj`, select the *VaultViewer* target > Signing & Capabilities,
    choose your Team (a free Apple ID works), and change the Bundle Identifier to something unique.
@@ -21,11 +27,19 @@ An iPad only runs apps that are signed for it, and signing needs *your* Apple ID
 
 **B. Sideloadly or AltStore with the `.ipa`** (no Xcode project needed)
 1. Run `Tools/ipad/build-ipa.sh` (unsigned `.ipa`).
-2. Drag `build/ipad/VaultViewer.ipa` into Sideloadly (or AltStore), sign in with your Apple ID, install.
+2. Drag `build/ipad/MacDown.ipa` into Sideloadly (or AltStore), sign in with your Apple ID, install.
 
 **C. Signed `.ipa` from the command line** (needs your Team ID and the iPad registered to your account)
 `DEVELOPMENT_TEAM=ABCDE12345 BUNDLE_ID=com.you.vaultviewer Tools/ipad/build-ipa.sh`, then
 `xcrun devicectl device install app --device <iPad name or id> build/ipad/VaultViewer.ipa`.
+
+### "Build Succeeded" but the app is not on the device
+Xcode's Run first prepares the device: for a new iOS version it copies the system symbols ("Copying OS library
+symbols from ..." in Window > Devices and Simulators), which can take a long time. Until that finishes, Xcode builds the
+app but never installs it. Either wait with the device unlocked and connected, or use `Tools/ipad/install.sh`.
+Also check that the destination at the top of Xcode is your device, not "Any iOS Device" (that only builds), and that
+Developer Mode is on. Regenerating the project (`ruby Tools/ipad/make_project.rb`) clears the team you chose in Xcode;
+select it again under Signing & Capabilities, or use the install script, which passes the team itself.
 
 ## First start
 Tap *Choose Folder…* and pick your vault folder (Files > iCloud Drive > Obsidian > your vault). The app

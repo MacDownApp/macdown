@@ -15,7 +15,8 @@ FileUtils.rm_rf(PROJECT_PATH)
 project = Xcodeproj::Project.new(PROJECT_PATH)
 project.root_object.attributes['LastUpgradeCheck'] = '2700'
 target = project.new_target(:application, 'VaultViewer', :ios, '16.0')
-target.product_reference.name = 'VaultViewer.app'
+target.product_reference.name = 'MacDown.app'
+target.product_reference.path = 'MacDown.app'
 
 # Sources
 app_group = project.main_group.new_group('App', 'App', :group)
@@ -88,7 +89,7 @@ widget.frameworks_build_phase.files << widget_build_file
 end
 target.build_configurations.each do |config|
   s = config.build_settings
-  s['PRODUCT_NAME'] = 'VaultViewer'
+  s['PRODUCT_NAME'] = 'MacDown'
   s['PRODUCT_BUNDLE_IDENTIFIER'] = BUNDLE_ID
   s['TARGETED_DEVICE_FAMILY'] = '1,2'               # iPhone and iPad
   s['SUPPORTS_MACCATALYST'] = 'NO'
@@ -100,7 +101,7 @@ target.build_configurations.each do |config|
   s['CODE_SIGN_STYLE'] = 'Automatic'
   s['DEVELOPMENT_TEAM'] = TEAM
   s['LD_RUNPATH_SEARCH_PATHS'] = '$(inherited) @executable_path/Frameworks'
-  s['INFOPLIST_KEY_CFBundleDisplayName'] = 'Vault Viewer'
+  s['INFOPLIST_KEY_CFBundleDisplayName'] = 'MacDown'
   s['INFOPLIST_KEY_UIApplicationSceneManifest_Generation'] = 'YES'
   s['INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents'] = 'YES'
   s['INFOPLIST_KEY_UILaunchScreen_Generation'] = 'YES'
@@ -123,7 +124,7 @@ widget.build_configurations.each do |config|
   s['TARGETED_DEVICE_FAMILY'] = '1,2'
   s['GENERATE_INFOPLIST_FILE'] = 'YES'
   s['INFOPLIST_FILE'] = 'Widget/Info.plist'
-  s['INFOPLIST_KEY_CFBundleDisplayName'] = 'Vault Viewer Widgets'
+  s['INFOPLIST_KEY_CFBundleDisplayName'] = 'MacDown Widgets'
   s['CODE_SIGN_ENTITLEMENTS'] = 'Widget/Widget.entitlements'
   s['CODE_SIGN_STYLE'] = 'Automatic'
   s['DEVELOPMENT_TEAM'] = TEAM

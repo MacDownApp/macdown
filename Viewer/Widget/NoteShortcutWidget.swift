@@ -40,7 +40,7 @@ struct NoteShortcutView: View {
     var body: some View {
         switch entry.state {
         case .noVault:
-            message("Open Vault Viewer once to set up this widget.")
+            message("Open MacDown once to set up this widget.")
         case .missing:
             message("This note was not found. Choose another one.")
         case let .ready(note, vault):
