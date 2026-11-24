@@ -1,0 +1,26 @@
+name: Catppuccin Macchiato
+appearance: dark
+editor:
+  background: "#24273a"
+  text: "#cad3f5"
+  caret: "#f4dbd6"
+  selection: "#363a4f"
+  line-highlight: "#1e2030"
+tokens:
+  heading: { color: "#8aadf4", bold: true }
+  emphasis: { color: "#cad3f5", italic: true }
+  strong: { color: "#cad3f5", bold: true }
+  link: { color: "#b7bdf8" }
+  code: { color: "#a6da95" }
+  quote: { color: "#6e738d", italic: true }
+  list: { color: "#f5a97f" }
+  keyword: { color: "#c6a0f6" }
+  string: { color: "#a6da95" }
+  number: { color: "#f5a97f" }
+  comment: { color: "#6e738d", italic: true }
+  function: { color: "#8aadf4" }
+  type: { color: "#eed49f" }
+preview:
+  background: "#24273a"
+  text: "#cad3f5"
+  content-width: 760

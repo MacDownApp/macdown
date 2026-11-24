@@ -1,0 +1,26 @@
+name: Full White
+appearance: light
+editor:
+  background: "#ffffff"
+  text: "#000000"
+  caret: "#000000"
+  selection: "#cfe3ff"
+  line-highlight: "#f2f2f2"
+tokens:
+  heading: { color: "#000000", bold: true }
+  emphasis: { color: "#000000", italic: true }
+  strong: { color: "#000000", bold: true }
+  link: { color: "#0033cc" }
+  code: { color: "#006600" }
+  quote: { color: "#555555", italic: true }
+  list: { color: "#333333" }
+  keyword: { color: "#b00020" }
+  string: { color: "#0b5d00" }
+  number: { color: "#8a4600" }
+  comment: { color: "#6a6a6a", italic: true }
+  function: { color: "#5b21b6" }
+  type: { color: "#8a4600" }
+preview:
+  background: "#ffffff"
+  text: "#000000"
+  content-width: 760

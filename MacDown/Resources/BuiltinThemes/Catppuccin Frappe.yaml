@@ -1,0 +1,26 @@
+name: Catppuccin Frappe
+appearance: dark
+editor:
+  background: "#303446"
+  text: "#c6d0f5"
+  caret: "#f2d5cf"
+  selection: "#414559"
+  line-highlight: "#292c3c"
+tokens:
+  heading: { color: "#8caaee", bold: true }
+  emphasis: { color: "#c6d0f5", italic: true }
+  strong: { color: "#c6d0f5", bold: true }
+  link: { color: "#babbf1" }
+  code: { color: "#a6d189" }
+  quote: { color: "#737994", italic: true }
+  list: { color: "#ef9f76" }
+  keyword: { color: "#ca9ee6" }
+  string: { color: "#a6d189" }
+  number: { color: "#ef9f76" }
+  comment: { color: "#737994", italic: true }
+  function: { color: "#8caaee" }
+  type: { color: "#e5c890" }
+preview:
+  background: "#303446"
+  text: "#c6d0f5"
+  content-width: 760

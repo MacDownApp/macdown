@@ -190,3 +190,11 @@ MacDown/Resources/Prism/*
 # Generated build outputs
 MacDown/Resources/Styles/GitHub-2020.css
 Dependency/*/[0-9]*-[0-9A-Z]*/
+
+# iPad viewer
+Viewer/.build/
+Viewer/*.xcodeproj/xcuserdata/
+Viewer/build/
+
+# Licensed fonts: never commit (see Tools/fonts/import-local-fonts.sh)
+MacDown/Resources/Fonts/Cartograph*

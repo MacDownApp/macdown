@@ -32,12 +32,20 @@ struct AppConfig: Equatable {
         var vegaLiteRemoteData = false
     }
 
+    struct Fonts: Equatable {
+        /// Reading font: a name from the font list ("Georgia", "JetBrains Mono Nerd Font") or any installed family.
+        var body: String?
+        /// Code font, the same way ("Cartograph CF Nerd Font").
+        var code: String?
+    }
+
     var interface = Interface.classic
     var theme: String?
     var editor = Editor()
     var git = Git()
     var lint = Lint()
     var charts = Charts()
+    var fonts = Fonts()
 
     static let `default` = AppConfig()
 }
@@ -100,6 +108,16 @@ extension AppConfig {
                     throw ConfigError.invalidValue(key: "lint.rules", expected: "a list of rule names")
                 }
                 config.lint.rules = list
+            }
+        }
+        if let section = try mapping(dict["fonts"], key: "fonts") {
+            for (key, assign) in [("body", { (v: String?) in config.fonts.body = v }), ("code", { (v: String?) in config.fonts.code = v })] {
+                if let value = section[key] {
+                    guard let text = value as? String else {
+                        throw ConfigError.invalidValue(key: "fonts.\(key)", expected: "a font name")
+                    }
+                    assign(text.trimmingCharacters(in: .whitespaces))
+                }
             }
         }
         if let section = try mapping(dict["charts"], key: "charts") {

@@ -25,10 +25,19 @@ final class ThemeService: NSObject {
     private var watcher: DirectoryWatcher?
     private var lastResult: (key: String, url: URL)?
 
+    /// Font files in the app and where the preview can load them (tests give their own).
+    private let fontFiles: [String]
+    private let fontBaseURL: String
+
     init(configDirectory: URL = ConfigDirectory.url,
          cacheDirectory: URL? = nil,
-         manager: ThemeManager? = nil) {
+         manager: ThemeManager? = nil,
+         fontFiles: [String]? = nil,
+         fontBaseURL: String? = nil) {
         self.configDirectory = configDirectory
+        let fontsFolder = Bundle.main.resourceURL?.appendingPathComponent("Fonts")
+        self.fontFiles = fontFiles ?? fontsFolder.flatMap { try? FileManager.default.contentsOfDirectory(atPath: $0.path) } ?? []
+        self.fontBaseURL = fontBaseURL ?? fontsFolder.map { PreviewURL.previewURL(for: $0).absoluteString + "/" } ?? ""
         let caches = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
         self.cacheDirectory = cacheDirectory
             ?? caches.appendingPathComponent(Bundle.main.bundleIdentifier ?? "MacDown").appendingPathComponent("Themes")
@@ -45,13 +54,17 @@ final class ThemeService: NSObject {
     func previewStylesheetURL(isDark: Bool) -> URL? {
         lock.lock(); defer { lock.unlock() }
         loadIfNeeded()
-        guard let theme = theme else { return nil }
-        let key = "\(theme.name)|\(isDark)"
+        // The theme and the fonts both come from config.yaml. Either, both or neither may be set.
+        let themeCSS = theme.map { ThemeCSS.css(for: $0.variant(isDark: isDark), isDark: isDark) } ?? ""
+        let fontCSS = FontCSS.css(settings: FontCSS.settings(bodyName: config.fonts.body, codeName: config.fonts.code, files: fontFiles),
+                                  files: fontFiles, baseURL: fontBaseURL)
+        guard !themeCSS.isEmpty || !fontCSS.isEmpty else { return nil }
+        let css = themeCSS + fontCSS
+        let key = "\(theme?.name ?? "")|\(isDark)|\(css.count)|\(css.hashValue)"
         if let last = lastResult, last.key == key { return last.url }
 
-        let css = ThemeCSS.css(for: theme.variant(isDark: isDark), isDark: isDark)
         let hash = String(format: "%08x", abs(css.hashValue) & 0xFFFF_FFFF)
-        let safeName = theme.name.map { $0.isLetter || $0.isNumber ? String($0) : "-" }.joined()
+        let safeName = (theme?.name ?? "Fonts").map { $0.isLetter || $0.isNumber ? String($0) : "-" }.joined()
         let url = cacheDirectory.appendingPathComponent("\(safeName)-\(isDark ? "dark" : "light")-\(hash).css")
         do {
             try FileManager.default.createDirectory(at: cacheDirectory, withIntermediateDirectories: true)

@@ -1,0 +1,26 @@
+name: E-Paper
+appearance: light
+editor:
+  background: "#e9e6dd"
+  text: "#1c1c1c"
+  caret: "#000000"
+  selection: "#cfcbbf"
+  line-highlight: "#e0ddd3"
+tokens:
+  heading: { color: "#000000", bold: true }
+  emphasis: { color: "#1c1c1c", italic: true }
+  strong: { color: "#1c1c1c", bold: true }
+  link: { color: "#000000", bold: true }
+  code: { color: "#2b2b2b" }
+  quote: { color: "#555555", italic: true }
+  list: { color: "#1c1c1c" }
+  keyword: { color: "#000000", bold: true }
+  string: { color: "#3a3a3a" }
+  number: { color: "#1c1c1c" }
+  comment: { color: "#6b6b6b", italic: true }
+  function: { color: "#000000", bold: true }
+  type: { color: "#1c1c1c" }
+preview:
+  background: "#e9e6dd"
+  text: "#1c1c1c"
+  content-width: 760

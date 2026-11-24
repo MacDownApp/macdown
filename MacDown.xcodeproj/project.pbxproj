@@ -14,6 +14,7 @@
 		06B186E97D02DA48F0CEB05C /* DiagramPreviewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D57FA46167F7FBB27FB11D1 /* DiagramPreviewTests.swift */; };
 		09F169789CFA68A3F1BCA978 /* DocumentPreviewIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3592786ED8C977E92667A47 /* DocumentPreviewIntegrationTests.swift */; };
 		0A04B0E0F11C548BAA171927 /* MPPreferences+Markdown.m in Sources */ = {isa = PBXBuildFile; fileRef = B570A3FC3D7E832EF94EF478 /* MPPreferences+Markdown.m */; };
+		11CB99F291CB4172DE8288F3 /* FontCatalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15010662DDBD44A5F268911C /* FontCatalog.swift */; };
 		1272BE6FE80782875D42EDFF /* cmark-gfm-extensions in Frameworks */ = {isa = PBXBuildFile; productRef = CAC9650200602AD609CE3462 /* cmark-gfm-extensions */; };
 		14B1ABA252C424626AC1A88D /* DocumentOutline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0089EC6F7B95EE24F102C56D /* DocumentOutline.swift */; };
 		1511FFFC90D7BB2FC513E695 /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154050C692599A904857769F /* AppConfig.swift */; };
@@ -122,6 +123,7 @@
 		9EFA13AFAC4895752988C84F /* GitRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD21CB2FA2B8332A978F2F3E /* GitRunner.swift */; };
 		A529EC33EE288F965EC215FF /* ThemeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CAD965730C76B07C1D67CD1 /* ThemeTests.swift */; };
 		A72828850A2F2CE58C7FD312 /* RendererThemeIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38033273DA961F870F5CFA96 /* RendererThemeIntegrationTests.swift */; };
+		A879CCD40F81872059237B42 /* FontConfigTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28FC959B4639D3B2BD54413 /* FontConfigTests.swift */; };
 		AC2A677108794A44FEC75581 /* Snapshots in Resources */ = {isa = PBXBuildFile; fileRef = A21731D80F883C955BE96B61 /* Snapshots */; };
 		ACCDEB9E150623DA8BFCF4AC /* MarkdownPerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343137F5EB3D0BC8A6019D7E /* MarkdownPerformanceTests.swift */; };
 		AFF7CD859FD7BB05D4CEC8C8 /* GitModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = F586EC703D31B54F45CD8E15 /* GitModels.swift */; };
@@ -135,6 +137,7 @@
 		D465E6978E07BFF9EC260338 /* DirectoryWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E168F75B211C6F1FD26E69 /* DirectoryWatcher.swift */; };
 		D6F2416B8ABAF76120303FAF /* PreviewSchemeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB77FB58647EE9FC9C4163B /* PreviewSchemeHandler.swift */; };
 		EBFE3157737058F5A63699C8 /* libPods-MacDownTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C949FDE45493AE77DAD9BF4 /* libPods-MacDownTests.a */; };
+		ED6E9BC8EF676B0253A1AC9E /* Fonts in Resources */ = {isa = PBXBuildFile; fileRef = E991F3DACF34FC08A20DE562 /* Fonts */; };
 		EDDC572136E307B0216CEFDD /* MathPreviewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F94F6A2763E7688ED58DCC0B /* MathPreviewTests.swift */; };
 		F1B6DB85C5E64F83AA0F1E0A /* PrismLanguages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C338E2565DF5E5451027C3E /* PrismLanguages.swift */; };
 		FA10DA3BCCA684E1C4FBCCF6 /* MPMarkdownEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = EFB765E471A177E0A751EFA7 /* MPMarkdownEngine.m */; };
@@ -200,6 +203,7 @@
 		0089EC6F7B95EE24F102C56D /* DocumentOutline.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DocumentOutline.swift; sourceTree = "<group>"; };
 		07965DDA28C6E093CFAB6EF2 /* Theme.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		0D0EC0DE9FEA22F962083921 /* Pods-MacDownTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacDownTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MacDownTests/Pods-MacDownTests.release.xcconfig"; sourceTree = "<group>"; };
+		15010662DDBD44A5F268911C /* FontCatalog.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FontCatalog.swift; sourceTree = "<group>"; };
 		154050C692599A904857769F /* AppConfig.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
 		1A198D1BA59D710201DD3BC8 /* Pods-MacDown.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacDown.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MacDown/Pods-MacDown.debug.xcconfig"; sourceTree = "<group>"; };
 		1D57FA46167F7FBB27FB11D1 /* DiagramPreviewTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DiagramPreviewTests.swift; sourceTree = "<group>"; };
@@ -585,6 +589,7 @@
 		D01897957297417C3214F59C /* MarkdownExtensionMasker.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MarkdownExtensionMasker.swift; sourceTree = "<group>"; };
 		D12E31E08EB0017E026177A9 /* Diagrams */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = Diagrams; path = MacDown/Resources/Diagrams; sourceTree = "<group>"; };
 		D28BFF5163D678567C212B2D /* WorkspaceTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WorkspaceTests.swift; sourceTree = "<group>"; };
+		D28FC959B4639D3B2BD54413 /* FontConfigTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FontConfigTests.swift; sourceTree = "<group>"; };
 		E6A0E6030B9B5EC33E3F4051 /* LinterTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LinterTests.swift; sourceTree = "<group>"; };
 		E70ECDD4241C933C00537A46 /* ru-RU */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ru-RU"; path = "Localization/ru-RU.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		E70ECDD5241C933C00537A46 /* ru-RU */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ru-RU"; path = "Localization/ru-RU.lproj/MainMenu.strings"; sourceTree = "<group>"; };
@@ -611,6 +616,7 @@
 		E77E5D72241C935100699B5A /* da-DK */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "da-DK"; path = "Localization/da-DK.lproj/MPDocument.strings"; sourceTree = "<group>"; };
 		E7D458CB241C933800411A36 /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = Localization/fi.lproj/MainMenu.strings; sourceTree = "<group>"; };
 		E7DD09F1241C9368008FBC25 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = Localization/da.lproj/MainMenu.strings; sourceTree = "<group>"; };
+		E991F3DACF34FC08A20DE562 /* Fonts */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = Fonts; path = MacDown/Resources/Fonts; sourceTree = "<group>"; };
 		EAB346773DDBC1AC069870A3 /* CMarkEngineTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CMarkEngineTests.swift; sourceTree = "<group>"; };
 		ED31241AC52F158150E337EC /* ConfigDirectory.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ConfigDirectory.swift; sourceTree = "<group>"; };
 		EFB765E471A177E0A751EFA7 /* MPMarkdownEngine.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MPMarkdownEngine.m; sourceTree = "<group>"; };
@@ -878,6 +884,7 @@
 				87DAF39DE605C5324F78926A /* MacDownTests-Bridging-Header.h */,
 				AF444E5BC750D5724DEAFA71 /* KaTeX */,
 				D12E31E08EB0017E026177A9 /* Diagrams */,
+				E991F3DACF34FC08A20DE562 /* Fonts */,
 			);
 			sourceTree = "<group>";
 			usesTabs = 0;
@@ -1035,6 +1042,7 @@
 				B3592786ED8C977E92667A47 /* DocumentPreviewIntegrationTests.swift */,
 				F94F6A2763E7688ED58DCC0B /* MathPreviewTests.swift */,
 				1D57FA46167F7FBB27FB11D1 /* DiagramPreviewTests.swift */,
+				D28FC959B4639D3B2BD54413 /* FontConfigTests.swift */,
 			);
 			name = SwiftTests;
 			path = MacDownTests/Swift;
@@ -1110,6 +1118,7 @@
 				2E96175BA12C141E294AD762 /* ThemeManager.swift */,
 				F8A041DC3E6E235CC76C7E0D /* ThemeCSS.swift */,
 				004A7562E0D426BFC414F9BB /* ThemeService.swift */,
+				15010662DDBD44A5F268911C /* FontCatalog.swift */,
 			);
 			name = Theme;
 			path = Theme;
@@ -1305,6 +1314,7 @@
 				62548E77654F949D5AB73C85 /* BuiltinThemes in Resources */,
 				3E008F34441BC95D14925958 /* KaTeX in Resources */,
 				CA17C5EBA695E065AAC07AEF /* Diagrams in Resources */,
+				ED6E9BC8EF676B0253A1AC9E /* Fonts in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1527,6 +1537,7 @@
 				D6F2416B8ABAF76120303FAF /* PreviewSchemeHandler.swift in Sources */,
 				C3FAEB61C1CCD0D790985430 /* PreviewSupport.swift in Sources */,
 				BD76F50B9C468A4914BCF6C7 /* PreviewURL.swift in Sources */,
+				11CB99F291CB4172DE8288F3 /* FontCatalog.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1555,6 +1566,7 @@
 				09F169789CFA68A3F1BCA978 /* DocumentPreviewIntegrationTests.swift in Sources */,
 				EDDC572136E307B0216CEFDD /* MathPreviewTests.swift in Sources */,
 				06B186E97D02DA48F0CEB05C /* DiagramPreviewTests.swift in Sources */,
+				A879CCD40F81872059237B42 /* FontConfigTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

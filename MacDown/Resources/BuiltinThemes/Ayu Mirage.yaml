@@ -1,0 +1,26 @@
+name: Ayu Mirage
+appearance: dark
+editor:
+  background: "#1f2430"
+  text: "#cccac2"
+  caret: "#ffcc66"
+  selection: "#33415e"
+  line-highlight: "#242936"
+tokens:
+  heading: { color: "#73d0ff", bold: true }
+  emphasis: { color: "#cccac2", italic: true }
+  strong: { color: "#cccac2", bold: true }
+  link: { color: "#73d0ff" }
+  code: { color: "#d5ff80" }
+  quote: { color: "#707a8c", italic: true }
+  list: { color: "#ffcc66" }
+  keyword: { color: "#ffa759" }
+  string: { color: "#d5ff80" }
+  number: { color: "#dfbfff" }
+  comment: { color: "#707a8c", italic: true }
+  function: { color: "#ffd173" }
+  type: { color: "#5ccfe6" }
+preview:
+  background: "#1f2430"
+  text: "#cccac2"
+  content-width: 760
