@@ -109,9 +109,9 @@ void hoedown_patch_render_listitem(
                 HOEDOWN_BUFPUTSL(ob, "<li class=\"task-list-item\">");
                 hoedown_buffer_put(ob, text->data, offset);
                 if (USE_XHTML(state))
-                    HOEDOWN_BUFPUTSL(ob, "<input type=\"checkbox\" />");
+                    HOEDOWN_BUFPUTSL(ob, "<input type=\"checkbox\" disabled />");
                 else
-                    HOEDOWN_BUFPUTSL(ob, "<input type=\"checkbox\">");
+                    HOEDOWN_BUFPUTSL(ob, "<input type=\"checkbox\" disabled>");
 				offset += 3;
             }
             else if (strncmp((char *)(text->data + offset), "[x]", 3) == 0)
@@ -119,9 +119,9 @@ void hoedown_patch_render_listitem(
                 HOEDOWN_BUFPUTSL(ob, "<li class=\"task-list-item\">");
                 hoedown_buffer_put(ob, text->data, offset);
                 if (USE_XHTML(state))
-                    HOEDOWN_BUFPUTSL(ob, "<input type=\"checkbox\" checked />");
+                    HOEDOWN_BUFPUTSL(ob, "<input type=\"checkbox\" checked disabled />");
                 else
-                    HOEDOWN_BUFPUTSL(ob, "<input type=\"checkbox\" checked>");
+                    HOEDOWN_BUFPUTSL(ob, "<input type=\"checkbox\" checked disabled>");
 				offset += 3;
             }
             else

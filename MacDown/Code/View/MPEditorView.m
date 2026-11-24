@@ -39,6 +39,30 @@ NS_INLINE BOOL MPAreRectsEqual(NSRect r1, NSRect r2)
     }
 }
 
+#pragma mark - Text substitutions
+
+// The Edit > Substitutions menu toggles these through their setters. Ignoring
+// the requested value keeps the editor plain-text even if they are turned on.
+- (void)setAutomaticQuoteSubstitutionEnabled:(BOOL)flag
+{
+    [super setAutomaticQuoteSubstitutionEnabled:NO];
+}
+
+- (void)setAutomaticDashSubstitutionEnabled:(BOOL)flag
+{
+    [super setAutomaticDashSubstitutionEnabled:NO];
+}
+
+- (void)setAutomaticTextReplacementEnabled:(BOOL)flag
+{
+    [super setAutomaticTextReplacementEnabled:NO];
+}
+
+- (void)setAutomaticDataDetectionEnabled:(BOOL)flag
+{
+    [super setAutomaticDataDetectionEnabled:NO];
+}
+
 - (void)awakeFromNib {
     [self registerForDraggedTypes:[NSArray arrayWithObjects: NSDragPboard, nil]];
     [super awakeFromNib];

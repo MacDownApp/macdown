@@ -32,6 +32,7 @@ extern NSString * const MPDidDetectFreshInstallationNotification;
 @property (assign) BOOL extensionFootnotes;
 @property (assign) BOOL extensionQuote;
 @property (assign) BOOL extensionSmartyPants;
+@property (assign) BOOL extensionEmoji;
 
 @property (assign) BOOL markdownManualRender;
 

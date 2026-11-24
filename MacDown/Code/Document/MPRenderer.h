@@ -50,6 +50,7 @@ typedef NS_ENUM(NSUInteger, MPCodeBlockAccessoryType)
 
 - (int)rendererExtensions:(MPRenderer *)renderer;
 - (BOOL)rendererHasSmartyPants:(MPRenderer *)renderer;
+- (BOOL)rendererHasEmoji:(MPRenderer *)renderer;
 - (BOOL)rendererRendersTOC:(MPRenderer *)renderer;
 - (NSString *)rendererStyleName:(MPRenderer *)renderer;
 - (BOOL)rendererDetectsFrontMatter:(MPRenderer *)renderer;
