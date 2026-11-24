@@ -144,7 +144,7 @@ final class PageAndHandlerTests: XCTestCase {
     func testHandlerPathMappingRefusesEscapes() {
         let app = URL(fileURLWithPath: "/app/Resources"), vault = URL(fileURLWithPath: "/vault")
         func map(_ s: String, vault v: URL? = URL(fileURLWithPath: "/vault")) -> String? {
-            ViewerSchemeHandler.fileURL(for: URL(string: s)!, appRoot: app, vaultRoot: v)?.path
+            VaultFiles.fileURL(for: URL(string: s)!, appRoot: app, vaultRoot: v)?.path
         }
         XCTAssertEqual(map("md://app/KaTeX/katex-init.js"), "/app/Resources/KaTeX/katex-init.js")
         XCTAssertEqual(map("md://vault/img/a%20b.png"), "/vault/img/a b.png")
@@ -164,10 +164,38 @@ final class PageAndHandlerTests: XCTestCase {
         defer { try? FileManager.default.removeItem(at: dir) }
         try "hello".write(to: dir.appendingPathComponent("a.txt"), atomically: true, encoding: .utf8)
         for coordinated in [false, true] {
-            XCTAssertEqual(ViewerSchemeHandler.read(dir.appendingPathComponent("a.txt"), coordinated: coordinated).map { String(decoding: $0, as: UTF8.self) }, "hello")
-            XCTAssertNil(ViewerSchemeHandler.read(dir, coordinated: coordinated))
-            XCTAssertNil(ViewerSchemeHandler.read(dir.appendingPathComponent("missing"), coordinated: coordinated))
+            XCTAssertEqual(VaultFiles.read(dir.appendingPathComponent("a.txt"), coordinated: coordinated).map { String(decoding: $0, as: UTF8.self) }, "hello")
+            XCTAssertNil(VaultFiles.read(dir, coordinated: coordinated))
+            XCTAssertNil(VaultFiles.read(dir.appendingPathComponent("missing"), coordinated: coordinated))
         }
+    }
+
+    func testICloudPlaceholderWaitsForTheDownloadAndGivesUpWhenItNeverComes() throws {
+        let dir = FileManager.default.temporaryDirectory.appendingPathComponent("icloud-\(UUID().uuidString)")
+        try FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
+        defer { try? FileManager.default.removeItem(at: dir) }
+        let saved = VaultFiles.downloadTimeout
+        defer { VaultFiles.downloadTimeout = saved }
+        VaultFiles.downloadTimeout = 0.5
+
+        // Only the placeholder exists and nothing downloads it: give up after the timeout.
+        try Data().write(to: dir.appendingPathComponent(".Later.md.icloud"))
+        let start = Date()
+        XCTAssertNil(VaultFiles.readText(dir.appendingPathComponent("Later.md")))
+        XCTAssertGreaterThanOrEqual(Date().timeIntervalSince(start), 0.4)
+        XCTAssertLessThan(Date().timeIntervalSince(start), 3)
+
+        // The download finishes while we wait: the note is read.
+        VaultFiles.downloadTimeout = 5
+        DispatchQueue.global().asyncAfter(deadline: .now() + 0.3) {
+            try? "arrived".write(to: dir.appendingPathComponent("Later.md"), atomically: true, encoding: .utf8)
+        }
+        XCTAssertEqual(VaultFiles.readText(dir.appendingPathComponent("Later.md")), "arrived")
+
+        // A normal missing file does not wait at all.
+        let quick = Date()
+        XCTAssertNil(VaultFiles.readText(dir.appendingPathComponent("Nothing.md")))
+        XCTAssertLessThan(Date().timeIntervalSince(quick), 1)
     }
 
     func testThemesLoadFromTheRepositoryFolder() throws {

@@ -1,0 +1,155 @@
+import SwiftUI
+import ViewerCore
+
+/// Holds the open vault: the folder (kept by a security-scoped bookmark), its index, and the
+/// note that is open. Everything slow (scanning, reading, rendering) runs off the main thread.
+@MainActor
+final class VaultStore: ObservableObject {
+    @Published private(set) var vaultName: String?
+    @Published private(set) var tree: [VaultNode] = []
+    @Published private(set) var selectedPath: String?
+    @Published private(set) var note: RenderedNote?
+    @Published private(set) var noteTitle = ""
+    /// Heading to scroll to after the note loads.
+    @Published private(set) var scrollTarget: String?
+    @Published private(set) var isLoading = false
+    @Published private(set) var message: String?
+
+    /// Shared with the web view's file handler, which asks for the folder on every request.
+    let rootBox = RootBox()
+    private(set) var index: VaultIndex?
+
+    private let bookmarkKey = "vaultBookmark"
+    private let lastNoteKey = "lastNote"
+    private var accessedURL: URL?
+    private var openToken = 0
+
+    final class RootBox { var url: URL? }
+
+    init() { restore() }
+
+    // MARK: Choosing and restoring the vault
+
+    func chooseVault(_ url: URL) {
+        stopAccess()
+        guard url.startAccessingSecurityScopedResource() else {
+            message = "The folder could not be opened. Choose it again."
+            return
+        }
+        accessedURL = url
+        if let data = try? url.bookmarkData(options: [], includingResourceValuesForKeys: nil, relativeTo: nil) {
+            UserDefaults.standard.set(data, forKey: bookmarkKey)
+        }
+        UserDefaults.standard.removeObject(forKey: lastNoteKey)
+        selectedPath = nil
+        note = nil
+        message = nil
+        load(url: url, reopenLast: false)
+    }
+
+    private func restore() {
+        guard let data = UserDefaults.standard.data(forKey: bookmarkKey) else { return }
+        var stale = false
+        guard let url = try? URL(resolvingBookmarkData: data, options: [], relativeTo: nil, bookmarkDataIsStale: &stale),
+              url.startAccessingSecurityScopedResource() else {
+            message = "The vault folder is not available any more. Choose it again."
+            return
+        }
+        accessedURL = url
+        if stale, let fresh = try? url.bookmarkData(options: [], includingResourceValuesForKeys: nil, relativeTo: nil) {
+            UserDefaults.standard.set(fresh, forKey: bookmarkKey)
+        }
+        load(url: url, reopenLast: true)
+    }
+
+    private func stopAccess() {
+        accessedURL?.stopAccessingSecurityScopedResource()
+        accessedURL = nil
+    }
+
+    // MARK: Scanning
+
+    private func load(url: URL, reopenLast: Bool) {
+        vaultName = url.lastPathComponent
+        rootBox.url = url
+        isLoading = true
+        Task.detached(priority: .userInitiated) { [weak self] in
+            let index = VaultIndex(root: url)
+            index.scan()
+            await self?.finishScan(index, reopenLast: reopenLast)
+        }
+    }
+
+    private func finishScan(_ index: VaultIndex, reopenLast: Bool) {
+        self.index = index
+        tree = index.tree
+        isLoading = false
+        if index.notes.isEmpty { message = "No notes were found in this folder. Notes in iCloud may still be downloading." }
+        if reopenLast, let last = UserDefaults.standard.string(forKey: lastNoteKey), index.notes.contains(last) {
+            open(last)
+        }
+    }
+
+    /// Reads the folder again and shows the open note again (it may have changed).
+    func refresh() {
+        guard let url = rootBox.url else { return }
+        let current = selectedPath
+        isLoading = true
+        Task.detached(priority: .userInitiated) { [weak self] in
+            let index = VaultIndex(root: url)
+            index.scan()
+            await self?.finishRefresh(index, current: current)
+        }
+    }
+
+    private func finishRefresh(_ index: VaultIndex, current: String?) {
+        self.index = index
+        tree = index.tree
+        isLoading = false
+        if let current = current, index.notes.contains(current) { open(current, fragment: nil, keepScroll: true) }
+    }
+
+    // MARK: Opening notes
+
+    func isNote(_ path: String) -> Bool { index?.notes.contains(path) ?? false }
+
+    func search(_ query: String) -> [String] { index?.search(query) ?? [] }
+
+    func open(_ path: String, fragment: String? = nil, keepScroll: Bool = false) {
+        guard let index = index, let root = rootBox.url, index.notes.contains(path) else { return }
+        selectedPath = path
+        scrollTarget = fragment
+        UserDefaults.standard.set(path, forKey: lastNoteKey)
+        openToken += 1
+        let token = openToken
+        isLoading = true
+        message = nil
+
+        Task.detached(priority: .userInitiated) { [weak self] in
+            // Coordinated reads make iCloud download a note that is not on the device yet.
+            let loadNote: (String) -> String? = { relative in
+                VaultFiles.readText(root.appendingPathComponent(relative))
+            }
+            guard let text = loadNote(path) else {
+                await self?.failed(token, "“\((path as NSString).lastPathComponent)” could not be read. If it is in iCloud, check your connection and try again.")
+                return
+            }
+            let rendered = NoteRenderer.render(markdown: text, notePath: path, resolver: index, loadNote: loadNote)
+            await self?.finished(token, rendered, title: ((path as NSString).lastPathComponent as NSString).deletingPathExtension)
+        }
+    }
+
+    private func finished(_ token: Int, _ rendered: RenderedNote, title: String) {
+        guard token == openToken else { return }   // The user already opened another note.
+        note = rendered
+        noteTitle = title
+        isLoading = false
+    }
+
+    private func failed(_ token: Int, _ text: String) {
+        guard token == openToken else { return }
+        note = nil
+        isLoading = false
+        message = text
+    }
+}

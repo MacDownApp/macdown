@@ -32,15 +32,15 @@ public final class ViewerSchemeHandler: NSObject, WKURLSchemeHandler {
         let id = ObjectIdentifier(task)
         active.insert(id)
         guard let url = task.request.url, url.scheme == ViewerSchemeHandler.scheme,
-              let file = ViewerSchemeHandler.fileURL(for: url, appRoot: appRoot, vaultRoot: vaultRoot()) else {
+              let file = VaultFiles.fileURL(for: url, appRoot: appRoot, vaultRoot: vaultRoot()) else {
             return finish(task, id, status: 404, body: Data(), contentType: "text/plain")
         }
         let coordinated = url.host == "vault"
         queue.async { [weak self] in
-            let data = ViewerSchemeHandler.read(file, coordinated: coordinated)
+            let data = VaultFiles.read(file, coordinated: coordinated)
             DispatchQueue.main.async {
                 if let data = data {
-                    self?.finish(task, id, status: 200, body: data, contentType: ViewerSchemeHandler.mimeType(forPath: file.path))
+                    self?.finish(task, id, status: 200, body: data, contentType: VaultFiles.mimeType(forPath: file.path))
                 } else {
                     self?.finish(task, id, status: 404, body: Data(), contentType: "text/plain")
                 }
@@ -63,9 +63,11 @@ public final class ViewerSchemeHandler: NSObject, WKURLSchemeHandler {
         task.didReceive(body)
         task.didFinish()
     }
+}
 
-    // MARK: Paths and reading (also used by tests)
-
+/// File access rules for the viewer. A plain type (not part of the WebKit handler class), so it can be
+/// called from any thread.
+public enum VaultFiles {
     /// Maps a `md://app/...` or `md://vault/...` URL to a file, or nil if the host is unknown, there is
     /// no vault, or the path would leave its root.
     static func fileURL(for url: URL, appRoot: URL, vaultRoot: URL?) -> URL? {
@@ -82,13 +84,31 @@ public final class ViewerSchemeHandler: NSObject, WKURLSchemeHandler {
         return file
     }
 
+    /// Reads a text file through the file coordinator (so iCloud downloads it if needed).
+    /// Blocks: call it off the main thread.
+    public static func readText(_ file: URL) -> String? {
+        guard let data = read(file, coordinated: true) else { return nil }
+        return String(data: data, encoding: .utf8) ?? String(decoding: data, as: UTF8.self)
+    }
+
+    /// How long to wait for an iCloud download before giving up.
+    nonisolated(unsafe) static var downloadTimeout: TimeInterval = 30
+
     static func read(_ file: URL, coordinated: Bool) -> Data? {
         var isDirectory: ObjCBool = false
         if !coordinated {
             guard FileManager.default.fileExists(atPath: file.path, isDirectory: &isDirectory), !isDirectory.boolValue else { return nil }
             return try? Data(contentsOf: file, options: .mappedIfSafe)
         }
-        // Coordinated: iCloud downloads the file if needed. A folder is not a file to serve.
+        // iCloud: a file that is not on the device is a hidden ".name.icloud" placeholder. Ask for the
+        // download and wait for the real file to appear (up to `downloadTimeout` seconds).
+        let placeholder = file.deletingLastPathComponent().appendingPathComponent("." + file.lastPathComponent + ".icloud")
+        if !FileManager.default.fileExists(atPath: file.path), FileManager.default.fileExists(atPath: placeholder.path) {
+            try? FileManager.default.startDownloadingUbiquitousItem(at: file)
+            let deadline = Date().addingTimeInterval(downloadTimeout)
+            while !FileManager.default.fileExists(atPath: file.path), Date() < deadline { Thread.sleep(forTimeInterval: 0.1) }
+        }
+        // Coordinated, so a file that is being synced is read in a consistent state.
         var data: Data?
         var coordinationError: NSError?
         NSFileCoordinator(filePresenter: nil).coordinate(readingItemAt: file, options: [], error: &coordinationError) { readable in
