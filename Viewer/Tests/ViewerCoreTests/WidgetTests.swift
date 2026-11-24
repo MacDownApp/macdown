@@ -244,3 +244,67 @@ final class ThemePaletteTests: XCTestCase {
         XCTAssertTrue(v.tokens["keyword"]?.bold == true, "Without color, bold carries meaning")
     }
 }
+
+final class AccentTests: XCTestCase {
+    func testValidColorsMakeCSS() {
+        let css = AccentCSS.css(hex: "#a259e6")
+        XCTAssertTrue(css.contains("html body a, html body a.wikilink { color: #a259e6; }"), css)
+        XCTAssertTrue(css.contains("html body .tag { color: #a259e6; background: rgba(162, 89, 230, 0.18); }"), css)
+        XCTAssertTrue(css.contains("accent-color: #a259e6"))
+        XCTAssertTrue(css.contains("::selection { background: rgba(162, 89, 230, 0.3); }"), css)
+    }
+
+    func testShortAndUppercaseHexAreNormalized() {
+        XCTAssertEqual(AccentCSS.normalized("#F80"), "#ff8800")
+        XCTAssertEqual(AccentCSS.normalized("#A259E6"), "#a259e6")
+        XCTAssertTrue(AccentCSS.css(hex: "#f80").contains("#ff8800"))
+    }
+
+    func testNoAccentOrBadInputMeansNoCSS() {
+        for bad in ["", "red", "a259e6", "#12", "#gggggg", "#a259e6; } body { display: none } /*", "#a259e680", "url(x)"] {
+            XCTAssertEqual(AccentCSS.css(hex: bad), "", "\(bad)")
+            XCTAssertNil(AccentCSS.normalized(bad), "\(bad)")
+        }
+    }
+
+    func testEveryPresetIsValid() {
+        XCTAssertGreaterThanOrEqual(AccentCSS.presets.count, 8)
+        for preset in AccentCSS.presets { XCTAssertEqual(AccentCSS.normalized(preset.hex), preset.hex, preset.name) }
+        XCTAssertEqual(Set(AccentCSS.presets.map(\.hex)).count, AccentCSS.presets.count, "No duplicate colors")
+    }
+
+    func testOnAccentColor() {
+        XCTAssertTrue(AccentCSS.onAccentIsDark("#ffd60a"), "Dark text on yellow")
+        XCTAssertFalse(AccentCSS.onAccentIsDark("#5e5ce6"), "White text on indigo")
+        XCTAssertFalse(AccentCSS.onAccentIsDark("nonsense"))
+    }
+
+    func testPageUsesTheAccentLast() {
+        let note = NoteRenderer.render(markdown: "[[x]] #tag", notePath: "n.md", resolver: FakeVault(), loadNote: { _ in nil })
+        let page = ViewerPage.html(note: note, title: "T", themeCSS: "/*theme*/", fontCSS: "/*font*/", accentCSS: AccentCSS.css(hex: "#30b350"))
+        XCTAssertLessThan(page.range(of: "/*theme*/")!.lowerBound, page.range(of: "/*font*/")!.lowerBound)
+        XCTAssertLessThan(page.range(of: "/*font*/")!.lowerBound, page.range(of: "#30b350")!.lowerBound)
+        XCTAssertFalse(ViewerPage.html(note: note, title: "T", themeCSS: "").contains("accent-color"), "No accent: nothing added")
+    }
+
+    func testSnapshotCarriesTheAccentAndOldSnapshotsStillLoad() throws {
+        let root = FileManager.default.temporaryDirectory.appendingPathComponent("acc-\(UUID().uuidString)")
+        try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
+        defer { try? FileManager.default.removeItem(at: root) }
+        try "x".write(to: root.appendingPathComponent("a.md"), atomically: true, encoding: .utf8)
+        let index = VaultIndex(root: root); index.scan()
+
+        let withAccent = WidgetSnapshot.build(from: index, vaultName: "V", accent: "#FF453A")
+        XCTAssertEqual(withAccent.accent, "#ff453a")
+        XCTAssertEqual(try JSONDecoder().decode(WidgetSnapshot.self, from: JSONEncoder().encode(withAccent)).accent, "#ff453a")
+        XCTAssertNil(WidgetSnapshot.build(from: index, vaultName: "V").accent)
+        XCTAssertNil(WidgetSnapshot.build(from: index, vaultName: "V", accent: "javascript:alert(1)").accent, "Invalid colors are dropped")
+
+        // A snapshot written by the previous version has no "accent" key.
+        var object = try JSONSerialization.jsonObject(with: JSONEncoder().encode(withAccent)) as! [String: Any]
+        object.removeValue(forKey: "accent")
+        let old = try JSONDecoder().decode(WidgetSnapshot.self, from: JSONSerialization.data(withJSONObject: object))
+        XCTAssertNil(old.accent)
+        XCTAssertEqual(old.notes.count, 1)
+    }
+}

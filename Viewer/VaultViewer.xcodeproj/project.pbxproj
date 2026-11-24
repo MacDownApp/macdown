@@ -7,50 +7,50 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1CE61F03C9390109ACF259E1 /* ViewerCore in Frameworks */ = {isa = PBXBuildFile; productRef = 36F597A43F3461542B5C1FFE /* ViewerCore */; };
-		21CEEC3398C663ABB41FFE7B /* FontStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803FB9EC8F3DBB814BE1DF17 /* FontStore.swift */; };
-		39FF56249EAEB77814528C63 /* VaultWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 33654BB9FB547214263E067E /* VaultWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, CodeSignOnCopy, ); }; };
-		3E4090BF618C25EE008F2038 /* PDFScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F8F0681AA3693F98F61352 /* PDFScreen.swift */; };
-		5E26F78AAACEF52B78FE2E4E /* NoteShortcutWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AE9C83A06AF07F8C225C0E1 /* NoteShortcutWidget.swift */; };
-		5FE7ADD029FAF703C6783305 /* ViewerCore in Frameworks */ = {isa = PBXBuildFile; productRef = B45671B0F133032864BA6EC3 /* ViewerCore */; };
-		664A0118D2B64F8336124647 /* BuiltinThemes in Resources */ = {isa = PBXBuildFile; fileRef = 8A9EADE6523C9BC19DD1C7F6 /* BuiltinThemes */; };
-		69F6AB8197201E709EC4F9F8 /* ThemeStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E24E874667D3B701759E5D /* ThemeStore.swift */; };
-		735FA7885C20E7BE7A673EC7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63849687A29FDCF60E21D916 /* Assets.xcassets */; };
-		876562E0AF8937177D4D7C60 /* NoteWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3C06B62F9F6F22E4EE4D45 /* NoteWebView.swift */; };
-		8E3E7FADA77E437BFAF864D8 /* KaTeX in Resources */ = {isa = PBXBuildFile; fileRef = 118E0513875187EBDB5E6418 /* KaTeX */; };
-		921AAB88562497DD371F6C48 /* VaultViewerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB4663F7E26453D78C5554C /* VaultViewerApp.swift */; };
-		9C0BA83BB3271C82D88911BA /* prism-autoloader.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 53B9C02CE5900AAD923673C2 /* prism-autoloader.min.js */; };
-		A4937EB513C30356A35910B2 /* Fonts in Resources */ = {isa = PBXBuildFile; fileRef = B8529984C7847EFB27B22335 /* Fonts */; };
-		A5A345197187DD2D66410F85 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 967E5E87BD6AAEB42F7BA9E2 /* Foundation.framework */; };
-		A6F24F87A2E5F1E2DC7459D4 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CCD201F6649C9438B01FDB /* SettingsView.swift */; };
-		A856659BF3BC811EF1B42FBC /* VaultStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AB707D384519086681CA4F /* VaultStore.swift */; };
-		BCCE5AF46FC75F04163E40B0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A346F71B90CC395335185A10 /* ContentView.swift */; };
-		BD8A2BF73CE1AB41B04B602A /* FolderNotesWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C37C53861A14845D685A32 /* FolderNotesWidget.swift */; };
-		DDB249FE39DD9B8F3EA744D6 /* VaultWidgets.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2CABF069C2C98D00DD0E392 /* VaultWidgets.swift */; };
-		E5147ACC55F7BCBB6E539199 /* Diagrams in Resources */ = {isa = PBXBuildFile; fileRef = 190691949F497C4D4D8164EC /* Diagrams */; };
-		E8499F68EA82C9FBC493E6AA /* Entities.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF640C182208C52FDB08624 /* Entities.swift */; };
-		E8DE6B96F3706CC7BCAD4D6F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 967E5E87BD6AAEB42F7BA9E2 /* Foundation.framework */; };
-		FD450CAEDCAB7726477FA578 /* components in Resources */ = {isa = PBXBuildFile; fileRef = CEBA2202FF24E1EFDCCC0DC3 /* components */; };
+		03F92BA3D43417D35309D53C /* NoteWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8248D6FAEA851020B667E7AF /* NoteWebView.swift */; };
+		088BCAF2FFC0791763535A0A /* VaultWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 0C19CEC57B76968B73FD26B7 /* VaultWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, CodeSignOnCopy, ); }; };
+		19832FC2BAEE174785E3D9CD /* Fonts in Resources */ = {isa = PBXBuildFile; fileRef = 11DF4C74CF4EEC215FD7BED3 /* Fonts */; };
+		22F2C5B5B4E76D99796B9906 /* PDFScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E818E94E4E48F85DD13547 /* PDFScreen.swift */; };
+		46630496B7EDAFA2248E5F3A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BDA6266B031F0C048DF501C /* Foundation.framework */; };
+		4A0C6534328F48E8BA03FB5D /* VaultViewerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D55EA5D6683F8BD7148910 /* VaultViewerApp.swift */; };
+		54ECAB052778DBA4A50F10D3 /* ViewerCore in Frameworks */ = {isa = PBXBuildFile; productRef = 3AC26F814A798D46D8A2E812 /* ViewerCore */; };
+		555C87A3B178003F95269F1B /* VaultStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D16A3AF18C4F915535A3EFD8 /* VaultStore.swift */; };
+		56C25E287993FC0DF93C7E64 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB2C1F00279060DB8D7AC53 /* ContentView.swift */; };
+		60050F8BC19ADC8806F9B7E6 /* prism-autoloader.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 6CC79A51809BBAFC5782A99A /* prism-autoloader.min.js */; };
+		81031C9B8717969919427E31 /* FolderNotesWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43AB095F77C064A49B12679A /* FolderNotesWidget.swift */; };
+		86E29688043F6CAD5CD250C7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BDA6266B031F0C048DF501C /* Foundation.framework */; };
+		8A6185CB97535439EC2AF67B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 364644012DB3ACA919CAA51E /* Assets.xcassets */; };
+		8CCED65EA48EAE973EDA5EFB /* NoteShortcutWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9BC9AD7B503C3945F9641BE /* NoteShortcutWidget.swift */; };
+		A45B1ED7918C5012C3E1A21B /* BuiltinThemes in Resources */ = {isa = PBXBuildFile; fileRef = 10064CC78F52C9CA1A851D48 /* BuiltinThemes */; };
+		B4808306829B45E37049B8D1 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB69AA640A112417B226D58 /* SettingsView.swift */; };
+		C252A07D77DADF5D08AD54E8 /* Diagrams in Resources */ = {isa = PBXBuildFile; fileRef = DB2ECF8AC86CC2852F9C297F /* Diagrams */; };
+		C68A890B5912629D66B5DE4B /* ThemeStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015A44DE26619005DBF08591 /* ThemeStore.swift */; };
+		CAB37FF10C8DB67E80858164 /* Entities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2CBF3DB8091879CB5E32BF /* Entities.swift */; };
+		D565BF997FBFD4C2BBD96709 /* VaultWidgets.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4CD28C90FCC891D2B961D9 /* VaultWidgets.swift */; };
+		DE49633D1B3815E3F7BD12ED /* ViewerCore in Frameworks */ = {isa = PBXBuildFile; productRef = D2587227977D14620B4A1223 /* ViewerCore */; };
+		E4C98E15788E71D2994DC310 /* components in Resources */ = {isa = PBXBuildFile; fileRef = 0D5DFC8CAA41C8CFBEB60295 /* components */; };
+		E8937E6D5F054A41B93548FE /* KaTeX in Resources */ = {isa = PBXBuildFile; fileRef = 62BA2ACB7B0FFD5101B87EFA /* KaTeX */; };
+		EC397F2E86C0AC5425B1474E /* FontStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C5940034E6CC321986DAC8D /* FontStore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		7485101DB9A95878BA8423AD /* PBXContainerItemProxy */ = {
+		5B4F88E367F2084DED56966B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 6C670783A47E56F4F8366D86 /* Project object */;
+			containerPortal = 7530A8DCEE8F484434E871AE /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = B14B0078130569C56D91380C;
+			remoteGlobalIDString = 82C884F92A119A7FEA4A51EE;
 			remoteInfo = VaultWidget;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		7059E95C2E5F30B44009855A /* Embed Foundation Extensions */ = {
+		213E25DC7A36E953A55A04A5 /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				39FF56249EAEB77814528C63 /* VaultWidget.appex in Embed Foundation Extensions */,
+				088BCAF2FFC0791763535A0A /* VaultWidget.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -58,148 +58,148 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		118E0513875187EBDB5E6418 /* KaTeX */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = KaTeX; path = ../MacDown/Resources/KaTeX; sourceTree = "<group>"; };
-		190691949F497C4D4D8164EC /* Diagrams */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = Diagrams; path = ../MacDown/Resources/Diagrams; sourceTree = "<group>"; };
-		2AF584F1EE99893EE8D33099 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		33654BB9FB547214263E067E /* VaultWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = VaultWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		47CCD201F6649C9438B01FDB /* SettingsView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		47E24E874667D3B701759E5D /* ThemeStore.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ThemeStore.swift; sourceTree = "<group>"; };
-		4D8C643B6DC201F6E03253E4 /* VaultViewer.entitlements */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.entitlements; path = VaultViewer.entitlements; sourceTree = "<group>"; };
-		4E3C06B62F9F6F22E4EE4D45 /* NoteWebView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = NoteWebView.swift; sourceTree = "<group>"; };
-		4EB4663F7E26453D78C5554C /* VaultViewerApp.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = VaultViewerApp.swift; sourceTree = "<group>"; };
-		53B9C02CE5900AAD923673C2 /* prism-autoloader.min.js */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.javascript; name = "prism-autoloader.min.js"; path = "../Dependency/prism/plugins/autoloader/prism-autoloader.min.js"; sourceTree = "<group>"; };
-		57AB707D384519086681CA4F /* VaultStore.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = VaultStore.swift; sourceTree = "<group>"; };
-		5B6C1CEA9D59DD2DCC6F45D6 /* VaultViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = VaultViewer.app; path = VaultViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		63849687A29FDCF60E21D916 /* Assets.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		6AE9C83A06AF07F8C225C0E1 /* NoteShortcutWidget.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = NoteShortcutWidget.swift; sourceTree = "<group>"; };
-		803FB9EC8F3DBB814BE1DF17 /* FontStore.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FontStore.swift; sourceTree = "<group>"; };
-		8A9EADE6523C9BC19DD1C7F6 /* BuiltinThemes */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = BuiltinThemes; path = ../MacDown/Resources/BuiltinThemes; sourceTree = "<group>"; };
-		967E5E87BD6AAEB42F7BA9E2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		A2AE951D32904B43B7F466A9 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A346F71B90CC395335185A10 /* ContentView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		B2CABF069C2C98D00DD0E392 /* VaultWidgets.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = VaultWidgets.swift; sourceTree = "<group>"; };
-		B8529984C7847EFB27B22335 /* Fonts */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = Fonts; path = ../MacDown/Resources/Fonts; sourceTree = "<group>"; };
-		C3C37C53861A14845D685A32 /* FolderNotesWidget.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FolderNotesWidget.swift; sourceTree = "<group>"; };
-		CEBA2202FF24E1EFDCCC0DC3 /* components */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = components; path = ../Dependency/prism/components; sourceTree = "<group>"; };
-		E7F8F0681AA3693F98F61352 /* PDFScreen.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PDFScreen.swift; sourceTree = "<group>"; };
-		EE412E37FFCC05FA136267CA /* Widget.entitlements */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.entitlements; path = Widget.entitlements; sourceTree = "<group>"; };
-		FEF640C182208C52FDB08624 /* Entities.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Entities.swift; sourceTree = "<group>"; };
+		015A44DE26619005DBF08591 /* ThemeStore.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ThemeStore.swift; sourceTree = "<group>"; };
+		0BAE567CBAA717F4468FFB00 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0C19CEC57B76968B73FD26B7 /* VaultWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = VaultWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		0D5DFC8CAA41C8CFBEB60295 /* components */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = components; path = ../Dependency/prism/components; sourceTree = "<group>"; };
+		10064CC78F52C9CA1A851D48 /* BuiltinThemes */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = BuiltinThemes; path = ../MacDown/Resources/BuiltinThemes; sourceTree = "<group>"; };
+		11DF4C74CF4EEC215FD7BED3 /* Fonts */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = Fonts; path = ../MacDown/Resources/Fonts; sourceTree = "<group>"; };
+		1B2CBF3DB8091879CB5E32BF /* Entities.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Entities.swift; sourceTree = "<group>"; };
+		364644012DB3ACA919CAA51E /* Assets.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		43AB095F77C064A49B12679A /* FolderNotesWidget.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FolderNotesWidget.swift; sourceTree = "<group>"; };
+		45BB04027E5C9BC85C4CB2B9 /* VaultViewer.entitlements */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.entitlements; path = VaultViewer.entitlements; sourceTree = "<group>"; };
+		5AB2C1F00279060DB8D7AC53 /* ContentView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		62BA2ACB7B0FFD5101B87EFA /* KaTeX */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = KaTeX; path = ../MacDown/Resources/KaTeX; sourceTree = "<group>"; };
+		6BDA6266B031F0C048DF501C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		6CC79A51809BBAFC5782A99A /* prism-autoloader.min.js */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.javascript; name = "prism-autoloader.min.js"; path = "../Dependency/prism/plugins/autoloader/prism-autoloader.min.js"; sourceTree = "<group>"; };
+		8248D6FAEA851020B667E7AF /* NoteWebView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = NoteWebView.swift; sourceTree = "<group>"; };
+		8C5940034E6CC321986DAC8D /* FontStore.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FontStore.swift; sourceTree = "<group>"; };
+		94E818E94E4E48F85DD13547 /* PDFScreen.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PDFScreen.swift; sourceTree = "<group>"; };
+		A9BC9AD7B503C3945F9641BE /* NoteShortcutWidget.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = NoteShortcutWidget.swift; sourceTree = "<group>"; };
+		BBEE5FD29152C7FB1104681E /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C06CE3BDCA8C37799AE344C6 /* Widget.entitlements */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.entitlements; path = Widget.entitlements; sourceTree = "<group>"; };
+		D16A3AF18C4F915535A3EFD8 /* VaultStore.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = VaultStore.swift; sourceTree = "<group>"; };
+		DAAEE5044938C262A003F5EC /* VaultViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = VaultViewer.app; path = VaultViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DB2ECF8AC86CC2852F9C297F /* Diagrams */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = Diagrams; path = ../MacDown/Resources/Diagrams; sourceTree = "<group>"; };
+		EF4CD28C90FCC891D2B961D9 /* VaultWidgets.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = VaultWidgets.swift; sourceTree = "<group>"; };
+		F2D55EA5D6683F8BD7148910 /* VaultViewerApp.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = VaultViewerApp.swift; sourceTree = "<group>"; };
+		FEB69AA640A112417B226D58 /* SettingsView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		35C27D42A9A3E04679145E6A /* Frameworks */ = {
+		560CBCE20AAFDBC9179663C0 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A5A345197187DD2D66410F85 /* Foundation.framework in Frameworks */,
-				5FE7ADD029FAF703C6783305 /* ViewerCore in Frameworks */,
+				86E29688043F6CAD5CD250C7 /* Foundation.framework in Frameworks */,
+				DE49633D1B3815E3F7BD12ED /* ViewerCore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6F02598F0DCDBB75CC64DB4E /* Frameworks */ = {
+		D1E669C61AB84A37865632D4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E8DE6B96F3706CC7BCAD4D6F /* Foundation.framework in Frameworks */,
-				1CE61F03C9390109ACF259E1 /* ViewerCore in Frameworks */,
+				46630496B7EDAFA2248E5F3A /* Foundation.framework in Frameworks */,
+				54ECAB052778DBA4A50F10D3 /* ViewerCore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		35E460E90521E6C2538300B2 /* iOS */ = {
+		056B5F911D382AF8D3EE3F96 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				967E5E87BD6AAEB42F7BA9E2 /* Foundation.framework */,
+				6BDA6266B031F0C048DF501C /* Foundation.framework */,
 			);
 			name = iOS;
 			sourceTree = "<group>";
 		};
-		3BE2871DDCF238D55A98D84A /* Shared */ = {
+		06B6B21C1B343E2C135E47AE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				118E0513875187EBDB5E6418 /* KaTeX */,
-				190691949F497C4D4D8164EC /* Diagrams */,
-				8A9EADE6523C9BC19DD1C7F6 /* BuiltinThemes */,
-				CEBA2202FF24E1EFDCCC0DC3 /* components */,
-				B8529984C7847EFB27B22335 /* Fonts */,
-				53B9C02CE5900AAD923673C2 /* prism-autoloader.min.js */,
-			);
-			name = Shared;
-			sourceTree = "<group>";
-		};
-		4EFBCEF7CA46AA5D1BC445E4 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				35E460E90521E6C2538300B2 /* iOS */,
+				056B5F911D382AF8D3EE3F96 /* iOS */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		4FBF86BB31C9511EAEB81293 /* Widget */ = {
+		0B45A166A2051978824FDEA9 /* Widget */ = {
 			isa = PBXGroup;
 			children = (
-				FEF640C182208C52FDB08624 /* Entities.swift */,
-				C3C37C53861A14845D685A32 /* FolderNotesWidget.swift */,
-				2AF584F1EE99893EE8D33099 /* Info.plist */,
-				6AE9C83A06AF07F8C225C0E1 /* NoteShortcutWidget.swift */,
-				B2CABF069C2C98D00DD0E392 /* VaultWidgets.swift */,
-				EE412E37FFCC05FA136267CA /* Widget.entitlements */,
+				1B2CBF3DB8091879CB5E32BF /* Entities.swift */,
+				43AB095F77C064A49B12679A /* FolderNotesWidget.swift */,
+				BBEE5FD29152C7FB1104681E /* Info.plist */,
+				A9BC9AD7B503C3945F9641BE /* NoteShortcutWidget.swift */,
+				EF4CD28C90FCC891D2B961D9 /* VaultWidgets.swift */,
+				C06CE3BDCA8C37799AE344C6 /* Widget.entitlements */,
 			);
 			name = Widget;
 			path = Widget;
 			sourceTree = "<group>";
 		};
-		62F76B937DDF8B8EAFA0B21B /* App */ = {
+		792BBF012567C13318B76E86 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				A346F71B90CC395335185A10 /* ContentView.swift */,
-				803FB9EC8F3DBB814BE1DF17 /* FontStore.swift */,
-				4E3C06B62F9F6F22E4EE4D45 /* NoteWebView.swift */,
-				E7F8F0681AA3693F98F61352 /* PDFScreen.swift */,
-				47CCD201F6649C9438B01FDB /* SettingsView.swift */,
-				47E24E874667D3B701759E5D /* ThemeStore.swift */,
-				57AB707D384519086681CA4F /* VaultStore.swift */,
-				4EB4663F7E26453D78C5554C /* VaultViewerApp.swift */,
-				63849687A29FDCF60E21D916 /* Assets.xcassets */,
-				A2AE951D32904B43B7F466A9 /* Info.plist */,
-				4D8C643B6DC201F6E03253E4 /* VaultViewer.entitlements */,
+				62BA2ACB7B0FFD5101B87EFA /* KaTeX */,
+				DB2ECF8AC86CC2852F9C297F /* Diagrams */,
+				10064CC78F52C9CA1A851D48 /* BuiltinThemes */,
+				0D5DFC8CAA41C8CFBEB60295 /* components */,
+				11DF4C74CF4EEC215FD7BED3 /* Fonts */,
+				6CC79A51809BBAFC5782A99A /* prism-autoloader.min.js */,
+			);
+			name = Shared;
+			sourceTree = "<group>";
+		};
+		A9931AB0BBF2E32881D5973F = {
+			isa = PBXGroup;
+			children = (
+				BE6129D3562F9C934E989DB4 /* Products */,
+				06B6B21C1B343E2C135E47AE /* Frameworks */,
+				DB83311AFE111E936B69EB71 /* App */,
+				792BBF012567C13318B76E86 /* Shared */,
+				0B45A166A2051978824FDEA9 /* Widget */,
+			);
+			sourceTree = "<group>";
+		};
+		BE6129D3562F9C934E989DB4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DAAEE5044938C262A003F5EC /* VaultViewer.app */,
+				0C19CEC57B76968B73FD26B7 /* VaultWidget.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DB83311AFE111E936B69EB71 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				5AB2C1F00279060DB8D7AC53 /* ContentView.swift */,
+				8C5940034E6CC321986DAC8D /* FontStore.swift */,
+				8248D6FAEA851020B667E7AF /* NoteWebView.swift */,
+				94E818E94E4E48F85DD13547 /* PDFScreen.swift */,
+				FEB69AA640A112417B226D58 /* SettingsView.swift */,
+				015A44DE26619005DBF08591 /* ThemeStore.swift */,
+				D16A3AF18C4F915535A3EFD8 /* VaultStore.swift */,
+				F2D55EA5D6683F8BD7148910 /* VaultViewerApp.swift */,
+				364644012DB3ACA919CAA51E /* Assets.xcassets */,
+				0BAE567CBAA717F4468FFB00 /* Info.plist */,
+				45BB04027E5C9BC85C4CB2B9 /* VaultViewer.entitlements */,
 			);
 			name = App;
 			path = App;
 			sourceTree = "<group>";
 		};
-		75E6062BC2E5AFACBBAD2AD6 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				5B6C1CEA9D59DD2DCC6F45D6 /* VaultViewer.app */,
-				33654BB9FB547214263E067E /* VaultWidget.appex */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		D9059B895F1F78C0105C2109 = {
-			isa = PBXGroup;
-			children = (
-				75E6062BC2E5AFACBBAD2AD6 /* Products */,
-				4EFBCEF7CA46AA5D1BC445E4 /* Frameworks */,
-				62F76B937DDF8B8EAFA0B21B /* App */,
-				3BE2871DDCF238D55A98D84A /* Shared */,
-				4FBF86BB31C9511EAEB81293 /* Widget */,
-			);
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		B14B0078130569C56D91380C /* VaultWidget */ = {
+		82C884F92A119A7FEA4A51EE /* VaultWidget */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 253BCA64FE9CAAA7B14E0E1D /* Build configuration list for PBXNativeTarget "VaultWidget" */;
+			buildConfigurationList = 8470BA5BF1C44EB7C7B08ADC /* Build configuration list for PBXNativeTarget "VaultWidget" */;
 			buildPhases = (
-				BEA75F8F314A1FDA936DDB3A /* Sources */,
-				35C27D42A9A3E04679145E6A /* Frameworks */,
-				67A5FE3CCCBB4FA311D5ABDE /* Resources */,
+				081F54928D85764AA0148080 /* Sources */,
+				D1E669C61AB84A37865632D4 /* Frameworks */,
+				3C540EB5F21AA4E6A756ADF4 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -207,44 +207,44 @@
 			);
 			name = VaultWidget;
 			packageProductDependencies = (
-				B45671B0F133032864BA6EC3 /* ViewerCore */,
+				3AC26F814A798D46D8A2E812 /* ViewerCore */,
 			);
 			productName = VaultWidget;
-			productReference = 33654BB9FB547214263E067E /* VaultWidget.appex */;
+			productReference = 0C19CEC57B76968B73FD26B7 /* VaultWidget.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
-		EBAAA555789743D3D0491904 /* VaultViewer */ = {
+		C161D76A3210B5D98921DAB1 /* VaultViewer */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 656F2C9E09E9BFEA3691716D /* Build configuration list for PBXNativeTarget "VaultViewer" */;
+			buildConfigurationList = 0D317C7B8C575353CEEC99B5 /* Build configuration list for PBXNativeTarget "VaultViewer" */;
 			buildPhases = (
-				E4511CF9415D9E6F633A9DA7 /* Sources */,
-				6F02598F0DCDBB75CC64DB4E /* Frameworks */,
-				63D925886F6D1AED50691DCA /* Resources */,
-				7059E95C2E5F30B44009855A /* Embed Foundation Extensions */,
+				07EACAF1F45528303B980DC8 /* Sources */,
+				560CBCE20AAFDBC9179663C0 /* Frameworks */,
+				1EE26A61686761891404A900 /* Resources */,
+				213E25DC7A36E953A55A04A5 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				2A90D7DCEB26A16C79BA2D3B /* PBXTargetDependency */,
+				0FE19C12E26CA4D5BF328797 /* PBXTargetDependency */,
 			);
 			name = VaultViewer;
 			packageProductDependencies = (
-				36F597A43F3461542B5C1FFE /* ViewerCore */,
+				D2587227977D14620B4A1223 /* ViewerCore */,
 			);
 			productName = VaultViewer;
-			productReference = 5B6C1CEA9D59DD2DCC6F45D6 /* VaultViewer.app */;
+			productReference = DAAEE5044938C262A003F5EC /* VaultViewer.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		6C670783A47E56F4F8366D86 /* Project object */ = {
+		7530A8DCEE8F484434E871AE /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1600;
 				LastUpgradeCheck = 2700;
 			};
-			buildConfigurationList = B22FC8132D2811AACF0D8E1E /* Build configuration list for PBXProject "VaultViewer" */;
+			buildConfigurationList = 74F605A0BA053B5704E57EC9 /* Build configuration list for PBXProject "VaultViewer" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -252,38 +252,38 @@
 				en,
 				Base,
 			);
-			mainGroup = D9059B895F1F78C0105C2109;
+			mainGroup = A9931AB0BBF2E32881D5973F;
 			minimizedProjectReferenceProxies = 0;
 			packageReferences = (
-				A1CBE6990C86CDD129B275EE /* XCLocalSwiftPackageReference "." */,
+				AD00D914BA3E060A01AB32CF /* XCLocalSwiftPackageReference "." */,
 			);
 			preferredProjectObjectVersion = 77;
-			productRefGroup = 75E6062BC2E5AFACBBAD2AD6 /* Products */;
+			productRefGroup = BE6129D3562F9C934E989DB4 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				EBAAA555789743D3D0491904 /* VaultViewer */,
-				B14B0078130569C56D91380C /* VaultWidget */,
+				C161D76A3210B5D98921DAB1 /* VaultViewer */,
+				82C884F92A119A7FEA4A51EE /* VaultWidget */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		63D925886F6D1AED50691DCA /* Resources */ = {
+		1EE26A61686761891404A900 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				735FA7885C20E7BE7A673EC7 /* Assets.xcassets in Resources */,
-				8E3E7FADA77E437BFAF864D8 /* KaTeX in Resources */,
-				E5147ACC55F7BCBB6E539199 /* Diagrams in Resources */,
-				664A0118D2B64F8336124647 /* BuiltinThemes in Resources */,
-				FD450CAEDCAB7726477FA578 /* components in Resources */,
-				A4937EB513C30356A35910B2 /* Fonts in Resources */,
-				9C0BA83BB3271C82D88911BA /* prism-autoloader.min.js in Resources */,
+				8A6185CB97535439EC2AF67B /* Assets.xcassets in Resources */,
+				E8937E6D5F054A41B93548FE /* KaTeX in Resources */,
+				C252A07D77DADF5D08AD54E8 /* Diagrams in Resources */,
+				A45B1ED7918C5012C3E1A21B /* BuiltinThemes in Resources */,
+				E4C98E15788E71D2994DC310 /* components in Resources */,
+				19832FC2BAEE174785E3D9CD /* Fonts in Resources */,
+				60050F8BC19ADC8806F9B7E6 /* prism-autoloader.min.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		67A5FE3CCCBB4FA311D5ABDE /* Resources */ = {
+		3C540EB5F21AA4E6A756ADF4 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -293,45 +293,45 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		BEA75F8F314A1FDA936DDB3A /* Sources */ = {
+		07EACAF1F45528303B980DC8 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E8499F68EA82C9FBC493E6AA /* Entities.swift in Sources */,
-				BD8A2BF73CE1AB41B04B602A /* FolderNotesWidget.swift in Sources */,
-				5E26F78AAACEF52B78FE2E4E /* NoteShortcutWidget.swift in Sources */,
-				DDB249FE39DD9B8F3EA744D6 /* VaultWidgets.swift in Sources */,
+				56C25E287993FC0DF93C7E64 /* ContentView.swift in Sources */,
+				EC397F2E86C0AC5425B1474E /* FontStore.swift in Sources */,
+				03F92BA3D43417D35309D53C /* NoteWebView.swift in Sources */,
+				22F2C5B5B4E76D99796B9906 /* PDFScreen.swift in Sources */,
+				B4808306829B45E37049B8D1 /* SettingsView.swift in Sources */,
+				C68A890B5912629D66B5DE4B /* ThemeStore.swift in Sources */,
+				555C87A3B178003F95269F1B /* VaultStore.swift in Sources */,
+				4A0C6534328F48E8BA03FB5D /* VaultViewerApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E4511CF9415D9E6F633A9DA7 /* Sources */ = {
+		081F54928D85764AA0148080 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BCCE5AF46FC75F04163E40B0 /* ContentView.swift in Sources */,
-				21CEEC3398C663ABB41FFE7B /* FontStore.swift in Sources */,
-				876562E0AF8937177D4D7C60 /* NoteWebView.swift in Sources */,
-				3E4090BF618C25EE008F2038 /* PDFScreen.swift in Sources */,
-				A6F24F87A2E5F1E2DC7459D4 /* SettingsView.swift in Sources */,
-				69F6AB8197201E709EC4F9F8 /* ThemeStore.swift in Sources */,
-				A856659BF3BC811EF1B42FBC /* VaultStore.swift in Sources */,
-				921AAB88562497DD371F6C48 /* VaultViewerApp.swift in Sources */,
+				CAB37FF10C8DB67E80858164 /* Entities.swift in Sources */,
+				81031C9B8717969919427E31 /* FolderNotesWidget.swift in Sources */,
+				8CCED65EA48EAE973EDA5EFB /* NoteShortcutWidget.swift in Sources */,
+				D565BF997FBFD4C2BBD96709 /* VaultWidgets.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		2A90D7DCEB26A16C79BA2D3B /* PBXTargetDependency */ = {
+		0FE19C12E26CA4D5BF328797 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = VaultWidget;
-			target = B14B0078130569C56D91380C /* VaultWidget */;
-			targetProxy = 7485101DB9A95878BA8423AD /* PBXContainerItemProxy */;
+			target = 82C884F92A119A7FEA4A51EE /* VaultWidget */;
+			targetProxy = 5B4F88E367F2084DED56966B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		04592EE3D0CD253C721FD6C0 /* Debug */ = {
+		0021E504FD4355F2806BAC11 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -365,7 +365,91 @@
 			};
 			name = Debug;
 		};
-		0673E005E6EA4E2CE011AAAB /* Release */ = {
+		01D1768DB145360F77871C0A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_ENTITLEMENTS = Widget/Widget.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Widget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Vault Viewer Widgets";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(APP_BUNDLE_ID).widget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		34ED41F8A1B67DABB1805384 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_ENTITLEMENTS = Widget/Widget.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Widget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Vault Viewer Widgets";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(APP_BUNDLE_ID).widget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		8AEF2896F5B7A64723F83076 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_ENTITLEMENTS = App/VaultViewer.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = App/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Vault Viewer";
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(APP_BUNDLE_ID)";
+				PRODUCT_NAME = VaultViewer;
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		A6F15EBD8DD5BE8E10C755BE /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -424,31 +508,7 @@
 			};
 			name = Release;
 		};
-		06753A74056DC60A72AD4803 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_ENTITLEMENTS = Widget/Widget.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Widget/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Vault Viewer Widgets";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "$(APP_BUNDLE_ID).widget";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SUPPORTS_MACCATALYST = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		18B509D379E2D1C80186E490 /* Debug */ = {
+		BF1A9C25B62A029A258C246B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -514,92 +574,32 @@
 			};
 			name = Debug;
 		};
-		39460EF5A64E2F9C4F63B38C /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_ENTITLEMENTS = App/VaultViewer.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = App/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Vault Viewer";
-				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "$(APP_BUNDLE_ID)";
-				PRODUCT_NAME = VaultViewer;
-				SDKROOT = iphoneos;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		F4FF7C93827ED552EB70412A /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_ENTITLEMENTS = Widget/Widget.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Widget/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Vault Viewer Widgets";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "$(APP_BUNDLE_ID).widget";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SUPPORTS_MACCATALYST = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		253BCA64FE9CAAA7B14E0E1D /* Build configuration list for PBXNativeTarget "VaultWidget" */ = {
+		0D317C7B8C575353CEEC99B5 /* Build configuration list for PBXNativeTarget "VaultViewer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				F4FF7C93827ED552EB70412A /* Release */,
-				06753A74056DC60A72AD4803 /* Debug */,
+				8AEF2896F5B7A64723F83076 /* Release */,
+				0021E504FD4355F2806BAC11 /* Debug */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		656F2C9E09E9BFEA3691716D /* Build configuration list for PBXNativeTarget "VaultViewer" */ = {
+		74F605A0BA053B5704E57EC9 /* Build configuration list for PBXProject "VaultViewer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				39460EF5A64E2F9C4F63B38C /* Release */,
-				04592EE3D0CD253C721FD6C0 /* Debug */,
+				BF1A9C25B62A029A258C246B /* Debug */,
+				A6F15EBD8DD5BE8E10C755BE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B22FC8132D2811AACF0D8E1E /* Build configuration list for PBXProject "VaultViewer" */ = {
+		8470BA5BF1C44EB7C7B08ADC /* Build configuration list for PBXNativeTarget "VaultWidget" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				18B509D379E2D1C80186E490 /* Debug */,
-				0673E005E6EA4E2CE011AAAB /* Release */,
+				01D1768DB145360F77871C0A /* Release */,
+				34ED41F8A1B67DABB1805384 /* Debug */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -607,22 +607,22 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		A1CBE6990C86CDD129B275EE /* XCLocalSwiftPackageReference "." */ = {
+		AD00D914BA3E060A01AB32CF /* XCLocalSwiftPackageReference "." */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = .;
 		};
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		36F597A43F3461542B5C1FFE /* ViewerCore */ = {
+		3AC26F814A798D46D8A2E812 /* ViewerCore */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = ViewerCore;
 		};
-		B45671B0F133032864BA6EC3 /* ViewerCore */ = {
+		D2587227977D14620B4A1223 /* ViewerCore */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = ViewerCore;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
-	rootObject = 6C670783A47E56F4F8366D86 /* Project object */;
+	rootObject = 7530A8DCEE8F484434E871AE /* Project object */;
 }

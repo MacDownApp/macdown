@@ -32,18 +32,21 @@ public struct WidgetSnapshot: Codable, Equatable {
 
     public var vaultName: String
     public var generated: Double
+    /// The user's accent color (`#rrggbb`), so widgets can match the app. Nil for the default.
+    public var accent: String?
     public var notes: [String: Note]
     public var folders: [String: Folder]
 
     public static let maxNotesPerFolder = 12
 
-    public init(vaultName: String, generated: Double, notes: [String: Note], folders: [String: Folder]) {
+    public init(vaultName: String, generated: Double, notes: [String: Note], folders: [String: Folder], accent: String? = nil) {
         self.vaultName = vaultName; self.generated = generated; self.notes = notes; self.folders = folders
+        self.accent = accent.flatMap(AccentCSS.normalized)
     }
 
     // MARK: Building
 
-    public static func build(from index: VaultIndex, vaultName: String, now: Date = Date()) -> WidgetSnapshot {
+    public static func build(from index: VaultIndex, vaultName: String, accent: String? = nil, now: Date = Date()) -> WidgetSnapshot {
         var notes: [String: Note] = [:]
         var direct: [String: [String]] = [:]
         var recursive: [String: [String]] = [:]
@@ -87,7 +90,7 @@ public struct WidgetSnapshot: Codable, Equatable {
                 recent: Array(sortedAll.prefix(maxNotesPerFolder)),
                 subfolders: subs)
         }
-        return WidgetSnapshot(vaultName: vaultName, generated: now.timeIntervalSince1970, notes: notes, folders: folders)
+        return WidgetSnapshot(vaultName: vaultName, generated: now.timeIntervalSince1970, notes: notes, folders: folders, accent: accent)
     }
 
     // MARK: Queries (used by the widget pickers)

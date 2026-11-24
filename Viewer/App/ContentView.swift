@@ -20,6 +20,8 @@ struct ContentView: View {
             if case let .success(url) = result { store.chooseVault(url) }
         }
         .sheet(isPresented: $showSettings) { SettingsView() }
+        .tint(themes.accentColor)
+        .onChange(of: themes.accentHex) { _ in store.republishWidgets() }
         // A fixed dark or light theme also sets the app's own colors, so the sidebar matches.
         .preferredColorScheme(forcedScheme)
         // A note opened from outside (a widget) also shows in the phone layout.
@@ -125,7 +127,7 @@ struct SidebarView: View {
                     .rotationEffect(.degrees(isOpen ? 90 : 0))
                     .frame(width: 14).opacity(node.isFolder ? 1 : 0)
                 Image(systemName: node.kind == .folder ? (isOpen ? "folder.fill" : "folder") : (node.kind == .pdf ? "doc.richtext" : "doc.text"))
-                    .foregroundStyle(node.isFolder ? Color.accentColor : Color.secondary)
+                    .foregroundStyle(node.isFolder ? AnyShapeStyle(.tint) : AnyShapeStyle(.secondary))
                 Text(node.name).lineLimit(1)
                 Spacer(minLength: 0)
             }
@@ -138,8 +140,12 @@ struct SidebarView: View {
         .accessibilityAddTraits(.isButton)
     }
 
+    /// The highlight of the open note: a rounded shape in the accent color, a little inside the row.
     private func rowBackground(selected: Bool) -> some View {
-        (selected ? Color.accentColor.opacity(0.2) : Color.clear)
+        RoundedRectangle(cornerRadius: 10, style: .continuous)
+            .fill(selected ? AnyShapeStyle(.tint.opacity(0.22)) : AnyShapeStyle(Color.clear))
+            .padding(.vertical, 1)
+            .padding(.horizontal, 6)
     }
 
     private func searchLabel(_ path: String) -> some View {
@@ -191,6 +197,7 @@ struct NoteScreen: View {
                     html: ViewerPage.html(note: note, title: store.noteTitle,
                                           themeCSS: theme?.css(systemDark: systemDark) ?? "",
                                           fontCSS: fonts.css,
+                                          accentCSS: AccentCSS.css(hex: themes.accentHex),
                                           scrollTo: store.scrollTarget),
                     baseURL: baseURL(for: path),
                     currentPath: path,

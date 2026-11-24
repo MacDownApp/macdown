@@ -4,7 +4,8 @@
 // The macOS icon is a rounded square with empty space around it. iOS wants a full-bleed square (it rounds the
 // corners itself), so the artwork is cropped and its corners are filled with the gradient. Then:
 //   icon-1024.png         the same look as MacDown's icon
-//   icon-1024-dark.png    the dark appearance: a deep background, the white glyph unchanged
+//   icon-1024-dark.png    the dark appearance: only the glyph, on a TRANSPARENT background. iOS puts its own dark
+//                         backdrop behind it, like it does for the system's icons (no gradient of our own).
 //   icon-1024-tinted.png  the tinted appearance: grayscale, which iOS colors with the user's chosen tint
 import Foundation
 import CoreGraphics
@@ -59,10 +60,11 @@ for y in 0..<N {
     for x in left...right where art[idx(x, y) + 3] < 255 { art[idx(x, y) + 3] = 255 }   // Anti-aliased edge pixels.
 }
 
-func write(_ data: [UInt8], _ name: String) {
+func write(_ data: [UInt8], _ name: String, alpha: Bool = false) {
     var bytes = data
+    let info = alpha ? CGImageAlphaInfo.premultipliedLast.rawValue : CGImageAlphaInfo.noneSkipLast.rawValue
     let ctx = CGContext(data: &bytes, width: N, height: N, bitsPerComponent: 8, bytesPerRow: N * 4, space: colorSpace,
-                        bitmapInfo: CGImageAlphaInfo.noneSkipLast.rawValue)!
+                        bitmapInfo: info)!
     let url = outFolder.appendingPathComponent(name)
     let dest = CGImageDestinationCreateWithURL(url as CFURL, UTType.png.identifier as CFString, 1, nil)!
     CGImageDestinationAddImage(dest, ctx.makeImage()!, nil)
@@ -73,7 +75,7 @@ func write(_ data: [UInt8], _ name: String) {
 // Colors: "whiteness" is how close a pixel is to white, so the glyph is kept and the background is changed.
 func whiteness(_ r: Double, _ g: Double, _ b: Double) -> Double { min(r, g, b) / 255 }
 
-var dark = art, tinted = art
+var dark = art, tinted = art, glyph = art
 for i in stride(from: 0, to: art.count, by: 4) {
     let r = Double(art[i]), g = Double(art[i + 1]), b = Double(art[i + 2])
     let w = whiteness(r, g, b)
@@ -85,8 +87,16 @@ for i in stride(from: 0, to: art.count, by: 4) {
     let lum = 0.299 * Double(dark[i]) + 0.587 * Double(dark[i + 1]) + 0.114 * Double(dark[i + 2])
     let gray = UInt8(min(255, lum * (0.55 + 0.9 * keep)))
     tinted[i] = gray; tinted[i + 1] = gray; tinted[i + 2] = gray
+
+    // Transparent dark icon: the near-white glyph keeps its pixels, everything else becomes transparent.
+    // The edge between them is soft, so the letters stay smooth. Colors are premultiplied by the alpha.
+    let t = max(0, min(1, (w - 0.62) / 0.24))
+    let a = t * t * (3 - 2 * t)
+    // The glyph is neutral white: the strongest channel is used for all three, which removes the blue of the old background.
+    let v = max(r, g, b) * a
+    glyph[i] = UInt8(v); glyph[i + 1] = UInt8(v); glyph[i + 2] = UInt8(v); glyph[i + 3] = UInt8(a * 255)
 }
 try? FileManager.default.createDirectory(at: outFolder, withIntermediateDirectories: true)
 write(art, "icon-1024.png")
-write(dark, "icon-1024-dark.png")
+write(glyph, "icon-1024-dark.png", alpha: true)
 write(tinted, "icon-1024-tinted.png")

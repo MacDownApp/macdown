@@ -8,6 +8,7 @@ struct NoteEntry: TimelineEntry {
     enum State { case noVault, missing, ready(WidgetSnapshot.Note, vault: String) }
     let date: Date
     let state: State
+    var accent: String? = nil
 }
 
 struct NoteProvider: AppIntentTimelineProvider {
@@ -26,10 +27,10 @@ struct NoteProvider: AppIntentTimelineProvider {
         guard let snapshot = WidgetData.load() else { return NoteEntry(date: Date(), state: .noVault) }
         if let chosen = configuration.note {
             guard let note = snapshot.notes[chosen.id] else { return NoteEntry(date: Date(), state: .missing) }
-            return NoteEntry(date: Date(), state: .ready(note, vault: snapshot.vaultName))
+            return NoteEntry(date: Date(), state: .ready(note, vault: snapshot.vaultName), accent: snapshot.accent)
         }
         guard let latest = snapshot.recentNotes(limit: 1).first else { return NoteEntry(date: Date(), state: .missing) }
-        return NoteEntry(date: Date(), state: .ready(latest, vault: snapshot.vaultName))
+        return NoteEntry(date: Date(), state: .ready(latest, vault: snapshot.vaultName), accent: snapshot.accent)
     }
 }
 
@@ -68,7 +69,7 @@ struct NoteShortcutView: View {
 struct NoteShortcutWidget: Widget {
     var body: some WidgetConfiguration {
         AppIntentConfiguration(kind: "NoteShortcut", intent: SelectNoteIntent.self, provider: NoteProvider()) { entry in
-            NoteShortcutView(entry: entry).containerBackground(.fill.tertiary, for: .widget)
+            NoteShortcutView(entry: entry).tint(entry.accent.map { Color(hex: $0) }).containerBackground(.fill.tertiary, for: .widget)
         }
         .configurationDisplayName("Note")
         .description("Opens one note of your vault.")

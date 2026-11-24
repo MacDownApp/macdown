@@ -38,6 +38,8 @@ Tap the **Aa** (sidebar) or the palette (note) button:
   Dark themes also make the app's own bars dark.
 - **Fonts:** pick a reading font and a code font, or type any installed font name. Bundled: **JetBrains Mono Nerd Font**
   and **Cartograph CF Nerd Font** (symbols from JetBrains fill any icon Cartograph lacks).
+- **Accent color:** ten presets or any custom color. It colors links, wikilinks, tags, text selection, the selected note
+  in the sidebar, buttons, and the widgets. *Default* keeps the system blue.
 - **Text size:** slider (70% to 200%) and the two buttons in the note toolbar.
 - **Folders in the sidebar:** tap anywhere on a folder row to open or close it. Open folders are remembered, and opening
   a note (also from a widget) opens the folders above it.
@@ -85,7 +87,8 @@ tag search or backlinks; live sync (the app reloads when it comes to the front, 
 - `ViewerCore` is a Swift package (`Viewer/Package.swift`) that builds and tests on a Mac: `cd Viewer && swift test`.
 - The widget code is in `Viewer/Widget` (WidgetKit and App Intents); the snapshot, layout and links it uses are in
   `ViewerCore` and are tested (`WidgetTests.swift`). The widgets themselves have only been compiled, not run.
-- Icons: `swift Tools/ipad/make_icons.swift <macOS icon> <Assets.xcassets/AppIcon.appiconset>` makes the iOS icon (light,
+- Icons: the dark variant has a transparent background (only the white M and arrow), so iOS draws its own dark backdrop
+  behind it, like it does for the system icons. `swift Tools/ipad/make_icons.swift <macOS icon> <Assets.xcassets/AppIcon.appiconset>` makes the iOS icon (light,
   dark and tinted) from MacDown's icon.
 - The app target is generated: `ruby Tools/ipad/make_project.rb` (do this after adding files to `Viewer/App`).
 - KaTeX, Mermaid, Prism and the YAML themes are shared with the macOS app and referenced in place.

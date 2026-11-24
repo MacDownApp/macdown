@@ -135,11 +135,17 @@ final class VaultStore: ObservableObject {
     /// Writes what the home screen widgets need (they cannot open the vault) and refreshes them.
     private func publishToWidgets(_ index: VaultIndex) {
         let name = vaultName ?? "Vault"
+        let accent = UserDefaults.standard.string(forKey: "accentHex")
         Task.detached(priority: .utility) {
             guard let store = SnapshotStore.appGroup() else { return }
-            let snapshot = WidgetSnapshot.build(from: index, vaultName: name)
+            let snapshot = WidgetSnapshot.build(from: index, vaultName: name, accent: accent)
             if (try? store.write(snapshot)) != nil { WidgetCenter.shared.reloadAllTimelines() }
         }
+    }
+
+    /// Writes the snapshot again, for example after the accent color changed.
+    func republishWidgets() {
+        if let index = index { publishToWidgets(index) }
     }
 
     /// A `vaultviewer://open?path=...` link, from a widget.

@@ -11,6 +11,13 @@ final class ThemeStore: ObservableObject {
     @AppStorage("textScale") var textScale: Double = 1.0 {
         willSet { objectWillChange.send() }
     }
+    /// The user's accent color as `#rrggbb`; empty means the default blue.
+    @AppStorage("accentHex") var accentHex: String = "" {
+        willSet { objectWillChange.send() }
+    }
+
+    /// The accent as a SwiftUI color, or nil for the default.
+    var accentColor: Color? { AccentCSS.normalized(accentHex).map { Color(hex: $0) } }
 
     init() {
         let folder = Bundle.main.resourceURL?.appendingPathComponent("BuiltinThemes") ?? URL(fileURLWithPath: "/")

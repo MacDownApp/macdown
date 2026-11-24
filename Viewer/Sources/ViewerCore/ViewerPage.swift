@@ -6,8 +6,9 @@ public enum ViewerPage {
     ///   - themeCSS: from `ViewerTheme.css(systemDark:)`; comes after the base style, so it wins.
     ///   - note: the rendered note. Math, diagrams and code highlighting are loaded only if it needs them.
     ///   - fontCSS: from `FontStore`; after the theme, so the user's fonts win.
+    ///   - accentCSS: from `AccentCSS.css(hex:)`; last, so the user's accent wins over the theme's link color.
     ///   - scrollTo: heading text to scroll to after the page loads (from `[[Note#Heading]]`).
-    public static func html(note: RenderedNote, title: String, themeCSS: String, fontCSS: String = "", scrollTo: String? = nil) -> String {
+    public static func html(note: RenderedNote, title: String, themeCSS: String, fontCSS: String = "", accentCSS: String = "", scrollTo: String? = nil) -> String {
         var scripts = ""
         if note.usesMath { scripts += "<script src=\"md://app/KaTeX/katex-init.js\"></script>\n" }
         if note.usesMermaid {
@@ -32,6 +33,7 @@ public enum ViewerPage {
         <style>\(baseCSS)</style>
         <style>\(themeCSS)</style>
         <style>\(fontCSS)</style>
+        <style>\(accentCSS)</style>
         </head>
         <body>
         <article class="note">

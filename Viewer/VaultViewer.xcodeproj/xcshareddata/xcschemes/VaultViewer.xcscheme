@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "EBAAA555789743D3D0491904"
+               BlueprintIdentifier = "C161D76A3210B5D98921DAB1"
                BuildableName = "VaultViewer.app"
                BlueprintName = "VaultViewer"
                ReferencedContainer = "container:VaultViewer.xcodeproj">
@@ -30,7 +30,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "EBAAA555789743D3D0491904"
+            BlueprintIdentifier = "C161D76A3210B5D98921DAB1"
             BuildableName = "VaultViewer.app"
             BlueprintName = "VaultViewer"
             ReferencedContainer = "container:VaultViewer.xcodeproj">
@@ -53,7 +53,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "EBAAA555789743D3D0491904"
+            BlueprintIdentifier = "C161D76A3210B5D98921DAB1"
             BuildableName = "VaultViewer.app"
             BlueprintName = "VaultViewer"
             ReferencedContainer = "container:VaultViewer.xcodeproj">
@@ -70,7 +70,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "EBAAA555789743D3D0491904"
+            BlueprintIdentifier = "C161D76A3210B5D98921DAB1"
             BuildableName = "VaultViewer.app"
             BlueprintName = "VaultViewer"
             ReferencedContainer = "container:VaultViewer.xcodeproj">

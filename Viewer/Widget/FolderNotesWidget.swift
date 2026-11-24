@@ -9,6 +9,7 @@ struct FolderEntry: TimelineEntry {
     let date: Date
     let state: State
     let family: WidgetFamily
+    var accent: String? = nil
 }
 
 struct FolderProvider: AppIntentTimelineProvider {
@@ -31,7 +32,7 @@ struct FolderProvider: AppIntentTimelineProvider {
         let path = configuration.folder?.id ?? ""
         guard let folder = snapshot.folders[path] else { return FolderEntry(date: Date(), state: .missing, family: family) }
         let sections = WidgetLayout.sections(for: path, in: snapshot, lineBudget: Self.lineBudget(family))
-        return FolderEntry(date: Date(), state: .ready(title: folder.name, sections: sections), family: family)
+        return FolderEntry(date: Date(), state: .ready(title: folder.name, sections: sections), family: family, accent: snapshot.accent)
     }
 }
 
@@ -85,7 +86,7 @@ struct FolderNotesView: View {
 struct FolderNotesWidget: Widget {
     var body: some WidgetConfiguration {
         AppIntentConfiguration(kind: "FolderNotes", intent: SelectFolderIntent.self, provider: FolderProvider()) { entry in
-            FolderNotesView(entry: entry).containerBackground(.fill.tertiary, for: .widget)
+            FolderNotesView(entry: entry).tint(entry.accent.map { Color(hex: $0) }).containerBackground(.fill.tertiary, for: .widget)
         }
         .configurationDisplayName("Folder")
         .description("Lists the notes of a folder, grouped by sub-folder.")
