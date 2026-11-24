@@ -15,9 +15,25 @@ Visit the [project site](http://macdown.uranusjr.com/) for more information, or 
 
     brew install --cask macdown
 
-## Screenshot
+## Screenshots
 
-![screenshot](assets/screenshot.png)
+### macOS
+
+Markdown editor on the left, live preview on the right.
+
+![MacDown on macOS](assets/screenshots/mac-app.png)
+
+### iPad and iPhone
+
+A read-only viewer for Obsidian vaults in iCloud, with the same themes and fonts. See [`Viewer/README.md`](Viewer/README.md).
+
+![MacDown on iPad](assets/screenshots/ipad-reader.png)
+
+<p>
+  <img src="assets/screenshots/iphone-reader.png" alt="MacDown on iPhone" width="300">
+  &nbsp;
+  <img src="assets/screenshots/ios-widgets.png" alt="MacDown home screen widgets" width="300">
+</p>
 
 ## License
 
