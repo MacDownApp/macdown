@@ -1,4 +1,7 @@
+import Foundation
+#if canImport(AppKit)
 import AppKit
+#endif
 
 /// An sRGB color with alpha, parsed from a hex string such as `#RGB`,
 /// `#RRGGBB` or `#RRGGBBAA`.
@@ -41,9 +44,14 @@ struct ThemeColor: Equatable {
         ThemeColor(red: red, green: green, blue: blue, alpha: alpha)
     }
 
+    #if canImport(AppKit)
     var nsColor: NSColor {
         NSColor(srgbRed: CGFloat(red), green: CGFloat(green), blue: CGFloat(blue), alpha: CGFloat(alpha))
     }
+    #endif
+
+    /// 0 (black) to 1 (white). Used to tell dark themes from light ones.
+    var luminance: Double { 0.2126 * red + 0.7152 * green + 0.0722 * blue }
 
     /// CSS color string, for the preview.
     var cssString: String {
