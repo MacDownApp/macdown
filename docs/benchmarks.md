@@ -1,6 +1,6 @@
 # Benchmarks
 
-Budgets come from `MODERNIZATION_PLAN.md` section 2. The tests live in
+Budgets come from `docs/MODERNIZATION_PLAN.md` section 2. The tests live in
 `MacDownTests/MPPerformanceTests.m` and run with the normal test command.
 Each test records timings with XCTest `measure` and also asserts a generous
 hard limit, so a large regression fails the build.

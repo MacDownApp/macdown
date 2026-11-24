@@ -56,7 +56,7 @@ Other directories: `MacDown/Resources` (styles, themes, templates, JS/CSS, Prism
 
 ## New Swift modules (`MacDown/Code/Swift/`)
 
-Headless and unit tested; several are not wired into the UI yet (see the Status table in `MODERNIZATION_PLAN.md`).
+Headless and unit tested; several are not wired into the UI yet (see the Status table in `docs/MODERNIZATION_PLAN.md`).
 - `Config/` – `AppConfig` (typed `config.yaml`).
 - `Theme/` – `Theme`, `ThemeManager`, `ThemeCSS`, `ThemeService` (live: adds the generated stylesheet in `MPRenderer.baseStylesheets`).
 - `Diagrams` (resources, not Swift): `Resources/Diagrams` loaders for Mermaid and Vega-Lite (lazy, offline in the app, pinned CDN in exported HTML).
@@ -81,7 +81,7 @@ Gotcha: directory listings can return `/private/var/...` for `/var/...`. Never c
 
 ## Modernization in progress
 
-`MODERNIZATION_PLAN.md` is the roadmap; follow it phase by phase. Swift pieces already in place: `Config/AppConfig` (typed `~/.config/macdown/config.yaml`, feature toggles with defaults) and `Theme/` (YAML themes; built-ins in `MacDown/Resources/BuiltinThemes`, user themes in `~/.config/macdown/themes`). Set `MACDOWN_CONFIG_DIR` to point the app at another config directory (tests do this).
+`docs/MODERNIZATION_PLAN.md` is the roadmap; follow it phase by phase. Swift pieces already in place: `Config/AppConfig` (typed `~/.config/macdown/config.yaml`, feature toggles with defaults) and `Theme/` (YAML themes; built-ins in `MacDown/Resources/BuiltinThemes`, user themes in `~/.config/macdown/themes`). Set `MACDOWN_CONFIG_DIR` to point the app at another config directory (tests do this).
 
 ## Notes
 

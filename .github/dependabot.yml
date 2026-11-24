@@ -1,19 +1,20 @@
 version: 2
 updates:
+- package-ecosystem: github-actions
+  directory: "/"
+  schedule:
+    interval: weekly
+- package-ecosystem: swift
+  directory: "/Viewer"
+  schedule:
+    interval: weekly
 - package-ecosystem: bundler
   directory: "/"
   schedule:
-    interval: daily
-    time: "13:00"
-  open-pull-requests-limit: 10
+    interval: weekly
+  open-pull-requests-limit: 5
 - package-ecosystem: npm
   directory: "/Tools/GitHub-style-generator"
   schedule:
-    interval: daily
-    time: "13:00"
-  open-pull-requests-limit: 10
-  ignore:
-  - dependency-name: y18n
-    versions:
-    - 4.0.1
-    - 4.0.2
+    interval: weekly
+  open-pull-requests-limit: 5

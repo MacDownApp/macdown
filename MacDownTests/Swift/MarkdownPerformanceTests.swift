@@ -1,7 +1,7 @@
 import XCTest
 @testable import MacDown
 
-/// Benchmarks for the budgets in MODERNIZATION_PLAN.md (section 2). Each test
+/// Benchmarks for the budgets in docs/MODERNIZATION_PLAN.md (section 2). Each test
 /// records timings with `measure` and asserts a generous hard limit, so a large
 /// regression fails the build while normal noise does not. Baselines are in
 /// docs/benchmarks.md.

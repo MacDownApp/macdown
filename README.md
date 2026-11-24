@@ -1,19 +1,33 @@
 # MacDown
 
-[![](https://img.shields.io/github/release/MacDownApp/macdown.svg)](http://macdown.uranusjr.com/download/latest/)
-![Total downloads](https://img.shields.io/github/downloads/MacDownApp/macdown/latest/total.svg)
-[![Build Status](https://travis-ci.org/MacDownApp/macdown.svg?branch=master)](https://travis-ci.org/MacDownApp/macdown)
+[![CI](https://github.com/harshith-ashok/macdown/actions/workflows/ci.yml/badge.svg)](https://github.com/harshith-ashok/macdown/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/harshith-ashok/macdown)](https://github.com/harshith-ashok/macdown/releases/latest)
+![Platforms](https://img.shields.io/badge/platforms-macOS%2013%2B%20%7C%20iOS%2016%2B-blue)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
+A fast, native Markdown editor for macOS with a live preview, plus a read-only vault viewer for iPhone and iPad.
 
-MacDown is an open source Markdown editor for OS X, released under the MIT License. The author stole the idea from [Chen Luo](https://twitter.com/chenluois)’s [Mou](http://mouapp.com) so that people can make crappy clones.
+## What is in this repository
 
-Visit the [project site](http://macdown.uranusjr.com/) for more information, or download [MacDown.app.zip](http://macdown.uranusjr.com/download/latest/) directly from the [latest releases](https://github.com/MacDownApp/macdown/releases/latest) page.
+| App | What it is | Relationship to MacDown |
+| --- | --- | --- |
+| **MacDown for macOS** (`MacDown/`) | Split-view Markdown editor: editor on the left, live preview on the right. Math (KaTeX), Mermaid and Vega-Lite diagrams, GitHub-style alerts, 19 YAML themes, custom fonts, a YAML config file. | **The only app based on the original [MacDown](https://github.com/MacDownApp/macdown)** by [Tzu-ping Chung (uranusjr)](https://github.com/uranusjr). It is a modernized fork: the Hoedown/`WebView` stack was replaced by cmark-gfm and `WKWebView`. |
+| **MacDown for iPhone and iPad** (`Viewer/`) | Read-only viewer for an Obsidian vault in iCloud Drive: sidebar, PDFs, LaTeX, Mermaid, themes, fonts, accent colours and home screen widgets. | **Not a port.** It is a separate, newly written app that recreates MacDown's look, name, icon and themes. It shares no editor or rendering code with the original; only the theme and font definitions are shared with the Mac app. |
+| **Widgets** (`Viewer/Widget/`) | Small, medium and large home screen widgets for the viewer. | Same as the viewer: an original recreation. |
+
+If you want the original app, use [upstream MacDown](https://github.com/MacDownApp/macdown). This fork is not affiliated with it.
 
 ## Install
 
-[Download](http://macdown.uranusjr.com/download/latest/), unzip, and drag the app to Applications folder. MacDown is also available through [Homebrew Cask](https://caskroom.github.io/):
+### macOS
 
-    brew install --cask macdown
+Download `MacDown-<version>.zip` from the [latest release](https://github.com/harshith-ashok/macdown/releases/latest), unzip it and drag **MacDown.app** to Applications. The build is ad-hoc signed, not notarized, so the first time use right-click > Open, or run `xattr -dr com.apple.quarantine /Applications/MacDown.app`.
+
+Or build it yourself, see [Development](#development).
+
+### iPhone and iPad
+
+Download `MacDown-<version>.ipa` from the [latest release](https://github.com/harshith-ashok/macdown/releases/latest). It is unsigned: sign and install it with your own Apple ID using Sideloadly or AltStore, or build and install straight from Xcode with `Tools/ipad/install.sh`. A free Apple ID's apps stop opening after 7 days. Details: [`Viewer/README.md`](Viewer/README.md).
 
 ## Screenshots
 
@@ -34,6 +48,28 @@ A read-only viewer for Obsidian vaults in iCloud, with the same themes and fonts
   &nbsp;
   <img src="assets/screenshots/ios-widgets.png" alt="MacDown home screen widgets" width="300">
 </p>
+
+## Repository layout
+
+```
+MacDown/                macOS app (Objective-C + Swift)
+  Code/                   Application, Document, Preferences, View, Extension, Utility (MP* classes)
+  Code/Swift/             Config, Theme, Markdown, Preview, Lint, Git, Workspace, Editor (new Swift modules)
+  Resources/              Styles, templates, themes, KaTeX, diagrams, fonts
+  Localization/           Translations (Transifex)
+MacDownTests/           XCTest unit, snapshot and integration tests for the macOS app
+macdown-cmd/            Command-line launcher (`macdown file.md`)
+Viewer/                 iPhone and iPad app
+  Sources/ViewerCore/     Swift package: vault index, Obsidian syntax, rendering (no UI)
+  App/  Widget/           SwiftUI app and WidgetKit widgets
+  Tests/                  ViewerCore tests (`swift test`)
+Dependency/             Git submodules (peg-markdown-highlight, version)
+Tools/                  Build, release, font and project-generation scripts
+  ipad/                   iOS project generator, .ipa build, device install, icon generator
+docs/                   Roadmap (MODERNIZATION_PLAN.md), benchmarks, demo document
+assets/                 README screenshots
+.github/workflows/      CI and release
+```
 
 ## License
 
@@ -63,55 +99,59 @@ The following editor themes and CSS files are extracted from [Mou](http://mouapp
 
 ### Requirements
 
-If you wish to build MacDown yourself, you will need the following components/tools:
-
-* OS X SDK (10.14 or later)
+* macOS 13 or later, Xcode 27 (deployment target is macOS 13)
 * Git
-* [Bundler](http://bundler.io)
+* [CocoaPods](https://cocoapods.org) (the system install is fine)
 
-> Note: Old versions of CocoaPods are not supported. Please use Bundler to execute CocoaPods, or make sure your CocoaPods is later than shown in `Gemfile.lock`.
+### Build the macOS app
 
-> Note: The Command Line Tools (CLT) should be unnecessary. If you failed to compile without it, please install CLT with
->
->     xcode-select --install
->
-> and report back.
+```
+git submodule update --init
+pod install
+make -C Dependency/peg-markdown-highlight
+Tools/run.sh docs/demo.md        # builds Debug into ./build and opens the demo document
+```
 
-An appropriate SDK should be bundled with Xcode 5 or later versions.
+Open `MacDown.xcworkspace` (not the `.xcodeproj`) in Xcode. After pulling, re-run `git submodule update` and `pod install` if the build breaks. After adding or removing Swift files run `ruby Tools/sync_xcodeproj.rb`.
 
-### Environment Setup
+### Test
 
-After cloning the repository, run the following commands inside the repository root (directory containing this `README.md` file):
+```
+xcodebuild -workspace MacDown.xcworkspace -scheme MacDown -destination 'platform=macOS' test CODE_SIGNING_ALLOWED=NO
+swift test --package-path Viewer      # ViewerCore, the iPhone/iPad logic
+```
 
-    git submodule update --init
-    bundle install
-    bundle exec pod install
-    make -C Dependency/peg-markdown-highlight
+### Build the iPhone and iPad app
 
-and open `MacDown.xcworkspace` in Xcode. The first command initialises the dependency submodule(s) used in MacDown; the second one installs dependencies managed by CocoaPods.
+```
+Tools/ipad/build-ipa.sh                 # unsigned build/ipad/MacDown.ipa
+Tools/ipad/install.sh                   # signed build installed on a connected device
+```
 
-Refer to the official guides of Git and CocoaPods if you need more instructions. If you run into build issues later on, try running the following commands to update dependencies:
+See [`Viewer/README.md`](Viewer/README.md) for signing and troubleshooting.
 
-    git submodule update
-    bundle exec pod install
+### Continuous integration and releases
+
+* **CI** (`.github/workflows/ci.yml`) runs on every push and pull request: macOS app tests, ViewerCore tests, and an unsigned iOS build.
+* **Release** (`.github/workflows/release.yml`) runs when you push a tag such as `v0.9.0`. It builds `MacDown-<version>.zip`, `MacDown-<version>.ipa` and `ViewerCore-<version>.tar.gz`, then publishes them as a GitHub Release with generated notes.
+
+```
+git tag v0.9.0 && git push origin v0.9.0
+```
+
+### Documentation
+
+* [`CLAUDE.md`](CLAUDE.md): architecture notes
+* [`docs/MODERNIZATION_PLAN.md`](docs/MODERNIZATION_PLAN.md): roadmap and status
+* [`docs/benchmarks.md`](docs/benchmarks.md): performance budgets
+* [`CONTRIBUTING.md`](CONTRIBUTING.md): contribution guidelines
 
 ### Translation
 
-Please help translation on [Transifex](https://www.transifex.com/macdown/macdown/).
+Translations are managed on [Transifex](https://www.transifex.com/macdown/macdown/).
 
-![Transifex translation percentage](https://www.transifex.com/projects/p/macdown/resource/macdownxliff/chart/image_png/)
+## Credits
 
-## Discussion
+MacDown was created by [Tzu-ping Chung (uranusjr)](https://github.com/uranusjr) after [Chen Luo](https://twitter.com/chenluois)'s [Mou](http://mouapp.com). This fork builds on that work.
 
-[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/MacDownApp/macdown)
-
-Join our [Gitter channel](https://gitter.im/MacDownApp/macdown) if you have any problems with MacDown. Any suggestions are welcomed, too!
-
-You can also [file an issue directly](https://github.com/MacDownApp/macdown/issues/new) on GitHub if you prefer so. But please, **search first to make sure no-one has reported the same issue already** before opening one yourself. MacDown does not update in your computer immediately when we make changes, so something you experienced might be known, or even fixed in the development version.
-
-MacDown depends a lot on other open source projects, such as [Hoedown](https://github.com/hoedown/hoedown) for Markdown-to-HTML rendering, [Prism](http://prismjs.com) for syntax highlighting (in code blocks), and [PEG Markdown Highlight](https://github.com/ali-rantakari/peg-markdown-highlight) for editor highlighting. If you find problems when using those particular features, you can also consider reporting them directly to upstream projects as well as to MacDown’s issue tracker. I will do what I can if you report it here, but sometimes it can be more beneficial to interact with them directly.
-
-## Tipping
-
-If you find MacDown suitable for your needs, please consider [giving me a tip through PayPal](http://macdown.uranusjr.com/faq/#donation). Or, if you prefer to buy me a drink *personally* instead, just [send me a tweet](https://twitter.com/uranusjr) when you visit [Taipei, Taiwan](http://en.wikipedia.org/wiki/Taipei), where I live. I look forward to meeting you!
-
+It relies on open source projects including [cmark-gfm](https://github.com/github/cmark-gfm) (Markdown), [Prism](https://prismjs.com) (code highlighting), [KaTeX](https://katex.org) (math), [Mermaid](https://mermaid.js.org) and [Vega-Lite](https://vega.github.io/vega-lite/) (diagrams), [Yams](https://github.com/jpsim/Yams) (YAML), [PEG Markdown Highlight](https://github.com/ali-rantakari/peg-markdown-highlight) (editor highlighting) and [JetBrains Mono](https://www.jetbrains.com/lp/mono/) (font, OFL).

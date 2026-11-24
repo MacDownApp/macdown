@@ -5,21 +5,55 @@ on:
     branches: [master, "modernize/**"]
   pull_request:
 
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  test:
+  macos-app:
+    name: macOS app tests
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
         with:
           submodules: recursive
+      - name: Select newest Xcode
+        run: |
+          XC=$(ls -d /Applications/Xcode*.app | sort -V | tail -1)
+          sudo xcode-select -s "$XC"
+          xcodebuild -version
       - name: Install CocoaPods dependencies
         run: pod install
       - name: Build peg-markdown-highlight
         run: make -C Dependency/peg-markdown-highlight
       - name: Test
         run: |
-          set -o pipefail
-          xcodebuild -workspace MacDown.xcworkspace -scheme MacDown \
-            -destination 'platform=macOS' test CODE_SIGNING_ALLOWED=NO | xcpretty || \
           xcodebuild -workspace MacDown.xcworkspace -scheme MacDown \
             -destination 'platform=macOS' test CODE_SIGNING_ALLOWED=NO
+
+  viewer-core:
+    name: ViewerCore tests
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Test
+        run: swift test --package-path Viewer
+
+  ios-build:
+    name: iPhone and iPad build (unsigned)
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - name: Select newest Xcode
+        run: sudo xcode-select -s "$(ls -d /Applications/Xcode*.app | sort -V | tail -1)"
+      - name: Install xcodeproj gem
+        run: sudo gem install xcodeproj
+      - name: Build .ipa
+        run: Tools/ipad/build-ipa.sh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: MacDown-ipa
+          path: build/ipad/MacDown.ipa
+          retention-days: 7

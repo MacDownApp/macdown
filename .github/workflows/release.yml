@@ -1,0 +1,53 @@
+name: Release
+
+# Push a tag such as v0.9.0 to build and publish a release.
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - name: Select newest Xcode
+        run: sudo xcode-select -s "$(ls -d /Applications/Xcode*.app | sort -V | tail -1)"
+      - name: Version
+        run: echo "VERSION=${GITHUB_REF_NAME#v}" >> "$GITHUB_ENV"
+
+      - name: Build macOS app
+        run: |
+          pod install
+          make -C Dependency/peg-markdown-highlight
+          xcodebuild -workspace MacDown.xcworkspace -scheme MacDown -configuration Release \
+            -destination 'platform=macOS' -derivedDataPath build/mac \
+            CODE_SIGNING_ALLOWED=NO -quiet build
+          APP=build/mac/Build/Products/Release/MacDown.app
+          codesign --force --deep --sign - "$APP"
+          mkdir -p dist
+          ditto -c -k --keepParent "$APP" "dist/MacDown-$VERSION.zip"
+
+      - name: Build iPhone and iPad app
+        run: |
+          sudo gem install xcodeproj
+          Tools/ipad/build-ipa.sh
+          cp build/ipad/MacDown.ipa "dist/MacDown-$VERSION.ipa"
+
+      - name: Package ViewerCore
+        run: |
+          tar -czf "dist/ViewerCore-$VERSION.tar.gz" -C Viewer Package.swift Package.resolved Sources Tests
+
+      - name: Checksums
+        run: cd dist && shasum -a 256 * > SHA256SUMS.txt
+
+      - name: Publish
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" dist/* \
+            --title "MacDown $VERSION" --generate-notes
